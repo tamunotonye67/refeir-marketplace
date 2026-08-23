@@ -1,0 +1,545 @@
+:root {
+  /* Official Refeir Brand Palette — unchanged */
+  --rf-deep-green: #0F2E1E;
+  --rf-dark-green: #122B1A;
+  --rf-green: #2E7D32;
+  --rf-leaf-green: #66BB2A;
+  --rf-golden-yellow: #F6B21A;
+  --rf-vibrant-orange: #F47C20;
+  --rf-green-accent: #4CAF50;
+
+  /* Neutrals */
+  --rf-charcoal: #111111;
+  --rf-dark-gray: #333333;
+  --rf-medium-gray: #666666;
+  --rf-light-gray: #F2F2F2;
+  --rf-white: #FFFFFF;
+
+  /* ─── APP SURFACES — WHITE PLATFORM (default) ─── */
+  --rf-bg-base:            #F4F7F5;
+  --rf-bg-deep:            #EAF0EC;
+  --rf-bg-surface:         #FFFFFF;
+  --rf-bg-surface-hover:   #F0F7F2;
+  --rf-bg-card:            #FFFFFF;
+  --rf-bg-card-border:     rgba(18, 43, 26, 0.11);
+  --rf-bg-card-hover:      #F4F9F5;
+
+  /* Legacy & Semantic bindings — light */
+  --rf-navy:               #FFFFFF;
+  --rf-navy-deep:          #EAF0EC;
+  --rf-navy-surface:       #FFFFFF;
+  --rf-navy-surface-hover: #F0F7F2;
+  --rf-navy-card:          #FFFFFF;
+  --rf-navy-border:        rgba(18, 43, 26, 0.11);
+
+  --rf-blue:               #2E7D32;
+  --rf-blue-hover:         #1B5E20;
+  --rf-blue-light:         rgba(46, 125, 50, 0.1);
+  --rf-blue-glow:          rgba(46, 125, 50, 0.2);
+
+  --rf-mint:               #2E7D32;
+  --rf-mint-dark:          #122B1A;
+  --rf-mint-light:         rgba(102, 187, 42, 0.12);
+  --rf-mint-glow:          rgba(102, 187, 42, 0.25);
+
+  /* ─── TEXT — dark on white ─── */
+  --rf-cream:              #122B1A;
+  --rf-cream-subtle:       #2C4A36;
+  --rf-black:              #FFFFFF;
+
+  --rf-slate-50:  #0F172A;
+  --rf-slate-100: #1E293B;
+  --rf-slate-200: #334155;
+  --rf-slate-300: #475569;
+  --rf-slate-400: #64748B;
+  --rf-slate-500: #94A3B8;
+  --rf-slate-600: #CBD5E1;
+  --rf-slate:     #64748B;
+  --rf-slate-700: #E2E8F0;
+  --rf-slate-800: #F1F5F9;
+  --rf-slate-900: #FFFFFF;
+
+  /* Semantic Alerts */
+  --rf-success:    #2E7D32;
+  --rf-success-bg: rgba(46, 125, 50, 0.12);
+  --rf-warning:    #F6B21A;
+  --rf-warning-bg: rgba(246, 178, 26, 0.12);
+  --rf-error:      #F47C20;
+  --rf-error-bg:   rgba(244, 124, 32, 0.12);
+  --rf-info:       #4CAF50;
+
+  /* Typography */
+  --rf-font-display: 'Plus Jakarta Sans', 'Outfit', 'Sora', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --rf-font-sans: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --rf-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Radii */
+  --rf-radius-sm:   6px;
+  --rf-radius-md:   10px;
+  --rf-radius-lg:   16px;
+  --rf-radius-xl:   24px;
+  --rf-radius-full: 9999px;
+
+  /* Shadows — soft on white */
+  --rf-shadow-sm:   0 1px 3px rgba(18, 43, 26, 0.07);
+  --rf-shadow-md:   0 4px 12px rgba(18, 43, 26, 0.09), 0 2px 4px rgba(0,0,0,0.04);
+  --rf-shadow-lg:   0 12px 28px rgba(18, 43, 26, 0.11), 0 4px 8px rgba(0,0,0,0.05);
+  --rf-shadow-xl:   0 20px 40px rgba(18, 43, 26, 0.13);
+  --rf-shadow-glow: 0 0 28px rgba(102, 187, 42, 0.22);
+  --rf-shadow-orange: 0 0 28px rgba(244, 124, 32, 0.18);
+
+  /* Transitions */
+  --rf-transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --rf-transition-base:   250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --rf-transition-smooth: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --rf-header-height: 72px;
+  --rf-max-width:      1280px;
+  --rf-max-width-wide: 1440px;
+}
+
+/* ==========================================================================
+   DARK FOREST THEME — optional override via data-theme="dark"
+   ========================================================================== */
+[data-theme="dark"] {
+  /* Dark surfaces */
+  --rf-bg-base:            #0A170F;
+  --rf-bg-deep:            #060E09;
+  --rf-bg-surface:         #0F2E1E;
+  --rf-bg-surface-hover:   #153C27;
+  --rf-bg-card:            #123321;
+  --rf-bg-card-border:     rgba(102, 187, 42, 0.18);
+  --rf-bg-card-hover:      #17402B;
+
+  --rf-navy:               #0A170F;
+  --rf-navy-deep:          #060E09;
+  --rf-navy-surface:       #0F2E1E;
+  --rf-navy-surface-hover: #153C27;
+  --rf-navy-card:          #123321;
+  --rf-navy-border:        rgba(102, 187, 42, 0.2);
+
+  --rf-blue:               #2E7D32;
+  --rf-blue-hover:         #256828;
+  --rf-blue-light:         rgba(46, 125, 50, 0.15);
+  --rf-blue-glow:          rgba(46, 125, 50, 0.3);
+
+  --rf-mint:               #66BB2A;
+  --rf-mint-dark:          #2E7D32;
+  --rf-mint-light:         rgba(102, 187, 42, 0.15);
+  --rf-mint-glow:          rgba(102, 187, 42, 0.35);
+
+  /* Text — light on dark */
+  --rf-cream:              #F8FAF8;
+  --rf-cream-subtle:       #EBF2EC;
+  --rf-black:              #111111;
+
+  --rf-slate-50:  #F8FAFC;
+  --rf-slate-100: #F1F5F9;
+  --rf-slate-200: #E2E8F0;
+  --rf-slate-300: #CBD5E1;
+  --rf-slate-400: #94A3B8;
+  --rf-slate-500: #64748B;
+  --rf-slate-600: #475569;
+  --rf-slate:     #666666;
+  --rf-slate-700: #333333;
+  --rf-slate-800: #1E293B;
+  --rf-slate-900: #0F172A;
+
+  /* Shadows dark */
+  --rf-shadow-sm:   0 1px 2px 0 rgba(10, 23, 15, 0.2);
+  --rf-shadow-md:   0 4px 6px rgba(10, 23, 15, 0.35);
+  --rf-shadow-lg:   0 12px 24px rgba(10, 23, 15, 0.45);
+  --rf-shadow-xl:   0 20px 35px rgba(10, 23, 15, 0.55);
+  --rf-shadow-glow: 0 0 30px rgba(102, 187, 42, 0.3);
+}
+
+
+/* Base resets & typography */
+html {
+  font-family: var(--rf-font-sans);
+  background-color: var(--rf-bg-base);
+  color: var(--rf-cream);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--rf-bg-base);
+  color: var(--rf-cream);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* =========================================================================
+   GLOBAL & INNER ELEMENT CUSTOM SCROLLBARS — COMPACT PILL HANDLES
+   ========================================================================= */
+
+/* Global window scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 187, 42, 0.35);
+  border-radius: 9999px;
+  min-height: 24px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 187, 42, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox — global */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(102, 187, 42, 0.35) transparent;
+}
+
+/* ── Specific boxes, prompt boxes, forms, textareas, modals & cards ──────── */
+textarea,
+input,
+select,
+form,
+pre,
+code,
+.rf-input,
+.rf-card,
+.rf-modal,
+.rf-modal-body,
+.rf-dropdown,
+.rf-table-container,
+[class*="prompt"],
+[class*="chat"],
+[class*="message"],
+[class*="list"],
+[class*="panel"],
+[class*="scroll"],
+[class*="feed"],
+[class*="inbox"],
+[class*="sidebar"],
+[class*="content"],
+[class*="body"],
+[class*="dialog"],
+[class*="drawer"] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(102, 187, 42, 0.45) transparent;
+}
+
+textarea::-webkit-scrollbar,
+input::-webkit-scrollbar,
+select::-webkit-scrollbar,
+form::-webkit-scrollbar,
+pre::-webkit-scrollbar,
+code::-webkit-scrollbar,
+.rf-input::-webkit-scrollbar,
+.rf-card::-webkit-scrollbar,
+.rf-modal::-webkit-scrollbar,
+.rf-modal-body::-webkit-scrollbar,
+.rf-dropdown::-webkit-scrollbar,
+.rf-table-container::-webkit-scrollbar,
+[class*="prompt"]::-webkit-scrollbar,
+[class*="chat"]::-webkit-scrollbar,
+[class*="message"]::-webkit-scrollbar,
+[class*="list"]::-webkit-scrollbar,
+[class*="panel"]::-webkit-scrollbar,
+[class*="scroll"]::-webkit-scrollbar,
+[class*="feed"]::-webkit-scrollbar,
+[class*="inbox"]::-webkit-scrollbar,
+[class*="sidebar"]::-webkit-scrollbar,
+[class*="content"]::-webkit-scrollbar,
+[class*="body"]::-webkit-scrollbar,
+[class*="dialog"]::-webkit-scrollbar,
+[class*="drawer"]::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+textarea::-webkit-scrollbar-track,
+input::-webkit-scrollbar-track,
+select::-webkit-scrollbar-track,
+form::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track,
+code::-webkit-scrollbar-track,
+.rf-input::-webkit-scrollbar-track,
+.rf-card::-webkit-scrollbar-track,
+.rf-modal::-webkit-scrollbar-track,
+.rf-modal-body::-webkit-scrollbar-track,
+.rf-dropdown::-webkit-scrollbar-track,
+.rf-table-container::-webkit-scrollbar-track,
+[class*="prompt"]::-webkit-scrollbar-track,
+[class*="chat"]::-webkit-scrollbar-track,
+[class*="message"]::-webkit-scrollbar-track,
+[class*="list"]::-webkit-scrollbar-track,
+[class*="panel"]::-webkit-scrollbar-track,
+[class*="scroll"]::-webkit-scrollbar-track,
+[class*="feed"]::-webkit-scrollbar-track,
+[class*="inbox"]::-webkit-scrollbar-track,
+[class*="sidebar"]::-webkit-scrollbar-track,
+[class*="content"]::-webkit-scrollbar-track,
+[class*="body"]::-webkit-scrollbar-track,
+[class*="dialog"]::-webkit-scrollbar-track,
+[class*="drawer"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb,
+input::-webkit-scrollbar-thumb,
+select::-webkit-scrollbar-thumb,
+form::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb,
+code::-webkit-scrollbar-thumb,
+.rf-input::-webkit-scrollbar-thumb,
+.rf-card::-webkit-scrollbar-thumb,
+.rf-modal::-webkit-scrollbar-thumb,
+.rf-modal-body::-webkit-scrollbar-thumb,
+.rf-dropdown::-webkit-scrollbar-thumb,
+.rf-table-container::-webkit-scrollbar-thumb,
+[class*="prompt"]::-webkit-scrollbar-thumb,
+[class*="chat"]::-webkit-scrollbar-thumb,
+[class*="message"]::-webkit-scrollbar-thumb,
+[class*="list"]::-webkit-scrollbar-thumb,
+[class*="panel"]::-webkit-scrollbar-thumb,
+[class*="scroll"]::-webkit-scrollbar-thumb,
+[class*="feed"]::-webkit-scrollbar-thumb,
+[class*="inbox"]::-webkit-scrollbar-thumb,
+[class*="sidebar"]::-webkit-scrollbar-thumb,
+[class*="content"]::-webkit-scrollbar-thumb,
+[class*="body"]::-webkit-scrollbar-thumb,
+[class*="dialog"]::-webkit-scrollbar-thumb,
+[class*="drawer"]::-webkit-scrollbar-thumb {
+  background: rgba(102, 187, 42, 0.45);
+  border-radius: 9999px;
+  min-height: 20px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover,
+input::-webkit-scrollbar-thumb:hover,
+select::-webkit-scrollbar-thumb:hover,
+form::-webkit-scrollbar-thumb:hover,
+pre::-webkit-scrollbar-thumb:hover,
+code::-webkit-scrollbar-thumb:hover,
+.rf-input::-webkit-scrollbar-thumb:hover,
+.rf-card::-webkit-scrollbar-thumb:hover,
+.rf-modal::-webkit-scrollbar-thumb:hover,
+.rf-modal-body::-webkit-scrollbar-thumb:hover,
+.rf-dropdown::-webkit-scrollbar-thumb:hover,
+.rf-table-container::-webkit-scrollbar-thumb:hover,
+[class*="prompt"]::-webkit-scrollbar-thumb:hover,
+[class*="chat"]::-webkit-scrollbar-thumb:hover,
+[class*="message"]::-webkit-scrollbar-thumb:hover,
+[class*="list"]::-webkit-scrollbar-thumb:hover,
+[class*="panel"]::-webkit-scrollbar-thumb:hover,
+[class*="scroll"]::-webkit-scrollbar-thumb:hover,
+[class*="feed"]::-webkit-scrollbar-thumb:hover,
+[class*="inbox"]::-webkit-scrollbar-thumb:hover,
+[class*="sidebar"]::-webkit-scrollbar-thumb:hover,
+[class*="content"]::-webkit-scrollbar-thumb:hover,
+[class*="body"]::-webkit-scrollbar-thumb:hover,
+[class*="dialog"]::-webkit-scrollbar-thumb:hover,
+[class*="drawer"]::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 187, 42, 0.85);
+}
+
+
+/* =========================================================================
+   OFFICIAL PRINT & STATEMENT OF ACCOUNT MEDIA STYLES
+   ========================================================================= */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #07160D !important;
+    font-size: 11pt !important;
+  }
+
+  .rf-no-print,
+  nav,
+  header,
+  footer,
+  aside,
+  button,
+  .rf-toast,
+  .rf-modal-backdrop {
+    display: none !important;
+  }
+
+  .rf-statement-modal-wrapper {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  #rf-printable-statement {
+    padding: 0 !important;
+    background: #FFFFFF !important;
+    color: #07160D !important;
+  }
+
+  #rf-printable-statement * {
+    color: #07160D !important;
+  }
+
+  #rf-printable-statement strong,
+  #rf-printable-statement h1,
+  #rf-printable-statement h2,
+  #rf-printable-statement h3 {
+    color: #000000 !important;
+  }
+
+  @page {
+    margin: 1.5cm;
+    size: A4 portrait;
+  }
+}
+
+/* ==========================================================================
+   STRICT CONTRAST & ACCESSIBILITY ENFORCEMENT RULES (GLOBAL)
+   Rule 1: Any text on a dark background MUST be bright (White / Cream / Mint)
+   Rule 2: Any text on a bright background MUST be dark (Dark green #0F2E1E / #122B1A)
+   Rule 3: Modals, popups, prompt boxes, dialogs, and select options must enforce high contrast
+   ========================================================================== */
+
+/* ─── 1. DARK SURFACES, MODALS, POPUPS, DIALOGS & PROMPT BOXES ─── */
+.rf-modal-content,
+.rf-modal-dialog,
+.rf-modal-body,
+.rf-dialog,
+.rf-popup,
+.rf-prompt-box,
+.rf-flyout-content,
+.rf-dropdown-menu,
+.rf-toast,
+[class*="modal-content"],
+[class*="dialog-box"],
+[class*="prompt-box"],
+[class*="popup-box"],
+[data-theme="dark"] .rf-card,
+[data-theme="dark"] .rf-modal-content,
+[data-theme="dark"] .rf-dropdown {
+  color: #F8FAF8;
+}
+
+.rf-modal-content h1, .rf-modal-content h2, .rf-modal-content h3, 
+.rf-modal-content h4, .rf-modal-content h5, .rf-modal-content h6,
+.rf-dialog h1, .rf-dialog h2, .rf-dialog h3, 
+.rf-dialog h4, .rf-dialog h5, .rf-dialog h6,
+.rf-prompt-box h1, .rf-prompt-box h2, .rf-prompt-box h3,
+.rf-prompt-box h4, .rf-prompt-box h5, .rf-prompt-box h6,
+.rf-popup h1, .rf-popup h2, .rf-popup h3,
+.rf-popup h4, .rf-popup h5, .rf-popup h6 {
+  color: #FFFFFF !important;
+}
+
+.rf-modal-content p, .rf-dialog p, .rf-prompt-box p, .rf-popup p,
+.rf-modal-content span:not(.rf-badge):not(.rf-btn),
+.rf-dialog span:not(.rf-badge):not(.rf-btn),
+.rf-prompt-box span:not(.rf-badge):not(.rf-btn),
+.rf-popup span:not(.rf-badge):not(.rf-btn) {
+  color: #CBD5E1;
+}
+
+.rf-modal-content strong, .rf-dialog strong, .rf-prompt-box strong, .rf-popup strong,
+.rf-modal-content b, .rf-dialog b, .rf-prompt-box b, .rf-popup b,
+.rf-modal-content label, .rf-dialog label, .rf-prompt-box label, .rf-popup label {
+  color: #FFFFFF !important;
+}
+
+/* ─── 2. INPUTS, TEXTAREAS & SELECTS (PREVENT BLACK ON DARK) ─── */
+.rf-modal-content input:not([type="checkbox"]):not([type="radio"]),
+.rf-modal-content textarea,
+.rf-modal-content select,
+.rf-dialog input:not([type="checkbox"]):not([type="radio"]),
+.rf-dialog textarea,
+.rf-dialog select,
+.rf-prompt-box input:not([type="checkbox"]):not([type="radio"]),
+.rf-prompt-box textarea,
+.rf-prompt-box select,
+.rf-popup input:not([type="checkbox"]):not([type="radio"]),
+.rf-popup textarea,
+.rf-popup select {
+  color: #FFFFFF !important;
+  background-color: rgba(7, 22, 13, 0.92) !important;
+  border: 1px solid rgba(102, 187, 42, 0.35) !important;
+}
+
+.rf-modal-content input::placeholder,
+.rf-dialog input::placeholder,
+.rf-prompt-box input::placeholder,
+.rf-popup input::placeholder,
+.rf-modal-content textarea::placeholder,
+.rf-dialog textarea::placeholder,
+.rf-prompt-box textarea::placeholder,
+.rf-popup textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+select option {
+  background-color: #0F2E1E !important;
+  color: #FFFFFF !important;
+}
+
+/* ─── 3. BRIGHT / LEMON SURFACES (STRICT DARK GREEN TEXT) ─── */
+.rf-talent-cat-card:hover,
+.rf-region-country-card:hover {
+  color: #0F2E1E !important;
+}
+
+.rf-talent-cat-card:hover h1, .rf-talent-cat-card:hover h2, .rf-talent-cat-card:hover h3,
+.rf-talent-cat-card:hover h4, .rf-talent-cat-card:hover h5, .rf-talent-cat-card:hover h6,
+.rf-talent-cat-card:hover p, .rf-talent-cat-card:hover span:not(.rf-badge),
+.rf-talent-cat-card:hover div,
+.rf-region-country-card:hover h1, .rf-region-country-card:hover h2, .rf-region-country-card:hover h3,
+.rf-region-country-card:hover h4, .rf-region-country-card:hover h5, .rf-region-country-card:hover h6,
+.rf-region-country-card:hover p, .rf-region-country-card:hover span:not(.rf-badge),
+.rf-region-country-card:hover div {
+  color: #0F2E1E !important;
+}
+

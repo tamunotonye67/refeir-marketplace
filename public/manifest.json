@@ -1,0 +1,16 @@
+{
+  "short_name": "Refair",
+  "name": "Refair — Africa's Referral Marketplace",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0B1020",
+  "theme_color": "#0B1020",
+  "display": "standalone",
+  "orientation": "portrait"
+}

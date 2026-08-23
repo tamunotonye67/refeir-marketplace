@@ -1,0 +1,90 @@
+/* ==========================================================================
+   REFEIR UTILITIES & ANIMATIONS
+   ========================================================================== */
+
+.rf-flex { display: flex; }
+.rf-flex-col { display: flex; flex-direction: column; }
+.rf-items-center { align-items: center; }
+.rf-items-start { align-items: flex-start; }
+.rf-justify-between { justify-content: space-between; }
+.rf-justify-center { justify-content: center; }
+.rf-justify-end { justify-content: flex-end; }
+.rf-flex-wrap { flex-wrap: wrap; }
+.rf-gap-1 { gap: 0.25rem; }
+.rf-gap-2 { gap: 0.5rem; }
+.rf-gap-3 { gap: 0.75rem; }
+.rf-gap-4 { gap: 1rem; }
+.rf-gap-6 { gap: 1.5rem; }
+.rf-gap-8 { gap: 2rem; }
+
+.rf-w-full { width: 100%; }
+.rf-h-full { height: 100%; }
+
+.rf-text-cream { color: var(--rf-cream); }
+.rf-text-primary { color: var(--rf-cream); }
+.rf-text-white { color: var(--rf-cream); }
+.rf-text-slate { color: var(--rf-slate-400); }
+.rf-text-blue { color: var(--rf-blue); }
+.rf-text-mint { color: var(--rf-mint); }
+.rf-text-muted { color: var(--rf-slate-500); }
+.rf-text-danger { color: var(--rf-error); }
+.rf-text-success { color: var(--rf-success); }
+.rf-text-warning { color: var(--rf-warning); }
+
+.rf-text-xs { font-size: 0.75rem; }
+.rf-text-sm { font-size: 0.875rem; }
+.rf-text-base { font-size: 1rem; }
+.rf-text-lg { font-size: 1.125rem; }
+.rf-text-xl { font-size: 1.25rem; }
+.rf-text-2xl { font-size: 1.5rem; }
+.rf-text-3xl { font-size: 1.875rem; }
+.rf-text-4xl { font-size: 2.25rem; }
+.rf-text-5xl { font-size: 3rem; }
+
+.rf-font-normal { font-weight: 400; }
+.rf-font-medium { font-weight: 500; }
+.rf-font-semibold { font-weight: 600; }
+.rf-font-bold { font-weight: 700; }
+.rf-font-extrabold { font-weight: 800; }
+
+.rf-border-b { border-bottom: 1px solid var(--rf-navy-border); }
+.rf-border-t { border-top: 1px solid var(--rf-navy-border); }
+.rf-rounded-md { border-radius: var(--rf-radius-md); }
+.rf-rounded-lg { border-radius: var(--rf-radius-lg); }
+.rf-rounded-xl { border-radius: var(--rf-radius-xl); }
+.rf-rounded-full { border-radius: var(--rf-radius-full); }
+
+.rf-p-2 { padding: 0.5rem; }
+.rf-p-4 { padding: 1rem; }
+.rf-p-6 { padding: 1.5rem; }
+.rf-p-8 { padding: 2rem; }
+.rf-py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.rf-px-4 { padding-left: 1rem; padding-right: 1rem; }
+
+.rf-mb-2 { margin-bottom: 0.5rem; }
+.rf-mb-4 { margin-bottom: 1rem; }
+.rf-mb-6 { margin-bottom: 1.5rem; }
+.rf-mb-8 { margin-bottom: 2rem; }
+.rf-mt-2 { margin-top: 0.5rem; }
+.rf-mt-4 { margin-top: 1rem; }
+.rf-mt-6 { margin-top: 1.5rem; }
+.rf-mt-8 { margin-top: 2rem; }
+
+/* Pulse animation for live/active signals */
+.rf-pulse {
+  animation: rfPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes rfPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Subtle glow badge */
+.rf-glow-mint {
+  box-shadow: 0 0 15px rgba(54, 224, 160, 0.25);
+}
+
+.rf-glow-blue {
+  box-shadow: 0 0 15px rgba(36, 87, 255, 0.25);
+}

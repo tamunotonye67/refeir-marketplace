@@ -1,0 +1,39 @@
+<svg width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" rx="22" fill="#042F1A" />
+  
+  <!-- 'R' Backbone in Crisp White -->
+  <path
+    d="M 22 18
+       L 56 18
+       C 72 18, 82 28, 82 42
+       C 82 54, 72 62, 58 64
+       L 80 84
+       L 62 84
+       L 44 64
+       L 38 64
+       L 38 84
+       L 22 84
+       Z
+       M 38 32
+       L 38 50
+       L 54 50
+       C 62 50, 66 47, 66 41
+       C 66 35, 62 32, 54 32
+       Z"
+    fill="#FFFFFF"
+  />
+  
+  <!-- Vivid Green Leaf Accent -->
+  <path
+    d="M 24 66
+       C 24 66, 36 64, 46 72
+       C 52 77, 56 84, 56 84
+       C 56 84, 48 84, 40 78
+       C 32 72, 24 66, 24 66
+       Z"
+    fill="#66BB2A"
+  />
+  
+  <!-- Vibrant Green Dot -->
+  <circle cx="80" cy="22" r="7" fill="#66BB2A" />
+</svg>
