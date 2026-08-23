@@ -2058,3 +2058,105 @@
     gap: 1.5rem;
   }
 }
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS & FLUID TYPOGRAPHY ENHANCEMENTS
+   ========================================================================== */
+
+.rf-hero-title {
+  font-size: clamp(1.85rem, 5vw, 3.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  word-break: break-word;
+}
+
+.rf-hero-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  line-height: 1.6;
+}
+
+.rf-heading-xl {
+  font-size: clamp(1.65rem, 4.5vw, 2.75rem);
+  line-height: 1.2;
+}
+
+.rf-heading-lg {
+  font-size: clamp(1.35rem, 3.5vw, 2rem);
+  line-height: 1.25;
+}
+
+/* Responsive Action Row */
+.rf-flex-responsive {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .rf-flex-responsive {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .rf-flex-responsive > * {
+    width: 100%;
+  }
+
+  .rf-btn-group-responsive {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .rf-hero-search-box {
+    flex-direction: column !important;
+    padding: 0.75rem !important;
+    gap: 0.75rem !important;
+    border-radius: var(--rf-radius-lg) !important;
+  }
+
+  .rf-hero-search-box input {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--rf-bg-card-border);
+    padding-bottom: 0.5rem !important;
+  }
+
+  .rf-hero-search-box select {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--rf-bg-card-border);
+    padding-bottom: 0.5rem !important;
+  }
+
+  .rf-hero-search-box button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .rf-stat-card-responsive {
+    padding: 1rem !important;
+  }
+
+  .rf-stat-number {
+    font-size: 1.5rem !important;
+  }
+
+  /* Prevent horizontal overflowing on fixed badge rows */
+  .rf-badge-row-scrollable {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    gap: 0.5rem;
+    max-width: 100%;
+  }
+
+  .rf-badge-row-scrollable::-webkit-scrollbar {
+    display: none;
+  }
+}
+

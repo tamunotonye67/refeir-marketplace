@@ -1,14 +1,23 @@
-/* ==========================================================================
-   REFEIR LAYOUTS STYLESHEET
+﻿/* ==========================================================================
+   REFEIR LAYOUTS STYLESHEET — ADVANCED RESPONSIVE ARCHITECTURE
    ========================================================================== */
+
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
 
 .rf-container {
   width: 100%;
   max-width: var(--rf-max-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: clamp(1rem, 3.5vw, 1.75rem);
+  padding-right: clamp(1rem, 3.5vw, 1.75rem);
+  box-sizing: border-box;
 }
 
 .rf-container-wide {
@@ -16,19 +25,22 @@
   max-width: var(--rf-max-width-wide);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: clamp(1rem, 3.5vw, 1.75rem);
+  padding-right: clamp(1rem, 3.5vw, 1.75rem);
+  box-sizing: border-box;
 }
 
 .rf-section {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: clamp(2.75rem, 6vw, 5rem);
+  padding-bottom: clamp(2.75rem, 6vw, 5rem);
   position: relative;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .rf-section-sm {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: clamp(1.75rem, 4vw, 3rem);
+  padding-bottom: clamp(1.75rem, 4vw, 3rem);
 }
 
 /* --- Navigation & Header --- */
@@ -44,6 +56,7 @@
   display: flex;
   align-items: center;
   box-shadow: 0 1px 8px rgba(18, 43, 26, 0.06);
+  width: 100%;
 }
 
 [data-theme="dark"] .rf-header {
@@ -77,6 +90,66 @@
   opacity: 1;
 }
 
+/* Mobile Hamburger Toggle Button */
+.rf-mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--rf-radius-md);
+  background: var(--rf-bg-surface);
+  border: 1px solid var(--rf-bg-card-border);
+  color: var(--rf-cream);
+  cursor: pointer;
+  transition: all var(--rf-transition-fast);
+}
+
+.rf-mobile-menu-btn:hover {
+  border-color: var(--rf-leaf-green);
+  color: var(--rf-leaf-green);
+}
+
+/* Mobile Drawer Overlay */
+.rf-mobile-drawer-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.rf-mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(88vw, 380px);
+  background: var(--rf-bg-card);
+  border-left: 1.5px solid var(--rf-bg-card-border);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 1.5rem 1.25rem 2.5rem;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* --- Mobile Bottom Nav --- */
 .rf-mobile-nav {
   display: none;
@@ -85,8 +158,9 @@
   left: 0;
   right: 0;
   height: 64px;
-  background: rgba(10, 23, 15, 0.95);
+  background: rgba(10, 23, 15, 0.96);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--rf-bg-card-border);
   z-index: 90;
   align-items: center;
@@ -111,7 +185,6 @@
 .rf-mobile-nav-item.active {
   color: var(--rf-leaf-green);
 }
-
 
 /* --- Dashboard Layout --- */
 .rf-dashboard-layout {
@@ -162,28 +235,28 @@
 
 .rf-dashboard-main {
   flex: 1;
-  padding: 2rem 2.5rem;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
   overflow-y: auto;
   max-width: calc(100% - 260px);
 }
 
-/* --- Grids --- */
+/* --- Responsive Grids --- */
 .rf-grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .rf-grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .rf-grid-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  gap: clamp(0.875rem, 2vw, 1.25rem);
 }
 
 .rf-grid-5 {
@@ -194,8 +267,22 @@
 
 .rf-grid-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Responsive Table Container */
+.rf-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+  border-radius: var(--rf-radius-md);
+}
+
+.rf-table-responsive table {
+  min-width: 600px;
+  width: 100%;
 }
 
 /* --- Responsive Breakpoints --- */
@@ -222,17 +309,23 @@
     max-width: calc(100% - 220px);
     padding: 1.5rem;
   }
+  .rf-mobile-menu-btn {
+    display: flex;
+  }
+  .rf-nav-links {
+    display: none !important;
+  }
+  .rf-header-actions-desktop {
+    display: none !important;
+  }
 }
 
 @media (max-width: 768px) {
-  .rf-nav-links {
-    display: none;
-  }
   .rf-mobile-nav {
     display: flex;
   }
   body {
-    padding-bottom: 64px;
+    padding-bottom: 68px;
   }
   .rf-dashboard-layout {
     flex-direction: column;
@@ -242,13 +335,41 @@
   }
   .rf-dashboard-main {
     max-width: 100%;
-    padding: 1.25rem 1rem;
+    padding: 1rem 0.875rem;
   }
   .rf-grid-2, .rf-grid-3, .rf-grid-4 {
     grid-template-columns: 1fr;
   }
   .rf-section {
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+  .rf-btn-lg {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9375rem;
+    width: 100%;
+  }
+  .rf-card {
+    padding: 1.125rem 1rem;
+  }
+  .rf-modal-content {
+    width: calc(100vw - 1.5rem) !important;
+    max-width: 100% !important;
+    padding: 1.25rem 1rem !important;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .rf-header {
+    height: 64px;
+  }
+  .rf-container, .rf-container-wide {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+  .rf-grid-cards {
+    grid-template-columns: 1fr;
   }
 }

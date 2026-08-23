@@ -214,13 +214,15 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({
               background: 'var(--rf-bg-surface-hover)',
               border: '1px solid var(--rf-bg-card-border)',
               borderRadius: 'var(--rf-radius-md)',
-              padding: '3px'
+              padding: '3px',
+              width: 'min(100%, 380px)'
             }}
           >
             <button
               onClick={() => setActiveTab('TALENT')}
               style={{
-                padding: '0.5rem 1.25rem',
+                flex: 1,
+                padding: '0.5rem 0.75rem',
                 borderRadius: 'var(--rf-radius-sm)',
                 fontSize: '0.875rem',
                 fontWeight: 700,
@@ -228,15 +230,17 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({
                 backgroundColor: activeTab === 'TALENT' ? 'var(--rf-leaf-green)' : 'transparent',
                 border: 'none',
                 cursor: 'pointer',
-                transition: 'all 0.15s'
+                transition: 'all 0.15s',
+                textAlign: 'center'
               }}
             >
-              Talent Profiles ({filteredTalent.length})
+              Talents ({filteredTalent.length})
             </button>
             <button
               onClick={() => setActiveTab('SERVICES')}
               style={{
-                padding: '0.5rem 1.25rem',
+                flex: 1,
+                padding: '0.5rem 0.75rem',
                 borderRadius: 'var(--rf-radius-sm)',
                 fontSize: '0.875rem',
                 fontWeight: 700,
@@ -244,10 +248,11 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({
                 backgroundColor: activeTab === 'SERVICES' ? 'var(--rf-leaf-green)' : 'transparent',
                 border: 'none',
                 cursor: 'pointer',
-                transition: 'all 0.15s'
+                transition: 'all 0.15s',
+                textAlign: 'center'
               }}
             >
-              Fixed Services ({filteredServices.length})
+              Services ({filteredServices.length})
             </button>
           </div>
         </div>
@@ -288,15 +293,15 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({
           {/* Filter Pills: Region, Country, Category, Verified */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center' }}>
             {/* Region Filter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', flex: '1 1 140px' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)', whiteSpace: 'nowrap' }}>
                 Region:
               </span>
               <select
                 className="rf-select"
                 value={selectedRegion}
                 onChange={e => setSelectedRegion(e.target.value)}
-                style={{ padding: '0.375rem 0.75rem', fontSize: '0.8125rem', width: 'auto' }}
+                style={{ padding: '0.375rem 0.75rem', fontSize: '0.8125rem', width: '100%' }}
               >
                 <option value="ALL">All Africa</option>
                 {REGIONS.map(r => (
@@ -306,15 +311,15 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({
             </div>
 
             {/* Country Dropdown Filter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', flex: '1 1 140px' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)', whiteSpace: 'nowrap' }}>
                 Country:
               </span>
               <select
                 className="rf-select"
                 value={selectedCountry}
                 onChange={e => setSelectedCountry(e.target.value)}
-                style={{ padding: '0.375rem 0.75rem', fontSize: '0.8125rem', width: 'auto' }}
+                style={{ padding: '0.375rem 0.75rem', fontSize: '0.8125rem', width: '100%' }}
               >
                 <option value="ALL">All 54 Countries</option>
                 {AFRICAN_COUNTRIES.map(c => (
@@ -325,15 +330,15 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({
 
             {/* Category Filter */}
             {activeTab === 'SERVICES' && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', flex: '1 1 140px' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)', whiteSpace: 'nowrap' }}>
                   Category:
                 </span>
                 <select
                   className="rf-select"
                   value={selectedCategory}
                   onChange={e => setSelectedCategory(e.target.value)}
-                  style={{ padding: '0.375rem 0.75rem', fontSize: '0.8125rem', width: 'auto' }}
+                  style={{ padding: '0.375rem 0.75rem', fontSize: '0.8125rem', width: '100%' }}
                 >
                   {categories.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
@@ -343,16 +348,16 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({
             )}
 
             {/* Verified Only Checkbox */}
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', fontSize: '0.8125rem', color: 'var(--rf-cream)', cursor: 'pointer', marginLeft: 'auto' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', fontSize: '0.8125rem', color: 'var(--rf-cream)', cursor: 'pointer' }}>
               <input
                 type="checkbox"
                 checked={verifiedOnly}
                 onChange={e => setVerifiedOnly(e.target.checked)}
                 style={{ accentColor: 'var(--rf-mint)' }}
               />
-              <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', whiteSpace: 'nowrap' }}>
                 <CheckCircle2 size={14} color="var(--rf-mint)" />
-                Verified Professionals Only
+                Verified Only
               </span>
             </label>
           </div>

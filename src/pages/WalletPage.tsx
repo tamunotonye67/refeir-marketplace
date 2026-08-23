@@ -442,7 +442,7 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
             </button>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1rem' }}>
             {wallet.payout_methods.map(pm => (
               <div
                 key={pm.id}

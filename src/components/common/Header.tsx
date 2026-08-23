@@ -64,7 +64,9 @@ import {
   Activity,
   Search,
   Ticket,
-  LineChart
+  LineChart,
+  Menu,
+  Calculator
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -109,6 +111,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   } = useNotification();
 
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>(null);
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -2978,6 +2981,16 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                 </button>
               </>
             )}
+
+            {/* Mobile Hamburger Menu Toggle Button */}
+            <button
+              onClick={() => setShowMobileDrawer(!showMobileDrawer)}
+              className="rf-mobile-menu-btn"
+              aria-label={showMobileDrawer ? 'Close navigation menu' : 'Open navigation menu'}
+              title="Navigation Menu"
+            >
+              {showMobileDrawer ? <X size={20} /> : <Menu size={20} />}
+            </button>
                 </>
               );
             })()}
@@ -2986,6 +2999,206 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
         </div>
         )}
       </header>
+
+      {/* =========================================================================
+          MOBILE SLIDE-OUT NAVIGATION DRAWER
+          ========================================================================= */}
+      {showMobileDrawer && (
+        <>
+          <div
+            className="rf-mobile-drawer-backdrop"
+            style={{ display: 'block' }}
+            onClick={() => setShowMobileDrawer(false)}
+          />
+          <aside
+            className="rf-mobile-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
+          >
+            {/* Header with Logo and Close button */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', paddingBottom: '0.875rem', borderBottom: `1px solid ${navBorderDivider}` }}>
+              <div onClick={() => { setShowMobileDrawer(false); onNavigate('/'); }} style={{ cursor: 'pointer' }}>
+                <RefeirLogo size="sm" isLight={isDarkTheme} showTagline={false} />
+              </div>
+              <button
+                onClick={() => setShowMobileDrawer(false)}
+                className="rf-mobile-menu-btn"
+                style={{ width: '36px', height: '36px' }}
+                aria-label="Close menu"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* User Profile Card or Auth CTA */}
+            {currentUser ? (
+              <div style={{ padding: '0.875rem', borderRadius: 'var(--rf-radius-lg)', background: isDarkTheme ? 'rgba(102, 187, 42, 0.08)' : 'rgba(102, 187, 42, 0.12)', border: '1px solid rgba(102, 187, 42, 0.25)', marginBottom: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.65rem' }}>
+                  <img
+                    src={currentUser.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+                    alt={currentUser.first_name}
+                    style={{ width: '38px', height: '38px', borderRadius: '50%', objectFit: 'cover' }}
+                  />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 800, fontSize: '0.9rem', color: navTextCream, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {currentUser.first_name} {currentUser.last_name}
+                    </div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--rf-leaf-green)', fontWeight: 800 }}>
+                      ACTIVE ROLE: {currentUser.active_role}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Role Switch Buttons */}
+                <div style={{ display: 'flex', gap: '0.35rem' }}>
+                  {(['SCOUT', 'TALENT', 'CLIENT'] as const).map(role => (
+                    <button
+                      key={role}
+                      onClick={() => {
+                        switchRole(role);
+                        onNavigate(getRoleDashboardPath(role));
+                        setShowMobileDrawer(false);
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '0.35rem 0.25rem',
+                        borderRadius: '6px',
+                        fontSize: '0.6875rem',
+                        fontWeight: 800,
+                        border: currentUser.active_role === role ? '1.5px solid var(--rf-leaf-green)' : '1px solid var(--rf-bg-card-border)',
+                        background: currentUser.active_role === role ? 'var(--rf-leaf-green)' : 'var(--rf-bg-surface)',
+                        color: currentUser.active_role === role ? 'var(--rf-dark-green)' : navTextCream,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      {role}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginBottom: '1.25rem' }}>
+                <button
+                  onClick={() => {
+                    setShowMobileDrawer(false);
+                    setShowLoginModal(true);
+                  }}
+                  className="rf-btn rf-btn-secondary rf-btn-sm"
+                  style={{ width: '100%', padding: '0.55rem' }}
+                >
+                  <LogIn size={14} /> Log In
+                </button>
+                <button
+                  onClick={() => {
+                    setShowMobileDrawer(false);
+                    setShowSignupModal(true);
+                  }}
+                  className="rf-btn rf-btn-primary rf-btn-sm"
+                  style={{ width: '100%', padding: '0.55rem' }}
+                >
+                  <UserPlus size={14} /> Sign Up
+                </button>
+              </div>
+            )}
+
+            {/* Navigation Category Groups */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
+              <div>
+                <div style={{ fontSize: '0.6875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
+                  Marketplace & Discovery
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/talents'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <Users size={15} color="var(--rf-leaf-green)" /> <span>Browse Proven Talents</span>
+                  </button>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/services'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <Sparkles size={15} color="var(--rf-leaf-green)" /> <span>Fixed Service Packages</span>
+                  </button>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/jobs'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <Briefcase size={15} color="var(--rf-leaf-green)" /> <span>Browse Jobs & Projects</span>
+                  </button>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/map'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <Globe2 size={15} color="var(--rf-leaf-green)" /> <span>Africa 3D Explorer</span>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontSize: '0.6875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
+                  Scout Program & Escrow
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/become-scout'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <Award size={15} color="var(--rf-leaf-green)" /> <span>Become a Scout (10% Earn)</span>
+                  </button>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/scouts'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <Users size={15} color="var(--rf-leaf-green)" /> <span>Verified Scouts Directory</span>
+                  </button>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/scout-calculator'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <Calculator size={15} color="var(--rf-leaf-green)" /> <span>Earnings Calculator</span>
+                  </button>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/trust-vault'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <Lock size={15} color="var(--rf-leaf-green)" /> <span>Trust Vault Escrow</span>
+                  </button>
+                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/how-it-works'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                    <CheckCircle2 size={15} color="var(--rf-leaf-green)" /> <span>How Refeir Works</span>
+                  </button>
+                </div>
+              </div>
+
+              {currentUser && (
+                <div>
+                  <div style={{ fontSize: '0.6875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
+                    Workspace & Settings
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                    <button onClick={() => { setShowMobileDrawer(false); onNavigate(getRoleDashboardPath()); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                      <LayoutDashboard size={15} color="var(--rf-leaf-green)" /> <span>My Active Dashboard</span>
+                    </button>
+                    <button onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                      <Wallet size={15} color="var(--rf-leaf-green)" /> <span>Multi-Currency Wallet</span>
+                    </button>
+                    <button onClick={() => { setShowMobileDrawer(false); onNavigate('/verification'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                      <ShieldCheck size={15} color="var(--rf-leaf-green)" /> <span>Biometric Verification</span>
+                    </button>
+                    <button onClick={() => { setShowMobileDrawer(false); onNavigate('/settings'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
+                      <Settings size={15} color="var(--rf-leaf-green)" /> <span>Account Settings</span>
+                    </button>
+                    <button
+                      onClick={async () => {
+                        setShowMobileDrawer(false);
+                        await logout();
+                        onNavigate('/');
+                      }}
+                      className="rf-sidebar-link"
+                      style={{ background: 'none', color: '#EF4444', padding: '0.5rem 0.65rem' }}
+                    >
+                      <LogOut size={15} /> <span>Sign Out</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Drawer Footer Controls */}
+            <div style={{ marginTop: 'auto', paddingTop: '1.25rem', borderTop: `1px solid ${navBorderDivider}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <button
+                onClick={toggleTheme}
+                className="rf-btn rf-btn-secondary rf-btn-sm"
+                style={{ padding: '0.45rem 0.75rem', fontSize: '0.75rem' }}
+              >
+                {theme === 'dark' ? <Sun size={14} color="#F6B21A" /> : <Moon size={14} color="#122B1A" />}
+                <span>{theme === 'dark' ? 'Light Theme' : 'Dark Theme'}</span>
+              </button>
+
+              <span style={{ fontSize: '0.6875rem', color: navTextMuted }}>
+                Refeir Pan-Africa
+              </span>
+            </div>
+          </aside>
+        </>
+      )}
 
       {/* =========================================================================
           MY SUPPORT REQUESTS MODAL (For Help Center Navigation)

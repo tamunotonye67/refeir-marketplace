@@ -1630,8 +1630,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                     userSelect: 'none'
                   }}
                 >
-                  <span style={{ display: 'block', whiteSpace: 'nowrap' }}>Refer a talent and</span>
-                  <span style={{ display: 'block', whiteSpace: 'nowrap' }}>earn from the connect</span>
+                  <span style={{ display: 'block' }}>Refer a talent and</span>
+                  <span style={{ display: 'block' }}>earn from the connect</span>
                 </h1>
 
                 {/* Animated Visible Headline */}
