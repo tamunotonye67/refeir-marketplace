@@ -24,20 +24,22 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
   const [role, setRole] = useState<'SCOUT' | 'TALENT' | 'CLIENT'>('SCOUT');
   const [country, setCountry] = useState('United States');
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    login(email);
+    await login(email, password || undefined);
   };
 
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     const parts = name.trim().split(' ');
-    signup({
+    await signup({
       first_name: parts[0] || 'User',
       last_name: parts.slice(1).join(' ') || 'Member',
       email,
+      password: password || undefined,
+      phone: phone ? `${dialCode} ${phone}` : undefined,
       roles: [role],
       active_role: role,
       country

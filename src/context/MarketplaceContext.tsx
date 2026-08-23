@@ -43,6 +43,7 @@ import { calculateProjectBreakdown, calculateAirfee, calculateProposalJobBreakdo
 import { FraudEngine } from '../services/fraudEngine';
 import { defaultPayoutProvider } from '../services/payoutProvider';
 import { evaluateWithdrawalCompliance, evaluatePaymentTransferEligibility } from '../services/complianceEngine';
+import { SupabaseService } from '../services/supabaseService';
 
 interface MarketplaceContextType {
   talentList: TalentProfile[];
@@ -700,6 +701,27 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
     localStorage.setItem('refeir_platform_settings', JSON.stringify(platformSettings));
   }, [platformSettings]);
 
+  // Load live Supabase Talents & Services on mount
+  useEffect(() => {
+    const loadSupabaseData = async () => {
+      try {
+        const [liveTalents, liveServices] = await Promise.all([
+          SupabaseService.getTalents(),
+          SupabaseService.getServices()
+        ]);
+        if (liveTalents && liveTalents.length > 0) {
+          setTalentList(liveTalents);
+        }
+        if (liveServices && liveServices.length > 0) {
+          setServicesList(liveServices);
+        }
+      } catch (err) {
+        console.warn('Supabase initial fetch failed:', err);
+      }
+    };
+    loadSupabaseData();
+  }, []);
+
   // --- ACTIONS ---
 
   const createReferral = (
@@ -714,6 +736,9 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
       attributionWindowDays: platformSettings.attribution_window_days
     });
     setReferralsList(prev => [referral, ...prev]);
+
+    // Persist to Supabase if live
+    SupabaseService.saveReferralLink(referral).catch(() => {});
 
     // Audit log
     const auditEntry: AuditLog = {
@@ -864,6 +889,9 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
     setProjectsList(prev => [newProject, ...prev]);
 
+    // Persist to Supabase
+    SupabaseService.saveProjectContract(newProject).catch(() => {});
+
     // Update referral status to HIRED
     if (params.referral) {
       setReferralsList(prev =>
@@ -941,21 +969,22 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
     };
 
     setTransactions(prev => [newTx, ...prev]);
+    const updatedProject: Project = {
+      ...project,
+      status: 'FUNDED',
+      milestones: project.milestones.map((m, idx) => ({
+        ...m,
+        status: idx === 0 ? 'FUNDED' : 'PENDING'
+      }))
+    };
+
     setProjectsList(prev =>
-      prev.map(p => {
-        if (p.id === projectId) {
-          return {
-            ...p,
-            status: 'FUNDED',
-            milestones: p.milestones.map((m, idx) => ({
-              ...m,
-              status: idx === 0 ? 'FUNDED' : 'PENDING'
-            }))
-          };
-        }
-        return p;
-      })
+      prev.map(p => (p.id === projectId ? updatedProject : p))
     );
+
+    // Persist funded state and ledger entry to Supabase
+    SupabaseService.saveProjectContract(updatedProject).catch(() => {});
+    SupabaseService.recordLedgerTransaction(newTx).catch(() => {});
 
     if (project.referral_id) {
       setReferralsList(prev =>

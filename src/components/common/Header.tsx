@@ -130,6 +130,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   const [signupForm, setSignupForm] = useState({
     name: '',
     email: '',
+    password: '',
     phone: '',
     dialCode: '+1',
     role: 'SCOUT' as 'SCOUT' | 'TALENT' | 'CLIENT',
@@ -206,13 +207,13 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
     onNavigate(path);
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loginEmail.trim()) {
       const email = loginEmail.trim();
       const existing = DEMO_PERSONAS.find(p => p.email.toLowerCase() === email.toLowerCase());
       const role = existing ? existing.active_role : 'SCOUT';
-      login(email);
+      await login(email, loginPassword.trim() || undefined);
       setShowLoginModal(false);
       setLoginEmail('');
       setLoginPassword('');
@@ -220,15 +221,16 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
     }
   };
 
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (signupForm.email.trim() && signupForm.name.trim()) {
       const parts = signupForm.name.trim().split(' ');
       const targetRole = signupForm.role;
-      signup({
+      await signup({
         first_name: parts[0],
         last_name: parts.slice(1).join(' ') || '',
         email: signupForm.email.trim(),
+        password: signupForm.password.trim() || undefined,
         roles: [targetRole],
         active_role: targetRole,
         country: signupForm.country

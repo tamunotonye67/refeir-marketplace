@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+﻿import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole, VerificationStatus } from '../types';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 export interface DemoPersona {
   id: string;
@@ -92,14 +93,17 @@ export const DEMO_PERSONAS: DemoPersona[] = [
 interface AuthContextType {
   currentUser: User | null;
   isAuthenticated: boolean;
+  isLoading: boolean;
+  authError: string | null;
   switchRole: (role: UserRole) => void;
   switchPersona: (personaId: string) => void;
-  login: (email: string) => void;
-  logout: () => void;
-  signup: (userData: Partial<User>) => void;
-  updateProfile: (updatedData: Partial<User>) => void;
+  login: (email: string, password?: string) => Promise<void> | void;
+  logout: () => Promise<void> | void;
+  signup: (userData: Partial<User> & { password?: string }) => Promise<void> | void;
+  updateProfile: (updatedData: Partial<User>) => Promise<void> | void;
   upgradeToPro: (tier: 'SCOUT_PRO' | 'TALENT_PRO' | 'CLIENT_PRO') => void;
   demoPersonas: DemoPersona[];
+  isLiveSupabase: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -116,7 +120,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     return null;
   });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [authError, setAuthError] = useState<string | null>(null);
 
+  // Sync state to localStorage for offline / persistence
   useEffect(() => {
     if (currentUser) {
       localStorage.setItem('refeir_auth_user', JSON.stringify(currentUser));
@@ -125,20 +132,92 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [currentUser]);
 
-  const switchRole = (newRole: UserRole) => {
-    if (!currentUser) return;
-    setCurrentUser(prev => {
-      if (!prev) return null;
-      const updatedRoles = prev.roles.includes(newRole) ? prev.roles : [...prev.roles, newRole];
-      const updated: User = {
-        ...prev,
-        roles: updatedRoles,
-        active_role: newRole
-      };
-      localStorage.setItem('refeir_auth_user', JSON.stringify(updated));
-      window.dispatchEvent(new CustomEvent('refeir-role-switched', { detail: { newRole, previousRole: prev.active_role } }));
-      return updated;
+  // Load user profile from Supabase on session change
+  useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setIsLoading(false);
+      return;
+    }
+
+    const fetchUserProfile = async (userId: string, email: string) => {
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', userId)
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          console.error('Error loading Supabase profile:', error.message);
+        }
+
+        if (data) {
+          const parts = (data.name || '').trim().split(' ');
+          const userObj: User = {
+            id: data.id,
+            email: data.email || email,
+            first_name: parts[0] || 'User',
+            last_name: parts.slice(1).join(' ') || 'Member',
+            phone: data.phone || '+234 800 000 0000',
+            avatar_url: data.avatar_url || DEMO_PERSONAS[0].avatar_url,
+            roles: (data.roles as UserRole[]) || ['CLIENT'],
+            active_role: (data.active_role as UserRole) || 'CLIENT',
+            country: data.country || 'Nigeria',
+            city: data.city || 'Lagos',
+            verification_status: (data.verification_status as VerificationStatus) || 'UNVERIFIED',
+            created_at: data.created_at || new Date().toISOString(),
+            primary_language: 'English',
+            timezone: 'Africa/Lagos'
+          };
+          setCurrentUser(userObj);
+        }
+      } catch (err) {
+        console.error('Profile fetch failed:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        await fetchUserProfile(session.user.id, session.user.email || '');
+      } else if (event === 'SIGNED_OUT') {
+        if (!currentUser?.id.startsWith('user-')) {
+          setCurrentUser(null);
+        }
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
     });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const switchRole = async (newRole: UserRole) => {
+    if (!currentUser) return;
+    const updatedRoles = currentUser.roles.includes(newRole) ? currentUser.roles : [...currentUser.roles, newRole];
+    const updated: User = {
+      ...currentUser,
+      roles: updatedRoles,
+      active_role: newRole
+    };
+    setCurrentUser(updated);
+    window.dispatchEvent(new CustomEvent('refeir-role-switched', { detail: { newRole, previousRole: currentUser.active_role } }));
+
+    if (isSupabaseConfigured && !currentUser.id.startsWith('user-')) {
+      try {
+        await supabase
+          .from('profiles')
+          .update({ active_role: newRole, roles: updatedRoles })
+          .eq('id', currentUser.id);
+      } catch (err) {
+        console.error('Failed to sync role change to Supabase:', err);
+      }
+    }
   };
 
   const switchPersona = (personaId: string) => {
@@ -159,14 +238,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       active_role: p.active_role,
       verification_status: p.verification_status,
       created_at: '2026-01-10T00:00:00Z',
-      // Refeir Pro Subscriptions
       is_pro: p.id === 'user-sarah' || p.id === 'user-amaka' || p.id === 'user-client-kenya' || p.id === 'user-admin-refeir',
       pro_tier: p.id === 'user-sarah' ? 'SCOUT_PRO' : p.id === 'user-amaka' ? 'TALENT_PRO' : p.id === 'user-client-kenya' ? 'CLIENT_PRO' : 'SCOUT_PRO',
       pro_subscribed_at: '2026-02-01T00:00:00Z',
       airfee_tokens_balance: p.id === 'user-sarah' ? 5 : (p.id === 'user-kofi' ? 2 : 0),
       is_featured_talent: p.id === 'user-amaka',
       refeir_desk_enabled: p.id === 'user-client-kenya',
-      // Role Onboarding Details
       scout_onboarding_completed: p.id === 'user-sarah' || p.id === 'user-kofi' || p.id === 'user-admin-refeir',
       scout_specialty: p.id === 'user-kofi' ? 'Fintech & Web3 Connectors' : 'Software Engineering & Tech',
       scout_payout_preference: p.country === 'Ghana' ? 'Mobile Money (MTN MoMo)' : 'Bank Transfer',
@@ -180,7 +257,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       company_industry: p.id === 'user-client-kenya' ? 'Logistics & Supply Chain' : undefined,
       company_size: p.id === 'user-client-kenya' ? 'Growth (11 - 50 employees)' : undefined,
       client_billing_currency: p.id === 'user-client-kenya' ? 'KES' : 'USD',
-      // Tax Compliance Configuration
       tax_country: p.country,
       tax_id_type: p.country === 'Nigeria' ? 'NIGERIA_TIN' : p.country === 'Kenya' ? 'KENYA_KRA_PIN' : p.country === 'Ghana' ? 'GHANA_CARD_TIN' : 'INTERNATIONAL_TAX_ID',
       tax_id_number: p.id === 'user-unverified-talent' ? '' : p.id === 'user-sarah' ? '23891024-0001' : p.id === 'user-amaka' ? '24918204-0002' : p.id === 'user-client-kenya' ? 'A019283746Z' : p.id === 'user-kofi' ? 'GHA-721908234-1' : 'RC-1892044-TIN',
@@ -193,10 +269,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
-  const login = (email: string) => {
-    const existing = DEMO_PERSONAS.find(p => p.email.toLowerCase() === email.toLowerCase());
-    if (existing) {
-      switchPersona(existing.id);
+  const login = async (email: string, password?: string) => {
+    setAuthError(null);
+    const existingDemo = DEMO_PERSONAS.find(p => p.email.toLowerCase() === email.toLowerCase());
+
+    if (isSupabaseConfigured && password && !existingDemo) {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        setAuthError(error.message);
+        setIsLoading(false);
+        throw error;
+      }
+      return;
+    }
+
+    if (existingDemo) {
+      switchPersona(existingDemo.id);
     } else {
       const defaultP = DEMO_PERSONAS[0];
       setCurrentUser({
@@ -221,12 +314,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    if (isSupabaseConfigured) {
+      await supabase.auth.signOut().catch(() => {});
+    }
     localStorage.removeItem('refeir_auth_user');
     setCurrentUser(null);
   };
 
-  const signup = (userData: Partial<User>) => {
+  const signup = async (userData: Partial<User> & { password?: string }) => {
+    setAuthError(null);
+    const fullName = `${userData.first_name || ''} ${userData.last_name || ''}`.trim() || 'New Member';
+
+    if (isSupabaseConfigured && userData.password && userData.email) {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signUp({
+        email: userData.email,
+        password: userData.password,
+        options: {
+          data: {
+            name: fullName,
+            role: userData.active_role || 'CLIENT',
+            country: userData.country || 'Nigeria'
+          }
+        }
+      });
+
+      if (error) {
+        setAuthError(error.message);
+        setIsLoading(false);
+        throw error;
+      }
+      return;
+    }
+
     const defaultP = DEMO_PERSONAS[0];
     const newUser: User = {
       id: `user-${Date.now()}`,
@@ -250,7 +371,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCurrentUser(newUser);
   };
 
-  const updateProfile = (updatedData: Partial<User>) => {
+  const updateProfile = async (updatedData: Partial<User>) => {
     setCurrentUser(prev => {
       if (!prev) return null;
       const updated: User = {
@@ -260,6 +381,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('refeir_auth_user', JSON.stringify(updated));
       return updated;
     });
+
+    if (isSupabaseConfigured && currentUser && !currentUser.id.startsWith('user-')) {
+      try {
+        const payload: Record<string, any> = {};
+        if (updatedData.first_name || updatedData.last_name) {
+          payload.name = `${updatedData.first_name || currentUser.first_name} ${updatedData.last_name || currentUser.last_name}`.trim();
+        }
+        if (updatedData.avatar_url) payload.avatar_url = updatedData.avatar_url;
+        if (updatedData.country) payload.country = updatedData.country;
+        if (updatedData.city) payload.city = updatedData.city;
+        if (updatedData.bio) payload.bio = updatedData.bio;
+
+        if (Object.keys(payload).length > 0) {
+          await supabase.from('profiles').update(payload).eq('id', currentUser.id);
+        }
+      } catch (err) {
+        console.error('Failed to sync profile update to Supabase:', err);
+      }
+    }
   };
 
   const upgradeToPro = (tier: 'SCOUT_PRO' | 'TALENT_PRO' | 'CLIENT_PRO') => {
@@ -285,6 +425,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         currentUser,
         isAuthenticated: !!currentUser,
+        isLoading,
+        authError,
         switchRole,
         switchPersona,
         login,
@@ -292,7 +434,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         signup,
         updateProfile,
         upgradeToPro,
-        demoPersonas: DEMO_PERSONAS
+        demoPersonas: DEMO_PERSONAS,
+        isLiveSupabase: isSupabaseConfigured
       }}
     >
       {children}
