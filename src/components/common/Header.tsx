@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { useAuth, DEMO_PERSONAS } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import { useI18n } from '../../context/I18nContext';
 import { RefeirLogo } from './RefeirLogo';
@@ -209,15 +209,13 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginEmail.trim()) {
+    if (loginEmail.trim() && loginPassword.trim()) {
       const email = loginEmail.trim();
-      const existing = DEMO_PERSONAS.find(p => p.email.toLowerCase() === email.toLowerCase());
-      const role = existing ? existing.active_role : 'SCOUT';
-      await login(email, loginPassword.trim() || undefined);
+      await login(email, loginPassword.trim());
       setShowLoginModal(false);
       setLoginEmail('');
       setLoginPassword('');
-      onNavigate(getRoleDashboardPath(role));
+      onNavigate(getRoleDashboardPath());
     }
   };
 
@@ -3106,55 +3104,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
             <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', marginBottom: '1.25rem', lineHeight: 1.5 }}>
               Access your pan-African referral workspace, projects, and multi-currency payouts.
             </p>
-
-            {/* Quick 1-Click Role Logins */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem', marginBottom: '1.25rem' }}>
-              <button
-                type="button"
-                onClick={() => {
-                  login('david.kamau@twigalogistics.co.ke');
-                  setShowLoginModal(false);
-                  onNavigate('/dashboard/client');
-                }}
-                className="rf-btn rf-btn-outline"
-                style={{ padding: '0.55rem 0.35rem', fontSize: '0.78rem', fontWeight: 700, flexDirection: 'column', gap: '0.2rem', borderColor: 'rgba(56, 189, 248, 0.4)' }}
-              >
-                <Building2 size={15} color="#38BDF8" />
-                <span>Client Login</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  login('sarah.adeyemi@refeir.africa');
-                  setShowLoginModal(false);
-                  onNavigate('/dashboard/scout');
-                }}
-                className="rf-btn rf-btn-outline"
-                style={{ padding: '0.55rem 0.35rem', fontSize: '0.78rem', fontWeight: 700, flexDirection: 'column', gap: '0.2rem', borderColor: 'rgba(102, 187, 42, 0.4)' }}
-              >
-                <Briefcase size={15} color="var(--rf-leaf-green)" />
-                <span>Scout Login</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  login('amaka.nwosu@refeir.africa');
-                  setShowLoginModal(false);
-                  onNavigate('/dashboard/talent');
-                }}
-                className="rf-btn rf-btn-outline"
-                style={{ padding: '0.55rem 0.35rem', fontSize: '0.78rem', fontWeight: 700, flexDirection: 'column', gap: '0.2rem', borderColor: 'rgba(244, 185, 66, 0.4)' }}
-              >
-                <Sparkles size={15} color="#F4B942" />
-                <span>Talent Login</span>
-              </button>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-              <div style={{ flex: 1, height: '1px', background: 'var(--rf-bg-card-border)' }} />
-              <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>or enter credentials</span>
-              <div style={{ flex: 1, height: '1px', background: 'var(--rf-bg-card-border)' }} />
-            </div>
 
             {/* Email and Password form */}
             <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '1.5rem' }}>

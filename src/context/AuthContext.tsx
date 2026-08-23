@@ -2,93 +2,7 @@
 import { User, UserRole, VerificationStatus } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
-export interface DemoPersona {
-  id: string;
-  name: string;
-  roleDescription: string;
-  country: string;
-  city: string;
-  roles: UserRole[];
-  active_role: UserRole;
-  email: string;
-  avatar_url: string;
-  verification_status: VerificationStatus;
-}
-
-export const DEMO_PERSONAS: DemoPersona[] = [
-  {
-    id: 'user-sarah',
-    name: 'Sarah Adeyemi',
-    roleDescription: 'Elite Scout (Nigeria)',
-    country: 'Nigeria',
-    city: 'Lagos',
-    roles: ['SCOUT', 'CLIENT'],
-    active_role: 'SCOUT',
-    email: 'sarah.adeyemi@refeir.africa',
-    avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    verification_status: 'PROFESSION_VERIFIED'
-  },
-  {
-    id: 'user-amaka',
-    name: 'Amaka Nwosu',
-    roleDescription: 'Senior Product Designer (Nigeria)',
-    country: 'Nigeria',
-    city: 'Lagos',
-    roles: ['TALENT', 'SCOUT'],
-    active_role: 'TALENT',
-    email: 'amaka.nwosu@refeir.africa',
-    avatar_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
-    verification_status: 'PROFESSION_VERIFIED'
-  },
-  {
-    id: 'user-kofi',
-    name: 'Kofi Boateng',
-    roleDescription: 'Professional Scout & Tech Connector (Ghana)',
-    country: 'Ghana',
-    city: 'Accra',
-    roles: ['SCOUT', 'TALENT'],
-    active_role: 'SCOUT',
-    email: 'kofi.boateng@refeir.africa',
-    avatar_url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
-    verification_status: 'PROFESSION_VERIFIED'
-  },
-  {
-    id: 'user-client-kenya',
-    name: 'David Kamau',
-    roleDescription: 'Business Client (Twiga Logistics, Kenya)',
-    country: 'Kenya',
-    city: 'Nairobi',
-    roles: ['CLIENT', 'BUSINESS'],
-    active_role: 'CLIENT',
-    email: 'david.kamau@twigalogistics.co.ke',
-    avatar_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    verification_status: 'IDENTITY_VERIFIED'
-  },
-  {
-    id: 'user-admin-refeir',
-    name: 'Antigravity Admin',
-    roleDescription: 'Pan-African Super Admin',
-    country: 'Pan-Africa',
-    city: 'Pan-Africa',
-    roles: ['ADMIN', 'CLIENT', 'TALENT', 'SCOUT'],
-    active_role: 'ADMIN',
-    email: 'admin@refeir.africa',
-    avatar_url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80',
-    verification_status: 'PROFESSION_VERIFIED'
-  },
-  {
-    id: 'user-unverified-talent',
-    name: 'Tariq Al-Mansoor',
-    roleDescription: 'New Talent (Unverified & Missing Tax Profile)',
-    country: 'Egypt',
-    city: 'Cairo',
-    roles: ['TALENT'],
-    active_role: 'TALENT',
-    email: 'tariq.mansoor@refeir.africa',
-    avatar_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
-    verification_status: 'UNVERIFIED'
-  }
-];
+const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -96,13 +10,11 @@ interface AuthContextType {
   isLoading: boolean;
   authError: string | null;
   switchRole: (role: UserRole) => void;
-  switchPersona: (personaId: string) => void;
   login: (email: string, password?: string) => Promise<void> | void;
   logout: () => Promise<void> | void;
   signup: (userData: Partial<User> & { password?: string }) => Promise<void> | void;
   updateProfile: (updatedData: Partial<User>) => Promise<void> | void;
   upgradeToPro: (tier: 'SCOUT_PRO' | 'TALENT_PRO' | 'CLIENT_PRO') => void;
-  demoPersonas: DemoPersona[];
   isLiveSupabase: boolean;
 }
 
@@ -159,7 +71,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             first_name: parts[0] || 'User',
             last_name: parts.slice(1).join(' ') || 'Member',
             phone: data.phone || '+234 800 000 0000',
-            avatar_url: data.avatar_url || DEMO_PERSONAS[0].avatar_url,
+            avatar_url: data.avatar_url || DEFAULT_AVATAR,
             roles: (data.roles as UserRole[]) || ['CLIENT'],
             active_role: (data.active_role as UserRole) || 'CLIENT',
             country: data.country || 'Nigeria',
@@ -183,9 +95,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (session?.user) {
         await fetchUserProfile(session.user.id, session.user.email || '');
       } else if (event === 'SIGNED_OUT') {
-        if (!currentUser?.id.startsWith('user-')) {
-          setCurrentUser(null);
-        }
+        setCurrentUser(null);
         setIsLoading(false);
       } else {
         setIsLoading(false);
@@ -208,7 +118,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCurrentUser(updated);
     window.dispatchEvent(new CustomEvent('refeir-role-switched', { detail: { newRole, previousRole: currentUser.active_role } }));
 
-    if (isSupabaseConfigured && !currentUser.id.startsWith('user-')) {
+    if (isSupabaseConfigured) {
       try {
         await supabase
           .from('profiles')
@@ -220,60 +130,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const switchPersona = (personaId: string) => {
-    const p = DEMO_PERSONAS.find(item => item.id === personaId);
-    if (!p) return;
-    setCurrentUser({
-      id: p.id,
-      first_name: p.name.split(' ')[0],
-      last_name: p.name.split(' ')[1] || '',
-      email: p.email,
-      phone: p.country === 'Ghana' ? '+233 24 123 4567' : p.country === 'Kenya' ? '+254 712 345 678' : '+234 802 987 6543',
-      country: p.country,
-      city: p.city,
-      primary_language: 'English',
-      timezone: p.country === 'Ghana' ? 'Africa/Accra' : p.country === 'Kenya' ? 'Africa/Nairobi' : 'Africa/Lagos',
-      avatar_url: p.avatar_url,
-      roles: p.roles,
-      active_role: p.active_role,
-      verification_status: p.verification_status,
-      created_at: '2026-01-10T00:00:00Z',
-      is_pro: p.id === 'user-sarah' || p.id === 'user-amaka' || p.id === 'user-client-kenya' || p.id === 'user-admin-refeir',
-      pro_tier: p.id === 'user-sarah' ? 'SCOUT_PRO' : p.id === 'user-amaka' ? 'TALENT_PRO' : p.id === 'user-client-kenya' ? 'CLIENT_PRO' : 'SCOUT_PRO',
-      pro_subscribed_at: '2026-02-01T00:00:00Z',
-      airfee_tokens_balance: p.id === 'user-sarah' ? 5 : (p.id === 'user-kofi' ? 2 : 0),
-      is_featured_talent: p.id === 'user-amaka',
-      refeir_desk_enabled: p.id === 'user-client-kenya',
-      scout_onboarding_completed: p.id === 'user-sarah' || p.id === 'user-kofi' || p.id === 'user-admin-refeir',
-      scout_specialty: p.id === 'user-kofi' ? 'Fintech & Web3 Connectors' : 'Software Engineering & Tech',
-      scout_payout_preference: p.country === 'Ghana' ? 'Mobile Money (MTN MoMo)' : 'Bank Transfer',
-      talent_onboarding_completed: p.id === 'user-amaka' || p.id === 'user-admin-refeir',
-      headline: p.id === 'user-amaka' ? 'Senior Product Designer & Design Systems Lead' : undefined,
-      talent_years_experience: p.id === 'user-amaka' ? 6 : undefined,
-      talent_starting_rate: p.id === 'user-amaka' ? 450000 : undefined,
-      talent_rate_currency: 'NGN',
-      client_onboarding_completed: p.id === 'user-client-kenya' || p.id === 'user-admin-refeir',
-      company_name: p.id === 'user-client-kenya' ? 'Twiga Logistics' : undefined,
-      company_industry: p.id === 'user-client-kenya' ? 'Logistics & Supply Chain' : undefined,
-      company_size: p.id === 'user-client-kenya' ? 'Growth (11 - 50 employees)' : undefined,
-      client_billing_currency: p.id === 'user-client-kenya' ? 'KES' : 'USD',
-      tax_country: p.country,
-      tax_id_type: p.country === 'Nigeria' ? 'NIGERIA_TIN' : p.country === 'Kenya' ? 'KENYA_KRA_PIN' : p.country === 'Ghana' ? 'GHANA_CARD_TIN' : 'INTERNATIONAL_TAX_ID',
-      tax_id_number: p.id === 'user-unverified-talent' ? '' : p.id === 'user-sarah' ? '23891024-0001' : p.id === 'user-amaka' ? '24918204-0002' : p.id === 'user-client-kenya' ? 'A019283746Z' : p.id === 'user-kofi' ? 'GHA-721908234-1' : 'RC-1892044-TIN',
-      tax_business_type: p.id === 'user-client-kenya' ? 'REGISTERED_BUSINESS' : (p.id === 'user-admin-refeir' ? 'CORPORATION_ENTERPRISE' : 'INDIVIDUAL_FREELANCER'),
-      registered_company_rc: p.id === 'user-client-kenya' ? 'CPR/2021/89210' : (p.country === 'Nigeria' ? 'RC-1892044' : undefined),
-      vat_registered: p.id === 'user-client-kenya' || p.id === 'user-admin-refeir',
-      vat_id_number: p.id === 'user-client-kenya' ? 'P051239847K' : (p.id === 'user-admin-refeir' ? 'NG-VAT-1892044' : undefined),
-      tax_withholding_rate: p.country === 'Ghana' ? 7.5 : 5.0,
-      tax_exemption_status: 'NONE'
-    });
-  };
-
   const login = async (email: string, password?: string) => {
     setAuthError(null);
-    const existingDemo = DEMO_PERSONAS.find(p => p.email.toLowerCase() === email.toLowerCase());
 
-    if (isSupabaseConfigured && password && !existingDemo) {
+    if (isSupabaseConfigured && password) {
       setIsLoading(true);
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -288,30 +148,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
 
-    if (existingDemo) {
-      switchPersona(existingDemo.id);
-    } else {
-      const defaultP = DEMO_PERSONAS[0];
-      setCurrentUser({
-        id: `user-${Date.now()}`,
-        email,
-        first_name: email.split('@')[0],
-        last_name: 'Member',
-        phone: '+234 800 000 0000',
-        country: 'Nigeria',
-        city: 'Lagos',
-        primary_language: 'English',
-        timezone: 'Africa/Lagos',
-        avatar_url: defaultP.avatar_url,
-        roles: ['SCOUT', 'CLIENT'],
-        active_role: 'SCOUT',
-        verification_status: 'UNVERIFIED',
-        created_at: new Date().toISOString(),
-        scout_onboarding_completed: false,
-        talent_onboarding_completed: false,
-        client_onboarding_completed: false
-      });
-    }
+    // Local / Offline Signin
+    const parts = email.split('@')[0].split('.');
+    const newUser: User = {
+      id: `user-${Date.now()}`,
+      email,
+      first_name: parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Member',
+      last_name: parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : '',
+      phone: '+234 800 000 0000',
+      country: 'Nigeria',
+      city: 'Lagos',
+      primary_language: 'English',
+      timezone: 'Africa/Lagos',
+      avatar_url: DEFAULT_AVATAR,
+      roles: ['CLIENT', 'SCOUT', 'TALENT'],
+      active_role: 'SCOUT',
+      verification_status: 'UNVERIFIED',
+      created_at: new Date().toISOString(),
+      scout_onboarding_completed: false,
+      talent_onboarding_completed: false,
+      client_onboarding_completed: false
+    };
+    setCurrentUser(newUser);
   };
 
   const logout = async () => {
@@ -348,7 +206,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
 
-    const defaultP = DEMO_PERSONAS[0];
     const newUser: User = {
       id: `user-${Date.now()}`,
       first_name: userData.first_name || 'New',
@@ -359,7 +216,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       city: userData.city || 'Lagos',
       primary_language: 'English',
       timezone: 'Africa/Lagos',
-      avatar_url: defaultP.avatar_url,
+      avatar_url: DEFAULT_AVATAR,
       roles: userData.roles || ['SCOUT'],
       active_role: userData.active_role || 'SCOUT',
       verification_status: 'UNVERIFIED',
@@ -382,7 +239,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return updated;
     });
 
-    if (isSupabaseConfigured && currentUser && !currentUser.id.startsWith('user-')) {
+    if (isSupabaseConfigured && currentUser) {
       try {
         const payload: Record<string, any> = {};
         if (updatedData.first_name || updatedData.last_name) {
@@ -428,13 +285,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isLoading,
         authError,
         switchRole,
-        switchPersona,
         login,
         logout,
         signup,
         updateProfile,
         upgradeToPro,
-        demoPersonas: DEMO_PERSONAS,
         isLiveSupabase: isSupabaseConfigured
       }}
     >
