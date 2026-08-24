@@ -588,9 +588,13 @@ export const HomePage: React.FC<HomePageProps> = ({
   const skillsScrollRef = useRef<HTMLDivElement>(null);
   const [showStickySkills, setShowStickySkills] = useState(false);
   const [activeSkillFlyout, setActiveSkillFlyout] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      setIsScrolled(scrollY > 20);
+
       if (heroSectionRef.current) {
         const rect = heroSectionRef.current.getBoundingClientRect();
         const headerH = typeof window !== 'undefined' && window.innerWidth <= 480 ? 64 : 72;
@@ -1472,7 +1476,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         >
           {/* Scout Referral Announcement Banner — Transparent White Blend */}
           <div
-            className="rf-hero-announcement"
+            className={`rf-hero-announcement ${isScrolled ? 'is-scrolled' : ''}`}
             style={{
               background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)',
               backdropFilter: 'blur(16px)',
@@ -1716,8 +1720,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                       padding: '0.5rem 0'
                     }}
                   />
-                  <button type="submit" className="rf-btn rf-btn-mint" style={{ padding: '0.55rem 1.25rem', fontSize: '0.875rem' }}>
-                    Search
+                  <button
+                    type="submit"
+                    className="rf-btn rf-btn-mint rf-hero-search-submit-btn"
+                    style={{ padding: '0.55rem 1.25rem', fontSize: '0.875rem' }}
+                    aria-label="Search"
+                  >
+                    <span className="rf-hero-search-text">Search</span>
+                    <Search size={16} className="rf-hero-search-icon-only" />
                   </button>
                 </div>
               </form>

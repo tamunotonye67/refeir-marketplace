@@ -632,7 +632,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
               ) : (
                 <button
                   onClick={() => setShowLoginModal(true)}
-                  className="rf-btn rf-btn-primary rf-btn-sm"
+                  className="rf-btn rf-btn-primary rf-btn-sm rf-header-login-btn"
                   style={{
                     fontWeight: 800,
                     fontSize: '0.84rem',
@@ -2951,7 +2951,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
               <>
                 <button
                   onClick={() => setShowLoginModal(true)}
-                  className="rf-btn rf-btn-ghost rf-btn-sm"
+                  className="rf-btn rf-btn-ghost rf-btn-sm rf-header-login-btn"
                   style={{
                     fontWeight: 500,
                     fontSize: '0.84rem',

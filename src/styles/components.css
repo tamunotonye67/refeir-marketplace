@@ -2300,6 +2300,24 @@
   order: 2;
 }
 
+/* Base Announcement Banner Transitions */
+.rf-hero-announcement {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rf-hero-announcement-text,
+.rf-hero-announcement-btn {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rf-hero-search-icon-only {
+  display: none;
+}
+
+.rf-hero-search-text {
+  display: inline;
+}
+
 @media (max-width: 768px) {
   .rf-scout-sourcing-grid,
   .rf-ai-wizard-grid {
@@ -2325,8 +2343,9 @@
     right: 4% !important;
   }
 
-  /* 1. Hide theme toggle icon on mobile navbar */
-  .rf-header-theme-btn {
+  /* 1. Hide theme toggle icon and login button on mobile navbar */
+  .rf-header-theme-btn,
+  .rf-header-login-btn {
     display: none !important;
   }
 
@@ -2369,6 +2388,7 @@
     width: 100% !important;
   }
 
+  /* Announcement Banner: Default standard size at top of mobile screen */
   .rf-hero-announcement {
     border-radius: 0 !important;
     border-left: none !important;
@@ -2376,18 +2396,33 @@
     border-top: none !important;
     border-bottom: 1px solid var(--rf-bg-card-border) !important;
     margin-bottom: 0 !important;
-    padding: 0.65rem 1rem !important;
+    padding: 0.85rem 1rem !important;
     box-shadow: none !important;
     width: 100% !important;
   }
 
   .rf-hero-announcement-text {
-    font-size: 0.85rem !important;
+    font-size: 1.05rem !important;
     line-height: 1.35 !important;
   }
 
   .rf-hero-announcement-btn {
-    font-size: 0.8rem !important;
+    font-size: 0.925rem !important;
+  }
+
+  /* Announcement Banner: Shrinks immediately to a tight div on scroll */
+  .rf-hero-announcement.is-scrolled {
+    padding: 0.35rem 0.85rem !important;
+  }
+
+  .rf-hero-announcement.is-scrolled .rf-hero-announcement-text {
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .rf-hero-announcement.is-scrolled .rf-hero-announcement-btn {
+    font-size: 0.74rem !important;
+    padding: 0.1rem 0 !important;
   }
 
   .rf-hero-video-card {
@@ -2400,7 +2435,27 @@
   .rf-hero-video-content {
     padding: 2rem 1rem 2.75rem 1rem !important;
   }
+
+  /* Search button on mobile becomes compact search icon button */
+  .rf-hero-search-text {
+    display: none !important;
+  }
+
+  .rf-hero-search-icon-only {
+    display: inline-flex !important;
+  }
+
+  .rf-hero-search-submit-btn {
+    padding: 0.55rem 0.75rem !important;
+    min-width: 40px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 10px !important;
+  }
 }
+
 
 
 
