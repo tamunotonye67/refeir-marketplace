@@ -652,8 +652,19 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
              ========================================================================= */
           <div className="rf-container-wide rf-header-inner">
             
-            {/* LEFT SIDE: Brand Logo + Navigation Menus */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+            {/* LEFT SIDE: Mobile Hamburger Toggle + Brand Logo + Navigation Menus */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              {/* Mobile Hamburger Menu Toggle Button (Left of logo on mobile) */}
+              <button
+                onClick={() => setShowMobileDrawer(!showMobileDrawer)}
+                className="rf-mobile-menu-btn"
+                aria-label={showMobileDrawer ? 'Close navigation menu' : 'Open navigation menu'}
+                title="Navigation Menu"
+                style={{ flexShrink: 0 }}
+              >
+                {showMobileDrawer ? <X size={20} /> : <Menu size={20} />}
+              </button>
+
               {/* Logo */}
               <button
                 onClick={() => handleLinkClick(currentUser ? getRoleDashboardPath(currentUser.active_role) : '/')}
@@ -2985,15 +2996,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
               </>
             )}
 
-            {/* Mobile Hamburger Menu Toggle Button */}
-            <button
-              onClick={() => setShowMobileDrawer(!showMobileDrawer)}
-              className="rf-mobile-menu-btn"
-              aria-label={showMobileDrawer ? 'Close navigation menu' : 'Open navigation menu'}
-              title="Navigation Menu"
-            >
-              {showMobileDrawer ? <X size={20} /> : <Menu size={20} />}
-            </button>
                 </>
               );
             })()}

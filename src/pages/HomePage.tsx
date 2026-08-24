@@ -1121,9 +1121,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
-      {/* STICKY SKILLS & TALENT BAR (Appears when scrolling past hero) */}
+      {/* STICKY SKILLS & TALENT BAR (Appears when scrolling past hero, hidden on mobile) */}
       <div
         ref={stickyBarRef}
+        className="rf-sticky-skills-bar"
         style={{
           position: 'fixed',
           top: 'var(--rf-header-height, 72px)',
@@ -1317,6 +1318,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             ========================================================================= */}
         {selectedFlyoutGroup && (
           <div
+            className="rf-skills-flyout-container"
             style={{
               position: 'absolute',
               top: '100%',
@@ -1702,7 +1704,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     boxShadow: '0 8px 32px rgba(0,0,0,0.35)'
                   }}
                 >
-                  <div style={{ paddingLeft: '0.75rem', paddingRight: '0.5rem', display: 'flex', alignItems: 'center' }}>
+                  <div className="rf-hero-search-left-icon" style={{ paddingLeft: '0.75rem', paddingRight: '0.5rem', display: 'flex', alignItems: 'center' }}>
                     <Search size={19} className="rf-search-icon-wiggle" />
                   </div>
                   <input
@@ -1727,7 +1729,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     aria-label="Search"
                   >
                     <span className="rf-hero-search-text">Search</span>
-                    <Search size={16} className="rf-hero-search-icon-only" />
+                    <Search size={16} className="rf-hero-search-icon-only rf-search-icon-wiggle" />
                   </button>
                 </div>
               </form>

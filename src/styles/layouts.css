@@ -128,20 +128,21 @@ body {
 
 .rf-mobile-drawer {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(88vw, 380px);
+  inset: 0;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
   background: var(--rf-bg-card);
-  border-left: 1.5px solid var(--rf-bg-card-border);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+  border: none !important;
+  box-shadow: none !important;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 1.5rem 1.25rem 2.5rem;
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 1.25rem 1.25rem 3rem;
 }
 
 @keyframes slideInRight {
