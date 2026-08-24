@@ -94,36 +94,32 @@ body {
   opacity: 1;
 }
 
-/* Mobile Hamburger Toggle Button */
+/* Mobile Hamburger Toggle Button (No Overlay/Box) */
 .rf-mobile-menu-btn {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: var(--rf-radius-md);
-  background: var(--rf-bg-surface);
-  border: 1px solid var(--rf-bg-card-border);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--rf-radius-sm);
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   color: var(--rf-cream);
   cursor: pointer;
-  transition: all var(--rf-transition-fast);
+  padding: 0;
+  transition: color var(--rf-transition-fast);
 }
 
 .rf-mobile-menu-btn:hover {
-  border-color: var(--rf-leaf-green);
-  color: var(--rf-leaf-green);
+  background: transparent !important;
+  border: none !important;
+  color: var(--rf-leaf-green) !important;
 }
 
-/* Mobile Drawer Overlay */
+/* Mobile Drawer Overlay - Disabled */
 .rf-mobile-drawer-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 999;
-  animation: fadeIn 0.2s ease-out;
+  display: none !important;
 }
 
 .rf-mobile-drawer {

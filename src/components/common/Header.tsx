@@ -3006,22 +3006,16 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
       </header>
 
       {/* =========================================================================
-          MOBILE SLIDE-OUT NAVIGATION DRAWER
+          MOBILE SLIDE-OUT NAVIGATION DRAWER (NO OVERLAY, FULL VIEWPORT)
           ========================================================================= */}
       {showMobileDrawer && (
-        <>
-          <div
-            className="rf-mobile-drawer-backdrop"
-            style={{ display: 'block' }}
-            onClick={() => setShowMobileDrawer(false)}
-          />
-          <aside
-            className="rf-mobile-drawer"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile Navigation"
-          >
-            {/* Header with Logo and Close button */}
+        <aside
+          className="rf-mobile-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile Navigation"
+        >
+          {/* Header with Logo and Close button */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', paddingBottom: '0.875rem', borderBottom: `1px solid ${navBorderDivider}` }}>
               <div onClick={() => { setShowMobileDrawer(false); onNavigate('/'); }} style={{ cursor: 'pointer' }}>
                 <RefeirLogo size="sm" isLight={isDarkTheme} showTagline={false} />
@@ -3202,7 +3196,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
               </span>
             </div>
           </aside>
-        </>
       )}
 
       {/* =========================================================================
