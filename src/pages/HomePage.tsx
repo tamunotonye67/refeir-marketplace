@@ -1462,6 +1462,75 @@ export const HomePage: React.FC<HomePageProps> = ({
         )}
       </div>
 
+      {/* 0. SCOUT REFERRAL ANNOUNCEMENT BANNER — STICKY THROUGHOUT PAGE SCROLL */}
+      <div
+        className={`rf-hero-announcement ${isScrolled ? 'is-scrolled' : ''}`}
+        style={{
+          background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderBottom: '1px solid rgba(18, 43, 26, 0.12)',
+          padding: '1rem 1.75rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '1.25rem',
+          boxShadow: '0 4px 20px rgba(18, 43, 26, 0.05)',
+          flexWrap: 'wrap',
+          position: 'sticky',
+          top: 'var(--rf-header-height, 64px)',
+          zIndex: 95
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, minWidth: '240px' }}>
+          <span
+            className="rf-hero-announcement-text"
+            style={{
+              fontFamily: 'var(--rf-font-display)',
+              fontSize: 'clamp(1.15rem, 2vw, 1.4rem)',
+              fontWeight: 600,
+              color: '#122B1A',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.35
+            }}
+          >
+            You don't need a skill to earn. Get from <span style={{ color: '#2E7D32', fontWeight: 700, textDecoration: 'underline', textDecorationColor: '#66BB2A' }}>10%</span> just by Scouting Talents.
+          </span>
+        </div>
+
+        <button
+          onClick={() => onNavigate('/dashboard/scout')}
+          className="rf-hero-announcement-btn"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.45rem',
+            color: '#122B1A',
+            background: 'transparent',
+            border: 'none',
+            borderBottom: '2px solid #66BB2A',
+            padding: '0.25rem 0',
+            paddingBottom: '2px',
+            fontSize: '1rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = '#66BB2A';
+            e.currentTarget.style.transform = 'translateX(2px)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = '#122B1A';
+            e.currentTarget.style.transform = 'translateX(0)';
+          }}
+        >
+          <span>Start Scouting</span>
+          <ArrowRight size={16} color="#66BB2A" />
+        </button>
+      </div>
+
       {/* 1. HERO SECTION — VIDEO IN A ROUNDED CONTAINER ON WHITE BACKGROUND */}
       <section
         ref={heroSectionRef}
@@ -1476,74 +1545,6 @@ export const HomePage: React.FC<HomePageProps> = ({
           className="rf-container rf-hero-container"
           style={{ maxWidth: '1200px' }}
         >
-          {/* Scout Referral Announcement Banner — Transparent White Blend */}
-          <div
-            className={`rf-hero-announcement ${isScrolled ? 'is-scrolled' : ''}`}
-            style={{
-              background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(18, 43, 26, 0.12)',
-              borderRadius: '16px',
-              padding: '1rem 1.75rem',
-              marginBottom: '1rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1.25rem',
-              boxShadow: '0 4px 20px rgba(18, 43, 26, 0.05)',
-              flexWrap: 'wrap'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, minWidth: '280px' }}>
-              <span
-                className="rf-hero-announcement-text"
-                style={{
-                  fontFamily: 'var(--rf-font-display)',
-                  fontSize: 'clamp(1.15rem, 2vw, 1.4rem)',
-                  fontWeight: 600,
-                  color: '#122B1A',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.35
-                }}
-              >
-                You don't need a skill to earn. Get from <span style={{ color: '#2E7D32', fontWeight: 700, textDecoration: 'underline', textDecorationColor: '#66BB2A' }}>10%</span> just by Scouting Talents.
-              </span>
-            </div>
-
-            <button
-              onClick={() => onNavigate('/dashboard/scout')}
-              className="rf-hero-announcement-btn"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.45rem',
-                color: '#122B1A',
-                background: 'transparent',
-                border: 'none',
-                borderBottom: '2px solid #66BB2A',
-                padding: '0.25rem 0',
-                paddingBottom: '2px',
-                fontSize: '1rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.15s ease'
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = '#66BB2A';
-                e.currentTarget.style.transform = 'translateX(2px)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = '#122B1A';
-                e.currentTarget.style.transform = 'translateX(0)';
-              }}
-            >
-              <span>Start Scouting</span>
-              <ArrowRight size={16} color="#66BB2A" />
-            </button>
-          </div>
-
           {/* Rounded Video Card */}
           <div
             className="rf-hero-video-card"
@@ -1651,14 +1652,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                     userSelect: 'none'
                   }}
                 >
-                  <span style={{ display: 'block' }}>Refer a talent and</span>
-                  <span style={{ display: 'block' }}>earn from the connect</span>
+                  Scale faster with verified African freelance talent.
                 </h1>
 
-                {/* Animated Visible Headline */}
+                {/* Animated Growing Headline Transition */}
                 <h1
-                  key={headlineIndex}
-                  className={`rf-headline-${headlineStatus}`}
                   style={{
                     gridArea: '1 / 1',
                     fontFamily: 'var(--rf-font-display)',
@@ -1668,10 +1666,29 @@ export const HomePage: React.FC<HomePageProps> = ({
                     color: '#FFFFFF',
                     margin: 0,
                     paddingBottom: '0.4rem',
-                    textShadow: '0 4px 24px rgba(0,0,0,0.55)'
+                    letterSpacing: '-0.025em',
+                    textShadow: '0 2px 14px rgba(0, 0, 0, 0.7)',
+                    opacity: isHeroHeadlineExiting ? 0 : 1,
+                    transform: isHeroHeadlineExiting ? 'scale(0.96) translateY(-6px)' : 'scale(1) translateY(0)',
+                    transition: 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                 >
-                  {HERO_HEADLINES[headlineIndex]}
+                  {HERO_HEADLINE_ROTATIONS[heroHeadlineIndex].prefix}{' '}
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      background: 'linear-gradient(135deg, #66BB2A 0%, #A3E635 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      fontWeight: 700,
+                      textShadow: 'none',
+                      transform: isHeroHeadlineExiting ? 'scale(0.92)' : 'scale(1.04)',
+                      transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                    }}
+                  >
+                    {HERO_HEADLINE_ROTATIONS[heroHeadlineIndex].highlight}
+                  </span>{' '}
+                  {HERO_HEADLINE_ROTATIONS[heroHeadlineIndex].suffix}
                 </h1>
               </div>
 
@@ -1729,23 +1746,25 @@ export const HomePage: React.FC<HomePageProps> = ({
                     aria-label="Search"
                   >
                     <span className="rf-hero-search-text">Search</span>
-                    <Search size={16} className="rf-hero-search-icon-only rf-search-icon-wiggle" />
+                    <Search size={16} color="#0F2E1E" className="rf-hero-search-icon-only rf-search-icon-wiggle" />
                   </button>
                 </div>
               </form>
 
               {/* CTA Buttons */}
-              <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.875rem', marginBottom: '2rem' }}>
+              <div className="rf-hero-cta-group" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.875rem', marginBottom: '2rem' }}>
                 <button
                   onClick={() => onNavigate('/marketplace')}
-                  className="rf-btn rf-btn-primary rf-btn-lg"
+                  className="rf-btn rf-btn-primary rf-btn-lg rf-hero-cta-btn"
                   style={{ gap: '0.5rem', boxShadow: '0 4px 20px rgba(102,187,42,0.45)' }}
                 >
-                  <span>Browse African Talent</span>
+                  <span className="rf-desktop-only">Browse African Talent</span>
+                  <span className="rf-mobile-only">Browse Talent</span>
                   <ArrowRight size={16} />
                 </button>
                 <button
                   onClick={() => onNavigate('/dashboard/scout')}
+                  className="rf-hero-cta-btn rf-hero-cta-secondary"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -1761,7 +1780,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                     cursor: 'pointer'
                   }}
                 >
-                  <span>Start Referring & Earn</span>
+                  <span className="rf-desktop-only">Start Referring & Earn</span>
+                  <span className="rf-mobile-only">Refer & Earn</span>
                 </button>
               </div>
 

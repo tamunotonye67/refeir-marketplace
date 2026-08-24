@@ -2318,7 +2318,23 @@
   display: inline;
 }
 
+.rf-mobile-only {
+  display: none;
+}
+
+.rf-desktop-only {
+  display: inline;
+}
+
 @media (max-width: 768px) {
+  .rf-desktop-only {
+    display: none !important;
+  }
+
+  .rf-mobile-only {
+    display: inline !important;
+  }
+
   .rf-scout-sourcing-grid,
   .rf-ai-wizard-grid {
     grid-template-columns: 1fr !important;
@@ -2388,7 +2404,7 @@
     width: 100% !important;
   }
 
-  /* Announcement Banner: Default standard size at top of mobile screen — STICKY under mobile navbar */
+  /* Announcement Banner: Default standard size at top of mobile screen — STICKY throughout page scroll */
   .rf-hero-announcement {
     position: sticky !important;
     top: var(--rf-header-height, 64px) !important;
@@ -2405,7 +2421,7 @@
   }
 
   .rf-hero-announcement-text {
-    font-size: 1.05rem !important;
+    font-size: 1.02rem !important;
     line-height: 1.35 !important;
   }
 
@@ -2413,19 +2429,24 @@
     font-size: 0.925rem !important;
   }
 
-  /* Announcement Banner: Shrinks immediately to a tight sticky div on scroll */
+  /* Announcement Banner: Shrinks immediately to a tight sticky div with Start Scouting close to text */
   .rf-hero-announcement.is-scrolled {
     padding: 0.35rem 0.85rem !important;
+    gap: 0.2rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
   }
 
   .rf-hero-announcement.is-scrolled .rf-hero-announcement-text {
-    font-size: 0.78rem !important;
+    font-size: 0.76rem !important;
     line-height: 1.2 !important;
   }
 
   .rf-hero-announcement.is-scrolled .rf-hero-announcement-btn {
-    font-size: 0.74rem !important;
-    padding: 0.1rem 0 !important;
+    font-size: 0.72rem !important;
+    padding: 0 !important;
+    margin-top: 0.05rem !important;
+    line-height: 1.1 !important;
   }
 
   /* 1. Hide sticky skills/talents bar on mobile — only appears for other screen sizes */
@@ -2450,13 +2471,18 @@
     display: none !important;
   }
 
-  /* Search button on mobile becomes compact animated search icon button */
+  /* Search button on mobile becomes compact animated search icon button with dark green icon */
   .rf-hero-search-text {
     display: none !important;
   }
 
   .rf-hero-search-icon-only {
     display: inline-flex !important;
+    color: #0A1E14 !important;
+  }
+
+  .rf-hero-search-icon-only svg {
+    stroke: #0A1E14 !important;
   }
 
   .rf-hero-search-submit-btn {
@@ -2468,7 +2494,36 @@
     justify-content: center !important;
     border-radius: 10px !important;
   }
+
+  /* Hero CTA buttons side-by-side on the same line on mobile */
+  .rf-hero-cta-group {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .rf-hero-cta-btn {
+    flex: 1 1 50% !important;
+    min-width: 0 !important;
+    padding: 0.75rem 0.35rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 700 !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    border-radius: 12px !important;
+    gap: 0.35rem !important;
+  }
+
+  .rf-hero-cta-secondary {
+    font-size: 0.8125rem !important;
+    padding: 0.75rem 0.35rem !important;
+  }
 }
+
 
 
 
