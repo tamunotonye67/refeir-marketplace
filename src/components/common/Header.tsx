@@ -2495,9 +2495,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
               </div>
             )}
 
-            {/* Theme Toggle Button (Light / Dark Mode) */}
+            {/* Theme Toggle Button (Light / Dark Mode) — Hidden on mobile because it is inside hamburger drawer */}
             <button
               onClick={toggleTheme}
+              className="rf-header-theme-btn"
               aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               style={{
@@ -2538,6 +2539,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                     setShowUserMenu(!showUserMenu);
                     setShowNotificationBox(false);
                   }}
+                  className="rf-header-user-btn"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -2560,9 +2562,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                   <img
                     src={currentUser.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
                     alt={currentUser.first_name}
+                    className="rf-header-avatar"
                     style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }}
                   />
-                  <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
+                  <div className="rf-header-user-info" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontSize: '0.8125rem', fontWeight: 700, lineHeight: 1.1 }}>
                       {currentUser.first_name}
                     </span>
@@ -2570,7 +2573,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                       {currentUser.active_role}
                     </span>
                   </div>
-                  <ChevronDown size={14} color={textMuted} />
+                  <ChevronDown className="rf-header-user-chevron" size={14} color={textMuted} />
                 </button>
 
                 {/* User Dropdown Menu */}

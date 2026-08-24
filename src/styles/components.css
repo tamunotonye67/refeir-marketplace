@@ -2324,7 +2324,84 @@
     bottom: 4% !important;
     right: 4% !important;
   }
+
+  /* 1. Hide theme toggle icon on mobile navbar */
+  .rf-header-theme-btn {
+    display: none !important;
+  }
+
+  /* 2. User profile shows only avatar on mobile navbar */
+  .rf-header-user-info,
+  .rf-header-user-chevron {
+    display: none !important;
+  }
+
+  .rf-header-user-btn {
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    border-radius: 50% !important;
+  }
+
+  .rf-header-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    border: 2px solid var(--rf-leaf-green) !important;
+  }
+
+  /* 3. Refeir Logo reduced to standard mobile sizing */
+  .rf-header .refeir-logo-container img {
+    height: 22px !important;
+    max-height: 22px !important;
+    width: auto !important;
+  }
+
+  /* 4 & 5. Hero Section full-width video and flush announcement on mobile */
+  .rf-hero-section {
+    padding: 0 !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .rf-hero-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .rf-hero-announcement {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--rf-bg-card-border) !important;
+    margin-bottom: 0 !important;
+    padding: 0.65rem 1rem !important;
+    box-shadow: none !important;
+    width: 100% !important;
+  }
+
+  .rf-hero-announcement-text {
+    font-size: 0.85rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .rf-hero-announcement-btn {
+    font-size: 0.8rem !important;
+  }
+
+  .rf-hero-video-card {
+    border-radius: 0 !important;
+    width: 100% !important;
+    min-height: 520px !important;
+    box-shadow: none !important;
+  }
+
+  .rf-hero-video-content {
+    padding: 2rem 1rem 2.75rem 1rem !important;
+  }
 }
+
 
 
 

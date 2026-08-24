@@ -1459,6 +1459,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 1. HERO SECTION — VIDEO IN A ROUNDED CONTAINER ON WHITE BACKGROUND */}
       <section
         ref={heroSectionRef}
+        className="rf-hero-section"
         style={{
           background: 'var(--rf-bg-base)',
           padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem)',
@@ -1466,11 +1467,12 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       >
         <div
-          className="rf-container"
+          className="rf-container rf-hero-container"
           style={{ maxWidth: '1200px' }}
         >
           {/* Scout Referral Announcement Banner — Transparent White Blend */}
           <div
+            className="rf-hero-announcement"
             style={{
               background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)',
               backdropFilter: 'blur(16px)',
@@ -1489,6 +1491,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, minWidth: '280px' }}>
               <span
+                className="rf-hero-announcement-text"
                 style={{
                   fontFamily: 'var(--rf-font-display)',
                   fontSize: 'clamp(1.15rem, 2vw, 1.4rem)',
@@ -1504,6 +1507,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             <button
               onClick={() => onNavigate('/dashboard/scout')}
+              className="rf-hero-announcement-btn"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -1536,6 +1540,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* Rounded Video Card */}
           <div
+            className="rf-hero-video-card"
             style={{
               position: 'relative',
               borderRadius: '28px',
@@ -1580,6 +1585,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             {/* Hero text content — top left of the video */}
             <div
+              className="rf-hero-video-content"
               style={{
                 position: 'relative',
                 zIndex: 2,
