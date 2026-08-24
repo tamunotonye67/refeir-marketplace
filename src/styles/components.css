@@ -2160,3 +2160,122 @@
   }
 }
 
+/* ==========================================================================
+   FOOTER MOBILE ACCORDION STYLES
+   ========================================================================== */
+
+.rf-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.rf-footer-brand-col {
+  grid-column: span 2;
+}
+
+.rf-footer-accordion-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.rf-footer-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  cursor: default;
+}
+
+.rf-footer-heading {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--rf-cream);
+  margin: 0;
+}
+
+.rf-footer-chevron {
+  display: none;
+  color: var(--rf-slate-400);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.15s ease;
+}
+
+.rf-footer-chevron.open {
+  transform: rotate(180deg);
+  color: var(--rf-leaf-green);
+}
+
+.rf-footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+@media (max-width: 768px) {
+  .rf-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .rf-footer-brand-col {
+    grid-column: 1 / -1 !important;
+    margin-bottom: 0.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rf-bg-card-border);
+  }
+
+  .rf-footer-accordion-item {
+    border-bottom: 1px solid var(--rf-bg-card-border);
+    padding: 0.25rem 0;
+  }
+
+  .rf-footer-section-header {
+    cursor: pointer;
+    padding: 0.875rem 0;
+    margin-bottom: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .rf-footer-section-header:active {
+    opacity: 0.8;
+  }
+
+  .rf-footer-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rf-footer-content {
+    display: none;
+    padding-bottom: 1.25rem;
+    padding-top: 0.25rem;
+    animation: rfFadeSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rf-footer-content.open {
+    display: flex;
+  }
+}
+
+@keyframes rfFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+

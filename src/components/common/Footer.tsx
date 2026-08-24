@@ -3,7 +3,7 @@ import { REGIONS } from '../../data/countries';
 import { RefeirLogo } from './RefeirLogo';
 import { RefeirProModal } from './RefeirProModal';
 import { useTheme } from '../../context/ThemeContext';
-import { Shield, Sparkles, CheckCircle2, Globe, Heart, Smartphone, X, Zap, BellRing, Lock, CheckCircle, ArrowRight, Download, Loader2 } from 'lucide-react';
+import { Shield, Sparkles, CheckCircle2, Globe, Heart, Smartphone, X, Zap, BellRing, Lock, CheckCircle, ArrowRight, Download, Loader2, ChevronDown } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface FooterProps {
@@ -28,6 +28,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
   const [apkDownloading, setApkDownloading] = useState(false);
   const [apkDownloaded, setApkDownloaded] = useState(false);
+
+  // Mobile Footer Collapsible Accordion States
+  const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({
+    regions: false,
+    resources: false,
+    discovery: false,
+    trust: false
+  });
+
+  const toggleMobileSection = (key: string) => {
+    setOpenMobileSections(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
 
   const handleWaitlistSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,9 +75,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer style={{ backgroundColor: 'var(--rf-bg-deep)', borderTop: '1px solid var(--rf-bg-card-border)', marginTop: 'auto', overflow: 'hidden', position: 'relative' }}>
       <div className="rf-container" style={{ paddingTop: '4rem', paddingBottom: '3rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2.5rem', marginBottom: '3.5rem' }}>
+        <div className="rf-footer-grid">
           {/* Col 1: Brand & Ethos */}
-          <div style={{ gridColumn: 'span 2' }}>
+          <div className="rf-footer-brand-col">
             <div style={{ marginBottom: '1.25rem' }}>
               <RefeirLogo size="md" showTagline={true} />
             </div>
@@ -79,28 +94,47 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Col 2: Regional Marketplaces & Resources */}
           <div>
-            <h4 style={{ fontSize: '0.875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--rf-cream)', marginBottom: '1rem' }}>
-              African Regions
-            </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-              {REGIONS.map(reg => (
-                <button
-                  key={reg}
-                  onClick={() => onNavigate(`/africa/${reg.toLowerCase().replace(' ', '-')}`)}
-                  style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)', transition: 'color 0.15s' }}
-                  className="rf-btn-ghost"
-                >
-                  {reg}
-                </button>
-              ))}
+            {/* African Regions Accordion */}
+            <div className="rf-footer-accordion-item">
+              <button
+                type="button"
+                className="rf-footer-section-header"
+                onClick={() => toggleMobileSection('regions')}
+                aria-expanded={openMobileSections.regions}
+              >
+                <h4 className="rf-footer-heading">African Regions</h4>
+                <div className={`rf-footer-chevron ${openMobileSections.regions ? 'open' : ''}`}>
+                  <ChevronDown size={18} />
+                </div>
+              </button>
+              <div className={`rf-footer-content ${openMobileSections.regions ? 'open' : ''}`}>
+                {REGIONS.map(reg => (
+                  <button
+                    key={reg}
+                    onClick={() => onNavigate(`/africa/${reg.toLowerCase().replace(' ', '-')}`)}
+                    style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)', transition: 'color 0.15s' }}
+                    className="rf-btn-ghost"
+                  >
+                    {reg}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* Resources (beneath African Regions) */}
-            <div style={{ marginTop: '2.25rem' }}>
-              <h4 style={{ fontSize: '0.875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--rf-cream)', marginBottom: '1rem' }}>
-                Resources
-              </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+            {/* Resources Accordion */}
+            <div className="rf-footer-accordion-item rf-footer-res-wrapper" style={{ marginTop: '2.25rem' }}>
+              <button
+                type="button"
+                className="rf-footer-section-header"
+                onClick={() => toggleMobileSection('resources')}
+                aria-expanded={openMobileSections.resources}
+              >
+                <h4 className="rf-footer-heading">Resources</h4>
+                <div className={`rf-footer-chevron ${openMobileSections.resources ? 'open' : ''}`}>
+                  <ChevronDown size={18} />
+                </div>
+              </button>
+              <div className={`rf-footer-content ${openMobileSections.resources ? 'open' : ''}`}>
                 <button onClick={() => onNavigate('/help')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Help and Support
                 </button>
@@ -135,12 +169,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* Col 3: Platform & Discovery */}
-          <div>
-            <h4 style={{ fontSize: '0.875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--rf-cream)', marginBottom: '1rem' }}>
-              Discovery
-            </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+          {/* Col 3: Discovery Accordion */}
+          <div className="rf-footer-accordion-item">
+            <button
+              type="button"
+              className="rf-footer-section-header"
+              onClick={() => toggleMobileSection('discovery')}
+              aria-expanded={openMobileSections.discovery}
+            >
+              <h4 className="rf-footer-heading">Discovery</h4>
+              <div className={`rf-footer-chevron ${openMobileSections.discovery ? 'open' : ''}`}>
+                <ChevronDown size={18} />
+              </div>
+            </button>
+            <div className={`rf-footer-content ${openMobileSections.discovery ? 'open' : ''}`}>
               <button onClick={() => onNavigate('/marketplace')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Talent Marketplace
               </button>
@@ -201,12 +243,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* Col 4: Trust & Compliance */}
-          <div>
-            <h4 style={{ fontSize: '0.875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--rf-cream)', marginBottom: '1rem' }}>
-              Trust & Legal
-            </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+          {/* Col 4: Trust & Legal Accordion */}
+          <div className="rf-footer-accordion-item">
+            <button
+              type="button"
+              className="rf-footer-section-header"
+              onClick={() => toggleMobileSection('trust')}
+              aria-expanded={openMobileSections.trust}
+            >
+              <h4 className="rf-footer-heading">Trust & Legal</h4>
+              <div className={`rf-footer-chevron ${openMobileSections.trust ? 'open' : ''}`}>
+                <ChevronDown size={18} />
+              </div>
+            </button>
+            <div className={`rf-footer-content ${openMobileSections.trust ? 'open' : ''}`}>
               <button onClick={() => onNavigate('/trust')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Trust & Security
               </button>
