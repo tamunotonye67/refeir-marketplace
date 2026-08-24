@@ -2278,4 +2278,53 @@
   }
 }
 
+/* ==========================================================================
+   SCOUT SOURCING & AI WIZARD MOBILE SECTION ORDERING
+   ========================================================================== */
+
+.rf-scout-sourcing-grid,
+.rf-ai-wizard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.rf-scout-sourcing-text,
+.rf-ai-wizard-text {
+  order: 1;
+}
+
+.rf-scout-sourcing-visual,
+.rf-ai-wizard-visual {
+  order: 2;
+}
+
+@media (max-width: 768px) {
+  .rf-scout-sourcing-grid,
+  .rf-ai-wizard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+  }
+
+  .rf-scout-sourcing-visual,
+  .rf-ai-wizard-visual {
+    order: 1 !important;
+    margin-bottom: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .rf-scout-sourcing-text,
+  .rf-ai-wizard-text {
+    order: 2 !important;
+    width: 100% !important;
+  }
+
+  .rf-scout-pointer-tooltip {
+    bottom: 4% !important;
+    right: 4% !important;
+  }
+}
+
+
 

@@ -1938,6 +1938,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
         <div className="rf-container" style={{ maxWidth: '1200px' }}>
           <div
+            className="rf-scout-sourcing-grid"
             style={{
               background: 'linear-gradient(135deg, #0F2E1E 0%, #0A1E14 55%, #122B1A 100%)',
               border: '1px solid rgba(102, 187, 42, 0.25)',
@@ -1945,11 +1946,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.75rem, 4vw, 3.5rem)',
               boxShadow: '0 24px 60px -12px rgba(10, 23, 15, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)',
               position: 'relative',
-              overflow: 'hidden',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '3.5rem',
-              alignItems: 'center'
+              overflow: 'hidden'
             }}
           >
             {/* Ambient Background Glow */}
@@ -1967,7 +1964,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             />
 
             {/* Left Content */}
-            <div style={{ position: 'relative', zIndex: 2 }}>
+            <div className="rf-scout-sourcing-text" style={{ position: 'relative', zIndex: 2 }}>
               {/* Official Refeir Logo & Label */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
                 <RefeirLogo size="lg" isLight={true} showTagline={false} />
@@ -2059,6 +2056,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             {/* Right Visual — Stacked Profile Pictures with Big Mouse Pointer */}
             <div
+              className="rf-scout-sourcing-visual"
               style={{
                 position: 'relative',
                 display: 'flex',
@@ -2215,6 +2213,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Big Mouse Pointer SVG pointing at Scout Card */}
               <div
+                className="rf-scout-pointer-tooltip"
                 style={{
                   position: 'absolute',
                   bottom: '12%',
@@ -2276,6 +2275,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
         <div className="rf-container" style={{ maxWidth: '1200px' }}>
           <div
+            className="rf-ai-wizard-grid"
             style={{
               background: 'rgba(0, 0, 0, 0.90)',
               border: '1px solid rgba(255, 255, 255, 0.12)',
@@ -2283,11 +2283,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.75rem, 4vw, 3.5rem)',
               boxShadow: '0 24px 60px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.06)',
               position: 'relative',
-              overflow: 'hidden',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '3.5rem',
-              alignItems: 'center'
+              overflow: 'hidden'
             }}
           >
             {/* Ambient Background Glow Effect */}
@@ -2317,7 +2313,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             />
 
             {/* Left Content Area */}
-            <div style={{ position: 'relative', zIndex: 2 }}>
+            <div className="rf-ai-wizard-text" style={{ position: 'relative', zIndex: 2 }}>
               {/* Pre-header */}
               <div style={{ marginBottom: '1rem' }}>
                 <span
@@ -2454,6 +2450,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             {/* Right: Stack of Moving Portrait Photos (1 Grown in Front, Previous & Next Sits Right Behind) */}
             <div
+              className="rf-ai-wizard-visual"
               onMouseEnter={() => setIsHoveredWizard(true)}
               onMouseLeave={() => setIsHoveredWizard(false)}
               style={{
