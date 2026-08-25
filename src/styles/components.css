@@ -2307,7 +2307,7 @@
   z-index: 1;
   max-width: 1200px;
   width: calc(100% - 2rem);
-  margin: 1.5rem auto 0.5rem auto;
+  margin: 0 auto;
   border-radius: 16px;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%);
   backdrop-filter: blur(16px);
@@ -2471,6 +2471,8 @@
     border-right: none !important;
     border-top: none !important;
     border-bottom: 1px solid var(--rf-bg-card-border) !important;
+    margin: 0 !important;
+    margin-top: 0 !important;
     margin-bottom: 0 !important;
     padding: 0.85rem 1rem !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
