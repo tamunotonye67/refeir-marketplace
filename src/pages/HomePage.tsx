@@ -2398,7 +2398,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </p>
 
               {/* Action Button & Stack Navigation */}
-              <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+              <div className="rf-ai-wizard-actions" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
                 <button
                   onClick={() => onNavigate(WIZARD_CARDS[activeWizardCardIndex].ctaQuery)}
                   className="rf-btn rf-btn-primary rf-btn-lg rf-ai-wizard-btn"
@@ -2421,7 +2421,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </button>
 
                 {/* Previous / Next Stack Nav Controls */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div className="rf-ai-wizard-nav" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <button
                     onClick={() => setActiveWizardCardIndex((prev) => (prev === 0 ? WIZARD_CARDS.length - 1 : prev - 1))}
                     aria-label="Previous Card"

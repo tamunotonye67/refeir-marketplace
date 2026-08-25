@@ -2957,9 +2957,9 @@
     height: 13px !important;
   }
 
-  /* AI Wizard Section Typography on Mobile */
+  /* AI Wizard Section Typography & Controls on Mobile */
   .rf-ai-wizard-title {
-    font-size: 1.45rem !important;
+    font-size: 1.68rem !important;
     line-height: 1.25 !important;
     margin-bottom: 0.85rem !important;
     min-height: auto !important;
@@ -2969,15 +2969,56 @@
   .rf-ai-wizard-desc {
     font-size: 0.85rem !important;
     line-height: 1.45 !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1.25rem !important;
     min-height: auto !important;
   }
 
-  .rf-ai-wizard-btn {
-    font-size: 0.875rem !important;
-    padding: 0.75rem 1.25rem !important;
+  .rf-ai-wizard-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 0.55rem !important;
     width: 100% !important;
+  }
+
+  .rf-ai-wizard-btn {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    font-size: 0.82rem !important;
+    padding: 0.65rem 0.85rem !important;
+    gap: 0.35rem !important;
     justify-content: center !important;
+  }
+
+  .rf-ai-wizard-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .rf-ai-wizard-nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .rf-ai-wizard-nav button {
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .rf-ai-wizard-nav button svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .rf-ai-wizard-nav span {
+    font-size: 0.72rem !important;
+    padding: 0 0.2rem !important;
   }
 }
 
