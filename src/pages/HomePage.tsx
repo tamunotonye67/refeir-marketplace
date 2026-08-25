@@ -1470,66 +1470,13 @@ export const HomePage: React.FC<HomePageProps> = ({
         )}
       </div>
 
-      {/* 0. SCOUT REFERRAL ANNOUNCEMENT BANNER */}
-      <div
-        className={`rf-hero-announcement ${isScrolled ? 'is-scrolled' : ''}`}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, minWidth: '280px' }}>
-          <span
-            className="rf-hero-announcement-text"
-            style={{
-              fontFamily: 'var(--rf-font-display)',
-              fontSize: 'clamp(1.15rem, 2vw, 1.4rem)',
-              fontWeight: 600,
-              color: '#122B1A',
-              letterSpacing: '-0.02em',
-              lineHeight: 1.35
-            }}
-          >
-            You don't need a skill to earn. Get from <span style={{ color: '#2E7D32', fontWeight: 700, textDecoration: 'underline', textDecorationColor: '#66BB2A' }}>10%</span> just by Scouting Talents.
-          </span>
-        </div>
-
-        <button
-          onClick={() => onNavigate('/dashboard/scout')}
-          className="rf-hero-announcement-btn"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.45rem',
-            color: '#122B1A',
-            background: 'transparent',
-            border: 'none',
-            borderBottom: '2px solid #66BB2A',
-            padding: '0.25rem 0',
-            paddingBottom: '2px',
-            fontSize: '1rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-            whiteSpace: 'nowrap',
-            transition: 'all 0.15s ease'
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.color = '#66BB2A';
-            e.currentTarget.style.transform = 'translateX(2px)';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.color = '#122B1A';
-            e.currentTarget.style.transform = 'translateX(0)';
-          }}
-        >
-          <span>Start Scouting</span>
-          <ArrowRight size={16} color="#66BB2A" />
-        </button>
-      </div>
-
       {/* 1. HERO SECTION — VIDEO IN A ROUNDED CONTAINER ON WHITE BACKGROUND */}
       <section
         ref={heroSectionRef}
         className="rf-hero-section"
         style={{
           background: 'var(--rf-bg-base)',
-          padding: '1rem clamp(1rem, 3vw, 2rem)',
+          padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem)',
           paddingBottom: 'clamp(2.5rem, 5vw, 4rem)'
         }}
       >
@@ -1537,6 +1484,74 @@ export const HomePage: React.FC<HomePageProps> = ({
           className="rf-container rf-hero-container"
           style={{ maxWidth: '1200px' }}
         >
+          {/* Scout Referral Announcement Banner — Transparent White Blend */}
+          <div
+            className={`rf-hero-announcement ${isScrolled ? 'is-scrolled' : ''}`}
+            style={{
+              background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(18, 43, 26, 0.12)',
+              borderRadius: '16px',
+              padding: '1rem 1.75rem',
+              marginBottom: '1rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '1.25rem',
+              boxShadow: '0 4px 20px rgba(18, 43, 26, 0.05)',
+              flexWrap: 'wrap'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, minWidth: '280px' }}>
+              <span
+                className="rf-hero-announcement-text"
+                style={{
+                  fontFamily: 'var(--rf-font-display)',
+                  fontSize: 'clamp(1.15rem, 2vw, 1.4rem)',
+                  fontWeight: 600,
+                  color: '#122B1A',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.35
+                }}
+              >
+                You don't need a skill to earn. Get from <span style={{ color: '#2E7D32', fontWeight: 700, textDecoration: 'underline', textDecorationColor: '#66BB2A' }}>10%</span> just by Scouting Talents.
+              </span>
+            </div>
+
+            <button
+              onClick={() => onNavigate('/dashboard/scout')}
+              className="rf-hero-announcement-btn"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                color: '#122B1A',
+                background: 'transparent',
+                border: 'none',
+                borderBottom: '2px solid #66BB2A',
+                padding: '0.25rem 0',
+                paddingBottom: '2px',
+                fontSize: '1rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.15s ease'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = '#66BB2A';
+                e.currentTarget.style.transform = 'translateX(2px)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = '#122B1A';
+                e.currentTarget.style.transform = 'translateX(0)';
+              }}
+            >
+              <span>Start Scouting</span>
+              <ArrowRight size={16} color="#66BB2A" />
+            </button>
+          </div>
+
           {/* Rounded Video Card */}
           <div
             className="rf-hero-video-card"
