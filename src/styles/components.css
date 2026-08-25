@@ -2720,6 +2720,154 @@
   .rf-hero-trust-badge-item:last-child {
     justify-content: flex-start !important;
   }
+
+  /* Scout Amara Sourcing Card - Reduced proportionally for mobile viewports */
+  .rf-scout-sourcing-visual {
+    min-height: 290px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+
+  .rf-scout-back-card {
+    max-width: 270px !important;
+    width: 86% !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 16px !important;
+    transform: rotate(4deg) translateY(-16px) translateX(10px) !important;
+  }
+
+  .rf-scout-back-avatar {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .rf-scout-back-name {
+    font-size: 0.78rem !important;
+  }
+
+  .rf-scout-back-role {
+    font-size: 0.68rem !important;
+  }
+
+  .rf-scout-back-badge {
+    font-size: 0.65rem !important;
+    padding: 0.1rem 0.35rem !important;
+  }
+
+  .rf-scout-back-tags span {
+    font-size: 0.625rem !important;
+    padding: 0.1rem 0.35rem !important;
+  }
+
+  .rf-scout-amara-card {
+    max-width: 295px !important;
+    width: 90% !important;
+    padding: 1.1rem 1.15rem !important;
+    border-radius: 18px !important;
+    transform: rotate(-1deg) !important;
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .rf-scout-amara-avatar {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .rf-scout-amara-star {
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 0.55rem !important;
+  }
+
+  .rf-scout-amara-name {
+    font-size: 0.95rem !important;
+  }
+
+  .rf-scout-amara-badge {
+    font-size: 0.68rem !important;
+    padding: 0.1rem 0.4rem !important;
+  }
+
+  .rf-scout-amara-role {
+    font-size: 0.72rem !important;
+    margin: 0.1rem 0 0.25rem 0 !important;
+  }
+
+  .rf-scout-amara-rating {
+    font-size: 0.68rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .rf-scout-amara-dossier {
+    padding: 0.65rem 0.8rem !important;
+    margin-bottom: 0.75rem !important;
+    border-radius: 10px !important;
+  }
+
+  .rf-scout-amara-dossier span {
+    font-size: 0.65rem !important;
+  }
+
+  .rf-scout-amara-dossier p {
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .rf-scout-amara-footer {
+    padding-top: 0.65rem !important;
+    font-size: 0.68rem !important;
+  }
+
+  .rf-scout-pointer-tooltip {
+    bottom: -6px !important;
+    right: 4px !important;
+    gap: 0.35rem !important;
+  }
+
+  .rf-scout-pointer-svg {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .rf-scout-pointer-badge {
+    font-size: 0.7rem !important;
+    padding: 0.28rem 0.6rem !important;
+  }
+
+  /* Comparison Table on Mobile: Scaled down text, compact padding to fill nicely */
+  .rf-comparison-table {
+    font-size: 0.75rem !important;
+    min-width: 480px !important;
+    width: 100% !important;
+  }
+
+  .rf-comparison-table th,
+  .rf-comparison-table td {
+    padding: 0.75rem 0.6rem !important;
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .rf-comparison-table th:first-child,
+  .rf-comparison-table td:first-child {
+    width: 34% !important;
+    min-width: 120px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+  }
+
+  .rf-comparison-table th:not(:first-child),
+  .rf-comparison-table td:not(:first-child) {
+    width: 22% !important;
+    min-width: 88px !important;
+  }
+
+  .rf-comparison-table svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
 }
 
 

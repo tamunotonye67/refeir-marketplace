@@ -2099,6 +2099,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             >
               {/* Back Stacked Card: Shortlist & Candidate Match Report */}
               <div
+                className="rf-scout-back-card"
                 style={{
                   position: 'absolute',
                   width: '88%',
@@ -2120,18 +2121,19 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <img
                       src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
                       alt="Candidate Profile"
+                      className="rf-scout-back-avatar"
                       style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #66BB2A' }}
                     />
                     <div>
-                      <div style={{ fontSize: '0.875rem', fontWeight: 800 }}>Kofi Mensah 🇬🇭</div>
-                      <div style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>Lead Mobile Architect</div>
+                      <div className="rf-scout-back-name" style={{ fontSize: '0.875rem', fontWeight: 800 }}>Kofi Mensah 🇬🇭</div>
+                      <div className="rf-scout-back-role" style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>Lead Mobile Architect</div>
                     </div>
                   </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#66BB2A', background: 'rgba(102, 187, 42, 0.2)', padding: '0.2rem 0.5rem', borderRadius: '9999px' }}>
+                  <span className="rf-scout-back-badge" style={{ fontSize: '0.72rem', fontWeight: 800, color: '#66BB2A', background: 'rgba(102, 187, 42, 0.2)', padding: '0.2rem 0.5rem', borderRadius: '9999px' }}>
                     99% Match
                   </span>
                 </div>
-                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                <div className="rf-scout-back-tags" style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
                   <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>Flutter</span>
                   <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>React Native</span>
                   <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>FastAPI</span>
@@ -2140,6 +2142,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Front Stacked Card: Scout Profile */}
               <div
+                className="rf-scout-amara-card"
                 style={{
                   position: 'relative',
                   width: '92%',
@@ -2160,6 +2163,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <img
                       src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80"
                       alt="Scout Profile"
+                      className="rf-scout-amara-avatar"
                       style={{
                         width: '64px',
                         height: '64px',
@@ -2170,6 +2174,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       }}
                     />
                     <div
+                      className="rf-scout-amara-star"
                       style={{
                         position: 'absolute',
                         bottom: '-2px',
@@ -2190,17 +2195,17 @@ export const HomePage: React.FC<HomePageProps> = ({
                     </div>
                   </div>
 
-                  <div style={{ flex: 1 }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F2E1E' }}>Amara Okafor 🇳🇬</span>
-                      <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#2E7D32', background: 'rgba(102, 187, 42, 0.15)', padding: '0.15rem 0.5rem', borderRadius: '9999px' }}>
+                      <span className="rf-scout-amara-name" style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F2E1E' }}>Amara Okafor 🇳🇬</span>
+                      <span className="rf-scout-amara-badge" style={{ fontSize: '0.75rem', fontWeight: 800, color: '#2E7D32', background: 'rgba(102, 187, 42, 0.15)', padding: '0.15rem 0.5rem', borderRadius: '9999px' }}>
                         Top 1% Scout
                       </span>
                     </div>
-                    <p style={{ fontSize: '0.8rem', color: '#64748B', margin: '0.15rem 0 0.4rem 0', fontWeight: 500 }}>
+                    <p className="rf-scout-amara-role" style={{ fontSize: '0.8rem', color: '#64748B', margin: '0.15rem 0 0.4rem 0', fontWeight: 500 }}>
                       Senior Pan-African Tech Scout
                     </p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.75rem', color: '#166534', fontWeight: 700 }}>
+                    <div className="rf-scout-amara-rating" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.75rem', color: '#166534', fontWeight: 700 }}>
                       <span>⭐ 4.98 Rating</span>
                       <span>•</span>
                       <span>340+ Hires Recommended</span>
@@ -2210,6 +2215,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Sourcing Report Pill */}
                 <div
+                  className="rf-scout-amara-dossier"
                   style={{
                     background: '#F0FDF4',
                     border: '1px solid rgba(102, 187, 42, 0.25)',
@@ -2232,7 +2238,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </div>
 
                 {/* Scout Trust Stats */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(18, 43, 26, 0.08)', paddingTop: '0.85rem' }}>
+                <div className="rf-scout-amara-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(18, 43, 26, 0.08)', paddingTop: '0.85rem' }}>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
                     Reward: <strong style={{ color: '#0F2E1E' }}>10% Guaranteed</strong>
                   </div>
@@ -2265,6 +2271,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   height="48"
                   viewBox="0 0 32 32"
                   fill="none"
+                  className="rf-scout-pointer-svg"
                   style={{ transform: 'rotate(-25deg)', flexShrink: 0 }}
                 >
                   <path
@@ -2279,6 +2286,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Attached Interactive Tooltip */}
                 <div
+                  className="rf-scout-pointer-badge"
                   style={{
                     background: '#0F2E1E',
                     color: '#FFFFFF',
@@ -2966,9 +2974,9 @@ export const HomePage: React.FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div style={{ background: 'var(--rf-bg-card)', border: '1px solid var(--rf-bg-card-border)', borderRadius: 'var(--rf-radius-xl)', overflow: 'hidden', boxShadow: 'var(--rf-shadow-lg)' }}>
+          <div className="rf-comparison-table-wrapper" style={{ background: 'var(--rf-bg-card)', border: '1px solid var(--rf-bg-card-border)', borderRadius: 'var(--rf-radius-xl)', overflow: 'hidden', boxShadow: 'var(--rf-shadow-lg)' }}>
             <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
+              <table className="rf-comparison-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
                 <thead>
                   <tr style={{ background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid var(--rf-bg-card-border)' }}>
                     <th style={{ padding: '1.25rem 1.5rem', color: 'var(--rf-slate-300)', fontWeight: 700 }}>Feature / Capability</th>
