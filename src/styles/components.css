@@ -2300,8 +2300,14 @@
   order: 2;
 }
 
-/* Base Announcement Banner Transitions */
+/* Base Announcement Banner Transitions (Non-sticky on Laptop/Desktop) */
 .rf-hero-announcement {
+  position: relative;
+  top: auto;
+  z-index: 1;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 20px rgba(18, 43, 26, 0.05);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -2404,7 +2410,7 @@
     width: 100% !important;
   }
 
-  /* Announcement Banner: Default standard size at top of mobile screen — STICKY throughout page scroll */
+  /* Announcement Banner: Default standard size at top of mobile screen — STICKY only on mobile view */
   .rf-hero-announcement {
     position: sticky !important;
     top: var(--rf-header-height, 64px) !important;
@@ -2449,7 +2455,7 @@
     line-height: 1.1 !important;
   }
 
-  /* 1. Hide sticky skills/talents bar on mobile — only appears for other screen sizes */
+  /* Hide sticky skills/talents bar on mobile — only appears on laptop/desktop */
   .rf-sticky-skills-bar,
   .rf-skills-flyout-container {
     display: none !important;
@@ -2466,7 +2472,7 @@
     padding: 2rem 1rem 2.75rem 1rem !important;
   }
 
-  /* 3. Remove animated left search icon on mobile input */
+  /* Remove animated left search icon on mobile input */
   .rf-hero-search-left-icon {
     display: none !important;
   }
@@ -2523,7 +2529,7 @@
     padding: 0.75rem 0.35rem !important;
   }
 
-  /* Featured Talent Cards: Swipable horizontally on mobile from right to left */
+  /* Featured Talent Cards: Swipable horizontally on mobile from right to left with matching heights */
   .rf-featured-talent-slider {
     display: flex !important;
     flex-direction: row !important;
@@ -2538,6 +2544,7 @@
     margin-left: -1rem !important;
     margin-right: -1rem !important;
     width: calc(100% + 2rem) !important;
+    align-items: stretch !important;
   }
 
   .rf-featured-talent-slider::-webkit-scrollbar {
@@ -2552,8 +2559,20 @@
     min-width: 280px !important;
     scroll-snap-align: start !important;
     scroll-snap-stop: normal !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+  }
+
+  .rf-featured-talent-slider .rf-card {
+    height: 100% !important;
+    min-height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
 }
+
 
 
 
