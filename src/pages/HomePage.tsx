@@ -589,6 +589,16 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [showStickySkills, setShowStickySkills] = useState(false);
   const [activeSkillFlyout, setActiveSkillFlyout] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -2494,7 +2504,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               style={{
                 position: 'relative',
                 width: '100%',
-                minHeight: '380px',
+                minHeight: isMobile ? '260px' : '380px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -2517,44 +2527,54 @@ export const HomePage: React.FC<HomePageProps> = ({
                 const isFarPrev = offset === -2;
                 const isVisible = Math.abs(offset) <= 2;
 
+                const cardW = isMobile ? 124 : 185;
+                const cardH = isMobile ? 170 : 255;
+                const cardRadius = isMobile ? '16px' : '22px';
+
                 let translateX = 0;
                 let scale = 0.6;
                 let zIndex = 1;
                 let opacity = 0;
                 let rotateY = 0;
 
+                const centerScale = isMobile ? 1.08 : 1.15;
+                const nextTranslate = isMobile ? 85 : 135;
+                const nextScale = isMobile ? 0.80 : 0.86;
+                const farTranslate = isMobile ? 145 : 230;
+                const farScale = isMobile ? 0.62 : 0.70;
+
                 if (isCenter) {
                   translateX = 0;
-                  scale = 1.15;
+                  scale = centerScale;
                   zIndex = 10;
                   opacity = 1;
                   rotateY = 0;
                 } else if (isNext) {
-                  translateX = 135;
-                  scale = 0.86;
+                  translateX = nextTranslate;
+                  scale = nextScale;
                   zIndex = 5;
-                  opacity = 0.65;
+                  opacity = 0.68;
                   rotateY = -8;
                 } else if (isPrev) {
-                  translateX = -135;
-                  scale = 0.86;
+                  translateX = -nextTranslate;
+                  scale = nextScale;
                   zIndex = 5;
-                  opacity = 0.65;
+                  opacity = 0.68;
                   rotateY = 8;
                 } else if (isFarNext) {
-                  translateX = 230;
-                  scale = 0.70;
+                  translateX = farTranslate;
+                  scale = farScale;
                   zIndex = 2;
                   opacity = 0.25;
                   rotateY = -14;
                 } else if (isFarPrev) {
-                  translateX = -230;
-                  scale = 0.70;
+                  translateX = -farTranslate;
+                  scale = farScale;
                   zIndex = 2;
                   opacity = 0.25;
                   rotateY = 14;
                 } else {
-                  translateX = offset > 0 ? 320 : -320;
+                  translateX = offset > 0 ? (isMobile ? 190 : 320) : (isMobile ? -190 : -320);
                   scale = 0.5;
                   zIndex = 1;
                   opacity = 0;
@@ -2566,11 +2586,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                     onClick={() => setActiveWizardPortraitIndex(idx)}
                     style={{
                       position: 'absolute',
-                      width: '185px',
+                      width: `${cardW}px`,
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '0.85rem',
+                      gap: isMobile ? '0.5rem' : '0.85rem',
                       transform: `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`,
                       zIndex,
                       opacity: isVisible ? opacity : 0,
@@ -2582,9 +2602,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                     {/* Vertical Portrait Photo */}
                     <div
                       style={{
-                        width: '185px',
-                        height: '255px',
-                        borderRadius: '22px',
+                        width: `${cardW}px`,
+                        height: `${cardH}px`,
+                        borderRadius: cardRadius,
                         overflow: 'hidden',
                         position: 'relative',
                         border: isCenter 
@@ -2621,7 +2641,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     {/* ONLY Name Below Photo */}
                     <span
                       style={{
-                        fontSize: isCenter ? '0.95rem' : '0.82rem',
+                        fontSize: isCenter ? (isMobile ? '0.82rem' : '0.95rem') : (isMobile ? '0.72rem' : '0.82rem'),
                         fontWeight: isCenter ? 700 : 500,
                         color: isCenter ? '#FFFFFF' : 'rgba(255, 255, 255, 0.6)',
                         textAlign: 'center',
@@ -2644,21 +2664,20 @@ export const HomePage: React.FC<HomePageProps> = ({
                   bottom: '-15px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
+                  gap: '0.45rem',
                   zIndex: 20
                 }}
               >
                 {AI_WIZARDS_PORTRAITS.map((_, dotIdx) => {
-                  const isActive = activeWizardPortraitIndex === dotIdx;
+                  const isDotActive = dotIdx === activeWizardPortraitIndex;
                   return (
                     <button
                       key={dotIdx}
                       onClick={() => setActiveWizardPortraitIndex(dotIdx)}
-                      aria-label={`Jump to Wizard ${dotIdx + 1}`}
+                      aria-label={`Go to slide ${dotIdx + 1}`}
                       style={{
-                        width: isActive ? '20px' : '6px',
+                        width: isDotActive ? '20px' : '6px',
                         height: '6px',
-                        borderRadius: '9999px',
                         background: isActive ? '#66BB2A' : 'rgba(255, 255, 255, 0.25)',
                         border: 'none',
                         cursor: 'pointer',
@@ -2857,7 +2876,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
 
-          <div className="rf-grid-cards">
+          <div className="rf-grid-cards rf-featured-talent-slider">
             {talentList
               .filter(talent => talent.is_pro || talent.is_featured)
               .map(talent => (
