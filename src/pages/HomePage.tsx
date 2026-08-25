@@ -2015,6 +2015,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Headline */}
               <h2
+                className="rf-scout-sourcing-title"
                 style={{
                   fontFamily: 'var(--rf-font-sans)',
                   fontSize: 'clamp(2.1rem, 4.4vw, 2.9rem)',
@@ -2029,12 +2030,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               </h2>
 
               {/* 3 Bullet Points */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem', marginBottom: '2.25rem' }}>
+              <div className="rf-scout-sourcing-bullets" style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem', marginBottom: '2.25rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
                   <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
                     <Check size={14} color="#66BB2A" strokeWidth={3} />
                   </div>
-                  <span style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
+                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
                     Work with scouts who reconnoiter our marketplace, source, and recommend talents for you
                   </span>
                 </div>
@@ -2043,7 +2044,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
                     <Check size={14} color="#66BB2A" strokeWidth={3} />
                   </div>
-                  <span style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
+                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
                     Get a report with clear recommendations
                   </span>
                 </div>
@@ -2052,7 +2053,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
                     <Check size={14} color="#66BB2A" strokeWidth={3} />
                   </div>
-                  <span style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
+                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
                     Recruit recommended freelance talent with confidence
                   </span>
                 </div>
@@ -2062,7 +2063,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
                 <button
                   onClick={() => onNavigate('/dashboard/scout')}
-                  className="rf-btn rf-btn-primary rf-btn-lg"
+                  className="rf-btn rf-btn-primary rf-btn-lg rf-scout-sourcing-btn"
                   style={{
                     gap: '0.625rem',
                     padding: '0.95rem 2rem',
@@ -2075,7 +2076,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <ArrowRight size={18} />
                 </button>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.925rem', fontWeight: 600 }}>
+                <div className="rf-scout-guarantee-text" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.925rem', fontWeight: 600 }}>
                   <div className="rf-shield-beep-container">
                     <span className="rf-shield-beep-icon">
                       <ShieldCheck size={18} color="#66BB2A" />
@@ -2371,6 +2372,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Headline */}
               <h2
+                className="rf-ai-wizard-title"
                 style={{
                   fontFamily: 'var(--rf-font-sans)',
                   fontSize: 'clamp(2.1rem, 4.4vw, 2.9rem)',
@@ -2387,6 +2389,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Body Description */}
               <p
+                className="rf-ai-wizard-desc"
                 style={{
                   fontSize: '1.05rem',
                   color: 'rgba(235, 245, 238, 0.88)',
@@ -2404,7 +2407,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
                 <button
                   onClick={() => onNavigate(WIZARD_CARDS[activeWizardCardIndex].ctaQuery)}
-                  className="rf-btn rf-btn-primary rf-btn-lg"
+                  className="rf-btn rf-btn-primary rf-btn-lg rf-ai-wizard-btn"
                   style={{
                     width: '265px',
                     justifyContent: 'center',

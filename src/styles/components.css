@@ -2868,6 +2868,60 @@
     width: 13px !important;
     height: 13px !important;
   }
+
+  /* Scout Sourcing Section Typography on Mobile */
+  .rf-scout-sourcing-title {
+    font-size: 1.45rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 1.15rem !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .rf-scout-sourcing-bullets {
+    gap: 0.75rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .rf-scout-bullet-text {
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .rf-scout-sourcing-btn {
+    font-size: 0.875rem !important;
+    padding: 0.75rem 1.25rem !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .rf-scout-guarantee-text {
+    font-size: 0.8rem !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* AI Wizard Section Typography on Mobile */
+  .rf-ai-wizard-title {
+    font-size: 1.45rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.85rem !important;
+    min-height: auto !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .rf-ai-wizard-desc {
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 1.5rem !important;
+    min-height: auto !important;
+  }
+
+  .rf-ai-wizard-btn {
+    font-size: 0.875rem !important;
+    padding: 0.75rem 1.25rem !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }
 
 
