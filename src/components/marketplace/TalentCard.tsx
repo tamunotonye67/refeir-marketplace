@@ -101,8 +101,23 @@ export const TalentCard: React.FC<TalentCardProps> = ({
       </div>
 
       {/* Headline & Bio */}
-      <div style={{ marginBottom: '1rem', flex: 1 }}>
-        <h4 style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--rf-cream)', lineHeight: 1.4, marginBottom: '0.5rem' }}>
+      <div style={{ marginBottom: '0.85rem', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
+        <h4
+          onClick={() => onSelect(talent)}
+          style={{
+            fontSize: '0.875rem',
+            fontWeight: 600,
+            color: 'var(--rf-cream)',
+            lineHeight: 1.4,
+            marginBottom: '0.35rem',
+            minHeight: '2.5em',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            cursor: 'pointer'
+          }}
+        >
           {talent.headline}
         </h4>
         <p
@@ -113,7 +128,9 @@ export const TalentCard: React.FC<TalentCardProps> = ({
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            minHeight: '2.9em',
+            margin: 0
           }}
         >
           {talent.bio}
@@ -121,7 +138,7 @@ export const TalentCard: React.FC<TalentCardProps> = ({
       </div>
 
       {/* Skills Pills */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem', marginBottom: '1.25rem' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem', marginBottom: '1.25rem', minHeight: '32px', alignItems: 'center' }}>
         {talent.skills.slice(0, 4).map(skill => (
           <span
             key={skill}
@@ -132,7 +149,8 @@ export const TalentCard: React.FC<TalentCardProps> = ({
               borderRadius: 'var(--rf-radius-sm)',
               background: 'var(--rf-bg-surface-hover)',
               color: 'var(--rf-slate-300)',
-              border: '1px solid var(--rf-bg-card-border)'
+              border: '1px solid var(--rf-bg-card-border)',
+              whiteSpace: 'nowrap'
             }}
           >
             {skill}

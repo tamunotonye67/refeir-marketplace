@@ -85,6 +85,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             lineHeight: 1.4,
             marginBottom: '0.75rem',
             cursor: 'pointer',
+            minHeight: '2.8em',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
@@ -95,7 +96,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         </h4>
 
         {/* Meta badges: Delivery & Revisions */}
-        <div style={{ display: 'flex', gap: '1rem', fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'flex', gap: '1rem', fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginBottom: '1.25rem', minHeight: '20px', alignItems: 'center' }}>
           <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
             <Clock size={13} /> {service.delivery_days} days delivery
           </span>

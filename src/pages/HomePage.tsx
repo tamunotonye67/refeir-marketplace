@@ -2901,7 +2901,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
 
-          <div className="rf-grid-cards">
+          <div className="rf-grid-cards rf-popular-services-slider">
             {servicesList.slice(0, 4).map(service => (
               <ServiceCard
                 key={service.id}

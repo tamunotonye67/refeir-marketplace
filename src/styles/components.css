@@ -2582,8 +2582,9 @@
     padding: 0.75rem 0.35rem !important;
   }
 
-  /* Featured Talent Cards: Swipable horizontally on mobile from right to left with matching heights */
-  .rf-featured-talent-slider {
+  /* Featured Talent & Popular Services: Swipable horizontally on mobile from right to left with matching equal heights */
+  .rf-featured-talent-slider,
+  .rf-popular-services-slider {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
@@ -2600,29 +2601,37 @@
     align-items: stretch !important;
   }
 
-  .rf-featured-talent-slider::-webkit-scrollbar {
+  .rf-featured-talent-slider::-webkit-scrollbar,
+  .rf-popular-services-slider::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
   }
 
-  .rf-featured-talent-slider > * {
-    flex: 0 0 280px !important;
-    max-width: 280px !important;
-    min-width: 280px !important;
+  .rf-featured-talent-slider > *,
+  .rf-popular-services-slider > * {
+    flex: 0 0 285px !important;
+    max-width: 285px !important;
+    min-width: 285px !important;
+    width: 285px !important;
     scroll-snap-align: start !important;
     scroll-snap-stop: normal !important;
     display: flex !important;
     flex-direction: column !important;
+    align-self: stretch !important;
     height: auto !important;
+    box-sizing: border-box !important;
   }
 
-  .rf-featured-talent-slider .rf-card {
+  .rf-featured-talent-slider .rf-card,
+  .rf-popular-services-slider .rf-card {
     height: 100% !important;
     min-height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
+    flex: 1 1 auto !important;
+    box-sizing: border-box !important;
   }
 
   /* Hero Trust Badges on Mobile: 2x2 Clean Grid */
