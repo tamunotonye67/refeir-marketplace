@@ -2305,9 +2305,21 @@
   position: relative;
   top: auto;
   z-index: 1;
+  max-width: 1200px;
+  width: calc(100% - 2rem);
+  margin: 1.5rem auto 0.5rem auto;
   border-radius: 16px;
-  margin-bottom: 1rem;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(18, 43, 26, 0.12);
+  padding: 1rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
   box-shadow: 0 4px 20px rgba(18, 43, 26, 0.05);
+  flex-wrap: wrap;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
