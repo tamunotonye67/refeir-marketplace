@@ -2328,6 +2328,45 @@
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Hero Trust Badges: Distribute equally across viewport on larger screens */
+.rf-hero-trust-badges {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.rf-hero-trust-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(203, 213, 225, 0.95);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  flex: 1 1 0;
+}
+
+.rf-hero-trust-badge-item:first-child {
+  justify-content: flex-start;
+}
+
+.rf-hero-trust-badge-item:nth-child(2) {
+  justify-content: center;
+}
+
+.rf-hero-trust-badge-item:nth-child(3) {
+  justify-content: center;
+}
+
+.rf-hero-trust-badge-item:last-child {
+  justify-content: flex-end;
+}
+
 .rf-hero-search-icon-only {
   display: none;
 }
@@ -2582,6 +2621,31 @@
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
+  }
+
+  /* Hero Trust Badges on Mobile: 2x2 Clean Grid */
+  .rf-hero-trust-badges {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.85rem 0.5rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-top: 0.85rem !important;
+    margin-top: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .rf-hero-trust-badge-item {
+    justify-content: flex-start !important;
+    font-size: 0.78rem !important;
+    gap: 0.35rem !important;
+    flex: none !important;
+  }
+
+  .rf-hero-trust-badge-item:first-child,
+  .rf-hero-trust-badge-item:nth-child(2),
+  .rf-hero-trust-badge-item:nth-child(3),
+  .rf-hero-trust-badge-item:last-child {
+    justify-content: flex-start !important;
   }
 }
 

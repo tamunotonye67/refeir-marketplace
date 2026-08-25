@@ -1591,7 +1591,6 @@ export const HomePage: React.FC<HomePageProps> = ({
                 position: 'relative',
                 zIndex: 2,
                 padding: 'clamp(2rem, 5vw, 4rem)',
-                maxWidth: '800px',
                 width: '100%'
               }}
             >
@@ -1763,19 +1762,23 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </button>
               </div>
 
-              {/* Trust stat pills */}
-              <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(203,213,225,0.9)', fontSize: '0.8125rem' }}>
-                  <Globe2 size={14} color="#66BB2A" />
-                  <span style={{ color: '#FFFFFF', fontWeight: 700 }}>54</span> African Nations
+              {/* Trust stat pills — evenly distributed from left to right on larger screens */}
+              <div className="rf-hero-trust-badges">
+                <div className="rf-hero-trust-badge-item">
+                  <Globe2 size={15} color="#66BB2A" />
+                  <span><strong style={{ color: '#FFFFFF' }}>54</strong> African Nations</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(203,213,225,0.9)', fontSize: '0.8125rem' }}>
-                  <Lock size={14} color="#66BB2A" />
-                  <span style={{ color: '#FFFFFF', fontWeight: 700 }}>10%</span> Locked Scout Reward
+                <div className="rf-hero-trust-badge-item">
+                  <Lock size={15} color="#66BB2A" />
+                  <span><strong style={{ color: '#FFFFFF' }}>10%</strong> Locked Scout Reward</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(203,213,225,0.9)', fontSize: '0.8125rem' }}>
-                  <ShieldCheck size={14} color="#66BB2A" />
-                  <span style={{ color: '#FFFFFF', fontWeight: 700 }}>100%</span> Trust Vault
+                <div className="rf-hero-trust-badge-item">
+                  <ShieldCheck size={15} color="#66BB2A" />
+                  <span><strong style={{ color: '#FFFFFF' }}>100%</strong> Trust Vault</span>
+                </div>
+                <div className="rf-hero-trust-badge-item">
+                  <CheckCircle2 size={15} color="#66BB2A" />
+                  <span><strong style={{ color: '#FFFFFF' }}>Verified</strong> Top Talents</span>
                 </div>
               </div>
             </div>
