@@ -583,6 +583,13 @@ export const HomePage: React.FC<HomePageProps> = ({
     }
   ];
 
+  const HERO_HEADLINE_ROTATIONS = [
+    { prefix: 'Scale faster with verified', highlight: 'African freelance', suffix: 'talent.' },
+    { prefix: 'Scout top talents and earn', highlight: 'guaranteed 10%', suffix: 'commissions.' },
+    { prefix: 'Discover vetted developers &', highlight: 'AI specialists', suffix: 'across Africa.' },
+    { prefix: 'Hire trusted professionals with', highlight: 'escrow security', suffix: '& fast delivery.' }
+  ];
+
   const heroSectionRef = useRef<HTMLElement>(null);
   const stickyBarRef = useRef<HTMLDivElement>(null);
   const skillsScrollRef = useRef<HTMLDivElement>(null);
@@ -590,6 +597,19 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [activeSkillFlyout, setActiveSkillFlyout] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+  const [heroHeadlineIndex, setHeroHeadlineIndex] = useState(0);
+  const [isHeroHeadlineExiting, setIsHeroHeadlineExiting] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsHeroHeadlineExiting(true);
+      setTimeout(() => {
+        setHeroHeadlineIndex(prev => (prev + 1) % HERO_HEADLINE_ROTATIONS.length);
+        setIsHeroHeadlineExiting(false);
+      }, 400);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -2678,7 +2698,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       style={{
                         width: isDotActive ? '20px' : '6px',
                         height: '6px',
-                        background: isActive ? '#66BB2A' : 'rgba(255, 255, 255, 0.25)',
+                        background: isDotActive ? '#66BB2A' : 'rgba(255, 255, 255, 0.25)',
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
