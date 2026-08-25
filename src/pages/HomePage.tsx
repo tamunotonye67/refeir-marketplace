@@ -1131,7 +1131,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
-      {/* STICKY SKILLS & TALENT BAR (Appears when scrolling past hero, hidden on mobile) */}
+      {/* STICKY SKILLS & TALENT BAR (Appears when scrolling past hero, always crisp light style) */}
       <div
         ref={stickyBarRef}
         className="rf-sticky-skills-bar"
@@ -1141,13 +1141,11 @@ export const HomePage: React.FC<HomePageProps> = ({
           left: 0,
           right: 0,
           zIndex: 89,
-          background: isDark
-            ? 'rgba(10, 23, 15, 0.96)'
-            : 'linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.94) 55%, rgba(255, 255, 255, 0.85) 100%)',
+          background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.94) 55%, rgba(255, 255, 255, 0.88) 100%)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
-          borderBottom: isDark ? '1px solid rgba(102, 187, 42, 0.2)' : '1px solid rgba(18, 43, 26, 0.1)',
-          boxShadow: isDark ? '0 4px 20px rgba(0, 0, 0, 0.4)' : '0 4px 20px rgba(18, 43, 26, 0.06)',
+          borderBottom: '1px solid rgba(18, 43, 26, 0.1)',
+          boxShadow: '0 4px 20px rgba(18, 43, 26, 0.06)',
           transform: showStickySkills ? 'translateY(0)' : 'translateY(-100%)',
           opacity: showStickySkills ? 1 : 0,
           pointerEvents: showStickySkills ? 'auto' : 'none',
@@ -1172,24 +1170,24 @@ export const HomePage: React.FC<HomePageProps> = ({
               width: '28px',
               height: '28px',
               borderRadius: '50%',
-              background: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.9)',
-              border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(18, 43, 26, 0.15)',
+              background: 'rgba(255, 255, 255, 0.9)',
+              border: '1px solid rgba(18, 43, 26, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: isDark ? '#F8FAF8' : '#122B1A',
+              color: '#122B1A',
               flexShrink: 0,
               boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
               transition: 'all 0.15s ease'
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = isDark ? 'rgba(102, 187, 42, 0.2)' : '#F0F7F2';
+              e.currentTarget.style.background = '#F0F7F2';
               e.currentTarget.style.color = '#66BB2A';
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.9)';
-              e.currentTarget.style.color = isDark ? '#F8FAF8' : '#122B1A';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.color = '#122B1A';
             }}
           >
             <ChevronLeft size={16} />
@@ -1221,13 +1219,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.4rem',
-                    background: isActive ? '#66BB2A' : isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(255, 255, 255, 0.85)',
-                    border: `1.5px solid ${isActive ? '#66BB2A' : isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 43, 26, 0.12)'}`,
+                    background: isActive ? '#66BB2A' : 'rgba(255, 255, 255, 0.85)',
+                    border: `1.5px solid ${isActive ? '#66BB2A' : 'rgba(18, 43, 26, 0.12)'}`,
                     padding: '0.35rem 0.85rem',
                     borderRadius: '9999px',
                     fontSize: '0.82rem',
                     fontWeight: 600,
-                    color: isActive ? '#07160D' : isDark ? '#F8FAF8' : '#122B1A',
+                    color: isActive ? '#07160D' : '#122B1A',
                     cursor: 'pointer',
                     whiteSpace: 'nowrap',
                     transition: 'all 0.15s ease',
@@ -1236,16 +1234,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                   }}
                   onMouseEnter={e => {
                     if (!isActive) {
-                      e.currentTarget.style.background = isDark ? 'rgba(102, 187, 42, 0.18)' : 'rgba(102, 187, 42, 0.12)';
+                      e.currentTarget.style.background = 'rgba(102, 187, 42, 0.12)';
                       e.currentTarget.style.borderColor = '#66BB2A';
-                      e.currentTarget.style.color = isDark ? '#FFFFFF' : '#2E7D32';
+                      e.currentTarget.style.color = '#2E7D32';
                     }
                   }}
                   onMouseLeave={e => {
                     if (!isActive) {
-                      e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(255, 255, 255, 0.85)';
-                      e.currentTarget.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 43, 26, 0.12)';
-                      e.currentTarget.style.color = isDark ? '#F8FAF8' : '#122B1A';
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.85)';
+                      e.currentTarget.style.borderColor = 'rgba(18, 43, 26, 0.12)';
+                      e.currentTarget.style.color = '#122B1A';
                     }
                   }}
                 >
@@ -1253,7 +1251,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <span>{skill.label}</span>
                   <ChevronDown
                     size={12}
-                    color={isActive ? '#07160D' : isDark ? '#CBD5E1' : '#64748B'}
+                    color={isActive ? '#07160D' : '#64748B'}
                     style={{
                       transition: 'transform 0.2s ease',
                       transform: isActive ? 'rotate(180deg)' : 'rotate(0)'
@@ -1272,24 +1270,24 @@ export const HomePage: React.FC<HomePageProps> = ({
               width: '28px',
               height: '28px',
               borderRadius: '50%',
-              background: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.9)',
-              border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(18, 43, 26, 0.15)',
+              background: 'rgba(255, 255, 255, 0.9)',
+              border: '1px solid rgba(18, 43, 26, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: isDark ? '#F8FAF8' : '#122B1A',
+              color: '#122B1A',
               flexShrink: 0,
               boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
               transition: 'all 0.15s ease'
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = isDark ? 'rgba(102, 187, 42, 0.2)' : '#F0F7F2';
+              e.currentTarget.style.background = '#F0F7F2';
               e.currentTarget.style.color = '#66BB2A';
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.9)';
-              e.currentTarget.style.color = isDark ? '#F8FAF8' : '#122B1A';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.color = '#122B1A';
             }}
           >
             <ChevronRight size={16} />
@@ -1304,8 +1302,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               gap: '0.35rem',
               padding: '0.35rem 0.85rem',
               borderRadius: '9999px',
-              background: isDark ? '#66BB2A' : '#0F2E1E',
-              color: isDark ? '#07160D' : '#FFFFFF',
+              background: '#0F2E1E',
+              color: '#FFFFFF',
               fontSize: '0.78rem',
               fontWeight: 700,
               cursor: 'pointer',
@@ -1315,8 +1313,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               boxShadow: '0 2px 8px rgba(15, 46, 30, 0.25)',
               transition: 'all 0.15s ease'
             }}
-            onMouseEnter={e => e.currentTarget.style.background = isDark ? '#7CD33B' : '#2E7D32'}
-            onMouseLeave={e => e.currentTarget.style.background = isDark ? '#66BB2A' : '#0F2E1E'}
+            onMouseEnter={e => e.currentTarget.style.background = '#2E7D32'}
+            onMouseLeave={e => e.currentTarget.style.background = '#0F2E1E'}
           >
             <span>Browse All</span>
             <ArrowRight size={13} />
@@ -1334,10 +1332,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               top: '100%',
               left: 0,
               right: 0,
-              background: isDark ? '#0A170F' : '#FFFFFF',
-              borderTop: isDark ? '1px solid rgba(102, 187, 42, 0.2)' : '1px solid rgba(18, 43, 26, 0.08)',
-              borderBottom: isDark ? '1px solid rgba(102, 187, 42, 0.25)' : '1px solid rgba(18, 43, 26, 0.12)',
-              boxShadow: isDark ? '0 20px 40px -10px rgba(0, 0, 0, 0.6)' : '0 20px 40px -10px rgba(18, 43, 26, 0.14)',
+              background: '#FFFFFF',
+              borderTop: '1px solid rgba(18, 43, 26, 0.08)',
+              borderBottom: '1px solid rgba(18, 43, 26, 0.12)',
+              boxShadow: '0 20px 40px -10px rgba(18, 43, 26, 0.14)',
               zIndex: 100,
               animation: 'rfSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
               padding: 'clamp(1rem, 3vw, 2rem) 0',
@@ -1347,7 +1345,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           >
             <div className="rf-container-wide">
               {/* Header inside flyout */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: isDark ? '1px solid rgba(102, 187, 42, 0.15)' : '1px solid rgba(18, 43, 26, 0.08)', flexWrap: 'wrap', gap: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(18, 43, 26, 0.08)', flexWrap: 'wrap', gap: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
                   <div
                     style={{
@@ -1366,10 +1364,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <selectedFlyoutGroup.icon size={20} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: isDark ? '#F8FAF8' : '#0F2E1E', margin: 0, lineHeight: 1.25 }}>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F2E1E', margin: 0, lineHeight: 1.25 }}>
                       {selectedFlyoutGroup.label}
                     </h3>
-                    <p style={{ fontSize: '0.825rem', color: isDark ? '#94A3B8' : '#64748B', margin: '0.35rem 0 0 0', lineHeight: 1.45 }}>
+                    <p style={{ fontSize: '0.825rem', color: '#64748B', margin: '0.35rem 0 0 0', lineHeight: 1.45 }}>
                       {selectedFlyoutGroup.tagline}
                     </p>
                   </div>
@@ -1393,7 +1391,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <button
                     onClick={() => setActiveSkillFlyout(null)}
                     aria-label="Close flyout"
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#94A3B8' : '#64748B', padding: '0.25rem', display: 'flex', alignItems: 'center' }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748B', padding: '0.25rem', display: 'flex', alignItems: 'center' }}
                   >
                     <X size={18} />
                   </button>
@@ -1403,7 +1401,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* 3-Column Grid of subskills */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
                 {selectedFlyoutGroup.columns.map((col, idx) => (
-                  <div key={idx} style={{ background: isDark ? '#123321' : '#F8FAFC', padding: '1.25rem', borderRadius: '12px', border: isDark ? '1px solid rgba(102, 187, 42, 0.15)' : '1px solid rgba(18, 43, 26, 0.06)' }}>
+                  <div key={idx} style={{ background: '#F8FAFC', padding: '1.25rem', borderRadius: '12px', border: '1px solid rgba(18, 43, 26, 0.06)' }}>
                     <div style={{ fontSize: '0.8125rem', fontWeight: 800, textTransform: 'uppercase', color: '#66BB2A', letterSpacing: '0.04em', marginBottom: '0.875rem' }}>
                       {col.title}
                     </div>
@@ -1420,7 +1418,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                             borderRadius: '8px',
                             fontSize: '0.84rem',
                             fontWeight: 500,
-                            color: isDark ? '#E2E8F0' : '#1E293B',
+                            color: '#1E293B',
                             cursor: 'pointer',
                             transition: 'all 0.15s ease',
                             display: 'flex',
@@ -1428,20 +1426,20 @@ export const HomePage: React.FC<HomePageProps> = ({
                             justifyContent: 'space-between'
                           }}
                           onMouseEnter={e => {
-                            e.currentTarget.style.background = isDark ? '#17402B' : '#FFFFFF';
+                            e.currentTarget.style.background = '#FFFFFF';
                             e.currentTarget.style.color = '#66BB2A';
                             e.currentTarget.style.transform = 'translateX(3px)';
                             e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
                           }}
                           onMouseLeave={e => {
                             e.currentTarget.style.background = 'transparent';
-                            e.currentTarget.style.color = isDark ? '#E2E8F0' : '#1E293B';
+                            e.currentTarget.style.color = '#1E293B';
                             e.currentTarget.style.transform = 'translateX(0)';
                             e.currentTarget.style.boxShadow = 'none';
                           }}
                         >
                           <span>{s}</span>
-                          <ChevronRight size={13} color={isDark ? '#64748B' : '#94A3B8'} />
+                          <ChevronRight size={13} color="#94A3B8" />
                         </div>
                       ))}
                     </div>
@@ -1450,19 +1448,19 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               {/* Bottom footer with Top African Hubs */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: isDark ? '#0F2E1E' : '#F0FDF4', padding: '0.75rem 1.25rem', borderRadius: '10px', border: isDark ? '1px solid rgba(102, 187, 42, 0.25)' : '1px solid rgba(102, 187, 42, 0.2)', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#F0FDF4', padding: '0.75rem 1.25rem', borderRadius: '10px', border: '1px solid rgba(102, 187, 42, 0.2)', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexWrap: 'wrap' }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#66BB2A', letterSpacing: '0.04em' }}>
                     Top Pan-African Talent Hubs:
                   </span>
                   {selectedFlyoutGroup.topHubs.map((hub, hIdx) => (
-                    <span key={hIdx} style={{ fontSize: '0.8rem', fontWeight: 600, color: isDark ? '#F8FAF8' : '#14532D', background: isDark ? '#123321' : '#FFFFFF', padding: '0.2rem 0.6rem', borderRadius: '9999px', border: isDark ? '1px solid rgba(102, 187, 42, 0.3)' : '1px solid rgba(22, 101, 52, 0.15)' }}>
+                    <span key={hIdx} style={{ fontSize: '0.8rem', fontWeight: 600, color: '#14532D', background: '#FFFFFF', padding: '0.2rem 0.6rem', borderRadius: '9999px', border: '1px solid rgba(22, 101, 52, 0.15)' }}>
                       {hub}
                     </span>
                   ))}
                 </div>
 
-                <div style={{ fontSize: '0.78rem', color: isDark ? '#CBD5E1' : '#166534', fontWeight: 600 }}>
+                <div style={{ fontSize: '0.78rem', color: '#166534', fontWeight: 600 }}>
                   🛡️ 100% Trust Vault Escrow Protected on all milestone contracts
                 </div>
               </div>
