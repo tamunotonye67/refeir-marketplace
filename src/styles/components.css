@@ -2572,7 +2572,7 @@
   display: inline;
 }
 
-  /* Featured Talent & Popular Services: Swipable horizontally on mobile from right to left with guaranteed identical heights */
+  /* Featured Talent & Popular Services: Swipable horizontally on mobile from right to left with guaranteed identical heights & smooth edge fade */
   .rf-featured-talent-slider,
   .rf-popular-services-slider {
     display: flex !important;
@@ -2584,11 +2584,15 @@
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
     gap: 1rem !important;
-    padding: 0.5rem 1rem 1.25rem 1rem !important;
+    padding: 0.5rem 1.25rem 1.25rem 1.25rem !important;
     margin-left: -1rem !important;
     margin-right: -1rem !important;
     width: calc(100% + 2rem) !important;
     align-items: stretch !important;
+    scroll-padding-left: 1.25rem !important;
+    scroll-padding-right: 1.25rem !important;
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 1) 1.25rem, rgba(0, 0, 0, 1) calc(100% - 1.25rem), transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 1) 1.25rem, rgba(0, 0, 0, 1) calc(100% - 1.25rem), transparent 100%) !important;
   }
 
   .rf-featured-talent-slider::-webkit-scrollbar,
@@ -2606,6 +2610,7 @@
     width: 285px !important;
     scroll-snap-align: start !important;
     scroll-snap-stop: normal !important;
+    scroll-margin-left: 1.25rem !important;
     display: flex !important;
     flex-direction: column !important;
     align-self: stretch !important;
@@ -2627,7 +2632,7 @@
     box-sizing: border-box !important;
   }
 
-  /* Explore Talent Categories: Swipable horizontally on mobile from right to left */
+  /* Explore Talent Categories: Swipable horizontally on mobile from right to left with edge fade */
   .rf-talent-categories-slider {
     display: flex !important;
     flex-direction: row !important;
@@ -2638,10 +2643,14 @@
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
     gap: 0.85rem !important;
-    padding: 0.5rem 1rem 1.25rem 1rem !important;
+    padding: 0.5rem 1.25rem 1.25rem 1.25rem !important;
     margin-left: -1rem !important;
     margin-right: -1rem !important;
     width: calc(100% + 2rem) !important;
+    scroll-padding-left: 1.25rem !important;
+    scroll-padding-right: 1.25rem !important;
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 1) 1.25rem, rgba(0, 0, 0, 1) calc(100% - 1.25rem), transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 1) 1.25rem, rgba(0, 0, 0, 1) calc(100% - 1.25rem), transparent 100%) !important;
   }
 
   .rf-talent-categories-slider::-webkit-scrollbar {
@@ -2655,6 +2664,7 @@
     max-width: 165px !important;
     min-width: 165px !important;
     scroll-snap-align: start !important;
+    scroll-margin-left: 1.25rem !important;
     box-sizing: border-box !important;
     flex-shrink: 0 !important;
   }
