@@ -1998,17 +1998,11 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Left Content */}
             <div className="rf-scout-sourcing-text" style={{ position: 'relative', zIndex: 2 }}>
               {/* Official Refeir Logo & Label */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                <RefeirLogo size="lg" isLight={true} showTagline={false} />
-                <span
-                  style={{
-                    fontSize: '0.78rem',
-                    fontWeight: 800,
-                    color: '#66BB2A',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em'
-                  }}
-                >
+              <div className="rf-scout-logo-row" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                <div className="rf-scout-logo-wrap">
+                  <RefeirLogo size="lg" isLight={true} showTagline={false} />
+                </div>
+                <span className="rf-scout-sourcing-glass-badge">
                   Scout Sourcing
                 </span>
               </div>
@@ -2060,7 +2054,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               {/* Button & Guarantee */}
-              <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+              <div className="rf-scout-sourcing-btn-row" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
                 <button
                   onClick={() => onNavigate('/dashboard/scout')}
                   className="rf-btn rf-btn-primary rf-btn-lg rf-scout-sourcing-btn"

@@ -2290,6 +2290,31 @@
   align-items: center;
 }
 
+/* Scout Sourcing Glass Overlay Badge (Applies across all screen views) */
+.rf-scout-sourcing-glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(102, 187, 42, 0.35);
+  border-radius: 9999px;
+  padding: 0.35rem 0.85rem;
+  color: #66BB2A;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.rf-scout-sourcing-glass-badge:hover {
+  background: rgba(102, 187, 42, 0.15);
+  border-color: #66BB2A;
+}
+
 .rf-scout-sourcing-text,
 .rf-ai-wizard-text {
   order: 1;
@@ -2870,10 +2895,20 @@
   }
 
   /* Scout Sourcing Section Typography on Mobile */
+  .rf-scout-logo-wrap img {
+    height: 28px !important;
+    width: auto !important;
+  }
+
+  .rf-scout-sourcing-glass-badge {
+    font-size: 0.72rem !important;
+    padding: 0.25rem 0.65rem !important;
+  }
+
   .rf-scout-sourcing-title {
-    font-size: 1.45rem !important;
+    font-size: 1.68rem !important;
     line-height: 1.25 !important;
-    margin-bottom: 1.15rem !important;
+    margin-bottom: 1.25rem !important;
     letter-spacing: -0.01em !important;
   }
 
@@ -2887,6 +2922,14 @@
     line-height: 1.45 !important;
   }
 
+  .rf-scout-sourcing-btn-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    gap: 1rem !important;
+  }
+
   .rf-scout-sourcing-btn {
     font-size: 0.875rem !important;
     padding: 0.75rem 1.25rem !important;
@@ -2895,9 +2938,12 @@
   }
 
   .rf-scout-guarantee-text {
-    font-size: 0.8rem !important;
+    font-size: 0.825rem !important;
     width: 100% !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    text-align: left !important;
+    gap: 0.65rem !important;
   }
 
   /* AI Wizard Section Typography on Mobile */
