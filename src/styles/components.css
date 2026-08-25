@@ -2564,7 +2564,15 @@
     padding: 0.75rem 0.35rem !important;
   }
 
-  /* Featured Talent & Popular Services: Swipable horizontally on mobile from right to left with matching equal heights */
+/* Default Region Button Text Display */
+.rf-region-name-abbr {
+  display: none;
+}
+.rf-region-name-full {
+  display: inline;
+}
+
+  /* Featured Talent & Popular Services: Swipable horizontally on mobile from right to left with guaranteed identical heights */
   .rf-featured-talent-slider,
   .rf-popular-services-slider {
     display: flex !important;
@@ -2601,7 +2609,9 @@
     display: flex !important;
     flex-direction: column !important;
     align-self: stretch !important;
-    height: auto !important;
+    height: 430px !important;
+    min-height: 430px !important;
+    max-height: 430px !important;
     box-sizing: border-box !important;
   }
 
@@ -2609,11 +2619,71 @@
   .rf-popular-services-slider .rf-card {
     height: 100% !important;
     min-height: 100% !important;
+    max-height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     flex: 1 1 auto !important;
     box-sizing: border-box !important;
+  }
+
+  /* Explore Talent Categories: Swipable horizontally on mobile from right to left */
+  .rf-talent-categories-slider {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    gap: 0.85rem !important;
+    padding: 0.5rem 1rem 1.25rem 1rem !important;
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    width: calc(100% + 2rem) !important;
+  }
+
+  .rf-talent-categories-slider::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  .rf-talent-categories-slider .rf-talent-cat-card {
+    flex: 0 0 165px !important;
+    max-width: 165px !important;
+    min-width: 165px !important;
+    scroll-snap-align: start !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Explore Africa by Region: Short abbreviations on one line on mobile */
+  .rf-region-name-full {
+    display: none !important;
+  }
+
+  .rf-region-name-abbr {
+    display: inline !important;
+  }
+
+  .rf-region-pills-row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 0.35rem !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .rf-region-pill-btn {
+    flex: 1 1 0 !important;
+    padding: 0.45rem 0.15rem !important;
+    text-align: center !important;
+    font-size: 0.825rem !important;
+    font-weight: 800 !important;
+    min-width: 0 !important;
   }
 
   /* Hero Trust Badges on Mobile: 2x2 Clean Grid */

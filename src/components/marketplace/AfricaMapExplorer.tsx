@@ -25,6 +25,14 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
 
   const countriesInRegion = AFRICAN_COUNTRIES.filter(c => c.region === selectedRegion);
 
+  const REGION_ABBREVIATIONS: Record<AfricanRegion, string> = {
+    'West Africa': 'WA',
+    'East Africa': 'EA',
+    'Southern Africa': 'SA',
+    'North Africa': 'NA',
+    'Central Africa': 'CA'
+  };
+
   return (
     <div
       style={{
@@ -53,13 +61,15 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
         </div>
 
         {/* Region Selector Pills */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+        <div className="rf-region-pills-row" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
           {REGIONS.map(reg => {
             const isSelected = selectedRegion === reg;
+            const abbr = REGION_ABBREVIATIONS[reg] || reg;
             return (
               <button
                 key={reg}
                 onClick={() => setSelectedRegion(reg)}
+                className="rf-region-pill-btn"
                 style={{
                   padding: '0.5rem 1rem',
                   borderRadius: 'var(--rf-radius-full)',
@@ -68,10 +78,12 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
                   transition: 'all 0.15s ease',
                   background: isSelected ? 'var(--rf-leaf-green)' : 'var(--rf-bg-surface-hover)',
                   color: isSelected ? '#FFFFFF' : 'var(--rf-cream)',
-                  border: isSelected ? '1px solid var(--rf-leaf-green)' : '1px solid var(--rf-bg-card-border)'
+                  border: isSelected ? '1px solid var(--rf-leaf-green)' : '1px solid var(--rf-bg-card-border)',
+                  cursor: 'pointer'
                 }}
               >
-                {reg}
+                <span className="rf-region-name-full">{reg}</span>
+                <span className="rf-region-name-abbr">{abbr}</span>
               </button>
             );
           })}

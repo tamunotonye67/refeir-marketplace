@@ -1937,7 +1937,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
 
-          <div className="rf-grid-5" style={{ gap: '1rem' }}>
+          <div className="rf-grid-5 rf-talent-categories-slider" style={{ gap: '1rem' }}>
             {recruiterCategories.map(cat => {
               const Icon = cat.icon;
               return (
