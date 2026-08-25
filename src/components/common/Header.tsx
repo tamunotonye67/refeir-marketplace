@@ -157,6 +157,17 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
     return '/dashboard/scout';
   };
 
+  // Lock body scroll when mobile drawer is open to prevent background viewport movement
+  useEffect(() => {
+    if (showMobileDrawer) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [showMobileDrawer]);
+
   // Close dropdowns and flyouts on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
