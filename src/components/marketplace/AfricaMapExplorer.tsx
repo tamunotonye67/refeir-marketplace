@@ -35,6 +35,7 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
 
   return (
     <div
+      className="rf-africa-explorer-card"
       style={{
         background: 'var(--rf-navy-surface)',
         border: '1px solid var(--rf-navy-border)',
@@ -92,6 +93,7 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
 
       {/* Interactive Regional Overview Bar */}
       <div
+        className="rf-africa-overview-bar"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -144,7 +146,7 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
       </div>
 
       {/* Country Cards in Selected Region */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
+      <div className="rf-africa-countries-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
         {countriesInRegion.map(country => {
           const isOperational = country.status === 'FULLY_OPERATIONAL';
           const isPayments = country.status === 'PAYMENTS_ENABLED';

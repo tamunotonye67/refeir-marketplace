@@ -1801,6 +1801,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* BRANDS THAT TRUST US — ANIMATED LEFT-TO-RIGHT MARQUEE (A Touch of Black Background, White Brands) */}
       <section
+        className="rf-trusted-brands-section"
         style={{
           background: '#0A170F',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
@@ -1810,7 +1811,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           position: 'relative'
         }}
       >
-        <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '0 1rem' }}>
+        <div className="rf-trusted-brands-title-wrap" style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '0 1rem' }}>
           <p
             style={{
               fontFamily: 'var(--rf-font-display)',
@@ -2498,7 +2499,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 perspective: '1000px',
-                overflow: 'visible'
+                overflow: isMobile ? 'hidden' : 'visible'
               }}
             >
               {AI_WIZARDS_PORTRAITS.map((wizard, idx) => {
@@ -3082,7 +3083,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             }}
           >
             {/* LEFT: 3D Animated Polygon Network of Links (Countries & People) */}
-            <div style={{ position: 'relative', width: '100%', height: '420px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="rf-business-polygon-wrap" style={{ position: 'relative', width: '100%', height: '420px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <PolygonNetwork3D />
             </div>
 

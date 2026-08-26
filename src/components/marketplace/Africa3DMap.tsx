@@ -216,6 +216,7 @@ export const Africa3DMap: React.FC<Africa3DMapProps> = ({ onNavigate }) => {
 
   return (
     <div
+      className="rf-africa-3d-map-grid"
       style={{
         background: 'linear-gradient(135deg, #0A170F 0%, #0D2316 50%, #08140D 100%)',
         border: '1px solid rgba(102, 187, 42, 0.25)',
