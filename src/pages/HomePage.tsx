@@ -3254,8 +3254,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           {(['recruiting', 'hunting', 'scouting'] as const).map(tabKey => (
             <div
               key={tabKey}
-              className="rf-how-grid"
-              style={{ display: howItWorksTab === tabKey ? 'grid' : 'none' }}
+              className={`rf-how-grid ${howItWorksTab === tabKey ? 'is-active' : ''}`}
             >
               {HOW_IT_WORKS_DATA[tabKey].cards.map((card, idx) => (
                 <div key={`${tabKey}-${idx}`} className="rf-how-card">

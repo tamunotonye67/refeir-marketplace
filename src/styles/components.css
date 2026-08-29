@@ -1258,6 +1258,10 @@
 }
 
 .rf-how-grid {
+  display: none;
+}
+
+.rf-how-grid.is-active {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
@@ -1265,14 +1269,8 @@
 }
 
 @media (max-width: 1024px) {
-  .rf-how-grid {
+  .rf-how-grid.is-active {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .rf-how-grid {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -2472,7 +2470,7 @@
     overflow-x: hidden !important;
   }
 
-  /* Announcement Banner: Sticky pinned on mobile without layout jumping */
+  /* Announcement Banner: Clean, bright, high-contrast sticky banner on mobile */
   .rf-hero-announcement {
     position: sticky !important;
     top: var(--rf-header-height, 64px) !important;
@@ -2481,30 +2479,34 @@
     border-left: none !important;
     border-right: none !important;
     border-top: none !important;
-    border-bottom: 1px solid var(--rf-bg-card-border) !important;
+    border-bottom: 1px solid rgba(18, 43, 26, 0.12) !important;
     margin: 0 !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     padding: 0.75rem 1rem !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
     width: 100% !important;
-    background: rgba(255, 255, 255, 0.96) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
+    background: #FFFFFF !important;
     transition: padding 0.2s ease, font-size 0.2s ease !important;
   }
 
-  [data-theme="dark"] .rf-hero-announcement {
-    background: rgba(15, 46, 30, 0.96) !important;
-  }
-
-  .rf-hero-announcement-text {
-    font-size: 0.92rem !important;
+  .rf-hero-announcement .rf-hero-announcement-text {
+    font-size: 0.90rem !important;
     line-height: 1.35 !important;
+    color: #0F2E1E !important;
+    display: block !important;
   }
 
-  .rf-hero-announcement-btn {
+  .rf-hero-announcement .rf-hero-announcement-text span {
+    color: #166534 !important;
+    font-weight: 800 !important;
+  }
+
+  .rf-hero-announcement .rf-hero-announcement-btn {
     font-size: 0.825rem !important;
+    color: #0F2E1E !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid #66BB2A !important;
   }
 
   /* Compact sticky banner when user scrolls down */
@@ -2513,12 +2515,16 @@
     gap: 0.15rem !important;
     flex-direction: column !important;
     align-items: flex-start !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
   }
 
   .rf-hero-announcement.is-scrolled .rf-hero-announcement-text {
     font-size: 0.76rem !important;
     line-height: 1.2 !important;
+    color: #0F2E1E !important;
   }
 
   .rf-hero-announcement.is-scrolled .rf-hero-announcement-btn {
@@ -2526,6 +2532,7 @@
     padding: 0 !important;
     margin-top: 0.05rem !important;
     line-height: 1.1 !important;
+    color: #0F2E1E !important;
   }
 
   /* Trusted Brands Section on Mobile — Remove space above */
@@ -3147,6 +3154,10 @@
   }
 
   .rf-how-grid {
+    display: none !important;
+  }
+
+  .rf-how-grid.is-active {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
