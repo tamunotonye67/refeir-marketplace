@@ -381,12 +381,12 @@ main {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   :root {
-    --rf-header-height: 64px;
+    --rf-header-height: 60px;
   }
   .rf-header {
-    height: 64px;
+    height: 60px !important;
   }
   .rf-container, .rf-container-wide {
     padding-left: 0.875rem;
