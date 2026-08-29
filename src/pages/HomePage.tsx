@@ -1470,27 +1470,6 @@ export const HomePage: React.FC<HomePageProps> = ({
         )}
       </div>
 
-      {/* 0B. MOBILE STICKY ANNOUNCEMENT BANNER (Sticks continuously down entire page on mobile) */}
-      <div
-        className="rf-mobile-sticky-announcement"
-        onClick={() => onNavigate('/dashboard/scout')}
-      >
-        <span className="rf-mobile-sticky-announcement-text">
-          You don't need a skill to earn. Get from <span style={{ color: '#2E7D32', fontWeight: 800 }}>10%</span> by Scouting.
-        </span>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onNavigate('/dashboard/scout');
-          }}
-          className="rf-mobile-sticky-announcement-btn"
-        >
-          <span>Start Scouting</span>
-          <ArrowRight size={13} />
-        </button>
-      </div>
-
       {/* 1. HERO SECTION — VIDEO IN A ROUNDED CONTAINER ON WHITE BACKGROUND */}
       <section
         ref={heroSectionRef}
