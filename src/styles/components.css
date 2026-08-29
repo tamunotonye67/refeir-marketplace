@@ -2472,8 +2472,11 @@
     overflow-x: hidden !important;
   }
 
-  /* Announcement Banner: Default standard size at top of mobile screen */
+  /* Announcement Banner: Sticky pinned on mobile without layout jumping */
   .rf-hero-announcement {
+    position: sticky !important;
+    top: var(--rf-header-height, 64px) !important;
+    z-index: 95 !important;
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -2482,42 +2485,35 @@
     margin: 0 !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
-    padding: 0.85rem 1rem !important;
+    padding: 0.75rem 1rem !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
     width: 100% !important;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    transition: padding 0.2s ease, font-size 0.2s ease !important;
+  }
+
+  [data-theme="dark"] .rf-hero-announcement {
+    background: rgba(15, 46, 30, 0.96) !important;
   }
 
   .rf-hero-announcement-text {
-    font-size: 1.02rem !important;
+    font-size: 0.92rem !important;
     line-height: 1.35 !important;
   }
 
   .rf-hero-announcement-btn {
-    font-size: 0.925rem !important;
+    font-size: 0.825rem !important;
   }
 
-  /* Fixed sticky when scrolled down on mobile ONLY — remains pinned throughout the page */
+  /* Compact sticky banner when user scrolls down */
   .rf-hero-announcement.is-scrolled {
-    position: fixed !important;
-    top: var(--rf-header-height, 64px) !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    z-index: 99 !important;
-    padding: 0.35rem 0.85rem !important;
+    padding: 0.4rem 0.85rem !important;
     gap: 0.15rem !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    background: rgba(255, 255, 255, 0.96) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
-  }
-
-  [data-theme="dark"] .rf-hero-announcement.is-scrolled {
-    background: rgba(15, 46, 30, 0.96) !important;
   }
 
   .rf-hero-announcement.is-scrolled .rf-hero-announcement-text {
@@ -3052,16 +3048,13 @@
      MOBILE OPTIMIZATION FOR ALL CARDS & STRICT HORIZONTAL STABILITY
      -------------------------------------------------------------------------- */
 
-  /* 1. Global Viewport & Section Overflow Guard (Prevents page from moving left/right) */
-  .rf-section,
-  .rf-container,
-  .rf-container-wide,
+  /* 1. Global Viewport & Section Visual Overflow Guard (Prevents page from moving left/right while allowing container sliders) */
   .rf-scout-sourcing-grid,
   .rf-ai-wizard-grid,
   .rf-scout-sourcing-visual,
   .rf-ai-wizard-visual {
     max-width: 100% !important;
-    overflow-x: hidden !important;
+    overflow: hidden !important;
     box-sizing: border-box !important;
   }
 
@@ -3137,8 +3130,8 @@
     justify-content: space-between !important;
     width: 100% !important;
     max-width: 100% !important;
-    gap: 0.25rem !important;
-    padding: 0.25rem !important;
+    gap: 0.2rem !important;
+    padding: 0.2rem !important;
     box-sizing: border-box !important;
   }
 
@@ -3146,11 +3139,11 @@
     flex: 1 1 0 !important;
     width: auto !important;
     min-width: 0 !important;
-    font-size: 0.74rem !important;
-    padding: 0.45rem 0.25rem !important;
+    font-size: 0.70rem !important;
+    padding: 0.4rem 0.15rem !important;
     text-align: center !important;
     white-space: nowrap !important;
-    letter-spacing: -0.02em !important;
+    letter-spacing: -0.03em !important;
   }
 
   .rf-how-grid {
@@ -3169,11 +3162,51 @@
   }
 
   .rf-how-card {
-    flex: 0 0 280px !important;
-    width: 280px !important;
-    height: 330px !important;
+    flex: 0 0 270px !important;
+    width: 270px !important;
+    height: 340px !important;
     scroll-snap-align: start !important;
     border-radius: 18px !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  .rf-how-card .rf-how-card-body {
+    transform: translateY(0) !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: linear-gradient(180deg, transparent 0%, rgba(8, 20, 12, 0.88) 28%, rgba(8, 20, 12, 0.98) 100%) !important;
+    padding: 0.85rem 1rem 1rem !important;
+  }
+
+  .rf-how-card .rf-how-card-title {
+    font-size: 0.98rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .rf-how-card .rf-how-card-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+  }
+
+  .rf-how-card .rf-how-card-desc {
+    font-size: 0.76rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.55rem !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .rf-how-card .rf-how-cta-btn {
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.76rem !important;
+    height: auto !important;
+    border-radius: 9999px !important;
   }
 
   /* 7. Talent & Service Cards Mobile Safety */

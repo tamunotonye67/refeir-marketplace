@@ -51,6 +51,7 @@ import { ImpactPage } from './pages/ImpactPage';
 import { AgenciesPage } from './pages/AgenciesPage';
 import { ProjectCatalogPage } from './pages/ProjectCatalogPage';
 import { CommunityHubPage } from './pages/CommunityHubPage';
+import { PioneersPage } from './pages/PioneersPage';
 import { AuthGateWall } from './components/common/AuthGateWall';
 import { RoleOnboardingGate } from './components/common/RoleOnboardingGate';
 import { ProfileSwitchGate } from './components/common/ProfileSwitchGate';
@@ -473,6 +474,10 @@ export const App: React.FC = () => {
         return <BusinessPage onNavigate={navigate} />;
       case '/impact':
         return <ImpactPage onNavigate={navigate} />;
+      case '/pioneers':
+      case '/refeir-pioneers':
+      case '/join-pioneers':
+        return <PioneersPage onNavigate={navigate} />;
 
       case '/':
       default:
@@ -488,7 +493,8 @@ export const App: React.FC = () => {
 
   // Pages that render full-screen without header/footer chrome
   const isChromelessPage = currentPath === '/admin-login' || 
-    (currentPath === '/admin' && (!currentUser || !currentUser.roles.includes('ADMIN')));
+    (currentPath === '/admin' && (!currentUser || !currentUser.roles.includes('ADMIN'))) ||
+    basePath === '/pioneers' || basePath === '/refeir-pioneers' || basePath === '/join-pioneers';
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--rf-navy)' }}>

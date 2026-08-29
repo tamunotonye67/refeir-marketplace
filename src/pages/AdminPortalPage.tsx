@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { useNotification } from '../context/NotificationContext';
 import { useAuth } from '../context/AuthContext';
@@ -85,6 +86,30 @@ export interface TeamMember {
   lastActive: string;
 }
 
+export interface PioneerApplication {
+  id: string;
+  application_number: string;
+  full_name: string;
+  email: string;
+  whatsapp_number: string;
+  country: string;
+  city?: string;
+  roles: string[];
+  skills?: string;
+  portfolio_url?: string;
+  primary_division?: string;
+  contribution?: string;
+  availability?: string;
+  motivation?: string;
+  learning_goals?: string;
+  discovery_source?: string;
+  status: 'PENDING' | 'REVIEWING' | 'ACCEPTED' | 'WAITLISTED' | 'REJECTED';
+  is_founding_100: boolean;
+  pioneer_id?: string;
+  internal_notes?: string;
+  created_at: string;
+}
+
 export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = () => {} }) => {
   const {
     countrySettings,
@@ -104,7 +129,147 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
   const { showToast, addAppNotification } = useNotification();
   const { currentUser } = useAuth();
 
-  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE'>('OVERVIEW');
+  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE' | 'PIONEERS'>('OVERVIEW');
+
+  // Pioneer Applications State
+  const [pioneerAppsList, setPioneerAppsList] = useState<PioneerApplication[]>([
+    {
+      id: 'PA-001',
+      application_number: 'RP-2026-000101',
+      full_name: 'Chinwe Okonkwo',
+      email: 'chinwe.okonkwo@dev.ng',
+      whatsapp_number: '+234 803 123 4567',
+      country: 'Nigeria',
+      city: 'Lagos',
+      roles: ['Developer', 'AI'],
+      skills: 'React, TypeScript, Node.js, Python, Supabase, LLM fine-tuning',
+      portfolio_url: 'https://github.com/chinwe-dev',
+      primary_division: 'TECH_PRODUCT',
+      contribution: 'Can build platform microservices, assist in refactoring frontend components, and write automated tests for marketplace escrow flows.',
+      availability: '6–10 hours/week',
+      motivation: 'Passionate about connecting African developers with high-value international and cross-border client opportunities.',
+      learning_goals: 'Decentralized trust protocols and scalable micro-frontend architecture.',
+      discovery_source: 'Twitter / X',
+      status: 'PENDING',
+      is_founding_100: true,
+      pioneer_id: '',
+      internal_notes: 'Strong GitHub portfolio. Experienced in TypeScript and Supabase.',
+      created_at: '2026-08-25T14:20:00Z'
+    },
+    {
+      id: 'PA-002',
+      application_number: 'RP-2026-000102',
+      full_name: 'Kwame Mensah',
+      email: 'kwame.mensah@design.gh',
+      whatsapp_number: '+233 24 555 7890',
+      country: 'Ghana',
+      city: 'Accra',
+      roles: ['Designer'],
+      skills: 'Figma, UI/UX Design, Design Systems, Motion Graphics',
+      portfolio_url: 'https://behance.net/kwamemensah',
+      primary_division: 'CREATIVE',
+      contribution: 'Want to help refine the Pioneer brand identity, create interactive dashboard prototypes, and design marketing campaign collateral.',
+      availability: '3–5 hours/week',
+      motivation: 'Want to ensure African tech products have world-class visual aesthetics that stand out globally.',
+      learning_goals: 'Design systems for large-scale multi-currency fintech web applications.',
+      discovery_source: 'LinkedIn',
+      status: 'PENDING',
+      is_founding_100: false,
+      pioneer_id: '',
+      internal_notes: 'High visual craft on Behance.',
+      created_at: '2026-08-25T16:45:00Z'
+    },
+    {
+      id: 'PA-003',
+      application_number: 'RP-2026-000103',
+      full_name: 'Faith Chebet',
+      email: 'faith.chebet@growth.ke',
+      whatsapp_number: '+254 712 345 678',
+      country: 'Kenya',
+      city: 'Nairobi',
+      roles: ['Marketer', 'Business Developer'],
+      skills: 'Digital Marketing, Performance SEO, Social Media Strategy, Growth Funnels',
+      portfolio_url: 'https://linkedin.com/in/faith-chebet-growth',
+      primary_division: 'GROWTH',
+      contribution: 'Can run acquisition campaigns across East Africa, onboard local tech communities, and optimize Pioneer recruitment funnels.',
+      availability: '6–10 hours/week',
+      motivation: 'Believes in the referral engine mechanism as the ultimate organic viral growth loop for Africa.',
+      learning_goals: 'Viral referral mechanics and B2B client acquisition.',
+      discovery_source: 'WhatsApp Tech Group',
+      status: 'REVIEWING',
+      is_founding_100: true,
+      pioneer_id: '',
+      internal_notes: 'Interview scheduled. Excellent track record in Nairobi tech hubs.',
+      created_at: '2026-08-24T10:15:00Z'
+    },
+    {
+      id: 'PA-004',
+      application_number: 'RP-2026-000042',
+      full_name: 'Tariq Al-Mansoor',
+      email: 'tariq.mansoor@cairofintech.eg',
+      whatsapp_number: '+20 100 888 9999',
+      country: 'Egypt',
+      city: 'Cairo',
+      roles: ['Business Developer', 'Entrepreneur'],
+      skills: 'Strategic Partnerships, Corporate B2B Sales, Fintech Compliance',
+      portfolio_url: 'https://linkedin.com/in/tariq-mansoor',
+      primary_division: 'BUSINESS',
+      contribution: 'Connecting North African venture studios and digital agencies to hire freelance talent on Refeir.',
+      availability: 'Project-based',
+      motivation: 'Expanding North African cross-border trade corridors with Sub-Saharan Africa.',
+      learning_goals: 'Pan-African settlement protocols and escrow law.',
+      discovery_source: 'AngelList',
+      status: 'ACCEPTED',
+      is_founding_100: true,
+      pioneer_id: 'PION-001',
+      internal_notes: 'Founding member. Key partnership champion in North Africa.',
+      created_at: '2026-08-20T09:00:00Z'
+    },
+    {
+      id: 'PA-005',
+      application_number: 'RP-2026-000088',
+      full_name: 'Blessing Adebayo',
+      email: 'blessing.adebayo@unilag.edu.ng',
+      whatsapp_number: '+234 815 678 1234',
+      country: 'Nigeria',
+      city: 'Lagos',
+      roles: ['Community Builder', 'Student'],
+      skills: 'Campus Community Organizing, Event Hosting, Public Speaking',
+      portfolio_url: 'https://twitter.com/blessing_builds',
+      primary_division: 'COMMUNITY',
+      contribution: 'Establishing university ambassador chapters at UNILAG, Covenant, and UI.',
+      availability: '10+ hours/week',
+      motivation: 'Helping fellow students land their first freelance and scout opportunities.',
+      learning_goals: 'Community leadership and tech ecosystem management.',
+      discovery_source: 'Friend Referral',
+      status: 'ACCEPTED',
+      is_founding_100: true,
+      pioneer_id: 'PION-002',
+      internal_notes: 'Highly energetic campus ambassador lead.',
+      created_at: '2026-08-22T11:30:00Z'
+    }
+  ]);
+
+  const [selectedPioneerApp, setSelectedPioneerApp] = useState<PioneerApplication | null>(null);
+  const [pioneerSearchQuery, setPioneerSearchQuery] = useState('');
+  const [pioneerDivisionFilter, setPioneerDivisionFilter] = useState<string>('ALL');
+  const [pioneerStatusFilter, setPioneerStatusFilter] = useState<string>('ALL');
+  const [pioneerCountryFilter, setPioneerCountryFilter] = useState<string>('ALL');
+  const [editingNotes, setEditingNotes] = useState('');
+
+  // Fetch real applications from Supabase if connected
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+    supabase
+      .from('pioneer_applications')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          setPioneerAppsList(data as PioneerApplication[]);
+        }
+      });
+  }, []);
 
   // Airfee Approvals state
   const [rejectingIntroId, setRejectingIntroId] = useState<string | null>(null);
@@ -115,7 +280,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
     title: string,
     message: string,
     category: 'ESCROW' | 'DISPUTES' | 'FRAUD' | 'GOVERNANCE' | 'SYSTEM' | 'TEAM',
-    targetTab: 'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE' = 'OVERVIEW',
+    targetTab: 'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE' | 'PIONEERS' = 'OVERVIEW',
     _badgeColor?: string
   ) => {
     addAppNotification({
@@ -696,6 +861,10 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         <button onClick={() => setActiveTab('AIRFEE')} className={`rf-tab ${activeTab === 'AIRFEE' ? 'active' : ''}`} style={{ borderColor: 'rgba(54, 224, 160, 0.5)' }}>
           <Ticket size={14} style={{ display: 'inline-block', marginRight: '0.35rem', verticalAlign: 'middle' }} />
           Airfee Approvals ({clientIntroductionsList.filter(i => i.status === 'HIRE_COMPLETED_PENDING_ADMIN').length} Ready)
+        </button>
+        <button onClick={() => setActiveTab('PIONEERS')} className={`rf-tab ${activeTab === 'PIONEERS' ? 'active' : ''}`} style={{ borderColor: 'rgba(24, 252, 92, 0.55)', color: activeTab === 'PIONEERS' ? '#18FC5C' : undefined }}>
+          <Award size={14} style={{ display: 'inline-block', marginRight: '0.35rem', verticalAlign: 'middle', color: '#18FC5C' }} />
+          Pioneer Applications ({pioneerAppsList.filter(p => p.status === 'PENDING').length} Pending)
         </button>
       </div>
 
@@ -2000,6 +2169,594 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                     })}
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 11. REFEIR PIONEER APPLICATIONS MANAGEMENT TAB */}
+      {activeTab === 'PIONEERS' && (
+        <div>
+          {/* Top Metric Cards */}
+          <div className="rf-grid-4" style={{ marginBottom: '2rem' }}>
+            <div className="rf-card">
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                Total Applications
+              </span>
+              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
+                {pioneerAppsList.length}
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#18FC5C', marginTop: '0.25rem' }}>
+                Pan-African Pioneer Program
+              </div>
+            </div>
+
+            <div className="rf-card">
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                Pending Review
+              </span>
+              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#FED072', marginTop: '0.25rem' }}>
+                {pioneerAppsList.filter(p => p.status === 'PENDING').length}
+              </div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                Awaiting Admissions Decision
+              </div>
+            </div>
+
+            <div className="rf-card">
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                Accepted Pioneers
+              </span>
+              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#18FC5C', marginTop: '0.25rem' }}>
+                {pioneerAppsList.filter(p => p.status === 'ACCEPTED').length}
+              </div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                Unlocked WhatsApp Community
+              </div>
+            </div>
+
+            <div className="rf-card">
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                Founding 100 Enrolled
+              </span>
+              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#FED072', marginTop: '0.25rem' }}>
+                {pioneerAppsList.filter(p => p.is_founding_100 && p.status === 'ACCEPTED').length} / 100
+              </div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--rf-mint)', marginTop: '0.25rem' }}>
+                {100 - pioneerAppsList.filter(p => p.is_founding_100 && p.status === 'ACCEPTED').length} spots remaining
+              </div>
+            </div>
+          </div>
+
+          {/* Filter & Search Bar */}
+          <div className="rf-card" style={{ marginBottom: '1.5rem', padding: '1.25rem' }}>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', flex: 1, minWidth: '280px' }}>
+                <div style={{ position: 'relative', flex: 1 }}>
+                  <Search size={16} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--rf-slate-400)' }} />
+                  <input
+                    type="text"
+                    className="rf-input"
+                    placeholder="Search by name, email, WhatsApp, ID, or skills..."
+                    value={pioneerSearchQuery}
+                    onChange={e => setPioneerSearchQuery(e.target.value)}
+                    style={{ paddingLeft: '2.25rem', fontSize: '0.875rem' }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <select
+                  className="rf-select"
+                  value={pioneerDivisionFilter}
+                  onChange={e => setPioneerDivisionFilter(e.target.value)}
+                  style={{ fontSize: '0.8125rem' }}
+                >
+                  <option value="ALL">All Divisions</option>
+                  <option value="TECH_PRODUCT">Tech & Product</option>
+                  <option value="CREATIVE">Creative</option>
+                  <option value="GROWTH">Growth</option>
+                  <option value="BUSINESS">Business</option>
+                  <option value="COMMUNITY">Community</option>
+                  <option value="RESEARCH_TESTING">Research & Testing</option>
+                </select>
+
+                <select
+                  className="rf-select"
+                  value={pioneerStatusFilter}
+                  onChange={e => setPioneerStatusFilter(e.target.value)}
+                  style={{ fontSize: '0.8125rem' }}
+                >
+                  <option value="ALL">All Statuses</option>
+                  <option value="PENDING">Pending Review</option>
+                  <option value="REVIEWING">In Review</option>
+                  <option value="ACCEPTED">Accepted</option>
+                  <option value="WAITLISTED">Waitlisted</option>
+                  <option value="REJECTED">Rejected</option>
+                </select>
+
+                <select
+                  className="rf-select"
+                  value={pioneerCountryFilter}
+                  onChange={e => setPioneerCountryFilter(e.target.value)}
+                  style={{ fontSize: '0.8125rem' }}
+                >
+                  <option value="ALL">All Countries</option>
+                  {AFRICAN_COUNTRIES.map(c => <option key={c.iso_code} value={c.name}>{c.name}</option>)}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Applications Table */}
+          <div className="rf-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div style={{ padding: '1.25rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  Pioneer Recruitment Applications
+                </h3>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.25rem', margin: 0 }}>
+                  Review submitted applications, assign Pioneer divisions, grant Founding 100 statuses, and issue community invites.
+                </p>
+              </div>
+              <span style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', fontWeight: 600 }}>
+                Showing {pioneerAppsList.filter(app => {
+                  const matchesSearch = !pioneerSearchQuery ||
+                    app.full_name.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
+                    app.email.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
+                    app.application_number.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
+                    app.whatsapp_number.includes(pioneerSearchQuery) ||
+                    (app.skills && app.skills.toLowerCase().includes(pioneerSearchQuery.toLowerCase()));
+                  const matchesDivision = pioneerDivisionFilter === 'ALL' || app.primary_division === pioneerDivisionFilter;
+                  const matchesStatus = pioneerStatusFilter === 'ALL' || app.status === pioneerStatusFilter;
+                  const matchesCountry = pioneerCountryFilter === 'ALL' || app.country === pioneerCountryFilter;
+                  return matchesSearch && matchesDivision && matchesStatus && matchesCountry;
+                }).length} applications
+              </span>
+            </div>
+
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
+                <thead>
+                  <tr style={{ background: 'rgba(255, 255, 255, 0.02)', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>APP # & DATE</th>
+                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>APPLICANT</th>
+                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>COUNTRY</th>
+                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>DIVISION & ROLES</th>
+                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>FOUNDING / ID</th>
+                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>STATUS</th>
+                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700, textAlign: 'right' }}>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pioneerAppsList
+                    .filter(app => {
+                      const matchesSearch = !pioneerSearchQuery ||
+                        app.full_name.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
+                        app.email.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
+                        app.application_number.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
+                        app.whatsapp_number.includes(pioneerSearchQuery) ||
+                        (app.skills && app.skills.toLowerCase().includes(pioneerSearchQuery.toLowerCase()));
+                      const matchesDivision = pioneerDivisionFilter === 'ALL' || app.primary_division === pioneerDivisionFilter;
+                      const matchesStatus = pioneerStatusFilter === 'ALL' || app.status === pioneerStatusFilter;
+                      const matchesCountry = pioneerCountryFilter === 'ALL' || app.country === pioneerCountryFilter;
+                      return matchesSearch && matchesDivision && matchesStatus && matchesCountry;
+                    })
+                    .map(app => {
+                      const statusColor = 
+                        app.status === 'ACCEPTED' ? '#18FC5C' :
+                        app.status === 'PENDING' ? '#FED072' :
+                        app.status === 'REVIEWING' ? '#38BDF8' :
+                        app.status === 'WAITLISTED' ? '#C084FC' : '#FF6B6B';
+
+                      return (
+                        <tr key={app.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)', transition: 'background 0.15s' }}>
+                          <td style={{ padding: '1rem' }}>
+                            <div style={{ fontWeight: 800, fontFamily: 'var(--rf-font-mono)', color: 'var(--rf-cream)', fontSize: '0.8125rem' }}>
+                              {app.application_number}
+                            </div>
+                            <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+                              {new Date(app.created_at).toLocaleDateString()}
+                            </div>
+                          </td>
+
+                          <td style={{ padding: '1rem' }}>
+                            <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>
+                              {app.full_name}
+                            </div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+                              {app.email} • {app.whatsapp_number}
+                            </div>
+                          </td>
+
+                          <td style={{ padding: '1rem' }}>
+                            <div style={{ color: 'var(--rf-cream)', fontWeight: 600 }}>
+                              {app.country}
+                            </div>
+                            {app.city && (
+                              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+                                {app.city}
+                              </div>
+                            )}
+                          </td>
+
+                          <td style={{ padding: '1rem' }}>
+                            <span style={{
+                              display: 'inline-block', padding: '2px 8px', borderRadius: '4px',
+                              background: 'rgba(24, 252, 92, 0.12)', border: '1px solid rgba(24, 252, 92, 0.25)',
+                              color: '#18FC5C', fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '4px'
+                            }}>
+                              {app.primary_division || 'UNASSIGNED'}
+                            </span>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)' }}>
+                              {app.roles.join(', ')}
+                            </div>
+                          </td>
+
+                          <td style={{ padding: '1rem' }}>
+                            {app.is_founding_100 && (
+                              <span style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '3px',
+                                background: 'rgba(254, 208, 114, 0.15)', color: '#FED072',
+                                padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 800, marginRight: '4px'
+                              }}>
+                                ★ Founding 100
+                              </span>
+                            )}
+                            {app.pioneer_id ? (
+                              <span style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.75rem', color: '#18FC5C', fontWeight: 700 }}>
+                                {app.pioneer_id}
+                              </span>
+                            ) : (
+                              <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-500)' }}>—</span>
+                            )}
+                          </td>
+
+                          <td style={{ padding: '1rem' }}>
+                            <span style={{
+                              display: 'inline-flex', alignItems: 'center', gap: '4px',
+                              padding: '3px 8px', borderRadius: '100px',
+                              background: `${statusColor}18`, border: `1px solid ${statusColor}44`,
+                              color: statusColor, fontSize: '0.72rem', fontWeight: 800
+                            }}>
+                              {app.status === 'ACCEPTED' && <CheckCircle2 size={11} />}
+                              {app.status === 'PENDING' && <Clock size={11} />}
+                              {app.status}
+                            </span>
+                          </td>
+
+                          <td style={{ padding: '1rem', textAlign: 'right' }}>
+                            <button
+                              onClick={() => {
+                                setSelectedPioneerApp(app);
+                                setEditingNotes(app.internal_notes || '');
+                              }}
+                              className="rf-btn rf-btn-secondary rf-btn-sm"
+                              style={{ fontWeight: 800, gap: '0.35rem', borderColor: 'rgba(24, 252, 92, 0.4)', color: '#18FC5C' }}
+                            >
+                              <Eye size={13} />
+                              <span>Review</span>
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PIONEER APPLICATION REVIEW MODAL */}
+      {selectedPioneerApp && (
+        <div
+          style={{
+            position: 'fixed', inset: 0, background: 'rgba(3, 10, 6, 0.85)',
+            backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center',
+            justifyContent: 'center', zIndex: 1000, padding: '1.5rem'
+          }}
+          onClick={() => setSelectedPioneerApp(null)}
+        >
+          <div
+            style={{
+              background: 'linear-gradient(145deg, #0D1B14 0%, #06110B 100%)',
+              border: '1px solid rgba(24, 252, 92, 0.35)', borderRadius: 'var(--rf-radius-xl)',
+              maxWidth: '740px', width: '100%', maxHeight: '90vh', overflowY: 'auto',
+              padding: '2rem', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.85)', position: 'relative'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+              <div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#18FC5C', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+                  <Award size={14} />
+                  <span>REFEIR PIONEER ADMISSIONS REVIEW</span>
+                </div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  {selectedPioneerApp.full_name}
+                </h3>
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.35rem', flexWrap: 'wrap' }}>
+                  <span style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.8125rem', color: '#FED072', fontWeight: 700 }}>
+                    {selectedPioneerApp.application_number}
+                  </span>
+                  <span style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem' }}>•</span>
+                  <span style={{ color: 'var(--rf-slate-300)', fontSize: '0.8125rem' }}>
+                    {selectedPioneerApp.email} • {selectedPioneerApp.whatsapp_number}
+                  </span>
+                  <span style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem' }}>•</span>
+                  <span style={{ color: 'var(--rf-slate-300)', fontSize: '0.8125rem' }}>
+                    {selectedPioneerApp.country} {selectedPioneerApp.city ? `(${selectedPioneerApp.city})` : ''}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSelectedPioneerApp(null)}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)',
+                  color: 'var(--rf-slate-300)', borderRadius: '50%', width: '32px', height: '32px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                }}
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Application Data Grid */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                <div>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Selected Roles</span>
+                  <div style={{ fontWeight: 700, color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '2px' }}>
+                    {selectedPioneerApp.roles.join(', ')}
+                  </div>
+                </div>
+                <div>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Availability</span>
+                  <div style={{ fontWeight: 700, color: '#18FC5C', fontSize: '0.875rem', marginTop: '2px' }}>
+                    {selectedPioneerApp.availability || 'Not specified'}
+                  </div>
+                </div>
+                <div>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Discovery Source</span>
+                  <div style={{ fontWeight: 700, color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '2px' }}>
+                    {selectedPioneerApp.discovery_source || 'Direct'}
+                  </div>
+                </div>
+              </div>
+
+              {selectedPioneerApp.skills && (
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>Skills & Tools</span>
+                  <p style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '0.25rem', background: 'rgba(255, 255, 255, 0.03)', padding: '0.75rem', borderRadius: 'var(--rf-radius-sm)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                    {selectedPioneerApp.skills}
+                  </p>
+                </div>
+              )}
+
+              {selectedPioneerApp.portfolio_url && (
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>Portfolio / GitHub / Link</span>
+                  <div style={{ marginTop: '0.25rem' }}>
+                    <a href={selectedPioneerApp.portfolio_url} target="_blank" rel="noreferrer" style={{ color: '#38BDF8', fontSize: '0.875rem', textDecoration: 'underline', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      {selectedPioneerApp.portfolio_url} <ExternalLink size={13} />
+                    </a>
+                  </div>
+                </div>
+              )}
+
+              {selectedPioneerApp.motivation && (
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>Why Become a Pioneer?</span>
+                  <p style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '0.25rem', background: 'rgba(255, 255, 255, 0.03)', padding: '0.75rem', borderRadius: 'var(--rf-radius-sm)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                    {selectedPioneerApp.motivation}
+                  </p>
+                </div>
+              )}
+
+              {selectedPioneerApp.contribution && (
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>What Can They Contribute?</span>
+                  <p style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '0.25rem', background: 'rgba(255, 255, 255, 0.03)', padding: '0.75rem', borderRadius: 'var(--rf-radius-sm)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                    {selectedPioneerApp.contribution}
+                  </p>
+                </div>
+              )}
+
+              {/* Admin Actions Box */}
+              <div style={{ background: 'rgba(24, 252, 92, 0.06)', border: '1px solid rgba(24, 252, 92, 0.25)', borderRadius: 'var(--rf-radius-md)', padding: '1.25rem', marginTop: '0.5rem' }}>
+                <h4 style={{ fontSize: '0.9375rem', fontWeight: 800, color: '#18FC5C', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Admissions Action & Decision
+                </h4>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1rem' }}>
+                  <div className="rf-form-group">
+                    <label className="rf-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
+                      Decision Status
+                    </label>
+                    <select
+                      className="rf-select"
+                      value={selectedPioneerApp.status}
+                      onChange={e => {
+                        const newStatus = e.target.value as any;
+                        const updated = { ...selectedPioneerApp, status: newStatus };
+                        setSelectedPioneerApp(updated);
+                        setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                        if (isSupabaseConfigured) {
+                          supabase.from('pioneer_applications').update({ status: newStatus }).eq('id', selectedPioneerApp.id);
+                        }
+                      }}
+                      style={{ fontSize: '0.875rem' }}
+                    >
+                      <option value="PENDING">PENDING</option>
+                      <option value="REVIEWING">REVIEWING</option>
+                      <option value="ACCEPTED">ACCEPTED</option>
+                      <option value="WAITLISTED">WAITLISTED</option>
+                      <option value="REJECTED">REJECTED</option>
+                    </select>
+                  </div>
+
+                  <div className="rf-form-group">
+                    <label className="rf-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
+                      Assigned Division
+                    </label>
+                    <select
+                      className="rf-select"
+                      value={selectedPioneerApp.primary_division || 'TECH_PRODUCT'}
+                      onChange={e => {
+                        const newDiv = e.target.value;
+                        const updated = { ...selectedPioneerApp, primary_division: newDiv };
+                        setSelectedPioneerApp(updated);
+                        setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                        if (isSupabaseConfigured) {
+                          supabase.from('pioneer_applications').update({ primary_division: newDiv }).eq('id', selectedPioneerApp.id);
+                        }
+                      }}
+                      style={{ fontSize: '0.875rem' }}
+                    >
+                      <option value="TECH_PRODUCT">Tech & Product</option>
+                      <option value="CREATIVE">Creative</option>
+                      <option value="GROWTH">Growth</option>
+                      <option value="BUSINESS">Business</option>
+                      <option value="COMMUNITY">Community</option>
+                      <option value="RESEARCH_TESTING">Research & Testing</option>
+                    </select>
+                  </div>
+
+                  <div className="rf-form-group">
+                    <label className="rf-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
+                      Assigned Pioneer ID
+                    </label>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <input
+                        type="text"
+                        className="rf-input"
+                        placeholder="e.g. PION-042"
+                        value={selectedPioneerApp.pioneer_id || ''}
+                        onChange={e => {
+                          const newId = e.target.value;
+                          const updated = { ...selectedPioneerApp, pioneer_id: newId };
+                          setSelectedPioneerApp(updated);
+                          setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                        }}
+                        style={{ fontSize: '0.875rem', fontFamily: 'var(--rf-font-mono)' }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const nextNum = Math.floor(100 + Math.random() * 900);
+                          const generated = `PION-${nextNum}`;
+                          const updated = { ...selectedPioneerApp, pioneer_id: generated };
+                          setSelectedPioneerApp(updated);
+                          setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                        }}
+                        className="rf-btn rf-btn-secondary rf-btn-sm"
+                        style={{ fontSize: '0.75rem', whiteSpace: 'nowrap' }}
+                      >
+                        Auto ID
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={selectedPioneerApp.is_founding_100}
+                      onChange={e => {
+                        const checked = e.target.checked;
+                        const updated = { ...selectedPioneerApp, is_founding_100: checked };
+                        setSelectedPioneerApp(updated);
+                        setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                        if (isSupabaseConfigured) {
+                          supabase.from('pioneer_applications').update({ is_founding_100: checked }).eq('id', selectedPioneerApp.id);
+                        }
+                      }}
+                    />
+                    <span style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#FED072' }}>
+                      ★ Designate as Founding 100 Pioneer
+                    </span>
+                  </label>
+                </div>
+
+                <div className="rf-form-group">
+                  <label className="rf-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
+                    Internal Admissions Notes
+                  </label>
+                  <textarea
+                    rows={2}
+                    className="rf-input"
+                    placeholder="Add confidential admissions notes..."
+                    value={editingNotes}
+                    onChange={e => setEditingNotes(e.target.value)}
+                    style={{ fontSize: '0.8125rem' }}
+                  />
+                </div>
+
+                {/* Accept & Trigger Onboarding CTA */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.25rem' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = { ...selectedPioneerApp, internal_notes: editingNotes };
+                      setSelectedPioneerApp(updated);
+                      setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                      if (isSupabaseConfigured) {
+                        supabase.from('pioneer_applications').update({ internal_notes: editingNotes }).eq('id', selectedPioneerApp.id);
+                      }
+                      showToast('Notes Saved', 'Internal application notes updated.', 'SUCCESS');
+                    }}
+                    className="rf-btn rf-btn-secondary"
+                    style={{ fontSize: '0.8125rem', fontWeight: 700 }}
+                  >
+                    Save Notes
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const generatedId = selectedPioneerApp.pioneer_id || `PION-${Math.floor(100 + Math.random() * 900)}`;
+                      const updated: PioneerApplication = {
+                        ...selectedPioneerApp,
+                        status: 'ACCEPTED',
+                        pioneer_id: generatedId,
+                        internal_notes: editingNotes
+                      };
+                      setSelectedPioneerApp(updated);
+                      setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+
+                      if (isSupabaseConfigured) {
+                        supabase.from('pioneer_applications').update({
+                          status: 'ACCEPTED',
+                          pioneer_id: generatedId,
+                          internal_notes: editingNotes
+                        }).eq('id', selectedPioneerApp.id);
+                      }
+
+                      confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
+                      addAdminNotification(
+                        'Pioneer Accepted!',
+                        `Accepted ${selectedPioneerApp.full_name} (${selectedPioneerApp.application_number}) into ${selectedPioneerApp.primary_division || 'Refeir Pioneers'}. WhatsApp invite access unlocked.`,
+                        'GOVERNANCE',
+                        'PIONEERS'
+                      );
+                      showToast(
+                        'Pioneer Approved!',
+                        `${selectedPioneerApp.full_name} is now an official Refeir Pioneer (${generatedId}).`,
+                        'SUCCESS'
+                      );
+                    }}
+                    className="rf-btn rf-btn-mint"
+                    style={{ fontWeight: 900, fontSize: '0.8125rem', gap: '0.4rem', background: '#18FC5C', color: '#1A243D' }}
+                  >
+                    <CheckCircle2 size={15} />
+                    <span>Accept & Grant Pioneer Access</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
