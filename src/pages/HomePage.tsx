@@ -586,7 +586,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   const heroSectionRef = useRef<HTMLElement>(null);
   const stickyBarRef = useRef<HTMLDivElement>(null);
   const skillsScrollRef = useRef<HTMLDivElement>(null);
-  const [showStickySkills, setShowStickySkills] = useState(false);
   const [activeSkillFlyout, setActiveSkillFlyout] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
@@ -604,17 +603,6 @@ export const HomePage: React.FC<HomePageProps> = ({
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       setIsScrolled(scrollY > 20);
-
-      if (heroSectionRef.current) {
-        const rect = heroSectionRef.current.getBoundingClientRect();
-        const headerH = typeof window !== 'undefined' && window.innerWidth <= 480 ? 64 : 72;
-        // Trigger sticky bar when the bottom of the hero video section has scrolled past the header
-        const isPastHero = rect.bottom <= headerH;
-        setShowStickySkills(isPastHero);
-        if (!isPastHero) {
-          setActiveSkillFlyout(null);
-        }
-      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
@@ -1131,26 +1119,20 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
-      {/* STICKY SKILLS & TALENT BAR (Appears when scrolling past hero, always crisp light style) */}
+      {/* STICKY SKILLS & TALENT BAR (Always sticky below navbar on desktop) */}
       <div
         ref={stickyBarRef}
         className="rf-sticky-skills-bar"
         style={{
-          position: 'fixed',
+          position: 'sticky',
           top: 'var(--rf-header-height, 72px)',
-          left: 0,
-          right: 0,
-          zIndex: 89,
-          background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.94) 55%, rgba(255, 255, 255, 0.88) 100%)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(18, 43, 26, 0.1)',
-          boxShadow: '0 4px 20px rgba(18, 43, 26, 0.06)',
-          transform: showStickySkills ? 'translateY(0)' : 'translateY(-100%)',
-          opacity: showStickySkills ? 1 : 0,
-          pointerEvents: showStickySkills ? 'auto' : 'none',
-          transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
-          padding: '0.4rem 0'
+          zIndex: 90,
+          background: '#FFFFFF',
+          borderBottom: '1px solid rgba(18, 43, 26, 0.08)',
+          boxShadow: '0 2px 10px rgba(0, 0, 0, 0.04)',
+          transition: 'all 0.2s ease',
+          padding: '0.45rem 0',
+          width: '100%'
         }}
       >
         <div

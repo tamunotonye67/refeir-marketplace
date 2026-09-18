@@ -2323,6 +2323,14 @@
   order: 2;
 }
 
+/* Sticky Skills Quick-Filter Bar on Desktop */
+.rf-sticky-skills-bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: var(--rf-header-height, 72px);
+  z-index: 90;
+}
+
 /* Base Announcement Banner Transitions */
 .rf-mobile-sticky-announcement {
   display: none;

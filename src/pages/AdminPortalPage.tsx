@@ -129,7 +129,34 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
   const { showToast, addAppNotification } = useNotification();
   const { currentUser } = useAuth();
 
-  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE' | 'PIONEERS'>('OVERVIEW');
+  type AdminWebsiteTab = 'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE' | 'PIONEERS';
+
+  const getSavedActiveTab = (): AdminWebsiteTab => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlTab = params.get('tab')?.toUpperCase();
+      const stored = (localStorage.getItem('refeir_admin_active_tab') || sessionStorage.getItem('refeir_admin_active_tab'))?.toUpperCase();
+      const candidate = urlTab || stored;
+      const validTabs: AdminWebsiteTab[] = ['OVERVIEW', 'DASHBOARDS', 'COUNTRIES', 'TEAM', 'SETTINGS', 'VERIFICATIONS', 'DISPUTES', 'FRAUD', 'AUDIT', 'AIRFEE', 'PIONEERS'];
+      if (candidate && validTabs.includes(candidate as AdminWebsiteTab)) {
+        return candidate as AdminWebsiteTab;
+      }
+    } catch {}
+    return 'OVERVIEW';
+  };
+
+  const [activeTab, setActiveTabState] = useState<AdminWebsiteTab>(getSavedActiveTab);
+
+  const setActiveTab = (newTab: AdminWebsiteTab) => {
+    setActiveTabState(newTab);
+    try {
+      localStorage.setItem('refeir_admin_active_tab', newTab);
+      sessionStorage.setItem('refeir_admin_active_tab', newTab);
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', newTab.toLowerCase());
+      window.history.replaceState(null, '', url.pathname + url.search);
+    } catch {}
+  };
 
   // Pioneer Applications State
   const [pioneerAppsList, setPioneerAppsList] = useState<PioneerApplication[]>([
