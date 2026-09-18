@@ -2325,10 +2325,12 @@
 
 /* Sticky Skills Quick-Filter Bar on Desktop */
 .rf-sticky-skills-bar {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: var(--rf-header-height, 72px);
-  z-index: 90;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 89;
 }
 
 /* Base Announcement Banner Transitions */
