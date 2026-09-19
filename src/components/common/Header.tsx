@@ -111,6 +111,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   } = useNotification();
 
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>(null);
+  const [, setPrevDropdown] = useState<ActiveDropdown>(null);
+  const [switchDirection, setSwitchDirection] = useState<'left' | 'right' | null>(null);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
@@ -203,12 +205,42 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
     }
+    if (activeDropdown && dropdown && activeDropdown !== dropdown) {
+      const allGroups: string[][] = [
+        ['recruit', 'scout', 'talent', 'resources'],
+        ['journey', 'scale', 'analytics'],
+        ['projects', 'talent-pipeline', 'hiring-analytics'],
+        ['network', 'pipeline', 'telemetry']
+      ];
+      let prevIdx = -1;
+      let newIdx = -1;
+      for (const group of allGroups) {
+        const p = group.indexOf(activeDropdown);
+        const n = group.indexOf(dropdown);
+        if (p !== -1 && n !== -1) {
+          prevIdx = p;
+          newIdx = n;
+          break;
+        }
+      }
+      if (prevIdx !== -1 && newIdx !== -1) {
+        setSwitchDirection(newIdx > prevIdx ? 'right' : 'left');
+      } else {
+        setSwitchDirection('right');
+      }
+      setPrevDropdown(activeDropdown);
+    } else if (!activeDropdown) {
+      setSwitchDirection(null);
+      setPrevDropdown(null);
+    }
     setActiveDropdown(dropdown);
   };
 
   const handleMouseLeave = () => {
     closeTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
+      setPrevDropdown(null);
+      setSwitchDirection(null);
     }, 180);
   };
 
@@ -253,9 +285,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   };
 
   const isDarkTheme = theme === 'dark';
-  const navPopoverBg = isDarkTheme ? 'rgba(7, 22, 13, 0.88)' : 'rgba(255, 255, 255, 0.9)';
+  const navPopoverBg = isDarkTheme ? '#07160D' : '#FFFFFF';
   const navPopoverBorder = isDarkTheme ? '1px solid rgba(102, 187, 42, 0.28)' : '1px solid rgba(18, 43, 26, 0.12)';
-  const navPopoverShadow = isDarkTheme ? '0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(102, 187, 42, 0.1)' : '0 20px 50px rgba(0, 0, 0, 0.12), 0 0 20px rgba(102, 187, 42, 0.05)';
+  const navPopoverShadow = isDarkTheme ? '0 24px 60px rgba(0, 0, 0, 0.75), 0 0 30px rgba(102, 187, 42, 0.12)' : '0 20px 50px rgba(0, 0, 0, 0.12), 0 0 20px rgba(102, 187, 42, 0.05)';
   const isDark = isDarkTheme;
   const borderDivider = isDarkTheme ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)';
   const navBorderDivider = borderDivider;
@@ -730,20 +762,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'journey' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '270px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '270px' }}
                           onMouseEnter={() => handleMouseEnter('journey')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -772,20 +792,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'scale' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '285px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '285px' }}
                           onMouseEnter={() => handleMouseEnter('scale')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -815,20 +823,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'analytics' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '280px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '280px' }}
                           onMouseEnter={() => handleMouseEnter('analytics')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -870,20 +866,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'network' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '270px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '270px' }}
                           onMouseEnter={() => handleMouseEnter('network')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -912,20 +896,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'pipeline' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '285px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '285px' }}
                           onMouseEnter={() => handleMouseEnter('pipeline')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -955,20 +927,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'telemetry' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '280px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '280px' }}
                           onMouseEnter={() => handleMouseEnter('telemetry')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -1010,20 +970,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'projects' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '270px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '270px' }}
                           onMouseEnter={() => handleMouseEnter('projects')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -1052,20 +1000,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'talent-pipeline' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '285px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '285px' }}
                           onMouseEnter={() => handleMouseEnter('talent-pipeline')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -1095,20 +1031,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                       {activeDropdown === 'hiring-analytics' && (
                         <div
-                          style={{
-                            position: 'absolute',
-                            top: 'calc(100% + 8px)',
-                            left: '0',
-                            minWidth: '280px',
-                            background: navPopoverBg,
-                            border: navPopoverBorder,
-                            borderRadius: 'var(--rf-radius-xl)',
-                            boxShadow: navPopoverShadow,
-                            padding: '0.65rem',
-                            zIndex: 1000,
-                            animation: 'fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                            backdropFilter: 'blur(20px)'
-                          }}
+                          className={`rf-nav-flyout-panel ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                          style={{ minWidth: '280px' }}
                           onMouseEnter={() => handleMouseEnter('hiring-analytics')}
                           onMouseLeave={handleMouseLeave}
                         >
@@ -1175,7 +1099,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                 {activeDropdown === 'recruit' && (
                   <div
-                    className="rf-mega-menu rf-mega-menu-right"
+                    className={`rf-mega-menu rf-mega-menu-right ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
                     style={{ minWidth: '640px' }}
                     onMouseEnter={() => handleMouseEnter('recruit')}
                     onMouseLeave={handleMouseLeave}
@@ -1311,7 +1235,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                 {activeDropdown === 'scout' && (
                   <div
-                    className="rf-mega-menu rf-mega-menu-right"
+                    className={`rf-mega-menu rf-mega-menu-right ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
                     style={{ minWidth: '600px' }}
                     onMouseEnter={() => handleMouseEnter('scout')}
                     onMouseLeave={handleMouseLeave}
@@ -1425,7 +1349,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                 {activeDropdown === 'talent' && (
                   <div
-                    className="rf-mega-menu rf-mega-menu-right"
+                    className={`rf-mega-menu rf-mega-menu-right ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
                     style={{ minWidth: '600px' }}
                     onMouseEnter={() => handleMouseEnter('talent')}
                     onMouseLeave={handleMouseLeave}
@@ -1554,7 +1478,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                 {activeDropdown === 'resources' && (
                   <div
-                    className="rf-mega-menu rf-mega-menu-center"
+                    className={`rf-mega-menu rf-mega-menu-center ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
                     style={{ minWidth: '840px', maxWidth: 'calc(100vw - 2rem)' }}
                     onMouseEnter={() => handleMouseEnter('resources')}
                     onMouseLeave={handleMouseLeave}
@@ -1757,7 +1681,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             {(() => {
               const isDark = theme === 'dark';
-              const popoverBg = isDark ? 'rgba(7, 22, 13, 0.88)' : 'rgba(255, 255, 255, 0.9)';
+              const popoverBg = isDark ? '#07160D' : '#FFFFFF';
               const popoverBorder = isDark ? '1px solid rgba(102, 187, 42, 0.28)' : '1px solid rgba(18, 43, 26, 0.12)';
               const popoverShadow = isDark ? '0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(102, 187, 42, 0.1)' : '0 20px 50px rgba(0, 0, 0, 0.12), 0 0 20px rgba(102, 187, 42, 0.05)';
               const headerBg = isDark
