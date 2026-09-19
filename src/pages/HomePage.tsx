@@ -1138,21 +1138,22 @@ export const HomePage: React.FC<HomePageProps> = ({
         className="rf-sticky-skills-bar"
         style={{
           position: 'fixed',
-          top: 'var(--rf-header-height, 72px)',
+          top: showStickySkills ? 'var(--rf-header-height, 72px)' : '-100px',
           left: 0,
           right: 0,
           zIndex: 89,
-          background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.94) 55%, rgba(255, 255, 255, 0.88) 100%)',
+          background: 'rgba(255, 255, 255, 0.98)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           borderBottom: '1px solid rgba(18, 43, 26, 0.1)',
-          boxShadow: '0 4px 20px rgba(18, 43, 26, 0.06)',
-          transform: showStickySkills ? 'translateY(0)' : 'translateY(-100%)',
+          boxShadow: showStickySkills ? '0 4px 20px rgba(18, 43, 26, 0.06)' : 'none',
           opacity: showStickySkills ? 1 : 0,
+          visibility: showStickySkills ? 'visible' : 'hidden',
           pointerEvents: showStickySkills ? 'auto' : 'none',
-          transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
+          transition: 'top 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.2s ease',
           padding: '0.4rem 0',
-          width: '100%'
+          width: '100%',
+          transform: 'none'
         }}
       >
         <div
