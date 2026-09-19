@@ -638,8 +638,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     { label: 'Web design', query: 'Web Design' },
     { label: 'AI development', query: 'AI Development' },
     { label: 'Video editing', query: 'Video Editing' },
-    { label: 'Google Ads', query: 'Google Ads' },
-    { label: 'Tech scouting', query: 'Talent Scout' }
+    { label: 'Google Ads', query: 'Google Ads' }
   ];
 
   // Close Hero Search on ESC or Click Outside (Desktop)
@@ -1792,7 +1791,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               {isHeroSearchActive && !isMobile ? (
                 /* Desktop In-Hero Expanded Search Interface */
                 <div ref={heroSearchContainerRef} className="rf-hero-desktop-expanded-search">
-                  {/* Top Bar: Toggle & Close */}
+                  {/* Top Bar: Toggle */}
                   <div className="rf-hero-search-toggle-wrap">
                     <div className="rf-hero-intent-toggle">
                       <button
@@ -1810,16 +1809,6 @@ export const HomePage: React.FC<HomePageProps> = ({
                         I want to work
                       </button>
                     </div>
-
-                    <button
-                      type="button"
-                      onClick={() => setIsHeroSearchActive(false)}
-                      className="rf-hero-search-close-btn"
-                      title="Close search (ESC)"
-                    >
-                      <X size={14} />
-                      <span>ESC</span>
-                    </button>
                   </div>
 
                   {/* Search Input Box */}
