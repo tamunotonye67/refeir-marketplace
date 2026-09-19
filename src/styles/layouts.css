@@ -63,9 +63,10 @@ main {
 
 /* --- Navigation & Header --- */
 .rf-header {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   height: var(--rf-header-height, 72px);
   background: rgba(255, 255, 255, 0.95);

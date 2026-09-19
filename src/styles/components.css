@@ -2333,6 +2333,12 @@
   z-index: 89;
 }
 
+.rf-skills-scroll-container::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 /* Base Announcement Banner Transitions */
 .rf-mobile-sticky-announcement {
   display: none;

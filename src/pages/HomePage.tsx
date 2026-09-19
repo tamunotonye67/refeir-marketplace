@@ -1199,12 +1199,14 @@ export const HomePage: React.FC<HomePageProps> = ({
           {/* Horizontal scrollable list of skill/talent pills */}
           <div
             ref={skillsScrollRef}
+            className="rf-skills-scroll-container"
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
               overflowX: 'auto',
               scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
               WebkitOverflowScrolling: 'touch',
               scrollBehavior: 'smooth',
               flex: 1,
