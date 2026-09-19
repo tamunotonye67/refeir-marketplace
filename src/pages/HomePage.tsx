@@ -2750,7 +2750,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Controls */}
             <div>
               {/* Currency selector */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.65rem' }}>
                 <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--rf-cream)' }}>Display Currency:</span>
                 <div style={{ display: 'flex', gap: '0.35rem' }}>
                   {(['USD', 'NGN', 'KES', 'GHS'] as const).map(c => (
@@ -2767,7 +2767,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Slider 1: Average Project Size */}
               <div style={{ marginBottom: '1.75rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.25rem' }}>
                   <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--rf-cream)' }}>Average Project Value:</span>
                   <span className="rf-scout-val-highlight">
                     ${calcProjectValue.toLocaleString()} USD
@@ -2785,7 +2785,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     '--slider-fill': `${Math.min(100, Math.max(0, ((calcProjectValue - 300) / (8000 - 300)) * 100))}%`
                   } as React.CSSProperties}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.35rem' }}>
                   <span>$300 (Micro MVP)</span>
                   <span>$8,000 (Full Enterprise Build)</span>
                 </div>
@@ -2793,10 +2793,13 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Slider 2: Number of Successful Referrals */}
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--rf-cream)' }}>Successful Connections / Month:</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.25rem' }}>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
+                    <span className="rf-desktop-only">Successful Connections / Month:</span>
+                    <span className="rf-mobile-only">Monthly Connections:</span>
+                  </span>
                   <span className="rf-scout-intro-highlight">
-                    {calcReferralCount} Introductions
+                    {calcReferralCount} {calcReferralCount === 1 ? 'Introduction' : 'Introductions'}
                   </span>
                 </div>
                 <input
@@ -2811,7 +2814,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     '--slider-fill': `${Math.min(100, Math.max(0, ((calcReferralCount - 1) / (15 - 1)) * 100))}%`
                   } as React.CSSProperties}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.35rem' }}>
                   <span>1 hire / mo</span>
                   <span>15 hires / mo</span>
                 </div>

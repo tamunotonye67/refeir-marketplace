@@ -2769,17 +2769,22 @@
     flex-wrap: nowrap !important;
     justify-content: space-between !important;
     width: 100% !important;
-    gap: 0.35rem !important;
-    margin-top: 0.5rem !important;
+    gap: 0.4rem !important;
+    margin-top: 0.65rem !important;
   }
 
   .rf-region-pill-btn {
     flex: 1 1 0 !important;
     padding: 0.45rem 0.15rem !important;
     text-align: center !important;
-    font-size: 0.825rem !important;
+    font-size: 0.8rem !important;
     font-weight: 800 !important;
     min-width: 0 !important;
+    border-radius: 9999px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   /* Hero Trust Badges on Mobile: 2x2 Clean Grid */
@@ -3115,15 +3120,28 @@
   }
 
   .rf-scout-calculator-card {
-    padding: 1.25rem 1rem !important;
-    border-radius: 18px !important;
+    padding: 1.5rem 1.15rem !important;
+    border-radius: 20px !important;
     grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+    gap: 1.75rem !important;
+  }
+
+  .rf-scout-currency-btn {
+    padding: 0.35rem 0.65rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 6px !important;
+    font-weight: 800 !important;
   }
 
   .rf-scout-output-box {
-    padding: 1.25rem 1rem !important;
-    border-radius: 14px !important;
+    padding: 1.5rem 1.15rem !important;
+    border-radius: 16px !important;
+  }
+
+  .rf-scout-cta-btn {
+    padding: 0.95rem 1.25rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 12px !important;
   }
 
   /* 3. Refeir for Business & Global Teams Card on Mobile */
@@ -3151,25 +3169,57 @@
 
   /* 5. Africa Map Explorer Card on Mobile */
   .rf-africa-explorer-card {
-    padding: 1.25rem 0.85rem !important;
-    border-radius: 18px !important;
+    padding: 1.5rem 1.15rem !important;
+    border-radius: 20px !important;
   }
 
   .rf-africa-overview-bar {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.65rem !important;
-    padding: 0.85rem !important;
+    gap: 1rem 0.75rem !important;
+    padding: 1.15rem 1rem !important;
     border-radius: 14px !important;
   }
 
+  .rf-africa-overview-bar span {
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .rf-africa-overview-bar div {
+    font-size: 0.95rem !important;
+  }
+
   .rf-africa-countries-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.6rem !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
   }
 
   .rf-region-country-card {
-    padding: 0.75rem 0.6rem !important;
-    border-radius: 12px !important;
+    padding: 0.95rem 1.1rem !important;
+    border-radius: 14px !important;
+    gap: 0.45rem !important;
+  }
+
+  .rf-country-status-badge {
+    white-space: nowrap !important;
+    font-size: 0.68rem !important;
+    padding: 0.2rem 0.55rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .rf-region-country-card .rf-country-info-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    font-size: 0.78rem !important;
+    margin-top: 0.15rem !important;
+  }
+
+  .rf-region-country-card .rf-country-cities-row {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+    margin-top: 0 !important;
   }
 
   /* 6. How It Works: Single-Line Toggle Buttons & Horizontal Swipeable Cards on Mobile */
