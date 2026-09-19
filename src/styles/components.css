@@ -3745,12 +3745,13 @@
   border: none;
   background: transparent;
   color: #94A3B8;
-  padding: 0.45rem 1.15rem;
+  padding: 0.4rem clamp(0.5rem, 2vw, 0.85rem);
   border-radius: 9999px;
-  font-size: 0.8125rem;
+  font-size: clamp(0.725rem, 2.8vw, 0.8125rem);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .rf-mobile-search-overlay .rf-hero-intent-btn.is-active {

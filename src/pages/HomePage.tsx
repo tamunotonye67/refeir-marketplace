@@ -415,6 +415,8 @@ export const HomePage: React.FC<HomePageProps> = ({
     }
     if (heroSearchIntent === 'work') {
       onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}&intent=work`);
+    } else if (heroSearchIntent === 'scout') {
+      onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}&intent=scout`);
     } else {
       onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}`);
     }
@@ -425,6 +427,8 @@ export const HomePage: React.FC<HomePageProps> = ({
     setSearchQuery(term);
     if (heroSearchIntent === 'work') {
       onNavigate(`/marketplace?q=${encodeURIComponent(term)}&intent=work`);
+    } else if (heroSearchIntent === 'scout') {
+      onNavigate(`/marketplace?q=${encodeURIComponent(term)}&intent=scout`);
     } else {
       onNavigate(`/marketplace?q=${encodeURIComponent(term)}`);
     }
@@ -611,7 +615,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
   const [isHeroSearchActive, setIsHeroSearchActive] = useState(false);
-  const [heroSearchIntent, setHeroSearchIntent] = useState<'hire' | 'work'>('hire');
+  const [heroSearchIntent, setHeroSearchIntent] = useState<'recruit' | 'work' | 'scout'>('recruit');
   const heroSearchContainerRef = useRef<HTMLDivElement>(null);
   const heroSearchInputRef = useRef<HTMLInputElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
@@ -632,6 +636,15 @@ export const HomePage: React.FC<HomePageProps> = ({
     'Mobile app developer gigs',
     'Growth marketing specialist roles',
     'Python & backend data pipelines'
+  ];
+
+  const POPULAR_SEARCHES_SCOUT = [
+    'Talent referral programs & payouts',
+    'Earn 10% commission on software engineers',
+    'Scout high-paying enterprise contracts',
+    'Pan-African tech community networks',
+    'Top frontend & UI/UX designers to refer',
+    'Client bounty listings & referral rewards'
   ];
 
   const DESKTOP_QUICK_TAGS = [
@@ -1251,10 +1264,10 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div className="rf-hero-intent-toggle">
               <button
                 type="button"
-                className={`rf-hero-intent-btn ${heroSearchIntent === 'hire' ? 'is-active' : ''}`}
-                onClick={() => setHeroSearchIntent('hire')}
+                className={`rf-hero-intent-btn ${heroSearchIntent === 'recruit' ? 'is-active' : ''}`}
+                onClick={() => setHeroSearchIntent('recruit')}
               >
-                I want to hire
+                I want to recruit
               </button>
               <button
                 type="button"
@@ -1262,6 +1275,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onClick={() => setHeroSearchIntent('work')}
               >
                 I want to work
+              </button>
+              <button
+                type="button"
+                className={`rf-hero-intent-btn ${heroSearchIntent === 'scout' ? 'is-active' : ''}`}
+                onClick={() => setHeroSearchIntent('scout')}
+              >
+                I want to scout
               </button>
             </div>
           </div>
@@ -1275,9 +1295,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder={
-                  heroSearchIntent === 'hire'
-                    ? 'Describe what you need to hire for...'
-                    : 'Describe what you want to work on...'
+                  heroSearchIntent === 'recruit'
+                    ? 'Describe what you need to recruit for...'
+                    : heroSearchIntent === 'work'
+                    ? 'Describe what you want to work on...'
+                    : 'Search talent or bounties to scout...'
                 }
                 className="rf-mobile-search-input"
               />
@@ -1294,7 +1316,12 @@ export const HomePage: React.FC<HomePageProps> = ({
           {/* Popular Searches */}
           <div className="rf-mobile-search-section-title">Popular Searches</div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {(heroSearchIntent === 'hire' ? POPULAR_SEARCHES_HIRE : POPULAR_SEARCHES_WORK).map((item, idx) => (
+            {(heroSearchIntent === 'recruit'
+              ? POPULAR_SEARCHES_HIRE
+              : heroSearchIntent === 'work'
+              ? POPULAR_SEARCHES_WORK
+              : POPULAR_SEARCHES_SCOUT
+            ).map((item, idx) => (
               <div
                 key={idx}
                 className="rf-mobile-popular-item"
@@ -1796,10 +1823,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <div className="rf-hero-intent-toggle">
                       <button
                         type="button"
-                        className={`rf-hero-intent-btn ${heroSearchIntent === 'hire' ? 'is-active' : ''}`}
-                        onClick={() => setHeroSearchIntent('hire')}
+                        className={`rf-hero-intent-btn ${heroSearchIntent === 'recruit' ? 'is-active' : ''}`}
+                        onClick={() => setHeroSearchIntent('recruit')}
                       >
-                        I want to hire
+                        I want to recruit
                       </button>
                       <button
                         type="button"
@@ -1807,6 +1834,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                         onClick={() => setHeroSearchIntent('work')}
                       >
                         I want to work
+                      </button>
+                      <button
+                        type="button"
+                        className={`rf-hero-intent-btn ${heroSearchIntent === 'scout' ? 'is-active' : ''}`}
+                        onClick={() => setHeroSearchIntent('scout')}
+                      >
+                        I want to scout
                       </button>
                     </div>
                   </div>
@@ -1821,9 +1855,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                         value={searchQuery}
                         onChange={e => setSearchQuery(e.target.value)}
                         placeholder={
-                          heroSearchIntent === 'hire'
-                            ? 'Describe what you need to hire for...'
-                            : 'Describe the roles, gigs or skills you want to work on...'
+                          heroSearchIntent === 'recruit'
+                            ? 'Describe what you need to recruit for...'
+                            : heroSearchIntent === 'work'
+                            ? 'Describe the roles, gigs or skills you want to work on...'
+                            : 'Search talent or client bounties to scout and refer...'
                         }
                         style={{
                           background: 'transparent',
@@ -1852,7 +1888,12 @@ export const HomePage: React.FC<HomePageProps> = ({
                     Popular Searches
                   </div>
                   <div className="rf-hero-popular-list">
-                    {(heroSearchIntent === 'hire' ? POPULAR_SEARCHES_HIRE : POPULAR_SEARCHES_WORK).map((item, idx) => (
+                    {(heroSearchIntent === 'recruit'
+                      ? POPULAR_SEARCHES_HIRE
+                      : heroSearchIntent === 'work'
+                      ? POPULAR_SEARCHES_WORK
+                      : POPULAR_SEARCHES_SCOUT
+                    ).map((item, idx) => (
                       <div
                         key={idx}
                         className="rf-hero-popular-item"
