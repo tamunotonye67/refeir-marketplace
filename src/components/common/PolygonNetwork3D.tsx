@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface Node3D {
   x: number;
@@ -46,27 +46,27 @@ export const PolygonNetwork3D: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // 3D Polygon Nodes (Relationship between Countries & Global People)
-    const R = 145; // Base Radius - Made significantly bigger
-    const phi = (1 + Math.sqrt(5)) / 2; // Golden Ratio for Icosahedron
-    const a = R / Math.sqrt(1 + phi * phi);
-    const b = (R * phi) / Math.sqrt(1 + phi * phi);
+    // 3D Unit Polygon Nodes (Golden Ratio for Icosahedron)
+    const phi = (1 + Math.sqrt(5)) / 2;
+    const uNorm = Math.sqrt(1 + phi * phi);
+    const ua = 1 / uNorm;
+    const ub = phi / uNorm;
 
-    const rawNodes: Node3D[] = [
-      { x: -a, y: b, z: 0, country: 'Lagos', role: 'Amaka • UI Architect', type: 'talent', color: '#66BB2A' },
-      { x: a, y: b, z: 0, country: 'London', role: 'FinTech UK • Client', type: 'client', color: '#38BDF8' },
-      { x: -a, y: -b, z: 0, country: 'Nairobi', role: 'Sharon • AI Engineer', type: 'talent', color: '#66BB2A' },
-      { x: a, y: -b, z: 0, country: 'New York', role: 'Alpha Capital • Client', type: 'client', color: '#38BDF8' },
+    const unitNodes = [
+      { x: -ua, y: ub, z: 0, country: 'Lagos', role: 'Amaka • UI Architect', type: 'talent' as const, color: '#66BB2A' },
+      { x: ua, y: ub, z: 0, country: 'London', role: 'FinTech UK • Client', type: 'client' as const, color: '#38BDF8' },
+      { x: -ua, y: -ub, z: 0, country: 'Nairobi', role: 'Sharon • AI Engineer', type: 'talent' as const, color: '#66BB2A' },
+      { x: ua, y: -ub, z: 0, country: 'New York', role: 'Alpha Capital • Client', type: 'client' as const, color: '#38BDF8' },
 
-      { x: 0, y: -a, z: b, country: 'Accra', role: 'Kwame • Cloud Architect', type: 'talent', color: '#66BB2A' },
-      { x: 0, y: a, z: b, country: 'Paris', role: 'Global Scout Network', type: 'scout', color: '#F6B21A' },
-      { x: 0, y: -a, z: -b, country: 'Cape Town', role: 'Devin • DevOps Lead', type: 'talent', color: '#66BB2A' },
-      { x: 0, y: a, z: -b, country: 'Berlin', role: 'SaaS Foundry • Client', type: 'client', color: '#38BDF8' },
+      { x: 0, y: -ua, z: ub, country: 'Accra', role: 'Kwame • Cloud Architect', type: 'talent' as const, color: '#66BB2A' },
+      { x: 0, y: ua, z: ub, country: 'Paris', role: 'Global Scout Network', type: 'scout' as const, color: '#F6B21A' },
+      { x: 0, y: -ua, z: -ub, country: 'Cape Town', role: 'Devin • DevOps Lead', type: 'talent' as const, color: '#66BB2A' },
+      { x: 0, y: ua, z: -ub, country: 'Berlin', role: 'SaaS Foundry • Client', type: 'client' as const, color: '#38BDF8' },
 
-      { x: b, y: 0, z: -a, country: 'San Francisco', role: 'Venture Partner', type: 'client', color: '#38BDF8' },
-      { x: b, y: 0, z: a, country: 'Kigali', role: 'David • Tech Scout', type: 'scout', color: '#F6B21A' },
-      { x: -b, y: 0, z: -a, country: 'Cairo', role: 'Tarek • Systems Eng', type: 'talent', color: '#66BB2A' },
-      { x: -b, y: 0, z: a, country: 'Dubai', role: 'Regional HQ • Client', type: 'client', color: '#38BDF8' }
+      { x: ub, y: 0, z: -ua, country: 'San Francisco', role: 'Venture Partner', type: 'client' as const, color: '#38BDF8' },
+      { x: ub, y: 0, z: ua, country: 'Kigali', role: 'David • Tech Scout', type: 'scout' as const, color: '#F6B21A' },
+      { x: -ub, y: 0, z: -ua, country: 'Cairo', role: 'Tarek • Systems Eng', type: 'talent' as const, color: '#66BB2A' },
+      { x: -ub, y: 0, z: ua, country: 'Dubai', role: 'Regional HQ • Client', type: 'client' as const, color: '#38BDF8' }
     ];
 
     // Polygon Edges (Cross-Border Links)
@@ -123,7 +123,7 @@ export const PolygonNetwork3D: React.FC = () => {
 
     const handleMouseEnter = () => {
       isHovering = true;
-      targetScale = 1.35;
+      targetScale = width < 500 ? 1.12 : 1.30;
     };
 
     const handleMouseLeave = () => {
@@ -137,13 +137,24 @@ export const PolygonNetwork3D: React.FC = () => {
     canvas.addEventListener('mouseenter', handleMouseEnter);
     canvas.addEventListener('mouseleave', handleMouseLeave);
 
-    const FOV = 400;
-
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
       const cx = width / 2;
       const cy = height / 2;
+      const minDim = Math.min(width, height);
+      const isMobile = width < 500 || height < 360;
+
+      // Base radius dynamically scaled to always fit within container with margins
+      const R = isMobile ? minDim * 0.25 : Math.min(145, minDim * 0.34);
+      const FOV = Math.max(300, minDim * 0.95);
+
+      const rawNodes: Node3D[] = unitNodes.map(u => ({
+        ...u,
+        x: u.x * R,
+        y: u.y * R,
+        z: u.z * R
+      }));
 
       // Smooth continuous auto-rotation + mouse interaction + scale growth
       currentScale += (targetScale - currentScale) * 0.08;
@@ -190,13 +201,14 @@ export const PolygonNetwork3D: React.FC = () => {
       });
 
       // 1. Draw Ambient Center Glow (Expands smoothly on hover)
-      const centerGlow = ctx.createRadialGradient(cx, cy, 10, cx, cy, 180 * currentScale);
-      centerGlow.addColorStop(0, isHovering ? 'rgba(102, 187, 42, 0.32)' : 'rgba(102, 187, 42, 0.22)');
-      centerGlow.addColorStop(0.5, isHovering ? 'rgba(56, 189, 248, 0.14)' : 'rgba(56, 189, 248, 0.09)');
+      const glowRadius = Math.max(60, minDim * 0.40) * currentScale;
+      const centerGlow = ctx.createRadialGradient(cx, cy, 10, cx, cy, glowRadius);
+      centerGlow.addColorStop(0, isHovering ? 'rgba(102, 187, 42, 0.30)' : 'rgba(102, 187, 42, 0.20)');
+      centerGlow.addColorStop(0.5, isHovering ? 'rgba(56, 189, 248, 0.12)' : 'rgba(56, 189, 248, 0.08)');
       centerGlow.addColorStop(1, 'rgba(10, 24, 15, 0)');
       ctx.fillStyle = centerGlow;
       ctx.beginPath();
-      ctx.arc(cx, cy, 180 * currentScale, 0, Math.PI * 2);
+      ctx.arc(cx, cy, glowRadius, 0, Math.PI * 2);
       ctx.fill();
 
       // 2. Draw 3D Polygon Faces (Semi-transparent Glass Facets)
@@ -237,7 +249,7 @@ export const PolygonNetwork3D: React.FC = () => {
         edgeGrad.addColorStop(1, `rgba(246, 178, 26, ${alpha})`);
 
         ctx.strokeStyle = edgeGrad;
-        ctx.lineWidth = Math.max(1, avgScale * 1.6);
+        ctx.lineWidth = Math.max(1, avgScale * (isMobile ? 1.2 : 1.6));
         ctx.stroke();
 
         // 4. Draw Flowing Animated Photons (Active Referral / Payment Link Pulses)
@@ -246,10 +258,10 @@ export const PolygonNetwork3D: React.FC = () => {
         const pulseY = p1.py + (p2.py - p1.py) * edge.flowProgress;
 
         ctx.beginPath();
-        ctx.arc(pulseX, pulseY, 2.8 * avgScale, 0, Math.PI * 2);
+        ctx.arc(pulseX, pulseY, (isMobile ? 2.2 : 2.8) * avgScale, 0, Math.PI * 2);
         ctx.fillStyle = '#CEF942';
         ctx.shadowColor = '#66BB2A';
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = isMobile ? 5 : 8;
         ctx.fill();
         ctx.shadowBlur = 0; // reset
       });
@@ -259,12 +271,13 @@ export const PolygonNetwork3D: React.FC = () => {
       const sortedNodes = [...projected].sort((a, b) => a.z - b.z);
 
       sortedNodes.forEach(node => {
-        const radius = Math.max(4, 6.5 * node.scale);
+        const baseRadius = isMobile ? 5 : 6.5;
+        const radius = Math.max(3, baseRadius * node.scale);
         const nodeAlpha = Math.max(0.3, Math.min(1, node.scale * 0.95));
 
         // Outer glow halo
         ctx.beginPath();
-        ctx.arc(node.px, node.py, radius * 2.2, 0, Math.PI * 2);
+        ctx.arc(node.px, node.py, radius * 2.0, 0, Math.PI * 2);
         ctx.fillStyle = node.color === '#66BB2A'
           ? `rgba(102, 187, 42, ${nodeAlpha * 0.3})`
           : node.color === '#38BDF8'
@@ -277,7 +290,7 @@ export const PolygonNetwork3D: React.FC = () => {
         ctx.arc(node.px, node.py, radius, 0, Math.PI * 2);
         ctx.fillStyle = node.color;
         ctx.shadowColor = node.color;
-        ctx.shadowBlur = 10 * node.scale;
+        ctx.shadowBlur = (isMobile ? 6 : 10) * node.scale;
         ctx.fill();
         ctx.shadowBlur = 0;
 
@@ -289,10 +302,11 @@ export const PolygonNetwork3D: React.FC = () => {
 
         // Node Country Tag Label (Front-facing nodes)
         if (node.scale > 0.82) {
-          ctx.font = `700 ${Math.round(11 * node.scale)}px sans-serif`;
+          const fontSize = isMobile ? Math.max(9, Math.round(9.5 * node.scale)) : Math.max(10, Math.round(11 * node.scale));
+          ctx.font = `700 ${fontSize}px sans-serif`;
           ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
           ctx.textAlign = 'center';
-          ctx.fillText(node.country, node.px, node.py - radius - 5);
+          ctx.fillText(node.country, node.px, node.py - radius - 4);
         }
       });
 
@@ -317,7 +331,6 @@ export const PolygonNetwork3D: React.FC = () => {
         position: 'relative',
         width: '100%',
         height: '100%',
-        minHeight: '400px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

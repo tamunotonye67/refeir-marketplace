@@ -2809,19 +2809,22 @@
 
   /* Scout Amara Sourcing Card - Reduced proportionally for mobile viewports */
   .rf-scout-sourcing-visual {
-    min-height: 290px !important;
+    min-height: 330px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     position: relative !important;
+    padding: 1.25rem 0 1.5rem 0 !important;
+    margin: 0.5rem 0 !important;
+    overflow: visible !important;
   }
 
   .rf-scout-back-card {
-    max-width: 270px !important;
-    width: 86% !important;
-    padding: 0.85rem 1rem !important;
-    border-radius: 16px !important;
-    transform: rotate(4deg) translateY(-16px) translateX(10px) !important;
+    max-width: 250px !important;
+    width: 82% !important;
+    padding: 0.75rem 0.85rem !important;
+    border-radius: 14px !important;
+    transform: rotate(3deg) translateY(-8px) translateX(8px) !important;
   }
 
   .rf-scout-back-avatar {
@@ -2848,78 +2851,79 @@
   }
 
   .rf-scout-amara-card {
-    max-width: 295px !important;
-    width: 90% !important;
-    padding: 1.1rem 1.15rem !important;
-    border-radius: 18px !important;
+    max-width: 275px !important;
+    width: 88% !important;
+    padding: 0.95rem 1rem !important;
+    border-radius: 16px !important;
     transform: rotate(-1deg) !important;
-    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 14px 30px -6px rgba(0, 0, 0, 0.5) !important;
   }
 
   .rf-scout-amara-avatar {
-    width: 46px !important;
-    height: 46px !important;
+    width: 42px !important;
+    height: 42px !important;
   }
 
   .rf-scout-amara-star {
-    width: 16px !important;
-    height: 16px !important;
-    font-size: 0.55rem !important;
+    width: 15px !important;
+    height: 15px !important;
+    font-size: 0.52rem !important;
   }
 
   .rf-scout-amara-name {
-    font-size: 0.95rem !important;
+    font-size: 0.88rem !important;
   }
 
   .rf-scout-amara-badge {
-    font-size: 0.68rem !important;
-    padding: 0.1rem 0.4rem !important;
+    font-size: 0.62rem !important;
+    padding: 0.1rem 0.35rem !important;
   }
 
   .rf-scout-amara-role {
-    font-size: 0.72rem !important;
-    margin: 0.1rem 0 0.25rem 0 !important;
+    font-size: 0.7rem !important;
+    margin: 0.1rem 0 0.2rem 0 !important;
   }
 
   .rf-scout-amara-rating {
-    font-size: 0.68rem !important;
-    gap: 0.35rem !important;
+    font-size: 0.65rem !important;
+    gap: 0.3rem !important;
   }
 
   .rf-scout-amara-dossier {
-    padding: 0.65rem 0.8rem !important;
-    margin-bottom: 0.75rem !important;
+    padding: 0.55rem 0.75rem !important;
+    margin-bottom: 0.65rem !important;
     border-radius: 10px !important;
   }
 
   .rf-scout-amara-dossier span {
-    font-size: 0.65rem !important;
+    font-size: 0.62rem !important;
   }
 
   .rf-scout-amara-dossier p {
-    font-size: 0.74rem !important;
+    font-size: 0.72rem !important;
     line-height: 1.35 !important;
   }
 
   .rf-scout-amara-footer {
-    padding-top: 0.65rem !important;
-    font-size: 0.68rem !important;
+    padding-top: 0.55rem !important;
+    font-size: 0.65rem !important;
   }
 
   .rf-scout-pointer-tooltip {
-    bottom: -6px !important;
+    bottom: 0px !important;
     right: 4px !important;
     gap: 0.35rem !important;
+    transform: scale(0.92) !important;
   }
 
   .rf-scout-pointer-svg {
-    width: 32px !important;
-    height: 32px !important;
+    width: 30px !important;
+    height: 30px !important;
   }
 
   .rf-scout-pointer-badge {
-    font-size: 0.7rem !important;
-    padding: 0.28rem 0.6rem !important;
+    font-size: 0.68rem !important;
+    padding: 0.25rem 0.55rem !important;
   }
 
   /* Comparison Table on Mobile: Scaled down text, compact padding to fill nicely */
@@ -3089,10 +3093,18 @@
   /* 1. Global Viewport & Section Visual Overflow Guard (Prevents page from moving left/right while allowing container sliders) */
   .rf-scout-sourcing-grid,
   .rf-ai-wizard-grid,
-  .rf-scout-sourcing-visual,
-  .rf-ai-wizard-visual {
+  .rf-business-grid {
     max-width: 100% !important;
     overflow: hidden !important;
+    box-sizing: border-box !important;
+    padding: 1.75rem 1.15rem !important;
+  }
+
+  .rf-scout-sourcing-visual,
+  .rf-ai-wizard-visual,
+  .rf-business-polygon-wrap {
+    max-width: 100% !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
   }
 
@@ -3116,16 +3128,17 @@
 
   /* 3. Refeir for Business & Global Teams Card on Mobile */
   .rf-business-grid {
-    padding: 1.35rem 1.15rem !important;
+    padding: 1.75rem 1.15rem !important;
     border-radius: 18px !important;
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
   }
 
   .rf-business-polygon-wrap {
-    height: 220px !important;
+    height: 320px !important;
+    min-height: 300px !important;
     width: 100% !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   /* 4. Africa 3D Map Grid Container on Mobile */

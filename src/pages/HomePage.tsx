@@ -2500,12 +2500,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               style={{
                 position: 'relative',
                 width: '100%',
-                minHeight: isMobile ? '260px' : '380px',
+                minHeight: isMobile ? '310px' : '380px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 perspective: '1000px',
-                overflow: isMobile ? 'hidden' : 'visible'
+                overflow: 'visible'
               }}
             >
               {AI_WIZARDS_PORTRAITS.map((wizard, idx) => {
@@ -2523,8 +2523,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                 const isFarPrev = offset === -2;
                 const isVisible = Math.abs(offset) <= 2;
 
-                const cardW = isMobile ? 124 : 185;
-                const cardH = isMobile ? 170 : 255;
+                const cardW = isMobile ? 116 : 185;
+                const cardH = isMobile ? 160 : 255;
                 const cardRadius = isMobile ? '16px' : '22px';
 
                 let translateX = 0;
@@ -2533,11 +2533,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                 let opacity = 0;
                 let rotateY = 0;
 
-                const centerScale = isMobile ? 1.08 : 1.15;
-                const nextTranslate = isMobile ? 85 : 135;
-                const nextScale = isMobile ? 0.80 : 0.86;
-                const farTranslate = isMobile ? 145 : 230;
-                const farScale = isMobile ? 0.62 : 0.70;
+                const centerScale = isMobile ? 1.05 : 1.15;
+                const nextTranslate = isMobile ? 80 : 135;
+                const nextScale = isMobile ? 0.78 : 0.86;
+                const farTranslate = isMobile ? 135 : 230;
+                const farScale = isMobile ? 0.60 : 0.70;
 
                 if (isCenter) {
                   translateX = 0;
@@ -2586,7 +2586,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      gap: isMobile ? '0.5rem' : '0.85rem',
+                      gap: isMobile ? '0.45rem' : '0.85rem',
                       transform: `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`,
                       zIndex,
                       opacity: isVisible ? opacity : 0,
@@ -2657,7 +2657,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '-15px',
+                  bottom: isMobile ? '2px' : '-10px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.45rem',
