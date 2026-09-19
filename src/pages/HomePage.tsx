@@ -3240,21 +3240,24 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onClick={() => setHowItWorksTab('recruiting')}
                 className={`rf-how-toggle-btn ${howItWorksTab === 'recruiting' ? 'active' : ''}`}
               >
-                For Recruiting
+                <span className="rf-desktop-only">For Recruiting</span>
+                <span className="rf-mobile-only">Recruiting</span>
               </button>
               <button
                 type="button"
                 onClick={() => setHowItWorksTab('hunting')}
                 className={`rf-how-toggle-btn ${howItWorksTab === 'hunting' ? 'active' : ''}`}
               >
-                For Job Hunting
+                <span className="rf-desktop-only">For Job Hunting</span>
+                <span className="rf-mobile-only">Job Hunting</span>
               </button>
               <button
                 type="button"
                 onClick={() => setHowItWorksTab('scouting')}
                 className={`rf-how-toggle-btn ${howItWorksTab === 'scouting' ? 'active' : ''}`}
               >
-                For Scouting
+                <span className="rf-desktop-only">For Scouting</span>
+                <span className="rf-mobile-only">Scouting</span>
               </button>
             </div>
           </div>
