@@ -1237,7 +1237,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
       {/* FULLSCREEN MOBILE SEARCH OVERLAY */}
       {isHeroSearchActive && isMobile && (
-        <div className="rf-mobile-search-overlay" role="dialog" aria-modal="true">
+        <div className={`rf-mobile-search-overlay ${isDark ? 'is-dark-mode' : 'is-light-mode'}`} role="dialog" aria-modal="true">
           {/* Top Bar with Back Button & Intent Toggle */}
           <div className="rf-mobile-search-topbar">
             <button
@@ -1246,7 +1246,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               className="rf-mobile-search-back-btn"
               aria-label="Back to home"
             >
-              <ChevronLeft size={22} color="#FFFFFF" />
+              <ChevronLeft size={22} color={isDark ? '#FFFFFF' : '#1E293B'} />
             </button>
 
             <div className="rf-hero-intent-toggle">
@@ -1287,7 +1287,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 className="rf-mobile-search-circle-btn"
                 aria-label="Submit search"
               >
-                <Search size={18} color="#0A1E14" />
+                <Search size={18} color={isDark ? '#0A1E14' : '#FFFFFF'} />
               </button>
             </div>
           </form>
@@ -1823,18 +1823,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </div>
 
                   {/* Search Input Box */}
-                  <form onSubmit={handleSearchSubmit} style={{ marginBottom: '1.25rem' }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        background: 'rgba(10, 23, 15, 0.95)',
-                        border: '1.5px solid rgba(102, 187, 42, 0.6)',
-                        borderRadius: '16px',
-                        padding: '0.45rem 0.6rem 0.45rem 1rem',
-                        boxShadow: '0 8px 30px rgba(0,0,0,0.45), 0 0 20px rgba(102,187,42,0.18)'
-                      }}
-                    >
+                  <form onSubmit={handleSearchSubmit}>
+                    <div className="rf-hero-expanded-input-wrap">
                       <Search size={18} color="#66BB2A" style={{ marginRight: '0.625rem', flexShrink: 0 }} />
                       <input
                         ref={heroSearchInputRef}

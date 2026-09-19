@@ -3422,16 +3422,16 @@
    INTERACTIVE HERO SEARCH (DESKTOP IN-HERO OVERLAY & MOBILE FULLSCREEN VIEW)
    ========================================================================== */
 
-/* Desktop In-Hero Expanded Search Panel */
+/* Desktop In-Hero Expanded Search Panel — Glassy / Transparent over Hero Video */
 .rf-hero-desktop-expanded-search {
   animation: rfHeroSearchFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  background: rgba(8, 20, 12, 0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(102, 187, 42, 0.35);
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 24px;
   padding: 1.75rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(102, 187, 42, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(0, 0, 0, 0.2);
   max-width: 680px;
   width: 100%;
 }
@@ -3451,14 +3451,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
 }
 
 .rf-hero-intent-toggle {
   display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
   padding: 3px;
   gap: 2px;
@@ -3467,7 +3467,7 @@
 .rf-hero-intent-btn {
   border: none;
   background: transparent;
-  color: #94A3B8;
+  color: #CBD5E1;
   padding: 0.45rem 1.15rem;
   border-radius: 9999px;
   font-size: 0.8125rem;
@@ -3492,9 +3492,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #94A3B8;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #CBD5E1;
   border-radius: 8px;
   padding: 0.35rem 0.65rem;
   font-size: 0.75rem;
@@ -3507,6 +3507,17 @@
   background: rgba(255, 255, 255, 0.15);
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+.rf-hero-expanded-input-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1.5px solid rgba(102, 187, 42, 0.6);
+  border-radius: 16px;
+  padding: 0.45rem 0.6rem 0.45rem 1rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  margin-bottom: 1.25rem;
 }
 
 .rf-hero-popular-list {
@@ -3522,7 +3533,7 @@
   gap: 0.75rem;
   padding: 0.55rem 0.75rem;
   border-radius: 10px;
-  color: #E2E8F0;
+  color: #F1F5F9;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -3532,14 +3543,14 @@
 }
 
 .rf-hero-popular-item:hover {
-  background: rgba(102, 187, 42, 0.12);
-  border-color: rgba(102, 187, 42, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
   color: #66BB2A;
   transform: translateX(4px);
 }
 
 .rf-hero-popular-item svg {
-  color: #64748B;
+  color: #94A3B8;
   transition: color 0.18s ease;
   flex-shrink: 0;
 }
@@ -3554,42 +3565,44 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .rf-hero-quick-tag-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
   padding: 0.4rem 0.85rem;
   font-size: 0.775rem;
   font-weight: 600;
-  color: #CBD5E1;
+  color: #E2E8F0;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .rf-hero-quick-tag-pill:hover {
-  background: rgba(102, 187, 42, 0.18);
+  background: rgba(102, 187, 42, 0.22);
   border-color: #66BB2A;
   color: #66BB2A;
   transform: translateY(-1px);
 }
 
-/* Mobile Fullscreen Search Overlay */
+/* ==========================================
+   Mobile Fullscreen Search Overlay (Theme-Aware)
+   ========================================== */
 .rf-mobile-search-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #0A170F;
   overflow-y: auto;
   padding: 1.25rem 1rem 2.5rem 1rem;
   display: flex;
   flex-direction: column;
   animation: rfMobileSearchSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 @keyframes rfMobileSearchSlideIn {
@@ -3603,15 +3616,13 @@
   }
 }
 
-.rf-mobile-search-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+/* Dark Mode Defaults */
+.rf-mobile-search-overlay {
+  background: #0A170F;
+  color: #FFFFFF;
 }
 
-.rf-mobile-search-back-btn {
+.rf-mobile-search-overlay .rf-mobile-search-back-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -3626,11 +3637,40 @@
   transition: background 0.2s;
 }
 
-.rf-mobile-search-back-btn:active {
+.rf-mobile-search-overlay .rf-mobile-search-back-btn:active {
   background: rgba(255, 255, 255, 0.2);
 }
 
-.rf-mobile-search-input-box {
+.rf-mobile-search-overlay .rf-hero-intent-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.rf-mobile-search-overlay .rf-hero-intent-btn {
+  border: none;
+  background: transparent;
+  color: #94A3B8;
+  padding: 0.45rem 1.15rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rf-mobile-search-overlay .rf-hero-intent-btn.is-active {
+  background: #66BB2A;
+  color: #08140C;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(102, 187, 42, 0.35);
+}
+
+.rf-mobile-search-overlay .rf-mobile-search-input-box {
   display: flex;
   align-items: center;
   background: rgba(18, 43, 26, 0.75);
@@ -3641,7 +3681,7 @@
   margin-bottom: 1.75rem;
 }
 
-.rf-mobile-search-input {
+.rf-mobile-search-overlay .rf-mobile-search-input {
   flex: 1;
   background: transparent;
   border: none;
@@ -3652,11 +3692,11 @@
   min-width: 0;
 }
 
-.rf-mobile-search-input::placeholder {
+.rf-mobile-search-overlay .rf-mobile-search-input::placeholder {
   color: rgba(255, 255, 255, 0.45);
 }
 
-.rf-mobile-search-circle-btn {
+.rf-mobile-search-overlay .rf-mobile-search-circle-btn {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -3671,7 +3711,7 @@
   box-shadow: 0 2px 10px rgba(102, 187, 42, 0.4);
 }
 
-.rf-mobile-search-section-title {
+.rf-mobile-search-overlay .rf-mobile-search-section-title {
   font-size: 0.725rem;
   font-weight: 700;
   color: #64748B;
@@ -3681,7 +3721,7 @@
   padding-left: 0.25rem;
 }
 
-.rf-mobile-popular-item {
+.rf-mobile-search-overlay .rf-mobile-popular-item {
   display: flex;
   align-items: center;
   gap: 0.875rem;
@@ -3694,15 +3734,98 @@
   transition: background 0.15s, color 0.15s;
 }
 
-.rf-mobile-popular-item:active {
+.rf-mobile-search-overlay .rf-mobile-popular-item:active {
   background: rgba(102, 187, 42, 0.15);
   color: #66BB2A;
 }
 
-.rf-mobile-popular-item svg {
+.rf-mobile-search-overlay .rf-mobile-popular-item svg {
   color: #64748B;
   flex-shrink: 0;
 }
+
+/* Light Mode Variations for Mobile Search Overlay */
+[data-theme='light'] .rf-mobile-search-overlay,
+.rf-mobile-search-overlay.is-light-mode {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-search-back-btn,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-search-back-btn {
+  background: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #1E293B !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-search-back-btn:active,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-search-back-btn:active {
+  background: #E2E8F0 !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-hero-intent-toggle,
+.rf-mobile-search-overlay.is-light-mode .rf-hero-intent-toggle {
+  background: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-hero-intent-btn,
+.rf-mobile-search-overlay.is-light-mode .rf-hero-intent-btn {
+  color: #64748B !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-hero-intent-btn.is-active,
+.rf-mobile-search-overlay.is-light-mode .rf-hero-intent-btn.is-active {
+  background: #122B1A !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(18, 43, 26, 0.2) !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-search-input-box,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-search-input-box {
+  background: #F8FAFC !important;
+  border: 1.5px solid #CBD5E1 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-search-input,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-search-input {
+  color: #0F172A !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-search-input::placeholder,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-search-input::placeholder {
+  color: #94A3B8 !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-search-circle-btn,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-search-circle-btn {
+  background: #122B1A !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-search-section-title,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-search-section-title {
+  color: #64748B !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-popular-item,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-popular-item {
+  border-bottom: 1px solid #F1F5F9 !important;
+  color: #1E293B !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-popular-item svg,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-popular-item svg {
+  color: #94A3B8 !important;
+}
+
+[data-theme='light'] .rf-mobile-search-overlay .rf-mobile-popular-item:active,
+.rf-mobile-search-overlay.is-light-mode .rf-mobile-popular-item:active {
+  background: #F0FDF4 !important;
+  color: #166534 !important;
+}
+
 
 
 
