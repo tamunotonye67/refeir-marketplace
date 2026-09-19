@@ -1703,15 +1703,17 @@ export const HomePage: React.FC<HomePageProps> = ({
               </p>
 
               {/* Search Bar */}
-              <form onSubmit={handleSearchSubmit} style={{ maxWidth: '540px', marginBottom: '1.75rem' }}>
+              <form onSubmit={handleSearchSubmit} className="rf-hero-search-form" style={{ maxWidth: '540px', marginBottom: '1.75rem' }}>
                 <div
+                  className="rf-hero-search-container"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     background: 'rgba(8, 20, 12, 0.82)',
                     backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
                     border: '1px solid rgba(102, 187, 42, 0.4)',
-                    borderRadius: '14px',
+                    borderRadius: '16px',
                     padding: '0.4rem 0.5rem',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.35)'
                   }}
@@ -1724,14 +1726,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     placeholder="What talent or service are you looking for?"
+                    className="rf-hero-search-input"
                     style={{
                       background: 'transparent',
                       border: 'none',
                       outline: 'none',
                       color: '#FFFFFF',
-                      fontSize: '0.9rem',
+                      fontSize: '0.925rem',
                       flex: 1,
-                      padding: '0.5rem 0'
+                      padding: '0.55rem 0.5rem',
+                      minWidth: 0
                     }}
                   />
                   <button

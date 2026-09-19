@@ -2590,9 +2590,20 @@
     padding: 2rem 1rem 2.75rem 1rem !important;
   }
 
-  /* Remove animated left search icon on mobile input */
+  /* Hero Search Bar on Mobile: Balanced padding, centered alignment, and ample breathing room */
+  .rf-hero-search-container {
+    padding: 0.35rem 0.45rem 0.35rem 1.15rem !important;
+    border-radius: 16px !important;
+    background: rgba(8, 20, 12, 0.88) !important;
+  }
+
   .rf-hero-search-left-icon {
     display: none !important;
+  }
+
+  .rf-hero-search-input {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.5rem 0.5rem 0 !important;
   }
 
   /* Search button on mobile becomes compact animated search icon button with dark green icon */
@@ -2611,12 +2622,13 @@
 
   .rf-hero-search-submit-btn {
     padding: 0.55rem 0.75rem !important;
-    min-width: 40px !important;
-    height: 38px !important;
+    min-width: 42px !important;
+    height: 40px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
+    flex-shrink: 0 !important;
   }
 
   /* Hero CTA buttons side-by-side on the same line on mobile */
