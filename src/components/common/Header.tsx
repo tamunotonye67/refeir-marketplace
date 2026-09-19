@@ -253,9 +253,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   };
 
   const isDarkTheme = theme === 'dark';
-  const navPopoverBg = isDarkTheme ? '#07160D' : '#FFFFFF';
-  const navPopoverBorder = '1.5px solid rgba(102, 187, 42, 0.35)';
-  const navPopoverShadow = isDarkTheme ? '0 20px 50px rgba(0, 0, 0, 0.8)' : '0 20px 50px rgba(0, 0, 0, 0.12)';
+  const navPopoverBg = isDarkTheme ? 'rgba(7, 22, 13, 0.88)' : 'rgba(255, 255, 255, 0.9)';
+  const navPopoverBorder = isDarkTheme ? '1px solid rgba(102, 187, 42, 0.28)' : '1px solid rgba(18, 43, 26, 0.12)';
+  const navPopoverShadow = isDarkTheme ? '0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(102, 187, 42, 0.1)' : '0 20px 50px rgba(0, 0, 0, 0.12), 0 0 20px rgba(102, 187, 42, 0.05)';
   const isDark = isDarkTheme;
   const borderDivider = isDarkTheme ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)';
   const navBorderDivider = borderDivider;
@@ -1757,9 +1757,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             {(() => {
               const isDark = theme === 'dark';
-              const popoverBg = isDark ? '#07160D' : '#FFFFFF';
-              const popoverBorder = isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(102, 187, 42, 0.35)';
-              const popoverShadow = isDark ? '0 20px 50px rgba(0, 0, 0, 0.8)' : '0 20px 50px rgba(0, 0, 0, 0.12)';
+              const popoverBg = isDark ? 'rgba(7, 22, 13, 0.88)' : 'rgba(255, 255, 255, 0.9)';
+              const popoverBorder = isDark ? '1px solid rgba(102, 187, 42, 0.28)' : '1px solid rgba(18, 43, 26, 0.12)';
+              const popoverShadow = isDark ? '0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(102, 187, 42, 0.1)' : '0 20px 50px rgba(0, 0, 0, 0.12), 0 0 20px rgba(102, 187, 42, 0.05)';
               const headerBg = isDark
                 ? 'linear-gradient(135deg, rgba(102, 187, 42, 0.14) 0%, rgba(10, 23, 15, 0.95) 100%)'
                 : 'linear-gradient(135deg, rgba(102, 187, 42, 0.12) 0%, #F4FAF6 100%)';

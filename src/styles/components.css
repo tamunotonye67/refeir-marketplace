@@ -444,15 +444,17 @@
 .rf-mega-menu {
   position: absolute;
   top: calc(100% + 8px);
-  background-color: var(--rf-bg-surface);
-  border: 1px solid var(--rf-bg-card-border);
+  background: rgba(7, 22, 13, 0.86);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(102, 187, 42, 0.28);
   border-radius: var(--rf-radius-xl);
-  box-shadow: var(--rf-shadow-xl);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(102, 187, 42, 0.1);
   padding: 1.5rem;
   min-width: 580px;
   max-width: 820px;
   z-index: 1000;
-  backdrop-filter: blur(20px);
+  transform-origin: top center;
 }
 
 /* Default / Rightward Opening Mega Menu (Anchored at left: 0, expanding rightward) */
@@ -460,7 +462,7 @@
   left: 0;
   right: auto;
   transform: none;
-  animation: rfSlideDownRight 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: rfSlideDownRight 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Centered Mega Menu (Used for Resources) */
@@ -468,34 +470,36 @@
   left: 50%;
   right: auto;
   transform: translateX(-50%);
-  animation: rfSlideDownCenter 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: rfSlideDownCenter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-theme="light"] .rf-mega-menu {
-  background-color: #FFFFFF;
-  border-color: rgba(18, 43, 26, 0.12);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(18, 43, 26, 0.12);
+  box-shadow: 0 20px 50px -10px rgba(18, 43, 26, 0.14), 0 0 20px rgba(102, 187, 42, 0.06);
 }
 
 @keyframes rfSlideDownRight {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes rfSlideDownCenter {
   from {
     opacity: 0;
-    transform: translate(-50%, -8px);
+    transform: translate(-50%, -8px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 0) scale(1);
   }
 }
 
@@ -3422,16 +3426,16 @@
    INTERACTIVE HERO SEARCH (DESKTOP IN-HERO OVERLAY & MOBILE FULLSCREEN VIEW)
    ========================================================================== */
 
-/* Desktop In-Hero Expanded Search Panel — Glassy / Transparent over Hero Video */
+/* Desktop In-Hero Expanded Search Panel — Seamless overlay directly on video */
 .rf-hero-desktop-expanded-search {
-  animation: rfHeroSearchFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  background: rgba(0, 0, 0, 0.42);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 24px;
-  padding: 1.75rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(0, 0, 0, 0.2);
+  animation: rfHeroSearchFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
   max-width: 680px;
   width: 100%;
 }
