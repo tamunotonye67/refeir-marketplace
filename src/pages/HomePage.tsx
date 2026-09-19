@@ -3332,18 +3332,18 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 10. FINAL HERO CTA */}
+      {/* 9. BOTTOM CALL TO ACTION — MINIMALISTIC, MODERN REFER & EARN BANNER */}
       <section
-        className="rf-section"
+        className="rf-refer-earn-cta-section"
         style={{
           position: 'relative',
           overflow: 'hidden',
           textAlign: 'center',
-          padding: '7rem 1.5rem',
-          backgroundColor: 'var(--rf-navy-dark)'
+          padding: 'clamp(3.5rem, 6vw, 5.5rem) 1.25rem',
+          backgroundColor: '#0A170F'
         }}
       >
-        {/* Blurred Google Map Background */}
+        {/* Subtle Blurred Map Texture Background */}
         <div
           style={{
             position: 'absolute',
@@ -3352,24 +3352,24 @@ export const HomePage: React.FC<HomePageProps> = ({
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
-            filter: 'blur(8px) brightness(0.65) saturate(1.25)',
-            transform: 'scale(1.08)',
+            filter: 'blur(10px) brightness(0.40) saturate(1.1)',
+            transform: 'scale(1.06)',
             zIndex: 0
           }}
         />
 
-        {/* Gradient Overlay Vignette & Radial Glow */}
+        {/* Dark Vignette & Subtle Radial Gradient */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
             background:
-              'radial-gradient(ellipse at center, rgba(10, 23, 15, 0.45) 0%, rgba(10, 23, 15, 0.88) 70%, rgba(10, 23, 15, 0.98) 100%), linear-gradient(180deg, rgba(10, 23, 15, 0.9) 0%, rgba(102, 187, 42, 0.08) 50%, rgba(10, 23, 15, 0.95) 100%)',
+              'radial-gradient(ellipse at center, rgba(10, 23, 15, 0.55) 0%, rgba(8, 18, 12, 0.92) 75%, rgba(6, 14, 9, 0.98) 100%)',
             zIndex: 1
           }}
         />
 
-        {/* Ambient Top & Bottom Separator Borders */}
+        {/* Ambient Top Separator Border */}
         <div
           style={{
             position: 'absolute',
@@ -3377,30 +3377,50 @@ export const HomePage: React.FC<HomePageProps> = ({
             left: 0,
             right: 0,
             height: '1px',
-            background: 'linear-gradient(90deg, transparent, rgba(102, 187, 42, 0.4), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(102, 187, 42, 0.35), transparent)',
             zIndex: 2
           }}
         />
 
-        <div className="rf-container" style={{ maxWidth: '720px', position: 'relative', zIndex: 3 }}>
-          <h2 style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3rem)', fontWeight: 800, color: '#FFFFFF', marginBottom: '1rem', letterSpacing: '-0.02em', textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
+        <div className="rf-container" style={{ maxWidth: '640px', position: 'relative', zIndex: 3 }}>
+          <h2
+            className="rf-refer-earn-title"
+            style={{
+              fontFamily: 'var(--rf-font-display)',
+              fontSize: 'clamp(1.9rem, 4vw, 2.75rem)',
+              fontWeight: 800,
+              color: '#FFFFFF',
+              marginBottom: '0.85rem',
+              letterSpacing: '-0.025em'
+            }}
+          >
             Refer and Earn
           </h2>
-          <p style={{ color: 'rgba(240, 248, 243, 0.92)', fontSize: '1.125rem', marginBottom: '2.25rem', lineHeight: 1.65, textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
+          <p
+            className="rf-refer-earn-subtitle"
+            style={{
+              color: 'rgba(235, 245, 238, 0.88)',
+              fontSize: 'clamp(0.95rem, 2vw, 1.08rem)',
+              marginBottom: '2rem',
+              lineHeight: 1.6,
+              maxWidth: '520px',
+              margin: '0 auto 2rem'
+            }}
+          >
             The next opportunity might already be in your network.<br />
             Find someone. Refer someone. Get work done. Earn from the connection.
           </p>
-          <button
-            onClick={() => onNavigate('/marketplace')}
-            className="rf-revolving-btn-wrapper"
-            style={{ textTransform: 'none' }}
-          >
-            {/* Fast Revolving Glowing Beam */}
-            <div className="rf-revolving-orbit-beam" />
-            <span className="rf-revolving-btn-inner">
-              Join Refeir Today
-            </span>
-          </button>
+
+          {/* Minimalist, Sleek Action Button */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button
+              onClick={() => onNavigate('/marketplace')}
+              className="rf-refer-earn-btn"
+            >
+              <span>Join Refeir Today</span>
+              <ArrowRight size={17} />
+            </button>
+          </div>
         </div>
       </section>
 

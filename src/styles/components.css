@@ -3325,6 +3325,68 @@
     max-width: 100% !important;
     width: 100% !important;
   }
+
+  /* 8. Minimalist Refer and Earn CTA Button on Mobile */
+  .rf-refer-earn-cta-section {
+    padding: 3.25rem 1.25rem !important;
+  }
+
+  .rf-refer-earn-title {
+    font-size: 1.85rem !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  .rf-refer-earn-subtitle {
+    font-size: 0.92rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .rf-refer-earn-btn {
+    width: auto !important;
+    min-width: 190px !important;
+    max-width: 250px !important;
+    padding: 0.72rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 16px rgba(102, 187, 42, 0.3) !important;
+  }
+}
+
+/* --- Refer and Earn Minimalistic Modern CTA --- */
+.rf-refer-earn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  background: linear-gradient(135deg, #0F2E1E 0%, #16472A 50%, #2E7D32 100%);
+  color: #FFFFFF;
+  border: 1.5px solid #66BB2A;
+  border-radius: 9999px;
+  padding: 0.85rem 2.25rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(102, 187, 42, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+}
+
+.rf-refer-earn-btn:hover {
+  background: linear-gradient(135deg, #143D28 0%, #1E5C36 50%, #66BB2A 100%);
+  border-color: #8DF43A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(102, 187, 42, 0.5), 0 0 16px rgba(102, 187, 42, 0.3);
+  color: #FFFFFF;
+}
+
+.rf-refer-earn-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.rf-refer-earn-btn:hover svg {
+  transform: translateX(3px);
 }
 
 
