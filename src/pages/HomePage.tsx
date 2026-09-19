@@ -408,7 +408,26 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}`);
+    setIsHeroSearchActive(false);
+    if (!searchQuery.trim()) {
+      onNavigate('/marketplace');
+      return;
+    }
+    if (heroSearchIntent === 'work') {
+      onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}&intent=work`);
+    } else {
+      onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+  const handlePopularSearchSelect = (term: string) => {
+    setIsHeroSearchActive(false);
+    setSearchQuery(term);
+    if (heroSearchIntent === 'work') {
+      onNavigate(`/marketplace?q=${encodeURIComponent(term)}&intent=work`);
+    } else {
+      onNavigate(`/marketplace?q=${encodeURIComponent(term)}`);
+    }
   };
 
   const handleReferTalent = (talent: TalentProfile) => {
@@ -591,6 +610,90 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [activeSkillFlyout, setActiveSkillFlyout] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+  const [isHeroSearchActive, setIsHeroSearchActive] = useState(false);
+  const [heroSearchIntent, setHeroSearchIntent] = useState<'hire' | 'work'>('hire');
+  const heroSearchContainerRef = useRef<HTMLDivElement>(null);
+  const heroSearchInputRef = useRef<HTMLInputElement>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
+
+  const POPULAR_SEARCHES_HIRE = [
+    'AI chatbot developer for support automation',
+    'Creative director for a brand identity refresh',
+    'Data analyst for churn modeling',
+    'Video and motion editor for promo content',
+    'Automation expert for n8n workflows',
+    'Web developer for a website redesign'
+  ];
+
+  const POPULAR_SEARCHES_WORK = [
+    'Remote fullstack engineer jobs',
+    'UI/UX designer contracts',
+    'Tech talent scout referral opportunities',
+    'Mobile app developer gigs',
+    'Growth marketing specialist roles',
+    'Python & backend data pipelines'
+  ];
+
+  const DESKTOP_QUICK_TAGS = [
+    { label: 'Web design', query: 'Web Design' },
+    { label: 'AI development', query: 'AI Development' },
+    { label: 'Video editing', query: 'Video Editing' },
+    { label: 'Google Ads', query: 'Google Ads' },
+    { label: 'Tech scouting', query: 'Talent Scout' }
+  ];
+
+  // Close Hero Search on ESC or Click Outside (Desktop)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isHeroSearchActive) {
+        setIsHeroSearchActive(false);
+      }
+    };
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        heroSearchContainerRef.current &&
+        !heroSearchContainerRef.current.contains(e.target as Node)
+      ) {
+        if (window.innerWidth > 768) {
+          setIsHeroSearchActive(false);
+        }
+      }
+    };
+
+    if (isHeroSearchActive) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isHeroSearchActive]);
+
+  // Autofocus search inputs when active
+  useEffect(() => {
+    if (isHeroSearchActive) {
+      if (isMobile) {
+        setTimeout(() => mobileSearchInputRef.current?.focus(), 80);
+      } else {
+        setTimeout(() => heroSearchInputRef.current?.focus(), 80);
+      }
+    }
+  }, [isHeroSearchActive, isMobile]);
+
+  // Lock body scroll when mobile search overlay is open
+  useEffect(() => {
+    if (isHeroSearchActive && isMobile) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isHeroSearchActive, isMobile]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -1132,6 +1235,80 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
+      {/* FULLSCREEN MOBILE SEARCH OVERLAY */}
+      {isHeroSearchActive && isMobile && (
+        <div className="rf-mobile-search-overlay" role="dialog" aria-modal="true">
+          {/* Top Bar with Back Button & Intent Toggle */}
+          <div className="rf-mobile-search-topbar">
+            <button
+              type="button"
+              onClick={() => setIsHeroSearchActive(false)}
+              className="rf-mobile-search-back-btn"
+              aria-label="Back to home"
+            >
+              <ChevronLeft size={22} color="#FFFFFF" />
+            </button>
+
+            <div className="rf-hero-intent-toggle">
+              <button
+                type="button"
+                className={`rf-hero-intent-btn ${heroSearchIntent === 'hire' ? 'is-active' : ''}`}
+                onClick={() => setHeroSearchIntent('hire')}
+              >
+                I want to hire
+              </button>
+              <button
+                type="button"
+                className={`rf-hero-intent-btn ${heroSearchIntent === 'work' ? 'is-active' : ''}`}
+                onClick={() => setHeroSearchIntent('work')}
+              >
+                I want to work
+              </button>
+            </div>
+          </div>
+
+          {/* Search Input */}
+          <form onSubmit={handleSearchSubmit}>
+            <div className="rf-mobile-search-input-box">
+              <input
+                ref={mobileSearchInputRef}
+                type="text"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder={
+                  heroSearchIntent === 'hire'
+                    ? 'Describe what you need to hire for...'
+                    : 'Describe what you want to work on...'
+                }
+                className="rf-mobile-search-input"
+              />
+              <button
+                type="submit"
+                className="rf-mobile-search-circle-btn"
+                aria-label="Submit search"
+              >
+                <Search size={18} color="#0A1E14" />
+              </button>
+            </div>
+          </form>
+
+          {/* Popular Searches */}
+          <div className="rf-mobile-search-section-title">Popular Searches</div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {(heroSearchIntent === 'hire' ? POPULAR_SEARCHES_HIRE : POPULAR_SEARCHES_WORK).map((item, idx) => (
+              <div
+                key={idx}
+                className="rf-mobile-popular-item"
+                onClick={() => handlePopularSearchSelect(item)}
+              >
+                <Search size={16} />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* STICKY SKILLS & TALENT BAR (Appears and sticks to top once scrolled past Trusted Brands) */}
       <div
         ref={stickyBarRef}
@@ -1612,197 +1789,323 @@ export const HomePage: React.FC<HomePageProps> = ({
                 width: '100%'
               }}
             >
-              {/* Tagline */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  marginBottom: '1.25rem'
-                }}
-              >
-                <span
-                  style={{
-                    width: '7px', height: '7px',
-                    borderRadius: '50%',
-                    backgroundColor: '#66BB2A',
-                    boxShadow: '0 0 0 3px rgba(102,187,42,0.3)'
-                  }}
-                  className="rf-pulse"
-                />
-                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#66BB2A', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                  Africa's Talent Referral Marketplace
-                </span>
-              </div>
+              {isHeroSearchActive && !isMobile ? (
+                /* Desktop In-Hero Expanded Search Interface */
+                <div ref={heroSearchContainerRef} className="rf-hero-desktop-expanded-search">
+                  {/* Top Bar: Toggle & Close */}
+                  <div className="rf-hero-search-toggle-wrap">
+                    <div className="rf-hero-intent-toggle">
+                      <button
+                        type="button"
+                        className={`rf-hero-intent-btn ${heroSearchIntent === 'hire' ? 'is-active' : ''}`}
+                        onClick={() => setHeroSearchIntent('hire')}
+                      >
+                        I want to hire
+                      </button>
+                      <button
+                        type="button"
+                        className={`rf-hero-intent-btn ${heroSearchIntent === 'work' ? 'is-active' : ''}`}
+                        onClick={() => setHeroSearchIntent('work')}
+                      >
+                        I want to work
+                      </button>
+                    </div>
 
-              {/* Hero Headline with Grow & Reveal Transition (Zero Layout Shift for Text Below) */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr',
-                  gridTemplateRows: 'auto',
-                  alignItems: 'start',
-                  marginBottom: '1.25rem',
-                  maxWidth: '860px'
-                }}
-              >
-                {/* Fixed Ghost Baseline to lock physical height so text beneath never shifts */}
-                <h1
-                  aria-hidden="true"
-                  style={{
-                    gridArea: '1 / 1',
-                    fontFamily: 'var(--rf-font-display)',
-                    fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
-                    fontWeight: 600,
-                    lineHeight: 1.16,
-                    color: 'transparent',
-                    margin: 0,
-                    paddingBottom: '0.4rem',
-                    visibility: 'hidden',
-                    pointerEvents: 'none',
-                    userSelect: 'none'
-                  }}
-                >
-                  <span style={{ display: 'block' }}>Refer a talent and</span>
-                  <span style={{ display: 'block' }}>earn from the connect</span>
-                </h1>
-
-                {/* Animated Visible Headline */}
-                <h1
-                  key={headlineIndex}
-                  className={`rf-headline-${headlineStatus}`}
-                  style={{
-                    gridArea: '1 / 1',
-                    fontFamily: 'var(--rf-font-display)',
-                    fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
-                    fontWeight: 600,
-                    lineHeight: 1.16,
-                    color: '#FFFFFF',
-                    margin: 0,
-                    paddingBottom: '0.4rem',
-                    textShadow: '0 4px 24px rgba(0,0,0,0.55)'
-                  }}
-                >
-                  {HERO_HEADLINES[headlineIndex]}
-                </h1>
-              </div>
-
-              {/* Subheadline */}
-              <p
-                style={{
-                  fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-                  fontWeight: 500,
-                  color: 'rgba(255, 255, 255, 0.95)',
-                  lineHeight: 1.65,
-                  maxWidth: '560px',
-                  marginBottom: '2rem',
-                  textShadow: '0 2px 10px rgba(0, 0, 0, 0.55)'
-                }}
-              >
-                Connect clients with verified professionals across 54 nations and earn a guaranteed 10% commission on every completed milestone
-              </p>
-
-              {/* Search Bar */}
-              <form onSubmit={handleSearchSubmit} className="rf-hero-search-form" style={{ maxWidth: '540px', marginBottom: '1.75rem' }}>
-                <div
-                  className="rf-hero-search-container"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    background: 'rgba(8, 20, 12, 0.82)',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(102, 187, 42, 0.4)',
-                    borderRadius: '16px',
-                    padding: '0.4rem 0.5rem',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.35)'
-                  }}
-                >
-                  <div className="rf-hero-search-left-icon" style={{ paddingLeft: '0.75rem', paddingRight: '0.5rem', display: 'flex', alignItems: 'center' }}>
-                    <Search size={19} className="rf-search-icon-wiggle" />
+                    <button
+                      type="button"
+                      onClick={() => setIsHeroSearchActive(false)}
+                      className="rf-hero-search-close-btn"
+                      title="Close search (ESC)"
+                    >
+                      <X size={14} />
+                      <span>ESC</span>
+                    </button>
                   </div>
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    placeholder="What talent or service are you looking for?"
-                    className="rf-hero-search-input"
+
+                  {/* Search Input Box */}
+                  <form onSubmit={handleSearchSubmit} style={{ marginBottom: '1.25rem' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        background: 'rgba(10, 23, 15, 0.95)',
+                        border: '1.5px solid rgba(102, 187, 42, 0.6)',
+                        borderRadius: '16px',
+                        padding: '0.45rem 0.6rem 0.45rem 1rem',
+                        boxShadow: '0 8px 30px rgba(0,0,0,0.45), 0 0 20px rgba(102,187,42,0.18)'
+                      }}
+                    >
+                      <Search size={18} color="#66BB2A" style={{ marginRight: '0.625rem', flexShrink: 0 }} />
+                      <input
+                        ref={heroSearchInputRef}
+                        type="text"
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                        placeholder={
+                          heroSearchIntent === 'hire'
+                            ? 'Describe what you need to hire for...'
+                            : 'Describe the roles, gigs or skills you want to work on...'
+                        }
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          outline: 'none',
+                          color: '#FFFFFF',
+                          fontSize: '0.975rem',
+                          flex: 1,
+                          padding: '0.4rem 0.25rem',
+                          minWidth: 0
+                        }}
+                      />
+                      <button
+                        type="submit"
+                        className="rf-btn rf-btn-mint"
+                        style={{ padding: '0.55rem 1.35rem', fontSize: '0.875rem', fontWeight: 700 }}
+                      >
+                        <span>Search</span>
+                        <Search size={15} color="#0F2E1E" />
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* Popular Searches */}
+                  <div style={{ fontSize: '0.725rem', fontWeight: 700, color: '#66BB2A', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.65rem', paddingLeft: '0.25rem' }}>
+                    Popular Searches
+                  </div>
+                  <div className="rf-hero-popular-list">
+                    {(heroSearchIntent === 'hire' ? POPULAR_SEARCHES_HIRE : POPULAR_SEARCHES_WORK).map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="rf-hero-popular-item"
+                        onClick={() => handlePopularSearchSelect(item)}
+                      >
+                        <Search size={15} />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Bottom Quick Tags */}
+                  <div className="rf-hero-quick-tags-row">
+                    <span style={{ fontSize: '0.75rem', color: '#94A3B8', fontWeight: 600, marginRight: '0.25rem' }}>
+                      Suggested:
+                    </span>
+                    {DESKTOP_QUICK_TAGS.map((tag, tIdx) => (
+                      <button
+                        key={tIdx}
+                        type="button"
+                        className="rf-hero-quick-tag-pill"
+                        onClick={() => handlePopularSearchSelect(tag.query)}
+                      >
+                        <span>{tag.label}</span>
+                        <ChevronRight size={13} />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                /* Default Hero Content */
+                <>
+                  {/* Tagline */}
+                  <div
                     style={{
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      color: '#FFFFFF',
-                      fontSize: '0.925rem',
-                      flex: 1,
-                      padding: '0.55rem 0.5rem',
-                      minWidth: 0
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      marginBottom: '1.25rem'
                     }}
-                  />
-                  <button
-                    type="submit"
-                    className="rf-btn rf-btn-mint rf-hero-search-submit-btn"
-                    style={{ padding: '0.55rem 1.25rem', fontSize: '0.875rem' }}
-                    aria-label="Search"
                   >
-                    <span className="rf-hero-search-text">Search</span>
-                    <Search size={16} color="#0F2E1E" className="rf-hero-search-icon-only rf-search-icon-wiggle" />
-                  </button>
-                </div>
-              </form>
+                    <span
+                      style={{
+                        width: '7px', height: '7px',
+                        borderRadius: '50%',
+                        backgroundColor: '#66BB2A',
+                        boxShadow: '0 0 0 3px rgba(102,187,42,0.3)'
+                      }}
+                      className="rf-pulse"
+                    />
+                    <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#66BB2A', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                      Africa's Talent Referral Marketplace
+                    </span>
+                  </div>
 
-              {/* CTA Buttons */}
-              <div className="rf-hero-cta-group" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.875rem', marginBottom: '2rem' }}>
-                <button
-                  onClick={() => onNavigate('/marketplace')}
-                  className="rf-btn rf-btn-primary rf-btn-lg rf-hero-cta-btn"
-                  style={{ gap: '0.5rem', boxShadow: '0 4px 20px rgba(102,187,42,0.45)' }}
-                >
-                  <span className="rf-desktop-only">Browse African Talent</span>
-                  <span className="rf-mobile-only">Browse Talent</span>
-                  <ArrowRight size={16} />
-                </button>
-                <button
-                  onClick={() => onNavigate('/dashboard/scout')}
-                  className="rf-hero-cta-btn rf-hero-cta-secondary"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    padding: '0.875rem 1.75rem',
-                    borderRadius: '14px',
-                    fontSize: '1.0625rem',
-                    fontWeight: 800,
-                    color: '#FFFFFF',
-                    background: 'rgba(255,255,255,0.12)',
-                    backdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(255,255,255,0.25)',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <span className="rf-desktop-only">Start Referring & Earn</span>
-                  <span className="rf-mobile-only">Refer & Earn</span>
-                </button>
-              </div>
+                  {/* Hero Headline with Grow & Reveal Transition (Zero Layout Shift for Text Below) */}
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr',
+                      gridTemplateRows: 'auto',
+                      alignItems: 'start',
+                      marginBottom: '1.25rem',
+                      maxWidth: '860px'
+                    }}
+                  >
+                    {/* Fixed Ghost Baseline to lock physical height so text beneath never shifts */}
+                    <h1
+                      aria-hidden="true"
+                      style={{
+                        gridArea: '1 / 1',
+                        fontFamily: 'var(--rf-font-display)',
+                        fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
+                        fontWeight: 600,
+                        lineHeight: 1.16,
+                        color: 'transparent',
+                        margin: 0,
+                        paddingBottom: '0.4rem',
+                        visibility: 'hidden',
+                        pointerEvents: 'none',
+                        userSelect: 'none'
+                      }}
+                    >
+                      <span style={{ display: 'block' }}>Refer a talent and</span>
+                      <span style={{ display: 'block' }}>earn from the connect</span>
+                    </h1>
 
-              {/* Trust stat pills — evenly distributed from left to right on larger screens */}
-              <div className="rf-hero-trust-badges">
-                <div className="rf-hero-trust-badge-item">
-                  <Globe2 size={15} color="#66BB2A" />
-                  <span><strong style={{ color: '#FFFFFF' }}>54</strong> African Nations</span>
-                </div>
-                <div className="rf-hero-trust-badge-item">
-                  <Lock size={15} color="#66BB2A" />
-                  <span><strong style={{ color: '#FFFFFF' }}>10%</strong> Locked Scout Reward</span>
-                </div>
-                <div className="rf-hero-trust-badge-item">
-                  <ShieldCheck size={15} color="#66BB2A" />
-                  <span><strong style={{ color: '#FFFFFF' }}>100%</strong> Trust Vault</span>
-                </div>
-                <div className="rf-hero-trust-badge-item">
-                  <CheckCircle2 size={15} color="#66BB2A" />
-                  <span><strong style={{ color: '#FFFFFF' }}>Verified</strong> Top Talents</span>
-                </div>
-              </div>
+                    {/* Animated Visible Headline */}
+                    <h1
+                      key={headlineIndex}
+                      className={`rf-headline-${headlineStatus}`}
+                      style={{
+                        gridArea: '1 / 1',
+                        fontFamily: 'var(--rf-font-display)',
+                        fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
+                        fontWeight: 600,
+                        lineHeight: 1.16,
+                        color: '#FFFFFF',
+                        margin: 0,
+                        paddingBottom: '0.4rem',
+                        textShadow: '0 4px 24px rgba(0,0,0,0.55)'
+                      }}
+                    >
+                      {HERO_HEADLINES[headlineIndex]}
+                    </h1>
+                  </div>
+
+                  {/* Subheadline */}
+                  <p
+                    style={{
+                      fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+                      fontWeight: 500,
+                      color: 'rgba(255, 255, 255, 0.95)',
+                      lineHeight: 1.65,
+                      maxWidth: '560px',
+                      marginBottom: '2rem',
+                      textShadow: '0 2px 10px rgba(0, 0, 0, 0.55)'
+                    }}
+                  >
+                    Connect clients with verified professionals across 54 nations and earn a guaranteed 10% commission on every completed milestone
+                  </p>
+
+                  {/* Search Bar */}
+                  <form
+                    onSubmit={handleSearchSubmit}
+                    onClick={() => setIsHeroSearchActive(true)}
+                    className="rf-hero-search-form"
+                    style={{ maxWidth: '540px', marginBottom: '1.75rem', cursor: 'pointer' }}
+                  >
+                    <div
+                      className="rf-hero-search-container"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        background: 'rgba(8, 20, 12, 0.82)',
+                        backdropFilter: 'blur(20px)',
+                        WebkitBackdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(102, 187, 42, 0.4)',
+                        borderRadius: '16px',
+                        padding: '0.4rem 0.5rem',
+                        boxShadow: '0 8px 32px rgba(0,0,0,0.35)'
+                      }}
+                    >
+                      <div className="rf-hero-search-left-icon" style={{ paddingLeft: '0.75rem', paddingRight: '0.5rem', display: 'flex', alignItems: 'center' }}>
+                        <Search size={19} className="rf-search-icon-wiggle" />
+                      </div>
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onFocus={() => setIsHeroSearchActive(true)}
+                        onChange={e => setSearchQuery(e.target.value)}
+                        placeholder="What talent or service are you looking for?"
+                        className="rf-hero-search-input"
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          outline: 'none',
+                          color: '#FFFFFF',
+                          fontSize: '0.925rem',
+                          flex: 1,
+                          padding: '0.55rem 0.5rem',
+                          minWidth: 0,
+                          cursor: 'pointer'
+                        }}
+                      />
+                      <button
+                        type="submit"
+                        className="rf-btn rf-btn-mint rf-hero-search-submit-btn"
+                        style={{ padding: '0.55rem 1.25rem', fontSize: '0.875rem' }}
+                        aria-label="Search"
+                      >
+                        <span className="rf-hero-search-text">Search</span>
+                        <Search size={16} color="#0F2E1E" className="rf-hero-search-icon-only rf-search-icon-wiggle" />
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* CTA Buttons */}
+                  <div className="rf-hero-cta-group" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.875rem', marginBottom: '2rem' }}>
+                    <button
+                      onClick={() => onNavigate('/marketplace')}
+                      className="rf-btn rf-btn-primary rf-btn-lg rf-hero-cta-btn"
+                      style={{ gap: '0.5rem', boxShadow: '0 4px 20px rgba(102,187,42,0.45)' }}
+                    >
+                      <span className="rf-desktop-only">Browse African Talent</span>
+                      <span className="rf-mobile-only">Browse Talent</span>
+                      <ArrowRight size={16} />
+                    </button>
+                    <button
+                      onClick={() => onNavigate('/dashboard/scout')}
+                      className="rf-hero-cta-btn rf-hero-cta-secondary"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '0.875rem 1.75rem',
+                        borderRadius: '14px',
+                        fontSize: '1.0625rem',
+                        fontWeight: 800,
+                        color: '#FFFFFF',
+                        background: 'rgba(255,255,255,0.12)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(255,255,255,0.25)',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <span className="rf-desktop-only">Start Referring & Earn</span>
+                      <span className="rf-mobile-only">Refer & Earn</span>
+                    </button>
+                  </div>
+
+                  {/* Trust stat pills — evenly distributed from left to right on larger screens */}
+                  <div className="rf-hero-trust-badges">
+                    <div className="rf-hero-trust-badge-item">
+                      <Globe2 size={15} color="#66BB2A" />
+                      <span><strong style={{ color: '#FFFFFF' }}>54</strong> African Nations</span>
+                    </div>
+                    <div className="rf-hero-trust-badge-item">
+                      <Lock size={15} color="#66BB2A" />
+                      <span><strong style={{ color: '#FFFFFF' }}>10%</strong> Locked Scout Reward</span>
+                    </div>
+                    <div className="rf-hero-trust-badge-item">
+                      <ShieldCheck size={15} color="#66BB2A" />
+                      <span><strong style={{ color: '#FFFFFF' }}>100%</strong> Trust Vault</span>
+                    </div>
+                    <div className="rf-hero-trust-badge-item">
+                      <CheckCircle2 size={15} color="#66BB2A" />
+                      <span><strong style={{ color: '#FFFFFF' }}>Verified</strong> Top Talents</span>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
