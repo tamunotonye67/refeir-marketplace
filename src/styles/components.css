@@ -4430,6 +4430,821 @@
   }
 }
 
+/* ==========================================================================
+   PHASE 3: MULTI-STEP SLIDES (INSPIRATION QUESTIONNAIRE FLOW)
+   ========================================================================== */
+
+.rf-briefing-modal-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  animation: rfAISearchFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Top Navigation Bar */
+.rf-briefing-topbar-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+.rf-briefing-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.25rem 2.5rem;
+}
+
+.rf-briefing-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 0.25rem;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-back-btn {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-back-btn:hover {
+  color: #66BB2A;
+  transform: translateX(-3px);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-back-btn {
+  color: #0F172A;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-back-btn:hover {
+  color: #16A34A;
+  transform: translateX(-3px);
+}
+
+.rf-briefing-skip-btn {
+  background: transparent;
+  border-radius: 9999px;
+  padding: 0.45rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-skip-btn {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-skip-btn:hover {
+  border-color: #66BB2A;
+  color: #86EFAC;
+  background: rgba(102, 187, 42, 0.1);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-skip-btn {
+  border: 1px solid #D1D5DB;
+  color: #1F2937;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-skip-btn:hover {
+  border-color: #16A34A;
+  color: #15803D;
+  background: #F0FDF4;
+}
+
+/* Progress Track & Fill */
+.rf-briefing-progress-track {
+  width: 100%;
+  height: 3px;
+  position: relative;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-progress-track {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-progress-track {
+  background: #E5E7EB;
+}
+
+.rf-briefing-progress-fill {
+  height: 100%;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-progress-fill {
+  background: #66BB2A;
+  box-shadow: 0 0 10px rgba(102, 187, 42, 0.5);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-progress-fill {
+  background: #000000;
+}
+
+/* Slide Stage & Content */
+.rf-briefing-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem 1.5rem;
+}
+
+.rf-briefing-slide {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  animation: rfBriefingSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes rfBriefingSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.rf-briefing-slide-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 680px;
+}
+
+.rf-briefing-title {
+  font-size: clamp(1.85rem, 3.4vw, 2.85rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.85rem 0;
+  line-height: 1.18;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-title {
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-title {
+  color: #0F172A;
+}
+
+.rf-briefing-subtitle {
+  font-size: clamp(0.95rem, 1.35vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.55;
+  margin: 0 0 2.75rem 0;
+  max-width: 580px;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-subtitle {
+  color: #4B5563;
+}
+
+/* --------------------------------------------------------------------------
+   SLIDES 1 & 2: PILL OPTIONS
+   -------------------------------------------------------------------------- */
+
+.rf-briefing-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.15rem;
+  width: 100%;
+}
+
+.rf-briefing-pill-btn {
+  background: transparent;
+  border-radius: 9999px;
+  padding: 0.85rem 2.25rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-pill-btn {
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-pill-btn:hover {
+  border-color: #66BB2A;
+  background: rgba(102, 187, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-pill-btn.is-active {
+  border-color: #66BB2A;
+  background: rgba(102, 187, 42, 0.2);
+  color: #86EFAC;
+  box-shadow: 0 0 20px rgba(102, 187, 42, 0.25);
+  font-weight: 600;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-pill-btn {
+  border: 1.5px solid #D1D5DB;
+  color: #111827;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-pill-btn:hover {
+  border-color: #16A34A;
+  background: #F0FDF4;
+  transform: translateY(-2px);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-pill-btn.is-active {
+  border-color: #16A34A;
+  background: #DCFCE7;
+  color: #15803D;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   SLIDE 3: BUDGET WITH BELL CURVE & SLIDER
+   -------------------------------------------------------------------------- */
+
+.rf-briefing-budget-toggle {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 9999px;
+  margin-bottom: 2.25rem;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-budget-toggle {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-budget-toggle {
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+}
+
+.rf-briefing-toggle-opt {
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.55rem 1.6rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-toggle-opt {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-toggle-opt.is-selected {
+  background: #0A2214;
+  color: #86EFAC;
+  border: 1px solid #66BB2A;
+  font-weight: 600;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-toggle-opt {
+  color: #4B5563;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-toggle-opt.is-selected {
+  background: #FFFFFF;
+  color: #111827;
+  border: 1.5px solid #111827;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+}
+
+/* Bell Curve Graphic & Slider Wrap */
+.rf-briefing-curve-container {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  height: 180px;
+  margin: 1rem auto 2.5rem auto;
+}
+
+.rf-briefing-curve-svg-box {
+  width: 100%;
+  height: 140px;
+  pointer-events: none;
+}
+
+.rf-briefing-curve-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.rf-briefing-curve-labels {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.rf-ai-search-overlay.is-dark .rf-curve-label-affordable,
+.rf-ai-search-overlay.is-dark .rf-curve-label-expert {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rf-ai-search-overlay.is-light .rf-curve-label-affordable,
+.rf-ai-search-overlay.is-light .rf-curve-label-expert {
+  color: #6B7280;
+}
+
+.rf-curve-label-typical {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 700;
+}
+
+.rf-ai-search-overlay.is-dark .rf-curve-label-typical {
+  color: #86EFAC;
+}
+
+.rf-ai-search-overlay.is-light .rf-curve-label-typical {
+  color: #1F2937;
+}
+
+.rf-curve-info-icon {
+  opacity: 0.7;
+}
+
+/* Floating Price Tag Bubble */
+.rf-briefing-price-bubble {
+  position: absolute;
+  top: 62px;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: left 0.08s ease-out;
+  z-index: 5;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-price-bubble {
+  background: #0B2918;
+  color: #86EFAC;
+  border: 1px solid #66BB2A;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 12px rgba(102, 187, 42, 0.25);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-price-bubble {
+  background: #FFFFFF;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.09);
+}
+
+/* Slider Track & Range Input */
+.rf-briefing-slider-track-wrap {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.rf-briefing-range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-range-slider {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-range-slider {
+  background: #111827;
+}
+
+.rf-briefing-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-range-slider::-webkit-slider-thumb {
+  background: #66BB2A;
+  border: 3px solid #07160D;
+  box-shadow: 0 0 10px rgba(102, 187, 42, 0.7);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-range-slider::-webkit-slider-thumb {
+  background: #111827;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.rf-briefing-range-slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+  transform: scale(1.18);
+}
+
+/* --------------------------------------------------------------------------
+   SLIDE 4: JOB DETAILS TEXTAREA & ACCORDION
+   -------------------------------------------------------------------------- */
+
+.rf-briefing-textarea-box {
+  width: 100%;
+  max-width: 620px;
+  margin-bottom: 0.85rem;
+}
+
+.rf-briefing-textarea {
+  width: 100%;
+  border-radius: 12px;
+  padding: 1.15rem;
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.5;
+  outline: none;
+  resize: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-textarea:focus {
+  border-color: #66BB2A;
+  box-shadow: 0 0 0 3px rgba(102, 187, 42, 0.25);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-textarea {
+  background: #FFFFFF;
+  border: 1.5px solid #D1D5DB;
+  color: #111827;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-textarea:focus {
+  border-color: #16A34A;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
+.rf-briefing-examples-wrap {
+  width: 100%;
+  max-width: 620px;
+  text-align: left;
+  margin-bottom: 2.25rem;
+}
+
+.rf-briefing-example-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  transition: opacity 0.2s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-example-toggle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-example-toggle:hover {
+  color: #86EFAC;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-example-toggle {
+  color: #4B5563;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-example-toggle:hover {
+  color: #111827;
+}
+
+.rf-briefing-examples-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+  padding: 0.85rem;
+  border-radius: 10px;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-examples-dropdown {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-examples-dropdown {
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+}
+
+.rf-briefing-example-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  transition: all 0.18s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-example-item {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-example-item:hover {
+  background: rgba(102, 187, 42, 0.15);
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-example-item {
+  color: #374151;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-example-item:hover {
+  background: #F0FDF4;
+  color: #15803D;
+}
+
+.rf-briefing-use-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-use-tag {
+  background: rgba(102, 187, 42, 0.2);
+  color: #86EFAC;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-use-tag {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+/* --------------------------------------------------------------------------
+   SLIDE 5: SKILLS CLOUD WITH CHECK & PLUS
+   -------------------------------------------------------------------------- */
+
+.rf-briefing-skills-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  max-width: 660px;
+  margin-bottom: 2.75rem;
+}
+
+.rf-briefing-skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: transparent;
+  border-radius: 9999px;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-skill-pill {
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-skill-pill:hover {
+  border-color: #66BB2A;
+  background: rgba(102, 187, 42, 0.08);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-skill-pill.is-selected {
+  border-color: #66BB2A;
+  background: rgba(102, 187, 42, 0.22);
+  color: #86EFAC;
+  box-shadow: 0 0 14px rgba(102, 187, 42, 0.2);
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-skill-pill {
+  border: 1.5px solid #D1D5DB;
+  color: #111827;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-skill-pill:hover {
+  border-color: #16A34A;
+  background: #F0FDF4;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-skill-pill.is-selected {
+  border-color: #111827;
+  background: #F9FAFB;
+  color: #111827;
+  font-weight: 600;
+}
+
+.rf-skill-pill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.2rem;
+}
+
+.rf-briefing-add-skill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border-radius: 9999px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-add-skill-btn {
+  border: 1.5px dashed rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-add-skill-btn:hover {
+  border-color: #66BB2A;
+  color: #86EFAC;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-add-skill-btn {
+  border: 1.5px dashed #9CA3AF;
+  color: #4B5563;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-add-skill-btn:hover {
+  border-color: #16A34A;
+  color: #15803D;
+}
+
+.rf-briefing-add-skill-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rf-briefing-add-skill-input {
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-add-skill-input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #66BB2A;
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-light .rf-briefing-add-skill-input {
+  background: #FFFFFF;
+  border: 1.5px solid #16A34A;
+  color: #111827;
+}
+
+.rf-briefing-add-skill-confirm {
+  border-radius: 9999px;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  background: #16A34A;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   PRIMARY CTA BUTTONS (NEXT / FINISH)
+   -------------------------------------------------------------------------- */
+
+.rf-briefing-action-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.rf-briefing-primary-btn {
+  background: #00A651;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.85rem 3.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(0, 166, 81, 0.35);
+}
+
+.rf-briefing-primary-btn:hover {
+  background: #008f45;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 166, 81, 0.45);
+}
+
+.rf-briefing-primary-btn.is-finish {
+  background: #00A651;
+  padding: 0.95rem 4rem;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .rf-briefing-topbar {
+    padding: 1rem 1.25rem;
+  }
+
+  .rf-briefing-stage {
+    padding: 2rem 1rem 3rem 1rem;
+  }
+
+  .rf-briefing-title {
+    font-size: 1.65rem;
+  }
+
+  .rf-briefing-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .rf-briefing-pill-btn {
+    padding: 0.7rem 1.6rem;
+    font-size: 0.95rem;
+  }
+
+  .rf-briefing-primary-btn {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+  }
+
+  .rf-briefing-curve-container {
+    height: 160px;
+  }
+}
+
+
 
 
 
