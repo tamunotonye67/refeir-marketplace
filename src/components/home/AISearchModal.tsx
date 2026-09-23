@@ -258,7 +258,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </div>
 
                     <div className="rf-ai-talent-name">{formatShortName(talent.full_name)}</div>
-                    <div className="rf-ai-talent-role">{talent.headline}</div>
                   </div>
                 ))}
               </div>
