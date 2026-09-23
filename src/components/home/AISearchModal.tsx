@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
   Star, 
   Info, 
@@ -10,7 +10,17 @@ import {
   ChevronUp, 
   Sparkles,
   Sliders,
-  DollarSign
+  DollarSign,
+  Medal,
+  Award,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize2,
+  UserCheck,
+  CreditCard,
+  Pin
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { SEED_TALENT } from '../../data/seedTalent';
@@ -36,8 +46,8 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
-  // Phases: 'loading' | 'results' | 'briefing' | 'submitting'
-  const [phase, setPhase] = useState<'loading' | 'results' | 'briefing' | 'submitting'>('loading');
+  // Phases: 'loading' | 'results' | 'briefing' | 'submitting' | 'personalized_results'
+  const [phase, setPhase] = useState<'loading' | 'results' | 'briefing' | 'submitting' | 'personalized_results'>('loading');
   const [briefingStep, setBriefingStep] = useState<number>(1);
   const [matchedTalent, setMatchedTalent] = useState<TalentProfile[]>([]);
 
@@ -52,6 +62,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [customSkillInput, setCustomSkillInput] = useState<string>('');
   const [isAddingCustomSkill, setIsAddingCustomSkill] = useState<boolean>(false);
+
+  // Personalized Results State
+  const [filterAvailableOnly, setFilterAvailableOnly] = useState<boolean>(false);
+  const [openAccordion, setOpenAccordion] = useState<number | null>(1);
+  const [activeDropdown, setActiveDropdown] = useState<'rate' | 'location' | 'skills' | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(true);
 
   // Dynamic Category Label
   const categoryLabel = useMemo(() => {
@@ -141,6 +158,8 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
       setPhase('loading');
       setBriefingStep(1);
       setShowExamples(false);
+      setFilterAvailableOnly(false);
+      setActiveDropdown(null);
 
       // Pre-fill initial skills based on defaults
       const defaults = availableSkills.filter(s => s.defaultSelected).map(s => s.name);
@@ -148,9 +167,9 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
       // Pre-fill sample job details tailored to query
       if (searchQuery) {
-        setJobDetails(`Experienced specialist for a ${searchQuery.toLowerCase()} project refresh`);
+        setJobDetails(`Creative Director for a ${searchQuery.toLowerCase()} refresh`);
       } else {
-        setJobDetails('Creative director for a brand identity refresh');
+        setJobDetails('Creative Director for a brand identity refresh');
       }
 
       const timer = setTimeout(() => {
@@ -229,8 +248,8 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const handleFinishBriefing = () => {
     setPhase('submitting');
     setTimeout(() => {
-      onContinue(searchQuery, intent);
-    }, 1200);
+      setPhase('personalized_results');
+    }, 850);
   };
 
   const toggleSkill = (skillName: string) => {
@@ -272,9 +291,95 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     `Full-lifecycle specialist to build clean architecture, optimize conversions, and ensure on-time delivery.`
   ];
 
+  // Curated 6 Talents for the Personalized Results Page (Matching the exact inspiration image!)
+  const personalizedTalentRoster = [
+    {
+      id: 'talent-taib-b',
+      name: 'Taib B.',
+      fullName: 'Taib Benani',
+      rate: 20,
+      rating: 4.4,
+      reviewsCount: 144,
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+      availableNow: true,
+      skillsMatched: '3/3 skills',
+      badgeType: 'arrow-green',
+      isOnline: true
+    },
+    {
+      id: 'talent-carla-i',
+      name: 'Carla I.',
+      fullName: 'Carla Ibe',
+      rate: 50,
+      rating: 3.9,
+      reviewsCount: 27,
+      avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
+      availableNow: false,
+      skillsMatched: '3/3 skills',
+      badgeType: 'arrow-green',
+      isOnline: false
+    },
+    {
+      id: 'talent-axel-b',
+      name: 'Axel B.',
+      fullName: 'Axel Boateng',
+      rate: 250,
+      rating: 4.9,
+      reviewsCount: 283,
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
+      availableNow: false,
+      skillsMatched: '1/3 skills',
+      badgeType: 'crown-gold',
+      isOnline: false
+    },
+    {
+      id: 'talent-lisa-a',
+      name: 'Lisa A.',
+      fullName: 'Lisa Adeleke',
+      rate: 125,
+      rating: 5.0,
+      reviewsCount: 62,
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+      availableNow: true,
+      skillsMatched: '2/3 skills',
+      badgeType: 'star-pink',
+      isOnline: true
+    },
+    {
+      id: 'talent-artur-m',
+      name: 'Artur M.',
+      fullName: 'Artur Mensah',
+      rate: 40,
+      rating: 4.9,
+      reviewsCount: 1657,
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+      availableNow: true,
+      skillsMatched: '1/3 skills',
+      badgeType: 'star-pink',
+      isOnline: true
+    },
+    {
+      id: 'talent-zofia-c',
+      name: 'Zofia C.',
+      fullName: 'Zofia Chinedu',
+      rate: 36,
+      rating: 5.0,
+      reviewsCount: 18,
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
+      availableNow: false,
+      skillsMatched: '1/3 skills',
+      badgeType: 'star-blue',
+      isOnline: false
+    }
+  ];
+
+  const displayedPersonalizedTalents = filterAvailableOnly 
+    ? personalizedTalentRoster.filter(t => t.availableNow) 
+    : personalizedTalentRoster;
+
   return (
     <div
-      className={`rf-ai-search-overlay ${isDark ? 'is-dark' : 'is-light'}`}
+      className={`rf-ai-search-overlay ${isDark ? 'is-dark' : 'is-light'} ${phase === 'personalized_results' ? 'is-personalized-page-view' : ''}`}
       role="dialog"
       aria-modal="true"
     >
@@ -461,7 +566,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
       )}
 
       {/* =========================================================================
-         PHASE 3: MULTI-STEP SLIDES (EXACTLY MATCHING USER'S INSPIRATION IMAGES)
+         PHASE 3: MULTI-STEP SLIDES (INSPIRATION QUESTIONNAIRE FLOW)
          ========================================================================= */}
       {phase === 'briefing' && (
         <div className="rf-briefing-modal-wrapper">
@@ -499,9 +604,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
           {/* Slide Stage Container */}
           <div className="rf-briefing-stage">
-            {/* -------------------------------------------------------------------
-                SLIDE 1: URGENCY & TIMELINE (IMAGE 1)
-                ------------------------------------------------------------------- */}
+            {/* SLIDE 1: URGENCY & TIMELINE */}
             {briefingStep === 1 && (
               <div className="rf-briefing-slide" key="step-1">
                 <div className="rf-briefing-slide-inner">
@@ -529,9 +632,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               </div>
             )}
 
-            {/* -------------------------------------------------------------------
-                SLIDE 2: TALENT LOCATION (IMAGE 2)
-                ------------------------------------------------------------------- */}
+            {/* SLIDE 2: TALENT LOCATION */}
             {briefingStep === 2 && (
               <div className="rf-briefing-slide" key="step-2">
                 <div className="rf-briefing-slide-inner">
@@ -559,9 +660,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               </div>
             )}
 
-            {/* -------------------------------------------------------------------
-                SLIDE 3: BUDGET IN MIND (IMAGE 3)
-                ------------------------------------------------------------------- */}
+            {/* SLIDE 3: BUDGET IN MIND */}
             {briefingStep === 3 && (
               <div className="rf-briefing-slide" key="step-3">
                 <div className="rf-briefing-slide-inner">
@@ -590,7 +689,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
                   {/* Bell Curve Graphic & Interactive Rate Slider */}
                   <div className="rf-briefing-curve-container">
-                    {/* SVG Bell Distribution Curve */}
                     <div className="rf-briefing-curve-svg-box">
                       <svg
                         viewBox="0 0 600 150"
@@ -611,13 +709,11 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                           </linearGradient>
                         </defs>
 
-                        {/* Fill under bell curve */}
                         <path
                           d="M 30 145 C 180 145, 230 35, 300 35 C 370 35, 420 145, 570 145 L 570 148 L 30 148 Z"
                           fill={isDark ? "url(#rfCurveGradDark)" : "url(#rfCurveGradLight)"}
                         />
 
-                        {/* Stroke Outline */}
                         <path
                           d="M 30 145 C 180 145, 230 35, 300 35 C 370 35, 420 145, 570 145"
                           fill="none"
@@ -626,7 +722,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                           strokeLinecap="round"
                         />
 
-                        {/* Center "Typical" Dotted Guideline */}
                         <line
                           x1="300"
                           y1="12"
@@ -639,7 +734,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       </svg>
                     </div>
 
-                    {/* Labels over the curve: Affordable | Typical ⓘ | Expert */}
                     <div className="rf-briefing-curve-labels">
                       <span className="rf-curve-label-affordable">Affordable</span>
                       <div className="rf-curve-label-typical">
@@ -649,7 +743,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       <span className="rf-curve-label-expert">Expert</span>
                     </div>
 
-                    {/* Dynamic Floating Price Value Tag */}
                     <div
                       className="rf-briefing-price-bubble"
                       style={{ left: `${budgetPercentage}%` }}
@@ -659,7 +752,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       </span>
                     </div>
 
-                    {/* Range Input Track & Thumb */}
                     <div className="rf-briefing-slider-track-wrap">
                       <input
                         type="range"
@@ -681,7 +773,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </div>
                   </div>
 
-                  {/* Primary Next Action Button */}
                   <div className="rf-briefing-action-box">
                     <button
                       type="button"
@@ -695,9 +786,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               </div>
             )}
 
-            {/* -------------------------------------------------------------------
-                SLIDE 4: JOB DETAILS & SCOPE (IMAGE 4)
-                ------------------------------------------------------------------- */}
+            {/* SLIDE 4: JOB DETAILS & SCOPE */}
             {briefingStep === 4 && (
               <div className="rf-briefing-slide" key="step-4">
                 <div className="rf-briefing-slide-inner">
@@ -706,7 +795,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     We'll search for talent who have relevant experience.
                   </p>
 
-                  {/* Clean Textarea Input */}
                   <div className="rf-briefing-textarea-box">
                     <textarea
                       rows={5}
@@ -717,7 +805,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     />
                   </div>
 
-                  {/* See an Example Collapsible Accordion */}
                   <div className="rf-briefing-examples-wrap">
                     <button
                       type="button"
@@ -747,7 +834,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     )}
                   </div>
 
-                  {/* Primary Next Action Button */}
                   <div className="rf-briefing-action-box">
                     <button
                       type="button"
@@ -761,9 +847,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               </div>
             )}
 
-            {/* -------------------------------------------------------------------
-                SLIDE 5: SPECIFIC SKILLS (IMAGE 5)
-                ------------------------------------------------------------------- */}
+            {/* SLIDE 5: SPECIFIC SKILLS */}
             {briefingStep === 5 && (
               <div className="rf-briefing-slide" key="step-5">
                 <div className="rf-briefing-slide-inner">
@@ -772,7 +856,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     You can add more custom skills later, if you decide to post your job.
                   </p>
 
-                  {/* Interactive Skills Pill Tags */}
                   <div className="rf-briefing-skills-cloud">
                     {availableSkills.map((skill) => {
                       const isSelected = selectedSkills.includes(skill.name);
@@ -847,7 +930,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     )}
                   </div>
 
-                  {/* Primary Finish & View Talent Button */}
                   <div className="rf-briefing-action-box">
                     <button
                       type="button"
@@ -865,7 +947,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
       )}
 
       {/* =========================================================================
-         FINAL MATCHING PULSE (WHEN COMPLETING SLIDES)
+         TRANSITIONAL AI MATCHING PULSE (FROM SLIDE 5 TO PERSONALIZED RESULTS)
          ========================================================================= */}
       {phase === 'submitting' && (
         <div className="rf-ai-search-loading-container">
@@ -892,6 +974,446 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           <div className="rf-ai-search-loading-text">
             <span className="rf-ai-search-loading-label">Matching verified talent for your brief</span>
             <h3 className="rf-ai-search-loading-query">Preparing your personalized shortlist...</h3>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+         PHASE 4: YOUR PERSONALIZED RESULTS (EXACTLY MATCHING USER'S INSPIRATION IMAGES)
+         ========================================================================= */}
+      {phase === 'personalized_results' && (
+        <div className="rf-personalized-page-wrapper">
+          {/* Top Bar with Exit Button */}
+          <div className="rf-personalized-topbar">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rf-personalized-exit-btn"
+              aria-label="Exit results"
+            >
+              Exit
+            </button>
+          </div>
+
+          <div className="rf-personalized-main-content">
+            {/* Header: Query Subtitle & Headline + Filter Badges */}
+            <div className="rf-personalized-header-row">
+              <div className="rf-personalized-header-left">
+                <span className="rf-personalized-query-quote">
+                  “{jobDetails || (searchQuery ? `Creative Director For A ${searchQuery} Refresh` : 'Creative Director For A Brand Identity Refresh')}”
+                </span>
+                <h1 className="rf-personalized-title">Your personalized results</h1>
+              </div>
+
+              {/* Filter Pills on Right */}
+              <div className="rf-personalized-filter-pills">
+                <button
+                  type="button"
+                  onClick={() => setFilterAvailableOnly(!filterAvailableOnly)}
+                  className={`rf-pr-filter-pill ${filterAvailableOnly ? 'is-active' : ''}`}
+                >
+                  <span>Available now</span>
+                </button>
+
+                <div className="rf-pr-dropdown-anchor">
+                  <button
+                    type="button"
+                    onClick={() => setActiveDropdown(activeDropdown === 'rate' ? null : 'rate')}
+                    className="rf-pr-filter-pill"
+                  >
+                    <span>Rate ({budgetType === 'hourly' ? `$${hourlyRate}/hr` : `$${fixedBudget}`})</span>
+                    <ChevronDown size={14} />
+                  </button>
+                  {activeDropdown === 'rate' && (
+                    <div className="rf-pr-dropdown-menu">
+                      <div className="rf-pr-dropdown-item">Budget: {budgetType === 'hourly' ? `$${hourlyRate}/hr` : `$${fixedBudget} fixed`}</div>
+                      <div className="rf-pr-dropdown-sub">Configured in your briefing</div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="rf-pr-dropdown-anchor">
+                  <button
+                    type="button"
+                    onClick={() => setActiveDropdown(activeDropdown === 'location' ? null : 'location')}
+                    className="rf-pr-filter-pill"
+                  >
+                    <span>Location (1)</span>
+                    <ChevronDown size={14} />
+                  </button>
+                  {activeDropdown === 'location' && (
+                    <div className="rf-pr-dropdown-menu">
+                      <div className="rf-pr-dropdown-item">{locationPref}</div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="rf-pr-dropdown-anchor">
+                  <button
+                    type="button"
+                    onClick={() => setActiveDropdown(activeDropdown === 'skills' ? null : 'skills')}
+                    className="rf-pr-filter-pill"
+                  >
+                    <span>Skills ({selectedSkills.length || 3})</span>
+                    <ChevronDown size={14} />
+                  </button>
+                  {activeDropdown === 'skills' && (
+                    <div className="rf-pr-dropdown-menu">
+                      {selectedSkills.slice(0, 4).map((s, idx) => (
+                        <div key={idx} className="rf-pr-dropdown-item">✓ {s}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* ===================================================================
+                SECTION 1: 3x2 TALENT CARDS GRID
+                =================================================================== */}
+            <div className="rf-personalized-talent-grid">
+              {displayedPersonalizedTalents.map((talent) => (
+                <div
+                  key={talent.id}
+                  className="rf-pr-talent-card"
+                  onClick={() => {
+                    onClose();
+                    onNavigate(`/profile/${talent.id}`);
+                  }}
+                  title={`View ${talent.fullName}'s verified profile`}
+                >
+                  {/* Top Profile Summary */}
+                  <div className="rf-pr-talent-top">
+                    <div className="rf-pr-avatar-wrap">
+                      <img
+                        src={talent.avatar}
+                        alt={talent.fullName}
+                        className="rf-pr-avatar-img"
+                        loading="lazy"
+                      />
+                      {/* Top-Left Online Dot */}
+                      <span className={`rf-pr-online-dot ${talent.isOnline ? 'is-online' : 'is-offline'}`} />
+                      
+                      {/* Bottom-Right Badge Icon */}
+                      <span className={`rf-pr-badge-icon ${talent.badgeType}`}>
+                        {talent.badgeType === 'arrow-green' && <ArrowRight size={13} className="rf-arrow-up-rotate" />}
+                        {talent.badgeType === 'crown-gold' && <span className="rf-crown-icon">👑</span>}
+                        {talent.badgeType === 'star-pink' && <Star size={11} fill="#FFFFFF" color="#FFFFFF" />}
+                        {talent.badgeType === 'star-blue' && <Star size={11} fill="#FFFFFF" color="#FFFFFF" />}
+                      </span>
+                    </div>
+
+                    <div className="rf-pr-talent-meta">
+                      <h3 className="rf-pr-talent-name">{talent.name}</h3>
+                      <div className="rf-pr-talent-rate">$ {talent.rate}/hr</div>
+                      <div className="rf-pr-talent-rating">
+                        <Star size={14} fill="#F6B21A" color="#F6B21A" />
+                        <span className="rf-pr-rating-num">{talent.rating}</span>
+                        <span className="rf-pr-review-count">({talent.reviewsCount})</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Middle Badges Row 1: Great Match & Available Now */}
+                  <div className="rf-pr-badges-row-1">
+                    <div className="rf-pr-badge-pill">
+                      <Medal size={14} className="rf-pr-medal-icon" />
+                      <span>Great match</span>
+                    </div>
+                    {talent.availableNow && (
+                      <div className="rf-pr-badge-pill is-available">
+                        <Check size={14} className="rf-pr-check-icon" />
+                        <span>Available now</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Middle Badges Row 2: Skills Match */}
+                  <div className="rf-pr-badges-row-2">
+                    <div className="rf-pr-skills-pill">
+                      <Check size={14} className="rf-pr-check-icon" />
+                      <span>{talent.skillsMatched}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Centered CTA: View more matching talent */}
+            <div className="rf-personalized-more-action">
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onNavigate('/marketplace');
+                }}
+                className="rf-personalized-view-more-btn"
+              >
+                View more matching talent
+              </button>
+            </div>
+
+            {/* ===================================================================
+                SECTION 2: SPLIT BANNER ("Post your job for free")
+                =================================================================== */}
+            <div className="rf-personalized-banner-card">
+              <div className="rf-pr-banner-left">
+                {/* 90% Progress Ring Gauge Icon */}
+                <div className="rf-pr-banner-gauge-circle">
+                  <svg viewBox="0 0 44 44" className="rf-pr-gauge-svg">
+                    <circle cx="22" cy="22" r="17" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.2" />
+                    <circle
+                      cx="22"
+                      cy="22"
+                      r="17"
+                      fill="none"
+                      stroke="#111827"
+                      strokeWidth="3.2"
+                      strokeDasharray="96 15"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <Pin size={17} className="rf-pr-gauge-pin" />
+                </div>
+
+                <h2 className="rf-pr-banner-title">
+                  Post your job for free and let freelancers come to you
+                </h2>
+                <p className="rf-pr-banner-sub">It's 90% complete!</p>
+
+                <div className="rf-pr-banner-features">
+                  <div className="rf-pr-banner-feature-item">
+                    <UserCheck size={18} className="rf-pr-feat-icon" />
+                    <span>See who applies and interview top freelancers</span>
+                  </div>
+                  <div className="rf-pr-banner-feature-item">
+                    <CreditCard size={18} className="rf-pr-feat-icon" />
+                    <span>5% platform fee only if you hire</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onNavigate('/job-board');
+                  }}
+                  className="rf-pr-banner-cta-btn"
+                >
+                  Finish your job post
+                </button>
+              </div>
+
+              <div className="rf-pr-banner-right">
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=80"
+                  alt="Professional freelancer smiling at desk"
+                  className="rf-pr-banner-image"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            {/* ===================================================================
+                SECTION 3: TRUSTED CLIENT LOGOS
+                =================================================================== */}
+            <div className="rf-personalized-logos-row">
+              <div className="rf-pr-logo-item">
+                <svg width="120" height="28" viewBox="0 0 120 28" fill="none">
+                  <rect x="0" y="3" width="9" height="9" fill="#71717A" />
+                  <rect x="12" y="3" width="9" height="9" fill="#71717A" />
+                  <rect x="0" y="15" width="9" height="9" fill="#71717A" />
+                  <rect x="12" y="15" width="9" height="9" fill="#71717A" />
+                  <text x="27" y="18" fill="#71717A" fontSize="15" fontWeight="600" fontFamily="system-ui, sans-serif">Microsoft</text>
+                </svg>
+              </div>
+
+              <div className="rf-pr-logo-item">
+                <span className="rf-pr-logo-text-airbnb">airbnb</span>
+              </div>
+
+              <div className="rf-pr-logo-item">
+                <span className="rf-pr-logo-text-bissell">BISSELL</span>
+              </div>
+
+              <div className="rf-pr-logo-item">
+                <span className="rf-pr-logo-text-glassdoor">'GLASSDOOR'</span>
+              </div>
+            </div>
+
+            {/* ===================================================================
+                SECTION 4: "HOW HIRING WORKS" WITH VIDEO & ACCORDION
+                =================================================================== */}
+            <div className="rf-personalized-how-it-works-grid">
+              {/* Left Column: Interactive Video Player Card */}
+              <div className="rf-pr-video-card">
+                <div className="rf-pr-video-screen">
+                  {/* Subtle video ambient backdrop */}
+                  <div className="rf-pr-video-backdrop" />
+
+                  {/* Upwork/Refeir styled center logo */}
+                  <div className="rf-pr-video-brand-center">
+                    <span className="rf-pr-video-logo">refeir</span>
+                  </div>
+
+                  {/* Bottom Video Controls Bar */}
+                  <div className="rf-pr-video-controls">
+                    <button
+                      type="button"
+                      onClick={() => setIsVideoPlaying(!isVideoPlaying)}
+                      className="rf-pr-video-ctrl-btn"
+                      aria-label={isVideoPlaying ? "Pause video" : "Play video"}
+                    >
+                      {isVideoPlaying ? <Pause size={15} /> : <Play size={15} />}
+                    </button>
+
+                    <div className="rf-pr-video-time">0:03 / 0:32</div>
+
+                    {/* Progress track */}
+                    <div className="rf-pr-video-scrubber">
+                      <div className="rf-pr-video-scrub-fill" style={{ width: '12%' }} />
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsMuted(!isMuted)}
+                      className="rf-pr-video-ctrl-btn"
+                      aria-label="Toggle mute"
+                    >
+                      {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+                    </button>
+
+                    <button
+                      type="button"
+                      className="rf-pr-video-ctrl-btn"
+                      aria-label="Toggle fullscreen"
+                    >
+                      <Maximize2 size={15} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Numbered Steps Accordion & Actions */}
+              <div className="rf-pr-how-right">
+                <h2 className="rf-pr-how-title">How hiring works</h2>
+
+                <div className="rf-pr-accordion-list">
+                  {/* Step 1 */}
+                  <div className="rf-pr-accordion-item">
+                    <button
+                      type="button"
+                      onClick={() => setOpenAccordion(openAccordion === 1 ? null : 1)}
+                      className="rf-pr-accordion-header"
+                    >
+                      <div className="rf-pr-accordion-header-left">
+                        <span className="rf-pr-step-num">1</span>
+                        <span className="rf-pr-step-text">Post your job or project</span>
+                      </div>
+                      <ChevronDown
+                        size={18}
+                        className={`rf-pr-chevron ${openAccordion === 1 ? 'is-rotated' : ''}`}
+                      />
+                    </button>
+                    {openAccordion === 1 && (
+                      <div className="rf-pr-accordion-body">
+                        Describe what you need, set your timeline and budget, and get personalized proposals from vetted experts within hours.
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Step 2 */}
+                  <div className="rf-pr-accordion-item">
+                    <button
+                      type="button"
+                      onClick={() => setOpenAccordion(openAccordion === 2 ? null : 2)}
+                      className="rf-pr-accordion-header"
+                    >
+                      <div className="rf-pr-accordion-header-left">
+                        <span className="rf-pr-step-num">2</span>
+                        <span className="rf-pr-step-text">Contact and hire top freelancers</span>
+                      </div>
+                      <ChevronDown
+                        size={18}
+                        className={`rf-pr-chevron ${openAccordion === 2 ? 'is-rotated' : ''}`}
+                      />
+                    </button>
+                    {openAccordion === 2 && (
+                      <div className="rf-pr-accordion-body">
+                        Interview candidates, review verified portfolios and client feedback, and begin collaboration protected by smart contracts.
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Step 3 */}
+                  <div className="rf-pr-accordion-item">
+                    <button
+                      type="button"
+                      onClick={() => setOpenAccordion(openAccordion === 3 ? null : 3)}
+                      className="rf-pr-accordion-header"
+                    >
+                      <div className="rf-pr-accordion-header-left">
+                        <span className="rf-pr-step-num">3</span>
+                        <span className="rf-pr-step-text">Pay securely, once work is delivered</span>
+                      </div>
+                      <ChevronDown
+                        size={18}
+                        className={`rf-pr-chevron ${openAccordion === 3 ? 'is-rotated' : ''}`}
+                      />
+                    </button>
+                    {openAccordion === 3 && (
+                      <div className="rf-pr-accordion-body">
+                        Deposit funds securely in escrow. You only release payment when work is delivered to your complete satisfaction.
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Primary & Secondary Action Buttons */}
+                <div className="rf-pr-how-actions">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      onNavigate('/job-board');
+                    }}
+                    className="rf-pr-how-post-btn"
+                  >
+                    Post your job
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      onNavigate('/pricing');
+                    }}
+                    className="rf-pr-how-plans-btn"
+                  >
+                    Plans and pricing
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* ===================================================================
+                SECTION 5: MINIMALIST DARK FOOTER (IMAGE 4)
+                =================================================================== */}
+            <div className="rf-personalized-footer-bar">
+              <div className="rf-pr-footer-content">
+                <span>© 2015 - 2026 Refeir® Global Inc. • </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onNavigate('/privacy');
+                  }}
+                  className="rf-pr-footer-link"
+                >
+                  Privacy Policy
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
