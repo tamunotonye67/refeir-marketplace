@@ -3917,6 +3917,521 @@
   color: #166534 !important;
 }
 
+/* ==========================================================================
+   AI SEARCH OVERLAY & REVOLVING 3D POLYGON DISCOVERY MODAL
+   ========================================================================== */
+
+.rf-ai-search-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: rfAISearchFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow-y: auto;
+}
+
+.rf-ai-search-overlay.is-dark {
+  background-color: #07160D;
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-light {
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+
+@keyframes rfAISearchFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Topbar with Exit Button */
+.rf-ai-search-topbar {
+  position: absolute;
+  top: 1.75rem;
+  left: 2rem;
+  z-index: 10;
+}
+
+.rf-ai-search-exit-btn {
+  background: transparent;
+  border: 1px solid rgba(102, 187, 42, 0.4);
+  border-radius: 8px;
+  padding: 0.45rem 1.15rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-search-exit-btn {
+  color: #66BB2A;
+  background: rgba(102, 187, 42, 0.08);
+  border-color: rgba(102, 187, 42, 0.35);
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-search-exit-btn:hover {
+  background: rgba(102, 187, 42, 0.2);
+  border-color: #66BB2A;
+  color: #86EFAC;
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-search-exit-btn {
+  color: #166534;
+  background: #F0FDF4;
+  border-color: rgba(22, 101, 52, 0.25);
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-search-exit-btn:hover {
+  background: #DCFCE7;
+  border-color: #166534;
+  color: #14532D;
+}
+
+/* --------------------------------------------------------------------------
+   PHASE 1: REVOLVING 3D GEOMETRIC POLYGON LOADER
+   -------------------------------------------------------------------------- */
+
+.rf-ai-search-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 650px;
+  width: 100%;
+  padding: 2rem 1rem;
+  animation: rfAIFadeIn 0.3s ease;
+}
+
+.rf-polygon-stage {
+  perspective: 900px;
+  width: 180px;
+  height: 180px;
+  margin-bottom: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf-polygon-rotator {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: rfPolygonRevolve3D 6s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf-polygon-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 16px rgba(102, 187, 42, 0.35));
+}
+
+.rf-ai-search-overlay.is-dark .rf-polygon-petal {
+  color: #FFFFFF;
+  opacity: 0.85;
+}
+
+.rf-ai-search-overlay.is-light .rf-polygon-petal {
+  color: #0F172A;
+  opacity: 0.88;
+}
+
+@keyframes rfPolygonRevolve3D {
+  0% {
+    transform: rotateX(15deg) rotateY(0deg) rotateZ(0deg);
+  }
+  50% {
+    transform: rotateX(28deg) rotateY(180deg) rotateZ(180deg);
+  }
+  100% {
+    transform: rotateX(15deg) rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+.rf-ai-search-loading-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rf-ai-search-loading-label {
+  font-size: 1.15rem;
+  font-weight: 500;
+  opacity: 0.85;
+  letter-spacing: -0.01em;
+}
+
+.rf-ai-search-loading-query {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.25;
+  color: var(--rf-leaf-green, #66BB2A);
+}
+
+/* --------------------------------------------------------------------------
+   PHASE 2: MINIMALIST RESULTS SHOWCASE
+   -------------------------------------------------------------------------- */
+
+.rf-ai-search-results-container {
+  position: relative;
+  width: 100%;
+  max-width: 1120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  animation: rfAIFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes rfAIFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Constellation Particle Backdrop */
+.rf-ai-search-particles {
+  position: absolute;
+  inset: -100px;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.rf-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #66BB2A 0%, rgba(102, 187, 42, 0.15) 70%, transparent 100%);
+  opacity: 0.65;
+  animation: rfParticleFloat 7s ease-in-out infinite alternate;
+}
+
+.rf-particle.p1 { width: 140px; height: 140px; top: 10%; left: 8%; animation-delay: 0s; }
+.rf-particle.p2 { width: 90px; height: 90px; top: 75%; left: 15%; animation-delay: 1.5s; }
+.rf-particle.p3 { width: 180px; height: 180px; top: 20%; right: 5%; animation-delay: 2.2s; }
+.rf-particle.p4 { width: 110px; height: 110px; bottom: 10%; right: 18%; animation-delay: 0.8s; }
+.rf-particle.p5 { width: 60px; height: 60px; top: 45%; left: 45%; animation-delay: 3s; }
+.rf-particle.p6 { width: 12px; height: 12px; top: 25%; left: 30%; background: #66BB2A; opacity: 0.8; }
+.rf-particle.p7 { width: 10px; height: 10px; top: 65%; right: 35%; background: #F6B21A; opacity: 0.8; }
+.rf-particle.p8 { width: 8px; height: 8px; bottom: 25%; left: 20%; background: #66BB2A; opacity: 0.9; }
+
+@keyframes rfParticleFloat {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-24px) scale(1.08);
+  }
+}
+
+/* Results Card Container */
+.rf-ai-search-results-card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 0;
+}
+
+/* Left Column */
+.rf-ai-search-left-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.rf-ai-search-title {
+  font-size: clamp(2rem, 3.8vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.5rem 0;
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-search-title {
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-search-title {
+  color: #0F172A;
+}
+
+.rf-ai-search-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+}
+
+.rf-ai-search-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.rf-ai-search-score {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #F6B21A;
+}
+
+.rf-ai-search-rating-desc {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.rf-ai-search-rating-sub {
+  font-size: 0.8125rem;
+  opacity: 0.65;
+  margin-bottom: 1.75rem;
+}
+
+.rf-ai-search-continue-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #15803D;
+  background-color: #16A34A;
+  background-image: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.85rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.4);
+  transition: all 0.2s ease;
+  margin-bottom: 1.75rem;
+}
+
+.rf-ai-search-continue-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(22, 163, 74, 0.55);
+  background-image: linear-gradient(135deg, #4ADE80 0%, #16A34A 100%);
+}
+
+.rf-ai-search-links-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.rf-ai-search-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #16A34A;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+
+.rf-ai-search-link:hover {
+  color: #22C55E;
+}
+
+.rf-ai-search-footer-note {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.775rem;
+  opacity: 0.55;
+  font-weight: 500;
+}
+
+.rf-ai-info-icon {
+  opacity: 0.75;
+}
+
+/* Right Column: 2x2 Talent Grid */
+.rf-ai-search-right-col {
+  width: 100%;
+}
+
+.rf-ai-talent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.rf-ai-talent-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  border: 1px solid rgba(102, 187, 42, 0.2);
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-talent-card {
+  background: rgba(10, 30, 20, 0.6);
+  border-color: rgba(102, 187, 42, 0.22);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-talent-card:hover {
+  background: rgba(18, 45, 30, 0.85);
+  border-color: #66BB2A;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(102, 187, 42, 0.15);
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-talent-card {
+  background: #FFFFFF;
+  border-color: rgba(18, 43, 26, 0.1);
+  box-shadow: 0 10px 30px rgba(18, 43, 26, 0.08);
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-talent-card:hover {
+  border-color: #16A34A;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(18, 43, 26, 0.14);
+}
+
+.rf-ai-talent-avatar-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  margin-bottom: 0.85rem;
+}
+
+.rf-ai-talent-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid #66BB2A;
+}
+
+.rf-ai-talent-status-dot {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #22C55E;
+  border: 2px solid #07160D;
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-talent-status-dot {
+  border-color: #FFFFFF;
+}
+
+.rf-ai-talent-verified-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2563EB;
+  border: 2px solid #07160D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-talent-verified-badge {
+  border-color: #FFFFFF;
+}
+
+.rf-ai-talent-name {
+  font-size: 0.975rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.rf-ai-talent-role {
+  font-size: 0.775rem;
+  opacity: 0.7;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE LAYOUT FOR MOBILE & TABLETS
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 868px) {
+  .rf-ai-search-topbar {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .rf-ai-search-results-card {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 3rem 0 1.5rem 0;
+  }
+
+  .rf-ai-search-title {
+    font-size: 1.85rem;
+  }
+
+  .rf-polygon-stage {
+    width: 140px;
+    height: 140px;
+  }
+
+  .rf-ai-search-loading-query {
+    font-size: 1.3rem;
+  }
+
+  .rf-ai-talent-grid {
+    gap: 0.85rem;
+  }
+
+  .rf-ai-talent-avatar-wrap {
+    width: 68px;
+    height: 68px;
+  }
+}
+
+
 
 
 

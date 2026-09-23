@@ -8,6 +8,7 @@ import { AfricaMapExplorer } from '../components/marketplace/AfricaMapExplorer';
 import { Africa3DMap } from '../components/marketplace/Africa3DMap';
 import { PolygonNetwork3D } from '../components/common/PolygonNetwork3D';
 import { ReferModal } from '../components/referral/ReferModal';
+import { AISearchModal } from '../components/home/AISearchModal';
 import { RefeirLogo } from '../components/common/RefeirLogo';
 import { TalentProfile, Service, AfricanRegion } from '../types';
 import { REGIONS } from '../data/countries';
@@ -408,29 +409,30 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsHeroSearchActive(false);
     if (!searchQuery.trim()) {
       onNavigate('/marketplace');
       return;
     }
-    if (heroSearchIntent === 'work') {
-      onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}&intent=work`);
-    } else if (heroSearchIntent === 'scout') {
-      onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}&intent=scout`);
-    } else {
-      onNavigate(`/marketplace?q=${encodeURIComponent(searchQuery)}`);
-    }
+    setIsHeroSearchActive(false);
+    setAiSearchQuery(searchQuery.trim());
+    setShowAISearchModal(true);
   };
 
   const handlePopularSearchSelect = (term: string) => {
     setIsHeroSearchActive(false);
     setSearchQuery(term);
-    if (heroSearchIntent === 'work') {
-      onNavigate(`/marketplace?q=${encodeURIComponent(term)}&intent=work`);
-    } else if (heroSearchIntent === 'scout') {
-      onNavigate(`/marketplace?q=${encodeURIComponent(term)}&intent=scout`);
+    setAiSearchQuery(term);
+    setShowAISearchModal(true);
+  };
+
+  const handleAISearchContinue = (query: string, currentIntent: 'recruit' | 'work' | 'scout') => {
+    setShowAISearchModal(false);
+    if (currentIntent === 'work') {
+      onNavigate(`/marketplace?q=${encodeURIComponent(query)}&intent=work`);
+    } else if (currentIntent === 'scout') {
+      onNavigate(`/marketplace?q=${encodeURIComponent(query)}&intent=scout`);
     } else {
-      onNavigate(`/marketplace?q=${encodeURIComponent(term)}`);
+      onNavigate(`/marketplace?q=${encodeURIComponent(query)}`);
     }
   };
 
@@ -616,6 +618,8 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
   const [isHeroSearchActive, setIsHeroSearchActive] = useState(false);
   const [heroSearchIntent, setHeroSearchIntent] = useState<'recruit' | 'work' | 'scout'>('recruit');
+  const [showAISearchModal, setShowAISearchModal] = useState(false);
+  const [aiSearchQuery, setAiSearchQuery] = useState('');
   const heroSearchContainerRef = useRef<HTMLDivElement>(null);
   const heroSearchInputRef = useRef<HTMLInputElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
@@ -3766,6 +3770,16 @@ export const HomePage: React.FC<HomePageProps> = ({
           onNavigate={onNavigate}
         />
       )}
+
+      {/* AI Search Discovery & Revolving Polygon Loader Modal */}
+      <AISearchModal
+        isOpen={showAISearchModal}
+        searchQuery={aiSearchQuery}
+        intent={heroSearchIntent}
+        onClose={() => setShowAISearchModal(false)}
+        onContinue={handleAISearchContinue}
+        onNavigate={onNavigate}
+      />
     </div>
   );
 };
