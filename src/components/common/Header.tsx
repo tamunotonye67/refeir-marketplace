@@ -1108,7 +1108,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                       {/* Left: Specialties */}
                       <div>
                         <div className="rf-mega-menu-col-title">
-                          <Briefcase size={14} />
                           <span>Hire Top African Talent</span>
                         </div>
 
@@ -1117,65 +1116,40 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/marketplace?category=Engineering')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Code2 size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Software & Mobile Engineering</div>
-                              <div className="rf-mega-menu-item-desc">Fullstack, Mobile, DevOps, and Backend engineers</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Software & Mobile Engineering</div>
+                            <div className="rf-mega-menu-item-desc">Fullstack, Mobile, DevOps, and Backend engineers</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/marketplace?category=AI+%26+Data')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Brain size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">AI & Data Science</div>
-                              <div className="rf-mega-menu-item-desc">LLM specialists, Data Analysts, ML engineers</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">AI & Data Science</div>
+                            <div className="rf-mega-menu-item-desc">LLM specialists, Data Analysts, ML engineers</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/marketplace?category=Design+%26+Creative')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Palette size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Design & UI/UX</div>
-                              <div className="rf-mega-menu-item-desc">Product designers, Design systems, Brand architects</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Design & UI/UX</div>
+                            <div className="rf-mega-menu-item-desc">Product designers, Design systems, Brand architects</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/marketplace?category=Growth+%26+Marketing')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <TrendingUp size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Growth & Marketing</div>
-                              <div className="rf-mega-menu-item-desc">Pan-African GTM, Performance marketers & SEO</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Growth & Marketing</div>
+                            <div className="rf-mega-menu-item-desc">Pan-African GTM, Performance marketers & SEO</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/marketplace?category=Legal+%26+Operations')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Scale size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Legal & FinTech Operations</div>
-                              <div className="rf-mega-menu-item-desc">Regulatory compliance, African FinTech advisory</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Legal & FinTech Operations</div>
+                            <div className="rf-mega-menu-item-desc">Regulatory compliance, African FinTech advisory</div>
                           </div>
                         </div>
                       </div>
@@ -1244,7 +1218,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                       {/* Left: Scouting Links */}
                       <div>
                         <div className="rf-mega-menu-col-title">
-                          <Sparkles size={14} />
                           <span>The Referral Economy</span>
                         </div>
 
@@ -1253,52 +1226,32 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/dashboard/scout')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Sparkles size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Scout Dashboard</div>
-                              <div className="rf-mega-menu-item-desc">Track active referrals, conversion rates & locked rewards</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Scout Dashboard</div>
+                            <div className="rf-mega-menu-item-desc">Track active referrals, conversion rates & locked rewards</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/marketplace')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Users size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Refer a Talent to Clients</div>
-                              <div className="rf-mega-menu-item-desc">Generate one-click referral links & endorse peers</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Refer a Talent to Clients</div>
+                            <div className="rf-mega-menu-item-desc">Generate one-click referral links & endorse peers</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/why-refeir')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <HelpCircle size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">How Scouting Works</div>
-                              <div className="rf-mega-menu-item-desc">Learn about the 10% lifetime locked referral architecture</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">How Scouting Works</div>
+                            <div className="rf-mega-menu-item-desc">Learn about the 10% lifetime locked referral architecture</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/wallet')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Wallet size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Trust Vault Payouts & Multi-Currency</div>
-                              <div className="rf-mega-menu-item-desc">Withdraw in USD, NGN, KES, GHS, or Mobile Money</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Trust Vault Payouts & Multi-Currency</div>
+                            <div className="rf-mega-menu-item-desc">Withdraw in USD, NGN, KES, GHS, or Mobile Money</div>
                           </div>
                         </div>
                       </div>
@@ -1358,7 +1311,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                       {/* Left: For Talent */}
                       <div>
                         <div className="rf-mega-menu-col-title">
-                          <Award size={14} />
                           <span>For African Professionals</span>
                         </div>
 
@@ -1367,52 +1319,32 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/jobs')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <FileText size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Browse Open Jobs</div>
-                              <div className="rf-mega-menu-item-desc">Explore cross-border and remote opportunities</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Browse Open Jobs</div>
+                            <div className="rf-mega-menu-item-desc">Explore cross-border and remote opportunities</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/dashboard/talent')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Briefcase size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Talent Workspace</div>
-                              <div className="rf-mega-menu-item-desc">Manage ongoing contracts, deliverables & milestone releases</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Talent Workspace</div>
+                            <div className="rf-mega-menu-item-desc">Manage ongoing contracts, deliverables & milestone releases</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/verification')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <UserCheck size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Get Verified</div>
-                              <div className="rf-mega-menu-item-desc">Verify your identity and portfolio for 4x hire rate</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Get Verified</div>
+                            <div className="rf-mega-menu-item-desc">Verify your identity and portfolio for 4x hire rate</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/disputes')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <ShieldCheck size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Payment & Milestone Protection</div>
-                              <div className="rf-mega-menu-item-desc">Trust Vault security ensures you always get paid for approved work</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Payment & Milestone Protection</div>
+                            <div className="rf-mega-menu-item-desc">Trust Vault security ensures you always get paid for approved work</div>
                           </div>
                         </div>
                       </div>
@@ -1487,7 +1419,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                       {/* Left: Ecosystem & Knowledge */}
                       <div>
                         <div className="rf-mega-menu-col-title">
-                          <Compass size={14} />
                           <span>Ecosystem & Discovery</span>
                         </div>
 
@@ -1496,65 +1427,40 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/countries')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Globe2 size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">54 African Countries Hub</div>
-                              <div className="rf-mega-menu-item-desc">Browse sovereign talent pools & local currencies</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">54 African Countries Hub</div>
+                            <div className="rf-mega-menu-item-desc">Browse sovereign talent pools & local currencies</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/demo-tour')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Sparkles size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Cross-Border Demo Tour</div>
-                              <div className="rf-mega-menu-item-desc">Interactive live walkthrough of a Refeir project lifecycle</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Cross-Border Demo Tour</div>
+                            <div className="rf-mega-menu-item-desc">Interactive live walkthrough of a Refeir project lifecycle</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/why-refeir')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Shield size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Why Refeir & Our Vision</div>
-                              <div className="rf-mega-menu-item-desc">Pan-African escrow model & 10% referral guarantee</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Why Refeir & Our Vision</div>
+                            <div className="rf-mega-menu-item-desc">Pan-African escrow model & 10% referral guarantee</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/success-stories')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Star size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Success Stories</div>
-                              <div className="rf-mega-menu-item-desc">Real earnings & case studies from verified Scouts and Talent</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Success Stories</div>
+                            <div className="rf-mega-menu-item-desc">Real earnings & case studies from verified Scouts and Talent</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/reviews')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Award size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Refeir Reviews (4.9/5.0)</div>
-                              <div className="rf-mega-menu-item-desc">Over 2,400+ verified ratings across the continent</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Refeir Reviews (4.9/5.0)</div>
+                            <div className="rf-mega-menu-item-desc">Over 2,400+ verified ratings across the continent</div>
                           </div>
                         </div>
                       </div>
@@ -1562,7 +1468,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                       {/* Middle: Tools & Support */}
                       <div>
                         <div className="rf-mega-menu-col-title">
-                          <BookOpen size={14} />
                           <span>Tools & Knowledge</span>
                         </div>
 
@@ -1571,65 +1476,40 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/tools')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Wrench size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Free Business Tools</div>
-                              <div className="rf-mega-menu-item-desc">Freelance rate calculator & multi-currency converter</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Free Business Tools</div>
+                            <div className="rf-mega-menu-item-desc">Freelance rate calculator & multi-currency converter</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/blog')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <BookOpen size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Refeir Blog & Guides</div>
-                              <div className="rf-mega-menu-item-desc">Scout tips, African tech trends & hiring strategies</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Refeir Blog & Guides</div>
+                            <div className="rf-mega-menu-item-desc">Scout tips, African tech trends & hiring strategies</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/help')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <HelpCircle size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Help & Support Center</div>
-                              <div className="rf-mega-menu-item-desc">Frequently asked questions & 24/7 mediation assistance</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Help & Support Center</div>
+                            <div className="rf-mega-menu-item-desc">Frequently asked questions & 24/7 mediation assistance</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/partnerships')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Handshake size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">Sponsorship & Partnerships</div>
-                              <div className="rf-mega-menu-item-desc">Collaborate with Africa's fastest-growing talent network</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">Sponsorship & Partnerships</div>
+                            <div className="rf-mega-menu-item-desc">Collaborate with Africa's fastest-growing talent network</div>
                           </div>
 
                           <div
                             className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/about')}
                           >
-                            <div className="rf-mega-menu-item-icon">
-                              <Users size={16} />
-                            </div>
-                            <div>
-                              <div className="rf-mega-menu-item-title">About Refeir & Leadership</div>
-                              <div className="rf-mega-menu-item-desc">Meet the team building pan-African infrastructure</div>
-                            </div>
+                            <div className="rf-mega-menu-item-title">About Refeir & Leadership</div>
+                            <div className="rf-mega-menu-item-desc">Meet the team building pan-African infrastructure</div>
                           </div>
                         </div>
                       </div>

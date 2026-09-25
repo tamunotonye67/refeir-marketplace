@@ -444,11 +444,13 @@
 .rf-mega-menu {
   position: absolute;
   top: calc(100% + 8px);
-  background-color: #07160D;
-  border: 1px solid rgba(102, 187, 42, 0.28);
-  border-radius: var(--rf-radius-xl);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 30px rgba(102, 187, 42, 0.12);
-  padding: 1.5rem;
+  background-color: rgba(7, 22, 13, 0.96);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(102, 187, 42, 0.22);
+  border-radius: 16px;
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.75), 0 0 25px rgba(102, 187, 42, 0.08);
+  padding: 1.25rem 1.4rem;
   min-width: 580px;
   max-width: 820px;
   z-index: 1000;
@@ -490,8 +492,8 @@
 
 [data-theme="light"] .rf-mega-menu {
   background-color: #FFFFFF !important;
-  border-color: rgba(18, 43, 26, 0.14) !important;
-  box-shadow: 0 24px 60px -10px rgba(18, 43, 26, 0.18), 0 0 25px rgba(0, 0, 0, 0.06) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.04) !important;
 }
 
 @keyframes rfSlideDownRight {
@@ -591,90 +593,92 @@
 
 .rf-mega-menu-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.45fr 1fr;
   gap: 1.5rem;
 }
 
 .rf-mega-menu-col-title {
-  font-size: 0.75rem;
-  font-weight: 800;
+  font-size: 0.6875rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--rf-leaf-green);
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  letter-spacing: 0.08em;
+  color: #66BB2A;
+  margin-bottom: 0.5rem;
+  padding: 0.2rem 0.75rem;
   line-height: 1;
 }
 
-.rf-mega-menu-col-title svg {
-  display: inline-block;
-  flex-shrink: 0;
-  vertical-align: middle;
+[data-theme="light"] .rf-mega-menu-col-title {
+  color: #16A34A;
 }
 
 .rf-mega-menu-item {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.55rem 0.65rem;
-  border-radius: var(--rf-radius-md);
-  transition: all var(--rf-transition-fast);
+  gap: 0.2rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  transition: background-color 0.18s ease, transform 0.18s ease;
   cursor: pointer;
   text-align: left;
   width: 100%;
 }
 
 .rf-mega-menu-item:hover {
-  background-color: var(--rf-bg-surface-hover);
+  background-color: rgba(255, 255, 255, 0.05);
   transform: translateX(3px);
 }
 
 [data-theme="light"] .rf-mega-menu-item:hover {
-  background-color: #F0F7F2;
-}
-
-.rf-mega-menu-item-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background-color: var(--rf-mint-light);
-  color: var(--rf-leaf-green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
+  background-color: #F0FDF4;
 }
 
 .rf-mega-menu-item-title {
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: var(--rf-cream);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #FFFFFF;
   line-height: 1.25;
-  margin-bottom: 0.15rem;
+  letter-spacing: -0.01em;
+  transition: color 0.18s ease;
+}
+
+[data-theme="light"] .rf-mega-menu-item-title {
+  color: #111827;
+}
+
+.rf-mega-menu-item:hover .rf-mega-menu-item-title {
+  color: #86EFAC;
+}
+
+[data-theme="light"] .rf-mega-menu-item:hover .rf-mega-menu-item-title {
+  color: #15803D;
 }
 
 .rf-mega-menu-item-desc {
-  font-size: 0.72rem;
-  color: var(--rf-slate-400);
-  line-height: 1.35;
+  font-size: 0.775rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+}
+
+[data-theme="light"] .rf-mega-menu-item-desc {
+  color: #6B7280;
 }
 
 .rf-mega-menu-sidebar {
-  background-color: var(--rf-bg-card);
-  border: 1px solid var(--rf-bg-card-border);
-  border-radius: var(--rf-radius-lg);
-  padding: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 1.35rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 [data-theme="light"] .rf-mega-menu-sidebar {
-  background-color: #F8FAF9;
-  border-color: rgba(18, 43, 26, 0.1);
+  background-color: #F9FAFB;
+  border-color: #E5E7EB;
 }
 
 /* --- Theme Toggle Button --- */
