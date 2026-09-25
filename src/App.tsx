@@ -377,36 +377,18 @@ export const App: React.FC = () => {
         }
         return <AccountSettingsPage onNavigate={navigate} />;
       case '/admin-login':
+        if (currentUser && currentUser.roles.includes('ADMIN')) {
+          return <AdminPortalPage onNavigate={navigate} />;
+        }
         return <AdminLoginPage onNavigate={navigate} />;
       case '/admin':
+      case '/admin-portal':
         // Guard: only ADMIN role can access
         if (!currentUser || !currentUser.roles.includes('ADMIN')) {
           return <AdminLoginPage onNavigate={navigate} />;
         }
         if (currentUser.active_role !== 'ADMIN') {
-          return (
-            <ProfileSwitchGate
-              targetRole="ADMIN"
-              currentRole={currentUser.active_role}
-              onNavigate={navigate}
-              onSwitch={() => switchRole('ADMIN')}
-            />
-          );
-        }
-        return <AdminPortalPage onNavigate={navigate} />;
-      case '/admin-portal':
-        if (!currentUser || !currentUser.roles.includes('ADMIN')) {
-          return <AdminLoginPage onNavigate={navigate} />;
-        }
-        if (currentUser.active_role !== 'ADMIN') {
-          return (
-            <ProfileSwitchGate
-              targetRole="ADMIN"
-              currentRole={currentUser.active_role}
-              onNavigate={navigate}
-              onSwitch={() => switchRole('ADMIN')}
-            />
-          );
+          switchRole('ADMIN');
         }
         return <AdminPortalPage onNavigate={navigate} />;
       case '/pricing':
@@ -493,7 +475,7 @@ export const App: React.FC = () => {
 
   // Pages that render full-screen without header/footer chrome
   const isChromelessPage = currentPath === '/admin-login' || 
-    (currentPath === '/admin' && (!currentUser || !currentUser.roles.includes('ADMIN'))) ||
+    ((currentPath === '/admin' || currentPath === '/admin-portal') && (!currentUser || !currentUser.roles.includes('ADMIN'))) ||
     basePath === '/pioneers' || basePath === '/refeir-pioneers' || basePath === '/join-pioneers';
 
   return (

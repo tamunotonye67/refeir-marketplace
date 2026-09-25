@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole, VerificationStatus } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
@@ -150,25 +150,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Local / Offline Signin
     const parts = email.split('@')[0].split('.');
+    const isAdmin = email.toLowerCase() === 'admin@refeir.africa' || email.toLowerCase().includes('admin');
     const newUser: User = {
-      id: `user-${Date.now()}`,
+      id: isAdmin ? 'user-admin-01' : `user-${Date.now()}`,
       email,
-      first_name: parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Member',
-      last_name: parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : '',
+      first_name: parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : (isAdmin ? 'Super' : 'Member'),
+      last_name: parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : (isAdmin ? 'Admin' : ''),
       phone: '+234 800 000 0000',
       country: 'Nigeria',
       city: 'Lagos',
       primary_language: 'English',
       timezone: 'Africa/Lagos',
       avatar_url: DEFAULT_AVATAR,
-      roles: ['CLIENT', 'SCOUT', 'TALENT'],
-      active_role: 'SCOUT',
-      verification_status: 'UNVERIFIED',
+      roles: isAdmin ? ['CLIENT', 'SCOUT', 'TALENT', 'ADMIN'] : ['CLIENT', 'SCOUT', 'TALENT'],
+      active_role: isAdmin ? 'ADMIN' : 'SCOUT',
+      verification_status: isAdmin ? 'IDENTITY_VERIFIED' : 'UNVERIFIED',
       created_at: new Date().toISOString(),
-      scout_onboarding_completed: false,
-      talent_onboarding_completed: false,
-      client_onboarding_completed: false
+      scout_onboarding_completed: true,
+      talent_onboarding_completed: true,
+      client_onboarding_completed: true
     };
+    try {
+      localStorage.setItem('refeir_auth_user', JSON.stringify(newUser));
+    } catch {}
     setCurrentUser(newUser);
   };
 

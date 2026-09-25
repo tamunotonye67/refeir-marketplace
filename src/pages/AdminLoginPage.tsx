@@ -23,10 +23,10 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
 
   // If already logged in as admin, redirect
   React.useEffect(() => {
-    if (currentUser?.active_role === 'ADMIN') {
+    if (currentUser?.active_role === 'ADMIN' || currentUser?.roles?.includes('ADMIN')) {
       onNavigate('/admin');
     }
-  }, [currentUser]);
+  }, [currentUser, onNavigate]);
 
   const handleAutofill = () => {
     setEmail(ADMIN_CREDENTIALS.email);
@@ -35,23 +35,41 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
     setError('');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleInstantAccess = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      await login(ADMIN_CREDENTIALS.email);
+      onNavigate('/admin');
+    } catch (err: any) {
+      setError(err?.message || 'Login failed');
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    setTimeout(() => {
-      if (
-        email.trim().toLowerCase() === ADMIN_CREDENTIALS.email &&
-        password === ADMIN_CREDENTIALS.password
-      ) {
-        login(ADMIN_CREDENTIALS.email);
+    const cleanEmail = email.trim().toLowerCase();
+    if (
+      cleanEmail === ADMIN_CREDENTIALS.email.toLowerCase() &&
+      password === ADMIN_CREDENTIALS.password
+    ) {
+      try {
+        await login(ADMIN_CREDENTIALS.email);
         onNavigate('/admin');
-      } else {
-        setError('Invalid admin credentials. Check your email and password.');
+      } catch (err: any) {
+        setError(err?.message || 'Login failed');
         setLoading(false);
       }
-    }, 800);
+    } else {
+      setTimeout(() => {
+        setError('Invalid admin credentials. Click "Auto-fill credentials" to load demo credentials.');
+        setLoading(false);
+      }, 300);
+    }
   };
 
   return (
@@ -136,27 +154,49 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
                 Email: admin@refeir.africa<br />
                 Password: Refeir@Admin2026
               </div>
-              <button
-                type="button"
-                onClick={handleAutofill}
-                style={{
-                  marginTop: '0.5rem',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  color: '#7DA2FF',
-                  background: 'rgba(125,162,255,0.1)',
-                  border: '1px solid rgba(125,162,255,0.25)',
-                  borderRadius: '100px',
-                  padding: '0.2rem 0.75rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                }}
-              >
-                {autofilled ? <CheckCircle2 size={12} color="#66bb2a" /> : <Lock size={12} />}
-                {autofilled ? 'Credentials filled!' : 'Auto-fill credentials'}
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+                <button
+                  type="button"
+                  onClick={handleAutofill}
+                  style={{
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    color: '#7DA2FF',
+                    background: 'rgba(125,162,255,0.1)',
+                    border: '1px solid rgba(125,162,255,0.25)',
+                    borderRadius: '100px',
+                    padding: '0.25rem 0.75rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                  }}
+                >
+                  {autofilled ? <CheckCircle2 size={12} color="#66bb2a" /> : <Lock size={12} />}
+                  {autofilled ? 'Credentials filled!' : 'Auto-fill credentials'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleInstantAccess}
+                  style={{
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    color: '#86EFAC',
+                    background: 'rgba(102,187,42,0.15)',
+                    border: '1px solid rgba(102,187,42,0.35)',
+                    borderRadius: '100px',
+                    padding: '0.25rem 0.75rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                  }}
+                >
+                  <Shield size={12} color="#86EFAC" />
+                  <span>Instant Enter (Demo)</span>
+                </button>
+              </div>
             </div>
           </div>
 
