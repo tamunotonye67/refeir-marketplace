@@ -152,6 +152,17 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     ];
   }, [searchQuery]);
 
+  // Lock body scroll while modal is active
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
+
   // Initial State Reset & Talents Filtering
   useEffect(() => {
     if (isOpen) {
@@ -166,8 +177,9 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
       setSelectedSkills(defaults);
 
       // Pre-fill sample job details tailored to query
-      if (searchQuery) {
-        setJobDetails(`Creative Director for a ${searchQuery.toLowerCase()} refresh`);
+      if (searchQuery && searchQuery.trim()) {
+        const cleanQ = searchQuery.trim();
+        setJobDetails(`${cleanQ.charAt(0).toUpperCase() + cleanQ.slice(1)}`);
       } else {
         setJobDetails('Creative Director for a brand identity refresh');
       }
@@ -176,17 +188,28 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
         setPhase('results');
       }, 1900);
 
-      // Filter 4 matching talents based on the query keywords
-      const q = searchQuery.toLowerCase().trim();
-      const filtered = SEED_TALENT.filter(t => {
-        if (!q) return true;
-        const inSkills = t.skills?.some(s => s.toLowerCase().includes(q) || q.includes(s.toLowerCase()));
-        const inHeadline = t.headline?.toLowerCase().includes(q);
-        const inBio = t.bio?.toLowerCase().includes(q);
-        return inSkills || inHeadline || inBio;
+      // Tokenize search query and intelligently score & rank talents
+      const rawQ = (searchQuery || '').toLowerCase().trim();
+      const tokens = rawQ.split(/[\s,+/]+/).filter(w => w.length > 1);
+
+      const scoredTalents = SEED_TALENT.map(talent => {
+        let score = 0;
+        const skillsText = (talent.skills || []).join(' ').toLowerCase();
+        const headlineText = (talent.headline || '').toLowerCase();
+        const bioText = (talent.bio || '').toLowerCase();
+
+        for (const token of tokens) {
+          if (skillsText.includes(token)) score += 3;
+          if (headlineText.includes(token)) score += 2;
+          if (bioText.includes(token)) score += 1;
+        }
+        return { talent, score };
       });
 
-      const combined = [...filtered];
+      scoredTalents.sort((a, b) => b.score - a.score);
+      const topMatched = scoredTalents.filter(s => s.score > 0).map(s => s.talent);
+
+      const combined = [...topMatched];
       for (const t of SEED_TALENT) {
         if (combined.length >= 4) break;
         if (!combined.some(item => item.id === t.id)) {
@@ -407,35 +430,115 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   className="rf-polygon-svg"
                   aria-hidden="true"
                 >
-                  {[...Array(12)].map((_, i) => (
-                    <ellipse
-                      key={i}
-                      cx="100"
-                      cy="100"
-                      rx="68"
-                      ry="24"
-                      transform={`rotate(${i * 15} 100 100)`}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      className="rf-polygon-petal"
-                      style={{ animationDelay: `${i * 0.08}s` }}
-                    />
-                  ))}
-                  <circle
+                  <defs>
+                    <radialGradient id="rfPolyCoreGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#66BB2A" stopOpacity="0.45" />
+                      <stop offset="70%" stopColor="#16A34A" stopOpacity="0.12" />
+                      <stop offset="100%" stopColor="#05160C" stopOpacity="0" />
+                    </radialGradient>
+                    <linearGradient id="rfPolyEdgeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#86EFAC" />
+                      <stop offset="50%" stopColor="#66BB2A" />
+                      <stop offset="100%" stopColor="#16A34A" />
+                    </linearGradient>
+                    <linearGradient id="rfPolyEdgeGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#22C55E" />
+                      <stop offset="100%" stopColor="#4ADE80" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Pulsing Core Aura */}
+                  <circle cx="100" cy="100" r="50" fill="url(#rfPolyCoreGlow)" className="rf-polygon-aura" />
+
+                  {/* Outer Regular Dodecagon (12-Sided Polygon) */}
+                  <polygon
+                    points="100,16 142,27 173,58 184,100 173,142 142,173 100,184 58,173 27,142 16,100 27,58 58,27"
+                    fill="none"
+                    stroke="url(#rfPolyEdgeGrad1)"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="rf-polygon-dodecagon"
+                  />
+
+                  {/* Internal Geodesic Polygon Struts / Star Facets */}
+                  <polygon
+                    points="100,16 173,142 27,142"
+                    fill="none"
+                    stroke="rgba(102, 187, 42, 0.45)"
+                    strokeWidth="1.2"
+                  />
+                  <polygon
+                    points="100,184 173,58 27,58"
+                    fill="none"
+                    stroke="rgba(102, 187, 42, 0.45)"
+                    strokeWidth="1.2"
+                  />
+
+                  {/* Mid Hexagonal Facet Ring */}
+                  <polygon
+                    points="100,40 152,70 152,130 100,160 48,130 48,70"
+                    fill="none"
+                    stroke="url(#rfPolyEdgeGrad2)"
+                    strokeWidth="1.8"
+                    strokeDasharray="6 4"
+                    className="rf-polygon-hex-ring"
+                  />
+
+                  {/* Inner Gyroscopic 3D Revolving Ellipses */}
+                  <ellipse
                     cx="100"
                     cy="100"
-                    r="14"
+                    rx="75"
+                    ry="28"
+                    fill="none"
+                    stroke="#86EFAC"
+                    strokeWidth="1.5"
+                    transform="rotate(35 100 100)"
+                    className="rf-polygon-orbit-1"
+                  />
+                  <ellipse
+                    cx="100"
+                    cy="100"
+                    rx="75"
+                    ry="28"
                     fill="none"
                     stroke="#66BB2A"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
+                    transform="rotate(-35 100 100)"
+                    className="rf-polygon-orbit-2"
                   />
+
+                  {/* Central Diamond / Octahedron Node */}
+                  <polygon
+                    points="100,68 132,100 100,132 68,100"
+                    fill="rgba(102, 187, 42, 0.22)"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    className="rf-polygon-core-gem"
+                  />
+
+                  {/* Vertex Nodes (Glowing Data Anchors) */}
+                  <circle cx="100" cy="16" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                  <circle cx="173" cy="58" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                  <circle cx="184" cy="100" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                  <circle cx="173" cy="142" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                  <circle cx="100" cy="184" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                  <circle cx="27" cy="142" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                  <circle cx="16" cy="100" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                  <circle cx="27" cy="58" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+
+                  {/* Center Node Beacon */}
+                  <circle cx="100" cy="100" r="6" fill="#86EFAC" stroke="#FFFFFF" strokeWidth="2" />
                 </svg>
               </div>
             </div>
 
             <div className="rf-ai-search-loading-text">
-              <span className="rf-ai-search-loading-label">{getLoadingActionText()}</span>
+              <span className="rf-ai-search-loading-label">
+                <Sparkles size={16} className="rf-ai-search-pulse-icon" />
+                {getLoadingActionText()}
+              </span>
               <h3 className="rf-ai-search-loading-query">‘{searchQuery || 'Pan-African Talent'}’</h3>
             </div>
           </div>
@@ -954,25 +1057,91 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           <div className="rf-polygon-stage">
             <div className="rf-polygon-rotator">
               <svg viewBox="0 0 200 200" className="rf-polygon-svg" aria-hidden="true">
-                {[...Array(12)].map((_, i) => (
-                  <ellipse
-                    key={i}
-                    cx="100"
-                    cy="100"
-                    rx="68"
-                    ry="24"
-                    transform={`rotate(${i * 15} 100 100)`}
-                    fill="none"
-                    stroke="#66BB2A"
-                    strokeWidth="2"
-                    className="rf-polygon-petal"
-                  />
-                ))}
+                <defs>
+                  <radialGradient id="rfPolySubmitGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#66BB2A" stopOpacity="0.45" />
+                    <stop offset="70%" stopColor="#16A34A" stopOpacity="0.12" />
+                    <stop offset="100%" stopColor="#05160C" stopOpacity="0" />
+                  </radialGradient>
+                  <linearGradient id="rfPolySubmitEdge" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#86EFAC" />
+                    <stop offset="50%" stopColor="#66BB2A" />
+                    <stop offset="100%" stopColor="#16A34A" />
+                  </linearGradient>
+                </defs>
+
+                <circle cx="100" cy="100" r="50" fill="url(#rfPolySubmitGlow)" className="rf-polygon-aura" />
+
+                <polygon
+                  points="100,16 142,27 173,58 184,100 173,142 142,173 100,184 58,173 27,142 16,100 27,58 58,27"
+                  fill="none"
+                  stroke="url(#rfPolySubmitEdge)"
+                  strokeWidth="2.2"
+                  className="rf-polygon-dodecagon"
+                />
+
+                <polygon
+                  points="100,16 173,142 27,142"
+                  fill="none"
+                  stroke="rgba(102, 187, 42, 0.45)"
+                  strokeWidth="1.2"
+                />
+                <polygon
+                  points="100,184 173,58 27,58"
+                  fill="none"
+                  stroke="rgba(102, 187, 42, 0.45)"
+                  strokeWidth="1.2"
+                />
+
+                <ellipse
+                  cx="100"
+                  cy="100"
+                  rx="75"
+                  ry="28"
+                  fill="none"
+                  stroke="#86EFAC"
+                  strokeWidth="1.5"
+                  transform="rotate(35 100 100)"
+                  className="rf-polygon-orbit-1"
+                />
+                <ellipse
+                  cx="100"
+                  cy="100"
+                  rx="75"
+                  ry="28"
+                  fill="none"
+                  stroke="#66BB2A"
+                  strokeWidth="1.5"
+                  transform="rotate(-35 100 100)"
+                  className="rf-polygon-orbit-2"
+                />
+
+                <polygon
+                  points="100,68 132,100 100,132 68,100"
+                  fill="rgba(102, 187, 42, 0.22)"
+                  stroke="#FFFFFF"
+                  strokeWidth="2"
+                  className="rf-polygon-core-gem"
+                />
+
+                <circle cx="100" cy="16" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                <circle cx="173" cy="58" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                <circle cx="184" cy="100" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                <circle cx="173" cy="142" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                <circle cx="100" cy="184" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                <circle cx="27" cy="142" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                <circle cx="16" cy="100" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+                <circle cx="27" cy="58" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
+
+                <circle cx="100" cy="100" r="6" fill="#86EFAC" stroke="#FFFFFF" strokeWidth="2" />
               </svg>
             </div>
           </div>
           <div className="rf-ai-search-loading-text">
-            <span className="rf-ai-search-loading-label">Matching verified talent for your brief</span>
+            <span className="rf-ai-search-loading-label">
+              <Sparkles size={16} className="rf-ai-search-pulse-icon" />
+              Matching verified talent for your brief
+            </span>
             <h3 className="rf-ai-search-loading-query">Preparing your personalized shortlist...</h3>
           </div>
         </div>

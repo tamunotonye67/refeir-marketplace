@@ -3926,23 +3926,25 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 9999;
+  z-index: 10000;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
   animation: rfAISearchFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   overflow-y: auto;
 }
 
 .rf-ai-search-overlay.is-dark {
-  background-color: #07160D;
+  background: rgba(6, 20, 12, 0.86);
   color: #FFFFFF;
 }
 
 .rf-ai-search-overlay.is-light {
-  background-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.90);
   color: #0F172A;
 }
 
@@ -3962,36 +3964,38 @@
   position: absolute;
   top: 1.75rem;
   left: 2rem;
-  z-index: 10;
+  z-index: 20;
 }
 
 .rf-ai-search-exit-btn {
   background: transparent;
-  border: 1px solid rgba(102, 187, 42, 0.4);
-  border-radius: 8px;
-  padding: 0.45rem 1.15rem;
+  border: 1px solid rgba(102, 187, 42, 0.45);
+  border-radius: 9999px;
+  padding: 0.5rem 1.35rem;
   font-size: 0.8125rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  letter-spacing: 0.01em;
 }
 
 .rf-ai-search-overlay.is-dark .rf-ai-search-exit-btn {
-  color: #66BB2A;
-  background: rgba(102, 187, 42, 0.08);
-  border-color: rgba(102, 187, 42, 0.35);
+  color: #86EFAC;
+  background: rgba(102, 187, 42, 0.1);
+  border-color: rgba(102, 187, 42, 0.4);
 }
 
 .rf-ai-search-overlay.is-dark .rf-ai-search-exit-btn:hover {
-  background: rgba(102, 187, 42, 0.2);
+  background: rgba(102, 187, 42, 0.22);
   border-color: #66BB2A;
-  color: #86EFAC;
+  color: #FFFFFF;
+  box-shadow: 0 0 16px rgba(102, 187, 42, 0.3);
 }
 
 .rf-ai-search-overlay.is-light .rf-ai-search-exit-btn {
   color: #166534;
-  background: #F0FDF4;
-  border-color: rgba(22, 101, 52, 0.25);
+  background: rgba(240, 253, 244, 0.8);
+  border-color: rgba(22, 101, 52, 0.35);
 }
 
 .rf-ai-search-overlay.is-light .rf-ai-search-exit-btn:hover {
@@ -4010,58 +4014,152 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  max-width: 650px;
+  max-width: 680px;
   width: 100%;
-  padding: 2rem 1rem;
-  animation: rfAIFadeIn 0.3s ease;
+  padding: 2.5rem 1.5rem;
+  animation: rfAIFadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+  z-index: 2;
 }
 
 .rf-polygon-stage {
-  perspective: 900px;
-  width: 180px;
-  height: 180px;
+  perspective: 1000px;
+  width: 200px;
+  height: 200px;
   margin-bottom: 2.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .rf-polygon-rotator {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  animation: rfPolygonRevolve3D 6s linear infinite;
+  animation: rfPolygonRevolve3D 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .rf-polygon-svg {
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: drop-shadow(0 0 16px rgba(102, 187, 42, 0.35));
+  filter: drop-shadow(0 0 20px rgba(102, 187, 42, 0.45));
 }
 
-.rf-ai-search-overlay.is-dark .rf-polygon-petal {
-  color: #FFFFFF;
-  opacity: 0.85;
+.rf-polygon-dodecagon {
+  animation: rfPolygonPulseGlow 3s ease-in-out infinite alternate;
 }
 
-.rf-ai-search-overlay.is-light .rf-polygon-petal {
-  color: #0F172A;
-  opacity: 0.88;
+.rf-polygon-hex-ring {
+  transform-origin: 100px 100px;
+  animation: rfPolygonSpinReverse 12s linear infinite;
+}
+
+.rf-polygon-orbit-1 {
+  transform-origin: 100px 100px;
+  animation: rfOrbitSpin1 6s linear infinite;
+}
+
+.rf-polygon-orbit-2 {
+  transform-origin: 100px 100px;
+  animation: rfOrbitSpin2 7s linear infinite reverse;
+}
+
+.rf-polygon-core-gem {
+  transform-origin: 100px 100px;
+  animation: rfCoreGemPulse 2.4s ease-in-out infinite alternate;
+}
+
+.rf-polygon-aura {
+  animation: rfAuraBreathe 3s ease-in-out infinite alternate;
 }
 
 @keyframes rfPolygonRevolve3D {
   0% {
-    transform: rotateX(15deg) rotateY(0deg) rotateZ(0deg);
+    transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg) scale(0.97);
+  }
+  25% {
+    transform: rotateX(32deg) rotateY(90deg) rotateZ(45deg) scale(1.02);
   }
   50% {
-    transform: rotateX(28deg) rotateY(180deg) rotateZ(180deg);
+    transform: rotateX(15deg) rotateY(180deg) rotateZ(180deg) scale(0.98);
+  }
+  75% {
+    transform: rotateX(28deg) rotateY(270deg) rotateZ(225deg) scale(1.02);
   }
   100% {
-    transform: rotateX(15deg) rotateY(360deg) rotateZ(360deg);
+    transform: rotateX(20deg) rotateY(360deg) rotateZ(360deg) scale(0.97);
+  }
+}
+
+@keyframes rfPolygonSpinReverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes rfOrbitSpin1 {
+  0% {
+    transform: rotate(35deg) scale(1);
+  }
+  50% {
+    transform: rotate(215deg) scale(1.06);
+  }
+  100% {
+    transform: rotate(395deg) scale(1);
+  }
+}
+
+@keyframes rfOrbitSpin2 {
+  0% {
+    transform: rotate(-35deg) scale(1.04);
+  }
+  50% {
+    transform: rotate(145deg) scale(0.96);
+  }
+  100% {
+    transform: rotate(325deg) scale(1.04);
+  }
+}
+
+@keyframes rfCoreGemPulse {
+  0% {
+    transform: scale(0.9) rotate(0deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.1) rotate(45deg);
+    opacity: 1;
+  }
+}
+
+@keyframes rfAuraBreathe {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0.75;
+  }
+}
+
+@keyframes rfPolygonPulseGlow {
+  0% {
+    stroke-width: 2px;
+    filter: drop-shadow(0 0 6px rgba(102, 187, 42, 0.4));
+  }
+  100% {
+    stroke-width: 2.8px;
+    filter: drop-shadow(0 0 16px rgba(102, 187, 42, 0.8));
   }
 }
 
@@ -4069,23 +4167,56 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.55rem;
+  max-width: 600px;
 }
 
 .rf-ai-search-loading-label {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 500;
-  opacity: 0.85;
   letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-search-loading-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-search-loading-label {
+  color: #374151;
+}
+
+.rf-ai-search-pulse-icon {
+  color: #66BB2A;
+  animation: rfIconSpin 3s ease-in-out infinite;
+}
+
+@keyframes rfIconSpin {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
 }
 
 .rf-ai-search-loading-query {
-  font-size: 1.6rem;
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   margin: 0;
   line-height: 1.25;
-  color: var(--rf-leaf-green, #66BB2A);
+  color: #86EFAC;
+  text-shadow: 0 2px 14px rgba(102, 187, 42, 0.3);
+}
+
+.rf-ai-search-overlay.is-light .rf-ai-search-loading-query {
+  color: #15803D;
+  text-shadow: none;
 }
 
 /* --------------------------------------------------------------------------
