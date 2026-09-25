@@ -152,6 +152,19 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     ];
   }, [searchQuery]);
 
+  // Calculation for Budget Bell Curve thumb position (0 to 100%)
+  const budgetPercentage = useMemo(() => {
+    if (budgetType === 'hourly') {
+      const min = 15;
+      const max = 150;
+      return Math.min(100, Math.max(0, ((hourlyRate - min) / (max - min)) * 100));
+    } else {
+      const min = 200;
+      const max = 10000;
+      return Math.min(100, Math.max(0, ((fixedBudget - min) / (max - min)) * 100));
+    }
+  }, [budgetType, hourlyRate, fixedBudget]);
+
   // Lock body scroll while modal is active
   useEffect(() => {
     if (isOpen) {
@@ -223,8 +236,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     }
   }, [isOpen, searchQuery, availableSkills]);
 
-  if (!isOpen) return null;
-
   // Format short name: "Amaka N."
   const formatShortName = (fullName: string) => {
     const parts = fullName.trim().split(' ');
@@ -293,19 +304,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
       setIsAddingCustomSkill(false);
     }
   };
-
-  // Calculation for Budget Bell Curve thumb position (0 to 100%)
-  const budgetPercentage = useMemo(() => {
-    if (budgetType === 'hourly') {
-      const min = 15;
-      const max = 150;
-      return Math.min(100, Math.max(0, ((hourlyRate - min) / (max - min)) * 100));
-    } else {
-      const min = 200;
-      const max = 10000;
-      return Math.min(100, Math.max(0, ((fixedBudget - min) / (max - min)) * 100));
-    }
-  }, [budgetType, hourlyRate, fixedBudget]);
 
   // Example brief ideas for Step 4
   const exampleBriefs = [
@@ -399,6 +397,8 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const displayedPersonalizedTalents = filterAvailableOnly 
     ? personalizedTalentRoster.filter(t => t.availableNow) 
     : personalizedTalentRoster;
+
+  if (!isOpen) return null;
 
   return (
     <div

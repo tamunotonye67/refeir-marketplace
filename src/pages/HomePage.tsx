@@ -3772,14 +3772,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       )}
 
       {/* AI Search Discovery & Revolving Polygon Loader Modal */}
-      <AISearchModal
-        isOpen={showAISearchModal}
-        searchQuery={aiSearchQuery}
-        intent={heroSearchIntent}
-        onClose={() => setShowAISearchModal(false)}
-        onContinue={handleAISearchContinue}
-        onNavigate={onNavigate}
-      />
+      {showAISearchModal && (
+        <AISearchModal
+          isOpen={showAISearchModal}
+          searchQuery={aiSearchQuery}
+          intent={heroSearchIntent}
+          onClose={() => setShowAISearchModal(false)}
+          onContinue={handleAISearchContinue}
+          onNavigate={onNavigate}
+        />
+      )}
     </div>
   );
 };

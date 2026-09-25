@@ -5387,6 +5387,14 @@
   justify-content: flex-start;
 }
 
+.rf-ai-search-overlay.is-personalized-page-view.is-light {
+  background: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-personalized-page-view.is-dark {
+  background: #07160D;
+}
+
 .rf-personalized-page-wrapper {
   width: 100%;
   min-height: 100vh;
