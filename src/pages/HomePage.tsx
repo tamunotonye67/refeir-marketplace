@@ -246,7 +246,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           description: "Create your profile to highlight your best work and attract top clients and scout's trust.",
           buttonText: 'Create a profile',
           buttonAction: () => onNavigate('/register'),
-          thumbnail: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80',
+          thumbnail: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80',
           videoUrl: '/Refeir_logo.mp4'
         },
         {
@@ -254,7 +254,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           description: 'Negotiate scouts commission rates to be selected quickly or reply to invites from clients.',
           buttonText: 'Enter the market',
           buttonAction: () => onNavigate('/marketplace'),
-          thumbnail: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80'
+          thumbnail: 'https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?w=800&auto=format&fit=crop&q=80'
         },
         {
           title: 'Get paid when you do a good job',
@@ -274,7 +274,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           description: "Explore the market to see a client's needs or maybe you have a local client you want to link to a talent.",
           buttonText: 'Start Scouting',
           buttonAction: () => onNavigate('/dashboard/scout'),
-          thumbnail: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop&q=80',
+          thumbnail: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?w=800&auto=format&fit=crop&q=80',
           videoUrl: 'https://cdn.pixabay.com/video/2020/11/22/57649-484128903_large.mp4'
         },
         {
@@ -282,7 +282,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           description: 'Go around and look for the right talent for the job and send the link to the client that wants the job.',
           buttonText: 'Become a bridge',
           buttonAction: () => onNavigate('/marketplace'),
-          thumbnail: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80'
+          thumbnail: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80'
         },
         {
           title: 'Get your commission',
@@ -309,7 +309,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       author: 'Tariq Al-Mansoor 🇪🇬',
       role: 'Generative AI Film Director & VFX Lead',
       image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=150&auto=format&fit=crop&q=80',
       tags: ['Sora & Runway Gen-3', 'Midjourney v6', 'DaVinci AI Mastering', 'ComfyUI']
     },
     {
@@ -341,7 +341,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       author: 'Liam Van Der Merwe 🇿🇦',
       role: 'Generative 3D & Spatial Designer',
       image: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=600&auto=format&fit=crop&q=80',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=150&auto=format&fit=crop&q=80',
       tags: ['Blender 3D', 'Unreal Engine 5', 'Stable Diffusion XL', 'ControlNet']
     }
   ];
@@ -349,7 +349,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const AI_WIZARDS_PORTRAITS = [
     {
       name: 'Tariq Al-Mansoor 🇪🇬',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80'
+      image: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=500&auto=format&fit=crop&q=80'
     },
     {
       name: 'Amara Okafor 🇳🇬',
@@ -357,7 +357,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     },
     {
       name: 'Kofi Mensah 🇬🇭',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80'
+      image: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=500&auto=format&fit=crop&q=80'
     },
     {
       name: 'Nia Mwangi 🇰🇪',
@@ -365,15 +365,15 @@ export const HomePage: React.FC<HomePageProps> = ({
     },
     {
       name: 'Liam Van Der Merwe 🇿🇦',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=80'
+      image: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=500&auto=format&fit=crop&q=80'
     },
     {
       name: 'Fatima Zahra 🇲🇦',
-      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=80'
+      image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=500&auto=format&fit=crop&q=80'
     },
     {
       name: 'Chidinma Eze 🇳🇬',
-      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&auto=format&fit=crop&q=80'
+      image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500&auto=format&fit=crop&q=80'
     },
     {
       name: 'Jean-Paul Habimana 🇷🇼',
@@ -1726,7 +1726,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   lineHeight: 1.35
                 }}
               >
-                You don't need a skill to earn. Get from <span style={{ color: '#2E7D32', fontWeight: 700, textDecoration: 'underline', textDecorationColor: '#66BB2A' }}>10%</span> just by Scouting Talents.
+                Get from <span style={{ color: '#2E7D32', fontWeight: 700, textDecoration: 'underline', textDecorationColor: '#66BB2A' }}>10%</span> just by Referring Talents.
               </span>
             </div>
 
@@ -1929,29 +1929,6 @@ export const HomePage: React.FC<HomePageProps> = ({
               ) : (
                 /* Default Hero Content */
                 <>
-                  {/* Tagline */}
-                  <div
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      marginBottom: '1.25rem'
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: '7px', height: '7px',
-                        borderRadius: '50%',
-                        backgroundColor: '#66BB2A',
-                        boxShadow: '0 0 0 3px rgba(102,187,42,0.3)'
-                      }}
-                      className="rf-pulse"
-                    />
-                    <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#66BB2A', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                      Africa's Talent Referral Marketplace
-                    </span>
-                  </div>
-
                   {/* Hero Headline with Grow & Reveal Transition (Zero Layout Shift for Text Below) */}
                   <div
                     style={{
@@ -2451,7 +2428,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                     <img
-                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+                      src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=150&auto=format&fit=crop&q=80"
                       alt="Candidate Profile"
                       className="rf-scout-back-avatar"
                       style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #66BB2A' }}
