@@ -3,6 +3,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { useNotification } from '../context/NotificationContext';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { AFRICAN_COUNTRIES } from '../data/countries';
 import { CountryFlag } from '../components/common/CountryFlag';
 import { formatMoney } from '../data/currencies';
@@ -11,8 +12,6 @@ import {
   Shield,
   Settings,
   Globe2,
-  AlertTriangle,
-  FileText,
   Users,
   Briefcase,
   TrendingUp,
@@ -20,43 +19,31 @@ import {
   CheckCircle2,
   XCircle,
   Save,
-  Lock,
   ArrowRight,
   ExternalLink,
   Wallet,
   Scale,
   BadgeCheck,
   Building2,
-  KeyRound,
   UserCheck,
-  Bell,
-  BellRing,
-  Filter,
   Check,
   Trash2,
   Clock,
   Activity,
-  Zap,
-  UserPlus,
   PlusCircle,
   Search,
-  Mail,
-  Phone,
   Edit3,
-  Camera,
-  MessageSquare,
-  BookOpen,
-  Layers,
-  Calendar,
   Award,
   X,
-  ChevronRight,
   Eye,
-  Sliders,
   ShieldCheck,
   Ticket,
   LogOut,
-  ArrowLeft
+  ArrowLeft,
+  Sun,
+  Moon,
+  AlertTriangle,
+  UserPlus
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -112,36 +99,51 @@ export interface PioneerApplication {
   created_at: string;
 }
 
+export type AdminWebsiteTab = 'OVERVIEW' | 'PIONEERS' | 'VERIFICATIONS' | 'DISPUTES' | 'COUNTRIES' | 'SETTINGS';
+
 export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = () => {} }) => {
   const {
     countrySettings,
     updateCountryStatus,
     platformSettings,
     updatePlatformSettings,
-    projectsList,
     referralsList,
     auditLogs,
-    riskFlagsList,
     disputesList,
     resolveDispute,
     clientIntroductionsList,
     approveAndGrantAirfeeToken,
     rejectClientIntroduction
   } = useMarketplace();
+
   const { showToast, addAppNotification } = useNotification();
   const { currentUser, logout, switchRole } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
-  type AdminWebsiteTab = 'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE' | 'PIONEERS';
-
+  // Tab routing with backwards compatibility
   const getSavedActiveTab = (): AdminWebsiteTab => {
     try {
       const params = new URLSearchParams(window.location.search);
-      const urlTab = params.get('tab')?.toUpperCase();
-      const stored = (localStorage.getItem('refeir_admin_active_tab') || sessionStorage.getItem('refeir_admin_active_tab'))?.toUpperCase();
-      const candidate = urlTab || stored;
-      const validTabs: AdminWebsiteTab[] = ['OVERVIEW', 'DASHBOARDS', 'COUNTRIES', 'TEAM', 'SETTINGS', 'VERIFICATIONS', 'DISPUTES', 'FRAUD', 'AUDIT', 'AIRFEE', 'PIONEERS'];
-      if (candidate && validTabs.includes(candidate as AdminWebsiteTab)) {
-        return candidate as AdminWebsiteTab;
+      const urlTab = params.get('tab')?.toUpperCase() || '';
+      const stored = ((localStorage.getItem('refeir_admin_active_tab') || sessionStorage.getItem('refeir_admin_active_tab')) || '').toUpperCase();
+      const raw = urlTab || stored;
+
+      const mapping: Record<string, AdminWebsiteTab> = {
+        OVERVIEW: 'OVERVIEW',
+        DASHBOARDS: 'OVERVIEW',
+        PIONEERS: 'PIONEERS',
+        VERIFICATIONS: 'VERIFICATIONS',
+        DISPUTES: 'DISPUTES',
+        AIRFEE: 'DISPUTES',
+        COUNTRIES: 'COUNTRIES',
+        SETTINGS: 'SETTINGS',
+        TEAM: 'SETTINGS',
+        AUDIT: 'SETTINGS',
+        FRAUD: 'SETTINGS'
+      };
+
+      if (raw && mapping[raw]) {
+        return mapping[raw];
       }
     } catch {}
     return 'OVERVIEW';
@@ -171,7 +173,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       country: 'Nigeria',
       city: 'Lagos',
       roles: ['Developer', 'AI'],
-      skills: 'React, TypeScript, Node.js, Python, Supabase, LLM fine-tuning',
+      skills: 'React, TypeScript, Node.js, Python, Supabase, LLMs',
       portfolio_url: 'https://github.com/chinwe-dev',
       primary_division: 'TECH_PRODUCT',
       contribution: 'Can build platform microservices, assist in refactoring frontend components, and write automated tests for marketplace escrow flows.',
@@ -218,64 +220,18 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       city: 'Nairobi',
       roles: ['Marketer', 'Business Developer'],
       skills: 'Digital Marketing, Performance SEO, Social Media Strategy, Growth Funnels',
-      portfolio_url: 'https://linkedin.com/in/faith-chebet-growth',
+      portfolio_url: 'https://linkedin.com/in/faithchebet',
       primary_division: 'GROWTH',
-      contribution: 'Can run acquisition campaigns across East Africa, onboard local tech communities, and optimize Pioneer recruitment funnels.',
-      availability: '6–10 hours/week',
-      motivation: 'Believes in the referral engine mechanism as the ultimate organic viral growth loop for Africa.',
-      learning_goals: 'Viral referral mechanics and B2B client acquisition.',
-      discovery_source: 'WhatsApp Tech Group',
-      status: 'REVIEWING',
-      is_founding_100: true,
-      pioneer_id: '',
-      internal_notes: 'Interview scheduled. Excellent track record in Nairobi tech hubs.',
-      created_at: '2026-08-24T10:15:00Z'
-    },
-    {
-      id: 'PA-004',
-      application_number: 'RP-2026-000042',
-      full_name: 'Tariq Al-Mansoor',
-      email: 'tariq.mansoor@cairofintech.eg',
-      whatsapp_number: '+20 100 888 9999',
-      country: 'Egypt',
-      city: 'Cairo',
-      roles: ['Business Developer', 'Entrepreneur'],
-      skills: 'Strategic Partnerships, Corporate B2B Sales, Fintech Compliance',
-      portfolio_url: 'https://linkedin.com/in/tariq-mansoor',
-      primary_division: 'BUSINESS',
-      contribution: 'Connecting North African venture studios and digital agencies to hire freelance talent on Refeir.',
-      availability: 'Project-based',
-      motivation: 'Expanding North African cross-border trade corridors with Sub-Saharan Africa.',
-      learning_goals: 'Pan-African settlement protocols and escrow law.',
-      discovery_source: 'AngelList',
+      contribution: 'Can run referral ambassador campaigns, organize campus recruitment roadshows, and onboard tech agencies in East Africa.',
+      availability: '5–8 hours/week',
+      motivation: 'Empowering African youth through digital gig opportunities and verified freelance placement.',
+      learning_goals: 'Cross-border B2B business development and fintech partnerships.',
+      discovery_source: 'Instagram',
       status: 'ACCEPTED',
       is_founding_100: true,
       pioneer_id: 'PION-001',
-      internal_notes: 'Founding member. Key partnership champion in North Africa.',
-      created_at: '2026-08-20T09:00:00Z'
-    },
-    {
-      id: 'PA-005',
-      application_number: 'RP-2026-000088',
-      full_name: 'Blessing Adebayo',
-      email: 'blessing.adebayo@unilag.edu.ng',
-      whatsapp_number: '+234 815 678 1234',
-      country: 'Nigeria',
-      city: 'Lagos',
-      roles: ['Community Builder', 'Student'],
-      skills: 'Campus Community Organizing, Event Hosting, Public Speaking',
-      portfolio_url: 'https://twitter.com/blessing_builds',
-      primary_division: 'COMMUNITY',
-      contribution: 'Establishing university ambassador chapters at UNILAG, Covenant, and UI.',
-      availability: '10+ hours/week',
-      motivation: 'Helping fellow students land their first freelance and scout opportunities.',
-      learning_goals: 'Community leadership and tech ecosystem management.',
-      discovery_source: 'Friend Referral',
-      status: 'ACCEPTED',
-      is_founding_100: true,
-      pioneer_id: 'PION-002',
-      internal_notes: 'Highly energetic campus ambassador lead.',
-      created_at: '2026-08-22T11:30:00Z'
+      internal_notes: 'Top tier marketing candidate. Approved founding cohort member.',
+      created_at: '2026-08-24T09:15:00Z'
     }
   ]);
 
@@ -300,38 +256,33 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       });
   }, []);
 
-  // Airfee Approvals state
-  const [rejectingIntroId, setRejectingIntroId] = useState<string | null>(null);
-  const [rejectReason, setRejectReason] = useState('Client did not complete a project hire or name mismatch on registered profile.');
-  const [introStatusFilter, setIntroStatusFilter] = useState<'ALL' | 'HIRE_COMPLETED_PENDING_ADMIN' | 'CLIENT_REGISTERED_AWAITING_HIRE' | 'VERIFIED_GRANTED' | 'REJECTED'>('ALL');
-
+  // Notifications helper
   const addAdminNotification = (
     title: string,
     message: string,
     category: 'ESCROW' | 'DISPUTES' | 'FRAUD' | 'GOVERNANCE' | 'SYSTEM' | 'TEAM',
-    targetTab: 'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE' | 'PIONEERS' = 'OVERVIEW',
-    _badgeColor?: string
+    targetTab: AdminWebsiteTab = 'OVERVIEW'
   ) => {
     addAppNotification({
       title,
       message,
       type: category === 'FRAUD' || category === 'DISPUTES' ? 'WARNING' : 'SUCCESS',
       category: 'ADMIN',
-      link: `/admin?tab=${targetTab}`,
-      action_label: `View in ${targetTab} tab`,
+      link: `/admin?tab=${targetTab.toLowerCase()}`,
+      action_label: `View in ${targetTab}`,
       role_target: 'ADMIN'
     });
     showToast(title, message, category === 'FRAUD' || category === 'DISPUTES' ? 'WARNING' : 'SUCCESS');
   };
 
-  // --- WORKERS & TEAM MEMBERS RBAC SYSTEM ---
+  // Staff & Team Members RBAC State
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
     {
       id: 'TM-001',
       name: 'Antigravity Admin',
       email: 'admin@refeir.africa',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-      country: 'Pan-African Sovereign HQ 🌍',
+      country: 'Pan-African Sovereign HQ',
       countryIso: 'NG',
       role: 'SUPER_ADMIN',
       roleTitle: 'Super Administrator',
@@ -354,10 +305,10 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       name: 'Amina Diallo',
       email: 'amina.diallo@refeir.africa',
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80',
-      country: 'Senegal 🇸🇳',
+      country: 'Senegal',
       countryIso: 'SN',
       role: 'COMMUNITY_MANAGER',
-      roleTitle: 'Head of Pan-African Community Hub',
+      roleTitle: 'Head of Community & Ambassadors',
       permissions: {
         manageWebsite: true,
         manageCommunityHub: true,
@@ -370,17 +321,17 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       status: 'ACTIVE',
       joinedDate: 'Feb 2026',
       twoFactorEnabled: true,
-      lastActive: '12 mins ago'
+      lastActive: '20 mins ago'
     },
     {
       id: 'TM-003',
-      name: 'Kofi Boateng',
-      email: 'kofi.boateng@refeir.africa',
+      name: 'Kofi Mensah',
+      email: 'kofi.mensah@refeir.africa',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
-      country: 'Ghana 🇬🇭',
+      country: 'Ghana',
       countryIso: 'GH',
       role: 'CONTENT_EDITOR',
-      roleTitle: 'Lead Technical Content & Website Editor',
+      roleTitle: 'Lead Content & Website Editor',
       permissions: {
         manageWebsite: true,
         manageCommunityHub: true,
@@ -394,68 +345,20 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       joinedDate: 'Mar 2026',
       twoFactorEnabled: true,
       lastActive: '1 hour ago'
-    },
-    {
-      id: 'TM-004',
-      name: 'Zainab Al-Hassan',
-      email: 'zainab.alhassan@refeir.africa',
-      avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&q=80',
-      country: 'Nigeria 🇳🇬',
-      countryIso: 'NG',
-      role: 'COMMUNITY_MANAGER',
-      roleTitle: 'Regional Guilds & Event Coordinator',
-      permissions: {
-        manageWebsite: false,
-        manageCommunityHub: true,
-        moderateForum: true,
-        approveAmbassadors: true,
-        manageGuildsEvents: true,
-        verifyKyc: false,
-        arbitrateDisputes: false
-      },
-      status: 'ACTIVE',
-      joinedDate: 'Apr 2026',
-      twoFactorEnabled: true,
-      lastActive: '3 hours ago'
-    },
-    {
-      id: 'TM-005',
-      name: 'Thabo Mokoena',
-      email: 'thabo.mokoena@refeir.africa',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80',
-      country: 'South Africa 🇿🇦',
-      countryIso: 'ZA',
-      role: 'DISPUTE_ARBITER',
-      roleTitle: 'Escrow & Code Dispute Arbiter',
-      permissions: {
-        manageWebsite: false,
-        manageCommunityHub: false,
-        moderateForum: false,
-        approveAmbassadors: false,
-        manageGuildsEvents: false,
-        verifyKyc: true,
-        arbitrateDisputes: true
-      },
-      status: 'ACTIVE',
-      joinedDate: 'May 2026',
-      twoFactorEnabled: true,
-      lastActive: 'Yesterday'
     }
   ]);
 
-  // Team Modals & Filter State
   const [showAddTeamModal, setShowAddTeamModal] = useState(false);
   const [teamSearchQuery, setTeamSearchQuery] = useState('');
   const [teamRoleFilter, setTeamRoleFilter] = useState<string>('ALL');
   const [editingPermissionsMember, setEditingPermissionsMember] = useState<TeamMember | null>(null);
 
-  // New Member Form state
   const [newMemberName, setNewMemberName] = useState('');
   const [newMemberEmail, setNewMemberEmail] = useState('');
-  const [newMemberCountry, setNewMemberCountry] = useState('Nigeria 🇳🇬');
+  const [newMemberCountry, setNewMemberCountry] = useState('Nigeria');
   const [newMemberCountryIso, setNewMemberCountryIso] = useState('NG');
   const [newMemberRole, setNewMemberRole] = useState<'SUPER_ADMIN' | 'COMMUNITY_MANAGER' | 'CONTENT_EDITOR' | 'DISPUTE_ARBITER' | 'COMPLIANCE_OFFICER'>('COMMUNITY_MANAGER');
-  const [newMemberRoleTitle, setNewMemberRoleTitle] = useState('Pan-African Community Hub Manager');
+  const [newMemberRoleTitle, setNewMemberRoleTitle] = useState('Community Manager');
   const [newMemberPermissions, setNewMemberPermissions] = useState({
     manageWebsite: true,
     manageCommunityHub: true,
@@ -480,7 +383,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         arbitrateDisputes: true
       });
     } else if (role === 'COMMUNITY_MANAGER') {
-      setNewMemberRoleTitle('Community Hub & Ambassador Manager');
+      setNewMemberRoleTitle('Community & Ambassador Manager');
       setNewMemberPermissions({
         manageWebsite: true,
         manageCommunityHub: true,
@@ -491,7 +394,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         arbitrateDisputes: false
       });
     } else if (role === 'CONTENT_EDITOR') {
-      setNewMemberRoleTitle('Technical Content & Website Editor');
+      setNewMemberRoleTitle('Content & Website Editor');
       setNewMemberPermissions({
         manageWebsite: true,
         manageCommunityHub: true,
@@ -502,7 +405,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         arbitrateDisputes: false
       });
     } else if (role === 'DISPUTE_ARBITER') {
-      setNewMemberRoleTitle('Escrow & Milestone Dispute Arbiter');
+      setNewMemberRoleTitle('Escrow Dispute Arbiter');
       setNewMemberPermissions({
         manageWebsite: false,
         manageCommunityHub: false,
@@ -513,7 +416,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         arbitrateDisputes: true
       });
     } else if (role === 'COMPLIANCE_OFFICER') {
-      setNewMemberRoleTitle('Trust, KYC & Anti-Fraud Officer');
+      setNewMemberRoleTitle('Trust & KYC Officer');
       setNewMemberPermissions({
         manageWebsite: false,
         manageCommunityHub: false,
@@ -526,45 +429,39 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
     }
   };
 
-  const handleAddTeamMemberSubmit = (e: React.FormEvent) => {
+  const handleAddTeamMember = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMemberName.trim() || !newMemberEmail.trim()) {
-      showToast('Validation Error', 'Please provide a full name and work email address.', 'ERROR');
+      showToast('Validation Error', 'Name and email are required.', 'ERROR');
       return;
     }
 
     const newWorker: TeamMember = {
-      id: `TM-${String(teamMembers.length + 1).padStart(3, '0')}`,
+      id: `TM-${Date.now().toString().slice(-4)}`,
       name: newMemberName.trim(),
-      email: newMemberEmail.trim(),
-      avatar: `https://images.unsplash.com/photo-${1534528741775 + teamMembers.length * 100}?auto=format&fit=crop&w=150&q=80`,
+      email: newMemberEmail.trim().toLowerCase(),
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
       country: newMemberCountry,
       countryIso: newMemberCountryIso,
       role: newMemberRole,
       roleTitle: newMemberRoleTitle,
       permissions: { ...newMemberPermissions },
       status: 'ACTIVE',
-      joinedDate: 'Aug 2026',
+      joinedDate: 'Sep 2026',
       twoFactorEnabled: true,
-      lastActive: 'Invited (Pending 1st Login)'
+      lastActive: 'Just now'
     };
 
     setTeamMembers(prev => [newWorker, ...prev]);
     confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
-    showToast(
-      'Staff Member Added Successfully',
-      `${newWorker.name} has been provisioned with ${newWorker.roleTitle} privileges for Website & Community Hub.`,
-      'SUCCESS'
-    );
+    showToast('Staff Member Added', `${newWorker.name} provisioned as ${newWorker.roleTitle}.`, 'SUCCESS');
     addAdminNotification(
       'New Team Member Provisioned',
-      `Super Admin added ${newWorker.name} (${newWorker.email}) as ${newWorker.roleTitle}.`,
+      `${newWorker.name} (${newWorker.email}) added as ${newWorker.roleTitle}.`,
       'TEAM',
-      'TEAM',
-      '#66BB2A'
+      'SETTINGS'
     );
 
-    // Reset Form & Close Modal
     setNewMemberName('');
     setNewMemberEmail('');
     setShowAddTeamModal(false);
@@ -573,35 +470,50 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
   const handleToggleWorkerStatus = (id: string, currentStatus: string) => {
     const nextStatus = currentStatus === 'ACTIVE' ? 'SUSPENDED' : 'ACTIVE';
     setTeamMembers(prev => prev.map(m => m.id === id ? { ...m, status: nextStatus } : m));
-    showToast('Worker Status Updated', `Team member account is now ${nextStatus.toLowerCase()}.`, nextStatus === 'ACTIVE' ? 'SUCCESS' : 'WARNING');
+    showToast('Status Updated', `Team member is now ${nextStatus.toLowerCase()}.`, nextStatus === 'ACTIVE' ? 'SUCCESS' : 'WARNING');
   };
 
   const handleDeleteWorker = (id: string, name: string) => {
     if (id === 'TM-001') {
-      showToast('Action Denied', 'The Primary Root Super Admin cannot be deleted.', 'ERROR');
+      showToast('Action Denied', 'Primary Root Administrator cannot be removed.', 'ERROR');
       return;
     }
     setTeamMembers(prev => prev.filter(m => m.id !== id));
-    showToast('Team Member Removed', `${name} has been removed from platform administration.`, 'INFO');
+    showToast('Member Removed', `${name} has been removed.`, 'INFO');
   };
 
   const handleSaveEditedPermissions = (member: TeamMember) => {
     setTeamMembers(prev => prev.map(m => m.id === member.id ? member : m));
     setEditingPermissionsMember(null);
-    showToast('Permissions Updated', `Updated access privileges for ${member.name}.`, 'SUCCESS');
+    showToast('Permissions Updated', `Access privileges updated for ${member.name}.`, 'SUCCESS');
   };
 
-  // Platform settings draft
+  // Platform Economics
   const [platformFee, setPlatformFee] = useState(platformSettings.platform_fee_percent.toString());
   const [minRef, setMinRef] = useState(platformSettings.min_referral_percentage.toString());
   const [maxRef, setMaxRef] = useState(platformSettings.max_referral_percentage.toString());
   const [attribWindow, setAttribWindow] = useState(platformSettings.attribution_window_days.toString());
   const [holdDays, setHoldDays] = useState(platformSettings.payout_hold_period_days.toString());
 
-  // Country search state
-  const [countrySearch, setCountrySearch] = useState('');
+  const handleSavePlatformSettings = (e: React.FormEvent) => {
+    e.preventDefault();
+    updatePlatformSettings({
+      platform_fee_percent: parseFloat(platformFee) || 5,
+      min_referral_percentage: parseFloat(minRef) || 5,
+      max_referral_percentage: parseFloat(maxRef) || 25,
+      attribution_window_days: parseInt(attribWindow) || 30,
+      payout_hold_period_days: parseInt(holdDays) || 3
+    });
+    addAdminNotification(
+      'Platform Economics Updated',
+      `Platform fee: ${platformFee}% • Hold period: ${holdDays} days.`,
+      'GOVERNANCE',
+      'SETTINGS'
+    );
+    showToast('Settings Saved', 'Platform economics updated successfully.', 'SUCCESS');
+  };
 
-  // Biometric & Face KYC Queue State
+  // KYC Queue State
   const [kycQueue, setKycQueue] = useState([
     {
       id: 'KYC-847291',
@@ -615,14 +527,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       id_photo: 'https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=400&auto=format&fit=crop&q=80',
       face_capture: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
       video_capture: '/Refeir_logo.mp4',
-      capture_type: 'VIDEO',
       match_confidence: 99.6,
-      liveness_status: '3D VIDEO MOTION DEPTH (PASSED)',
-      consent_timestamp: '2026-08-15 14:32:10 UTC',
-      name_aligned: true,
-      dob_aligned: true,
-      doc_valid: true,
-      biometric_aligned: true,
       status: 'PENDING'
     },
     {
@@ -637,14 +542,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       id_photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80',
       face_capture: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&auto=format&fit=crop&q=80',
       video_capture: null,
-      capture_type: 'PHOTO',
       match_confidence: 98.7,
-      liveness_status: 'PASSED (Real Human)',
-      consent_timestamp: '2026-08-15 16:11:04 UTC',
-      name_aligned: true,
-      dob_aligned: true,
-      doc_valid: true,
-      biometric_aligned: true,
       status: 'VERIFIED'
     },
     {
@@ -659,53 +557,28 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       id_photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
       face_capture: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80',
       video_capture: '/Refeir_logo.mp4',
-      capture_type: 'VIDEO',
       match_confidence: 99.4,
-      liveness_status: '3D VIDEO MOTION DEPTH (PASSED)',
-      consent_timestamp: '2026-08-15 18:45:22 UTC',
-      name_aligned: true,
-      dob_aligned: true,
-      doc_valid: true,
-      biometric_aligned: true,
       status: 'PENDING'
     }
   ]);
 
   const handleApproveKyc = (id: string, name: string) => {
     setKycQueue(prev => prev.map(k => k.id === id ? { ...k, status: 'VERIFIED' } : k));
-    showToast('Biometric Verification Approved', `${name} is now Tier 2 Verified with sovereign badge.`, 'SUCCESS');
-    addAdminNotification(
-      'Biometric KYC Verified',
-      `${name} (${id}) biometric face match approved with 99.4% confidence.`,
-      'GOVERNANCE',
-      'VERIFICATIONS',
-      '#66BB2A'
-    );
+    showToast('KYC Approved', `${name} is now Tier 2 Verified.`, 'SUCCESS');
+    addAdminNotification('KYC Verified', `${name} identity verification approved.`, 'GOVERNANCE', 'VERIFICATIONS');
   };
 
   const handleRejectKyc = (id: string, name: string) => {
     setKycQueue(prev => prev.map(k => k.id === id ? { ...k, status: 'REJECTED' } : k));
-    showToast('Verification Marked for Retake', `${name} notified to retake face capture.`, 'WARNING');
+    showToast('Retake Requested', `${name} notified to submit new documents.`, 'WARNING');
   };
 
-  const handleSavePlatformSettings = (e: React.FormEvent) => {
-    e.preventDefault();
-    updatePlatformSettings({
-      platform_fee_percent: parseFloat(platformFee) || 5,
-      min_referral_percentage: parseFloat(minRef) || 5,
-      max_referral_percentage: parseFloat(maxRef) || 25,
-      attribution_window_days: parseInt(attribWindow) || 30,
-      payout_hold_period_days: parseInt(holdDays) || 3
-    });
-    addAdminNotification(
-      'Platform Economics Updated',
-      `Fee adjusted to ${platformFee}% • Hold period: ${holdDays} days • Min/Max Referral: ${minRef}%–${maxRef}%.`,
-      'GOVERNANCE',
-      'SETTINGS',
-      '#66BB2A'
-    );
-    showToast('Platform Settings Saved', 'Updated commission parameters and holding windows across Africa.', 'SUCCESS');
-  };
+  // Country status
+  const [countrySearch, setCountrySearch] = useState('');
+  const filteredCountries = AFRICAN_COUNTRIES.filter(c =>
+    c.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
+    c.iso_code.toLowerCase().includes(countrySearch.toLowerCase())
+  );
 
   const handleCountryToggle = (countryId: string, status: CountryMarketplaceStatus) => {
     updateCountryStatus(countryId, {
@@ -713,33 +586,24 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       payment_rules: status === 'FULLY_OPERATIONAL' || status === 'PAYMENTS_ENABLED' ? 'Enabled' : 'Disabled',
       payout_rules: status === 'FULLY_OPERATIONAL' || status === 'PAYOUTS_ENABLED' ? 'Enabled' : 'Disabled'
     });
-    addAdminNotification(
-      'Sovereign Country Status Modified',
-      `Market jurisdiction ${countryId.toUpperCase()} status updated to "${status}".`,
-      'GOVERNANCE',
-      'COUNTRIES',
-      '#36E0A0'
-    );
-    showToast('Country Updated', `Status changed to ${status} for ${countryId}.`);
+    showToast('Country Updated', `${countryId.toUpperCase()} status set to ${status}.`);
   };
 
+  // Disputes & Airfee
   const handleAdminResolveDispute = (disputeId: string, resolution: 'RESOLVED_TALENT' | 'RESOLVED_CLIENT', notes: string) => {
     resolveDispute(disputeId, resolution, notes);
     addAdminNotification(
-      'Dispute Formally Resolved',
-      `Tribunal closed dispute ${disputeId} with verdict: "${resolution === 'RESOLVED_TALENT' ? 'In Favor of Talent' : 'Client Refund Issued'}".`,
+      'Dispute Resolved',
+      `Verdict: ${resolution === 'RESOLVED_TALENT' ? 'In Favor of Talent' : 'Client Refund Issued'}.`,
       'DISPUTES',
-      'DISPUTES',
-      resolution === 'RESOLVED_TALENT' ? '#66BB2A' : '#FF6B6B'
+      'DISPUTES'
     );
   };
 
+  const [rejectingIntroId, setRejectingIntroId] = useState<string | null>(null);
+  const [rejectReason, setRejectReason] = useState('Client did not complete a project hire or name mismatch.');
 
-  const filteredCountries = AFRICAN_COUNTRIES.filter(c =>
-    c.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
-    c.iso_code.toLowerCase().includes(countrySearch.toLowerCase())
-  );
-
+  // Connected sub-dashboards launcher
   const connectedDashboards = [
     {
       title: 'Scout Network Hub',
@@ -747,15 +611,15 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       path: '/dashboard/scout',
       icon: Users,
       color: 'var(--rf-leaf-green)',
-      desc: 'Track active introductions, referral links, and 10% guaranteed reward distributions.'
+      desc: 'Track active introductions, referral links, and reward distributions.'
     },
     {
       title: 'Client Project Dashboard',
       role: 'CLIENT ESCROWS',
       path: '/dashboard/client',
       icon: Briefcase,
-      color: '#7DA2FF',
-      desc: 'Monitor milestone fundings, candidate shortlists, and talent delivery approvals.'
+      color: '#38BDF8',
+      desc: 'Monitor milestone fundings, candidate shortlists, and approvals.'
     },
     {
       title: 'Talent Workspace',
@@ -771,80 +635,36 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       path: '/wallet',
       icon: Wallet,
       color: '#F4B942',
-      desc: 'Double-entry platform liquidity in NGN, KES, GHS, ZAR, and USD holding pools.'
-    },
-    {
-      title: 'Dispute Resolution Center',
-      role: 'ARBITRATION DESK',
-      path: '/disputes',
-      icon: Scale,
-      color: '#FF6B6B',
-      desc: 'Independent milestone mediation and client/talent refund tribunal.'
-    },
-    {
-      title: 'Identity & KYC Verification',
-      role: 'COMPLIANCE AUDIT',
-      path: '/verification',
-      icon: BadgeCheck,
-      color: 'var(--rf-mint)',
-      desc: 'Government ID, selfie liveness, and professional credential verification queue.'
-    },
-    {
-      title: 'Client Job Board',
-      role: 'HIRING PIPELINE',
-      path: '/jobs',
-      icon: Building2,
-      color: 'var(--rf-cream)',
-      desc: 'Live Pan-African hiring listings and verified job applications.'
-    },
-    {
-      title: '54 Countries Hub',
-      role: 'SOVEREIGN MARKETS',
-      path: '/countries',
-      icon: Globe2,
-      color: 'var(--rf-leaf-green)',
-      desc: 'Explore regional talent pools and verified local currencies across Africa.'
+      desc: 'Liquidity tracking in NGN, KES, GHS, ZAR, and USD holding pools.'
     }
   ];
 
+  const pendingPioneersCount = pioneerAppsList.filter(p => p.status === 'PENDING').length;
+  const pendingKycCount = kycQueue.filter(k => k.status === 'PENDING').length;
+  const openDisputesCount = disputesList.length;
+
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--rf-navy, #06140C)' }}>
-      {/* 1. DEDICATED MODERN ADMIN TOP BAR */}
-      <header
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          background: 'rgba(6, 20, 12, 0.94)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          padding: '0.75rem 1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)'
-        }}
-      >
-        {/* Left: Brand + Console Pill + Live Pulse */}
+    <div className="rf-admin-root">
+      {/* 1. DEDICATED MODERN THEME-AWARE TOPBAR */}
+      <header className="rf-admin-topbar">
+        {/* Left: Brand + Console Pill + Live Status */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
           <div
             onClick={() => onNavigate('/')}
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
-            title="Return to Refeir Marketplace"
+            title="Return to Marketplace"
           >
             <div
               style={{
                 width: '32px',
                 height: '32px',
                 borderRadius: '8px',
-                background: 'linear-gradient(135deg, rgba(24, 252, 92, 0.2), rgba(54, 224, 160, 0.1))',
-                border: '1px solid rgba(24, 252, 92, 0.4)',
+                backgroundColor: 'rgba(46, 125, 50, 0.15)',
+                border: '1px solid var(--rf-leaf-green)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#18FC5C'
+                color: 'var(--rf-leaf-green)'
               }}
             >
               <Shield size={18} />
@@ -858,30 +678,31 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
             style={{
               fontSize: '0.6875rem',
               fontWeight: 800,
-              letterSpacing: '0.08em',
+              letterSpacing: '0.06em',
               textTransform: 'uppercase',
               padding: '0.2rem 0.55rem',
               borderRadius: '4px',
-              background: 'rgba(102, 187, 42, 0.15)',
-              border: '1px solid rgba(102, 187, 42, 0.35)',
-              color: 'var(--rf-mint)'
+              backgroundColor: 'rgba(46, 125, 50, 0.12)',
+              border: '1px solid var(--rf-leaf-green)',
+              color: 'var(--rf-leaf-green)'
             }}
           >
             ADMIN CONSOLE
           </span>
 
           <div
+            className="rf-admin-topbar-desktop-only"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.45rem',
               fontSize: '0.75rem',
-              color: 'var(--rf-slate-300)',
+              color: 'var(--rf-slate-400)',
               marginLeft: '0.5rem',
               padding: '0.2rem 0.6rem',
-              borderRadius: '100px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.06)'
+              borderRadius: '9999px',
+              backgroundColor: 'var(--rf-bg-deep)',
+              border: '1px solid var(--rf-bg-card-border)'
             }}
           >
             <span
@@ -889,32 +710,52 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                 width: '7px',
                 height: '7px',
                 borderRadius: '50%',
-                background: '#18FC5C',
-                boxShadow: '0 0 8px #18FC5C'
+                backgroundColor: 'var(--rf-leaf-green)',
+                boxShadow: '0 0 6px var(--rf-leaf-green)'
               }}
             />
             <span style={{ fontWeight: 600 }}>54 Sovereign Markets Live</span>
           </div>
         </div>
 
-        {/* Right: Quick Role Previews + Exit to Website + Admin Profile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          {/* Quick Preview Links */}
+        {/* Right: Theme Toggle + Role Previews + Exit + Admin Profile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="rf-btn rf-btn-icon"
+            style={{
+              width: '34px',
+              height: '34px',
+              borderRadius: '8px',
+              border: '1px solid var(--rf-bg-card-border)',
+              backgroundColor: 'var(--rf-bg-surface)',
+              color: 'var(--rf-cream)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+
+          {/* Quick View Links (Desktop only) */}
           <button
             onClick={() => {
               switchRole('CLIENT');
               onNavigate('/dashboard/client');
             }}
-            className="rf-btn"
+            className="rf-btn rf-admin-topbar-desktop-only"
             style={{
-              padding: '0.35rem 0.75rem',
+              padding: '0.35rem 0.65rem',
               fontSize: '0.75rem',
               fontWeight: 700,
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--rf-bg-surface)',
+              border: '1px solid var(--rf-bg-card-border)',
               color: 'var(--rf-slate-300)',
-              borderRadius: '6px',
-              cursor: 'pointer'
+              borderRadius: '6px'
             }}
             title="Preview Client Dashboard"
           >
@@ -926,16 +767,15 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
               switchRole('SCOUT');
               onNavigate('/dashboard/scout');
             }}
-            className="rf-btn"
+            className="rf-btn rf-admin-topbar-desktop-only"
             style={{
-              padding: '0.35rem 0.75rem',
+              padding: '0.35rem 0.65rem',
               fontSize: '0.75rem',
               fontWeight: 700,
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--rf-bg-surface)',
+              border: '1px solid var(--rf-bg-card-border)',
               color: 'var(--rf-slate-300)',
-              borderRadius: '6px',
-              cursor: 'pointer'
+              borderRadius: '6px'
             }}
             title="Preview Scout Dashboard"
           >
@@ -950,48 +790,42 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.35rem',
-              padding: '0.35rem 0.85rem',
+              padding: '0.35rem 0.75rem',
               fontSize: '0.75rem',
               fontWeight: 700,
-              background: 'rgba(102, 187, 42, 0.12)',
-              border: '1px solid rgba(102, 187, 42, 0.35)',
-              color: 'var(--rf-mint)',
-              borderRadius: '6px',
-              cursor: 'pointer'
+              backgroundColor: 'rgba(46, 125, 50, 0.1)',
+              border: '1px solid var(--rf-leaf-green)',
+              color: 'var(--rf-leaf-green)',
+              borderRadius: '6px'
             }}
             title="Exit Admin Console and Return to Marketplace"
           >
             <ArrowLeft size={13} />
-            <span>Exit to Website</span>
+            <span>Exit</span>
           </button>
 
-          <div style={{ width: '1px', height: '20px', background: 'rgba(255, 255, 255, 0.1)', margin: '0 0.25rem' }} />
+          <div style={{ width: '1px', height: '18px', backgroundColor: 'var(--rf-bg-card-border)', margin: '0 0.2rem' }} />
 
-          {/* Admin User Profile Capsule */}
+          {/* Admin User Capsule */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.6rem',
-              padding: '0.25rem 0.65rem',
-              borderRadius: '100px',
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)'
+              gap: '0.5rem',
+              padding: '0.25rem 0.6rem',
+              borderRadius: '9999px',
+              backgroundColor: 'var(--rf-bg-deep)',
+              border: '1px solid var(--rf-bg-card-border)'
             }}
           >
             <img
-              src={currentUser?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}
+              src={currentUser?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
               alt="Admin"
-              style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }}
+              style={{ width: '22px', height: '22px', borderRadius: '50%', objectFit: 'cover' }}
             />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)', lineHeight: 1.1 }}>
-                Super Admin
-              </span>
-              <span style={{ fontSize: '0.65rem', color: 'var(--rf-slate-400)', fontFamily: 'var(--rf-font-mono, monospace)', lineHeight: 1.1 }}>
-                {currentUser?.email || 'admin@refeir.africa'}
-              </span>
-            </div>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
+              Admin
+            </span>
             <button
               onClick={async () => {
                 await logout();
@@ -1003,11 +837,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                 border: 'none',
                 color: 'var(--rf-slate-400)',
                 cursor: 'pointer',
-                padding: '4px',
-                borderRadius: '4px',
+                padding: '2px',
                 display: 'flex',
-                alignItems: 'center',
-                marginLeft: '0.25rem'
+                alignItems: 'center'
               }}
             >
               <LogOut size={13} />
@@ -1016,1728 +848,477 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         </div>
       </header>
 
-      {/* 2. MAIN CONTENT CANVAS */}
-      <div style={{ flex: 1, width: '100%', maxWidth: '1440px', margin: '0 auto', padding: '1.75rem 1.5rem 3rem' }}>
-        {/* Modern Minimalist Executive Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '1.75rem' }}>
+      {/* 2. MAIN ADMIN CANVAS */}
+      <div className="rf-admin-canvas">
+        {/* Executive Header Banner */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.25rem', marginBottom: '1.5rem' }}>
           <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: 'var(--rf-mint)', fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>
-              <Shield size={13} />
-              <span>Pan-African Governance & Core Operations</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--rf-leaf-green)', fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>
+              <Shield size={12} />
+              <span>Pan-African Operations & Governance</span>
             </div>
-            <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em', margin: 0 }}>
+            <h1 style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em', margin: 0 }}>
               Administrator Console
             </h1>
-            <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.875rem', marginTop: '0.25rem', maxWidth: '640px', lineHeight: 1.5 }}>
-              Central executive control over Africa-wide GMV custody, scout attribution graphs, sovereign compliance, and disputes.
+            <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.875rem', marginTop: '0.25rem', maxWidth: '600px' }}>
+              Central executive hub for admissions, escrow disputes, identity verifications, and country configurations.
             </p>
           </div>
 
-          {/* Executive Status Pills */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.5rem 0.85rem',
-                borderRadius: '8px',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                fontSize: '0.75rem'
-              }}
-            >
-              <span style={{ color: 'var(--rf-slate-400)' }}>Total Africa GMV:</span>
-              <span style={{ fontWeight: 800, color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono, monospace)' }}>₦48.6M</span>
+          {/* Quick Metrics Badges */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <div className="rf-admin-stat-pill">
+              <span style={{ color: 'var(--rf-slate-400)' }}>Africa GMV:</span>
+              <span style={{ fontWeight: 800, color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono)' }}>₦48.6M</span>
             </div>
 
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.5rem 0.85rem',
-                borderRadius: '8px',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                fontSize: '0.75rem'
-              }}
-            >
-              <span style={{ color: 'var(--rf-slate-400)' }}>Biometric KYC Queue:</span>
-              <span style={{ fontWeight: 800, color: '#F4B942', fontFamily: 'var(--rf-font-mono, monospace)' }}>
-                {kycQueue.filter(k => k.status === 'PENDING').length} Pending
+            <div className="rf-admin-stat-pill">
+              <span style={{ color: 'var(--rf-slate-400)' }}>Pending Actions:</span>
+              <span style={{ fontWeight: 800, color: pendingPioneersCount + pendingKycCount > 0 ? '#F4B942' : 'var(--rf-leaf-green)' }}>
+                {pendingPioneersCount + pendingKycCount} Items
               </span>
             </div>
 
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.5rem 0.85rem',
-                borderRadius: '8px',
-                background: 'rgba(24, 252, 92, 0.06)',
-                border: '1px solid rgba(24, 252, 92, 0.25)',
-                fontSize: '0.75rem',
-                color: '#18FC5C'
-              }}
-            >
-              <UserCheck size={14} />
+            <div className="rf-admin-stat-pill" style={{ color: 'var(--rf-leaf-green)', borderColor: 'var(--rf-leaf-green)' }}>
+              <UserCheck size={13} />
               <span style={{ fontWeight: 700 }}>2FA Enforced</span>
             </div>
           </div>
         </div>
 
-        {/* Modern Minimalist Horizontal Tab Bar */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            overflowX: 'auto',
-            paddingBottom: '0.75rem',
-            marginBottom: '2rem',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-            scrollbarWidth: 'none'
-          }}
-        >
-          {[
-            { id: 'OVERVIEW', label: 'Overview Analytics', count: null },
-            { id: 'DASHBOARDS', label: 'Connected Dashboards', count: 8 },
-            { id: 'COUNTRIES', label: 'Country Administration', count: AFRICAN_COUNTRIES.length },
-            { id: 'TEAM', label: 'Staff & Team', count: teamMembers.length },
-            { id: 'SETTINGS', label: 'Platform Economics', count: null },
-            { id: 'VERIFICATIONS', label: 'Biometric & Face KYC', count: kycQueue.filter(k => k.status === 'PENDING').length, alert: true },
-            { id: 'DISPUTES', label: 'Dispute Resolution', count: disputesList.length },
-            { id: 'FRAUD', label: 'Fraud & Risk Engine', count: riskFlagsList.length },
-            { id: 'AUDIT', label: 'Immutable Audit Logs', count: auditLogs.length },
-            { id: 'AIRFEE', label: 'Airfee Approvals', count: clientIntroductionsList.filter(i => i.status === 'HIRE_COMPLETED_PENDING_ADMIN').length, icon: Ticket },
-            { id: 'PIONEERS', label: 'Pioneer Applications', count: pioneerAppsList.filter(p => p.status === 'PENDING').length, icon: Award, highlight: true }
-          ].map(tab => {
-            const isActive = activeTab === tab.id;
-            const IconComponent = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as AdminWebsiteTab)}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.45rem',
-                  padding: '0.5rem 0.95rem',
-                  borderRadius: '8px',
-                  fontSize: '0.8125rem',
-                  fontWeight: isActive ? 800 : 600,
-                  whiteSpace: 'nowrap',
-                  cursor: 'pointer',
-                  border: isActive
-                    ? tab.highlight
-                      ? '1px solid rgba(24, 252, 92, 0.5)'
-                      : '1px solid rgba(102, 187, 42, 0.4)'
-                    : '1px solid rgba(255, 255, 255, 0.05)',
-                  background: isActive
-                    ? tab.highlight
-                      ? 'rgba(24, 252, 92, 0.14)'
-                      : 'rgba(102, 187, 42, 0.12)'
-                    : 'rgba(255, 255, 255, 0.02)',
-                  color: isActive
-                    ? tab.highlight
-                      ? '#18FC5C'
-                      : 'var(--rf-mint)'
-                    : 'var(--rf-slate-300)',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                {IconComponent && <IconComponent size={14} />}
-                <span>{tab.label}</span>
-                {tab.count !== null && (
-                  <span
-                    style={{
-                      fontSize: '0.6875rem',
-                      fontWeight: 700,
-                      padding: '0.1rem 0.45rem',
-                      borderRadius: '100px',
-                      background: isActive
-                        ? tab.highlight
-                          ? 'rgba(24, 252, 92, 0.25)'
-                          : 'rgba(102, 187, 42, 0.25)'
-                        : 'rgba(255, 255, 255, 0.07)',
-                      color: isActive ? 'var(--rf-cream)' : 'var(--rf-slate-400)'
-                    }}
-                  >
-                    {tab.count}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
+        {/* Modern Minimalist Tab Bar (6 Core Tabs) */}
+        <nav className="rf-admin-tabs-nav">
+          <button
+            onClick={() => setActiveTab('OVERVIEW')}
+            className={`rf-admin-tab-btn ${activeTab === 'OVERVIEW' ? 'is-active' : ''}`}
+          >
+            <Activity size={14} />
+            <span>Overview</span>
+          </button>
 
-      {/* 1. OVERVIEW ANALYTICS TAB */}
-      {activeTab === 'OVERVIEW' && (
-        <div>
-          <div className="rf-grid-4" style={{ marginBottom: '2rem' }}>
-            <div className="rf-card">
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Total Africa GMV
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
-                ₦48.6M
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-mint)', marginTop: '0.25rem' }}>
-                +32% month-over-month
-              </div>
-            </div>
+          <button
+            onClick={() => setActiveTab('PIONEERS')}
+            className={`rf-admin-tab-btn ${activeTab === 'PIONEERS' ? 'is-active' : ''}`}
+          >
+            <Award size={14} />
+            <span>Pioneers</span>
+            {pendingPioneersCount > 0 && (
+              <span className="rf-admin-badge-count">{pendingPioneersCount}</span>
+            )}
+          </button>
 
-            <div className="rf-card">
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Platform Protection Fees
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-mint)', marginTop: '0.25rem' }}>
-                ₦2.43M
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                {platformSettings.platform_fee_percent}% client protection fee
-              </div>
-            </div>
+          <button
+            onClick={() => setActiveTab('VERIFICATIONS')}
+            className={`rf-admin-tab-btn ${activeTab === 'VERIFICATIONS' ? 'is-active' : ''}`}
+          >
+            <BadgeCheck size={14} />
+            <span>Verifications</span>
+            {pendingKycCount > 0 && (
+              <span className="rf-admin-badge-count">{pendingKycCount}</span>
+            )}
+          </button>
 
-            <div className="rf-card">
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Scout Rewards Paid
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#7DA2FF', marginTop: '0.25rem' }}>
-                ₦4.86M
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                Paid to Scouts in 6 nations
-              </div>
-            </div>
+          <button
+            onClick={() => setActiveTab('DISPUTES')}
+            className={`rf-admin-tab-btn ${activeTab === 'DISPUTES' ? 'is-active' : ''}`}
+          >
+            <Scale size={14} />
+            <span>Disputes</span>
+            {openDisputesCount > 0 && (
+              <span className="rf-admin-badge-count">{openDisputesCount}</span>
+            )}
+          </button>
 
-            <div className="rf-card">
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Referral Conversions
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
-                {referralsList.length} Referrals
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-mint)', marginTop: '0.25rem' }}>
-                24.2% Hire conversion
-              </div>
-            </div>
-          </div>
+          <button
+            onClick={() => setActiveTab('COUNTRIES')}
+            className={`rf-admin-tab-btn ${activeTab === 'COUNTRIES' ? 'is-active' : ''}`}
+          >
+            <Globe2 size={14} />
+            <span>Countries</span>
+            <span className="rf-admin-badge-count">{AFRICAN_COUNTRIES.length}</span>
+          </button>
 
-          {/* Connected Operational Dashboards Quick-Links Box */}
-          <div className="rf-card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
-              <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                  Connected Operational Dashboards
-                </h3>
-                <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.875rem' }}>
-                  Directly inspect and test live workspaces across Scout, Client, Talent, Escrow, and Dispute roles.
-                </p>
-              </div>
-              <button
-                onClick={() => setActiveTab('DASHBOARDS')}
-                className="rf-btn rf-btn-secondary rf-btn-sm"
-              >
-                <span>View Full Workspace Hub</span>
-                <ArrowRight size={14} />
-              </button>
-            </div>
+          <button
+            onClick={() => setActiveTab('SETTINGS')}
+            className={`rf-admin-tab-btn ${activeTab === 'SETTINGS' ? 'is-active' : ''}`}
+          >
+            <Settings size={14} />
+            <span>Settings & Team</span>
+          </button>
+        </nav>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-              {connectedDashboards.slice(0, 4).map(dash => {
-                const IconComponent = dash.icon;
-                return (
-                  <button
-                    key={dash.path}
-                    onClick={() => onNavigate(dash.path)}
+        {/* ========================================================
+            TAB 1: OVERVIEW
+            ======================================================== */}
+        {activeTab === 'OVERVIEW' && (
+          <div>
+            {/* Action Required Banner Strips */}
+            {(pendingPioneersCount > 0 || pendingKycCount > 0 || openDisputesCount > 0) && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
+                {pendingPioneersCount > 0 && (
+                  <div
+                    onClick={() => setActiveTab('PIONEERS')}
                     style={{
                       display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '1rem',
-                      background: 'var(--rf-navy-surface)',
-                      border: '1px solid var(--rf-navy-border)',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '0.85rem 1.25rem',
                       borderRadius: 'var(--rf-radius-md)',
-                      padding: '1.25rem',
-                      textAlign: 'left',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                    className="rf-dashboard-card-hover"
-                  >
-                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <IconComponent size={20} color={dash.color} />
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: '0.6875rem', fontWeight: 800, color: dash.color, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                        {dash.role}
-                      </div>
-                      <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'var(--rf-cream)', marginTop: '2px' }}>
-                        {dash.title}
-                      </div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '4px', lineHeight: 1.4 }}>
-                        {dash.desc}
-                      </div>
-                    </div>
-                    <ExternalLink size={14} color="var(--rf-slate-500)" />
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Regional Performance Distribution */}
-          <div className="rf-card" style={{ padding: '2rem' }}>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1.25rem' }}>
-              Regional Marketplace Volume Breakdown
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-              <div style={{ background: 'var(--rf-navy-surface)', padding: '1rem', borderRadius: 'var(--rf-radius-md)' }}>
-                <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--rf-blue)' }}>West Africa</div>
-                <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '4px' }}>₦26.4M GMV</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Nigeria, Ghana, Senegal, CI</div>
-              </div>
-              <div style={{ background: 'var(--rf-navy-surface)', padding: '1rem', borderRadius: 'var(--rf-radius-md)' }}>
-                <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--rf-mint)' }}>East Africa</div>
-                <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '4px' }}>KSh 11.2M GMV</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Kenya, Rwanda, Tanzania, Uganda</div>
-              </div>
-              <div style={{ background: 'var(--rf-navy-surface)', padding: '1rem', borderRadius: 'var(--rf-radius-md)' }}>
-                <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#7DA2FF' }}>Southern Africa</div>
-                <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '4px' }}>R 820,000 GMV</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>South Africa, Botswana, Zambia</div>
-              </div>
-              <div style={{ background: 'var(--rf-navy-surface)', padding: '1rem', borderRadius: 'var(--rf-radius-md)' }}>
-                <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--rf-warning)' }}>North Africa</div>
-                <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '4px' }}>E£ 420,000 GMV</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Egypt, Morocco, Tunisia</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 2. CONNECTED DASHBOARDS TAB */}
-      {activeTab === 'DASHBOARDS' && (
-        <div className="rf-card" style={{ padding: '2rem' }}>
-          <div style={{ marginBottom: '1.5rem' }}>
-            <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-              Operational Workspace Control
-            </h3>
-            <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
-              Instant deep-links into all individual sub-dashboards and user role workspaces for real-time audit and interaction.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem' }}>
-            {connectedDashboards.map(dash => {
-              const IconComponent = dash.icon;
-              return (
-                <div
-                  key={dash.path}
-                  style={{
-                    background: 'var(--rf-navy-surface)',
-                    border: '1px solid var(--rf-navy-border)',
-                    borderRadius: 'var(--rf-radius-lg)',
-                    padding: '1.5rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    gap: '1.25rem'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      <IconComponent size={24} color={dash.color} />
-                    </div>
-                    <div>
-                      <span className="rf-badge rf-text-xs" style={{ background: 'rgba(255,255,255,0.05)', color: dash.color, marginBottom: '0.25rem' }}>
-                        {dash.role}
-                      </span>
-                      <h4 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        {dash.title}
-                      </h4>
-                      <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.25rem', lineHeight: 1.5 }}>
-                        {dash.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => onNavigate(dash.path)}
-                    className="rf-btn rf-btn-secondary rf-btn-sm"
-                    style={{ width: '100%', justifyContent: 'center', gap: '0.5rem' }}
-                  >
-                    <span>Launch {dash.title}</span>
-                    <ExternalLink size={14} />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* 3. COUNTRY ADMINISTRATION TAB */}
-      {activeTab === 'COUNTRIES' && (
-        <div className="rf-card" style={{ padding: '2rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-            <div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                Country Operational Status Engine
-              </h3>
-              <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.875rem' }}>
-                Toggle marketplace discovery, local payment rails, and payout capabilities per country without deploying code.
-              </p>
-            </div>
-            <input
-              type="text"
-              className="rf-input"
-              value={countrySearch}
-              onChange={e => setCountrySearch(e.target.value)}
-              placeholder="Search African countries..."
-              style={{ width: '260px', fontSize: '0.8125rem' }}
-            />
-          </div>
-
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
-              <thead>
-                <tr style={{ borderBottom: '1px solid var(--rf-navy-border)', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontSize: '0.6875rem', fontWeight: 700 }}>
-                  <th style={{ padding: '0.75rem 1rem' }}>Country</th>
-                  <th style={{ padding: '0.75rem 1rem' }}>ISO</th>
-                  <th style={{ padding: '0.75rem 1rem' }}>Currency</th>
-                  <th style={{ padding: '0.75rem 1rem' }}>Operational Status</th>
-                  <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Admin Toggle Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredCountries.map(country => {
-                  const setting = countrySettings[country.id] || { status: country.status };
-                  return (
-                    <tr key={country.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                      <td style={{ padding: '0.875rem 1rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
-                        <CountryFlag countryIsoOrName={country.name} />
-                      </td>
-                      <td style={{ padding: '0.875rem 1rem', fontFamily: 'var(--rf-font-mono)', color: 'var(--rf-slate-300)' }}>
-                        {country.iso_code}
-                      </td>
-                      <td style={{ padding: '0.875rem 1rem', fontWeight: 600, color: 'var(--rf-mint)' }}>
-                        {country.currency_code} ({country.currency_symbol})
-                      </td>
-                      <td style={{ padding: '0.875rem 1rem' }}>
-                        <span className={`rf-badge rf-text-xs ${
-                          setting.status === 'FULLY_OPERATIONAL'
-                            ? 'rf-badge-mint'
-                            : setting.status === 'PAYMENTS_ENABLED'
-                            ? 'rf-badge-blue'
-                            : 'rf-badge-neutral'
-                        }`}>
-                          {setting.status}
-                        </span>
-                      </td>
-                      <td style={{ padding: '0.875rem 1rem', textAlign: 'right' }}>
-                        <select
-                          className="rf-select"
-                          value={setting.status}
-                          onChange={e => handleCountryToggle(country.id, e.target.value as CountryMarketplaceStatus)}
-                          style={{ width: 'auto', fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
-                        >
-                          <option value="FULLY_OPERATIONAL">FULLY_OPERATIONAL</option>
-                          <option value="PAYMENTS_ENABLED">PAYMENTS_ENABLED</option>
-                          <option value="PAYOUTS_ENABLED">PAYOUTS_ENABLED</option>
-                          <option value="MARKETPLACE_ONLY">MARKETPLACE_ONLY</option>
-                          <option value="COMING_SOON">COMING_SOON</option>
-                        </select>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {/* 3B. STAFF & TEAM MEMBERS TAB (RBAC & COMMUNITY HUB MANAGERS) */}
-      {activeTab === 'TEAM' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          {/* Top Metrics Row */}
-          <div className="rf-grid-4">
-            <div className="rf-card" style={{ padding: '1.25rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                  Total Staff & Workers
-                </span>
-                <Users size={18} color="var(--rf-leaf-green)" />
-              </div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--rf-cream)' }}>
-                {teamMembers.length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 700, marginTop: '0.2rem' }}>
-                {teamMembers.filter(m => m.status === 'ACTIVE').length} Active • 0 Suspended
-              </div>
-            </div>
-
-            <div className="rf-card" style={{ padding: '1.25rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                  Community Managers
-                </span>
-                <MessageSquare size={18} color="#F6B21A" />
-              </div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--rf-cream)' }}>
-                {teamMembers.filter(m => m.permissions.manageCommunityHub).length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: '#F6B21A', fontWeight: 700, marginTop: '0.2rem' }}>
-                Forum, Guilds & Ambassadors
-              </div>
-            </div>
-
-            <div className="rf-card" style={{ padding: '1.25rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                  Website & Content Editors
-                </span>
-                <BookOpen size={18} color="#38BDF8" />
-              </div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--rf-cream)' }}>
-                {teamMembers.filter(m => m.permissions.manageWebsite).length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: '#38BDF8', fontWeight: 700, marginTop: '0.2rem' }}>
-                Blog, Blueprints & CMS
-              </div>
-            </div>
-
-            <div className="rf-card" style={{ padding: '1.25rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                  2FA & Biometric Security
-                </span>
-                <ShieldCheck size={18} color="var(--rf-leaf-green)" />
-              </div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--rf-cream)' }}>
-                100%
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 700, marginTop: '0.2rem' }}>
-                Hardware & Multi-Factor Enforced
-              </div>
-            </div>
-          </div>
-
-          {/* Directory Card */}
-          <div className="rf-card" style={{ padding: '1.75rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-              <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <UserPlus size={20} color="var(--rf-leaf-green)" />
-                  <span>Platform Staff, Workers & Community Managers</span>
-                </h3>
-                <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.875rem', margin: '0.25rem 0 0' }}>
-                  Grant role-based access for workers and team members to manage the website, publish guides, and moderate the Pan-African Community Hub.
-                </p>
-              </div>
-
-              <button
-                onClick={() => setShowAddTeamModal(true)}
-                className="rf-btn rf-btn-primary"
-                style={{ gap: '0.45rem', fontWeight: 800 }}
-              >
-                <PlusCircle size={16} />
-                <span>Add Worker / Team Member</span>
-              </button>
-            </div>
-
-            {/* Filter Chips & Search Bar */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', background: 'rgba(0, 0, 0, 0.25)', padding: '0.75rem', borderRadius: 'var(--rf-radius-lg)', border: '1px solid var(--rf-navy-border)' }}>
-              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                {[
-                  { id: 'ALL', label: 'All Roles' },
-                  { id: 'COMMUNITY_MANAGER', label: 'Community Managers' },
-                  { id: 'CONTENT_EDITOR', label: 'Content & Website Editors' },
-                  { id: 'SUPER_ADMIN', label: 'Super Admins' },
-                  { id: 'DISPUTE_ARBITER', label: 'Dispute Arbiters' },
-                  { id: 'COMPLIANCE_OFFICER', label: 'KYC Officers' }
-                ].map(f => (
-                  <button
-                    key={f.id}
-                    onClick={() => setTeamRoleFilter(f.id)}
-                    style={{
-                      padding: '0.35rem 0.75rem',
-                      borderRadius: '100px',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      border: teamRoleFilter === f.id ? '1px solid var(--rf-leaf-green)' : '1px solid rgba(255, 255, 255, 0.08)',
-                      background: teamRoleFilter === f.id ? 'rgba(102, 187, 42, 0.18)' : 'rgba(255, 255, 255, 0.03)',
-                      color: teamRoleFilter === f.id ? 'var(--rf-leaf-green)' : 'var(--rf-slate-300)',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease'
-                    }}
-                  >
-                    {f.label}
-                  </button>
-                ))}
-              </div>
-
-              <div style={{ position: 'relative', width: '280px' }}>
-                <Search size={14} color="var(--rf-slate-400)" style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)' }} />
-                <input
-                  type="text"
-                  placeholder="Search team members by name or email..."
-                  value={teamSearchQuery}
-                  onChange={e => setTeamSearchQuery(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '0.45rem 0.75rem 0.45rem 2rem',
-                    borderRadius: 'var(--rf-radius-md)',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid var(--rf-navy-border)',
-                    color: 'var(--rf-cream)',
-                    fontSize: '0.8125rem',
-                    boxSizing: 'border-box'
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Team Members List Table */}
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid var(--rf-navy-border)', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontSize: '0.6875rem', fontWeight: 700 }}>
-                    <th style={{ padding: '0.85rem 1rem' }}>Worker / Team Member</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Role & Scope</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Assigned Access Modules</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Security / 2FA</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Status</th>
-                    <th style={{ padding: '0.85rem 1rem', textAlign: 'right' }}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teamMembers
-                    .filter(m => {
-                      const matchRole = teamRoleFilter === 'ALL' || m.role === teamRoleFilter;
-                      const matchQuery =
-                        m.name.toLowerCase().includes(teamSearchQuery.toLowerCase()) ||
-                        m.email.toLowerCase().includes(teamSearchQuery.toLowerCase()) ||
-                        m.roleTitle.toLowerCase().includes(teamSearchQuery.toLowerCase()) ||
-                        m.country.toLowerCase().includes(teamSearchQuery.toLowerCase());
-                      return matchRole && matchQuery;
-                    })
-                    .map(member => (
-                      <tr key={member.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)', transition: 'background 0.15s ease' }}>
-                        <td style={{ padding: '0.85rem 1rem' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                            <div style={{ position: 'relative' }}>
-                              <img
-                                src={member.avatar}
-                                alt={member.name}
-                                style={{ width: '38px', height: '38px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid var(--rf-leaf-green)' }}
-                              />
-                              <span
-                                style={{
-                                  position: 'absolute',
-                                  bottom: 0,
-                                  right: 0,
-                                  width: '9px',
-                                  height: '9px',
-                                  borderRadius: '50%',
-                                  background: member.status === 'ACTIVE' ? 'var(--rf-leaf-green)' : '#F4B942',
-                                  border: '2px solid #07160D'
-                                }}
-                              />
-                            </div>
-                            <div>
-                              <div style={{ fontWeight: 800, color: 'var(--rf-cream)', fontSize: '0.875rem' }}>
-                                {member.name}
-                              </div>
-                              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', fontFamily: 'var(--rf-font-mono)' }}>
-                                {member.email}
-                              </div>
-                              <div style={{ fontSize: '0.6875rem', color: 'var(--rf-leaf-green)', marginTop: '2px' }}>
-                                {member.country}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-
-                        <td style={{ padding: '0.85rem 1rem' }}>
-                          <span
-                            className={`rf-badge ${
-                              member.role === 'SUPER_ADMIN'
-                                ? 'rf-badge-gold'
-                                : member.role === 'COMMUNITY_MANAGER'
-                                ? 'rf-badge-mint'
-                                : member.role === 'CONTENT_EDITOR'
-                                ? 'rf-badge-blue'
-                                : 'rf-badge-warning'
-                            } rf-text-xs`}
-                            style={{ fontWeight: 800 }}
-                          >
-                            {member.role.replace('_', ' ')}
-                          </span>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)', marginTop: '4px', fontWeight: 600 }}>
-                            {member.roleTitle}
-                          </div>
-                        </td>
-
-                        <td style={{ padding: '0.85rem 1rem' }}>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', maxWidth: '300px' }}>
-                            {member.permissions.manageWebsite && (
-                              <span style={{ fontSize: '0.6875rem', background: 'rgba(56, 189, 248, 0.12)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38BDF8', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>
-                                🌐 Website CMS
-                              </span>
-                            )}
-                            {member.permissions.manageCommunityHub && (
-                              <span style={{ fontSize: '0.6875rem', background: 'rgba(102, 187, 42, 0.12)', border: '1px solid rgba(102, 187, 42, 0.3)', color: 'var(--rf-leaf-green)', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>
-                                💬 Community Hub
-                              </span>
-                            )}
-                            {member.permissions.approveAmbassadors && (
-                              <span style={{ fontSize: '0.6875rem', background: 'rgba(246, 178, 26, 0.12)', border: '1px solid rgba(246, 178, 26, 0.3)', color: '#F6B21A', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>
-                                🏆 Ambassadors
-                              </span>
-                            )}
-                            {member.permissions.manageGuildsEvents && (
-                              <span style={{ fontSize: '0.6875rem', background: 'rgba(168, 85, 247, 0.12)', border: '1px solid rgba(168, 85, 247, 0.3)', color: '#C084FC', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>
-                                ⚡ Guilds & AMAs
-                              </span>
-                            )}
-                            {member.permissions.verifyKyc && (
-                              <span style={{ fontSize: '0.6875rem', background: 'rgba(102, 187, 42, 0.12)', border: '1px solid rgba(102, 187, 42, 0.3)', color: 'var(--rf-leaf-green)', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>
-                                🛡️ Biometric KYC
-                              </span>
-                            )}
-                            {member.permissions.arbitrateDisputes && (
-                              <span style={{ fontSize: '0.6875rem', background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#F87171', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>
-                                ⚖️ Dispute Arbiter
-                              </span>
-                            )}
-                          </div>
-                        </td>
-
-                        <td style={{ padding: '0.85rem 1rem' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', color: member.twoFactorEnabled ? 'var(--rf-leaf-green)' : '#F4B942', fontWeight: 700 }}>
-                            <ShieldCheck size={14} />
-                            <span>{member.twoFactorEnabled ? '2FA Enforced' : 'Pending'}</span>
-                          </div>
-                          <div style={{ fontSize: '0.6875rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
-                            {member.lastActive}
-                          </div>
-                        </td>
-
-                        <td style={{ padding: '0.85rem 1rem' }}>
-                          <span
-                            className={`rf-badge ${member.status === 'ACTIVE' ? 'rf-badge-mint' : 'rf-badge-warning'} rf-text-xs`}
-                            style={{ fontWeight: 800 }}
-                          >
-                            {member.status}
-                          </span>
-                        </td>
-
-                        <td style={{ padding: '0.85rem 1rem', textAlign: 'right' }}>
-                          <div style={{ display: 'inline-flex', gap: '0.4rem', alignItems: 'center' }}>
-                            <button
-                              onClick={() => setEditingPermissionsMember(member)}
-                              title="Edit Scope & Permissions"
-                              style={{
-                                background: 'rgba(255, 255, 255, 0.06)',
-                                border: '1px solid rgba(255, 255, 255, 0.12)',
-                                color: 'var(--rf-cream)',
-                                padding: '0.35rem 0.65rem',
-                                borderRadius: 'var(--rf-radius-sm)',
-                                fontSize: '0.75rem',
-                                fontWeight: 700,
-                                cursor: 'pointer',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '0.3rem'
-                              }}
-                            >
-                              <Edit3 size={13} color="var(--rf-leaf-green)" />
-                              <span>Edit Permissions</span>
-                            </button>
-
-                            <button
-                              onClick={() => handleToggleWorkerStatus(member.id, member.status)}
-                              title={member.status === 'ACTIVE' ? 'Suspend Account' : 'Activate Account'}
-                              style={{
-                                background: member.status === 'ACTIVE' ? 'rgba(244, 185, 66, 0.15)' : 'rgba(102, 187, 42, 0.15)',
-                                border: member.status === 'ACTIVE' ? '1px solid rgba(244, 185, 66, 0.35)' : '1px solid rgba(102, 187, 42, 0.35)',
-                                color: member.status === 'ACTIVE' ? '#F4B942' : 'var(--rf-leaf-green)',
-                                padding: '0.35rem 0.55rem',
-                                borderRadius: 'var(--rf-radius-sm)',
-                                fontSize: '0.75rem',
-                                fontWeight: 700,
-                                cursor: 'pointer'
-                              }}
-                            >
-                              {member.status === 'ACTIVE' ? 'Suspend' : 'Activate'}
-                            </button>
-
-                            {member.id !== 'TM-001' && (
-                              <button
-                                onClick={() => handleDeleteWorker(member.id, member.name)}
-                                title="Remove Worker"
-                                style={{
-                                  background: 'rgba(239, 68, 68, 0.1)',
-                                  border: '1px solid rgba(239, 68, 68, 0.3)',
-                                  color: '#F87171',
-                                  padding: '0.35rem',
-                                  borderRadius: 'var(--rf-radius-sm)',
-                                  cursor: 'pointer'
-                                }}
-                              >
-                                <Trash2 size={14} />
-                              </button>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Role Permission Matrix Information Guide */}
-          <div className="rf-card" style={{ padding: '1.75rem', background: 'linear-gradient(135deg, rgba(10, 23, 15, 0.8) 0%, rgba(18, 43, 26, 0.6) 100%)', border: '1px solid rgba(102, 187, 42, 0.3)' }}>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Shield size={18} color="var(--rf-leaf-green)" />
-              <span>Pan-African Delegation & Community Moderation Standards</span>
-            </h4>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
-              Workers and Team Members provisioned on Refeir inherit role-based cryptographic sessions to manage different modules independently.
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
-              <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '1rem', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                <div style={{ fontWeight: 800, color: 'var(--rf-leaf-green)', fontSize: '0.875rem', marginBottom: '0.35rem' }}>
-                  💬 Community Hub Managers
-                </div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', lineHeight: 1.5 }}>
-                  Empowered to pin high-value engineering threads in Refeir Forum, approve Ambassador applications across African cities, moderate Guild workspaces, and schedule virtual AMAs.
-                </div>
-              </div>
-
-              <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '1rem', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                <div style={{ fontWeight: 800, color: '#38BDF8', fontSize: '0.875rem', marginBottom: '0.35rem' }}>
-                  🌐 Website & Content Editors
-                </div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', lineHeight: 1.5 }}>
-                  Responsible for drafting and publishing in-depth architectural blueprints, Refeir Blog updates, FAQs, case studies, and localized regional translations.
-                </div>
-              </div>
-
-              <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '1rem', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                <div style={{ fontWeight: 800, color: '#FF6B6B', fontSize: '0.875rem', marginBottom: '0.35rem' }}>
-                  ⚖️ Dispute & KYC Arbiters
-                </div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', lineHeight: 1.5 }}>
-                  Neutral third-party reviewers inspecting git milestone deliverables, code commit trees, and verifying 3D face liveness to safeguard payments.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 4. PLATFORM ECONOMICS TAB */}
-      {activeTab === 'SETTINGS' && (
-        <div className="rf-card" style={{ padding: '2rem', maxWidth: '640px' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
-            Configurable Platform Economics
-          </h3>
-          <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.875rem', marginBottom: '1.5rem' }}>
-            Never hardcode fee percentages. Control global commissions and Trust Vault safety windows.
-          </p>
-
-          <form onSubmit={handleSavePlatformSettings}>
-            <div className="rf-form-group">
-              <label className="rf-label">
-                <span>Refeir Client Protection Fee (%)</span>
-              </label>
-              <input
-                type="number"
-                className="rf-input"
-                value={platformFee}
-                onChange={e => setPlatformFee(e.target.value)}
-              />
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
-              <div className="rf-form-group">
-                <label className="rf-label">Min Referral Reward (%)</label>
-                <input
-                  type="number"
-                  className="rf-input"
-                  value={minRef}
-                  onChange={e => setMinRef(e.target.value)}
-                />
-              </div>
-              <div className="rf-form-group">
-                <label className="rf-label">Max Referral Reward (%)</label>
-                <input
-                  type="number"
-                  className="rf-input"
-                  value={maxRef}
-                  onChange={e => setMaxRef(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
-              <div className="rf-form-group">
-                <label className="rf-label">Attribution Window (Days)</label>
-                <input
-                  type="number"
-                  className="rf-input"
-                  value={attribWindow}
-                  onChange={e => setAttribWindow(e.target.value)}
-                />
-              </div>
-              <div className="rf-form-group">
-                <label className="rf-label">Payout Holding Period (Days)</label>
-                <input
-                  type="number"
-                  className="rf-input"
-                  value={holdDays}
-                  onChange={e => setHoldDays(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <button type="submit" className="rf-btn rf-btn-mint rf-btn-lg" style={{ gap: '0.5rem', marginTop: '1rem' }}>
-              <Save size={16} />
-              <span>Save Platform Settings</span>
-            </button>
-          </form>
-        </div>
-      )}
-
-      {/* 4.5. BIOMETRIC & FACE KYC AUDIT TAB */}
-      {activeTab === 'VERIFICATIONS' && (
-        <div className="rf-card" style={{ padding: '2rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                Biometric Facial Liveness & Sovereign KYC Queue
-              </h3>
-              <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                Review live face captures side-by-side with government ID documents and algorithmic confidence scores.
-              </p>
-            </div>
-            <span className="rf-badge rf-badge-mint">
-              Sovereign Rail: Smile ID / Dojah Active
-            </span>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {kycQueue.map(item => (
-              <div
-                key={item.id}
-                style={{
-                  background: 'var(--rf-bg-surface)',
-                  border: item.status === 'PENDING' ? '1.5px solid rgba(102, 187, 42, 0.4)' : '1px solid var(--rf-bg-card-border)',
-                  borderRadius: 'var(--rf-radius-lg)',
-                  padding: '1.5rem',
-                  boxShadow: 'var(--rf-shadow-sm)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                      <span style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        {item.name}
-                      </span>
-                      <span className="rf-badge rf-badge-blue rf-text-xs">
-                        {item.country}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: '0.6875rem',
-                          fontWeight: 800,
-                          padding: '0.2rem 0.5rem',
-                          borderRadius: '9999px',
-                          background: item.status === 'VERIFIED' ? 'rgba(102, 187, 42, 0.18)' : item.status === 'REJECTED' ? 'rgba(239, 68, 68, 0.18)' : 'rgba(244, 185, 66, 0.18)',
-                          color: item.status === 'VERIFIED' ? 'var(--rf-leaf-green)' : item.status === 'REJECTED' ? '#EF4444' : '#F4B942'
-                        }}
-                      >
-                        {item.status}
-                      </span>
-                    </div>
-                    <div style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)' }}>
-                      {item.role} • Application ID: <strong style={{ color: 'var(--rf-cream)', fontFamily: 'monospace' }}>{item.id}</strong>
-                    </div>
-                  </div>
-
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--rf-leaf-green)' }}>
-                      Match Score: {item.match_confidence}%
-                    </div>
-                    <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>
-                      {item.liveness_status}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Side-by-Side Face & ID Comparison Grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', background: 'rgba(0, 0, 0, 0.25)', padding: '1rem', borderRadius: 'var(--rf-radius-md)', marginBottom: '1.25rem' }}>
-                  {/* ID Document Photo */}
-                  <div>
-                    <div style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-slate-400)', marginBottom: '0.4rem' }}>
-                      Official {item.id_type} ({item.doc_number})
-                    </div>
-                    <div style={{ height: '140px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--rf-bg-card-border)' }}>
-                      <img src={item.id_photo} alt="ID Document" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </div>
-                  </div>
-
-                  {/* Live Captured Face / Video */}
-                  <div>
-                    <div style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-leaf-green)', marginBottom: '0.4rem' }}>
-                      {item.capture_type === 'VIDEO' ? 'Live Biometric 3D Video Clip' : 'Live Biometric Face Snapshot'}
-                    </div>
-                    <div style={{ height: '140px', borderRadius: '8px', overflow: 'hidden', border: '2px solid var(--rf-leaf-green)', position: 'relative', background: '#000' }}>
-                      {item.capture_type === 'VIDEO' && item.video_capture ? (
-                        <video
-                          src={item.video_capture}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          controls
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                      ) : (
-                        <img src={item.face_capture} alt="Live Face Snapshot" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      )}
-                      <div style={{ position: 'absolute', bottom: '6px', left: '6px', background: 'rgba(0,0,0,0.75)', padding: '0.15rem 0.45rem', borderRadius: '4px', fontSize: '0.68rem', color: 'var(--rf-leaf-green)', fontWeight: 700, pointerEvents: 'none' }}>
-                        {item.capture_type === 'VIDEO' ? 'REC 3D Motion ✓' : 'User Consented'}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 4-Factor Credential Alignment & Audit Matrix */}
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '0.78rem', gap: '0.4rem', color: 'var(--rf-slate-300)', background: 'rgba(255,255,255,0.02)', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div>
-                      <strong style={{ color: 'var(--rf-slate-400)' }}>1. Name Match:</strong>{' '}
-                      <span style={{ color: 'var(--rf-cream)' }}>{item.legal_name_on_doc}</span>{' '}
-                      <span style={{ color: 'var(--rf-leaf-green)', fontWeight: 800 }}>✓ Aligned</span>
-                    </div>
-                    <div>
-                      <strong style={{ color: 'var(--rf-slate-400)' }}>2. DOB & Age:</strong>{' '}
-                      <span style={{ color: 'var(--rf-cream)' }}>{item.dob}</span>{' '}
-                      <span style={{ color: 'var(--rf-leaf-green)', fontWeight: 800 }}>✓ Validated</span>
-                    </div>
-                    <div>
-                      <strong style={{ color: 'var(--rf-slate-400)' }}>3. Official ID:</strong>{' '}
-                      <span style={{ color: 'var(--rf-cream)', fontFamily: 'monospace' }}>{item.doc_number}</span>{' '}
-                      <span style={{ color: 'var(--rf-leaf-green)', fontWeight: 800 }}>✓ Sovereign</span>
-                    </div>
-                    <div>
-                      <strong style={{ color: 'var(--rf-slate-400)' }}>4. Biometric Vector:</strong>{' '}
-                      <span style={{ color: 'var(--rf-leaf-green)', fontWeight: 800 }}>{item.match_confidence}% Match (4/4 Passed) ✓</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Actions */}
-                {item.status === 'PENDING' && (
-                  <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
-                    <button
-                      type="button"
-                      onClick={() => handleRejectKyc(item.id, item.name)}
-                      className="rf-btn rf-btn-secondary rf-btn-sm"
-                    >
-                      Request Face Retake
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleApproveKyc(item.id, item.name)}
-                      className="rf-btn rf-btn-primary rf-btn-sm"
-                    >
-                      <UserCheck size={14} />
-                      <span>Approve Tier 2 Verified Badge</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 5. DISPUTES RESOLUTION TAB */}
-      {activeTab === 'DISPUTES' && (
-        <div className="rf-card" style={{ padding: '2rem' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1.5rem' }}>
-            Dispute Mediation Console
-          </h3>
-
-          {disputesList.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {disputesList.map(disp => (
-                <div key={disp.id} style={{ background: 'var(--rf-navy-surface)', border: '1px solid var(--rf-navy-border)', borderRadius: 'var(--rf-radius-lg)', padding: '1.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                    <div>
-                      <span className="rf-badge rf-badge-danger rf-text-xs" style={{ marginBottom: '0.25rem' }}>
-                        {disp.status}
-                      </span>
-                      <h4 style={{ fontSize: '1.0625rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        {disp.project_title} ({disp.id})
-                      </h4>
-                    </div>
-                    <div style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                      {formatMoney(disp.disputed_amount)}
-                    </div>
-                  </div>
-
-                  <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-300)', marginBottom: '1rem' }}>
-                    <strong>Reason:</strong> {disp.reason} — {disp.description}
-                  </p>
-
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button
-                      onClick={() => handleAdminResolveDispute(disp.id, 'RESOLVED_TALENT', 'Mediated in favor of talent after work inspection.')}
-                      className="rf-btn rf-btn-mint rf-btn-sm"
-                    >
-                      Resolve in Favor of Talent
-                    </button>
-                    <button
-                      onClick={() => handleAdminResolveDispute(disp.id, 'RESOLVED_CLIENT', 'Mediated in favor of client with full refund.')}
-                      className="rf-btn rf-btn-danger rf-btn-sm"
-                    >
-                      Refund Client
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p style={{ color: 'var(--rf-slate-400)' }}>
-              No active dispute claims filed. All projects are proceeding smoothly!
-            </p>
-          )}
-        </div>
-      )}
-
-      {/* 6. FRAUD & RISK TAB */}
-      {activeTab === 'FRAUD' && (
-        <div className="rf-card" style={{ padding: '2rem' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1.5rem' }}>
-            Risk Signal Anomaly Monitor
-          </h3>
-
-          {riskFlagsList.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {riskFlagsList.map(flag => (
-                <div key={flag.id} style={{ background: 'var(--rf-navy-surface)', border: '1px solid var(--rf-navy-border)', borderRadius: 'var(--rf-radius-lg)', padding: '1.25rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <span className="rf-badge rf-badge-warning rf-text-xs">
-                      {flag.signal_type} • Score: {flag.risk_score}/100
-                    </span>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>{new Date(flag.timestamp).toLocaleString()}</span>
-                  </div>
-                  <div style={{ fontSize: '0.875rem', color: 'var(--rf-cream)', fontWeight: 600 }}>{flag.user_name}</div>
-                  <div style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '2px' }}>{flag.details}</div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p style={{ color: 'var(--rf-slate-400)' }}>
-              No high-risk anomalies detected. Self-referral filters active.
-            </p>
-          )}
-        </div>
-      )}
-
-      {/* 7. IMMUTABLE AUDIT LOGS TAB */}
-      {activeTab === 'AUDIT' && (
-        <div className="rf-card" style={{ padding: '2rem' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1.5rem' }}>
-            System & Financial Audit Trail
-          </h3>
-
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.8125rem' }}>
-              <thead>
-                <tr style={{ borderBottom: '1px solid var(--rf-navy-border)', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontSize: '0.6875rem', fontWeight: 700 }}>
-                  <th style={{ padding: '0.75rem 1rem' }}>Log ID</th>
-                  <th style={{ padding: '0.75rem 1rem' }}>Actor</th>
-                  <th style={{ padding: '0.75rem 1rem' }}>Action</th>
-                  <th style={{ padding: '0.75rem 1rem' }}>Object</th>
-                  <th style={{ padding: '0.75rem 1rem' }}>Reason / Details</th>
-                  <th style={{ padding: '0.75rem 1rem' }}>Timestamp</th>
-                </tr>
-              </thead>
-              <tbody>
-                {auditLogs.map(log => (
-                  <tr key={log.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                    <td style={{ padding: '0.75rem 1rem', fontFamily: 'var(--rf-font-mono)', color: 'var(--rf-mint)' }}>{log.id}</td>
-                    <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: 'var(--rf-cream)' }}>{log.actor_name}</td>
-                    <td style={{ padding: '0.75rem 1rem' }}><span className="rf-badge rf-badge-blue rf-text-xs">{log.action}</span></td>
-                    <td style={{ padding: '0.75rem 1rem', color: 'var(--rf-slate-300)' }}>{log.object_type} ({log.object_id})</td>
-                    <td style={{ padding: '0.75rem 1rem', color: 'var(--rf-slate-300)' }}>{log.reason}</td>
-                    <td style={{ padding: '0.75rem 1rem', color: 'var(--rf-slate-400)' }}>{new Date(log.timestamp).toLocaleTimeString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {/* 8. AIRFEE TOKEN VERIFICATION & GRANTING TAB */}
-      {activeTab === 'AIRFEE' && (
-        <div>
-          {/* Header Policy Callout */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, rgba(36, 87, 255, 0.12) 0%, rgba(54, 224, 160, 0.08) 100%)',
-              border: '1px solid rgba(54, 224, 160, 0.3)',
-              borderRadius: 'var(--rf-radius-lg)',
-              padding: '1.5rem',
-              marginBottom: '2rem'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(54, 224, 160, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Ticket size={20} color="var(--rf-mint)" />
-              </div>
-              <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                  Airfee Token Manual Verification & Granting Console
-                </h3>
-                <span style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)' }}>
-                  Scouts earn Airfee Tokens strictly by introducing paying clients who register and hire African talent.
-                </span>
-              </div>
-            </div>
-            <div style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', lineHeight: 1.5, marginTop: '0.5rem', background: 'rgba(0,0,0,0.25)', padding: '0.75rem 1rem', borderRadius: 'var(--rf-radius-md)' }}>
-              <strong>Verification Standard:</strong> Admin must confirm that the <strong>Hiring Manager's Name</strong> and <strong>Business Name</strong> submitted by the Scout match the registered profile on Refeir, and that the client has <strong>successfully funded and closed a deal</strong> with a talent. If the client did not register or hire, no token is issued.
-            </div>
-          </div>
-
-          {/* Quick Stats Grid */}
-          <div className="rf-grid-4" style={{ marginBottom: '2rem' }}>
-            <div className="rf-card" style={{ borderColor: 'rgba(54, 224, 160, 0.4)' }}>
-              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-mint)' }}>
-                Ready for Admin Grant
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-mint)', marginTop: '0.25rem' }}>
-                {clientIntroductionsList.filter(i => i.status === 'HIRE_COMPLETED_PENDING_ADMIN').length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)', marginTop: '0.25rem' }}>
-                Deal closed & names matched
-              </div>
-            </div>
-
-            <div className="rf-card">
-              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Awaiting First Hire
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#F4B942', marginTop: '0.25rem' }}>
-                {clientIntroductionsList.filter(i => i.status === 'CLIENT_REGISTERED_AWAITING_HIRE' || i.status === 'PENDING_VERIFICATION').length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                Scout receives nothing yet
-              </div>
-            </div>
-
-            <div className="rf-card">
-              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Tokens Granted to Date
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#7DA2FF', marginTop: '0.25rem' }}>
-                {clientIntroductionsList.filter(i => i.status === 'VERIFIED_GRANTED').length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                Active monthly fee waivers
-              </div>
-            </div>
-
-            <div className="rf-card">
-              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Claims Rejected
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#FF6B6B', marginTop: '0.25rem' }}>
-                {clientIntroductionsList.filter(i => i.status === 'REJECTED').length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                Mismatch or inactivity
-              </div>
-            </div>
-          </div>
-
-          {/* Verification Table Card */}
-          <div className="rf-card" style={{ padding: '2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-              <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                  Client Introductions Verification Queue
-                </h3>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', margin: '0.25rem 0 0 0' }}>
-                  Review submitted names against registered profiles and completed milestone escrow settlements.
-                </p>
-              </div>
-
-              {/* Status Filter */}
-              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                {(['ALL', 'HIRE_COMPLETED_PENDING_ADMIN', 'CLIENT_REGISTERED_AWAITING_HIRE', 'VERIFIED_GRANTED', 'REJECTED'] as const).map(filterKey => (
-                  <button
-                    key={filterKey}
-                    onClick={() => setIntroStatusFilter(filterKey)}
-                    style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      padding: '0.35rem 0.75rem',
-                      borderRadius: '100px',
-                      border: introStatusFilter === filterKey ? '1px solid var(--rf-mint)' : '1px solid var(--rf-navy-border)',
-                      background: introStatusFilter === filterKey ? 'rgba(54, 224, 160, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                      color: introStatusFilter === filterKey ? 'var(--rf-mint)' : 'var(--rf-slate-300)',
+                      backgroundColor: 'rgba(246, 178, 26, 0.12)',
+                      border: '1px solid rgba(246, 178, 26, 0.35)',
                       cursor: 'pointer'
                     }}
                   >
-                    {filterKey === 'ALL' ? 'All Claims' : filterKey === 'HIRE_COMPLETED_PENDING_ADMIN' ? 'Ready for Grant' : filterKey === 'CLIENT_REGISTERED_AWAITING_HIRE' ? 'Awaiting Hire' : filterKey === 'VERIFIED_GRANTED' ? 'Granted' : 'Rejected'}
-                  </button>
-                ))}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <Award size={18} color="#B45309" />
+                      <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
+                        {pendingPioneersCount} Pioneer Applications awaiting admissions decision
+                      </span>
+                    </div>
+                    <span style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-leaf-green)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                      Review Pioneers <ArrowRight size={14} />
+                    </span>
+                  </div>
+                )}
+
+                {pendingKycCount > 0 && (
+                  <div
+                    onClick={() => setActiveTab('VERIFICATIONS')}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '0.85rem 1.25rem',
+                      borderRadius: 'var(--rf-radius-md)',
+                      backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                      border: '1px solid rgba(46, 125, 50, 0.3)',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <BadgeCheck size={18} color="var(--rf-leaf-green)" />
+                      <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
+                        {pendingKycCount} Identity Verification requests pending document check
+                      </span>
+                    </div>
+                    <span style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-leaf-green)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                      Review KYC <ArrowRight size={14} />
+                    </span>
+                  </div>
+                )}
               </div>
-            </div>
+            )}
 
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.8125rem' }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid var(--rf-navy-border)', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontSize: '0.6875rem', fontWeight: 700 }}>
-                    <th style={{ padding: '0.75rem 1rem' }}>Scout Details</th>
-                    <th style={{ padding: '0.75rem 1rem' }}>Submitted Client & Business</th>
-                    <th style={{ padding: '0.75rem 1rem' }}>Refeir Registered Profile</th>
-                    <th style={{ padding: '0.75rem 1rem' }}>Project Deal Status</th>
-                    <th style={{ padding: '0.75rem 1rem' }}>Verification State</th>
-                    <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Admin Verification Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {clientIntroductionsList
-                    .filter(item => introStatusFilter === 'ALL' || item.status === introStatusFilter)
-                    .map(intro => {
-                      const isReadyToGrant = intro.status === 'HIRE_COMPLETED_PENDING_ADMIN';
-                      const isAlreadyGranted = intro.status === 'VERIFIED_GRANTED';
-                      const isRejected = intro.status === 'REJECTED';
-                      const isNameMatched = intro.registered_client_name && intro.client_contact_name.toLowerCase().includes(intro.registered_client_name.toLowerCase().split(' ')[0]);
-
-                      return (
-                        <tr key={intro.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                          {/* Scout */}
-                          <td style={{ padding: '1rem' }}>
-                            <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{intro.scout_name}</div>
-                            <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', fontFamily: 'var(--rf-font-mono)' }}>
-                              Code: {intro.referral_link_code}
-                            </div>
-                          </td>
-
-                          {/* Submitted Details */}
-                          <td style={{ padding: '1rem' }}>
-                            <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{intro.client_contact_name}</div>
-                            <div style={{ fontSize: '0.75rem', color: '#7DA2FF', fontWeight: 600 }}>{intro.company_name}</div>
-                            {intro.client_email && (
-                              <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>{intro.client_email}</div>
-                            )}
-                          </td>
-
-                          {/* Refeir Profile Match */}
-                          <td style={{ padding: '1rem' }}>
-                            {intro.has_registered ? (
-                              <div>
-                                <div style={{ fontWeight: 700, color: 'var(--rf-cream)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                                  <span>{intro.registered_client_name}</span>
-                                  {isNameMatched && (
-                                    <span className="rf-badge rf-badge-mint rf-text-xs" style={{ padding: '0.1rem 0.4rem' }}>
-                                      Match Confirmed
-                                    </span>
-                                  )}
-                                </div>
-                                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)' }}>
-                                  {intro.registered_company_name || 'Individual Client'}
-                                </div>
-                              </div>
-                            ) : (
-                              <span className="rf-badge rf-badge-warning rf-text-xs">
-                                Client Not Registered Yet
-                              </span>
-                            )}
-                          </td>
-
-                          {/* Project Deal */}
-                          <td style={{ padding: '1rem' }}>
-                            {intro.has_closed_deal ? (
-                              <div>
-                                <div style={{ color: 'var(--rf-mint)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                                  <CheckCircle2 size={13} />
-                                  <span>Deal Closed ({intro.deal_amount_formatted})</span>
-                                </div>
-                                <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)' }}>
-                                  {intro.deal_project_title}
-                                </div>
-                              </div>
-                            ) : intro.has_registered ? (
-                              <div>
-                                <span style={{ color: '#F4B942', fontWeight: 600, fontSize: '0.75rem' }}>
-                                  Awaiting First Talent Hire
-                                </span>
-                                <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>
-                                  Scout receives nothing until contract is funded
-                                </div>
-                              </div>
-                            ) : (
-                              <span style={{ color: 'var(--rf-slate-500)', fontSize: '0.75rem' }}>
-                                No registration & no project hire
-                              </span>
-                            )}
-                          </td>
-
-                          {/* Verification State */}
-                          <td style={{ padding: '1rem' }}>
-                            {isAlreadyGranted ? (
-                              <span className="rf-badge rf-badge-mint rf-text-xs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                                <Ticket size={12} /> Granted ({intro.granted_token_code})
-                              </span>
-                            ) : isReadyToGrant ? (
-                              <span className="rf-badge rf-badge-blue rf-text-xs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                                <ShieldCheck size={12} /> Ready for Admin Grant
-                              </span>
-                            ) : isRejected ? (
-                              <span className="rf-badge rf-badge-error rf-text-xs">
-                                Claim Rejected
-                              </span>
-                            ) : (
-                              <span className="rf-badge rf-badge-warning rf-text-xs">
-                                Pending Client Action
-                              </span>
-                            )}
-                            {intro.admin_notes && (
-                              <div style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem', maxWidth: '200px' }}>
-                                {intro.admin_notes}
-                              </div>
-                            )}
-                          </td>
-
-                          {/* Action Buttons */}
-                          <td style={{ padding: '1rem', textAlign: 'right' }}>
-                            <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
-                              {isReadyToGrant && (
-                                <button
-                                  onClick={() => {
-                                    approveAndGrantAirfeeToken(intro.id);
-                                    confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
-                                    addAdminNotification(
-                                      'Airfee Token Awarded',
-                                      `Granted Monthly 0% Airfee waiver token to Scout ${intro.scout_name} for verified introduction of ${intro.client_contact_name} (${intro.company_name}).`,
-                                      'ESCROW',
-                                      'AIRFEE'
-                                    );
-                                    showToast(
-                                      'Airfee Token Granted!',
-                                      `Token granted to Scout ${intro.scout_name}. 2% Airfee waived for August 2026.`,
-                                      'SUCCESS'
-                                    );
-                                  }}
-                                  className="rf-btn rf-btn-mint rf-btn-sm"
-                                  style={{ fontWeight: 800, gap: '0.35rem' }}
-                                >
-                                  <Ticket size={13} />
-                                  <span>Confirm & Award Token</span>
-                                </button>
-                              )}
-
-                              {!isAlreadyGranted && !isRejected && (
-                                <button
-                                  onClick={() => setRejectingIntroId(intro.id)}
-                                  className="rf-btn rf-btn-secondary rf-btn-sm"
-                                  style={{ color: '#FF6B6B', borderColor: 'rgba(255, 107, 107, 0.3)', padding: '0.35rem 0.65rem' }}
-                                >
-                                  <XCircle size={13} />
-                                  <span>Reject</span>
-                                </button>
-                              )}
-
-                              {isAlreadyGranted && (
-                                <span style={{ fontSize: '0.75rem', color: 'var(--rf-mint)', fontWeight: 700 }}>
-                                  ✓ Token Active
-                                </span>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 11. REFEIR PIONEER APPLICATIONS MANAGEMENT TAB */}
-      {activeTab === 'PIONEERS' && (
-        <div>
-          {/* Top Metric Cards */}
-          <div className="rf-grid-4" style={{ marginBottom: '2rem' }}>
-            <div className="rf-card">
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Total Applications
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
-                {pioneerAppsList.length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: '#18FC5C', marginTop: '0.25rem' }}>
-                Pan-African Pioneer Program
-              </div>
-            </div>
-
-            <div className="rf-card">
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Pending Review
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#FED072', marginTop: '0.25rem' }}>
-                {pioneerAppsList.filter(p => p.status === 'PENDING').length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                Awaiting Admissions Decision
-              </div>
-            </div>
-
-            <div className="rf-card">
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Accepted Pioneers
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#18FC5C', marginTop: '0.25rem' }}>
-                {pioneerAppsList.filter(p => p.status === 'ACCEPTED').length}
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                Unlocked WhatsApp Community
-              </div>
-            </div>
-
-            <div className="rf-card">
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Founding 100 Enrolled
-              </span>
-              <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#FED072', marginTop: '0.25rem' }}>
-                {pioneerAppsList.filter(p => p.is_founding_100 && p.status === 'ACCEPTED').length} / 100
-              </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-mint)', marginTop: '0.25rem' }}>
-                {100 - pioneerAppsList.filter(p => p.is_founding_100 && p.status === 'ACCEPTED').length} spots remaining
-              </div>
-            </div>
-          </div>
-
-          {/* Filter & Search Bar */}
-          <div className="rf-card" style={{ marginBottom: '1.5rem', padding: '1.25rem' }}>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', gap: '0.75rem', flex: 1, minWidth: '280px' }}>
-                <div style={{ position: 'relative', flex: 1 }}>
-                  <Search size={16} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--rf-slate-400)' }} />
-                  <input
-                    type="text"
-                    className="rf-input"
-                    placeholder="Search by name, email, WhatsApp, ID, or skills..."
-                    value={pioneerSearchQuery}
-                    onChange={e => setPioneerSearchQuery(e.target.value)}
-                    style={{ paddingLeft: '2.25rem', fontSize: '0.875rem' }}
-                  />
+            {/* 4 Key KPI Metrics Cards */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', marginBottom: '2rem' }}>
+              <div className="rf-admin-card">
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                  Total Africa GMV
+                </span>
+                <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
+                  ₦48.6M
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', marginTop: '0.25rem', fontWeight: 600 }}>
+                  +32% month-over-month
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <select
-                  className="rf-select"
-                  value={pioneerDivisionFilter}
-                  onChange={e => setPioneerDivisionFilter(e.target.value)}
-                  style={{ fontSize: '0.8125rem' }}
-                >
-                  <option value="ALL">All Divisions</option>
-                  <option value="TECH_PRODUCT">Tech & Product</option>
-                  <option value="CREATIVE">Creative</option>
-                  <option value="GROWTH">Growth</option>
-                  <option value="BUSINESS">Business</option>
-                  <option value="COMMUNITY">Community</option>
-                  <option value="RESEARCH_TESTING">Research & Testing</option>
-                </select>
+              <div className="rf-admin-card">
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                  Platform Protection Fees
+                </span>
+                <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', marginTop: '0.25rem' }}>
+                  ₦2.43M
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                  {platformSettings.platform_fee_percent}% client protection fee
+                </div>
+              </div>
 
-                <select
-                  className="rf-select"
-                  value={pioneerStatusFilter}
-                  onChange={e => setPioneerStatusFilter(e.target.value)}
-                  style={{ fontSize: '0.8125rem' }}
-                >
-                  <option value="ALL">All Statuses</option>
-                  <option value="PENDING">Pending Review</option>
-                  <option value="REVIEWING">In Review</option>
-                  <option value="ACCEPTED">Accepted</option>
-                  <option value="WAITLISTED">Waitlisted</option>
-                  <option value="REJECTED">Rejected</option>
-                </select>
+              <div className="rf-admin-card">
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                  Scout Rewards Distributed
+                </span>
+                <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#38BDF8', marginTop: '0.25rem' }}>
+                  ₦4.86M
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                  Paid to Scouts across Africa
+                </div>
+              </div>
 
-                <select
-                  className="rf-select"
-                  value={pioneerCountryFilter}
-                  onChange={e => setPioneerCountryFilter(e.target.value)}
-                  style={{ fontSize: '0.8125rem' }}
+              <div className="rf-admin-card">
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                  Referral Conversions
+                </span>
+                <div style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
+                  {referralsList.length} Referrals
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', marginTop: '0.25rem', fontWeight: 600 }}>
+                  24.2% hire conversion
+                </div>
+              </div>
+            </div>
+
+            {/* Connected Workspaces Quick Launch */}
+            <div className="rf-admin-card" style={{ marginBottom: '2rem' }}>
+              <div style={{ marginBottom: '1.25rem' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  Role Workspaces Quick Launch
+                </h3>
+                <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                  Inspect and preview live interfaces across Scout, Client, Talent, and Treasury roles.
+                </p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+                {connectedDashboards.map(dash => {
+                  const Icon = dash.icon;
+                  return (
+                    <button
+                      key={dash.path}
+                      onClick={() => onNavigate(dash.path)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '0.85rem',
+                        padding: '1rem',
+                        borderRadius: 'var(--rf-radius-md)',
+                        backgroundColor: 'var(--rf-bg-surface)',
+                        border: '1px solid var(--rf-bg-card-border)',
+                        textAlign: 'left',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '36px',
+                          height: '36px',
+                          borderRadius: '8px',
+                          backgroundColor: 'var(--rf-bg-deep)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0
+                        }}
+                      >
+                        <Icon size={18} color={dash.color} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: '0.6875rem', fontWeight: 800, color: dash.color, textTransform: 'uppercase' }}>
+                          {dash.role}
+                        </div>
+                        <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--rf-cream)', marginTop: '2px' }}>
+                          {dash.title}
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '3px', lineHeight: 1.4 }}>
+                          {dash.desc}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Recent Platform Governance Activity */}
+            <div className="rf-admin-card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  Recent Governance Activity
+                </h3>
+                <button
+                  onClick={() => setActiveTab('SETTINGS')}
+                  style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-leaf-green)', background: 'none', border: 'none', cursor: 'pointer' }}
                 >
-                  <option value="ALL">All Countries</option>
-                  {AFRICAN_COUNTRIES.map(c => <option key={c.iso_code} value={c.name}>{c.name}</option>)}
-                </select>
+                  View Full Audit Logs →
+                </button>
+              </div>
+
+              <div className="rf-admin-table-container">
+                <table className="rf-admin-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Action</th>
+                      <th>Admin / Actor</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {auditLogs.slice(0, 5).map(log => (
+                      <tr key={log.id}>
+                        <td style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+                          {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </td>
+                        <td style={{ fontWeight: 600 }}>{log.action}</td>
+                        <td style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem' }}>{log.actor_name || 'Admin'}</td>
+                        <td>
+                          <span className="rf-badge rf-badge-mint rf-text-xs">
+                            <Check size={11} /> Logged
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
+        )}
 
-          {/* Applications Table */}
-          <div className="rf-card" style={{ padding: 0, overflow: 'hidden' }}>
-            <div style={{ padding: '1.25rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                  Pioneer Recruitment Applications
-                </h3>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.25rem', margin: 0 }}>
-                  Review submitted applications, assign Pioneer divisions, grant Founding 100 statuses, and issue community invites.
-                </p>
+        {/* ========================================================
+            TAB 2: PIONEER APPLICATIONS
+            ======================================================== */}
+        {activeTab === 'PIONEERS' && (
+          <div>
+            {/* Filter & Search Bar */}
+            <div className="rf-admin-card" style={{ marginBottom: '1.25rem', padding: '1rem 1.25rem' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ position: 'relative', flex: 1, minWidth: '240px' }}>
+                  <Search size={15} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--rf-slate-400)' }} />
+                  <input
+                    type="text"
+                    className="rf-input"
+                    placeholder="Search applicant name, email, WhatsApp, or skills..."
+                    value={pioneerSearchQuery}
+                    onChange={e => setPioneerSearchQuery(e.target.value)}
+                    style={{ paddingLeft: '2.2rem', fontSize: '0.8125rem' }}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <select
+                    className="rf-select"
+                    value={pioneerDivisionFilter}
+                    onChange={e => setPioneerDivisionFilter(e.target.value)}
+                    style={{ fontSize: '0.8125rem', width: 'auto' }}
+                  >
+                    <option value="ALL">All Divisions</option>
+                    <option value="TECH_PRODUCT">Tech & Product</option>
+                    <option value="CREATIVE">Creative</option>
+                    <option value="GROWTH">Growth</option>
+                    <option value="BUSINESS">Business</option>
+                    <option value="COMMUNITY">Community</option>
+                  </select>
+
+                  <select
+                    className="rf-select"
+                    value={pioneerStatusFilter}
+                    onChange={e => setPioneerStatusFilter(e.target.value)}
+                    style={{ fontSize: '0.8125rem', width: 'auto' }}
+                  >
+                    <option value="ALL">All Statuses</option>
+                    <option value="PENDING">Pending Review</option>
+                    <option value="REVIEWING">In Review</option>
+                    <option value="ACCEPTED">Accepted</option>
+                    <option value="WAITLISTED">Waitlisted</option>
+                    <option value="REJECTED">Rejected</option>
+                  </select>
+
+                  <select
+                    className="rf-select"
+                    value={pioneerCountryFilter}
+                    onChange={e => setPioneerCountryFilter(e.target.value)}
+                    style={{ fontSize: '0.8125rem', width: 'auto' }}
+                  >
+                    <option value="ALL">All Countries</option>
+                    {AFRICAN_COUNTRIES.map(c => (
+                      <option key={c.iso_code} value={c.name}>{c.name}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <span style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', fontWeight: 600 }}>
-                Showing {pioneerAppsList.filter(app => {
-                  const matchesSearch = !pioneerSearchQuery ||
-                    app.full_name.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
-                    app.email.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
-                    app.application_number.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
-                    app.whatsapp_number.includes(pioneerSearchQuery) ||
-                    (app.skills && app.skills.toLowerCase().includes(pioneerSearchQuery.toLowerCase()));
-                  const matchesDivision = pioneerDivisionFilter === 'ALL' || app.primary_division === pioneerDivisionFilter;
-                  const matchesStatus = pioneerStatusFilter === 'ALL' || app.status === pioneerStatusFilter;
-                  const matchesCountry = pioneerCountryFilter === 'ALL' || app.country === pioneerCountryFilter;
-                  return matchesSearch && matchesDivision && matchesStatus && matchesCountry;
-                }).length} applications
-              </span>
             </div>
 
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
+            {/* Applications Table */}
+            <div className="rf-admin-table-container">
+              <table className="rf-admin-table">
                 <thead>
-                  <tr style={{ background: 'rgba(255, 255, 255, 0.02)', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>APP # & DATE</th>
-                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>APPLICANT</th>
-                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>COUNTRY</th>
-                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>DIVISION & ROLES</th>
-                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>FOUNDING / ID</th>
-                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>STATUS</th>
-                    <th style={{ padding: '0.875rem 1rem', color: 'var(--rf-slate-400)', fontWeight: 700, textAlign: 'right' }}>ACTION</th>
+                  <tr>
+                    <th>App #</th>
+                    <th>Applicant</th>
+                    <th>Country</th>
+                    <th>Division</th>
+                    <th>Cohort</th>
+                    <th>Status</th>
+                    <th style={{ textAlign: 'right' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {pioneerAppsList
                     .filter(app => {
-                      const matchesSearch = !pioneerSearchQuery ||
+                      const matchQuery = !pioneerSearchQuery ||
                         app.full_name.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
                         app.email.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
                         app.application_number.toLowerCase().includes(pioneerSearchQuery.toLowerCase()) ||
-                        app.whatsapp_number.includes(pioneerSearchQuery) ||
                         (app.skills && app.skills.toLowerCase().includes(pioneerSearchQuery.toLowerCase()));
-                      const matchesDivision = pioneerDivisionFilter === 'ALL' || app.primary_division === pioneerDivisionFilter;
-                      const matchesStatus = pioneerStatusFilter === 'ALL' || app.status === pioneerStatusFilter;
-                      const matchesCountry = pioneerCountryFilter === 'ALL' || app.country === pioneerCountryFilter;
-                      return matchesSearch && matchesDivision && matchesStatus && matchesCountry;
+                      const matchDivision = pioneerDivisionFilter === 'ALL' || app.primary_division === pioneerDivisionFilter;
+                      const matchStatus = pioneerStatusFilter === 'ALL' || app.status === pioneerStatusFilter;
+                      const matchCountry = pioneerCountryFilter === 'ALL' || app.country === pioneerCountryFilter;
+                      return matchQuery && matchDivision && matchStatus && matchCountry;
                     })
                     .map(app => {
-                      const statusColor = 
-                        app.status === 'ACCEPTED' ? '#18FC5C' :
-                        app.status === 'PENDING' ? '#FED072' :
-                        app.status === 'REVIEWING' ? '#38BDF8' :
-                        app.status === 'WAITLISTED' ? '#C084FC' : '#FF6B6B';
+                      const isPending = app.status === 'PENDING';
+                      const isAccepted = app.status === 'ACCEPTED';
 
                       return (
-                        <tr key={app.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)', transition: 'background 0.15s' }}>
-                          <td style={{ padding: '1rem' }}>
-                            <div style={{ fontWeight: 800, fontFamily: 'var(--rf-font-mono)', color: 'var(--rf-cream)', fontSize: '0.8125rem' }}>
-                              {app.application_number}
-                            </div>
-                            <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
-                              {new Date(app.created_at).toLocaleDateString()}
-                            </div>
+                        <tr key={app.id}>
+                          <td style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }}>
+                            {app.application_number}
                           </td>
 
-                          <td style={{ padding: '1rem' }}>
-                            <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>
-                              {app.full_name}
-                            </div>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
-                              {app.email} • {app.whatsapp_number}
-                            </div>
+                          <td>
+                            <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{app.full_name}</div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>{app.email}</div>
                           </td>
 
-                          <td style={{ padding: '1rem' }}>
-                            <div style={{ color: 'var(--rf-cream)', fontWeight: 600 }}>
-                              {app.country}
-                            </div>
-                            {app.city && (
-                              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
-                                {app.city}
-                              </div>
-                            )}
-                          </td>
+                          <td style={{ fontWeight: 600 }}>{app.country}</td>
 
-                          <td style={{ padding: '1rem' }}>
-                            <span style={{
-                              display: 'inline-block', padding: '2px 8px', borderRadius: '4px',
-                              background: 'rgba(24, 252, 92, 0.12)', border: '1px solid rgba(24, 252, 92, 0.25)',
-                              color: '#18FC5C', fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '4px'
-                            }}>
-                              {app.primary_division || 'UNASSIGNED'}
+                          <td>
+                            <span
+                              style={{
+                                display: 'inline-block',
+                                padding: '0.15rem 0.5rem',
+                                borderRadius: '4px',
+                                backgroundColor: 'var(--rf-bg-deep)',
+                                border: '1px solid var(--rf-bg-card-border)',
+                                fontSize: '0.72rem',
+                                fontWeight: 700,
+                                textTransform: 'uppercase'
+                              }}
+                            >
+                              {app.primary_division || 'GENERAL'}
                             </span>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)' }}>
-                              {app.roles.join(', ')}
-                            </div>
                           </td>
 
-                          <td style={{ padding: '1rem' }}>
-                            {app.is_founding_100 && (
-                              <span style={{
-                                display: 'inline-flex', alignItems: 'center', gap: '3px',
-                                background: 'rgba(254, 208, 114, 0.15)', color: '#FED072',
-                                padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 800, marginRight: '4px'
-                              }}>
+                          <td>
+                            {app.is_founding_100 ? (
+                              <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#F6B21A' }}>
                                 ★ Founding 100
                               </span>
-                            )}
-                            {app.pioneer_id ? (
-                              <span style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.75rem', color: '#18FC5C', fontWeight: 700 }}>
-                                {app.pioneer_id}
-                              </span>
                             ) : (
-                              <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-500)' }}>—</span>
+                              <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Standard</span>
                             )}
                           </td>
 
-                          <td style={{ padding: '1rem' }}>
-                            <span style={{
-                              display: 'inline-flex', alignItems: 'center', gap: '4px',
-                              padding: '3px 8px', borderRadius: '100px',
-                              background: `${statusColor}18`, border: `1px solid ${statusColor}44`,
-                              color: statusColor, fontSize: '0.72rem', fontWeight: 800
-                            }}>
-                              {app.status === 'ACCEPTED' && <CheckCircle2 size={11} />}
-                              {app.status === 'PENDING' && <Clock size={11} />}
+                          <td>
+                            <span
+                              className={`rf-badge ${isAccepted ? 'rf-badge-mint' : isPending ? 'rf-badge-warning' : 'rf-badge-neutral'} rf-text-xs`}
+                              style={{ fontWeight: 800 }}
+                            >
                               {app.status}
                             </span>
                           </td>
 
-                          <td style={{ padding: '1rem', textAlign: 'right' }}>
+                          <td style={{ textAlign: 'right' }}>
                             <button
                               onClick={() => {
                                 setSelectedPioneerApp(app);
                                 setEditingNotes(app.internal_notes || '');
                               }}
                               className="rf-btn rf-btn-secondary rf-btn-sm"
-                              style={{ fontWeight: 800, gap: '0.35rem', borderColor: 'rgba(24, 252, 92, 0.4)', color: '#18FC5C' }}
+                              style={{ gap: '0.3rem', fontSize: '0.75rem', fontWeight: 700 }}
                             >
                               <Eye size={13} />
                               <span>Review</span>
@@ -2750,1123 +1331,564 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
               </table>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* PIONEER APPLICATION REVIEW MODAL */}
-      {selectedPioneerApp && (
-        <div
-          style={{
-            position: 'fixed', inset: 0, background: 'rgba(3, 10, 6, 0.85)',
-            backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', zIndex: 1000, padding: '1.5rem'
-          }}
-          onClick={() => setSelectedPioneerApp(null)}
-        >
-          <div
-            style={{
-              background: 'linear-gradient(145deg, #0D1B14 0%, #06110B 100%)',
-              border: '1px solid rgba(24, 252, 92, 0.35)', borderRadius: 'var(--rf-radius-xl)',
-              maxWidth: '740px', width: '100%', maxHeight: '90vh', overflowY: 'auto',
-              padding: '2rem', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.85)', position: 'relative'
-            }}
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-              <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#18FC5C', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-                  <Award size={14} />
-                  <span>REFEIR PIONEER ADMISSIONS REVIEW</span>
-                </div>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                  {selectedPioneerApp.full_name}
-                </h3>
-                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.35rem', flexWrap: 'wrap' }}>
-                  <span style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.8125rem', color: '#FED072', fontWeight: 700 }}>
-                    {selectedPioneerApp.application_number}
-                  </span>
-                  <span style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem' }}>•</span>
-                  <span style={{ color: 'var(--rf-slate-300)', fontSize: '0.8125rem' }}>
-                    {selectedPioneerApp.email} • {selectedPioneerApp.whatsapp_number}
-                  </span>
-                  <span style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem' }}>•</span>
-                  <span style={{ color: 'var(--rf-slate-300)', fontSize: '0.8125rem' }}>
-                    {selectedPioneerApp.country} {selectedPioneerApp.city ? `(${selectedPioneerApp.city})` : ''}
-                  </span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setSelectedPioneerApp(null)}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: 'var(--rf-slate-300)', borderRadius: '50%', width: '32px', height: '32px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
-                }}
-              >
-                <X size={16} />
-              </button>
+        {/* ========================================================
+            TAB 3: VERIFICATIONS (KYC)
+            ======================================================== */}
+        {activeTab === 'VERIFICATIONS' && (
+          <div>
+            <div className="rf-admin-card" style={{ marginBottom: '1.5rem' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                Identity & Biometric KYC Queue
+              </h3>
+              <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                Review live face captures side-by-side with government IDs to grant Tier 2 Verified Sovereign badges.
+              </p>
             </div>
 
-            {/* Application Data Grid */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                <div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Selected Roles</span>
-                  <div style={{ fontWeight: 700, color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '2px' }}>
-                    {selectedPioneerApp.roles.join(', ')}
-                  </div>
-                </div>
-                <div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Availability</span>
-                  <div style={{ fontWeight: 700, color: '#18FC5C', fontSize: '0.875rem', marginTop: '2px' }}>
-                    {selectedPioneerApp.availability || 'Not specified'}
-                  </div>
-                </div>
-                <div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Discovery Source</span>
-                  <div style={{ fontWeight: 700, color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '2px' }}>
-                    {selectedPioneerApp.discovery_source || 'Direct'}
-                  </div>
-                </div>
-              </div>
+              {kycQueue.map(item => (
+                <div key={item.id} className="rf-admin-card">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
+                          {item.name}
+                        </span>
+                        <span className="rf-badge rf-badge-neutral rf-text-xs">
+                          {item.country}
+                        </span>
+                        <span
+                          className={`rf-badge ${item.status === 'VERIFIED' ? 'rf-badge-mint' : item.status === 'REJECTED' ? 'rf-badge-danger' : 'rf-badge-warning'} rf-text-xs`}
+                          style={{ fontWeight: 800 }}
+                        >
+                          {item.status}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                        {item.role} • Application ID: <strong style={{ color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono)' }}>{item.id}</strong>
+                      </div>
+                    </div>
 
-              {selectedPioneerApp.skills && (
-                <div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>Skills & Tools</span>
-                  <p style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '0.25rem', background: 'rgba(255, 255, 255, 0.03)', padding: '0.75rem', borderRadius: 'var(--rf-radius-sm)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                    {selectedPioneerApp.skills}
-                  </p>
-                </div>
-              )}
-
-              {selectedPioneerApp.portfolio_url && (
-                <div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>Portfolio / GitHub / Link</span>
-                  <div style={{ marginTop: '0.25rem' }}>
-                    <a href={selectedPioneerApp.portfolio_url} target="_blank" rel="noreferrer" style={{ color: '#38BDF8', fontSize: '0.875rem', textDecoration: 'underline', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      {selectedPioneerApp.portfolio_url} <ExternalLink size={13} />
-                    </a>
-                  </div>
-                </div>
-              )}
-
-              {selectedPioneerApp.motivation && (
-                <div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>Why Become a Pioneer?</span>
-                  <p style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '0.25rem', background: 'rgba(255, 255, 255, 0.03)', padding: '0.75rem', borderRadius: 'var(--rf-radius-sm)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                    {selectedPioneerApp.motivation}
-                  </p>
-                </div>
-              )}
-
-              {selectedPioneerApp.contribution && (
-                <div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>What Can They Contribute?</span>
-                  <p style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '0.25rem', background: 'rgba(255, 255, 255, 0.03)', padding: '0.75rem', borderRadius: 'var(--rf-radius-sm)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                    {selectedPioneerApp.contribution}
-                  </p>
-                </div>
-              )}
-
-              {/* Admin Actions Box */}
-              <div style={{ background: 'rgba(24, 252, 92, 0.06)', border: '1px solid rgba(24, 252, 92, 0.25)', borderRadius: 'var(--rf-radius-md)', padding: '1.25rem', marginTop: '0.5rem' }}>
-                <h4 style={{ fontSize: '0.9375rem', fontWeight: 800, color: '#18FC5C', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Admissions Action & Decision
-                </h4>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1rem' }}>
-                  <div className="rf-form-group">
-                    <label className="rf-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
-                      Decision Status
-                    </label>
-                    <select
-                      className="rf-select"
-                      value={selectedPioneerApp.status}
-                      onChange={e => {
-                        const newStatus = e.target.value as any;
-                        const updated = { ...selectedPioneerApp, status: newStatus };
-                        setSelectedPioneerApp(updated);
-                        setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
-                        if (isSupabaseConfigured) {
-                          supabase.from('pioneer_applications').update({ status: newStatus }).eq('id', selectedPioneerApp.id);
-                        }
-                      }}
-                      style={{ fontSize: '0.875rem' }}
-                    >
-                      <option value="PENDING">PENDING</option>
-                      <option value="REVIEWING">REVIEWING</option>
-                      <option value="ACCEPTED">ACCEPTED</option>
-                      <option value="WAITLISTED">WAITLISTED</option>
-                      <option value="REJECTED">REJECTED</option>
-                    </select>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--rf-leaf-green)' }}>
+                        Match Score: {item.match_confidence}%
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>
+                        Document Validated
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="rf-form-group">
-                    <label className="rf-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
-                      Assigned Division
-                    </label>
-                    <select
-                      className="rf-select"
-                      value={selectedPioneerApp.primary_division || 'TECH_PRODUCT'}
-                      onChange={e => {
-                        const newDiv = e.target.value;
-                        const updated = { ...selectedPioneerApp, primary_division: newDiv };
-                        setSelectedPioneerApp(updated);
-                        setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
-                        if (isSupabaseConfigured) {
-                          supabase.from('pioneer_applications').update({ primary_division: newDiv }).eq('id', selectedPioneerApp.id);
-                        }
-                      }}
-                      style={{ fontSize: '0.875rem' }}
-                    >
-                      <option value="TECH_PRODUCT">Tech & Product</option>
-                      <option value="CREATIVE">Creative</option>
-                      <option value="GROWTH">Growth</option>
-                      <option value="BUSINESS">Business</option>
-                      <option value="COMMUNITY">Community</option>
-                      <option value="RESEARCH_TESTING">Research & Testing</option>
-                    </select>
+                  {/* Side by side comparison */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
+                    {/* ID Document Photo */}
+                    <div className="rf-admin-box-subtle">
+                      <div style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-slate-400)', marginBottom: '0.4rem' }}>
+                        {item.id_type} ({item.doc_number})
+                      </div>
+                      <div style={{ height: '140px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--rf-bg-card-border)' }}>
+                        <img src={item.id_photo} alt="ID Document" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      </div>
+                    </div>
+
+                    {/* Live Captured Face */}
+                    <div className="rf-admin-box-subtle">
+                      <div style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-leaf-green)', marginBottom: '0.4rem' }}>
+                        Live Face Capture
+                      </div>
+                      <div style={{ height: '140px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--rf-leaf-green)' }}>
+                        <img src={item.face_capture} alt="Face Snapshot" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      </div>
+                    </div>
+
+                    {/* Details Summary */}
+                    <div className="rf-admin-box-subtle" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '0.8125rem', gap: '0.35rem' }}>
+                      <div>
+                        <span style={{ color: 'var(--rf-slate-400)' }}>Legal Name: </span>
+                        <strong style={{ color: 'var(--rf-cream)' }}>{item.legal_name_on_doc}</strong>
+                      </div>
+                      <div>
+                        <span style={{ color: 'var(--rf-slate-400)' }}>DOB: </span>
+                        <strong style={{ color: 'var(--rf-cream)' }}>{item.dob}</strong>
+                      </div>
+                      <div>
+                        <span style={{ color: 'var(--rf-slate-400)' }}>ID Number: </span>
+                        <strong style={{ color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono)' }}>{item.doc_number}</strong>
+                      </div>
+                      <div style={{ color: 'var(--rf-leaf-green)', fontWeight: 700, marginTop: '0.25rem' }}>
+                        ✓ Biometric Match Confirmed
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="rf-form-group">
-                    <label className="rf-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
-                      Assigned Pioneer ID
-                    </label>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <input
-                        type="text"
-                        className="rf-input"
-                        placeholder="e.g. PION-042"
-                        value={selectedPioneerApp.pioneer_id || ''}
-                        onChange={e => {
-                          const newId = e.target.value;
-                          const updated = { ...selectedPioneerApp, pioneer_id: newId };
-                          setSelectedPioneerApp(updated);
-                          setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
-                        }}
-                        style={{ fontSize: '0.875rem', fontFamily: 'var(--rf-font-mono)' }}
-                      />
+                  {/* Actions */}
+                  {item.status === 'PENDING' && (
+                    <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
                       <button
                         type="button"
-                        onClick={() => {
-                          const nextNum = Math.floor(100 + Math.random() * 900);
-                          const generated = `PION-${nextNum}`;
-                          const updated = { ...selectedPioneerApp, pioneer_id: generated };
-                          setSelectedPioneerApp(updated);
-                          setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
-                        }}
+                        onClick={() => handleRejectKyc(item.id, item.name)}
                         className="rf-btn rf-btn-secondary rf-btn-sm"
-                        style={{ fontSize: '0.75rem', whiteSpace: 'nowrap' }}
                       >
-                        Auto ID
+                        Request Face Retake
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleApproveKyc(item.id, item.name)}
+                        className="rf-btn rf-btn-primary rf-btn-sm"
+                        style={{ gap: '0.35rem' }}
+                      >
+                        <UserCheck size={14} />
+                        <span>Approve Tier 2 Verified</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            TAB 4: DISPUTES & CLAIMS
+            ======================================================== */}
+        {activeTab === 'DISPUTES' && (
+          <div>
+            <div className="rf-admin-card" style={{ marginBottom: '1.5rem' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                Escrow & Milestone Dispute Arbitration
+              </h3>
+              <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                Inspect disputed milestones, inspect deliverables, and issue final binding payout or refund rulings.
+              </p>
+            </div>
+
+            {disputesList.length > 0 ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
+                {disputesList.map(disp => (
+                  <div key={disp.id} className="rf-admin-card">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      <div>
+                        <span className="rf-badge rf-badge-danger rf-text-xs" style={{ marginBottom: '0.25rem' }}>
+                          {disp.status}
+                        </span>
+                        <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
+                          {disp.project_title} ({disp.id})
+                        </h4>
+                      </div>
+                      <div style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
+                        {formatMoney(disp.disputed_amount)}
+                      </div>
+                    </div>
+
+                    <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', marginBottom: '1rem' }}>
+                      <strong style={{ color: 'var(--rf-cream)' }}>Reason:</strong> {disp.reason} — {disp.description}
+                    </p>
+
+                    <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+                      <button
+                        onClick={() => handleAdminResolveDispute(disp.id, 'RESOLVED_CLIENT', 'Admin issued refund to client upon deliverable review.')}
+                        className="rf-btn rf-btn-secondary rf-btn-sm"
+                        style={{ color: '#EF4444', borderColor: 'rgba(239, 68, 68, 0.4)' }}
+                      >
+                        Refund Client ({formatMoney(disp.disputed_amount)})
+                      </button>
+                      <button
+                        onClick={() => handleAdminResolveDispute(disp.id, 'RESOLVED_TALENT', 'Admin approved payout to talent upon verified work submission.')}
+                        className="rf-btn rf-btn-primary rf-btn-sm"
+                      >
+                        Release Funds to Talent
                       </button>
                     </div>
                   </div>
+                ))}
+              </div>
+            ) : (
+              <div className="rf-admin-card" style={{ textAlign: 'center', padding: '3rem 1.5rem', marginBottom: '2rem' }}>
+                <CheckCircle2 size={32} color="var(--rf-leaf-green)" style={{ margin: '0 auto 0.75rem' }} />
+                <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
+                  No Active Disputes
+                </h4>
+                <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                  All platform client-talent milestones are running smoothly without conflicts.
+                </p>
+              </div>
+            )}
+
+            {/* Client Introductions / Airfee Claims Queue */}
+            <div className="rf-admin-card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                    Client Introduction Airfee Claims
+                  </h3>
+                  <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                    Verify scout introductions that completed a hire to award monthly fee waivers.
+                  </p>
                 </div>
+                <span className="rf-badge rf-badge-mint rf-text-xs">
+                  {clientIntroductionsList.filter(i => i.status === 'HIRE_COMPLETED_PENDING_ADMIN').length} Ready for Grant
+                </span>
+              </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                    <input
-                      type="checkbox"
-                      checked={selectedPioneerApp.is_founding_100}
-                      onChange={e => {
-                        const checked = e.target.checked;
-                        const updated = { ...selectedPioneerApp, is_founding_100: checked };
-                        setSelectedPioneerApp(updated);
-                        setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
-                        if (isSupabaseConfigured) {
-                          supabase.from('pioneer_applications').update({ is_founding_100: checked }).eq('id', selectedPioneerApp.id);
-                        }
-                      }}
-                    />
-                    <span style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#FED072' }}>
-                      ★ Designate as Founding 100 Pioneer
-                    </span>
-                  </label>
-                </div>
-
-                <div className="rf-form-group">
-                  <label className="rf-label" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
-                    Internal Admissions Notes
-                  </label>
-                  <textarea
-                    rows={2}
-                    className="rf-input"
-                    placeholder="Add confidential admissions notes..."
-                    value={editingNotes}
-                    onChange={e => setEditingNotes(e.target.value)}
-                    style={{ fontSize: '0.8125rem' }}
-                  />
-                </div>
-
-                {/* Accept & Trigger Onboarding CTA */}
-                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.25rem' }}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const updated = { ...selectedPioneerApp, internal_notes: editingNotes };
-                      setSelectedPioneerApp(updated);
-                      setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
-                      if (isSupabaseConfigured) {
-                        supabase.from('pioneer_applications').update({ internal_notes: editingNotes }).eq('id', selectedPioneerApp.id);
-                      }
-                      showToast('Notes Saved', 'Internal application notes updated.', 'SUCCESS');
-                    }}
-                    className="rf-btn rf-btn-secondary"
-                    style={{ fontSize: '0.8125rem', fontWeight: 700 }}
-                  >
-                    Save Notes
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const generatedId = selectedPioneerApp.pioneer_id || `PION-${Math.floor(100 + Math.random() * 900)}`;
-                      const updated: PioneerApplication = {
-                        ...selectedPioneerApp,
-                        status: 'ACCEPTED',
-                        pioneer_id: generatedId,
-                        internal_notes: editingNotes
-                      };
-                      setSelectedPioneerApp(updated);
-                      setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
-
-                      if (isSupabaseConfigured) {
-                        supabase.from('pioneer_applications').update({
-                          status: 'ACCEPTED',
-                          pioneer_id: generatedId,
-                          internal_notes: editingNotes
-                        }).eq('id', selectedPioneerApp.id);
-                      }
-
-                      confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
-                      addAdminNotification(
-                        'Pioneer Accepted!',
-                        `Accepted ${selectedPioneerApp.full_name} (${selectedPioneerApp.application_number}) into ${selectedPioneerApp.primary_division || 'Refeir Pioneers'}. WhatsApp invite access unlocked.`,
-                        'GOVERNANCE',
-                        'PIONEERS'
-                      );
-                      showToast(
-                        'Pioneer Approved!',
-                        `${selectedPioneerApp.full_name} is now an official Refeir Pioneer (${generatedId}).`,
-                        'SUCCESS'
-                      );
-                    }}
-                    className="rf-btn rf-btn-mint"
-                    style={{ fontWeight: 900, fontSize: '0.8125rem', gap: '0.4rem', background: '#18FC5C', color: '#1A243D' }}
-                  >
-                    <CheckCircle2 size={15} />
-                    <span>Accept & Grant Pioneer Access</span>
-                  </button>
-                </div>
+              <div className="rf-admin-table-container">
+                <table className="rf-admin-table">
+                  <thead>
+                    <tr>
+                      <th>Scout</th>
+                      <th>Client Submitted</th>
+                      <th>Status</th>
+                      <th style={{ textAlign: 'right' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {clientIntroductionsList.map(intro => (
+                      <tr key={intro.id}>
+                        <td>
+                          <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{intro.scout_name}</div>
+                          <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>Code: {intro.referral_link_code}</div>
+                        </td>
+                        <td>
+                          <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{intro.client_contact_name}</div>
+                          <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>{intro.company_name}</div>
+                        </td>
+                        <td>
+                          <span className={`rf-badge ${intro.status === 'VERIFIED_GRANTED' ? 'rf-badge-mint' : intro.status === 'HIRE_COMPLETED_PENDING_ADMIN' ? 'rf-badge-warning' : 'rf-badge-neutral'} rf-text-xs`}>
+                            {intro.status}
+                          </span>
+                        </td>
+                        <td style={{ textAlign: 'right' }}>
+                          {intro.status === 'HIRE_COMPLETED_PENDING_ADMIN' ? (
+                            <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
+                              <button
+                                onClick={() => setRejectingIntroId(intro.id)}
+                                className="rf-btn rf-btn-secondary rf-btn-sm"
+                                style={{ color: '#EF4444', fontSize: '0.75rem' }}
+                              >
+                                Reject
+                              </button>
+                              <button
+                                onClick={() => {
+                                  approveAndGrantAirfeeToken(intro.id);
+                                  showToast('Token Granted', `Airfee Token granted to ${intro.scout_name}.`, 'SUCCESS');
+                                }}
+                                className="rf-btn rf-btn-primary rf-btn-sm"
+                                style={{ fontSize: '0.75rem' }}
+                              >
+                                Grant Token
+                              </button>
+                            </div>
+                          ) : (
+                            <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Resolved</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* REJECT CLAIM MODAL */}
-      {rejectingIntroId && (
-        <div className="rf-modal-backdrop" onClick={() => setRejectingIntroId(null)}>
-          <div className="rf-modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '480px', padding: '2rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', color: '#FF6B6B' }}>
-              <XCircle size={22} />
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                Reject Airfee Token Claim
-              </h3>
-            </div>
-
-            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginBottom: '1.25rem' }}>
-              Specify the reason why this client introduction claim does not qualify for an Airfee Token award.
-            </p>
-
-            <div className="rf-form-group">
-              <label className="rf-label">Rejection Reason</label>
-              <select
-                className="rf-select"
-                value={rejectReason}
-                onChange={e => setRejectReason(e.target.value)}
-                style={{ marginBottom: '0.75rem' }}
-              >
-                <option value="Client did not complete a project hire or name mismatch on registered profile.">
-                  Client did not complete a project hire or name mismatch
-                </option>
-                <option value="Hiring Manager Name & Business Name do not match registered client account.">
-                  Hiring Manager Name & Business Name do not match
-                </option>
-                <option value="Local client never registered or completed onboarding on Refeir.">
-                  Local client never registered on Refeir
-                </option>
-                <option value="Disputed or cancelled project escrow transaction.">
-                  Disputed or cancelled project escrow transaction
-                </option>
-              </select>
-
-              <textarea
-                className="rf-input"
-                rows={3}
-                value={rejectReason}
-                onChange={e => setRejectReason(e.target.value)}
-                placeholder="Detailed rejection explanation..."
-                style={{ fontSize: '0.8125rem' }}
-              />
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.5rem' }}>
-              <button
-                type="button"
-                onClick={() => setRejectingIntroId(null)}
-                className="rf-btn rf-btn-secondary"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  rejectClientIntroduction(rejectingIntroId, rejectReason);
-                  setRejectingIntroId(null);
-                  showToast('Claim Rejected', 'Client introduction claim rejected and logged to audit trail.', 'INFO');
-                }}
-                className="rf-btn rf-btn-danger"
-                style={{ fontWeight: 800 }}
-              >
-                Confirm Rejection
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* MODAL 1: ADD WORKER / TEAM MEMBER MODAL */}
-      {showAddTeamModal && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(3, 10, 6, 0.85)',
-            backdropFilter: 'blur(10px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 1000,
-            padding: '1.5rem'
-          }}
-          onClick={() => setShowAddTeamModal(false)}
-        >
-          <div
-            style={{
-              background: 'linear-gradient(145deg, #07170E 0%, #030F08 100%)',
-              border: '1px solid rgba(102, 187, 42, 0.4)',
-              borderRadius: 'var(--rf-radius-xl)',
-              maxWidth: '650px',
-              width: '100%',
-              maxHeight: '90vh',
-              overflowY: 'auto',
-              padding: '2rem',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8)',
-              position: 'relative'
-            }}
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+        {/* ========================================================
+            TAB 5: COUNTRIES (54)
+            ======================================================== */}
+        {activeTab === 'COUNTRIES' && (
+          <div className="rf-admin-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
               <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-                  <UserPlus size={14} />
-                  <span>STAFF & WORKER PROVISIONING</span>
-                </div>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                  Add Worker / Team Member
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  54 African Sovereign Markets Engine
                 </h3>
-                <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
-                  Assign team members and community managers to help administer the Refeir website and Community Hub.
+                <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                  Enable or restrict local payment rails and marketplace discovery per country in real time.
                 </p>
               </div>
 
-              <button
-                onClick={() => setShowAddTeamModal(false)}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: 'var(--rf-slate-300)',
-                  borderRadius: '50%',
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer'
-                }}
-              >
-                <X size={16} />
-              </button>
-            </div>
-
-            {/* Form */}
-            <form onSubmit={handleAddTeamMemberSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              {/* Row 1: Name & Work Email */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-                <div className="rf-form-group">
-                  <label className="rf-label" style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--rf-cream)' }}>
-                    Full Legal / Worker Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Fatima Zahra"
-                    className="rf-input"
-                    value={newMemberName}
-                    onChange={e => setNewMemberName(e.target.value)}
-                    style={{ fontSize: '0.875rem' }}
-                  />
-                </div>
-
-                <div className="rf-form-group">
-                  <label className="rf-label" style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--rf-cream)' }}>
-                    Work Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="e.g. fatima.zahra@refeir.africa"
-                    className="rf-input"
-                    value={newMemberEmail}
-                    onChange={e => setNewMemberEmail(e.target.value)}
-                    style={{ fontSize: '0.875rem' }}
-                  />
-                </div>
-              </div>
-
-              {/* Row 2: Country / Regional Chapter & Primary Role */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-                <div className="rf-form-group">
-                  <label className="rf-label" style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--rf-cream)' }}>
-                    Assigned Region / Chapter
-                  </label>
-                  <select
-                    className="rf-select"
-                    value={newMemberCountry}
-                    onChange={e => {
-                      setNewMemberCountry(e.target.value);
-                      const found = AFRICAN_COUNTRIES.find(c => e.target.value.includes(c.name));
-                      if (found) setNewMemberCountryIso(found.iso_code);
-                    }}
-                    style={{ fontSize: '0.875rem' }}
-                  >
-                    <option value="Pan-African Sovereign HQ 🌍">Pan-African Sovereign HQ 🌍</option>
-                    {AFRICAN_COUNTRIES.map(country => (
-                      <option key={country.iso_code} value={`${country.name} ${country.iso_code}`}>
-                        {country.name} ({country.iso_code})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="rf-form-group">
-                  <label className="rf-label" style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--rf-cream)' }}>
-                    Primary Role Preset
-                  </label>
-                  <select
-                    className="rf-select"
-                    value={newMemberRole}
-                    onChange={e => handleRolePresetChange(e.target.value as any)}
-                    style={{ fontSize: '0.875rem' }}
-                  >
-                    <option value="COMMUNITY_MANAGER">💬 Community Hub & Ambassador Manager</option>
-                    <option value="CONTENT_EDITOR">🌐 Technical Content & Website Editor</option>
-                    <option value="SUPER_ADMIN">👑 Super Administrator (Full Access)</option>
-                    <option value="DISPUTE_ARBITER">⚖️ Escrow & Milestone Dispute Arbiter</option>
-                    <option value="COMPLIANCE_OFFICER">🛡️ Trust, KYC & Anti-Fraud Officer</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Custom Role Title */}
-              <div className="rf-form-group">
-                <label className="rf-label" style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--rf-cream)' }}>
-                  Displayed Staff Title
-                </label>
+              <div style={{ position: 'relative', width: '260px' }}>
+                <Search size={15} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--rf-slate-400)' }} />
                 <input
                   type="text"
-                  placeholder="e.g. Head of Community Hub & Regional Guilds"
                   className="rf-input"
-                  value={newMemberRoleTitle}
-                  onChange={e => setNewMemberRoleTitle(e.target.value)}
-                  style={{ fontSize: '0.875rem' }}
+                  value={countrySearch}
+                  onChange={e => setCountrySearch(e.target.value)}
+                  placeholder="Search countries or ISO..."
+                  style={{ paddingLeft: '2.2rem', fontSize: '0.8125rem' }}
                 />
               </div>
+            </div>
 
-              {/* Granular Permission Toggles */}
-              <div>
-                <label className="rf-label" style={{ fontWeight: 800, fontSize: '0.8125rem', color: 'var(--rf-leaf-green)', textTransform: 'uppercase', marginBottom: '0.75rem', display: 'block' }}>
-                  Granular Access Permissions
-                </label>
+            <div className="rf-admin-table-container">
+              <table className="rf-admin-table">
+                <thead>
+                  <tr>
+                    <th>Country</th>
+                    <th>ISO</th>
+                    <th>Currency</th>
+                    <th>Status</th>
+                    <th style={{ textAlign: 'right' }}>Admin Toggle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredCountries.map(country => {
+                    const setting = countrySettings[country.id] || { status: country.status };
+                    const isOperational = setting.status === 'FULLY_OPERATIONAL' || setting.status === 'PAYMENTS_ENABLED';
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0.75rem' }}>
-                  {/* Permission 1: Website CMS */}
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: newMemberPermissions.manageWebsite ? 'rgba(56, 189, 248, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: newMemberPermissions.manageWebsite ? '1px solid rgba(56, 189, 248, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={newMemberPermissions.manageWebsite}
-                      onChange={e => setNewMemberPermissions({ ...newMemberPermissions, manageWebsite: e.target.checked })}
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        🌐 Manage Website & CMS
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)', marginTop: '2px' }}>
-                        Publish Blog posts, Tech Blueprints, update FAQs and homepage announcements.
-                      </div>
-                    </div>
-                  </label>
+                    return (
+                      <tr key={country.id}>
+                        <td>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                            <CountryFlag countryIsoOrName={country.iso_code} showName={false} />
+                            <span style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{country.name}</span>
+                          </div>
+                        </td>
 
-                  {/* Permission 2: Community Hub Forum */}
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: newMemberPermissions.manageCommunityHub ? 'rgba(102, 187, 42, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: newMemberPermissions.manageCommunityHub ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={newMemberPermissions.manageCommunityHub}
-                      onChange={e => setNewMemberPermissions({ ...newMemberPermissions, manageCommunityHub: e.target.checked })}
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        💬 Manage Community Hub
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)', marginTop: '2px' }}>
-                        Moderate Refeir Forum, pin key discussions, and delete inappropriate content.
-                      </div>
-                    </div>
-                  </label>
+                        <td style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }}>
+                          {country.iso_code}
+                        </td>
 
-                  {/* Permission 3: Ambassadors */}
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: newMemberPermissions.approveAmbassadors ? 'rgba(246, 178, 26, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: newMemberPermissions.approveAmbassadors ? '1px solid rgba(246, 178, 26, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={newMemberPermissions.approveAmbassadors}
-                      onChange={e => setNewMemberPermissions({ ...newMemberPermissions, approveAmbassadors: e.target.checked })}
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        🏆 Approve City Ambassadors
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)', marginTop: '2px' }}>
-                        Review Ambassador applications and grant official regional badges.
-                      </div>
-                    </div>
-                  </label>
+                        <td style={{ fontWeight: 600 }}>{country.currency_code}</td>
 
-                  {/* Permission 4: Guilds & Events */}
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: newMemberPermissions.manageGuildsEvents ? 'rgba(168, 85, 247, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: newMemberPermissions.manageGuildsEvents ? '1px solid rgba(168, 85, 247, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={newMemberPermissions.manageGuildsEvents}
-                      onChange={e => setNewMemberPermissions({ ...newMemberPermissions, manageGuildsEvents: e.target.checked })}
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        ⚡ Guilds & Hackathons
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)', marginTop: '2px' }}>
-                        Schedule live virtual AMAs, workshops, and manage specialized Guild clubs.
-                      </div>
-                    </div>
-                  </label>
+                        <td>
+                          <span className={`rf-badge ${isOperational ? 'rf-badge-mint' : 'rf-badge-neutral'} rf-text-xs`}>
+                            {setting.status}
+                          </span>
+                        </td>
 
-                  {/* Permission 5: Biometric KYC */}
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: newMemberPermissions.verifyKyc ? 'rgba(102, 187, 42, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: newMemberPermissions.verifyKyc ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={newMemberPermissions.verifyKyc}
-                      onChange={e => setNewMemberPermissions({ ...newMemberPermissions, verifyKyc: e.target.checked })}
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        🛡️ Biometric KYC Queue
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)', marginTop: '2px' }}>
-                        Audit 3D face video motions and government document authenticity.
-                      </div>
-                    </div>
-                  </label>
-
-                  {/* Permission 6: Dispute Arbitration */}
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: newMemberPermissions.arbitrateDisputes ? 'rgba(239, 68, 68, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: newMemberPermissions.arbitrateDisputes ? '1px solid rgba(239, 68, 68, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={newMemberPermissions.arbitrateDisputes}
-                      onChange={e => setNewMemberPermissions({ ...newMemberPermissions, arbitrateDisputes: e.target.checked })}
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        ⚖️ Escrow Dispute Arbitration
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)', marginTop: '2px' }}>
-                        Review code deliverables and execute neutral client/talent payouts.
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
-                <button
-                  type="button"
-                  onClick={() => setShowAddTeamModal(false)}
-                  className="rf-btn rf-btn-secondary"
-                  style={{ fontWeight: 700 }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="rf-btn rf-btn-primary"
-                  style={{ fontWeight: 800, gap: '0.45rem' }}
-                >
-                  <UserPlus size={16} />
-                  <span>Provision Worker & Dispatch Invite</span>
-                </button>
-              </div>
-            </form>
+                        <td style={{ textAlign: 'right' }}>
+                          <button
+                            onClick={() => handleCountryToggle(country.id, isOperational ? 'COMING_SOON' : 'FULLY_OPERATIONAL')}
+                            className="rf-btn rf-btn-secondary rf-btn-sm"
+                            style={{
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              color: isOperational ? '#EF4444' : 'var(--rf-leaf-green)',
+                              borderColor: isOperational ? 'rgba(239, 68, 68, 0.4)' : 'var(--rf-leaf-green)'
+                            }}
+                          >
+                            {isOperational ? 'Set Coming Soon' : 'Activate Market'}
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* MODAL 2: EDIT WORKER PERMISSIONS MODAL */}
-      {editingPermissionsMember && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(3, 10, 6, 0.85)',
-            backdropFilter: 'blur(10px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 1000,
-            padding: '1.5rem'
-          }}
-          onClick={() => setEditingPermissionsMember(null)}
-        >
-          <div
-            style={{
-              background: 'linear-gradient(145deg, #07170E 0%, #030F08 100%)',
-              border: '1px solid rgba(102, 187, 42, 0.4)',
-              borderRadius: 'var(--rf-radius-xl)',
-              maxWidth: '620px',
-              width: '100%',
-              maxHeight: '90vh',
-              overflowY: 'auto',
-              padding: '2rem',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8)',
-              position: 'relative'
-            }}
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <img
-                  src={editingPermissionsMember.avatar}
-                  alt={editingPermissionsMember.name}
-                  style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--rf-leaf-green)' }}
-                />
+        {/* ========================================================
+            TAB 6: SETTINGS & TEAM
+            ======================================================== */}
+        {activeTab === 'SETTINGS' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            {/* Platform Economics Form */}
+            <div className="rf-admin-card">
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.25rem' }}>
+                Platform Economics & Escrow Parameters
+              </h3>
+              <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginBottom: '1.5rem' }}>
+                Configure platform fee percentages and funds settlement holding windows.
+              </p>
+
+              <form onSubmit={handleSavePlatformSettings}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+                  <div className="rf-form-group" style={{ margin: 0 }}>
+                    <label className="rf-label">Platform Protection Fee (%)</label>
+                    <input
+                      type="number"
+                      step="0.5"
+                      className="rf-input"
+                      value={platformFee}
+                      onChange={e => setPlatformFee(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="rf-form-group" style={{ margin: 0 }}>
+                    <label className="rf-label">Min Referral Reward (%)</label>
+                    <input
+                      type="number"
+                      step="1"
+                      className="rf-input"
+                      value={minRef}
+                      onChange={e => setMinRef(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="rf-form-group" style={{ margin: 0 }}>
+                    <label className="rf-label">Max Referral Reward (%)</label>
+                    <input
+                      type="number"
+                      step="1"
+                      className="rf-input"
+                      value={maxRef}
+                      onChange={e => setMaxRef(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="rf-form-group" style={{ margin: 0 }}>
+                    <label className="rf-label">Payout Hold Window (Days)</label>
+                    <input
+                      type="number"
+                      className="rf-input"
+                      value={holdDays}
+                      onChange={e => setHoldDays(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" className="rf-btn rf-btn-primary" style={{ gap: '0.4rem', fontWeight: 700 }}>
+                  <Save size={15} />
+                  <span>Save Economics Settings</span>
+                </button>
+              </form>
+            </div>
+
+            {/* Staff & Team RBAC Table */}
+            <div className="rf-admin-card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
                 <div>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
-                    <Sliders size={14} />
-                    <span>MODIFY WORKER PRIVILEGES</span>
-                  </div>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: '0.15rem 0 0' }}>
-                    {editingPermissionsMember.name}
+                  <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                    Staff & Team Access Management
                   </h3>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', fontFamily: 'var(--rf-font-mono)' }}>
-                    {editingPermissionsMember.email} • {editingPermissionsMember.country}
-                  </div>
+                  <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                    Grant role-based administrator access for content editing, community, and compliance.
+                  </p>
                 </div>
+
+                <button
+                  onClick={() => setShowAddTeamModal(true)}
+                  className="rf-btn rf-btn-primary rf-btn-sm"
+                  style={{ gap: '0.35rem', fontWeight: 700 }}
+                >
+                  <PlusCircle size={15} />
+                  <span>Add Team Member</span>
+                </button>
               </div>
 
-              <button
-                onClick={() => setEditingPermissionsMember(null)}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: 'var(--rf-slate-300)',
-                  borderRadius: '50%',
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer'
-                }}
-              >
-                <X size={16} />
-              </button>
+              <div className="rf-admin-table-container">
+                <table className="rf-admin-table">
+                  <thead>
+                    <tr>
+                      <th>Team Member</th>
+                      <th>Role & Scope</th>
+                      <th>2FA</th>
+                      <th>Status</th>
+                      <th style={{ textAlign: 'right' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {teamMembers.map(member => (
+                      <tr key={member.id}>
+                        <td>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                            <img
+                              src={member.avatar}
+                              alt={member.name}
+                              style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }}
+                            />
+                            <div>
+                              <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{member.name}</div>
+                              <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>{member.email}</div>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--rf-cream)' }}>
+                            {member.roleTitle}
+                          </span>
+                        </td>
+
+                        <td>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 700 }}>
+                            <ShieldCheck size={13} />
+                            <span>Enforced</span>
+                          </div>
+                        </td>
+
+                        <td>
+                          <span className={`rf-badge ${member.status === 'ACTIVE' ? 'rf-badge-mint' : 'rf-badge-warning'} rf-text-xs`}>
+                            {member.status}
+                          </span>
+                        </td>
+
+                        <td style={{ textAlign: 'right' }}>
+                          <div style={{ display: 'inline-flex', gap: '0.4rem', alignItems: 'center' }}>
+                            <button
+                              onClick={() => handleToggleWorkerStatus(member.id, member.status)}
+                              className="rf-btn rf-btn-secondary rf-btn-sm"
+                              style={{ fontSize: '0.72rem', padding: '0.25rem 0.5rem' }}
+                            >
+                              {member.status === 'ACTIVE' ? 'Suspend' : 'Activate'}
+                            </button>
+
+                            {member.id !== 'TM-001' && (
+                              <button
+                                onClick={() => handleDeleteWorker(member.id, member.name)}
+                                className="rf-btn rf-btn-secondary rf-btn-sm"
+                                style={{ padding: '0.25rem 0.4rem', color: '#EF4444' }}
+                                title="Delete Member"
+                              >
+                                <Trash2 size={13} />
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            {/* Edit Form */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <div className="rf-form-group">
-                <label className="rf-label" style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--rf-cream)' }}>
-                  Staff Title / Role Label
-                </label>
-                <input
-                  type="text"
-                  className="rf-input"
-                  value={editingPermissionsMember.roleTitle}
-                  onChange={e =>
-                    setEditingPermissionsMember({
-                      ...editingPermissionsMember,
-                      roleTitle: e.target.value
-                    })
-                  }
-                  style={{ fontSize: '0.875rem' }}
-                />
-              </div>
+            {/* Audit Logs Table */}
+            <div className="rf-admin-card">
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.25rem' }}>
+                Immutable Governance Audit Trail
+              </h3>
+              <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginBottom: '1.25rem' }}>
+                Cryptographic tamper-evident operational logs for forensic review.
+              </p>
 
-              <div>
-                <label className="rf-label" style={{ fontWeight: 800, fontSize: '0.8125rem', color: 'var(--rf-leaf-green)', textTransform: 'uppercase', marginBottom: '0.75rem', display: 'block' }}>
-                  Active Module Permissions
-                </label>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.75rem' }}>
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: editingPermissionsMember.permissions.manageWebsite ? 'rgba(56, 189, 248, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: editingPermissionsMember.permissions.manageWebsite ? '1px solid rgba(56, 189, 248, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={editingPermissionsMember.permissions.manageWebsite}
-                      onChange={e =>
-                        setEditingPermissionsMember({
-                          ...editingPermissionsMember,
-                          permissions: {
-                            ...editingPermissionsMember.permissions,
-                            manageWebsite: e.target.checked
-                          }
-                        })
-                      }
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        🌐 Manage Website & CMS
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)' }}>
-                        Blog, Guides, SEO metadata
-                      </div>
-                    </div>
-                  </label>
-
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: editingPermissionsMember.permissions.manageCommunityHub ? 'rgba(102, 187, 42, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: editingPermissionsMember.permissions.manageCommunityHub ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={editingPermissionsMember.permissions.manageCommunityHub}
-                      onChange={e =>
-                        setEditingPermissionsMember({
-                          ...editingPermissionsMember,
-                          permissions: {
-                            ...editingPermissionsMember.permissions,
-                            manageCommunityHub: e.target.checked
-                          }
-                        })
-                      }
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        💬 Manage Community Hub
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)' }}>
-                        Forum moderation, pinned posts
-                      </div>
-                    </div>
-                  </label>
-
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: editingPermissionsMember.permissions.approveAmbassadors ? 'rgba(246, 178, 26, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: editingPermissionsMember.permissions.approveAmbassadors ? '1px solid rgba(246, 178, 26, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={editingPermissionsMember.permissions.approveAmbassadors}
-                      onChange={e =>
-                        setEditingPermissionsMember({
-                          ...editingPermissionsMember,
-                          permissions: {
-                            ...editingPermissionsMember.permissions,
-                            approveAmbassadors: e.target.checked
-                          }
-                        })
-                      }
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        🏆 Approve City Ambassadors
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)' }}>
-                        Vet chapter leadership applications
-                      </div>
-                    </div>
-                  </label>
-
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: editingPermissionsMember.permissions.manageGuildsEvents ? 'rgba(168, 85, 247, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: editingPermissionsMember.permissions.manageGuildsEvents ? '1px solid rgba(168, 85, 247, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={editingPermissionsMember.permissions.manageGuildsEvents}
-                      onChange={e =>
-                        setEditingPermissionsMember({
-                          ...editingPermissionsMember,
-                          permissions: {
-                            ...editingPermissionsMember.permissions,
-                            manageGuildsEvents: e.target.checked
-                          }
-                        })
-                      }
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        ⚡ Guilds & Hackathons
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)' }}>
-                        Host AMAs, meetups & sprints
-                      </div>
-                    </div>
-                  </label>
-
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: editingPermissionsMember.permissions.verifyKyc ? 'rgba(102, 187, 42, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: editingPermissionsMember.permissions.verifyKyc ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={editingPermissionsMember.permissions.verifyKyc}
-                      onChange={e =>
-                        setEditingPermissionsMember({
-                          ...editingPermissionsMember,
-                          permissions: {
-                            ...editingPermissionsMember.permissions,
-                            verifyKyc: e.target.checked
-                          }
-                        })
-                      }
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        🛡️ Biometric KYC Queue
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)' }}>
-                        Approve 3D video liveness & IDs
-                      </div>
-                    </div>
-                  </label>
-
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.75rem',
-                      background: editingPermissionsMember.permissions.arbitrateDisputes ? 'rgba(239, 68, 68, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                      border: editingPermissionsMember.permissions.arbitrateDisputes ? '1px solid rgba(239, 68, 68, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                      borderRadius: 'var(--rf-radius-md)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={editingPermissionsMember.permissions.arbitrateDisputes}
-                      onChange={e =>
-                        setEditingPermissionsMember({
-                          ...editingPermissionsMember,
-                          permissions: {
-                            ...editingPermissionsMember.permissions,
-                            arbitrateDisputes: e.target.checked
-                          }
-                        })
-                      }
-                      style={{ marginTop: '0.2rem' }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                        ⚖️ Dispute Arbitration
-                      </div>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-300)' }}>
-                        Inspect commits & execute refunds
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              {/* Save & Cancel */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
-                <button
-                  type="button"
-                  onClick={() => setEditingPermissionsMember(null)}
-                  className="rf-btn rf-btn-secondary"
-                  style={{ fontWeight: 700 }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSaveEditedPermissions(editingPermissionsMember)}
-                  className="rf-btn rf-btn-primary"
-                  style={{ fontWeight: 800, gap: '0.45rem' }}
-                >
-                  <Save size={16} />
-                  <span>Save Updated Permissions</span>
-                </button>
+              <div className="rf-admin-table-container">
+                <table className="rf-admin-table">
+                  <thead>
+                    <tr>
+                      <th>Event ID</th>
+                      <th>Timestamp</th>
+                      <th>Action</th>
+                      <th>Actor</th>
+                      <th>Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {auditLogs.map(log => (
+                      <tr key={log.id}>
+                        <td style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+                          {log.id}
+                        </td>
+                        <td style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+                          {new Date(log.timestamp).toLocaleString()}
+                        </td>
+                        <td style={{ fontWeight: 700 }}>{log.action}</td>
+                        <td style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem' }}>{log.actor_name || 'System Admin'}</td>
+                        <td style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)' }}>{log.reason || `${log.object_type}: ${log.object_id}`}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
       </div>
 
       {/* 3. SLEEK MINIMALIST PROFESSIONAL ADMIN STATUS BAR */}
-      <footer
-        style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-          background: 'rgba(5, 16, 10, 0.75)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          padding: '1rem 1.5rem',
-          fontSize: '0.75rem',
-          color: 'var(--rf-slate-400)',
-          fontFamily: 'var(--rf-font-mono, monospace)',
-          marginTop: 'auto'
-        }}
-      >
+      <footer className="rf-admin-footer">
         <div
           style={{
             maxWidth: '1440px',
@@ -3879,14 +1901,14 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: '#18FC5C' }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#18FC5C', boxShadow: '0 0 6px #18FC5C' }} />
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--rf-leaf-green)' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)' }} />
               <span>CORE_NODE: OPERATIONAL</span>
             </span>
             <span>•</span>
-            <span>Refeir Pan-African Governance Core v2.4.0</span>
+            <span>Refeir Governance Core v2.4</span>
             <span>•</span>
-            <span>Region: AWS af-south-1 (Lagos Edge)</span>
+            <span>AWS af-south-1 (Lagos Edge)</span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
@@ -3900,7 +1922,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
               style={{
                 background: 'none',
                 border: 'none',
-                color: 'var(--rf-mint)',
+                color: 'var(--rf-leaf-green)',
                 cursor: 'pointer',
                 fontSize: '0.75rem',
                 textDecoration: 'underline',
@@ -3912,6 +1934,466 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
           </div>
         </div>
       </footer>
+
+      {/* ========================================================
+          MODAL: PIONEER APPLICATION REVIEW MODAL (THEME-AWARE)
+          ======================================================== */}
+      {selectedPioneerApp && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            padding: '1rem'
+          }}
+          onClick={() => setSelectedPioneerApp(null)}
+        >
+          <div
+            style={{
+              backgroundColor: 'var(--rf-bg-surface)',
+              border: '1px solid var(--rf-bg-card-border)',
+              borderRadius: 'var(--rf-radius-lg)',
+              maxWidth: '680px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              padding: '1.75rem',
+              boxShadow: 'var(--rf-shadow-xl)',
+              color: 'var(--rf-cream)'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
+              <div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--rf-leaf-green)', fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.2rem' }}>
+                  <Award size={13} />
+                  <span>Pioneer Admissions Review</span>
+                </div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  {selectedPioneerApp.full_name}
+                </h3>
+                <div style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                  {selectedPioneerApp.application_number} • {selectedPioneerApp.email} • {selectedPioneerApp.country}
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSelectedPioneerApp(null)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--rf-slate-400)',
+                  cursor: 'pointer',
+                  padding: '4px'
+                }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Application Details */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div className="rf-admin-box-subtle" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.75rem' }}>
+                <div>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Selected Roles</span>
+                  <div style={{ fontWeight: 700, color: 'var(--rf-cream)', fontSize: '0.8125rem', marginTop: '2px' }}>
+                    {selectedPioneerApp.roles.join(', ')}
+                  </div>
+                </div>
+                <div>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Availability</span>
+                  <div style={{ fontWeight: 700, color: 'var(--rf-leaf-green)', fontSize: '0.8125rem', marginTop: '2px' }}>
+                    {selectedPioneerApp.availability || 'Not specified'}
+                  </div>
+                </div>
+                <div>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Source</span>
+                  <div style={{ fontWeight: 700, color: 'var(--rf-cream)', fontSize: '0.8125rem', marginTop: '2px' }}>
+                    {selectedPioneerApp.discovery_source || 'Direct'}
+                  </div>
+                </div>
+              </div>
+
+              {selectedPioneerApp.skills && (
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Skills</span>
+                  <p style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '0.25rem', padding: '0.6rem 0.85rem', borderRadius: 'var(--rf-radius-sm)', backgroundColor: 'var(--rf-bg-deep)', border: '1px solid var(--rf-bg-card-border)' }}>
+                    {selectedPioneerApp.skills}
+                  </p>
+                </div>
+              )}
+
+              {selectedPioneerApp.portfolio_url && (
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Portfolio Link</span>
+                  <div style={{ marginTop: '0.25rem' }}>
+                    <a
+                      href={selectedPioneerApp.portfolio_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: '#38BDF8', fontSize: '0.875rem', textDecoration: 'underline', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                    >
+                      {selectedPioneerApp.portfolio_url} <ExternalLink size={13} />
+                    </a>
+                  </div>
+                </div>
+              )}
+
+              {selectedPioneerApp.motivation && (
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Motivation</span>
+                  <p style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', marginTop: '0.25rem', padding: '0.6rem 0.85rem', borderRadius: 'var(--rf-radius-sm)', backgroundColor: 'var(--rf-bg-deep)', border: '1px solid var(--rf-bg-card-border)' }}>
+                    {selectedPioneerApp.motivation}
+                  </p>
+                </div>
+              )}
+
+              {/* Admissions Decision Controls */}
+              <div className="rf-admin-box-subtle" style={{ marginTop: '0.5rem' }}>
+                <h4 style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.75rem' }}>
+                  Admissions Decision
+                </h4>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                  <div className="rf-form-group" style={{ margin: 0 }}>
+                    <label className="rf-label">Decision Status</label>
+                    <select
+                      className="rf-select"
+                      value={selectedPioneerApp.status}
+                      onChange={e => {
+                        const newStatus = e.target.value as any;
+                        const updated = { ...selectedPioneerApp, status: newStatus };
+                        setSelectedPioneerApp(updated);
+                        setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                        if (isSupabaseConfigured) {
+                          supabase.from('pioneer_applications').update({ status: newStatus }).eq('id', selectedPioneerApp.id);
+                        }
+                      }}
+                    >
+                      <option value="PENDING">PENDING</option>
+                      <option value="REVIEWING">REVIEWING</option>
+                      <option value="ACCEPTED">ACCEPTED</option>
+                      <option value="WAITLISTED">WAITLISTED</option>
+                      <option value="REJECTED">REJECTED</option>
+                    </select>
+                  </div>
+
+                  <div className="rf-form-group" style={{ margin: 0 }}>
+                    <label className="rf-label">Assigned Division</label>
+                    <select
+                      className="rf-select"
+                      value={selectedPioneerApp.primary_division || 'TECH_PRODUCT'}
+                      onChange={e => {
+                        const newDiv = e.target.value;
+                        const updated = { ...selectedPioneerApp, primary_division: newDiv };
+                        setSelectedPioneerApp(updated);
+                        setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                        if (isSupabaseConfigured) {
+                          supabase.from('pioneer_applications').update({ primary_division: newDiv }).eq('id', selectedPioneerApp.id);
+                        }
+                      }}
+                    >
+                      <option value="TECH_PRODUCT">Tech & Product</option>
+                      <option value="CREATIVE">Creative</option>
+                      <option value="GROWTH">Growth</option>
+                      <option value="BUSINESS">Business</option>
+                      <option value="COMMUNITY">Community</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                  <input
+                    type="checkbox"
+                    id="founding100Check"
+                    checked={selectedPioneerApp.is_founding_100}
+                    onChange={e => {
+                      const checked = e.target.checked;
+                      const updated = { ...selectedPioneerApp, is_founding_100: checked };
+                      setSelectedPioneerApp(updated);
+                      setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+                    }}
+                  />
+                  <label htmlFor="founding100Check" style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--rf-cream)', cursor: 'pointer' }}>
+                    ★ Designate as Founding 100 Pioneer
+                  </label>
+                </div>
+
+                <div className="rf-form-group" style={{ margin: 0 }}>
+                  <label className="rf-label">Admissions Notes</label>
+                  <textarea
+                    rows={2}
+                    className="rf-input"
+                    placeholder="Confidential admissions review notes..."
+                    value={editingNotes}
+                    onChange={e => setEditingNotes(e.target.value)}
+                    style={{ fontSize: '0.8125rem' }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+              <button
+                type="button"
+                onClick={() => setSelectedPioneerApp(null)}
+                className="rf-btn rf-btn-secondary"
+                style={{ fontSize: '0.8125rem' }}
+              >
+                Close
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const generatedId = selectedPioneerApp.pioneer_id || `PION-${Math.floor(100 + Math.random() * 900)}`;
+                  const updated: PioneerApplication = {
+                    ...selectedPioneerApp,
+                    status: 'ACCEPTED',
+                    pioneer_id: generatedId,
+                    internal_notes: editingNotes
+                  };
+                  setSelectedPioneerApp(updated);
+                  setPioneerAppsList(prev => prev.map(a => a.id === updated.id ? updated : a));
+
+                  if (isSupabaseConfigured) {
+                    supabase.from('pioneer_applications').update({
+                      status: 'ACCEPTED',
+                      pioneer_id: generatedId,
+                      internal_notes: editingNotes
+                    }).eq('id', selectedPioneerApp.id);
+                  }
+
+                  confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+                  showToast('Pioneer Accepted', `${selectedPioneerApp.full_name} accepted as ${generatedId}.`, 'SUCCESS');
+                  setSelectedPioneerApp(null);
+                }}
+                className="rf-btn rf-btn-primary"
+                style={{ fontSize: '0.8125rem', fontWeight: 800, gap: '0.35rem' }}
+              >
+                <CheckCircle2 size={15} />
+                <span>Accept & Grant Access</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL: ADD TEAM MEMBER (THEME-AWARE)
+          ======================================================== */}
+      {showAddTeamModal && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            padding: '1rem'
+          }}
+          onClick={() => setShowAddTeamModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: 'var(--rf-bg-surface)',
+              border: '1px solid var(--rf-bg-card-border)',
+              borderRadius: 'var(--rf-radius-lg)',
+              maxWidth: '520px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              padding: '1.75rem',
+              boxShadow: 'var(--rf-shadow-xl)',
+              color: 'var(--rf-cream)'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  Add Staff / Team Member
+                </h3>
+                <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                  Assign role-based administrator access for platform operations.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setShowAddTeamModal(false)}
+                style={{ background: 'none', border: 'none', color: 'var(--rf-slate-400)', cursor: 'pointer', padding: '4px' }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleAddTeamMember}>
+              <div className="rf-form-group">
+                <label className="rf-label">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  className="rf-input"
+                  placeholder="e.g. Amina Diallo"
+                  value={newMemberName}
+                  onChange={e => setNewMemberName(e.target.value)}
+                />
+              </div>
+
+              <div className="rf-form-group">
+                <label className="rf-label">Work Email</label>
+                <input
+                  type="email"
+                  required
+                  className="rf-input"
+                  placeholder="e.g. amina@refeir.africa"
+                  value={newMemberEmail}
+                  onChange={e => setNewMemberEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="rf-form-group">
+                <label className="rf-label">Country Jurisdiction</label>
+                <select
+                  className="rf-select"
+                  value={newMemberCountry}
+                  onChange={e => {
+                    const country = AFRICAN_COUNTRIES.find(c => c.name === e.target.value);
+                    setNewMemberCountry(e.target.value);
+                    if (country) setNewMemberCountryIso(country.iso_code);
+                  }}
+                >
+                  {AFRICAN_COUNTRIES.map(c => (
+                    <option key={c.iso_code} value={c.name}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="rf-form-group">
+                <label className="rf-label">Role Preset</label>
+                <select
+                  className="rf-select"
+                  value={newMemberRole}
+                  onChange={e => handleRolePresetChange(e.target.value as any)}
+                >
+                  <option value="COMMUNITY_MANAGER">Community Manager</option>
+                  <option value="CONTENT_EDITOR">Content & Website Editor</option>
+                  <option value="DISPUTE_ARBITER">Dispute Arbiter</option>
+                  <option value="COMPLIANCE_OFFICER">Trust & KYC Officer</option>
+                  <option value="SUPER_ADMIN">Super Administrator</option>
+                </select>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.5rem' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowAddTeamModal(false)}
+                  className="rf-btn rf-btn-secondary"
+                  style={{ fontSize: '0.8125rem' }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="rf-btn rf-btn-primary"
+                  style={{ fontSize: '0.8125rem', fontWeight: 800 }}
+                >
+                  Provision Member
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL: REJECT CLAIM (THEME-AWARE)
+          ======================================================== */}
+      {rejectingIntroId && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            padding: '1rem'
+          }}
+          onClick={() => setRejectingIntroId(null)}
+        >
+          <div
+            style={{
+              backgroundColor: 'var(--rf-bg-surface)',
+              border: '1px solid var(--rf-bg-card-border)',
+              borderRadius: 'var(--rf-radius-lg)',
+              maxWidth: '460px',
+              width: '100%',
+              padding: '1.75rem',
+              boxShadow: 'var(--rf-shadow-xl)',
+              color: 'var(--rf-cream)'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem', color: '#EF4444' }}>
+              <XCircle size={20} />
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                Reject Introduction Claim
+              </h3>
+            </div>
+
+            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginBottom: '1.25rem' }}>
+              Specify the reason why this claim does not qualify for an Airfee Token award.
+            </p>
+
+            <div className="rf-form-group">
+              <label className="rf-label">Rejection Reason</label>
+              <textarea
+                className="rf-input"
+                rows={3}
+                value={rejectReason}
+                onChange={e => setRejectReason(e.target.value)}
+                style={{ fontSize: '0.8125rem' }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.25rem' }}>
+              <button
+                type="button"
+                onClick={() => setRejectingIntroId(null)}
+                className="rf-btn rf-btn-secondary"
+                style={{ fontSize: '0.8125rem' }}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  rejectClientIntroduction(rejectingIntroId, rejectReason);
+                  setRejectingIntroId(null);
+                  showToast('Claim Rejected', 'Client introduction claim rejected.', 'INFO');
+                }}
+                className="rf-btn rf-btn-danger"
+                style={{ fontSize: '0.8125rem', fontWeight: 800 }}
+              >
+                Confirm Rejection
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
