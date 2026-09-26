@@ -43,7 +43,11 @@ import {
   Sun,
   Moon,
   AlertTriangle,
-  UserPlus
+  UserPlus,
+  BarChart3,
+  PieChart,
+  DollarSign,
+  ArrowUpRight
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -99,7 +103,15 @@ export interface PioneerApplication {
   created_at: string;
 }
 
-export type AdminWebsiteTab = 'OVERVIEW' | 'PIONEERS' | 'VERIFICATIONS' | 'DISPUTES' | 'COUNTRIES' | 'SETTINGS';
+export type AdminWebsiteTab = 
+  | 'OVERVIEW' 
+  | 'ANALYTICS' 
+  | 'PIONEERS' 
+  | 'VERIFICATIONS' 
+  | 'DISPUTES' 
+  | 'COUNTRIES' 
+  | 'TEAM' 
+  | 'SETTINGS';
 
 export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = () => {} }) => {
   const {
@@ -130,14 +142,15 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
 
       const mapping: Record<string, AdminWebsiteTab> = {
         OVERVIEW: 'OVERVIEW',
+        ANALYTICS: 'ANALYTICS',
         DASHBOARDS: 'OVERVIEW',
         PIONEERS: 'PIONEERS',
         VERIFICATIONS: 'VERIFICATIONS',
         DISPUTES: 'DISPUTES',
         AIRFEE: 'DISPUTES',
         COUNTRIES: 'COUNTRIES',
+        TEAM: 'TEAM',
         SETTINGS: 'SETTINGS',
-        TEAM: 'SETTINGS',
         AUDIT: 'SETTINGS',
         FRAUD: 'SETTINGS'
       };
@@ -161,6 +174,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       window.history.replaceState(null, '', url.pathname + url.search);
     } catch {}
   };
+
+  // Analytics Period State
+  const [analyticsPeriod, setAnalyticsPeriod] = useState<'7D' | '30D' | '90D' | '1Y'>('30D');
 
   // Pioneer Applications State
   const [pioneerAppsList, setPioneerAppsList] = useState<PioneerApplication[]>([
@@ -349,10 +365,6 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
   ]);
 
   const [showAddTeamModal, setShowAddTeamModal] = useState(false);
-  const [teamSearchQuery, setTeamSearchQuery] = useState('');
-  const [teamRoleFilter, setTeamRoleFilter] = useState<string>('ALL');
-  const [editingPermissionsMember, setEditingPermissionsMember] = useState<TeamMember | null>(null);
-
   const [newMemberName, setNewMemberName] = useState('');
   const [newMemberEmail, setNewMemberEmail] = useState('');
   const [newMemberCountry, setNewMemberCountry] = useState('Nigeria');
@@ -459,7 +471,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       'New Team Member Provisioned',
       `${newWorker.name} (${newWorker.email}) added as ${newWorker.roleTitle}.`,
       'TEAM',
-      'SETTINGS'
+      'TEAM'
     );
 
     setNewMemberName('');
@@ -480,12 +492,6 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
     }
     setTeamMembers(prev => prev.filter(m => m.id !== id));
     showToast('Member Removed', `${name} has been removed.`, 'INFO');
-  };
-
-  const handleSaveEditedPermissions = (member: TeamMember) => {
-    setTeamMembers(prev => prev.map(m => m.id === member.id ? member : m));
-    setEditingPermissionsMember(null);
-    showToast('Permissions Updated', `Access privileges updated for ${member.name}.`, 'SUCCESS');
   };
 
   // Platform Economics
@@ -861,7 +867,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
               Administrator Console
             </h1>
             <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.875rem', marginTop: '0.25rem', maxWidth: '600px' }}>
-              Central executive hub for admissions, escrow disputes, identity verifications, and country configurations.
+              Central executive hub for analytics, admissions, identity verifications, country parameters, and team management.
             </p>
           </div>
 
@@ -886,7 +892,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
           </div>
         </div>
 
-        {/* Modern Minimalist Tab Bar (6 Core Tabs) */}
+        {/* Modern Minimalist Tab Bar (8 Distinct Tabs) */}
         <nav className="rf-admin-tabs-nav">
           <button
             onClick={() => setActiveTab('OVERVIEW')}
@@ -894,6 +900,14 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
           >
             <Activity size={14} />
             <span>Overview</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('ANALYTICS')}
+            className={`rf-admin-tab-btn ${activeTab === 'ANALYTICS' ? 'is-active' : ''}`}
+          >
+            <BarChart3 size={14} />
+            <span>Analytics</span>
           </button>
 
           <button
@@ -939,11 +953,20 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
           </button>
 
           <button
+            onClick={() => setActiveTab('TEAM')}
+            className={`rf-admin-tab-btn ${activeTab === 'TEAM' ? 'is-active' : ''}`}
+          >
+            <Users size={14} />
+            <span>Staff & Team</span>
+            <span className="rf-admin-badge-count">{teamMembers.length}</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('SETTINGS')}
             className={`rf-admin-tab-btn ${activeTab === 'SETTINGS' ? 'is-active' : ''}`}
           >
             <Settings size={14} />
-            <span>Settings & Team</span>
+            <span>Platform Settings</span>
           </button>
         </nav>
 
@@ -1168,7 +1191,277 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         )}
 
         {/* ========================================================
-            TAB 2: PIONEER APPLICATIONS
+            TAB 2: FULL ANALYTICS DASHBOARD
+            ======================================================== */}
+        {activeTab === 'ANALYTICS' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            {/* Analytics Header & Period Controls */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  Pan-African Marketplace Analytics
+                </h3>
+                <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                  Real-time macro volume, revenue take rates, country distribution, and conversion funnels.
+                </p>
+              </div>
+
+              <div className="rf-admin-period-group">
+                {(['7D', '30D', '90D', '1Y'] as const).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => setAnalyticsPeriod(p)}
+                    className={`rf-admin-period-btn ${analyticsPeriod === p ? 'is-active' : ''}`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Top 4 Metrics Summary */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+              <div className="rf-admin-card">
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                  Total Escrow Volume
+                </span>
+                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
+                  ₦48.65M
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: 'var(--rf-leaf-green)', marginTop: '0.25rem', fontWeight: 700 }}>
+                  <ArrowUpRight size={14} />
+                  <span>+32.4% vs last period</span>
+                </div>
+              </div>
+
+              <div className="rf-admin-card">
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                  Net Platform Take
+                </span>
+                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', marginTop: '0.25rem' }}>
+                  ₦2.43M
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                  5.0% platform escrow fee
+                </div>
+              </div>
+
+              <div className="rf-admin-card">
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                  Scout Commissions Paid
+                </span>
+                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#38BDF8', marginTop: '0.25rem' }}>
+                  ₦4.86M
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
+                  10.0% guaranteed attribution
+                </div>
+              </div>
+
+              <div className="rf-admin-card">
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+                  Active Verified Talents
+                </span>
+                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
+                  1,420
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: 'var(--rf-leaf-green)', marginTop: '0.25rem', fontWeight: 700 }}>
+                  <ArrowUpRight size={14} />
+                  <span>+18.2% new talents</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Visual GMV Growth Trend Area Chart (SVG Native) */}
+            <div className="rf-admin-card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div>
+                  <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                    Monthly GMV & Transaction Trajectory (2026)
+                  </h4>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+                    Escrow volume released to African engineers, designers, and creatives.
+                  </p>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.75rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)' }} />
+                    <span style={{ color: 'var(--rf-slate-400)' }}>Gross Escrow (₦)</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#38BDF8' }} />
+                    <span style={{ color: 'var(--rf-slate-400)' }}>Scout Attributions</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Responsive SVG Area Chart */}
+              <div style={{ width: '100%', height: '220px', position: 'relative' }}>
+                <svg viewBox="0 0 700 200" preserveAspectRatio="none" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
+                  <defs>
+                    <linearGradient id="gmvGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="var(--rf-leaf-green)" stopOpacity="0.35" />
+                      <stop offset="100%" stopColor="var(--rf-leaf-green)" stopOpacity="0.0" />
+                    </linearGradient>
+                    <linearGradient id="scoutGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Horizontal Grid lines */}
+                  <line x1="0" y1="40" x2="700" y2="40" stroke="var(--rf-bg-card-border)" strokeDasharray="3 3" />
+                  <line x1="0" y1="90" x2="700" y2="90" stroke="var(--rf-bg-card-border)" strokeDasharray="3 3" />
+                  <line x1="0" y1="140" x2="700" y2="140" stroke="var(--rf-bg-card-border)" strokeDasharray="3 3" />
+                  <line x1="0" y1="190" x2="700" y2="190" stroke="var(--rf-bg-card-border)" />
+
+                  {/* Scout Line (Blue) */}
+                  <path
+                    d="M 20 170 Q 140 155, 260 140 T 500 110 T 680 80"
+                    fill="none"
+                    stroke="#38BDF8"
+                    strokeWidth="2.5"
+                  />
+
+                  {/* GMV Area & Line (Emerald Green) */}
+                  <path
+                    d="M 20 160 Q 140 130, 260 100 T 500 65 T 680 25 L 680 190 L 20 190 Z"
+                    fill="url(#gmvGradient)"
+                  />
+                  <path
+                    d="M 20 160 Q 140 130, 260 100 T 500 65 T 680 25"
+                    fill="none"
+                    stroke="var(--rf-leaf-green)"
+                    strokeWidth="3"
+                  />
+
+                  {/* Data Points */}
+                  {[
+                    { cx: 20, cy: 160, label: '₦12M', m: 'Jan' },
+                    { cx: 140, cy: 130, label: '₦18M', m: 'Feb' },
+                    { cx: 260, cy: 100, label: '₦25M', m: 'Mar' },
+                    { cx: 380, cy: 80, label: '₦31M', m: 'Apr' },
+                    { cx: 500, cy: 65, label: '₦39M', m: 'May' },
+                    { cx: 680, cy: 25, label: '₦48.6M', m: 'Jun' }
+                  ].map((pt, idx) => (
+                    <g key={idx}>
+                      <circle cx={pt.cx} cy={pt.cy} r="4" fill="var(--rf-bg-surface)" stroke="var(--rf-leaf-green)" strokeWidth="2.5" />
+                      <text x={pt.cx} y={pt.cy - 10} textAnchor="middle" fill="var(--rf-cream)" fontSize="10" fontWeight="700">
+                        {pt.label}
+                      </text>
+                      <text x={pt.cx} y="198" textAnchor="middle" fill="var(--rf-slate-400)" fontSize="10">
+                        {pt.m}
+                      </text>
+                    </g>
+                  ))}
+                </svg>
+              </div>
+            </div>
+
+            {/* Split Row: Country Share & Category Distribution */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+              {/* Country Volume Leaderboard */}
+              <div className="rf-admin-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                  <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                    Top Sovereign Markets by Volume
+                  </h4>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Share of GMV</span>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {[
+                    { name: 'Nigeria 🇳🇬', code: 'NGN', amount: '₦21.4M', pct: 44, color: 'var(--rf-leaf-green)' },
+                    { name: 'Kenya 🇰🇪', code: 'KES', amount: '₦11.2M', pct: 23, color: '#38BDF8' },
+                    { name: 'Ghana 🇬🇭', code: 'GHS', amount: '₦6.8M', pct: 14, color: '#F4B942' },
+                    { name: 'South Africa 🇿🇦', code: 'ZAR', amount: '₦5.3M', pct: 11, color: '#A855F7' },
+                    { name: 'Rwanda & Others 🇷🇼', code: 'RWF', amount: '₦3.95M', pct: 8, color: '#10B981' }
+                  ].map(c => (
+                    <div key={c.name}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '0.35rem' }}>
+                        <span style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{c.name}</span>
+                        <span style={{ fontWeight: 800, color: 'var(--rf-cream)' }}>
+                          {c.amount} <span style={{ color: 'var(--rf-slate-400)', fontWeight: 500 }}>({c.pct}%)</span>
+                        </span>
+                      </div>
+                      <div className="rf-admin-progress-bar">
+                        <div className="rf-admin-progress-fill" style={{ width: `${c.pct}%`, background: c.color }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Skill Division & Funnel Conversion */}
+              <div className="rf-admin-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                  <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                    Talent Category Distribution
+                  </h4>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Active Hires</span>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {[
+                    { division: 'Tech & Software Engineering', share: '42%', count: '596 talents', color: 'var(--rf-leaf-green)' },
+                    { division: 'AI & Data Solutions', share: '24%', count: '340 talents', color: '#38BDF8' },
+                    { division: 'UI/UX & Product Design', share: '18%', count: '255 talents', color: '#F4B942' },
+                    { division: 'Growth, Marketing & SEO', share: '10%', count: '142 talents', color: '#EC4899' },
+                    { division: 'Product & Business Ops', share: '6%', count: '87 talents', color: '#6366F1' }
+                  ].map(d => (
+                    <div key={d.division}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '0.35rem' }}>
+                        <span style={{ fontWeight: 600, color: 'var(--rf-cream)' }}>{d.division}</span>
+                        <span style={{ fontWeight: 800, color: 'var(--rf-cream)' }}>
+                          {d.share} <span style={{ color: 'var(--rf-slate-400)', fontWeight: 500 }}>({d.count})</span>
+                        </span>
+                      </div>
+                      <div className="rf-admin-progress-bar">
+                        <div className="rf-admin-progress-fill" style={{ width: d.share, background: d.color }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Conversion Funnel Strip */}
+            <div className="rf-admin-card">
+              <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1rem' }}>
+                Platform Conversion Funnel
+              </h4>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+                <div className="rf-admin-box-subtle">
+                  <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>1. Scout Links Clicked</span>
+                  <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>12,840</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>100% Unique Visitors</div>
+                </div>
+
+                <div className="rf-admin-box-subtle">
+                  <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>2. Registered Profiles</span>
+                  <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>3,180</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 600 }}>24.7% Signup Rate</div>
+                </div>
+
+                <div className="rf-admin-box-subtle">
+                  <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>3. Client Funded Escrows</span>
+                  <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>745</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 600 }}>23.4% Hire Conversion</div>
+                </div>
+
+                <div className="rf-admin-box-subtle">
+                  <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>4. Completed Payouts</span>
+                  <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-leaf-green)', marginTop: '2px' }}>718</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 600 }}>96.3% Settlement Rate</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            TAB 3: PIONEER APPLICATIONS
             ======================================================== */}
         {activeTab === 'PIONEERS' && (
           <div>
@@ -1334,7 +1627,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         )}
 
         {/* ========================================================
-            TAB 3: VERIFICATIONS (KYC)
+            TAB 4: VERIFICATIONS (KYC)
             ======================================================== */}
         {activeTab === 'VERIFICATIONS' && (
           <div>
@@ -1451,7 +1744,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         )}
 
         {/* ========================================================
-            TAB 4: DISPUTES & CLAIMS
+            TAB 5: DISPUTES & CLAIMS
             ======================================================== */}
         {activeTab === 'DISPUTES' && (
           <div>
@@ -1593,7 +1886,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         )}
 
         {/* ========================================================
-            TAB 5: COUNTRIES (54)
+            TAB 6: COUNTRIES (54) WITH ALL 5 STATUS OPTIONS
             ======================================================== */}
         {activeTab === 'COUNTRIES' && (
           <div className="rf-admin-card">
@@ -1603,7 +1896,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                   54 African Sovereign Markets Engine
                 </h3>
                 <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
-                  Enable or restrict local payment rails and marketplace discovery per country in real time.
+                  Configure country status across all operational tiers: Full, Payments Only, Payouts Only, Marketplace Only, or Coming Soon.
                 </p>
               </div>
 
@@ -1627,14 +1920,13 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                     <th>Country</th>
                     <th>ISO</th>
                     <th>Currency</th>
-                    <th>Status</th>
-                    <th style={{ textAlign: 'right' }}>Admin Toggle</th>
+                    <th>Current Status</th>
+                    <th style={{ textAlign: 'right' }}>Select Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredCountries.map(country => {
                     const setting = countrySettings[country.id] || { status: country.status };
-                    const isOperational = setting.status === 'FULLY_OPERATIONAL' || setting.status === 'PAYMENTS_ENABLED';
 
                     return (
                       <tr key={country.id}>
@@ -1652,24 +1944,35 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                         <td style={{ fontWeight: 600 }}>{country.currency_code}</td>
 
                         <td>
-                          <span className={`rf-badge ${isOperational ? 'rf-badge-mint' : 'rf-badge-neutral'} rf-text-xs`}>
+                          <span
+                            className={`rf-badge ${
+                              setting.status === 'FULLY_OPERATIONAL'
+                                ? 'rf-badge-mint'
+                                : setting.status === 'PAYMENTS_ENABLED'
+                                ? 'rf-badge-blue'
+                                : setting.status === 'PAYOUTS_ENABLED'
+                                ? 'rf-badge-reward'
+                                : setting.status === 'MARKETPLACE_ONLY'
+                                ? 'rf-badge-warning'
+                                : 'rf-badge-neutral'
+                            } rf-text-xs`}
+                          >
                             {setting.status}
                           </span>
                         </td>
 
                         <td style={{ textAlign: 'right' }}>
-                          <button
-                            onClick={() => handleCountryToggle(country.id, isOperational ? 'COMING_SOON' : 'FULLY_OPERATIONAL')}
-                            className="rf-btn rf-btn-secondary rf-btn-sm"
-                            style={{
-                              fontSize: '0.75rem',
-                              fontWeight: 700,
-                              color: isOperational ? '#EF4444' : 'var(--rf-leaf-green)',
-                              borderColor: isOperational ? 'rgba(239, 68, 68, 0.4)' : 'var(--rf-leaf-green)'
-                            }}
+                          <select
+                            className="rf-admin-status-select"
+                            value={setting.status}
+                            onChange={e => handleCountryToggle(country.id, e.target.value as CountryMarketplaceStatus)}
                           >
-                            {isOperational ? 'Set Coming Soon' : 'Activate Market'}
-                          </button>
+                            <option value="FULLY_OPERATIONAL">Fully Operational (All Features)</option>
+                            <option value="PAYMENTS_ENABLED">Payments Enabled (Clients Pay)</option>
+                            <option value="PAYOUTS_ENABLED">Payouts Enabled (Talents Withdraw)</option>
+                            <option value="MARKETPLACE_ONLY">Marketplace Only (Discovery)</option>
+                            <option value="COMING_SOON">Coming Soon (Waitlist)</option>
+                          </select>
                         </td>
                       </tr>
                     );
@@ -1681,7 +1984,109 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         )}
 
         {/* ========================================================
-            TAB 6: SETTINGS & TEAM
+            TAB 7: STAFF & TEAM (DEDICATED SEPARATE TAB)
+            ======================================================== */}
+        {activeTab === 'TEAM' && (
+          <div className="rf-admin-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                  Staff & Team Access Management
+                </h3>
+                <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
+                  Manage administrators, editors, community coordinators, and dispute arbiters with role-based access control.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setShowAddTeamModal(true)}
+                className="rf-btn rf-btn-primary rf-btn-sm"
+                style={{ gap: '0.35rem', fontWeight: 700 }}
+              >
+                <PlusCircle size={15} />
+                <span>Add Team Member</span>
+              </button>
+            </div>
+
+            <div className="rf-admin-table-container">
+              <table className="rf-admin-table">
+                <thead>
+                  <tr>
+                    <th>Team Member</th>
+                    <th>Role & Scope</th>
+                    <th>2FA</th>
+                    <th>Status</th>
+                    <th style={{ textAlign: 'right' }}>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teamMembers.map(member => (
+                    <tr key={member.id}>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                          <img
+                            src={member.avatar}
+                            alt={member.name}
+                            style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }}
+                          />
+                          <div>
+                            <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{member.name}</div>
+                            <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>{member.email}</div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--rf-cream)' }}>
+                          {member.roleTitle}
+                        </span>
+                      </td>
+
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 700 }}>
+                          <ShieldCheck size={13} />
+                          <span>Enforced</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span className={`rf-badge ${member.status === 'ACTIVE' ? 'rf-badge-mint' : 'rf-badge-warning'} rf-text-xs`}>
+                          {member.status}
+                        </span>
+                      </td>
+
+                      <td style={{ textAlign: 'right' }}>
+                        <div style={{ display: 'inline-flex', gap: '0.4rem', alignItems: 'center' }}>
+                          <button
+                            onClick={() => handleToggleWorkerStatus(member.id, member.status)}
+                            className="rf-btn rf-btn-secondary rf-btn-sm"
+                            style={{ fontSize: '0.72rem', padding: '0.25rem 0.5rem' }}
+                          >
+                            {member.status === 'ACTIVE' ? 'Suspend' : 'Activate'}
+                          </button>
+
+                          {member.id !== 'TM-001' && (
+                            <button
+                              onClick={() => handleDeleteWorker(member.id, member.name)}
+                              className="rf-btn rf-btn-secondary rf-btn-sm"
+                              style={{ padding: '0.25rem 0.4rem', color: '#EF4444' }}
+                              title="Delete Member"
+                            >
+                              <Trash2 size={13} />
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================
+            TAB 8: PLATFORM SETTINGS (DEDICATED SEPARATE TAB)
             ======================================================== */}
         {activeTab === 'SETTINGS' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -1747,104 +2152,6 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
               </form>
             </div>
 
-            {/* Staff & Team RBAC Table */}
-            <div className="rf-admin-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
-                <div>
-                  <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                    Staff & Team Access Management
-                  </h3>
-                  <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
-                    Grant role-based administrator access for content editing, community, and compliance.
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => setShowAddTeamModal(true)}
-                  className="rf-btn rf-btn-primary rf-btn-sm"
-                  style={{ gap: '0.35rem', fontWeight: 700 }}
-                >
-                  <PlusCircle size={15} />
-                  <span>Add Team Member</span>
-                </button>
-              </div>
-
-              <div className="rf-admin-table-container">
-                <table className="rf-admin-table">
-                  <thead>
-                    <tr>
-                      <th>Team Member</th>
-                      <th>Role & Scope</th>
-                      <th>2FA</th>
-                      <th>Status</th>
-                      <th style={{ textAlign: 'right' }}>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {teamMembers.map(member => (
-                      <tr key={member.id}>
-                        <td>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                            <img
-                              src={member.avatar}
-                              alt={member.name}
-                              style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }}
-                            />
-                            <div>
-                              <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{member.name}</div>
-                              <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>{member.email}</div>
-                            </div>
-                          </div>
-                        </td>
-
-                        <td>
-                          <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--rf-cream)' }}>
-                            {member.roleTitle}
-                          </span>
-                        </td>
-
-                        <td>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 700 }}>
-                            <ShieldCheck size={13} />
-                            <span>Enforced</span>
-                          </div>
-                        </td>
-
-                        <td>
-                          <span className={`rf-badge ${member.status === 'ACTIVE' ? 'rf-badge-mint' : 'rf-badge-warning'} rf-text-xs`}>
-                            {member.status}
-                          </span>
-                        </td>
-
-                        <td style={{ textAlign: 'right' }}>
-                          <div style={{ display: 'inline-flex', gap: '0.4rem', alignItems: 'center' }}>
-                            <button
-                              onClick={() => handleToggleWorkerStatus(member.id, member.status)}
-                              className="rf-btn rf-btn-secondary rf-btn-sm"
-                              style={{ fontSize: '0.72rem', padding: '0.25rem 0.5rem' }}
-                            >
-                              {member.status === 'ACTIVE' ? 'Suspend' : 'Activate'}
-                            </button>
-
-                            {member.id !== 'TM-001' && (
-                              <button
-                                onClick={() => handleDeleteWorker(member.id, member.name)}
-                                className="rf-btn rf-btn-secondary rf-btn-sm"
-                                style={{ padding: '0.25rem 0.4rem', color: '#EF4444' }}
-                                title="Delete Member"
-                              >
-                                <Trash2 size={13} />
-                              </button>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
             {/* Audit Logs Table */}
             <div className="rf-admin-card">
               <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.25rem' }}>
@@ -1886,54 +2193,6 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
           </div>
         )}
       </div>
-
-      {/* 3. SLEEK MINIMALIST PROFESSIONAL ADMIN STATUS BAR */}
-      <footer className="rf-admin-footer">
-        <div
-          style={{
-            maxWidth: '1440px',
-            margin: '0 auto',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '1rem'
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--rf-leaf-green)' }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)' }} />
-              <span>CORE_NODE: OPERATIONAL</span>
-            </span>
-            <span>•</span>
-            <span>Refeir Governance Core v2.4</span>
-            <span>•</span>
-            <span>AWS af-south-1 (Lagos Edge)</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <span>TLS 1.3 / 256-bit AES</span>
-            <span>•</span>
-            <span>Audit Trail: Immutable</span>
-            <span>•</span>
-            <button
-              type="button"
-              onClick={() => onNavigate('/')}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--rf-leaf-green)',
-                cursor: 'pointer',
-                fontSize: '0.75rem',
-                textDecoration: 'underline',
-                padding: 0
-              }}
-            >
-              Exit to Website →
-            </button>
-          </div>
-        </div>
-      </footer>
 
       {/* ========================================================
           MODAL: PIONEER APPLICATION REVIEW MODAL (THEME-AWARE)

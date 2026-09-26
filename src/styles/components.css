@@ -6557,6 +6557,64 @@
   padding: 1rem;
 }
 
+.rf-admin-period-group {
+  display: inline-flex;
+  background-color: var(--rf-bg-deep);
+  border: 1px solid var(--rf-bg-card-border);
+  border-radius: var(--rf-radius-md);
+  padding: 3px;
+  gap: 2px;
+}
+
+.rf-admin-period-btn {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--rf-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--rf-slate-400);
+  cursor: pointer;
+  transition: all var(--rf-transition-fast);
+}
+
+.rf-admin-period-btn.is-active {
+  background-color: var(--rf-bg-surface);
+  color: var(--rf-cream);
+  box-shadow: var(--rf-shadow-sm);
+}
+
+.rf-admin-progress-bar {
+  height: 8px;
+  background-color: var(--rf-bg-deep);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rf-admin-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--rf-leaf-green) 0%, #38BDF8 100%);
+  transition: width 0.4s ease;
+}
+
+.rf-admin-status-select {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: var(--rf-radius-sm);
+  background-color: var(--rf-bg-surface);
+  border: 1px solid var(--rf-bg-card-border);
+  color: var(--rf-cream);
+  cursor: pointer;
+  outline: none;
+}
+
+.rf-admin-status-select:focus {
+  border-color: var(--rf-leaf-green);
+}
+
 @media (max-width: 768px) {
   .rf-admin-topbar {
     padding: 0.65rem 1rem;
