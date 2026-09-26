@@ -473,10 +473,14 @@ export const App: React.FC = () => {
     }
   };
 
-  // Pages that render full-screen without header/footer chrome
-  const isChromelessPage = currentPath === '/admin-login' || 
-    ((currentPath === '/admin' || currentPath === '/admin-portal') && (!currentUser || !currentUser.roles.includes('ADMIN'))) ||
-    basePath === '/pioneers' || basePath === '/refeir-pioneers' || basePath === '/join-pioneers';
+  // Pages that render full-screen without consumer header/footer chrome
+  const isChromelessPage = 
+    currentPath === '/admin' || 
+    currentPath === '/admin-portal' || 
+    currentPath === '/admin-login' || 
+    basePath === '/pioneers' || 
+    basePath === '/refeir-pioneers' || 
+    basePath === '/join-pioneers';
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--rf-navy)' }}>

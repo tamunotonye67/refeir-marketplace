@@ -54,7 +54,9 @@ import {
   Eye,
   Sliders,
   ShieldCheck,
-  Ticket
+  Ticket,
+  LogOut,
+  ArrowLeft
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -127,7 +129,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
     rejectClientIntroduction
   } = useMarketplace();
   const { showToast, addAppNotification } = useNotification();
-  const { currentUser } = useAuth();
+  const { currentUser, logout, switchRole } = useAuth();
 
   type AdminWebsiteTab = 'OVERVIEW' | 'DASHBOARDS' | 'COUNTRIES' | 'TEAM' | 'SETTINGS' | 'VERIFICATIONS' | 'DISPUTES' | 'FRAUD' | 'AUDIT' | 'AIRFEE' | 'PIONEERS';
 
@@ -806,94 +808,370 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
   ];
 
   return (
-    <div className="rf-container" style={{ paddingTop: '2.5rem', paddingBottom: '5rem' }}>
-      {/* Admin Portal Header with Active Admin Credentials Bar */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '2rem' }}>
-        <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: 'var(--rf-mint)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-            <Shield size={14} />
-            <span>PAN-AFRICAN GOVERNANCE & OPERATIONS</span>
-          </div>
-          <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-            Administrator Console
-          </h1>
-          <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem', maxWidth: '680px' }}>
-            Real-time control over Africa-wide GMV, escrow custody funds, scout referral attributions, country status configurations, and fraud controls.
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-
-          {/* Super Admin Credentials & Session Card */}
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--rf-navy, #06140C)' }}>
+      {/* 1. DEDICATED MODERN ADMIN TOP BAR */}
+      <header
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 100,
+          background: 'rgba(6, 20, 12, 0.94)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          padding: '0.75rem 1.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '1rem',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)'
+        }}
+      >
+        {/* Left: Brand + Console Pill + Live Pulse */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
           <div
+            onClick={() => onNavigate('/')}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
+            title="Return to Refeir Marketplace"
+          >
+            <div
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, rgba(24, 252, 92, 0.2), rgba(54, 224, 160, 0.1))',
+                border: '1px solid rgba(24, 252, 92, 0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#18FC5C'
+              }}
+            >
+              <Shield size={18} />
+            </div>
+            <span style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
+              Refeir
+            </span>
+          </div>
+
+          <span
             style={{
-              background: 'linear-gradient(135deg, rgba(10, 26, 18, 0.95), rgba(7, 23, 14, 0.98))',
-              border: '1px solid rgba(102, 187, 42, 0.4)',
-              borderRadius: 'var(--rf-radius-lg)',
-              padding: '1.25rem 1.5rem',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45)',
-              minWidth: '280px'
+              fontSize: '0.6875rem',
+              fontWeight: 800,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              padding: '0.2rem 0.55rem',
+              borderRadius: '4px',
+              background: 'rgba(102, 187, 42, 0.15)',
+              border: '1px solid rgba(102, 187, 42, 0.35)',
+              color: 'var(--rf-mint)'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-              <KeyRound size={16} color="var(--rf-leaf-green)" />
-              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Admin Credentials & Access
+            ADMIN CONSOLE
+          </span>
+
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              fontSize: '0.75rem',
+              color: 'var(--rf-slate-300)',
+              marginLeft: '0.5rem',
+              padding: '0.2rem 0.6rem',
+              borderRadius: '100px',
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.06)'
+            }}
+          >
+            <span
+              style={{
+                width: '7px',
+                height: '7px',
+                borderRadius: '50%',
+                background: '#18FC5C',
+                boxShadow: '0 0 8px #18FC5C'
+              }}
+            />
+            <span style={{ fontWeight: 600 }}>54 Sovereign Markets Live</span>
+          </div>
+        </div>
+
+        {/* Right: Quick Role Previews + Exit to Website + Admin Profile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {/* Quick Preview Links */}
+          <button
+            onClick={() => {
+              switchRole('CLIENT');
+              onNavigate('/dashboard/client');
+            }}
+            className="rf-btn"
+            style={{
+              padding: '0.35rem 0.75rem',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              color: 'var(--rf-slate-300)',
+              borderRadius: '6px',
+              cursor: 'pointer'
+            }}
+            title="Preview Client Dashboard"
+          >
+            Client View
+          </button>
+
+          <button
+            onClick={() => {
+              switchRole('SCOUT');
+              onNavigate('/dashboard/scout');
+            }}
+            className="rf-btn"
+            style={{
+              padding: '0.35rem 0.75rem',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              color: 'var(--rf-slate-300)',
+              borderRadius: '6px',
+              cursor: 'pointer'
+            }}
+            title="Preview Scout Dashboard"
+          >
+            Scout View
+          </button>
+
+          {/* Exit to Website */}
+          <button
+            onClick={() => onNavigate('/')}
+            className="rf-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              padding: '0.35rem 0.85rem',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              background: 'rgba(102, 187, 42, 0.12)',
+              border: '1px solid rgba(102, 187, 42, 0.35)',
+              color: 'var(--rf-mint)',
+              borderRadius: '6px',
+              cursor: 'pointer'
+            }}
+            title="Exit Admin Console and Return to Marketplace"
+          >
+            <ArrowLeft size={13} />
+            <span>Exit to Website</span>
+          </button>
+
+          <div style={{ width: '1px', height: '20px', background: 'rgba(255, 255, 255, 0.1)', margin: '0 0.25rem' }} />
+
+          {/* Admin User Profile Capsule */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.6rem',
+              padding: '0.25rem 0.65rem',
+              borderRadius: '100px',
+              background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.08)'
+            }}
+          >
+            <img
+              src={currentUser?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}
+              alt="Admin"
+              style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)', lineHeight: 1.1 }}>
+                Super Admin
+              </span>
+              <span style={{ fontSize: '0.65rem', color: 'var(--rf-slate-400)', fontFamily: 'var(--rf-font-mono, monospace)', lineHeight: 1.1 }}>
+                {currentUser?.email || 'admin@refeir.africa'}
               </span>
             </div>
-            <div style={{ fontSize: '0.875rem', color: 'var(--rf-cream)', fontWeight: 700 }}>
-              Antigravity Admin (Super Admin)
+            <button
+              onClick={async () => {
+                await logout();
+                onNavigate('/admin-login');
+              }}
+              title="Sign Out"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--rf-slate-400)',
+                cursor: 'pointer',
+                padding: '4px',
+                borderRadius: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                marginLeft: '0.25rem'
+              }}
+            >
+              <LogOut size={13} />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* 2. MAIN CONTENT CANVAS */}
+      <div style={{ flex: 1, width: '100%', maxWidth: '1440px', margin: '0 auto', padding: '1.75rem 1.5rem 3rem' }}>
+        {/* Modern Minimalist Executive Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '1.75rem' }}>
+          <div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: 'var(--rf-mint)', fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>
+              <Shield size={13} />
+              <span>Pan-African Governance & Core Operations</span>
             </div>
-            <div style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', fontFamily: 'var(--rf-font-mono)', marginTop: '2px' }}>
-              admin@refeir.africa
+            <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em', margin: 0 }}>
+              Administrator Console
+            </h1>
+            <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.875rem', marginTop: '0.25rem', maxWidth: '640px', lineHeight: 1.5 }}>
+              Central executive control over Africa-wide GMV custody, scout attribution graphs, sovereign compliance, and disputes.
+            </p>
+          </div>
+
+          {/* Executive Status Pills */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 0.85rem',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                fontSize: '0.75rem'
+              }}
+            >
+              <span style={{ color: 'var(--rf-slate-400)' }}>Total Africa GMV:</span>
+              <span style={{ fontWeight: 800, color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono, monospace)' }}>₦48.6M</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem' }}>
-              <span className="rf-badge rf-badge-mint rf-text-xs">
-                <UserCheck size={12} /> Full Platform Privileges
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 0.85rem',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                fontSize: '0.75rem'
+              }}
+            >
+              <span style={{ color: 'var(--rf-slate-400)' }}>Biometric KYC Queue:</span>
+              <span style={{ fontWeight: 800, color: '#F4B942', fontFamily: 'var(--rf-font-mono, monospace)' }}>
+                {kycQueue.filter(k => k.status === 'PENDING').length} Pending
               </span>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 0.85rem',
+                borderRadius: '8px',
+                background: 'rgba(24, 252, 92, 0.06)',
+                border: '1px solid rgba(24, 252, 92, 0.25)',
+                fontSize: '0.75rem',
+                color: '#18FC5C'
+              }}
+            >
+              <UserCheck size={14} />
+              <span style={{ fontWeight: 700 }}>2FA Enforced</span>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation Tabs */}
-      <div className="rf-tabs" style={{ marginBottom: '2rem', flexWrap: 'wrap' }}>
-        <button onClick={() => setActiveTab('OVERVIEW')} className={`rf-tab ${activeTab === 'OVERVIEW' ? 'active' : ''}`}>
-          Overview Analytics
-        </button>
-        <button onClick={() => setActiveTab('DASHBOARDS')} className={`rf-tab ${activeTab === 'DASHBOARDS' ? 'active' : ''}`}>
-          Connected Dashboards (8)
-        </button>
-        <button onClick={() => setActiveTab('COUNTRIES')} className={`rf-tab ${activeTab === 'COUNTRIES' ? 'active' : ''}`}>
-          Country Administration ({AFRICAN_COUNTRIES.length})
-        </button>
-        <button onClick={() => setActiveTab('TEAM')} className={`rf-tab ${activeTab === 'TEAM' ? 'active' : ''}`}>
-          Staff & Team Members ({teamMembers.length})
-        </button>
-        <button onClick={() => setActiveTab('SETTINGS')} className={`rf-tab ${activeTab === 'SETTINGS' ? 'active' : ''}`}>
-          Platform Economics
-        </button>
-        <button onClick={() => setActiveTab('VERIFICATIONS')} className={`rf-tab ${activeTab === 'VERIFICATIONS' ? 'active' : ''}`}>
-          Biometric & Face KYC ({kycQueue.filter(k => k.status === 'PENDING').length} Pending)
-        </button>
-        <button onClick={() => setActiveTab('DISPUTES')} className={`rf-tab ${activeTab === 'DISPUTES' ? 'active' : ''}`}>
-          Dispute Resolution ({disputesList.length})
-        </button>
-        <button onClick={() => setActiveTab('FRAUD')} className={`rf-tab ${activeTab === 'FRAUD' ? 'active' : ''}`}>
-          Fraud & Risk Engine ({riskFlagsList.length})
-        </button>
-        <button onClick={() => setActiveTab('AUDIT')} className={`rf-tab ${activeTab === 'AUDIT' ? 'active' : ''}`}>
-          Immutable Audit Logs ({auditLogs.length})
-        </button>
-        <button onClick={() => setActiveTab('AIRFEE')} className={`rf-tab ${activeTab === 'AIRFEE' ? 'active' : ''}`} style={{ borderColor: 'rgba(54, 224, 160, 0.5)' }}>
-          <Ticket size={14} style={{ display: 'inline-block', marginRight: '0.35rem', verticalAlign: 'middle' }} />
-          Airfee Approvals ({clientIntroductionsList.filter(i => i.status === 'HIRE_COMPLETED_PENDING_ADMIN').length} Ready)
-        </button>
-        <button onClick={() => setActiveTab('PIONEERS')} className={`rf-tab ${activeTab === 'PIONEERS' ? 'active' : ''}`} style={{ borderColor: 'rgba(24, 252, 92, 0.55)', color: activeTab === 'PIONEERS' ? '#18FC5C' : undefined }}>
-          <Award size={14} style={{ display: 'inline-block', marginRight: '0.35rem', verticalAlign: 'middle', color: '#18FC5C' }} />
-          Pioneer Applications ({pioneerAppsList.filter(p => p.status === 'PENDING').length} Pending)
-        </button>
-      </div>
+        {/* Modern Minimalist Horizontal Tab Bar */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            overflowX: 'auto',
+            paddingBottom: '0.75rem',
+            marginBottom: '2rem',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            scrollbarWidth: 'none'
+          }}
+        >
+          {[
+            { id: 'OVERVIEW', label: 'Overview Analytics', count: null },
+            { id: 'DASHBOARDS', label: 'Connected Dashboards', count: 8 },
+            { id: 'COUNTRIES', label: 'Country Administration', count: AFRICAN_COUNTRIES.length },
+            { id: 'TEAM', label: 'Staff & Team', count: teamMembers.length },
+            { id: 'SETTINGS', label: 'Platform Economics', count: null },
+            { id: 'VERIFICATIONS', label: 'Biometric & Face KYC', count: kycQueue.filter(k => k.status === 'PENDING').length, alert: true },
+            { id: 'DISPUTES', label: 'Dispute Resolution', count: disputesList.length },
+            { id: 'FRAUD', label: 'Fraud & Risk Engine', count: riskFlagsList.length },
+            { id: 'AUDIT', label: 'Immutable Audit Logs', count: auditLogs.length },
+            { id: 'AIRFEE', label: 'Airfee Approvals', count: clientIntroductionsList.filter(i => i.status === 'HIRE_COMPLETED_PENDING_ADMIN').length, icon: Ticket },
+            { id: 'PIONEERS', label: 'Pioneer Applications', count: pioneerAppsList.filter(p => p.status === 'PENDING').length, icon: Award, highlight: true }
+          ].map(tab => {
+            const isActive = activeTab === tab.id;
+            const IconComponent = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as AdminWebsiteTab)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  padding: '0.5rem 0.95rem',
+                  borderRadius: '8px',
+                  fontSize: '0.8125rem',
+                  fontWeight: isActive ? 800 : 600,
+                  whiteSpace: 'nowrap',
+                  cursor: 'pointer',
+                  border: isActive
+                    ? tab.highlight
+                      ? '1px solid rgba(24, 252, 92, 0.5)'
+                      : '1px solid rgba(102, 187, 42, 0.4)'
+                    : '1px solid rgba(255, 255, 255, 0.05)',
+                  background: isActive
+                    ? tab.highlight
+                      ? 'rgba(24, 252, 92, 0.14)'
+                      : 'rgba(102, 187, 42, 0.12)'
+                    : 'rgba(255, 255, 255, 0.02)',
+                  color: isActive
+                    ? tab.highlight
+                      ? '#18FC5C'
+                      : 'var(--rf-mint)'
+                    : 'var(--rf-slate-300)',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {IconComponent && <IconComponent size={14} />}
+                <span>{tab.label}</span>
+                {tab.count !== null && (
+                  <span
+                    style={{
+                      fontSize: '0.6875rem',
+                      fontWeight: 700,
+                      padding: '0.1rem 0.45rem',
+                      borderRadius: '100px',
+                      background: isActive
+                        ? tab.highlight
+                          ? 'rgba(24, 252, 92, 0.25)'
+                          : 'rgba(102, 187, 42, 0.25)'
+                        : 'rgba(255, 255, 255, 0.07)',
+                      color: isActive ? 'var(--rf-cream)' : 'var(--rf-slate-400)'
+                    }}
+                  >
+                    {tab.count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
 
       {/* 1. OVERVIEW ANALYTICS TAB */}
       {activeTab === 'OVERVIEW' && (
@@ -3573,6 +3851,67 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
           </div>
         </div>
       )}
+      </div>
+
+      {/* 3. SLEEK MINIMALIST PROFESSIONAL ADMIN STATUS BAR */}
+      <footer
+        style={{
+          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'rgba(5, 16, 10, 0.75)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          padding: '1rem 1.5rem',
+          fontSize: '0.75rem',
+          color: 'var(--rf-slate-400)',
+          fontFamily: 'var(--rf-font-mono, monospace)',
+          marginTop: 'auto'
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '1440px',
+            margin: '0 auto',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '1rem'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: '#18FC5C' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#18FC5C', boxShadow: '0 0 6px #18FC5C' }} />
+              <span>CORE_NODE: OPERATIONAL</span>
+            </span>
+            <span>•</span>
+            <span>Refeir Pan-African Governance Core v2.4.0</span>
+            <span>•</span>
+            <span>Region: AWS af-south-1 (Lagos Edge)</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <span>TLS 1.3 / 256-bit AES</span>
+            <span>•</span>
+            <span>Audit Trail: Immutable</span>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={() => onNavigate('/')}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--rf-mint)',
+                cursor: 'pointer',
+                fontSize: '0.75rem',
+                textDecoration: 'underline',
+                padding: 0
+              }}
+            >
+              Exit to Website →
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
