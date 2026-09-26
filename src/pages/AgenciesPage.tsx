@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Building2, Users, Star, ArrowRight, ShieldCheck, CheckCircle2, Globe2, Briefcase, Sparkles, Filter } from 'lucide-react';
+import { Building2, Users, Star, ArrowRight, ShieldCheck, CheckCircle2, Globe2, Briefcase, Filter } from 'lucide-react';
 import { formatMoney, createMoney } from '../data/currencies';
 
 interface AgenciesPageProps {

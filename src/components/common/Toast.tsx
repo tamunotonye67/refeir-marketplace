@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNotification } from '../../context/NotificationContext';
-import { CheckCircle2, AlertCircle, Info, X, Sparkles } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Info, X, Award } from 'lucide-react';
 
 export const Toast: React.FC = () => {
   const { activeToast, clearToast } = useNotification();
@@ -14,7 +14,7 @@ export const Toast: React.FC = () => {
       case 'ERROR':
         return <AlertCircle size={20} color="var(--rf-error)" />;
       case 'REWARD':
-        return <Sparkles size={20} color="var(--rf-mint)" />;
+        return <Award size={20} color="var(--rf-mint)" />;
       case 'WARNING':
         return <AlertCircle size={20} color="var(--rf-warning)" />;
       default:

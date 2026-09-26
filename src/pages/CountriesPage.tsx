@@ -17,7 +17,6 @@ import {
   Users,
   Briefcase,
   Layers,
-  Sparkles,
   MapPin
 } from 'lucide-react';
 

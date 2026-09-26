@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { formatMoney, createMoney } from '../data/currencies';
 import { CountryFlag } from '../components/common/CountryFlag';
 import {
-  Sparkles,
   ShieldCheck,
   CheckCircle2,
   ArrowRight,

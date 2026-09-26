@@ -27,7 +27,6 @@ import {
   DollarSign,
   Check,
   Eye,
-  Sparkles,
   Lock,
   X,
   Layers,

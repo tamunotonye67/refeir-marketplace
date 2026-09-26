@@ -16,7 +16,6 @@ import {
   ShieldCheck,
   CheckCircle2,
   Briefcase,
-  Sparkles,
   Link as LinkIcon,
   Code2,
   Share2,

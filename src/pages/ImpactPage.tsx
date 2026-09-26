@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe2, TrendingUp, Users, Shield, ArrowRight, Award, Heart, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Globe2, TrendingUp, Users, Shield, ArrowRight, Award, Heart, CheckCircle2 } from 'lucide-react';
 
 interface ImpactPageProps {
   onNavigate?: (path: string) => void;
@@ -138,7 +138,7 @@ export const ImpactPage: React.FC<ImpactPageProps> = ({ onNavigate = () => {} })
 
         {/* CTA */}
         <div className="rf-card" style={{ padding: '3rem', textAlign: 'center', border: '1px solid rgba(102,187,42,0.35)' }}>
-          <Sparkles size={36} color="var(--rf-leaf-green)" style={{ marginBottom: '1rem' }} />
+          <Globe2 size={36} color="var(--rf-leaf-green)" style={{ marginBottom: '1rem' }} />
           <h2 style={{ fontSize: '1.875rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.75rem' }}>
             Be Part of Africa's Economic Transformation
           </h2>

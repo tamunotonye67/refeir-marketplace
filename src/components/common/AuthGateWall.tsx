@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Shield, Lock, ArrowRight, UserCheck, Sparkles, Briefcase, Users, LogIn, UserPlus } from 'lucide-react';
+import { Shield, Lock, ArrowRight, UserCheck, Briefcase, Users, LogIn, UserPlus } from 'lucide-react';
 import { GLOBAL_COUNTRIES, getCountryByName } from '../../data/countries';
 
 interface AuthGateWallProps {

@@ -6,7 +6,6 @@ import { TalentCard } from '../components/marketplace/TalentCard';
 import { ReferModal } from '../components/referral/ReferModal';
 import { formatMoney } from '../data/currencies';
 import {
-  Sparkles,
   ShieldCheck,
   Award,
   Globe2,

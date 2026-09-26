@@ -14,7 +14,6 @@ import { TalentProfile, Service, AfricanRegion } from '../types';
 import { REGIONS } from '../data/countries';
 import {
   Search,
-  Sparkles,
   ArrowRight,
   ShieldCheck,
   Zap,

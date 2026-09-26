@@ -10,7 +10,7 @@ import {
   Users,
   Briefcase,
   Ticket,
-  Sparkles,
+  Crown,
   ShieldCheck,
   Headphones,
   CheckCircle2,
@@ -599,7 +599,7 @@ export const HELP_DIRECTORIES: Record<Exclude<HelpRoleCategory, 'ALL'>, RoleHelp
       {
         id: 'client-features',
         title: 'Features & Programs',
-        icon: Sparkles,
+        icon: Zap,
         color: '#7DA2FF',
         description: 'Referral rewards, enterprise agency matchmaking, and project briefs.',
         articles: [
@@ -923,7 +923,7 @@ export const HELP_DIRECTORIES: Record<Exclude<HelpRoleCategory, 'ALL'>, RoleHelp
       {
         id: 'pro-orders',
         title: 'Enterprise Orders & Managed Talent',
-        icon: Sparkles,
+        icon: Crown,
         color: '#66BB2A',
         description: 'Top 1% technical talent, dedicated Project Managers, hourly contracts, and quality guarantees.',
         articles: [
@@ -1270,7 +1270,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate = () => {} }) => 
             { id: 'TALENT', label: 'For Talents', icon: Briefcase },
             { id: 'CLIENT', label: 'For Clients', icon: ShieldCheck },
             { id: 'SCOUT', label: 'For Scouts', icon: Ticket },
-            { id: 'PRO', label: 'Refeir Pro', icon: Sparkles }
+            { id: 'PRO', label: 'Refeir Pro', icon: Crown }
           ].map(({ id, label, icon: Icon }) => {
             const isActive = activeCategory === id;
             return (
@@ -1929,7 +1929,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate = () => {} }) => 
                     summary: 'Enterprise risk-free hiring: trial senior engineers with a full 14-day replacement guarantee.',
                     readTime: '4 min read',
                     views: '11.5k views',
-                    icon: Sparkles,
+                    icon: ShieldCheck,
                     color: '#F4B942',
                     role: 'Refeir Pro Users',
                     sectionTitle: 'Enterprise Orders & Managed Talent',
@@ -2543,7 +2543,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate = () => {} }) => 
                   marginBottom: '1.75rem'
                 }}
               >
-                <Sparkles size={18} color="var(--rf-leaf-green)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <Zap size={18} color="var(--rf-leaf-green)" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div style={{ fontSize: '0.875rem', color: isDark ? 'var(--rf-cream)' : '#0F2E1B', lineHeight: 1.5 }}>
                   <strong>Refeir Tip:</strong> {selectedArticle.article.tips}
                 </div>

@@ -16,7 +16,7 @@ import {
   X,
   Mail,
   Send,
-  Sparkles,
+  CheckCircle2,
   ShieldCheck,
   TrendingUp
 } from 'lucide-react';
@@ -588,7 +588,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
             {/* Key Takeaways Box */}
             <div style={{ padding: '1.25rem', background: 'rgba(102, 187, 42, 0.08)', borderRadius: 'var(--rf-radius-md)', borderLeft: '4px solid var(--rf-leaf-green)', marginBottom: '1.5rem' }}>
               <div style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <Sparkles size={16} />
+                <CheckCircle2 size={16} />
                 <span>Key Takeaways</span>
               </div>
               <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8125rem', color: 'var(--rf-slate-200)' }}>

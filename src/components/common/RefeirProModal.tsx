@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import { useTheme } from '../../context/ThemeContext';
 import {
-  Sparkles,
+  Crown,
   Zap,
   CheckCircle2,
   X,
@@ -161,7 +161,7 @@ export const RefeirProModal: React.FC<RefeirProModalProps> = ({
                 color: '#F4B942'
               }}
             >
-              <Sparkles size={22} />
+              <Crown size={22} />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

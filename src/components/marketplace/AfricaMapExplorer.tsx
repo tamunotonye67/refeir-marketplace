@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AFRICAN_COUNTRIES, REGIONS } from '../../data/countries';
 import { AfricanRegion, Country } from '../../types';
 import { CountryFlag } from '../common/CountryFlag';
-import { MapPin, Users, Briefcase, Sparkles, ArrowRight, Layers } from 'lucide-react';
+import { MapPin, Users, Briefcase, ArrowRight, Layers } from 'lucide-react';
 
 interface AfricaMapExplorerProps {
   onSelectCountry: (countryId: string) => void;

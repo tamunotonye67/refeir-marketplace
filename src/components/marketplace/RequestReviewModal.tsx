@@ -10,7 +10,6 @@ import {
   UserCheck,
   ShieldCheck,
   Award,
-  Sparkles,
   CheckCircle2,
   Briefcase
 } from 'lucide-react';

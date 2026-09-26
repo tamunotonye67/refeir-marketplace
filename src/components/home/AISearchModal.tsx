@@ -8,7 +8,7 @@ import {
   Plus, 
   ChevronDown, 
   ChevronUp, 
-  Sparkles,
+  Compass,
   Sliders,
   DollarSign,
   Medal,
@@ -536,7 +536,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
             <div className="rf-ai-search-loading-text">
               <span className="rf-ai-search-loading-label">
-                <Sparkles size={16} className="rf-ai-search-pulse-icon" />
+                <Compass size={16} className="rf-ai-search-pulse-icon" />
                 {getLoadingActionText()}
               </span>
               <h3 className="rf-ai-search-loading-query">‘{searchQuery || 'Pan-African Talent'}’</h3>
@@ -1139,7 +1139,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           </div>
           <div className="rf-ai-search-loading-text">
             <span className="rf-ai-search-loading-label">
-              <Sparkles size={16} className="rf-ai-search-pulse-icon" />
+              <Compass size={16} className="rf-ai-search-pulse-icon" />
               Matching verified talent for your brief
             </span>
             <h3 className="rf-ai-search-loading-query">Preparing your personalized shortlist...</h3>

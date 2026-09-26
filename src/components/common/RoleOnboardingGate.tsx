@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import {
-  Sparkles,
+  Compass,
   Briefcase,
   Users,
   CheckCircle2,
@@ -192,7 +192,7 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
             }}
           >
             {targetRole === 'SCOUT' ? (
-              <Sparkles size={28} />
+              <Compass size={28} />
             ) : targetRole === 'TALENT' ? (
               <Users size={28} />
             ) : (

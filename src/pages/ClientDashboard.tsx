@@ -17,7 +17,7 @@ import {
   Clock,
   CheckCircle2,
   Lock,
-  Sparkles,
+  Crown,
   Headphones,
   Star,
   Send,
@@ -391,7 +391,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
                   gap: '0.4rem'
                 }}
               >
-                <Sparkles size={14} />
+                <Crown size={14} />
                 <span>Upgrade to Refeir Desk Pro</span>
               </button>
             )}
@@ -434,7 +434,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
                 gap: '0.4rem'
               }}
             >
-              <Sparkles size={14} />
+              <Crown size={14} />
               <span>Unlock Refeir Desk</span>
             </button>
           </div>
@@ -474,7 +474,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
                   gap: '0.25rem'
                 }}
               >
-                <Sparkles size={12} />
+                <CheckCircle2 size={12} />
                 <span>{rec.match_score}% Refeir Match</span>
               </div>
 

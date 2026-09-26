@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Sparkles, CheckCircle2, Lock, ArrowRight, DollarSign, HelpCircle, Users, Briefcase, Zap, Ticket, Award, Headphones, Star, Check } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Lock, ArrowRight, DollarSign, HelpCircle, Users, Briefcase, Zap, Ticket, Award, Headphones, Star, Check } from 'lucide-react';
 import { RefeirProModal } from '../components/common/RefeirProModal';
 
 interface PricingPageProps {
@@ -136,7 +136,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
                   </h3>
                 </div>
                 <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(102, 187, 42, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Sparkles size={20} color="var(--rf-leaf-green)" />
+                  <Zap size={20} color="var(--rf-leaf-green)" />
                 </div>
               </div>
 
@@ -238,7 +238,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
         <div className="rf-container">
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(244, 185, 66, 0.15)', border: '1px solid rgba(244, 185, 66, 0.4)', borderRadius: '100px', padding: '0.35rem 1rem', marginBottom: '0.75rem' }}>
-              <Sparkles size={16} color="#F4B942" />
+              <Award size={16} color="#F4B942" />
               <span style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#F4B942', textTransform: 'uppercase' }}>
                 REFEIR PRO SUPERPOWERS
               </span>

@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   CheckCircle2,
   Lock,
-  Sparkles,
   Upload,
   FileText,
   MessageSquare,

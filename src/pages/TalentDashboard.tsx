@@ -15,7 +15,6 @@ import {
   TrendingUp,
   Briefcase,
   Users,
-  Sparkles,
   Plus,
   ArrowRight,
   ShieldCheck,
@@ -255,7 +254,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
                 gap: '0.65rem'
               }}
             >
-              <Sparkles size={18} color="#F4B942" />
+              <Award size={18} color="#F4B942" />
               <div>
                 <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#F4B942', textTransform: 'uppercase' }}>
                   Featured Talent Pro
@@ -357,7 +356,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
                 flexShrink: 0
               }}
             >
-              <Sparkles size={22} />
+              <TrendingUp size={22} />
             </div>
             <div>
               <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: '0 0 0.25rem 0' }}>

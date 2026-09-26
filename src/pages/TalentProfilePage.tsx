@@ -8,7 +8,7 @@ import { ReferModal } from '../components/referral/ReferModal';
 import {
   Star,
   CheckCircle2,
-  Sparkles,
+  Share2,
   Clock,
   Briefcase,
   Globe2,
@@ -312,7 +312,7 @@ export const TalentProfilePage: React.FC<TalentProfilePageProps> = ({
                 }}
               >
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: 'var(--rf-mint)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
-                  <Sparkles size={14} />
+                  <ShieldCheck size={14} />
                   <span>Locked Referral Opportunity</span>
                 </div>
                 <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>
@@ -358,7 +358,7 @@ export const TalentProfilePage: React.FC<TalentProfilePageProps> = ({
                 }}
               >
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: 'var(--rf-mint)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
-                  <Sparkles size={14} />
+                  <CheckCircle2 size={14} />
                   <span>Vetted African Professional</span>
                 </div>
                 <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>
@@ -410,7 +410,7 @@ export const TalentProfilePage: React.FC<TalentProfilePageProps> = ({
                     className="rf-btn rf-btn-mint rf-btn-lg rf-w-full"
                     style={{ fontWeight: 800, gap: '0.5rem' }}
                   >
-                    <Sparkles size={16} />
+                    <Share2 size={16} />
                     <span>Refer {talent.full_name.split(' ')[0]} (Earn {talent.referral_percentage}%)</span>
                   </button>
 

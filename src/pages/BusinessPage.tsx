@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, Shield, Users, Globe2, Sparkles, CheckCircle2, ArrowRight, FileCheck, Layers, Award } from 'lucide-react';
+import { Building2, Shield, Users, Globe2, CheckCircle2, ArrowRight, FileCheck, Layers, Award } from 'lucide-react';
 
 interface BusinessPageProps {
   onNavigate: (path: string) => void;
@@ -70,7 +70,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
           <div className="rf-grid-3">
             <div className="rf-card" style={{ padding: '2rem' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'var(--rf-mint-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
-                <Sparkles size={24} color="var(--rf-leaf-green)" />
+                <Award size={24} color="var(--rf-leaf-green)" />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.75rem' }}>
                 Dedicated Scout Networks

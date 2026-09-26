@@ -15,7 +15,6 @@ import {
   Users,
   Briefcase,
   TrendingUp,
-  Sparkles,
   CheckCircle2,
   XCircle,
   Save,
@@ -631,7 +630,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       title: 'Talent Workspace',
       role: 'TALENT EARNINGS',
       path: '/dashboard/talent',
-      icon: Sparkles,
+      icon: UserCheck,
       color: 'var(--rf-mint)',
       desc: 'Overview of verified African engineers, designers, and consultants.'
     },

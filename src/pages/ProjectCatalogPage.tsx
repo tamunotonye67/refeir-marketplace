@@ -3,7 +3,7 @@ import { useMarketplace } from '../context/MarketplaceContext';
 import { ServiceCard } from '../components/marketplace/ServiceCard';
 import { ReferModal } from '../components/referral/ReferModal';
 import { Service, TalentProfile } from '../types';
-import { Sparkles, Search, Filter, ArrowRight, ShieldCheck, CheckCircle2, Globe2 } from 'lucide-react';
+import { Package, Search, Filter, ArrowRight, ShieldCheck, CheckCircle2, Globe2 } from 'lucide-react';
 
 interface ProjectCatalogPageProps {
   onNavigate?: (path: string) => void;
@@ -58,7 +58,7 @@ export const ProjectCatalogPage: React.FC<ProjectCatalogPageProps> = ({
       <div style={{ background: 'linear-gradient(180deg, rgba(10, 26, 18, 0.8) 0%, transparent 100%)', borderBottom: '1px solid var(--rf-navy-border)', padding: '5rem 0 4rem', textAlign: 'center' }}>
         <div className="rf-container" style={{ maxWidth: '840px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--rf-leaf-green)', fontSize: '0.8125rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', background: 'rgba(102,187,42,0.08)', padding: '0.35rem 0.85rem', borderRadius: '100px', border: '1px solid rgba(102,187,42,0.2)' }}>
-            <Sparkles size={16} />
+            <Package size={16} />
             <span>PRE-SCOUTED WORK PACKAGES</span>
           </div>
           <h1 style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: '1.25rem' }}>

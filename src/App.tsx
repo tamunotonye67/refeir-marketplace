@@ -482,18 +482,34 @@ export const App: React.FC = () => {
     basePath === '/refeir-pioneers' || 
     basePath === '/join-pioneers';
 
+  // Internal workspace, chat, dashboard, verification, and settings pages where a marketing footer is completely unnecessary
+  const isFooterExcluded =
+    isChromelessPage ||
+    basePath === '/messages' ||
+    basePath.startsWith('/projects/') ||
+    basePath.startsWith('/dashboard') ||
+    basePath === '/wallet' ||
+    basePath === '/verification' ||
+    basePath === '/disputes' ||
+    basePath === '/settings' ||
+    basePath === '/account-settings' ||
+    basePath === '/profile' ||
+    basePath === '/account/profile' ||
+    basePath === '/demo-tour' ||
+    basePath.startsWith('/r/');
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--rf-navy)' }}>
       {/* Global Navigation Header */}
       {!isChromelessPage && <Header onNavigate={navigate} currentPath={currentPath} />}
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, paddingTop: isChromelessPage ? 0 : 'var(--rf-header-height, 72px)', paddingBottom: isChromelessPage ? 0 : '4rem' }}>
+      <main style={{ flex: 1, paddingTop: isChromelessPage ? 0 : 'var(--rf-header-height, 72px)', paddingBottom: isFooterExcluded ? 0 : '4rem' }}>
         {renderCurrentPage()}
       </main>
 
-      {/* Global Footer */}
-      {!isChromelessPage && <Footer onNavigate={navigate} />}
+      {/* Global Footer (shown only on public discovery, marketing, and institutional pages) */}
+      {!isFooterExcluded && <Footer onNavigate={navigate} />}
 
       {/* Mobile Bottom Navigation */}
       {!isChromelessPage && <MobileNav onNavigate={navigate} currentPath={currentPath} />}

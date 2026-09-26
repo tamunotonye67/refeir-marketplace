@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe2, Users, Sparkles, TrendingUp, ArrowRight, Shield, Briefcase } from 'lucide-react';
+import { Globe2, Users, TrendingUp, ArrowRight, Shield, Briefcase } from 'lucide-react';
 
 interface AboutPageProps {
   onNavigate?: (path: string) => void;

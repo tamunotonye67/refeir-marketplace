@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Lock, Globe2, Sparkles, ArrowRight, Zap, CheckCircle2, Award, Users, Scale, Heart } from 'lucide-react';
+import { ShieldCheck, Lock, Globe2, ArrowRight, Zap, CheckCircle2, Award, Users, Scale, Heart } from 'lucide-react';
 
 interface WhyRefeirPageProps {
   onNavigate: (path: string) => void;

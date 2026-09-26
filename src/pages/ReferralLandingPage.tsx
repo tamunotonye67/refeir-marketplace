@@ -5,7 +5,7 @@ import { CountryFlag } from '../components/common/CountryFlag';
 import { formatMoney } from '../data/currencies';
 import { TalentProfile, Service } from '../types';
 import {
-  Sparkles,
+  Award,
   ShieldCheck,
   Star,
   CheckCircle2,
@@ -62,7 +62,7 @@ export const ReferralLandingPage: React.FC<ReferralLandingPageProps> = ({
       >
         {/* Top Scout Recommendation Stamp */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--rf-mint)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-          <Sparkles size={16} />
+          <Award size={16} />
           <span>EXCLUSIVE SCOUT INTRODUCTION • REFERRAL ID: {referral ? referral.referral_code : referralCode}</span>
         </div>
 

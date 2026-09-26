@@ -9,8 +9,7 @@ import {
   Coins,
   CheckCircle2,
   ShieldCheck,
-  ArrowRight,
-  Sparkles
+  ArrowRight
 } from 'lucide-react';
 
 interface AddPayoutMethodModalProps {
@@ -461,7 +460,7 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                       gap: '0.25rem'
                     }}
                   >
-                    <Sparkles size={12} />
+                    <ShieldCheck size={12} />
                     <span>{isVerifying ? 'Verifying...' : 'Verify Name'}</span>
                   </button>
                 )}

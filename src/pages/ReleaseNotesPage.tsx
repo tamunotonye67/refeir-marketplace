@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, ArrowRight, Sparkles, Zap, Globe2, Shield, Coins, Users } from 'lucide-react';
+import { FileText, ArrowRight, Zap, Globe2, Shield, Coins, Users } from 'lucide-react';
 
 interface ReleaseNotesPageProps {
   onNavigate?: (path: string) => void;

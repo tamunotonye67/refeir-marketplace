@@ -8,7 +8,6 @@ import { REGIONS, AFRICAN_COUNTRIES } from '../data/countries';
 import {
   Search,
   Filter,
-  Sparkles,
   SlidersHorizontal,
   Globe2,
   CheckCircle2,

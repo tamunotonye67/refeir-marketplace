@@ -3,7 +3,7 @@ import { Service } from '../../types';
 import { useAuth } from '../../context/AuthContext';
 import { CountryFlag } from '../common/CountryFlag';
 import { formatCompactMoney } from '../../data/currencies';
-import { Sparkles, Clock, RefreshCw, Star, ShoppingBag, ShieldCheck } from 'lucide-react';
+import { Award, Share2, Clock, RefreshCw, Star, ShoppingBag, ShieldCheck } from 'lucide-react';
 
 interface ServiceCardProps {
   service: Service;
@@ -47,7 +47,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           <div className="rf-animated-sparkle-badge">
             <div className="rf-sparkle-icon-anchor">
               <span className="rf-animated-sparkle-icon">
-                <Sparkles size={13} />
+                <Award size={13} />
               </span>
             </div>
             <div className="rf-sparkle-text-viewport">
@@ -146,7 +146,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
                   style={{ fontWeight: 800, gap: '0.3rem' }}
                   title="Refer this service to clients"
                 >
-                  <Sparkles size={12} />
+                  <Share2 size={12} />
                   <span>Refer ({service.referral_percentage}%)</span>
                 </button>
                 <button

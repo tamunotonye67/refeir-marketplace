@@ -12,7 +12,6 @@ import {
   Calendar,
   Building,
   QrCode,
-  Sparkles,
   ArrowDownRight,
   ArrowUpRight,
   Percent,

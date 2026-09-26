@@ -10,7 +10,7 @@ import {
   ChevronRight,
   Briefcase,
   Users,
-  Sparkles,
+  Package,
   Code2,
   Brain,
   Palette,
@@ -801,7 +801,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                           {renderNavFlyoutItem(<CheckCircle2 size={15} />, 'Endorsements', 'Reputation & verified reviews', () => handleLinkClick('/dashboard/talent'))}
                           {renderNavFlyoutItem(<MessageSquare size={15} />, 'Contacts', 'Client & scout messaging threads', () => handleLinkClick('/messages'))}
                           {renderNavFlyoutHeading('Talent Plus', true)}
-                          {renderNavFlyoutItem(<Sparkles size={15} color="#F4B942" />, 'Program Benefits', 'Featured carousel boost & 0% fee rate', () => handleLinkClick('/pricing'), 'Pro', true)}
+                          {renderNavFlyoutItem(<Award size={15} color="#F4B942" />, 'Program Benefits', 'Featured carousel boost & 0% fee rate', () => handleLinkClick('/pricing'), 'Pro', true)}
                         </div>
                       )}
                     </div>
@@ -2660,7 +2660,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                               >
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                   <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <Sparkles size={14} color="var(--rf-leaf-green)" />
+                                    <UserCheck size={14} color="var(--rf-leaf-green)" />
                                   </div>
                                   <div>
                                     <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: textCream }}>Talent Workspace</div>
@@ -2927,7 +2927,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                     <Users size={15} color="var(--rf-leaf-green)" /> <span>Browse Proven Talents</span>
                   </button>
                   <button onClick={() => { setShowMobileDrawer(false); onNavigate('/services'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Sparkles size={15} color="var(--rf-leaf-green)" /> <span>Fixed Service Packages</span>
+                    <Package size={15} color="var(--rf-leaf-green)" /> <span>Fixed Service Packages</span>
                   </button>
                   <button onClick={() => { setShowMobileDrawer(false); onNavigate('/jobs'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
                     <Briefcase size={15} color="var(--rf-leaf-green)" /> <span>Browse Jobs & Projects</span>

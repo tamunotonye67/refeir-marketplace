@@ -3,7 +3,7 @@ import { REGIONS } from '../../data/countries';
 import { RefeirLogo } from './RefeirLogo';
 import { RefeirProModal } from './RefeirProModal';
 import { useTheme } from '../../context/ThemeContext';
-import { Shield, Sparkles, CheckCircle2, Globe, Heart, Smartphone, X, Zap, BellRing, Lock, CheckCircle, ArrowRight, Download, Loader2, ChevronDown } from 'lucide-react';
+import { Shield, CheckCircle2, Globe, Heart, Smartphone, X, Zap, BellRing, Lock, CheckCircle, ArrowRight, Download, Loader2, ChevronDown } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface FooterProps {

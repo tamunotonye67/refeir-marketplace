@@ -9,7 +9,6 @@ import {
   Lock,
   ShieldCheck,
   Eye,
-  Sparkles,
   Upload,
   UserCheck,
   Play,
@@ -477,7 +476,7 @@ export const FaceCaptureModule: React.FC<FaceCaptureModuleProps> = ({
             {/* Motion Prompt Bottom HUD */}
             <div style={{ position: 'absolute', bottom: '12px', left: '0', right: '0', zIndex: 5, padding: '0 1rem' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: isRecording ? 'rgba(239, 68, 68, 0.9)' : faceLockState === 'LOCKED' ? 'rgba(8, 20, 12, 0.92)' : 'rgba(30, 20, 5, 0.92)', backdropFilter: 'blur(8px)', border: isRecording ? '1px solid #EF4444' : faceLockState === 'LOCKED' ? '1px solid rgba(102, 187, 42, 0.5)' : '1px solid rgba(244, 185, 66, 0.5)', borderRadius: '9999px', padding: '0.4rem 1rem', color: '#FFFFFF', fontSize: '0.8125rem', fontWeight: 800 }}>
-                <Sparkles size={14} color={isRecording ? '#FFFFFF' : faceLockState === 'LOCKED' ? 'var(--rf-leaf-green)' : '#F4B942'} />
+                <ShieldCheck size={14} color={isRecording ? '#FFFFFF' : faceLockState === 'LOCKED' ? 'var(--rf-leaf-green)' : '#F4B942'} />
                 {isRecording
                   ? motionPrompt
                   : faceLockState !== 'LOCKED'

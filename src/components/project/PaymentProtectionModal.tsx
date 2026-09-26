@@ -11,7 +11,6 @@ import {
   Smartphone,
   CheckCircle2,
   X,
-  Sparkles,
   ArrowRight,
   Globe2,
   Zap,

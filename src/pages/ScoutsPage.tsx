@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Users, Coins, ArrowRight, CheckCircle2, Star, Shield, Zap, MessageSquare, Sparkles, Lock, ArrowLeft } from 'lucide-react';
+import { Users, Coins, ArrowRight, CheckCircle2, Star, Shield, Zap, MessageSquare, Lock, ArrowLeft } from 'lucide-react';
 
 interface ScoutsPageProps {
   onNavigate?: (path: string) => void;

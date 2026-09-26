@@ -4,7 +4,6 @@ import { useNotification } from '../context/NotificationContext';
 import {
   Users,
   MessageSquare,
-  Sparkles,
   Search,
   ThumbsUp,
   Share2,
@@ -1201,7 +1200,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
             {[
               { label: 'Active Talents', val: '18,450+', sub: 'Across 54 Countries', icon: Users, color: 'var(--rf-leaf-green)' },
-              { label: 'Verified Scouts', val: '4,280+', sub: 'Attribution Protected', icon: Sparkles, color: 'var(--rf-golden-yellow)' },
+              { label: 'Verified Scouts', val: '4,280+', sub: 'Attribution Protected', icon: Compass, color: 'var(--rf-golden-yellow)' },
               { label: 'Scout Commissions Paid', val: '$2.85M+', sub: 'Instant Sovereign Escrow', icon: Award, color: 'var(--rf-leaf-green)' },
               { label: 'Active Guilds', val: '6 Specializations', sub: 'Rust, AI, FinTech & Design', icon: Layers, color: '#38BDF8' }
             ].map((stat, i) => {

@@ -22,7 +22,6 @@ import {
   FileText,
   Clock,
   Lock,
-  Sparkles,
   Ticket,
   Percent,
   Download,

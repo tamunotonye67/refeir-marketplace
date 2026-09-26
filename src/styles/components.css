@@ -6628,6 +6628,83 @@
   }
 }
 
+/* =========================================================================
+   RESPONSIVE OPTIMIZATIONS FOR ALL SCREEN SIZES & MOBILE VIEWPORTS
+   ========================================================================= */
+
+/* Messages Layout Responsiveness */
+.rf-messages-mobile-back {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .rf-messages-card {
+    grid-template-columns: 1fr !important;
+    height: 72vh !important;
+    min-height: 480px !important;
+  }
+  .rf-messages-mobile-back {
+    display: inline-flex !important;
+  }
+  .rf-messages-card.show-chat .rf-messages-threads-col {
+    display: none !important;
+  }
+  .rf-messages-card:not(.show-chat) .rf-messages-chat-col {
+    display: none !important;
+  }
+}
+
+/* Universal Table Horizontal Scroll Container */
+.rf-table-container,
+.rf-admin-table-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Responsive Grid Adjustments */
+@media (max-width: 1024px) {
+  .rf-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .rf-grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .rf-grid-4,
+  .rf-grid-3,
+  .rf-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+  .rf-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .rf-section {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+  /* Modals max width & height safe for small devices */
+  .rf-modal-content,
+  .rf-modal-box {
+    max-width: calc(100vw - 1.5rem) !important;
+    max-height: calc(100dvh - 2rem) !important;
+    margin: 1rem auto !important;
+    padding: 1.25rem !important;
+  }
+}
+
+/* Safe touch target size for interactive elements */
+@media (pointer: coarse) {
+  .rf-btn-sm,
+  .rf-btn-xs {
+    min-height: 36px;
+  }
+}
+
 
 
 

@@ -11,7 +11,6 @@ import {
   Send,
   DollarSign,
   Clock,
-  Sparkles,
   Award,
   ThumbsUp,
   Briefcase

@@ -4,7 +4,7 @@ import {
   ArrowRight, ChevronDown, Check,
   Users, Zap, Award, Briefcase, Globe2, TrendingUp, Star, Shield,
   Code2, Palette, BarChart3, FlaskConical, Menu, X, Search,
-  ExternalLink, CheckCircle2, AlertCircle, Clock, Sparkles,
+  ExternalLink, CheckCircle2, AlertCircle, Clock,
   Layers, Compass, MapPin
 } from 'lucide-react';
 
@@ -861,7 +861,7 @@ const HeroSection: React.FC = () => (
                 width: 36, height: 36, borderRadius: '50%', background: `${RF_LEAF_GREEN}22`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center', color: RF_MINT_ACCENT
               }}>
-                <Sparkles size={18} />
+                <Layers size={18} />
               </div>
               <div>
                 <div style={{ fontSize: 10, fontWeight: 800, color: RF_MINT_ACCENT, letterSpacing: '0.1em' }}>

@@ -3,7 +3,7 @@ import { TalentProfile } from '../../types';
 import { useAuth } from '../../context/AuthContext';
 import { CountryFlag } from '../common/CountryFlag';
 import { formatCompactMoney } from '../../data/currencies';
-import { Star, CheckCircle2, Sparkles, ArrowRight, Eye, Briefcase, Users } from 'lucide-react';
+import { Star, CheckCircle2, Share2, ArrowRight, Eye, Briefcase, Users } from 'lucide-react';
 
 interface TalentCardProps {
   talent: TalentProfile;
@@ -218,7 +218,7 @@ export const TalentCard: React.FC<TalentCardProps> = ({
                 title="Refer this talent & earn locked commission"
                 style={{ fontWeight: 800, gap: '0.3rem' }}
               >
-                <Sparkles size={12} />
+                <Share2 size={12} />
                 <span>Refer ({talent.referral_percentage}%)</span>
               </button>
               <button

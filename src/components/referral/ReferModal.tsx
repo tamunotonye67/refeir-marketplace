@@ -7,7 +7,6 @@ import { ReferralEngine } from '../../services/referralEngine';
 import { formatMoney } from '../../data/currencies';
 import {
   X,
-  Sparkles,
   Share2,
   Copy,
   Check,
@@ -124,7 +123,7 @@ export const ReferModal: React.FC<ReferModalProps> = ({
                 justifyContent: 'center'
               }}
             >
-              <Sparkles size={20} color="var(--rf-mint)" />
+              <Share2 size={20} color="var(--rf-mint)" />
             </div>
             <div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)' }}>

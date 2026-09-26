@@ -14,6 +14,7 @@ import {
   DollarSign,
   Briefcase,
   Users,
+  ArrowLeft,
   ExternalLink
 } from 'lucide-react';
 
@@ -135,12 +136,14 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ initialThreadId }) =
     }
   ]);
 
+  const [showMobileChat, setShowMobileChat] = useState<boolean>(false);
   const activeThread = threads.find(t => t.id === activeThreadId) || threads[0];
   const currentValidation = detectProhibitedContent(inputText);
   const totalUnreadCount = threads.reduce((acc, t) => acc + t.unread, 0);
 
   const handleSelectThread = (threadId: string) => {
     setActiveThreadId(threadId);
+    setShowMobileChat(true);
     setThreads(prev =>
       prev.map(t => (t.id === threadId ? { ...t, unread: 0 } : t))
     );
@@ -232,7 +235,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ initialThreadId }) =
       </div>
 
       <div
-        className="rf-card"
+        className={`rf-card rf-messages-card ${showMobileChat ? 'show-chat' : ''}`}
         style={{
           padding: 0,
           display: 'grid',
@@ -243,7 +246,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ initialThreadId }) =
         }}
       >
         {/* Left Threads Column */}
-        <div style={{ borderRight: '1px solid var(--rf-navy-border)', display: 'flex', flexDirection: 'column', background: 'rgba(0,0,0,0.2)' }}>
+        <div className="rf-messages-threads-col" style={{ borderRight: '1px solid var(--rf-navy-border)', display: 'flex', flexDirection: 'column', background: 'rgba(0,0,0,0.2)' }}>
           <div style={{ padding: '0.85rem 1.15rem', borderBottom: '1px solid var(--rf-navy-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', background: 'rgba(102, 187, 42, 0.05)' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-slate-300)', letterSpacing: '0.04em' }}>
               Negotiations
@@ -354,7 +357,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ initialThreadId }) =
         </div>
 
         {/* Right Active Message Box */}
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'rgba(5, 15, 10, 0.6)' }}>
+        <div className="rf-messages-chat-col" style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'rgba(5, 15, 10, 0.6)' }}>
           {/* Header */}
           <div
             style={{
@@ -363,14 +366,37 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ initialThreadId }) =
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: 'rgba(0,0,0,0.3)'
+              background: 'rgba(0,0,0,0.3)',
+              gap: '0.5rem',
+              flexWrap: 'wrap'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <button
+                className="rf-messages-mobile-back"
+                onClick={() => setShowMobileChat(false)}
+                aria-label="Back to Negotiations"
+                style={{
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  background: 'rgba(255,255,255,0.08)',
+                  border: '1px solid var(--rf-navy-border)',
+                  color: 'var(--rf-mint)',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  padding: '0.3rem 0.55rem',
+                  borderRadius: 'var(--rf-radius-sm)',
+                  marginRight: '0.25rem'
+                }}
+              >
+                <ArrowLeft size={14} />
+                <span>Inbox</span>
+              </button>
               <img
                 src={activeThread.avatar}
                 alt={activeThread.name}
-                style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid var(--rf-leaf-green)' }}
+                style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid var(--rf-leaf-green)', flexShrink: 0 }}
               />
               <div>
                 <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--rf-cream)' }}>

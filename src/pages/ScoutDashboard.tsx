@@ -10,7 +10,8 @@ import { StatementOfAccountModal } from '../components/wallet/StatementOfAccount
 import { ReviewModal } from '../components/marketplace/ReviewModal';
 import { UserRole, ReviewType } from '../types';
 import {
-  Sparkles,
+  Compass,
+  Crown,
   TrendingUp,
   Users,
   CheckCircle2,
@@ -194,7 +195,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
       >
         <div>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: 'var(--rf-mint)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-            <Sparkles size={14} />
+            <Compass size={14} />
             <span>SCOUT COMMAND CENTER</span>
           </div>
           <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
@@ -218,7 +219,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                 gap: '0.65rem'
               }}
             >
-              <Sparkles size={18} color="#F4B942" />
+              <Award size={18} color="#F4B942" />
               <div>
                 <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#F4B942', textTransform: 'uppercase' }}>
                   Scout Pro Active
@@ -240,7 +241,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                 gap: '0.4rem'
               }}
             >
-              <Sparkles size={16} />
+              <Crown size={16} />
               <span>Upgrade to Scout Pro (Get Airfee)</span>
             </button>
           )}
@@ -733,7 +734,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                   gap: '0.35rem'
                 }}
               >
-                <Sparkles size={14} />
+                <Award size={14} />
                 <span>Get 5 Tokens with Scout Pro</span>
               </button>
             )}

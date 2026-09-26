@@ -22,7 +22,6 @@ import {
   Smartphone,
   LogOut,
   ChevronRight,
-  Sparkles,
   ArrowRight,
   Shield,
   FileCheck,

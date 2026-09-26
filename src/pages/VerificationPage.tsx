@@ -16,7 +16,6 @@ import {
   Camera,
   UserCheck,
   Eye,
-  Sparkles,
   RefreshCw,
   AlertCircle,
   XCircle,
