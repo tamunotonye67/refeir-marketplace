@@ -2576,8 +2576,11 @@
     max-width: 100% !important;
   }
 
-  .rf-hero-container {
+  .rf-hero-container,
+  .rf-container.rf-hero-container {
     padding: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     margin: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
@@ -2676,8 +2679,18 @@
   .rf-hero-video-card {
     border-radius: 0 !important;
     width: 100% !important;
+    max-width: 100% !important;
     min-height: 520px !important;
     box-shadow: none !important;
+    margin: 0 !important;
+  }
+
+  .rf-hero-video-card video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    left: 0 !important;
+    right: 0 !important;
   }
 
   .rf-hero-video-content {
@@ -6679,7 +6692,7 @@
   .rf-grid-2 {
     grid-template-columns: 1fr !important;
   }
-  .rf-container {
+  .rf-container:not(.rf-hero-container) {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }

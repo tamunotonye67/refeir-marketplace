@@ -1687,13 +1687,20 @@ export const HomePage: React.FC<HomePageProps> = ({
         className="rf-hero-section"
         style={{
           background: 'var(--rf-bg-base)',
-          padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem)',
-          paddingBottom: 'clamp(2.5rem, 5vw, 4rem)'
+          padding: isMobile ? '0' : 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem)',
+          paddingBottom: isMobile ? '0' : 'clamp(2.5rem, 5vw, 4rem)',
+          width: '100%',
+          overflowX: 'hidden'
         }}
       >
         <div
-          className="rf-container rf-hero-container"
-          style={{ maxWidth: '1200px' }}
+          className={`rf-hero-container ${!isMobile ? 'rf-container' : ''}`}
+          style={{
+            maxWidth: isMobile ? '100%' : '1200px',
+            width: '100%',
+            padding: 0,
+            margin: isMobile ? '0' : '0 auto'
+          }}
         >
           {/* Scout Referral Announcement Banner — Transparent White Blend */}
           <div
@@ -1702,16 +1709,19 @@ export const HomePage: React.FC<HomePageProps> = ({
               background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)',
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(18, 43, 26, 0.12)',
-              borderRadius: '16px',
-              padding: '1rem 1.75rem',
-              marginBottom: '1rem',
+              border: isMobile ? 'none' : '1px solid rgba(18, 43, 26, 0.12)',
+              borderBottom: '1px solid rgba(18, 43, 26, 0.12)',
+              borderRadius: isMobile ? '0' : '16px',
+              padding: isMobile ? '0.75rem 1rem' : '1rem 1.75rem',
+              marginBottom: isMobile ? '0' : '1rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '1.25rem',
-              boxShadow: '0 4px 20px rgba(18, 43, 26, 0.05)',
-              flexWrap: 'wrap'
+              boxShadow: isMobile ? '0 4px 16px rgba(0, 0, 0, 0.06)' : '0 4px 20px rgba(18, 43, 26, 0.05)',
+              flexWrap: 'wrap',
+              width: '100%',
+              boxSizing: 'border-box'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, minWidth: '280px' }}>
@@ -1768,13 +1778,15 @@ export const HomePage: React.FC<HomePageProps> = ({
             className="rf-hero-video-card"
             style={{
               position: 'relative',
-              borderRadius: '28px',
+              borderRadius: isMobile ? '0' : '28px',
               overflow: 'hidden',
-              minHeight: 'clamp(480px, 72vh, 680px)',
+              minHeight: isMobile ? '520px' : 'clamp(480px, 72vh, 680px)',
               display: 'flex',
               alignItems: 'center',
-              boxShadow: '0 24px 60px rgba(18, 43, 26, 0.18)',
-              backgroundColor: '#0A170F'
+              boxShadow: isMobile ? 'none' : '0 24px 60px rgba(18, 43, 26, 0.18)',
+              backgroundColor: '#0A170F',
+              width: '100%',
+              maxWidth: '100vw'
             }}
           >
             {/* Background Video — Pexels CDN (reliable, CORS-safe, no auth needed) */}
