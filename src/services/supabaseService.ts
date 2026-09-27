@@ -1,4 +1,4 @@
-﻿import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { TalentProfile, Service, Project, Referral, Transaction } from '../types';
 import { createMoney, formatMoney } from '../data/currencies';
 
@@ -52,7 +52,7 @@ export class SupabaseService {
           full_name: prof.name || 'Talent',
           headline: item.title || 'Verified Professional',
           bio: prof.bio || 'Verified Pan-African Professional',
-          avatar_url: prof.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+          avatar_url: prof.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80',
           country_id: (prof.country || 'Nigeria').toLowerCase(),
           country_name: prof.country || 'Nigeria',
           city: prof.city || 'Lagos',
@@ -105,7 +105,7 @@ export class SupabaseService {
           id: s.id,
           talent_id: s.talent_id,
           talent_name: 'Verified Talent',
-          talent_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+          talent_avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80',
           talent_country: 'Nigeria',
           talent_rating: 5.0,
           title: s.title,

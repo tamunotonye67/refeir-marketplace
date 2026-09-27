@@ -1054,7 +1054,7 @@ const DIVISIONS_DATA = [
     title: 'COMMUNITY',
     roles: ['Community managers', 'Campus ambassadors', 'Regional leads', 'Community builders'],
     mission: 'Build the people-powered network behind Refeir.',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80',
     color: RF_MINT_ACCENT
   },
   {

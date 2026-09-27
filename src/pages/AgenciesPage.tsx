@@ -73,7 +73,7 @@ const AGENCIES: Agency[] = [
     specialties: ['Pan-African SEO', 'Paid Acquisition', 'Conversion Optimization', 'B2B GTM Strategy'],
     logo: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=150&q=80',
     lead: 'Kofi Mensah, Growth Partner',
-    leadAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+    leadAvatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=150&q=80',
     verified: true
   },
   {
@@ -90,7 +90,7 @@ const AGENCIES: Agency[] = [
     specialties: ['Dialect NLP', 'Risk Scoring Models', 'Document OCR', 'Python & PyTorch'],
     logo: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=150&q=80',
     lead: 'Dr. Tariq El-Masry, Chief Scientist',
-    leadAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+    leadAvatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?auto=format&fit=crop&w=150&q=80',
     verified: true
   },
   {
@@ -107,7 +107,7 @@ const AGENCIES: Agency[] = [
     specialties: ['Flutter Mobile', 'AWS Cloud Infrastructure', 'Payment Gateways', 'API Architecture'],
     logo: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=150&q=80',
     lead: 'Sipho Dlamini, Managing Director',
-    leadAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80',
+    leadAvatar: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=150&q=80',
     verified: true
   }
 ];

@@ -859,7 +859,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+              src="https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=150&auto=format&fit=crop&q=80"
               alt="David Kamau"
               style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #38BDF8' }}
             />
@@ -897,7 +897,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+              src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=150&auto=format&fit=crop&q=80"
               alt="Tariq Al-Mansoor"
               style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #F4B942' }}
             />

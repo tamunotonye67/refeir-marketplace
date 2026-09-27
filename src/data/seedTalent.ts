@@ -288,7 +288,7 @@ export const SEED_TALENT: TalentProfile[] = [
     full_name: 'Fatoumata Coulibaly',
     headline: 'Technical Product Manager & Agile Coach',
     bio: 'Product manager bridging the gap between cross-functional African development squads and international enterprise stakeholders. Certified Scrum Master with 6+ years leading agile sprints.',
-    avatar_url: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80',
+    avatar_url: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80',
     country_id: 'cote-divoire',
     country_name: "Côte d'Ivoire",
     city: 'Abidjan',

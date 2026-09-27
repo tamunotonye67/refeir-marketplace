@@ -122,7 +122,7 @@ export const VerificationPage: React.FC = () => {
         country_iso: currentUser?.country || 'NGA',
         id_type: idType,
         id_number: docNumber,
-        document_front_url: idFrontFile || 'https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=400',
+        document_front_url: idFrontFile || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=400&auto=format&fit=crop&q=80',
         face_capture_url: captureType === 'PHOTO' ? faceCaptureUrl || undefined : undefined,
         video_capture_url: captureType === 'VIDEO' ? faceCaptureUrl || undefined : undefined,
         capture_type: captureType,
@@ -579,7 +579,7 @@ export const VerificationPage: React.FC = () => {
                 Official ID Attachment
               </div>
               <div style={{ height: '110px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--rf-bg-card-border)' }}>
-                <img src={idFrontFile || 'https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=400'} alt="ID Document" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={idFrontFile || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=400&auto=format&fit=crop&q=80'} alt="ID Document" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             </div>
 

@@ -125,7 +125,7 @@ export const CrossBorderDemoTour: React.FC<CrossBorderDemoTourProps> = ({ onNavi
             </h2>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+                src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=150&auto=format&fit=crop&q=80"
                 alt="Kwame"
                 style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--rf-mint)' }}
               />
@@ -153,7 +153,7 @@ export const CrossBorderDemoTour: React.FC<CrossBorderDemoTourProps> = ({ onNavi
             </h2>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+                src="https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=150&auto=format&fit=crop&q=80"
                 alt="David"
                 style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #7DA2FF' }}
               />

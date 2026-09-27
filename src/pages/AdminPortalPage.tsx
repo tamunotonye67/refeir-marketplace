@@ -296,7 +296,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       id: 'TM-001',
       name: 'Antigravity Admin',
       email: 'admin@refeir.africa',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+      avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=150&q=80',
       country: 'Pan-African Sovereign HQ',
       countryIso: 'NG',
       role: 'SUPER_ADMIN',
@@ -342,7 +342,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       id: 'TM-003',
       name: 'Kofi Mensah',
       email: 'kofi.mensah@refeir.africa',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80',
       country: 'Ghana',
       countryIso: 'GH',
       role: 'CONTENT_EDITOR',
@@ -451,7 +451,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       id: `TM-${Date.now().toString().slice(-4)}`,
       name: newMemberName.trim(),
       email: newMemberEmail.trim().toLowerCase(),
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+      avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=150&q=80',
       country: newMemberCountry,
       countryIso: newMemberCountryIso,
       role: newMemberRole,
@@ -529,8 +529,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       country: 'Nigeria 🇳🇬',
       id_type: 'National ID / NIN',
       doc_number: 'NIN-7829103948',
-      id_photo: 'https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=400&auto=format&fit=crop&q=80',
-      face_capture: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
+      id_photo: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=400&auto=format&fit=crop&q=80',
+      face_capture: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=400&auto=format&fit=crop&q=80',
       video_capture: '/Refeir_logo.mp4',
       match_confidence: 99.6,
       status: 'PENDING'
@@ -559,8 +559,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
       country: 'Ghana 🇬🇭',
       id_type: 'Ghana Card',
       doc_number: 'GHA-72819203-1',
-      id_photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
-      face_capture: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80',
+      id_photo: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=400&auto=format&fit=crop&q=80',
+      face_capture: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80',
       video_capture: '/Refeir_logo.mp4',
       match_confidence: 99.4,
       status: 'PENDING'
@@ -824,7 +824,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
             }}
           >
             <img
-              src={currentUser?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+              src={currentUser?.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=100&q=80'}
               alt="Admin"
               style={{ width: '22px', height: '22px', borderRadius: '50%', objectFit: 'cover' }}
             />

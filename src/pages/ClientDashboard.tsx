@@ -678,7 +678,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+              src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&auto=format&fit=crop&q=80"
               alt="Sarah Adeyemi"
               style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #38BDF8' }}
             />

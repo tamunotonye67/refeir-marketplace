@@ -171,7 +171,7 @@ const CONTENT_GUIDES: ContentGuide[] = [
     category: 'ENGINEERING',
     author: 'Chidi Eze',
     authorRole: 'Lead Smart Contract Architect',
-    authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+    authorAvatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&auto=format&fit=crop&q=80',
     readTime: '6 min read',
     publishedAt: 'August 14, 2026',
     image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1000&auto=format&fit=crop&q=80',
@@ -239,7 +239,7 @@ pub fn handle_milestone_release(ctx: Context<ReleaseMilestone>) -> Result<()> {
     category: 'SCOUT BLUEPRINT',
     author: 'Kwame Mensah',
     authorRole: 'Elite Scout Partner ($280k+ Referral Vol)',
-    authorAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80',
+    authorAvatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=120&auto=format&fit=crop&q=80',
     readTime: '8 min read',
     publishedAt: 'August 12, 2026',
     image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1000&auto=format&fit=crop&q=80',
@@ -307,7 +307,7 @@ pub fn handle_milestone_release(ctx: Context<ReleaseMilestone>) -> Result<()> {
     category: 'MOBILE TECH',
     author: 'Fatima Al-Sayed',
     authorRole: 'Senior Mobile Architect (Cairo)',
-    authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+    authorAvatar: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=120&auto=format&fit=crop&q=80',
     readTime: '7 min read',
     publishedAt: 'August 08, 2026',
     image: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=1000&auto=format&fit=crop&q=80',
@@ -339,7 +339,7 @@ const CLUBS_DATA: ClubData[] = [
     membersCount: 1420,
     tag: 'SMART CONTRACTS',
     lead: 'Chidi Eze & Tunde Adeleke',
-    leadAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+    leadAvatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&auto=format&fit=crop&q=80',
     leadRole: 'Senior Solana Core Contributor',
     description: 'Deep dives into Solana, CosmWasm, and Substrate contracts with automated escrow verification.',
     slogan: 'Building sovereign smart contracts and cryptographic trust vaults for the continent.',
@@ -349,7 +349,7 @@ const CLUBS_DATA: ClubData[] = [
       {
         id: 'cp-1',
         author: 'Chidi Eze',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+        avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80',
         role: 'Guild Lead',
         title: 'Weekly Sprint: Auditing Anchor Escrow Programs for Client Milestone Releases',
         body: 'Welcome to this week\'s guild sprint. We have open review bounties on PR #42 fixing program-derived token transfers for escrow payouts. Check out the resources tab for the audit template!',
@@ -361,7 +361,7 @@ const CLUBS_DATA: ClubData[] = [
       {
         id: 'cp-2',
         author: 'Tunde Adeleke',
-        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
+        avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=100&auto=format&fit=crop&q=80',
         role: 'Senior Core Dev',
         title: 'Performance Benchmark: Zero-Knowledge Verification Gas Optimization',
         body: 'We reduced on-chain verify proof gas costs by 34% by batching ed25519 signature checks. Benchmarks and Rust test harness available in our guild toolkit.',
@@ -395,10 +395,10 @@ const CLUBS_DATA: ClubData[] = [
       }
     ],
     memberList: [
-      { name: 'Chidi Eze', role: 'Guild Lead / Rust Architect', country: 'Nigeria', flag: '🇳🇬', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80' },
-      { name: 'Tunde Adeleke', role: 'Smart Contract Auditor', country: 'Nigeria', flag: '🇳🇬', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80' },
-      { name: 'Fatima Al-Sayed', role: 'Cryptography Engineer', country: 'Egypt', flag: '🇪🇬', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80' },
-      { name: 'David Kamau', role: 'Solana Protocol Dev', country: 'Kenya', flag: '🇰🇪', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80' }
+      { name: 'Chidi Eze', role: 'Guild Lead / Rust Architect', country: 'Nigeria', flag: '🇳🇬', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80' },
+      { name: 'Tunde Adeleke', role: 'Smart Contract Auditor', country: 'Nigeria', flag: '🇳🇬', avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=100&auto=format&fit=crop&q=80' },
+      { name: 'Fatima Al-Sayed', role: 'Cryptography Engineer', country: 'Egypt', flag: '🇪🇬', avatar: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=100&auto=format&fit=crop&q=80' },
+      { name: 'David Kamau', role: 'Solana Protocol Dev', country: 'Kenya', flag: '🇰🇪', avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=100&auto=format&fit=crop&q=80' }
     ]
   },
   {
@@ -407,7 +407,7 @@ const CLUBS_DATA: ClubData[] = [
     membersCount: 980,
     tag: 'COMMISSIONS',
     lead: 'Kwame Mensah & Amina Diop',
-    leadAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80',
+    leadAvatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=120&auto=format&fit=crop&q=80',
     leadRole: 'Principal Scout Partner',
     description: 'Strategies for closing Fortune 500 tech leads, negotiating splits, and maximizing lifetime referral revenue.',
     slogan: 'Mastering enterprise matchmaking and lifetime 10% scout attribution.',
@@ -417,7 +417,7 @@ const CLUBS_DATA: ClubData[] = [
       {
         id: 'cp-3',
         author: 'Kwame Mensah',
-        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
+        avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=100&auto=format&fit=crop&q=80',
         role: 'Syndicate Lead',
         title: 'New European Enterprise Hiring Wave: London FinTechs looking for Senior Go Engineers',
         body: '3 foreign clients in our syndicate network have open $80k-$120k remote contracts for senior backend engineers. Submit your verified talent profiles directly via the Scout Portal!',
@@ -445,9 +445,9 @@ const CLUBS_DATA: ClubData[] = [
       }
     ],
     memberList: [
-      { name: 'Kwame Mensah', role: 'Syndicate Lead ($280k Vol)', country: 'Ghana', flag: '🇬🇭', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80' },
+      { name: 'Kwame Mensah', role: 'Syndicate Lead ($280k Vol)', country: 'Ghana', flag: '🇬🇭', avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=100&auto=format&fit=crop&q=80' },
       { name: 'Amina Diop', role: 'Francophone Tech Scout', country: 'Senegal', flag: '🇸🇳', avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80' },
-      { name: 'Sarah Al-Mansoor', role: 'Enterprise Matchmaker', country: 'Egypt', flag: '🇪🇬', avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80' }
+      { name: 'Sarah Al-Mansoor', role: 'Enterprise Matchmaker', country: 'Egypt', flag: '🇪🇬', avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&auto=format&fit=crop&q=80' }
     ]
   },
   {
@@ -456,7 +456,7 @@ const CLUBS_DATA: ClubData[] = [
     membersCount: 860,
     tag: 'MACHINE LEARNING',
     lead: 'Zainab Nwachukwu',
-    leadAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+    leadAvatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=120&auto=format&fit=crop&q=80',
     leadRole: 'Senior NLP & LLM Researcher',
     description: 'Fine-tuning open models for Yoruba, Swahili, Amharic, Hausa, and Zulu voice & text applications.',
     slogan: 'Empowering 2,000+ African languages through cutting-edge open weights and speech models.',
@@ -466,7 +466,7 @@ const CLUBS_DATA: ClubData[] = [
       {
         id: 'cp-4',
         author: 'Zainab Nwachukwu',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+        avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&auto=format&fit=crop&q=80',
         role: 'Club Lead',
         title: 'Open Dataset Release: 50,000 Hours of Clean Swahili & Yoruba Audio for Whisper fine-tuning',
         body: 'We have compiled and open-sourced an ethically sourced audio corpus covering everyday commerce, banking, and medical conversations. Download link in resources!',
@@ -494,8 +494,8 @@ const CLUBS_DATA: ClubData[] = [
       }
     ],
     memberList: [
-      { name: 'Zainab Nwachukwu', role: 'AI Lead / NLP Researcher', country: 'Nigeria', flag: '🇳🇬', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80' },
-      { name: 'Jean-Paul Habimana', role: 'Speech Synthesis Specialist', country: 'Rwanda', flag: '🇷🇼', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80' }
+      { name: 'Zainab Nwachukwu', role: 'AI Lead / NLP Researcher', country: 'Nigeria', flag: '🇳🇬', avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&auto=format&fit=crop&q=80' },
+      { name: 'Jean-Paul Habimana', role: 'Speech Synthesis Specialist', country: 'Rwanda', flag: '🇷🇼', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80' }
     ]
   },
   {
@@ -504,7 +504,7 @@ const CLUBS_DATA: ClubData[] = [
     membersCount: 1150,
     tag: 'PAYMENTS',
     lead: 'David Kamau & SafariPay Team',
-    leadAvatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=120&auto=format&fit=crop&q=80',
+    leadAvatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=120&auto=format&fit=crop&q=80',
     leadRole: 'Principal Payments Architect',
     description: 'Bridging cross-border payment rails, Central Bank APIs, and sovereign fiat-crypto settlement.',
     slogan: 'Engineering the financial nervous system for frictionless cross-border commerce.',
@@ -514,7 +514,7 @@ const CLUBS_DATA: ClubData[] = [
       {
         id: 'cp-5',
         author: 'David Kamau',
-        avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80',
+        avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=100&auto=format&fit=crop&q=80',
         role: 'Guild Lead',
         title: 'Unified API Wrapper for M-Pesa Daraja, NIBSS Instant Payments & MTN MoMo',
         body: 'We have finalized our standardized TypeScript SDK that handles webhooks, idempotent retries, and ledger reconciliation across 6 African central banking gateways.',
@@ -542,7 +542,7 @@ const CLUBS_DATA: ClubData[] = [
       }
     ],
     memberList: [
-      { name: 'David Kamau', role: 'Payments Architect', country: 'Kenya', flag: '🇰🇪', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80' }
+      { name: 'David Kamau', role: 'Payments Architect', country: 'Kenya', flag: '🇰🇪', avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=100&auto=format&fit=crop&q=80' }
     ]
   },
   {
@@ -561,7 +561,7 @@ const CLUBS_DATA: ClubData[] = [
       {
         id: 'cp-6',
         author: 'Michel Kouamé',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+        avatar: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=100&auto=format&fit=crop&q=80',
         role: 'Tech Lead',
         title: 'Opportunité: 4 Développeurs Fullstack pour une FinTech basée à Paris et Abidjan',
         body: 'Les profils vérifiés sur Refeir avec expérience React / Node.js et intégration Mobile Money peuvent postuler directement via le lien ci-joint.',
@@ -598,7 +598,7 @@ const CLUBS_DATA: ClubData[] = [
     membersCount: 690,
     tag: 'UI / UX',
     lead: 'Adaeze Okafor',
-    leadAvatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&auto=format&fit=crop&q=80',
+    leadAvatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=120&auto=format&fit=crop&q=80',
     leadRole: 'Staff Product Designer',
     description: 'Figma component tokens, Pan-African design languages, and micro-animations for enterprise web apps.',
     slogan: 'Crafting world-class, culturally rooted digital product experiences.',
@@ -608,7 +608,7 @@ const CLUBS_DATA: ClubData[] = [
       {
         id: 'cp-7',
         author: 'Adaeze Okafor',
-        avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80',
+        avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&auto=format&fit=crop&q=80',
         role: 'Design Guild Lead',
         title: 'Release: Refeir African UI Design System (Figma Community File)',
         body: 'Includes 120+ accessible component primitives, high-contrast dark theme tokens, and bespoke currency input widgets tailored for African fintechs.',
@@ -636,7 +636,7 @@ const CLUBS_DATA: ClubData[] = [
       }
     ],
     memberList: [
-      { name: 'Adaeze Okafor', role: 'Staff Product Designer', country: 'Nigeria', flag: '🇳🇬', avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80' }
+      { name: 'Adaeze Okafor', role: 'Staff Product Designer', country: 'Nigeria', flag: '🇳🇬', avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&auto=format&fit=crop&q=80' }
     ]
   }
 ];
@@ -723,10 +723,10 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
       author: 'Kwame Mensah',
       authorRole: 'SCOUT',
       authorTitle: 'Senior Scout & Partner',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=120&auto=format&fit=crop&q=80',
       country: 'Ghana',
       isPinned: true,
-      image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?w=800&auto=format&fit=crop&q=80',
       content:
         'Fellow scouts! A key takeaway from closing international enterprise leads is providing pre-vetted Rust and Solidity portfolios verified via Refeir Tier 2 KYC. The client in London felt 100% confident because the Refeir Escrow Vault guaranteed deliverable milestones. With the 10% lifetime scout attribution, this resulted in a $1,400 instant payout upon milestone approval.',
       tags: ['#ScoutTactics', '#FinTech', '#EscrowProtection', '#PanAfrica'],
@@ -738,7 +738,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
         {
           id: 'c1',
           author: 'Chidi Eze',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+          avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80',
           role: 'Full-Stack Rust Engineer',
           content: 'Spot on Kwame! As a talent, having the scout handle initial enterprise introductions allows me to focus purely on high-velocity code deliverables.',
           time: '1 hour ago',
@@ -762,7 +762,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
       author: 'Fatima Al-Sayed',
       authorRole: 'TALENT',
       authorTitle: 'Senior Full-Stack Architect',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=120&auto=format&fit=crop&q=80',
       country: 'Egypt',
       isPinned: false,
       content:
@@ -776,7 +776,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
         {
           id: 'c3',
           author: 'David Kamau',
-          avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80',
+          avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=100&auto=format&fit=crop&q=80',
           role: 'Client Partner (Nairobi)',
           content: 'Agreed! Clear milestone scope definitions make it effortless for clients to approve funds immediately.',
           time: '3 hours ago',
@@ -791,7 +791,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
       author: 'Jean-Paul Habimana',
       authorRole: 'SCOUT',
       authorTitle: 'Tech Matchmaker (Kigali Chapter)',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&auto=format&fit=crop&q=80',
       country: 'Rwanda',
       isPinned: false,
       content:
@@ -805,7 +805,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
         {
           id: 'c4',
           author: 'Zainab Nwachukwu',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+          avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&auto=format&fit=crop&q=80',
           role: 'AI / LLM Engineer',
           content: 'Count me in! I have experience fine-tuning Mistral and LLaMA for localized Swahili and Yoruba voice agents.',
           time: '18 hours ago',
@@ -879,7 +879,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
     const newComment: DiscussionComment = {
       id: `c-${Date.now()}`,
       author: currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : 'Kwame Mensah',
-      avatar: currentUser?.avatar_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+      avatar: currentUser?.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=100&auto=format&fit=crop&q=80',
       role: (currentUser?.active_role as string) || 'SCOUT',
       content: commentInput.trim(),
       image: commentImage || undefined,
@@ -925,7 +925,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
       author: currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : 'Chidi Eze',
       authorRole: (currentUser?.active_role as any) || 'TALENT',
       authorTitle: currentUser?.headline || 'Senior Software Engineer',
-      avatar: currentUser?.avatar_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+      avatar: currentUser?.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=120&auto=format&fit=crop&q=80',
       country: currentUser?.country || 'Nigeria',
       content: newContent.trim(),
       image: newPostImage || undefined,
@@ -970,7 +970,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
     const newGuildPost = {
       id: `gpost-${Date.now()}`,
       author: currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : 'You',
-      avatar: currentUser?.avatar_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+      avatar: currentUser?.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=100&auto=format&fit=crop&q=80',
       role: (currentUser?.active_role as string) || 'Member',
       title: guildPostInput.trim().slice(0, 50) + (guildPostInput.length > 50 ? '...' : ''),
       body: guildPostInput.trim(),
@@ -2165,7 +2165,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
               {
                 name: 'Kwame Mensah',
                 role: 'Lead Ambassador • Ghana Chapter',
-                avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
+                avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=120&auto=format&fit=crop&q=80',
                 flag: '🇬🇭',
                 city: 'Accra',
                 contributions: 'Organized 8 meetups • Mentored 120 Scouts'
@@ -2173,7 +2173,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
               {
                 name: 'Zainab Nwachukwu',
                 role: 'Lead Ambassador • Nigeria Chapter',
-                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
+                avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=120&auto=format&fit=crop&q=80',
                 flag: '🇳🇬',
                 city: 'Lagos',
                 contributions: 'Host of AI Voice Hackathon • 450 Members'
@@ -2181,7 +2181,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
               {
                 name: 'David Kamau',
                 role: 'Lead Ambassador • Kenya Chapter',
-                avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=120&auto=format&fit=crop&q=80',
+                avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=120&auto=format&fit=crop&q=80',
                 flag: '🇰🇪',
                 city: 'Nairobi',
                 contributions: 'Silicon Savannah Founder • 310 Members'

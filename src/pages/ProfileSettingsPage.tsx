@@ -64,7 +64,7 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
     city: currentUser?.city || 'Lagos',
     primary_language: currentUser?.primary_language || 'English',
     timezone: currentUser?.timezone || 'Africa/Lagos',
-    avatar_url: currentUser?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    avatar_url: currentUser?.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80',
     headline: currentUser?.headline || 'Senior Full-Stack & Smart Contract Engineer',
     bio: currentUser?.bio || 'Building decentralized financial rails and sovereign talent marketplaces across Africa and global distributed teams.',
     portfolio_url: currentUser?.portfolio_url || 'https://refeir.africa',

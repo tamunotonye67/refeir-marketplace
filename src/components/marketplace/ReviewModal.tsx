@@ -122,7 +122,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       project_title: projectTitle,
       author_id: currentUser.id,
       author_name: `${currentUser.first_name} ${currentUser.last_name}`,
-      author_avatar: currentUser.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+      author_avatar: currentUser.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80',
       author_country: currentUser.country || 'Nigeria',
       author_role: currentUser.active_role || 'TALENT',
       target_id: targetId,

@@ -91,7 +91,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ initialThreadId }) =
     {
       id: 't1',
       name: 'David Kamau (SafariPay)',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=150&auto=format&fit=crop&q=80',
       role: 'Client (Enterprise FinTech)',
       category: 'CLIENT',
       country: 'Kenya',
@@ -107,7 +107,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ initialThreadId }) =
     {
       id: 't2',
       name: 'Tariq Al-Mansoor',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=150&auto=format&fit=crop&q=80',
       role: 'Top-Tier Scout Referrer',
       category: 'NEGOTIATION',
       country: 'Egypt',

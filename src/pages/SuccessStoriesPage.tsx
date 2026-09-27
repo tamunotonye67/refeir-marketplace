@@ -32,7 +32,7 @@ const STORIES = [
     name: 'David Kamau',
     role: 'CTO, Twiga Logistics Kenya',
     country: 'Nairobi, Kenya 🇰🇪',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?auto=format&fit=crop&w=400&q=80',
     quote: 'We needed 4 senior backend engineers in 10 days for a new product sprint. Refeir delivered 6 verified candidates. We hired 4. All work was protected and delivered on time.',
     earned: 'KSh 4.2M in projects managed',
     projects: '8 cross-border hires',

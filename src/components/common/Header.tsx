@@ -2386,7 +2386,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                   }}
                 >
                   <img
-                    src={currentUser.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+                    src={currentUser.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=100&q=80'}
                     alt={currentUser.first_name}
                     className="rf-header-avatar"
                     style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }}
@@ -2850,7 +2850,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
               <div style={{ padding: '0.875rem', borderRadius: 'var(--rf-radius-lg)', background: isDarkTheme ? 'rgba(102, 187, 42, 0.08)' : 'rgba(102, 187, 42, 0.12)', border: '1px solid rgba(102, 187, 42, 0.25)', marginBottom: '1.25rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.65rem' }}>
                   <img
-                    src={currentUser.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+                    src={currentUser.avatar_url || 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=100&q=80'}
                     alt={currentUser.first_name}
                     style={{ width: '38px', height: '38px', borderRadius: '50%', objectFit: 'cover' }}
                   />

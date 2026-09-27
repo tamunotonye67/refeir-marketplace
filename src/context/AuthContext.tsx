@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole, VerificationStatus } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
-const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80';
 
 interface AuthContextType {
   currentUser: User | null;
