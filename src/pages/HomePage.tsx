@@ -2128,15 +2128,15 @@ export const HomePage: React.FC<HomePageProps> = ({
           <p
             style={{
               fontFamily: 'var(--rf-font-display)',
-              fontSize: '0.78rem',
-              fontWeight: 800,
+              fontSize: '0.72rem',
+              fontWeight: 700,
               textTransform: 'uppercase',
-              color: 'rgba(255, 255, 255, 0.6)',
-              letterSpacing: '0.12em',
+              color: 'rgba(255, 255, 255, 0.55)',
+              letterSpacing: '0.14em',
               margin: 0
             }}
           >
-            TRUSTED BY LEADING TECH HUBS & FAST-GROWING ENTERPRISES ACROSS AFRICA
+            TRUSTED BY TOP TEAMS ACROSS AFRICA
           </p>
         </div>
 
