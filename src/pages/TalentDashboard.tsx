@@ -328,10 +328,8 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
       {/* Featured Talent Pro Booster Callout if not Pro */}
       {!isTalentPro && (
         <div
+          className="rf-card-callout-gold"
           style={{
-            background: 'linear-gradient(135deg, rgba(244, 185, 66, 0.12) 0%, rgba(10, 26, 18, 0.9) 100%)',
-            border: '1px solid rgba(244, 185, 66, 0.35)',
-            borderRadius: 'var(--rf-radius-xl)',
             padding: '1.5rem 2rem',
             marginBottom: '2.5rem',
             display: 'flex',
@@ -801,25 +799,22 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
 
       {/* DIRECT MESSAGES & CLIENT CHATTING CENTER */}
       <div
-        className="rf-card"
+        className="rf-card rf-card-hub"
         style={{
           padding: '1.75rem',
-          marginBottom: '2.5rem',
-          background: 'linear-gradient(135deg, rgba(7, 22, 13, 0.9) 0%, rgba(18, 43, 26, 0.6) 100%)',
-          border: '1.5px solid rgba(102, 187, 42, 0.35)',
-          borderRadius: 'var(--rf-radius-xl)'
+          marginBottom: '2.5rem'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-              <MessageSquare size={14} />
+              <MessageSquare size={14} style={{ flexShrink: 0 }} />
               <span>DIRECT MESSAGES & CHATTING CENTER</span>
             </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
               Active Client Conversations & Scout Referrals
             </h3>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.2rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.2rem' }}>
               Click any conversation to open encrypted messaging and milestone scoping with your clients.
             </p>
           </div>
@@ -829,46 +824,35 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
             className="rf-btn rf-btn-mint rf-btn-sm"
             style={{ fontWeight: 800, gap: '0.4rem' }}
           >
-            <MessageSquare size={14} />
+            <MessageSquare size={14} style={{ flexShrink: 0 }} />
             <span>Open Full Chatting Center</span>
-            <ArrowRight size={14} />
+            <ArrowRight size={14} style={{ flexShrink: 0 }} />
           </button>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '0.85rem' }}>
           <div
             onClick={() => onNavigate('/messages?thread=t1')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <img
               src="https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=150&auto=format&fit=crop&q=80"
               alt="David Kamau"
-              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #38BDF8' }}
+              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #38BDF8', flexShrink: 0 }}
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>David Kamau (SafariPay Client)</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>10:42 AM</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 The escrow milestone of $3,400 has been funded. Wireframes look fantastic!
               </p>
             </div>
@@ -876,37 +860,26 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
 
           <div
             onClick={() => onNavigate('/messages?thread=t2')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <img
               src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=150&auto=format&fit=crop&q=80"
               alt="Tariq Al-Mansoor"
-              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #F4B942' }}
+              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #F4B942', flexShrink: 0 }}
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>Tariq Al-Mansoor (Top Scout)</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>Yesterday</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Proposed 12% scout referral split for the upcoming Cairo contract.
               </p>
             </div>
@@ -914,24 +887,13 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
 
           <div
             onClick={() => onNavigate('/messages?thread=t3')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <div
@@ -948,14 +910,14 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
                 flexShrink: 0
               }}
             >
-              <ShieldCheck size={22} />
+              <ShieldCheck size={22} style={{ flexShrink: 0 }} />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>Refeir Trust & Safety</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>2 days ago</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Your Tier-2 KYC & ID verification is complete.
               </p>
             </div>
@@ -970,24 +932,22 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
 
         return (
           <div
-            className="rf-card"
+            className="rf-card rf-card-forest"
             style={{
               padding: '2rem',
-              marginBottom: '2.5rem',
-              border: '1.5px solid var(--rf-navy-border)',
-              background: 'linear-gradient(135deg, rgba(7, 22, 13, 0.95) 0%, rgba(15, 46, 30, 0.6) 100%)'
+              marginBottom: '2.5rem'
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-                  <Building size={14} />
+                  <Building size={14} style={{ flexShrink: 0 }} />
                   <span>EARNINGS SETTLEMENT & BANKING</span>
                 </div>
                 <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
                   Preferred Payout Channels & Bank Details
                 </h3>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.25rem' }}>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
                   Choose where client milestone releases automatically disburse across African banks, mobile money, and crypto.
                 </p>
               </div>

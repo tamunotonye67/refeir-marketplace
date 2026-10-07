@@ -6718,6 +6718,161 @@
   }
 }
 
+/* ==========================================================================
+   THEME-ADAPTIVE DASHBOARD FEATURE CARDS, ICONS & RESPONSIVE REFINEMENTS
+   ========================================================================== */
+
+/* Universal Icon Alignment Across All Buttons and Badges */
+.rf-btn,
+.rf-badge,
+.rf-icon-center,
+.rf-icon-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf-btn svg,
+.rf-badge svg,
+.rf-icon-center svg,
+.rf-icon-pill svg {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Adaptive Feature Cards (White on Light mode, Dark Forest on Dark mode) */
+.rf-card-hub,
+.rf-card-forest {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(46, 125, 50, 0.16) !important;
+  border-radius: var(--rf-radius-xl);
+  box-shadow: 0 4px 20px rgba(18, 43, 26, 0.05);
+  transition: all var(--rf-transition-base);
+}
+
+[data-theme="dark"] .rf-card-hub,
+[data-theme="dark"] .rf-card-forest {
+  background: linear-gradient(135deg, rgba(7, 22, 13, 0.95) 0%, rgba(18, 43, 26, 0.7) 100%) !important;
+  border: 1.5px solid rgba(102, 187, 42, 0.35) !important;
+  box-shadow: none;
+}
+
+.rf-card-station {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(46, 125, 50, 0.16) !important;
+  border-radius: var(--rf-radius-xl);
+  box-shadow: 0 4px 20px rgba(18, 43, 26, 0.05);
+  transition: all var(--rf-transition-base);
+}
+
+[data-theme="dark"] .rf-card-station {
+  background: linear-gradient(135deg, rgba(10, 35, 25, 0.95) 0%, rgba(7, 22, 13, 0.95) 100%) !important;
+  border: 1.5px solid rgba(54, 224, 160, 0.35) !important;
+  box-shadow: none;
+}
+
+.rf-card-banner {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(46, 125, 50, 0.16) !important;
+  border-radius: var(--rf-radius-xl);
+  box-shadow: 0 4px 20px rgba(18, 43, 26, 0.05);
+  transition: all var(--rf-transition-base);
+}
+
+[data-theme="dark"] .rf-card-banner {
+  background: linear-gradient(135deg, rgba(10, 30, 18, 0.95) 0%, rgba(7, 22, 13, 0.98) 100%) !important;
+  border: 1.5px solid rgba(102, 187, 42, 0.3) !important;
+  box-shadow: none;
+}
+
+.rf-card-callout-gold {
+  background: #FFFDF7 !important;
+  border: 1.5px solid rgba(246, 178, 26, 0.5) !important;
+  border-radius: var(--rf-radius-xl);
+  box-shadow: 0 4px 16px rgba(246, 178, 26, 0.08);
+}
+
+[data-theme="dark"] .rf-card-callout-gold {
+  background: linear-gradient(135deg, rgba(244, 185, 66, 0.15) 0%, rgba(10, 26, 18, 0.9) 100%) !important;
+  border: 1.5px solid #F4B942 !important;
+  box-shadow: none;
+}
+
+/* Inner modules inside cards (messages, metric blocks, token inventories) */
+.rf-card-inner-box {
+  background: #F8FAF9;
+  border: 1px solid rgba(18, 43, 26, 0.09);
+  border-radius: var(--rf-radius-lg);
+  transition: all 0.2s ease;
+}
+
+.rf-card-inner-box:hover {
+  background: #F0F7F2;
+  border-color: var(--rf-leaf-green);
+}
+
+[data-theme="dark"] .rf-card-inner-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .rf-card-inner-box:hover {
+  background: rgba(102, 187, 42, 0.08);
+  border-color: var(--rf-leaf-green);
+}
+
+.rf-card-pill-box {
+  background: #F4F7F5;
+  border: 1px solid rgba(18, 43, 26, 0.1);
+  border-radius: var(--rf-radius-md);
+}
+
+[data-theme="dark"] .rf-card-pill-box {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--rf-navy-border);
+}
+
+.rf-card-callout-green {
+  background: #F0F9F3;
+  border: 1px solid rgba(46, 125, 50, 0.2);
+  border-radius: var(--rf-radius-lg);
+}
+
+[data-theme="dark"] .rf-card-callout-green {
+  background: linear-gradient(135deg, rgba(10, 35, 25, 0.95) 0%, rgba(7, 22, 13, 0.95) 100%);
+  border: 1.5px solid rgba(54, 224, 160, 0.35);
+}
+
+/* Mobile responsive layout helpers */
+@media (max-width: 768px) {
+  .rf-scout-intro-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .rf-metrics-row-3 {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+  .rf-card-hub,
+  .rf-card-forest,
+  .rf-card-station,
+  .rf-card-banner,
+  .rf-card-callout-gold {
+    padding: 1.25rem 1rem !important;
+    border-radius: var(--rf-radius-lg) !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .rf-card-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
 
 
 

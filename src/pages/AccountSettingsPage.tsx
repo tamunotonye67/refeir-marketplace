@@ -1015,10 +1015,8 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
 
             {/* Nigeria Headquarters Callout */}
             <div
+              className="rf-card-callout-green"
               style={{
-                background: 'linear-gradient(135deg, rgba(10, 35, 25, 0.95) 0%, rgba(7, 22, 13, 0.95) 100%)',
-                border: '1.5px solid rgba(54, 224, 160, 0.35)',
-                borderRadius: 'var(--rf-radius-lg)',
                 padding: '1rem 1.25rem',
                 display: 'flex',
                 alignItems: 'flex-start',
@@ -1027,9 +1025,9 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
               }}
             >
               <Building size={20} color="var(--rf-mint)" style={{ flexShrink: 0, marginTop: '2px' }} />
-              <div style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-200)', lineHeight: 1.5 }}>
+              <div style={{ fontSize: '0.8125rem', color: 'var(--rf-cream)', lineHeight: 1.5 }}>
                 <strong style={{ color: 'var(--rf-cream)' }}>Refeir Technologies Ltd. (Nigeria Headquarters)</strong>
-                <div style={{ color: 'var(--rf-slate-300)', marginTop: '2px' }}>
+                <div style={{ color: 'var(--rf-slate-400)', marginTop: '2px' }}>
                   CAC RC Number: <strong>RC-1892044</strong> • FIRS Tax ID: <strong>24891023-0001</strong>. All Nigerian platform fees are subject to 7.5% statutory VAT. Withholding Tax (WHT 5%) is tracked on contractor milestone releases.
                 </div>
               </div>

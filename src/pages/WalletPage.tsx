@@ -222,14 +222,14 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
       {/* ROLE-SPECIFIC BENEFIT & PROTECTION BANNER (Fixed Dark Gradient Overlays with High-Contrast White Text) */}
       {currentUser?.active_role === 'SCOUT' ? (
         /* Scout: Airfee Token Status & Fee Protection Bar */
+      {/* ROLE-SPECIFIC BENEFIT & PROTECTION BANNER */}
+      {currentUser?.active_role === 'SCOUT' ? (
+        /* Scout: Airfee Token Status & Fee Protection Bar */
         <div
-          className="rf-card"
+          className="rf-card rf-card-station"
           style={{
             padding: '1.5rem 2rem',
             marginBottom: '2.5rem',
-            background: 'linear-gradient(135deg, rgba(10, 35, 25, 0.95) 0%, rgba(7, 22, 13, 0.95) 100%)',
-            border: '1.5px solid rgba(54, 224, 160, 0.35)',
-            borderRadius: 'var(--rf-radius-xl)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -238,30 +238,30 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: 'rgba(54, 224, 160, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4ADE80' }}>
-              <Ticket size={24} />
+            <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: 'rgba(54, 224, 160, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--rf-mint)', flexShrink: 0 }}>
+              <Ticket size={24} style={{ flexShrink: 0 }} />
             </div>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.125rem', fontWeight: 800, color: '#FFFFFF' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
                   Airfee Token Vault: {totalTokensCount} Available
                 </span>
-                <span className="rf-badge rf-badge-mint rf-text-xs" style={{ background: 'rgba(54, 224, 160, 0.2)', color: '#4ADE80', border: '1px solid rgba(54, 224, 160, 0.4)' }}>
+                <span className="rf-badge rf-badge-mint rf-text-xs">
                   Level 3 Shield (0% Fee Active)
                 </span>
               </div>
-              <p style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.85)', margin: '0.25rem 0 0 0' }}>
-                Active Token: <code style={{ color: '#4ADE80', fontWeight: 700 }}>{activeAirfeeToken ? activeAirfeeToken.code : 'RF-AIRTOKEN-2026-08'}</code> • 100% of platform fees waived for August 2026
+              <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', margin: '0.25rem 0 0 0' }}>
+                Active Token: <code style={{ color: 'var(--rf-mint)', fontWeight: 700 }}>{activeAirfeeToken ? activeAirfeeToken.code : 'RF-AIRTOKEN-2026-08'}</code> • 100% of platform fees waived for August 2026
               </p>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.6875rem', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.65)', fontWeight: 700 }}>
+              <div style={{ fontSize: '0.6875rem', textTransform: 'uppercase', color: 'var(--rf-slate-400)', fontWeight: 700 }}>
                 Airfee Saved To Date
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#4ADE80' }}>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-mint)' }}>
                 ₦180,000
               </div>
             </div>
@@ -277,13 +277,10 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
       ) : currentUser?.active_role === 'CLIENT' ? (
         /* Client: Trust Vault Custody & 0% Platform Fee Guarantee */
         <div
-          className="rf-card"
+          className="rf-card rf-card-station"
           style={{
             padding: '1.5rem 2rem',
             marginBottom: '2.5rem',
-            background: 'linear-gradient(135deg, rgba(15, 35, 60, 0.95) 0%, rgba(7, 22, 40, 0.95) 100%)',
-            border: '1.5px solid rgba(125, 162, 255, 0.35)',
-            borderRadius: 'var(--rf-radius-xl)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -292,19 +289,19 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: 'rgba(125, 162, 255, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7DA2FF' }}>
-              <ShieldCheck size={24} />
+            <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: 'rgba(125, 162, 255, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563EB', flexShrink: 0 }}>
+              <ShieldCheck size={24} style={{ flexShrink: 0 }} />
             </div>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.125rem', fontWeight: 800, color: '#FFFFFF' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
                   Protected Client Trust Vault
                 </span>
-                <span className="rf-badge rf-badge-blue rf-text-xs" style={{ background: 'rgba(125, 162, 255, 0.2)', color: '#93C5FD', border: '1px solid rgba(125, 162, 255, 0.4)' }}>
+                <span className="rf-badge rf-badge-blue rf-text-xs">
                   0% Escrow Fee • 100% Custody
                 </span>
               </div>
-              <p style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.85)', margin: '0.25rem 0 0 0' }}>
+              <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', margin: '0.25rem 0 0 0' }}>
                 Your project milestone funds are held in regulated custody rails and released only upon your explicit approval.
               </p>
             </div>
@@ -323,13 +320,10 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
       ) : (
         /* Talent: Guaranteed Milestone Earnings & Bank Settlement */
         <div
-          className="rf-card"
+          className="rf-card rf-card-station"
           style={{
             padding: '1.5rem 2rem',
             marginBottom: '2.5rem',
-            background: 'linear-gradient(135deg, rgba(10, 35, 25, 0.95) 0%, rgba(7, 22, 13, 0.95) 100%)',
-            border: '1.5px solid rgba(54, 224, 160, 0.35)',
-            borderRadius: 'var(--rf-radius-xl)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -338,19 +332,19 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: 'rgba(54, 224, 160, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4ADE80' }}>
-              <CheckCircle2 size={24} />
+            <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: 'rgba(54, 224, 160, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--rf-mint)', flexShrink: 0 }}>
+              <CheckCircle2 size={24} style={{ flexShrink: 0 }} />
             </div>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.125rem', fontWeight: 800, color: '#FFFFFF' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
                   Talent Protected Net Earnings
                 </span>
-                <span className="rf-badge rf-badge-mint rf-text-xs" style={{ background: 'rgba(54, 224, 160, 0.2)', color: '#4ADE80', border: '1px solid rgba(54, 224, 160, 0.4)' }}>
+                <span className="rf-badge rf-badge-mint rf-text-xs">
                   Direct Local Payouts Active
                 </span>
               </div>
-              <p style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.85)', margin: '0.25rem 0 0 0' }}>
+              <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', margin: '0.25rem 0 0 0' }}>
                 Deliverables trigger instant escrow releases into your multi-currency wallet with zero hidden deductions.
               </p>
             </div>

@@ -1799,37 +1799,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                     </div>
                   )}
 
-            {/* 1.5. Direct Messages / Chatting Center Shortcut (Only when Logged In) */}
-            {currentUser && (
-              <button
-                onClick={() => {
-                  handleLinkClick('/messages');
-                  setShowNotificationBox(false);
-                  setShowInboxBox(false);
-                  setShowHelpMenu(false);
-                  setShowUserMenu(false);
-                }}
-                aria-label="Open Direct Messages & Chatting Center"
-                title="Direct Messages & Chatting Center"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '50%',
-                  background: currentPath === '/messages' ? 'rgba(102, 187, 42, 0.2)' : theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(18, 43, 26, 0.06)',
-                  border: currentPath === '/messages' ? '1.5px solid var(--rf-leaf-green)' : '1px solid var(--rf-bg-card-border)',
-                  color: currentPath === '/messages' ? 'var(--rf-leaf-green)' : 'var(--rf-cream)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  padding: 0,
-                  position: 'relative'
-                }}
-              >
-                <MessageSquare size={17} />
-              </button>
-            )}
+
 
             {/* 2. Universal Notification Bell Icon & Sovereign Inbox (Only when Logged In) */}
             {currentUser && (

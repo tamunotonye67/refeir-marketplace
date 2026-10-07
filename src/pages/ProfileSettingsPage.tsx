@@ -171,12 +171,10 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
     <div className="rf-container" style={{ paddingTop: '2.5rem', paddingBottom: '6rem', maxWidth: '880px' }}>
       {/* Header Banner */}
       <div
-        className="rf-card"
+        className="rf-card rf-card-banner"
         style={{
           padding: '2rem',
           marginBottom: '2rem',
-          background: 'linear-gradient(135deg, rgba(10, 30, 18, 0.95) 0%, rgba(7, 22, 13, 0.98) 100%)',
-          border: '1.5px solid rgba(102, 187, 42, 0.3)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -727,10 +725,8 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
 
             {/* Nigeria Headquarters Framework Callout */}
             <div
+              className="rf-card-callout-green"
               style={{
-                background: 'linear-gradient(135deg, rgba(10, 35, 25, 0.95) 0%, rgba(7, 22, 13, 0.95) 100%)',
-                border: '1.5px solid rgba(54, 224, 160, 0.35)',
-                borderRadius: 'var(--rf-radius-lg)',
                 padding: '1rem 1.25rem',
                 display: 'flex',
                 alignItems: 'flex-start',
@@ -739,9 +735,9 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
               }}
             >
               <Building size={20} color="var(--rf-mint)" style={{ flexShrink: 0, marginTop: '2px' }} />
-              <div style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-200)', lineHeight: 1.5 }}>
+              <div style={{ fontSize: '0.8125rem', color: 'var(--rf-cream)', lineHeight: 1.5 }}>
                 <strong style={{ color: 'var(--rf-cream)' }}>Refeir Technologies Ltd. (Nigeria Headquarters)</strong>
-                <div style={{ color: 'var(--rf-slate-300)', marginTop: '2px' }}>
+                <div style={{ color: 'var(--rf-slate-400)', marginTop: '2px' }}>
                   CAC RC Number: <strong>RC-1892044</strong> • FIRS Tax ID: <strong>24891023-0001</strong>. All Nigerian platform fees are subject to 7.5% VAT. Independent contractor payouts include 5% WHT credit certificates recorded in your Statement of Account.
                 </div>
               </div>

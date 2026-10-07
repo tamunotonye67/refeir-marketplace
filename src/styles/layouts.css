@@ -179,14 +179,20 @@ main {
   left: 0;
   right: 0;
   height: 64px;
-  background: rgba(10, 23, 15, 0.96);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--rf-bg-card-border);
+  box-shadow: 0 -2px 12px rgba(18, 43, 26, 0.06);
   z-index: 90;
   align-items: center;
   justify-content: space-around;
   padding: 0 0.5rem;
+}
+
+[data-theme="dark"] .rf-mobile-nav {
+  background: rgba(10, 23, 15, 0.96);
+  box-shadow: none;
 }
 
 .rf-mobile-nav-item {

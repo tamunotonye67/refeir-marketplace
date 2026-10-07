@@ -191,18 +191,16 @@ export const TaxComplianceModal: React.FC<TaxComplianceModalProps> = ({
             <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               {/* Headquarters Info Notice */}
               <div
+                className="rf-card-callout-green"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(10, 35, 25, 0.95) 0%, rgba(7, 22, 13, 0.95) 100%)',
-                  border: '1.5px solid rgba(54, 224, 160, 0.35)',
-                  borderRadius: 'var(--rf-radius-lg)',
                   padding: '1.1rem 1.25rem'
                 }}
               >
-                <div style={{ color: '#FFFFFF', fontSize: '0.875rem', fontWeight: 800, marginBottom: '0.35rem' }}>
+                <div style={{ color: 'var(--rf-cream)', fontSize: '0.875rem', fontWeight: 800, marginBottom: '0.35rem' }}>
                   Refeir Technologies Ltd. (Nigeria Headquarters)
                 </div>
-                <div style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.5 }}>
-                  CAC RC Number: <strong style={{ color: '#FFFFFF' }}>RC-1892044</strong> • FIRS Tax ID: <strong style={{ color: '#4ADE80' }}>24891023-0001</strong>. All platform service charges generated in Nigeria include 7.5% statutory VAT. Cross-border earnings are settled under international tax treaties.
+                <div style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', lineHeight: 1.5 }}>
+                  CAC RC Number: <strong style={{ color: 'var(--rf-cream)' }}>RC-1892044</strong> • FIRS Tax ID: <strong style={{ color: 'var(--rf-mint)' }}>24891023-0001</strong>. All platform service charges generated in Nigeria include 7.5% statutory VAT. Cross-border earnings are settled under international tax treaties.
                 </div>
               </div>
 

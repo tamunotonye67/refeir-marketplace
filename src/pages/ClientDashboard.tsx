@@ -581,26 +581,24 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
       </div>
 
       {/* DIRECT MESSAGES & PROJECT CHATTING CENTER */}
+      {/* DIRECT MESSAGES & PROJECT CHATTING CENTER */}
       <div
-        className="rf-card"
+        className="rf-card rf-card-hub"
         style={{
           padding: '1.75rem',
-          marginBottom: '2.5rem',
-          background: 'linear-gradient(135deg, rgba(7, 22, 13, 0.9) 0%, rgba(18, 43, 26, 0.6) 100%)',
-          border: '1.5px solid rgba(102, 187, 42, 0.35)',
-          borderRadius: 'var(--rf-radius-xl)'
+          marginBottom: '2.5rem'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-              <MessageSquare size={14} />
+              <MessageSquare size={14} style={{ flexShrink: 0 }} />
               <span>DIRECT MESSAGES & CHATTING CENTER</span>
             </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
               Live Project Scoping & Talent Negotiations
             </h3>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.2rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.2rem' }}>
               Click any conversation to open encrypted direct messaging with your talents and scout connectors.
             </p>
           </div>
@@ -610,46 +608,35 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
             className="rf-btn rf-btn-mint rf-btn-sm"
             style={{ fontWeight: 800, gap: '0.4rem' }}
           >
-            <MessageSquare size={14} />
+            <MessageSquare size={14} style={{ flexShrink: 0 }} />
             <span>Open Full Chatting Center</span>
-            <ArrowRight size={14} />
+            <ArrowRight size={14} style={{ flexShrink: 0 }} />
           </button>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '0.85rem' }}>
           <div
             onClick={() => onNavigate('/messages?thread=t1')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <img
               src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80"
               alt="Amaka Nwosu"
-              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--rf-leaf-green)' }}
+              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--rf-leaf-green)', flexShrink: 0 }}
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>Amaka Nwosu (Lead Talent)</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>10:42 AM</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 The escrow milestone of $3,400 has been funded. Wireframes look fantastic!
               </p>
             </div>
@@ -657,37 +644,26 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
 
           <div
             onClick={() => onNavigate('/messages?thread=t2')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <img
               src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&auto=format&fit=crop&q=80"
               alt="Sarah Adeyemi"
-              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #38BDF8' }}
+              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #38BDF8', flexShrink: 0 }}
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>Sarah Adeyemi (Scout Matcher)</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>Yesterday</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Connecting you with verified senior engineers across West Africa...
               </p>
             </div>
@@ -695,24 +671,13 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
 
           <div
             onClick={() => onNavigate('/messages?thread=t3')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <div
@@ -729,14 +694,14 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
                 flexShrink: 0
               }}
             >
-              <ShieldCheck size={22} />
+              <ShieldCheck size={22} style={{ flexShrink: 0 }} />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>Refeir Trust Desk</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>2 days ago</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Your enterprise payment escrow custody is active & audited.
               </p>
             </div>

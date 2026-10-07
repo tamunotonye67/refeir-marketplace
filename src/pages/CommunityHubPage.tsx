@@ -1076,13 +1076,10 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
     <div className="rf-container" style={{ paddingTop: '2.5rem', paddingBottom: '6rem', maxWidth: '1240px', boxSizing: 'border-box' }}>
       {/* Community Header Banner */}
       <div
+        className="rf-card-banner"
         style={{
-          background: 'linear-gradient(135deg, rgba(10, 23, 15, 0.95) 0%, rgba(18, 43, 26, 0.95) 100%)',
-          border: '1.5px solid rgba(102, 187, 42, 0.35)',
-          borderRadius: 'var(--rf-radius-2xl)',
           padding: '2.5rem',
           marginBottom: '2rem',
-          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
           position: 'relative',
           overflow: 'hidden'
         }}
@@ -1090,7 +1087,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', position: 'relative', zIndex: 2 }}>
           <div style={{ maxWidth: '680px' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', padding: '0.3rem 0.75rem', borderRadius: '9999px', background: 'rgba(102, 187, 42, 0.18)', border: '1px solid rgba(102, 187, 42, 0.35)', marginBottom: '0.75rem' }}>
-              <Users size={14} color="var(--rf-leaf-green)" />
+              <Users size={14} color="var(--rf-leaf-green)" style={{ flexShrink: 0 }} />
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>
                 Refeir Pan-African Community Hub
               </span>
@@ -1098,7 +1095,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             <h1 style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--rf-cream)', letterSpacing: '-0.02em', marginBottom: '0.5rem', lineHeight: 1.15 }}>
               The Pan-African Guild of Scouts, Talents & Leaders
             </h1>
-            <p style={{ fontSize: '1rem', color: 'var(--rf-slate-300)', lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontSize: '1rem', color: 'var(--rf-slate-400)', lineHeight: 1.6, margin: 0 }}>
               Join 18,400+ verified African developers, referral scouts, designers, and foreign enterprise clients collaborating across all 54 nations.
             </p>
           </div>

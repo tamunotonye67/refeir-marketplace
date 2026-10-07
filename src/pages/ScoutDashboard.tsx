@@ -312,12 +312,11 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
       </div>
 
       {/* PENDING ENDORSEMENT REQUESTS FROM TALENTS */}
+      {/* PENDING ENDORSEMENT REQUESTS FROM TALENTS */}
       {myEndorsementRequests.length > 0 && (
         <div
+          className="rf-card-callout-gold"
           style={{
-            background: 'linear-gradient(135deg, rgba(244, 185, 66, 0.15) 0%, rgba(10, 26, 18, 0.9) 100%)',
-            border: '1.5px solid #F4B942',
-            borderRadius: 'var(--rf-radius-xl)',
             padding: '1.25rem 1.75rem',
             marginBottom: '2rem',
             display: 'flex',
@@ -328,12 +327,12 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-            <Award size={24} color="#F4B942" />
+            <Award size={24} color="#F4B942" style={{ flexShrink: 0 }} />
             <div>
               <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
                 {myEndorsementRequests[0]?.requester_name} requested a Scout Endorsement
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
                 "{myEndorsementRequests[0]?.custom_message || 'Please endorse my profile on Refeir!'}"
               </div>
             </div>
@@ -361,6 +360,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
 
       {/* Referrer Exclusive: Local Client Introduction & Monthly Airfee Token Hub */}
       <div
+        className="rf-scout-intro-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 1fr)',
@@ -374,8 +374,6 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
           className="rf-card"
           style={{
             padding: '2rem',
-            background: 'radial-gradient(ellipse at top left, rgba(36, 87, 255, 0.15), transparent 70%), var(--rf-navy-surface)',
-            border: '1px solid rgba(36, 87, 255, 0.3)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -386,7 +384,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
               <span className="rf-badge rf-badge-blue rf-text-xs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                <Building2 size={12} /> Referrer Exclusive Feature
+                <Building2 size={12} style={{ flexShrink: 0 }} /> Referrer Exclusive Feature
               </span>
               <span style={{ fontSize: '0.75rem', color: 'var(--rf-mint)', fontWeight: 700 }}>
                 +1 Free Airfee Token / Client
@@ -396,15 +394,13 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
               Introduce Local Clients to Refeir
             </h3>
-            <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-300)', lineHeight: 1.5, marginBottom: '1.25rem' }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', lineHeight: 1.5, marginBottom: '1.25rem' }}>
               As a verified Referrer, only you have exclusive access to copy and share local client introduction links. When you bring local recruiters or business owners onto Refeir, you receive a free <strong>Monthly Airfee Token</strong>.
             </p>
 
             <div
+              className="rf-card-pill-box"
               style={{
-                background: 'rgba(0, 0, 0, 0.35)',
-                border: '1px solid var(--rf-navy-border)',
-                borderRadius: 'var(--rf-radius-md)',
                 padding: '0.75rem 1rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -447,8 +443,6 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
           className="rf-card"
           style={{
             padding: '2rem',
-            background: 'radial-gradient(ellipse at top right, rgba(54, 224, 160, 0.12), transparent 70%), var(--rf-navy-surface)',
-            border: '1px solid rgba(54, 224, 160, 0.3)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -459,7 +453,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
               <span className="rf-badge rf-badge-mint rf-text-xs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                <Percent size={12} /> Referrer Fee Policy
+                <Percent size={12} style={{ flexShrink: 0 }} /> Referrer Fee Policy
               </span>
               <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
                 Guaranteed Economics
@@ -470,7 +464,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
               0% Fee Forever & Airfee Protection
             </h3>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginBottom: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <CheckCircle2 size={16} color="var(--rf-mint)" style={{ flexShrink: 0 }} />
                 <span><strong>0% Platform Fee Forever:</strong> For any Talent offer rate of <strong>10% and below</strong>.</span>
@@ -488,12 +482,8 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
 
           {/* Active Token Pill */}
           <div
+            className="rf-card-pill-box"
             style={{
-              background: activeAirfeeToken
-                ? 'linear-gradient(135deg, rgba(54, 224, 160, 0.15) 0%, rgba(36, 87, 255, 0.15) 100%)'
-                : 'rgba(255, 255, 255, 0.05)',
-              border: activeAirfeeToken ? '1px solid rgba(54, 224, 160, 0.4)' : '1px solid var(--rf-navy-border)',
-              borderRadius: 'var(--rf-radius-md)',
               padding: '0.875rem 1rem',
               display: 'flex',
               alignItems: 'center',
@@ -520,26 +510,24 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
       </div>
 
       {/* DIRECT MESSAGES & SCOUT CHATTING CENTER */}
+      {/* DIRECT MESSAGES & SCOUT CHATTING CENTER */}
       <div
-        className="rf-card"
+        className="rf-card rf-card-hub"
         style={{
           padding: '1.75rem',
-          marginBottom: '2.5rem',
-          background: 'linear-gradient(135deg, rgba(7, 22, 13, 0.9) 0%, rgba(18, 43, 26, 0.6) 100%)',
-          border: '1.5px solid rgba(102, 187, 42, 0.35)',
-          borderRadius: 'var(--rf-radius-xl)'
+          marginBottom: '2.5rem'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-              <MessageCircle size={14} />
+              <MessageCircle size={14} style={{ flexShrink: 0 }} />
               <span>DIRECT MESSAGES & CHATTING CENTER</span>
             </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
               Scout Introductions & Referral Scoping Chats
             </h3>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.2rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.2rem' }}>
               Click any introduction thread to open encrypted direct chat with your referred clients and talents.
             </p>
           </div>
@@ -549,46 +537,35 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
             className="rf-btn rf-btn-mint rf-btn-sm"
             style={{ fontWeight: 800, gap: '0.4rem' }}
           >
-            <MessageCircle size={14} />
+            <MessageCircle size={14} style={{ flexShrink: 0 }} />
             <span>Open Full Chatting Center</span>
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={14} style={{ flexShrink: 0 }} />
           </button>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '0.85rem' }}>
           <div
             onClick={() => onNavigate('/messages?thread=t2')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <img
               src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=150&auto=format&fit=crop&q=80"
               alt="Tariq Al-Mansoor"
-              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #F4B942' }}
+              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #F4B942', flexShrink: 0 }}
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>Tariq Al-Mansoor (Cairo Logistics)</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>Yesterday</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Proposed 12% scout referral split for the upcoming Cairo smart contracts.
               </p>
             </div>
@@ -596,37 +573,26 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
 
           <div
             onClick={() => onNavigate('/messages?thread=t1')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <img
               src="https://images.unsplash.com/photo-1507152832244-10d45c7eda57?w=150&auto=format&fit=crop&q=80"
               alt="David Kamau"
-              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #38BDF8' }}
+              style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #38BDF8', flexShrink: 0 }}
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>David Kamau (SafariPay Kenya)</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>10:42 AM</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Referred by Kwame. Escrow funded for mobile wallet architecture.
               </p>
             </div>
@@ -634,24 +600,13 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
 
           <div
             onClick={() => onNavigate('/messages?thread=t3')}
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1rem',
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
               display: 'flex',
               gap: '0.85rem',
               alignItems: 'center'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--rf-leaf-green)';
-              e.currentTarget.style.background = 'rgba(102, 187, 42, 0.08)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
             }}
           >
             <div
@@ -668,14 +623,14 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                 flexShrink: 0
               }}
             >
-              <ShieldCheck size={22} />
+              <ShieldCheck size={22} style={{ flexShrink: 0 }} />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
                 <strong style={{ fontSize: '0.875rem', color: 'var(--rf-cream)' }}>Refeir Sovereign Trust Desk</strong>
                 <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>2 days ago</span>
               </div>
-              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Your 10% scout referral commissions are locked and verified.
               </p>
             </div>
@@ -685,20 +640,17 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
 
       {/* AIRFEE TOKEN BALANCE & USAGE LEVELS STATION */}
       <div
-        className="rf-card"
+        className="rf-card rf-card-station"
         style={{
           padding: '2rem',
-          marginBottom: '2.5rem',
-          background: 'linear-gradient(135deg, rgba(10, 35, 25, 0.95) 0%, rgba(7, 22, 13, 0.95) 100%)',
-          border: '1.5px solid rgba(54, 224, 160, 0.35)',
-          borderRadius: 'var(--rf-radius-xl)'
+          marginBottom: '2.5rem'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span className="rf-badge rf-badge-mint rf-text-xs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-                <Ticket size={13} />
+                <Ticket size={13} style={{ flexShrink: 0 }} />
                 <span>AIRFEE TOKENS & YIELD STATION</span>
               </span>
               <span className="rf-badge rf-badge-blue rf-text-xs">
@@ -708,7 +660,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
             <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
               Airfee Token Balance & Yield Protection Levels
             </h3>
-            <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-300)', margin: 0 }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', margin: 0 }}>
               Track your token balance, active fee shields, and yield maximization status across all African referrals.
             </p>
           </div>
@@ -719,7 +671,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
               className="rf-btn rf-btn-mint rf-btn-sm"
               style={{ fontWeight: 800, gap: '0.35rem' }}
             >
-              <Gift size={14} />
+              <Gift size={14} style={{ flexShrink: 0 }} />
               <span>+ Claim Token (Invite Client)</span>
             </button>
             {!currentUser?.is_pro && (
@@ -734,7 +686,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                   gap: '0.35rem'
                 }}
               >
-                <Award size={14} />
+                <Award size={14} style={{ flexShrink: 0 }} />
                 <span>Get 5 Tokens with Scout Pro</span>
               </button>
             )}
@@ -742,13 +694,14 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
         </div>
 
         {/* 3-Column Metrics Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
+        <div
+          className="rf-metrics-row-3"
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}
+        >
           {/* Box 1: Token Balance */}
           <div
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--rf-navy-border)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1.25rem'
             }}
           >
@@ -763,18 +716,16 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                 Tokens in Vault
               </span>
             </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <CheckCircle2 size={13} color="var(--rf-mint)" />
+            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <CheckCircle2 size={13} color="var(--rf-mint)" style={{ flexShrink: 0 }} />
               <span>1 Active Token this month • {currentUser?.is_pro ? '4' : '1'} in Reserve</span>
             </div>
           </div>
 
           {/* Box 2: Protection & Usage Level */}
           <div
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--rf-navy-border)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1.25rem'
             }}
           >
@@ -782,12 +733,12 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
               Current Protection & Usage Level
             </span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginTop: '0.35rem' }}>
-              <span style={{ fontSize: '1.75rem', fontWeight: 800, color: '#7DA2FF' }}>
+              <span style={{ fontSize: '1.75rem', fontWeight: 800, color: '#2563EB' }}>
                 Level 3 Shield
               </span>
             </div>
-            <div style={{ marginTop: '0.5rem', background: 'rgba(255,255,255,0.08)', borderRadius: '100px', height: '6px', overflow: 'hidden' }}>
-              <div style={{ background: 'linear-gradient(90deg, #7DA2FF, var(--rf-mint))', height: '100%', width: '100%', borderRadius: '100px' }} />
+            <div style={{ marginTop: '0.5rem', background: 'rgba(0,0,0,0.06)', borderRadius: '100px', height: '6px', overflow: 'hidden' }}>
+              <div style={{ background: 'linear-gradient(90deg, #2563EB, var(--rf-mint))', height: '100%', width: '100%', borderRadius: '100px' }} />
             </div>
             <div style={{ fontSize: '0.75rem', color: 'var(--rf-mint)', marginTop: '0.4rem', fontWeight: 700 }}>
               100% Platform Fee Shielded (0% Fee Active)
@@ -796,10 +747,8 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
 
           {/* Box 3: Cumulative Savings */}
           <div
+            className="rf-card-inner-box"
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--rf-navy-border)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1.25rem'
             }}
           >
@@ -814,31 +763,34 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                 ($220 USD equiv.)
               </span>
             </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)', marginTop: '0.35rem' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.35rem' }}>
               Saved via 0% standard rule & Airfee Token waivers
             </div>
           </div>
         </div>
 
         {/* Detailed Token Inventory & Scope Breakdown */}
-        <div style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid var(--rf-navy-border)', borderRadius: 'var(--rf-radius-md)', padding: '1rem', marginBottom: '1.5rem' }}>
+        <div
+          className="rf-card-pill-box"
+          style={{ padding: '1rem', marginBottom: '1.5rem' }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.8125rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <ShieldCheck size={16} color="var(--rf-mint)" />
+              <ShieldCheck size={16} color="var(--rf-mint)" style={{ flexShrink: 0 }} />
               <span style={{ color: 'var(--rf-cream)', fontWeight: 700 }}>
                 Active Token: <code style={{ color: 'var(--rf-mint)' }}>{activeAirfeeToken ? activeAirfeeToken.code : 'RF-AIRTOKEN-2026-08'}</code>
               </span>
               <span style={{ color: 'var(--rf-slate-400)' }}>| Scope: August 2026 (Valid through Aug 31)</span>
             </div>
             <div style={{ color: 'var(--rf-mint)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <Clock size={13} />
+              <Clock size={13} style={{ flexShrink: 0 }} />
               <span>Next token automated grant: September 1, 2026</span>
             </div>
           </div>
         </div>
 
         {/* Client Introductions Verification Queue */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.25rem' }}>
+        <div style={{ borderTop: '1px solid var(--rf-bg-card-border)', paddingTop: '1.25rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <div>
               <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
@@ -854,10 +806,10 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
           </div>
 
           {myClientIntroductions.length > 0 ? (
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.8125rem' }}>
+            <div className="rf-card-table-wrap" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.8125rem', minWidth: '600px' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid var(--rf-navy-border)', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontSize: '0.6875rem', fontWeight: 700 }}>
+                  <tr style={{ borderBottom: '1px solid var(--rf-bg-card-border)', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontSize: '0.6875rem', fontWeight: 700 }}>
                     <th style={{ padding: '0.6rem 0.75rem' }}>Client Contact</th>
                     <th style={{ padding: '0.6rem 0.75rem' }}>Business Name</th>
                     <th style={{ padding: '0.6rem 0.75rem' }}>Registration</th>
@@ -867,7 +819,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                 </thead>
                 <tbody>
                   {myClientIntroductions.map(intro => (
-                    <tr key={intro.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+                    <tr key={intro.id} style={{ borderBottom: '1px solid var(--rf-bg-card-border)' }}>
                       <td style={{ padding: '0.75rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
                         {intro.client_contact_name}
                       </td>
@@ -877,7 +829,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                       <td style={{ padding: '0.75rem' }}>
                         {intro.has_registered ? (
                           <span className="rf-badge rf-badge-mint rf-text-xs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                            <Check size={11} /> Registered
+                            <Check size={11} style={{ flexShrink: 0 }} /> Registered
                           </span>
                         ) : (
                           <span className="rf-badge rf-badge-warning rf-text-xs">
@@ -888,7 +840,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                       <td style={{ padding: '0.75rem' }}>
                         {intro.has_closed_deal ? (
                           <div style={{ color: 'var(--rf-mint)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                            <CheckCircle2 size={13} />
+                            <CheckCircle2 size={13} style={{ flexShrink: 0 }} />
                             <span>Deal Closed ({intro.deal_amount_formatted || 'Completed'})</span>
                           </div>
                         ) : intro.has_registered ? (
@@ -904,11 +856,11 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
                       <td style={{ padding: '0.75rem' }}>
                         {intro.status === 'VERIFIED_GRANTED' ? (
                           <span className="rf-badge rf-badge-mint rf-text-xs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                            <Ticket size={11} /> Token Awarded ({intro.granted_token_code})
+                            <Ticket size={11} style={{ flexShrink: 0 }} /> Token Awarded ({intro.granted_token_code})
                           </span>
                         ) : intro.status === 'HIRE_COMPLETED_PENDING_ADMIN' ? (
                           <span className="rf-badge rf-badge-blue rf-text-xs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                            <Clock size={11} /> Ready for Admin Review
+                            <Clock size={11} style={{ flexShrink: 0 }} /> Ready for Admin Review
                           </span>
                         ) : intro.status === 'REJECTED' ? (
                           <span className="rf-badge rf-badge-error rf-text-xs">

@@ -16,12 +16,12 @@
   --rf-white: #FFFFFF;
 
   /* ─── APP SURFACES — WHITE PLATFORM (default) ─── */
-  --rf-bg-base:            #F4F7F5;
-  --rf-bg-deep:            #EAF0EC;
+  --rf-bg-base:            #FFFFFF;
+  --rf-bg-deep:            #F8FAF9;
   --rf-bg-surface:         #FFFFFF;
   --rf-bg-surface-hover:   #F0F7F2;
   --rf-bg-card:            #FFFFFF;
-  --rf-bg-card-border:     rgba(18, 43, 26, 0.11);
+  --rf-bg-card-border:     rgba(18, 43, 26, 0.12);
   --rf-bg-card-hover:      #F4F9F5;
 
   /* Legacy & Semantic bindings — light */
