@@ -1696,7 +1696,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div
           className={`rf-hero-container ${!isMobile ? 'rf-container' : ''}`}
           style={{
-            maxWidth: isMobile ? '100%' : '1200px',
+            maxWidth: isMobile ? '100%' : '1340px',
             width: '100%',
             padding: 0,
             margin: isMobile ? '0' : '0 auto'
@@ -2274,7 +2274,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* SCOUT SOURCING SHOWCASE CARD — LET EXPERTS FIND THE RIGHT FREELANCER */}
       <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
-        <div className="rf-container" style={{ maxWidth: '1200px' }}>
+        <div className="rf-container" style={{ maxWidth: '1340px' }}>
           <div
             className="rf-scout-sourcing-grid"
             style={{
@@ -2614,7 +2614,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* AI WIZARD & CREATIVE STACKED CARDS SHOWCASE (90% Black Curved Container) */}
       <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
-        <div className="rf-container" style={{ maxWidth: '1200px' }}>
+        <div className="rf-container" style={{ maxWidth: '1340px' }}>
           <div
             className="rf-ai-wizard-grid"
             style={{
@@ -3360,7 +3360,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* 7A. 3D INTERACTIVE AFRICA MAP — FIND PROVEN TALENTS IN AND ACROSS AFRICA */}
       <section style={{ padding: '4rem 0 2rem 0', background: 'var(--rf-bg-base)' }}>
-        <div className="rf-container" style={{ maxWidth: '1200px' }}>
+        <div className="rf-container" style={{ maxWidth: '1340px' }}>
           <Africa3DMap onNavigate={onNavigate} />
         </div>
       </section>
@@ -3377,7 +3377,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* 8. BUSINESS & ENTERPRISE BANNER WITH 3D POLYGON RELATIONSHIPS MESH */}
       <section className="rf-section" style={{ backgroundColor: 'var(--rf-bg-surface)', padding: '5rem 0' }}>
-        <div className="rf-container">
+        <div className="rf-container" style={{ maxWidth: '1340px' }}>
           <div
             className="rf-business-grid"
             style={{
