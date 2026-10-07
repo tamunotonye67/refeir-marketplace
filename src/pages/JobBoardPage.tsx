@@ -181,51 +181,36 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
             boxShadow: isDark ? 'none' : '0 4px 20px rgba(0, 0, 0, 0.04)',
             borderRadius: '16px',
             padding: '1.25rem 1.5rem',
-            marginBottom: '2rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            flexWrap: 'wrap',
-            gap: '1rem'
+            marginBottom: '2rem'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.875rem', flex: '1 1 500px' }}>
-            <div
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexWrap: 'wrap', marginBottom: '0.35rem' }}>
+            <span
               style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '10px',
-                background: isDark ? 'rgba(102, 187, 42, 0.2)' : 'rgba(46, 125, 50, 0.1)',
-                border: isDark ? '1px solid rgba(102, 187, 42, 0.4)' : '1px solid rgba(46, 125, 50, 0.25)',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                width: '26px',
+                height: '26px',
+                borderRadius: '7px',
+                background: isDark ? 'rgba(102, 187, 42, 0.2)' : 'rgba(46, 125, 50, 0.1)',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.4)' : '1px solid rgba(46, 125, 50, 0.25)',
                 color: isDark ? 'var(--rf-leaf-green)' : '#2E7D32',
                 flexShrink: 0
               }}
             >
-              <ShieldCheck size={20} />
-            </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ minHeight: '36px', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.9375rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  Proposal-Based Jobs: 5% Client + 5% Talent Split Fee
-                </span>
-                <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', borderRadius: '9999px', background: isDark ? '#66BB2A' : '#DCFCE7', color: isDark ? '#07160D' : '#15803D', border: isDark ? 'none' : '1px solid #86EFAC', fontWeight: 800 }}>
-                  Direct Job Board Rule
-                </span>
-              </div>
-              <p style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#334155', margin: '0.25rem 0 0 0', lineHeight: 1.5 }}>
-                For jobs initiated through open proposals (without a Scout), Refeir takes 5% from the client and 5% from the talent at the final milestone. <strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>All chatting and negotiations must be conducted strictly within the platform.</strong>
-              </p>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', minHeight: '36px', flexShrink: 0 }}>
-            <span style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', fontWeight: 700 }}>
-              🔒 End-to-End Trust Vault Escrow
+              <ShieldCheck size={16} />
+            </span>
+            <span style={{ fontSize: '0.9375rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A' }}>
+              Proposal-Based Jobs: 5% Client + 5% Talent Split Fee
+            </span>
+            <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', borderRadius: '9999px', background: isDark ? '#66BB2A' : '#DCFCE7', color: isDark ? '#07160D' : '#15803D', border: isDark ? 'none' : '1px solid #86EFAC', fontWeight: 800 }}>
+              Direct Job Board Rule
             </span>
           </div>
+          <p style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#334155', margin: 0, lineHeight: 1.5 }}>
+            For jobs initiated through open proposals (without a Scout), Refeir takes 5% from the client and 5% from the talent at the final milestone. <strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>All chatting and negotiations must be conducted strictly within the platform.</strong>
+          </p>
         </div>
 
       {/* Filter and Search Bar */}
