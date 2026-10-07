@@ -1702,15 +1702,23 @@ export const HomePage: React.FC<HomePageProps> = ({
             margin: isMobile ? '0' : '0 auto'
           }}
         >
-          {/* Scout Referral Announcement Banner — Transparent White Blend */}
+          {/* Scout Referral Announcement Banner — Leaf/Lemon Green to White Gradient in Light Mode */}
           <div
             className={`rf-hero-announcement ${isScrolled ? 'is-scrolled' : ''}`}
             style={{
-              background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)',
+              background: isDark
+                ? 'linear-gradient(90deg, rgba(14, 40, 24, 0.95) 0%, rgba(9, 26, 16, 0.85) 60%, rgba(14, 38, 22, 0.7) 100%)'
+                : 'linear-gradient(90deg, rgba(102, 187, 42, 0.28) 0%, rgba(184, 238, 52, 0.16) 38%, rgba(255, 255, 255, 0.92) 85%, #FFFFFF 100%)',
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)',
-              border: isMobile ? 'none' : '1px solid rgba(18, 43, 26, 0.12)',
-              borderBottom: '1px solid rgba(18, 43, 26, 0.12)',
+              border: isMobile
+                ? 'none'
+                : isDark
+                  ? '1px solid rgba(102, 187, 42, 0.28)'
+                  : '1px solid rgba(102, 187, 42, 0.25)',
+              borderBottom: isDark
+                ? '1px solid rgba(102, 187, 42, 0.28)'
+                : '1px solid rgba(102, 187, 42, 0.25)',
               borderRadius: isMobile ? '0' : '16px',
               padding: isMobile ? '0.625rem 0.875rem' : '0.625rem 1.25rem',
               marginBottom: isMobile ? '0' : '0.85rem',
@@ -1718,7 +1726,11 @@ export const HomePage: React.FC<HomePageProps> = ({
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '1.25rem',
-              boxShadow: isMobile ? '0 4px 16px rgba(0, 0, 0, 0.06)' : '0 4px 20px rgba(18, 43, 26, 0.05)',
+              boxShadow: isMobile
+                ? '0 4px 16px rgba(0, 0, 0, 0.06)'
+                : isDark
+                  ? '0 4px 20px rgba(0, 0, 0, 0.4)'
+                  : '0 4px 20px rgba(18, 43, 26, 0.05)',
               flexWrap: 'wrap',
               width: '100%',
               boxSizing: 'border-box'
@@ -1731,7 +1743,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   fontFamily: 'var(--rf-font-display)',
                   fontSize: 'clamp(0.85rem, 1.1vw, 0.95rem)',
                   fontWeight: 600,
-                  color: '#122B1A',
+                  color: isDark ? '#FFFFFF' : '#122B1A',
                   letterSpacing: '-0.01em',
                   lineHeight: 1.35
                 }}
@@ -1747,7 +1759,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.4rem',
-                color: '#122B1A',
+                color: isDark ? '#EBF5EE' : '#122B1A',
                 background: 'transparent',
                 border: 'none',
                 borderBottom: '2px solid #66BB2A',
@@ -1764,7 +1776,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 e.currentTarget.style.transform = 'translateX(2px)';
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.color = '#122B1A';
+                e.currentTarget.style.color = isDark ? '#EBF5EE' : '#122B1A';
                 e.currentTarget.style.transform = 'translateX(0)';
               }}
             >

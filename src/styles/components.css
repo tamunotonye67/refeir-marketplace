@@ -2602,7 +2602,6 @@
     padding: 0.75rem 1rem !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
     width: 100% !important;
-    background: #FFFFFF !important;
     box-sizing: border-box !important;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
@@ -2610,7 +2609,6 @@
   .rf-hero-announcement .rf-hero-announcement-text {
     font-size: 0.85rem !important;
     line-height: 1.35 !important;
-    color: #122B1A !important;
     display: block !important;
   }
 
@@ -2621,7 +2619,6 @@
 
   .rf-hero-announcement .rf-hero-announcement-btn {
     font-size: 0.80rem !important;
-    color: #122B1A !important;
     font-weight: 700 !important;
     border-bottom: 2px solid #66BB2A !important;
   }
