@@ -18,13 +18,8 @@ export const RefeirLogo: React.FC<RefeirLogoProps> = ({
   className = '',
   style = {}
 }) => {
-  let activeTheme: 'dark' | 'light' = 'dark';
-  try {
-    const { theme } = useTheme();
-    activeTheme = theme;
-  } catch {
-    activeTheme = 'dark';
-  }
+  const { theme } = useTheme();
+  const activeTheme = theme;
 
   // Dark view / dark areas logo: Refeir-LogoWhite.png
   // Light view logo: RefeirLogo.png

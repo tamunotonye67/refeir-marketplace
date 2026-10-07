@@ -92,7 +92,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
         >
           {/* Left: Brand & Copyright */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <RefeirLogo size={20} />
+            <RefeirLogo size="sm" />
             <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontWeight: 500 }}>
               © 2026 Refeir Technologies Ltd. Pan-African Trust Protocol.
             </span>
