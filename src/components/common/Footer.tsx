@@ -94,27 +94,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <RefeirLogo size="sm" />
             <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontWeight: 500 }}>
-              © 2026 Refeir Technologies Ltd. Pan-African Trust Protocol.
+              © 2026 Refeir Technologies Ltd.
             </span>
-          </div>
-
-          {/* Center: Trust Vault Active Indicator */}
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              color: isDark ? 'var(--rf-leaf-green)' : '#16A34A',
-              fontWeight: 700,
-              fontSize: '0.75rem',
-              background: isDark ? 'rgba(102, 187, 42, 0.1)' : '#F0FDF4',
-              padding: '0.25rem 0.65rem',
-              borderRadius: '100px',
-              border: isDark ? '1px solid rgba(102, 187, 42, 0.25)' : '1px solid #BBF7D0'
-            }}
-          >
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: isDark ? 'var(--rf-leaf-green)' : '#16A34A' }} />
-            <span>Trust Vault Escrow Active Across 54 Nations</span>
           </div>
 
           {/* Right: Quick Links */}

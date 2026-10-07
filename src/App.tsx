@@ -498,10 +498,22 @@ export const App: React.FC = () => {
     basePath === '/demo-tour' ||
     basePath.startsWith('/r/');
 
-  // Focused working sessions where a minimal 1-line utility bar is preferred over a heavy marketing footer
-  const isCompactFooter =
-    basePath === '/jobs' ||
-    basePath === '/job-board';
+  // Institutional & marketing landing pages that retain the full directory footer
+  const isFullFooterPage =
+    basePath === '/' ||
+    basePath === '/why-refeir' ||
+    basePath === '/about' ||
+    basePath === '/business' ||
+    basePath === '/enterprise' ||
+    basePath === '/blog' ||
+    basePath === '/impact' ||
+    basePath === '/partnerships' ||
+    basePath === '/investors' ||
+    basePath === '/affiliates' ||
+    basePath === '/scouts';
+
+  // Any non-excluded functional/product page uses the minimal 1-line utility footer
+  const isCompactFooter = !isFullFooterPage;
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--rf-navy)' }}>
