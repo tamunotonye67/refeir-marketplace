@@ -301,9 +301,10 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
           REFEIR PRO SUPERPOWERS SUBSCRIPTION TIERS
           ========================================================================= */}
       <section
-        className="rf-section"
+        className="rf-section rf-pricing-pro-section"
         style={{
-          backgroundColor: isDark ? 'rgba(5, 20, 12, 0.6)' : '#FFFFFF',
+          backgroundColor: isDark ? '#0A170F' : '#FFFFFF',
+          backgroundImage: 'none',
           borderTop: isDark ? '1px solid rgba(244, 185, 66, 0.25)' : '1px solid rgba(18, 43, 26, 0.08)',
           borderBottom: isDark ? '1px solid rgba(244, 185, 66, 0.25)' : '1px solid rgba(18, 43, 26, 0.08)'
         }}
@@ -338,15 +339,14 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
           <div className="rf-grid-3" style={{ alignItems: 'stretch' }}>
             {/* 1. Scout Pro */}
             <div
-              className="rf-card"
+              className="rf-card rf-pricing-pro-card"
               style={{
                 padding: '2.5rem 2rem',
                 display: 'flex',
                 flexDirection: 'column',
                 border: isDark ? '1.5px solid rgba(244, 185, 66, 0.4)' : '1.5px solid #F59E0B',
-                background: isDark
-                  ? 'linear-gradient(180deg, rgba(244, 185, 66, 0.06) 0%, var(--rf-bg-surface) 100%)'
-                  : '#FFFFFF',
+                backgroundColor: isDark ? '#0F2E1E' : '#FFFFFF',
+                backgroundImage: 'none',
                 borderRadius: 'var(--rf-radius-xl)',
                 boxShadow: isDark ? 'none' : '0 4px 20px rgba(245, 158, 11, 0.08)',
                 position: 'relative'
@@ -414,15 +414,14 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
 
             {/* 2. Talent Pro */}
             <div
-              className="rf-card"
+              className="rf-card rf-pricing-pro-card"
               style={{
                 padding: '2.5rem 2rem',
                 display: 'flex',
                 flexDirection: 'column',
                 border: isDark ? '2px solid #F4B942' : '2px solid #D97706',
-                background: isDark
-                  ? 'linear-gradient(180deg, rgba(244, 185, 66, 0.12) 0%, var(--rf-bg-surface) 100%)'
-                  : '#FFFFFF',
+                backgroundColor: isDark ? '#0F2E1E' : '#FFFFFF',
+                backgroundImage: 'none',
                 borderRadius: 'var(--rf-radius-xl)',
                 boxShadow: isDark
                   ? '0 0 30px rgba(244, 185, 66, 0.2)'
@@ -496,15 +495,14 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
 
             {/* 3. Client Desk Pro */}
             <div
-              className="rf-card"
+              className="rf-card rf-pricing-pro-card"
               style={{
                 padding: '2.5rem 2rem',
                 display: 'flex',
                 flexDirection: 'column',
                 border: isDark ? '1.5px solid rgba(125, 162, 255, 0.4)' : '1.5px solid #3B82F6',
-                background: isDark
-                  ? 'linear-gradient(180deg, rgba(125, 162, 255, 0.06) 0%, var(--rf-bg-surface) 100%)'
-                  : '#FFFFFF',
+                backgroundColor: isDark ? '#0F2E1E' : '#FFFFFF',
+                backgroundImage: 'none',
                 borderRadius: 'var(--rf-radius-xl)',
                 boxShadow: isDark ? 'none' : '0 4px 20px rgba(59, 130, 246, 0.08)',
                 position: 'relative'

@@ -6886,6 +6886,39 @@
   }
 }
 
+/* =========================================================================
+   REFEIR PRO SUPERPOWERS PRICING SECTION - PURE WHITE CANVAS IN LIGHT MODE
+   ========================================================================= */
+.rf-pricing-pro-section,
+:root:not([data-theme="dark"]) .rf-pricing-pro-section,
+[data-theme="light"] .rf-pricing-pro-section {
+  background-color: #FFFFFF !important;
+  background-image: none !important;
+  border-top: 1px solid rgba(18, 43, 26, 0.08) !important;
+  border-bottom: 1px solid rgba(18, 43, 26, 0.08) !important;
+}
+
+[data-theme="dark"] .rf-pricing-pro-section {
+  background-color: #0A170F !important;
+  background-image: none !important;
+  border-top: 1px solid rgba(244, 185, 66, 0.25) !important;
+  border-bottom: 1px solid rgba(244, 185, 66, 0.25) !important;
+}
+
+.rf-pricing-pro-card,
+:root:not([data-theme="dark"]) .rf-pricing-pro-card,
+[data-theme="light"] .rf-pricing-pro-card {
+  background-color: #FFFFFF !important;
+  background-image: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="dark"] .rf-pricing-pro-card {
+  background-color: #0F2E1E !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
 
 
 
