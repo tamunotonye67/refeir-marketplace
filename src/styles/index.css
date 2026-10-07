@@ -705,28 +705,37 @@ code::-webkit-scrollbar-thumb:hover,
 /* ─── GLOBAL MODERN SLEEK SCROLLBAR STYLING ─── */
 * {
   scrollbar-width: thin !important;
-  scrollbar-color: rgba(24, 252, 92, 0.28) rgba(0, 0, 0, 0.15) !important;
+  scrollbar-color: rgba(18, 43, 26, 0.22) transparent !important;
+}
+
+[data-theme="dark"] * {
+  scrollbar-color: rgba(102, 187, 42, 0.35) transparent !important;
 }
 
 ::-webkit-scrollbar {
-  width: 6px !important;
-  height: 6px !important;
+  width: 5px !important;
+  height: 5px !important;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.15) !important;
-  border-radius: 999px !important;
+  background: transparent !important;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(24, 252, 92, 0.28) !important;
+  background: rgba(18, 43, 26, 0.2) !important;
   border-radius: 999px !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(102, 187, 42, 0.35) !important;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(24, 252, 92, 0.55) !important;
-  box-shadow: 0 0 8px rgba(24, 252, 92, 0.4) !important;
+  background: rgba(18, 43, 26, 0.4) !important;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 187, 42, 0.65) !important;
 }
 
 ::-webkit-scrollbar-corner {
@@ -736,8 +745,12 @@ code::-webkit-scrollbar-thumb:hover,
 /* Sleek Scroll utility for modals and cards */
 .rp-sleek-scroll {
   scrollbar-width: thin !important;
-  scrollbar-color: rgba(24, 252, 92, 0.3) transparent !important;
+  scrollbar-color: rgba(18, 43, 26, 0.22) transparent !important;
   -webkit-overflow-scrolling: touch !important;
+}
+
+[data-theme="dark"] .rp-sleek-scroll {
+  scrollbar-color: rgba(102, 187, 42, 0.35) transparent !important;
 }
 
 .rp-sleek-scroll::-webkit-scrollbar {
@@ -750,12 +763,20 @@ code::-webkit-scrollbar-thumb:hover,
 }
 
 .rp-sleek-scroll::-webkit-scrollbar-thumb {
-  background: rgba(24, 252, 92, 0.28) !important;
+  background: rgba(18, 43, 26, 0.2) !important;
   border-radius: 999px !important;
 }
 
+[data-theme="dark"] .rp-sleek-scroll::-webkit-scrollbar-thumb {
+  background: rgba(102, 187, 42, 0.35) !important;
+}
+
 .rp-sleek-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(24, 252, 92, 0.6) !important;
+  background: rgba(18, 43, 26, 0.45) !important;
+}
+
+[data-theme="dark"] .rp-sleek-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 187, 42, 0.65) !important;
 }
 
 

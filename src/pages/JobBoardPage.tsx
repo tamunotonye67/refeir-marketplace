@@ -377,23 +377,33 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
           <div
             className="rf-modal-content"
             onClick={e => e.stopPropagation()}
-            style={{ maxWidth: '620px', padding: 0 }}
+            style={{
+              maxWidth: '620px',
+              padding: 0,
+              maxHeight: '90vh',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+              borderRadius: '20px'
+            }}
           >
-            {/* Header */}
+            {/* Header (Pinned) */}
             <div
               style={{
-                padding: '1.5rem 1.75rem',
-                borderBottom: '1px solid var(--rf-bg-card-border)',
+                padding: '1.25rem 1.75rem',
+                borderBottom: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid rgba(18, 43, 26, 0.08)',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
+                flexShrink: 0,
+                background: isDark ? 'var(--rf-bg-card)' : '#FFFFFF'
               }}
             >
               <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', margin: 0 }}>
                   Submit Proposal for {selectedJobForProposal.title}
                 </h3>
-                <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', margin: '2px 0 0 0' }}>
+                <p style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', margin: '2px 0 0 0' }}>
                   Client Budget: {formatMoney(selectedJobForProposal.budget)} • Client: {selectedJobForProposal.client_name} ({selectedJobForProposal.client_country})
                 </p>
               </div>
@@ -401,22 +411,30 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
               <button
                 onClick={() => setSelectedJobForProposal(null)}
                 className="rf-btn-ghost"
-                style={{ color: 'var(--rf-slate-400)', padding: '0.25rem', borderRadius: '50%' }}
+                style={{ color: isDark ? '#94A3B8' : '#64748B', padding: '0.25rem', borderRadius: '50%' }}
               >
                 <X size={18} />
               </button>
             </div>
 
-            <div style={{ padding: '1.75rem' }}>
-              {/* Client Reputation Scorecard Snippet */}
-              <div style={{ marginBottom: '1.5rem' }}>
-                <ClientReputationScorecard
-                  clientId={selectedJobForProposal.client_id}
-                  clientName={selectedJobForProposal.client_name}
-                />
-              </div>
+            {/* Form with Internal Sleek Scroll Body & Fixed Footer */}
+            <form onSubmit={handleSubmitProposal} style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, overflow: 'hidden' }}>
+              <div
+                className="rp-sleek-scroll"
+                style={{
+                  padding: '1.5rem 1.75rem',
+                  overflowY: 'auto',
+                  flex: 1
+                }}
+              >
+                {/* Client Reputation Scorecard Snippet */}
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <ClientReputationScorecard
+                    clientId={selectedJobForProposal.client_id}
+                    clientName={selectedJobForProposal.client_name}
+                  />
+                </div>
 
-              <form onSubmit={handleSubmitProposal}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1rem' }}>
                   <div className="rf-form-group">
                     <label className="rf-label">Proposed Price ({selectedJobForProposal.budget.currency})</label>
@@ -445,28 +463,31 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
                   className="rf-card-inner-box"
                   style={{
                     padding: '1rem',
-                    marginBottom: '1.25rem'
+                    marginBottom: '1.25rem',
+                    background: isDark ? 'rgba(255, 255, 255, 0.02)' : '#F8FAFC',
+                    border: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid #E2E8F0',
+                    borderRadius: '12px'
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', fontWeight: 600 }}>
+                    <span style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#475569', fontWeight: 600 }}>
                       Client Escrow Total (Amount + 5% Fee):
                     </span>
-                    <span style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
+                    <span style={{ fontSize: '0.875rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A' }}>
                       {formatMoney(proposalBreakdown.client_total_amount)}
                     </span>
                   </div>
 
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.8125rem', color: '#66BB2A', fontWeight: 700 }}>
+                    <span style={{ fontSize: '0.8125rem', color: isDark ? '#66BB2A' : '#15803D', fontWeight: 700 }}>
                       Talent Net Payout (Amount - 5% Success Fee at Final Milestone):
                     </span>
-                    <span style={{ fontSize: '0.9375rem', fontWeight: 900, color: '#66BB2A' }}>
+                    <span style={{ fontSize: '0.9375rem', fontWeight: 900, color: isDark ? '#66BB2A' : '#15803D' }}>
                       {formatMoney(proposalBreakdown.talent_net_amount)}
                     </span>
                   </div>
 
-                  <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', borderTop: '1px solid var(--rf-bg-card-border)', paddingTop: '0.5rem', marginTop: '0.5rem' }}>
+                  <div style={{ fontSize: '0.72rem', color: isDark ? '#94A3B8' : '#64748B', borderTop: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid #E2E8F0', paddingTop: '0.5rem', marginTop: '0.5rem' }}>
                     Refeir collects 5% from client + 5% from talent upon final milestone release (10% total Refeir revenue).
                   </div>
                 </div>
@@ -486,33 +507,43 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
                 {/* Strict In-Platform Chat Rule Banner */}
                 <div
                   style={{
-                    background: 'rgba(239, 68, 68, 0.08)',
-                    border: '1px solid rgba(239, 68, 68, 0.35)',
+                    background: isDark ? 'rgba(239, 68, 68, 0.08)' : '#FEF2F2',
+                    border: isDark ? '1px solid rgba(239, 68, 68, 0.35)' : '1px solid #FECACA',
                     borderRadius: '10px',
                     padding: '0.75rem 1rem',
-                    marginBottom: '1.5rem',
+                    marginBottom: '0.5rem',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.75rem'
                   }}
                 >
                   <Lock size={16} color="#EF4444" style={{ flexShrink: 0 }} />
-                  <div style={{ fontSize: '0.75rem', color: '#FCA5A5', lineHeight: 1.4 }}>
-                    <strong>Mandatory Platform Policy:</strong> All chatting, negotiations, and milestone submissions must be done strictly within Refeir to maintain 100% Trust Vault payment protection.
+                  <div style={{ fontSize: '0.75rem', color: isDark ? '#FCA5A5' : '#B91C1C', lineHeight: 1.4 }}>
+                    <strong style={{ color: isDark ? '#FFFFFF' : '#991B1B' }}>Mandatory Platform Policy:</strong> All chatting, negotiations, and milestone submissions must be done strictly within Refeir to maintain 100% Trust Vault payment protection.
                   </div>
                 </div>
+              </div>
 
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                  <button type="button" onClick={() => setSelectedJobForProposal(null)} className="rf-btn rf-btn-secondary" style={{ flex: 1 }}>
-                    Cancel
-                  </button>
-                  <button type="submit" className="rf-btn rf-btn-mint" style={{ flex: 1, gap: '0.5rem', fontWeight: 800 }}>
-                    <Send size={15} />
-                    <span>Submit Proposal</span>
-                  </button>
-                </div>
-              </form>
-            </div>
+              {/* Footer Actions (Pinned) */}
+              <div
+                style={{
+                  padding: '1rem 1.75rem',
+                  borderTop: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid rgba(18, 43, 26, 0.08)',
+                  display: 'flex',
+                  gap: '0.75rem',
+                  background: isDark ? 'var(--rf-bg-card)' : '#FFFFFF',
+                  flexShrink: 0
+                }}
+              >
+                <button type="button" onClick={() => setSelectedJobForProposal(null)} className="rf-btn rf-btn-secondary" style={{ flex: 1 }}>
+                  Cancel
+                </button>
+                <button type="submit" className="rf-btn rf-btn-mint" style={{ flex: 1, gap: '0.5rem', fontWeight: 800 }}>
+                  <Send size={15} />
+                  <span>Submit Proposal</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
