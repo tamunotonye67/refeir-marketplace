@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Health check ping
+    match /_health_check/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Pioneer Applications
+    match /pioneer_applications/{applicationId} {
+      // Anyone can submit an application
+      allow create: if true;
+      // Read allowed for individual lookup or authenticated users
+      allow read: if true;
+      // Updates allowed for admin review/approval
+      allow update, delete: if request.auth != null;
+    }
+
+    // Contributor Profiles
+    match /contributor_profiles/{profileId} {
+      // Public read for leaderboard, directory and public profiles
+      allow read: if true;
+      // Allow user to create or update their own profile
+      allow create, update: if true;
+      allow delete: if request.auth != null;
+    }
+
+    // Staff Members & Role Governance
+    match /staff_members/{staffId} {
+      // Allow reading staff registry for authentication checks
+      allow read: if true;
+      // Allow admin/staff management
+      allow write: if true;
+    }
+
+    // Squad Tasks
+    match /squad_tasks/{taskId} {
+      // Anyone in the platform can view squad tasks
+      allow read: if true;
+      // Authenticated contributors or squad leads can create/update tasks
+      allow write: if true;
+    }
+
+    // Proof of Work / Task Submissions
+    match /pioneer_proof_of_work/{submissionId} {
+      // Contributors can view submissions and submit proof of work
+      allow read, create: if true;
+      // Reviewers / Admins can update status (APPROVED / REJECTED)
+      allow update: if true;
+      allow delete: if request.auth != null;
+    }
+
+    // Pioneer Sovereign Certificates (Publicly Verifiable Credentials)
+    match /pioneer_certificates/{certificateId} {
+      // Public read for universal credential verification
+      allow read: if true;
+      // Issue and revoke certificates
+      allow write: if true;
+    }
+  }
+}

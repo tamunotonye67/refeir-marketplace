@@ -1,0 +1,11 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      // Allow read for public assets (avatars, task proofs, certificate images)
+      allow read: if true;
+      // Allow upload with size limit up to 10MB
+      allow write: if request.resource.size < 10 * 1024 * 1024;
+    }
+  }
+}
