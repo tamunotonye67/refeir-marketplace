@@ -1,11 +1,14 @@
 import React from 'react';
 import { Scale, CheckCircle2, ShieldAlert, Award, FileCheck, Coins } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 interface TermsPageProps {
   onNavigate?: (path: string) => void;
 }
 
 export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate = () => {} }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   return (
     <div className="rf-container" style={{ paddingTop: '3rem', paddingBottom: '6rem', maxWidth: '900px' }}>
       {/* Header */}
@@ -79,19 +82,38 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate = () => {} }) =
           </ul>
         </section>
 
-        <section className="rf-card" style={{ padding: '2rem', borderLeft: '4px solid #EF4444', background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(10, 26, 18, 0.9) 100%)' }}>
-          <h2 style={{ fontSize: '1.375rem', fontWeight: 800, color: '#F87171', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <section
+          className="rf-card"
+          style={{
+            padding: '2rem',
+            borderLeft: '4px solid #EF4444',
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(10, 26, 18, 0.9) 100%)'
+              : '#FEF2F2',
+            border: isDark ? undefined : '1px solid #FECACA',
+            borderLeftWidth: '4px'
+          }}
+        >
+          <h2 style={{ fontSize: '1.375rem', fontWeight: 800, color: isDark ? '#F87171' : '#B91C1C', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <ShieldAlert size={20} color="#EF4444" />
             6. Strict Prohibition on Chatting Outside Refeir, Sharing Contacts & Asset Forfeiture Policy
           </h2>
-          <p style={{ marginBottom: '1rem' }}>
+          <p style={{ marginBottom: '1rem', color: isDark ? 'var(--rf-slate-300)' : '#334155' }}>
             To safeguard scout attribution, maintain multi-currency escrow integrity, and prevent fraudulent disintermediation scams, <strong>chatting outside of Refeir and the sharing of personal or business phone numbers, external website links, social media handles, WhatsApp/Telegram contacts, external video/voice call links (Zoom, Google Meet, Teams), or direct emails between Referrers (Scouts), Clients, and Talents is strictly and unconditionally prohibited.</strong> All communications, scoping conversations, contract negotiations, file reviews, and feedback must occur exclusively inside Refeir's encrypted workspaces.
           </p>
-          <div style={{ background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: 'var(--rf-radius-md)', padding: '1rem', marginTop: '1rem' }}>
-            <h3 style={{ fontSize: '0.9375rem', fontWeight: 800, color: '#FCA5A5', marginBottom: '0.5rem' }}>
+          <div
+            style={{
+              background: isDark ? 'rgba(239, 68, 68, 0.12)' : '#FFFFFF',
+              border: isDark ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid #FECACA',
+              borderRadius: 'var(--rf-radius-md)',
+              padding: '1rem',
+              marginTop: '1rem'
+            }}
+          >
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 800, color: isDark ? '#FCA5A5' : '#991B1B', marginBottom: '0.5rem' }}>
               PENALTIES FOR CHATTING OUTSIDE REFEIR & DISINTERMEDIATION VIOLATIONS:
             </h3>
-            <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--rf-slate-200)' }}>
+            <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.875rem', color: isDark ? 'var(--rf-slate-200)' : '#475569' }}>
               <li><strong>Immediate Permanent Account Ban:</strong> Any talent, scout, or client found guilty of chatting outside Refeir, soliciting external communication, or transmitting off-platform contact details will be immediately and permanently banned from the Refeir ecosystem with permanent identity blacklisting.</li>
               <li><strong>Irreversible Total Asset Forfeiture:</strong> Guilty parties immediately forfeit 100% of all accumulated multi-currency wallet holdings, locked escrow deposits, and pending 10% referral commission balances. Forfeited assets are reallocated to the Pan-African Trust and Victim Restitution Reserve without right of appeal.</li>
               <li><strong>Automated DLP & Semantic Enforcement:</strong> All message exchanges and negotiations are continuously policed by automated regex, semantic AI, and Data Loss Prevention (DLP) neural filters that instantly intercept outside chat proposals and alert platform security arbiters.</li>

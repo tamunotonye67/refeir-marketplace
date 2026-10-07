@@ -3,6 +3,7 @@ import { Job, Proposal } from '../types';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
+import { useTheme } from '../context/ThemeContext';
 import { JobCard } from '../components/marketplace/JobCard';
 import { ClientReputationScorecard } from '../components/marketplace/ClientReputationScorecard';
 import { CountryFlag } from '../components/common/CountryFlag';
@@ -36,6 +37,8 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
   const { currentUser, login } = useAuth();
   const { jobsList, talentList, postJob, createProject, getClientScorecard } = useMarketplace();
   const { showToast } = useNotification();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
@@ -134,83 +137,94 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="rf-container" style={{ paddingTop: '2.5rem', paddingBottom: '5rem' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
-        <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: 'var(--rf-blue)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-            <Briefcase size={14} />
-            <span>PAN-AFRICAN JOB BOARD</span>
-          </div>
-          <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-            Client Opportunities Across Africa
-          </h1>
-          <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
-            Browse open contracts with Trust Vault protection or post your requirements to reach vetted talent.
-          </p>
-        </div>
-
-        <button
-          onClick={() => setShowPostJobModal(true)}
-          className="rf-btn rf-btn-primary rf-btn-lg"
-          style={{ gap: '0.5rem' }}
-        >
-          <Plus size={18} />
-          <span>Post a Job Requirement</span>
-        </button>
-      </div>
-
-      {/* Mandatory In-Platform Rule & Proposal Fee Split Banner */}
-      <div
-        style={{
-          background: 'linear-gradient(135deg, rgba(102, 187, 42, 0.12) 0%, rgba(13, 34, 23, 0.95) 100%)',
-          border: '1.5px solid rgba(102, 187, 42, 0.35)',
-          borderRadius: '16px',
-          padding: '1.25rem 1.5rem',
-          marginBottom: '2rem',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1rem'
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div
-            style={{
-              width: '42px',
-              height: '42px',
-              borderRadius: '10px',
-              background: 'rgba(102, 187, 42, 0.2)',
-              border: '1px solid rgba(102, 187, 42, 0.4)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--rf-leaf-green)',
-              flexShrink: 0
-            }}
-          >
-            <ShieldCheck size={22} />
-          </div>
+    <div
+      style={{
+        backgroundColor: isDark ? 'var(--rf-bg-base)' : '#FFFFFF',
+        minHeight: '85vh',
+        width: '100%',
+        color: isDark ? '#FFFFFF' : '#122B1A'
+      }}
+    >
+      <div className="rf-container" style={{ paddingTop: '2.5rem', paddingBottom: '5rem' }}>
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
           <div>
-            <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--rf-cream)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span>Proposal-Based Jobs: 5% Client + 5% Talent Split Fee</span>
-              <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', borderRadius: '9999px', background: '#66BB2A', color: '#07160D', fontWeight: 800 }}>
-                Direct Job Board Rule
-              </span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+              <Briefcase size={14} />
+              <span>PAN-AFRICAN JOB BOARD</span>
             </div>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', margin: '0.2rem 0 0 0' }}>
-              For jobs initiated through open proposals (without a Scout), Refeir takes 5% from the client and 5% from the talent at the final milestone. <strong>All chatting and negotiations must be conducted strictly within the platform.</strong>
+            <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', letterSpacing: '-0.02em' }}>
+              Client Opportunities Across Africa
+            </h1>
+            <p style={{ color: isDark ? '#94A3B8' : '#475569', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
+              Browse open contracts with Trust Vault protection or post your requirements to reach vetted talent.
             </p>
           </div>
+
+          <button
+            onClick={() => setShowPostJobModal(true)}
+            className="rf-btn rf-btn-primary rf-btn-lg"
+            style={{ gap: '0.5rem' }}
+          >
+            <Plus size={18} />
+            <span>Post a Job Requirement</span>
+          </button>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', fontWeight: 700 }}>
-            🔒 End-to-End Trust Vault Escrow
-          </span>
+        {/* Mandatory In-Platform Rule & Proposal Fee Split Banner */}
+        <div
+          style={{
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(102, 187, 42, 0.12) 0%, rgba(13, 34, 23, 0.95) 100%)'
+              : '#FFFFFF',
+            border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(46, 125, 50, 0.25)',
+            boxShadow: isDark ? 'none' : '0 4px 20px rgba(0, 0, 0, 0.04)',
+            borderRadius: '16px',
+            padding: '1.25rem 1.5rem',
+            marginBottom: '2rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '1rem'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div
+              style={{
+                width: '42px',
+                height: '42px',
+                borderRadius: '10px',
+                background: isDark ? 'rgba(102, 187, 42, 0.2)' : 'rgba(46, 125, 50, 0.1)',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.4)' : '1px solid rgba(46, 125, 50, 0.25)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: isDark ? 'var(--rf-leaf-green)' : '#2E7D32',
+                flexShrink: 0
+              }}
+            >
+              <ShieldCheck size={22} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span>Proposal-Based Jobs: 5% Client + 5% Talent Split Fee</span>
+                <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', borderRadius: '9999px', background: isDark ? '#66BB2A' : '#DCFCE7', color: isDark ? '#07160D' : '#15803D', border: isDark ? 'none' : '1px solid #86EFAC', fontWeight: 800 }}>
+                  Direct Job Board Rule
+                </span>
+              </div>
+              <p style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#334155', margin: '0.2rem 0 0 0' }}>
+                For jobs initiated through open proposals (without a Scout), Refeir takes 5% from the client and 5% from the talent at the final milestone. <strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>All chatting and negotiations must be conducted strictly within the platform.</strong>
+              </p>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', fontWeight: 700 }}>
+              🔒 End-to-End Trust Vault Escrow
+            </span>
+          </div>
         </div>
-      </div>
 
       {/* Filter and Search Bar */}
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
@@ -500,6 +514,7 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

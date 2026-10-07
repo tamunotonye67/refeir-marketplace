@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
+import { useTheme } from '../context/ThemeContext';
 import { FaceCaptureModule } from '../components/verification/FaceCaptureModule';
 import { defaultKYCProvider, KYCVerificationResult } from '../services/kycProvider';
 import { ocrEngine, OCRScanResult } from '../services/ocrService';
@@ -34,6 +35,8 @@ import {
 export const VerificationPage: React.FC = () => {
   const { currentUser } = useAuth();
   const { showToast, addAppNotification } = useNotification();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const [step, setStep] = useState<'ID_DOCUMENT' | 'FACE_CAPTURE' | 'REVIEW' | 'VERIFIED'>('ID_DOCUMENT');
   const [idType, setIdType] = useState<'NATIONAL_ID' | 'PASSPORT' | 'DRIVERS_LICENSE' | 'VOTERS_CARD'>('NATIONAL_ID');
@@ -678,7 +681,18 @@ export const VerificationPage: React.FC = () => {
 
           {verificationResult?.is_fully_approved ? (
             /* SUCCESS / APPROVED STATE */
-            <div className="rf-card" style={{ padding: '3.5rem 2rem', textAlign: 'center', background: 'linear-gradient(180deg, var(--rf-bg-card) 0%, rgba(10, 30, 18, 0.9) 100%)', border: '1.5px solid var(--rf-leaf-green)', boxShadow: 'var(--rf-shadow-glow)' }}>
+            <div
+              className="rf-card"
+              style={{
+                padding: '3.5rem 2rem',
+                textAlign: 'center',
+                background: isDark
+                  ? 'linear-gradient(180deg, var(--rf-bg-card) 0%, rgba(10, 30, 18, 0.9) 100%)'
+                  : '#FFFFFF',
+                border: isDark ? '1.5px solid var(--rf-leaf-green)' : '1.5px solid #2E7D32',
+                boxShadow: isDark ? 'var(--rf-shadow-glow)' : '0 8px 30px rgba(46, 125, 50, 0.1)'
+              }}
+            >
               <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--rf-leaf-green)', margin: '0 auto 1.25rem', border: '2px solid var(--rf-leaf-green)' }}>
                 <CheckCircle2 size={40} />
               </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { Users, Coins, ArrowRight, CheckCircle2, Star, Shield, Zap, MessageSquare, Lock, ArrowLeft } from 'lucide-react';
 
 interface ScoutsPageProps {
@@ -8,6 +9,8 @@ interface ScoutsPageProps {
 
 export const ScoutsPage: React.FC<ScoutsPageProps> = ({ onNavigate = () => {} }) => {
   const { currentUser, switchRole } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const activeRole = currentUser?.active_role;
 
   // STRICT RULE: In Talent mode, the Talent should not be able to browse Scouts unless reached out to by Scouts
@@ -99,17 +102,24 @@ export const ScoutsPage: React.FC<ScoutsPageProps> = ({ onNavigate = () => {} })
   return (
     <div style={{ paddingBottom: '6rem' }}>
       {/* Hero */}
-      <div style={{ background: 'linear-gradient(180deg, rgba(10,40,20,0.7) 0%, transparent 100%)', borderBottom: '1px solid var(--rf-navy-border)', padding: '5rem 0 4rem', textAlign: 'center' }}>
+      <div
+        style={{
+          background: isDark ? 'linear-gradient(180deg, rgba(10,40,20,0.7) 0%, transparent 100%)' : '#FFFFFF',
+          borderBottom: isDark ? '1px solid var(--rf-navy-border)' : '1px solid rgba(18, 43, 26, 0.08)',
+          padding: '5rem 0 4rem',
+          textAlign: 'center'
+        }}
+      >
         <div className="rf-container" style={{ maxWidth: '800px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--rf-leaf-green)', fontSize: '0.8125rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', background: 'rgba(102,187,42,0.08)', padding: '0.35rem 0.85rem', borderRadius: '100px', border: '1px solid rgba(102,187,42,0.2)' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', fontSize: '0.8125rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', background: isDark ? 'rgba(102,187,42,0.08)' : 'rgba(46,125,50,0.08)', padding: '0.35rem 0.85rem', borderRadius: '100px', border: isDark ? '1px solid rgba(102,187,42,0.2)' : '1px solid rgba(46,125,50,0.2)' }}>
             <Users size={16} />
             <span>SCOUT NETWORK</span>
           </div>
-          <h1 style={{ fontSize: '3.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+          <h1 style={{ fontSize: '3.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '1.25rem' }}>
             Turn Your Network<br />Into Income
           </h1>
-          <p style={{ fontSize: '1.125rem', color: 'var(--rf-slate-300)', lineHeight: 1.7, maxWidth: '580px', margin: '0 auto 2.5rem' }}>
-            Refeir Scouts earn a guaranteed <strong style={{ color: 'var(--rf-leaf-green)' }}>10–18% commission</strong> every time someone they referred completes a paid project. No limit. No cap.
+          <p style={{ fontSize: '1.125rem', color: isDark ? '#CBD5E1' : '#475569', lineHeight: 1.7, maxWidth: '580px', margin: '0 auto 2.5rem' }}>
+            Refeir Scouts earn a guaranteed <strong style={{ color: isDark ? 'var(--rf-leaf-green)' : '#15803D' }}>10–18% commission</strong> every time someone they referred completes a paid project. No limit. No cap.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <button onClick={() => onNavigate('/dashboard/scout')} className="rf-btn rf-btn-primary rf-btn-lg">

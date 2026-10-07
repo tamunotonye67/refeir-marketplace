@@ -1,11 +1,14 @@
 import React from 'react';
 import { ShieldCheck, Lock, UserCheck, CreditCard, Scale, AlertTriangle, ArrowRight } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 interface TrustSafetyPageProps {
   onNavigate?: (path: string) => void;
 }
 
 export const TrustSafetyPage: React.FC<TrustSafetyPageProps> = ({ onNavigate = () => {} }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   return (
     <div className="rf-container" style={{ paddingTop: '3rem', paddingBottom: '6rem', maxWidth: '1000px' }}>
       <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
@@ -58,25 +61,45 @@ export const TrustSafetyPage: React.FC<TrustSafetyPageProps> = ({ onNavigate = (
           </p>
         </div>
 
-        <div className="rf-card" style={{ padding: '2rem', border: '1px solid rgba(239, 68, 68, 0.3)', background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(10, 26, 18, 0.95) 100%)' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(239, 68, 68, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
+        <div
+          className="rf-card"
+          style={{
+            padding: '2rem',
+            border: isDark ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid #FECACA',
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(10, 26, 18, 0.95) 100%)'
+              : '#FEF2F2'
+          }}
+        >
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: isDark ? 'rgba(239, 68, 68, 0.15)' : '#FEE2E2', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
             <AlertTriangle size={24} color="#EF4444" />
           </div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#F87171', marginBottom: '0.5rem' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: isDark ? '#F87171' : '#B91C1C', marginBottom: '0.5rem' }}>
             Automated DLP & Anti-Circumvention
           </h3>
-          <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.875rem', lineHeight: 1.6 }}>
+          <p style={{ color: isDark ? 'var(--rf-slate-300)' : '#334155', fontSize: '0.875rem', lineHeight: 1.6 }}>
             Chatting outside of Refeir (via WhatsApp, Telegram, Zoom, Email) and sharing external links or phone numbers between Scouts, Talents, and Clients is strictly prohibited. Violators face immediate permanent ban and total forfeiture of all wallet holdings, escrow balances, and commissions.
           </p>
         </div>
       </div>
 
       {/* Action CTA */}
-      <div className="rf-card" style={{ padding: '2.5rem', background: 'linear-gradient(135deg, rgba(10, 26, 18, 0.95), rgba(7, 23, 14, 0.98))', border: '1px solid rgba(102, 187, 42, 0.3)', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.75rem' }}>
+      <div
+        className="rf-card"
+        style={{
+          padding: '2.5rem',
+          background: isDark
+            ? 'linear-gradient(135deg, rgba(10, 26, 18, 0.95), rgba(7, 23, 14, 0.98))'
+            : '#FFFFFF',
+          border: isDark ? '1px solid rgba(102, 187, 42, 0.3)' : '1.5px solid rgba(46, 125, 50, 0.25)',
+          boxShadow: isDark ? 'none' : '0 8px 30px rgba(46, 125, 50, 0.08)',
+          textAlign: 'center'
+        }}
+      >
+        <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', marginBottom: '0.75rem' }}>
           Ready to experience safe Pan-African collaboration?
         </h2>
-        <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', maxWidth: '560px', margin: '0 auto 1.5rem' }}>
+        <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '560px', margin: '0 auto 1.5rem' }}>
           Join thousands of verified African developers, scouts, and global businesses working with 100% money-back protection.
         </p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
