@@ -259,9 +259,48 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
       {showPostJobModal && (
         <div className="rf-modal-backdrop" onClick={() => setShowPostJobModal(false)}>
           <div className="rf-modal-content" onClick={e => e.stopPropagation()} style={{ padding: '2rem' }}>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1.5rem' }}>
-              Post a New Project Requirement
-            </h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', margin: 0 }}>
+                  Post a New Project Requirement
+                </h3>
+                <p style={{ fontSize: '0.8125rem', color: isDark ? '#94A3B8' : '#64748B', margin: '4px 0 0 0' }}>
+                  Reach vetted African talent with Trust Vault milestone escrow.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowPostJobModal(false)}
+                aria-label="Close"
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  minWidth: '36px',
+                  minHeight: '36px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  background: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 43, 26, 0.05)',
+                  color: isDark ? '#94A3B8' : '#475569',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  transition: 'all 0.15s ease'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 43, 26, 0.1)';
+                  e.currentTarget.style.color = isDark ? '#FFFFFF' : '#122B1A';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 43, 26, 0.05)';
+                  e.currentTarget.style.color = isDark ? '#94A3B8' : '#475569';
+                }}
+              >
+                <X size={20} strokeWidth={2.2} style={{ flexShrink: 0 }} />
+              </button>
+            </div>
 
             <form onSubmit={handleCreateJob}>
               <div className="rf-form-group">
@@ -378,27 +417,53 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
                 padding: '1.25rem 1.75rem',
                 borderBottom: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid rgba(18, 43, 26, 0.08)',
                 display: 'flex',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 justifyContent: 'space-between',
+                gap: '1rem',
                 flexShrink: 0,
                 background: isDark ? 'var(--rf-bg-card)' : '#FFFFFF'
               }}
             >
-              <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', margin: 0 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', margin: 0, lineHeight: 1.35 }}>
                   Submit Proposal for {selectedJobForProposal.title}
                 </h3>
-                <p style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', margin: '2px 0 0 0' }}>
+                <p style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', margin: '4px 0 0 0' }}>
                   Client Budget: {formatMoney(selectedJobForProposal.budget)} • Client: {selectedJobForProposal.client_name} ({selectedJobForProposal.client_country})
                 </p>
               </div>
 
               <button
+                type="button"
                 onClick={() => setSelectedJobForProposal(null)}
-                className="rf-btn-ghost"
-                style={{ color: isDark ? '#94A3B8' : '#64748B', padding: '0.25rem', borderRadius: '50%' }}
+                aria-label="Close"
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  minWidth: '36px',
+                  minHeight: '36px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  background: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 43, 26, 0.05)',
+                  color: isDark ? '#94A3B8' : '#475569',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  transition: 'all 0.15s ease',
+                  marginTop: '2px'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 43, 26, 0.1)';
+                  e.currentTarget.style.color = isDark ? '#FFFFFF' : '#122B1A';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 43, 26, 0.05)';
+                  e.currentTarget.style.color = isDark ? '#94A3B8' : '#475569';
+                }}
               >
-                <X size={18} />
+                <X size={20} strokeWidth={2.2} style={{ flexShrink: 0 }} />
               </button>
             </div>
 
