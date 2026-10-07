@@ -498,6 +498,11 @@ export const App: React.FC = () => {
     basePath === '/demo-tour' ||
     basePath.startsWith('/r/');
 
+  // Focused working sessions where a minimal 1-line utility bar is preferred over a heavy marketing footer
+  const isCompactFooter =
+    basePath === '/jobs' ||
+    basePath === '/job-board';
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--rf-navy)' }}>
       {/* Global Navigation Header */}
@@ -508,8 +513,8 @@ export const App: React.FC = () => {
         {renderCurrentPage()}
       </main>
 
-      {/* Global Footer (shown only on public discovery, marketing, and institutional pages) */}
-      {!isFooterExcluded && <Footer onNavigate={navigate} />}
+      {/* Global Footer (full marketing directory or slim 1-line utility bar) */}
+      {!isFooterExcluded && <Footer onNavigate={navigate} compact={isCompactFooter} />}
 
       {/* Mobile Bottom Navigation */}
       {!isChromelessPage && <MobileNav onNavigate={navigate} currentPath={currentPath} />}

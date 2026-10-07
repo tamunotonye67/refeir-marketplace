@@ -8,18 +8,12 @@ import confetti from 'canvas-confetti';
 
 interface FooterProps {
   onNavigate: (path: string) => void;
+  compact?: boolean;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
-  let activeTheme: 'dark' | 'light' = 'dark';
-  try {
-    const { theme } = useTheme();
-    activeTheme = theme;
-  } catch {
-    activeTheme = 'dark';
-  }
-
-  const isDark = activeTheme === 'dark';
+export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const watermarkSrc = isDark ? '/Refeir-LogoWhite.png' : '/RefeirLogo.png';
 
   const [showProModal, setShowProModal] = useState(false);
@@ -71,6 +65,89 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     setApkDownloading(false);
     setApkDownloaded(false);
   };
+
+  // Compact Minimal 1-Line Utility Bar for focused sessions (e.g. Job Board)
+  if (compact) {
+    return (
+      <footer
+        style={{
+          backgroundColor: isDark ? 'var(--rf-bg-base)' : '#FFFFFF',
+          borderTop: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid rgba(18, 43, 26, 0.08)',
+          padding: '1rem 1.5rem',
+          marginTop: 'auto',
+          width: '100%',
+          boxSizing: 'border-box'
+        }}
+      >
+        <div
+          className="rf-container"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            fontSize: '0.8125rem'
+          }}
+        >
+          {/* Left: Brand & Copyright */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <RefeirLogo size={20} />
+            <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontWeight: 500 }}>
+              © 2026 Refeir Technologies Ltd. Pan-African Trust Protocol.
+            </span>
+          </div>
+
+          {/* Center: Trust Vault Active Indicator */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              color: isDark ? 'var(--rf-leaf-green)' : '#16A34A',
+              fontWeight: 700,
+              fontSize: '0.75rem',
+              background: isDark ? 'rgba(102, 187, 42, 0.1)' : '#F0FDF4',
+              padding: '0.25rem 0.65rem',
+              borderRadius: '100px',
+              border: isDark ? '1px solid rgba(102, 187, 42, 0.25)' : '1px solid #BBF7D0'
+            }}
+          >
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: isDark ? 'var(--rf-leaf-green)' : '#16A34A' }} />
+            <span>Trust Vault Escrow Active Across 54 Nations</span>
+          </div>
+
+          {/* Right: Quick Links */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', fontWeight: 600 }}>
+            <button
+              onClick={() => onNavigate('/terms')}
+              style={{ background: 'none', border: 'none', padding: 0, color: isDark ? '#CBD5E1' : '#475569', cursor: 'pointer', fontSize: '0.8125rem' }}
+            >
+              Terms
+            </button>
+            <button
+              onClick={() => onNavigate('/privacy')}
+              style={{ background: 'none', border: 'none', padding: 0, color: isDark ? '#CBD5E1' : '#475569', cursor: 'pointer', fontSize: '0.8125rem' }}
+            >
+              Privacy
+            </button>
+            <button
+              onClick={() => onNavigate('/trust-safety')}
+              style={{ background: 'none', border: 'none', padding: 0, color: isDark ? '#CBD5E1' : '#475569', cursor: 'pointer', fontSize: '0.8125rem' }}
+            >
+              Trust & Safety
+            </button>
+            <button
+              onClick={() => onNavigate('/help')}
+              style={{ background: 'none', border: 'none', padding: 0, color: isDark ? '#CBD5E1' : '#475569', cursor: 'pointer', fontSize: '0.8125rem' }}
+            >
+              Help & Support
+            </button>
+          </div>
+        </div>
+      </footer>
+    );
+  }
 
   return (
     <footer style={{ backgroundColor: 'var(--rf-bg-deep)', borderTop: '1px solid var(--rf-bg-card-border)', marginTop: 'auto', overflow: 'hidden', position: 'relative' }}>
