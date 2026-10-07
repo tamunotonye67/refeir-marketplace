@@ -1712,8 +1712,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               border: isMobile ? 'none' : '1px solid rgba(18, 43, 26, 0.12)',
               borderBottom: '1px solid rgba(18, 43, 26, 0.12)',
               borderRadius: isMobile ? '0' : '16px',
-              padding: isMobile ? '0.75rem 1rem' : '1rem 1.75rem',
-              marginBottom: isMobile ? '0' : '1rem',
+              padding: isMobile ? '0.625rem 0.875rem' : '0.625rem 1.25rem',
+              marginBottom: isMobile ? '0' : '0.85rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -1729,10 +1729,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                 className="rf-hero-announcement-text"
                 style={{
                   fontFamily: 'var(--rf-font-display)',
-                  fontSize: 'clamp(1.15rem, 2vw, 1.4rem)',
+                  fontSize: 'clamp(0.85rem, 1.1vw, 0.95rem)',
                   fontWeight: 600,
                   color: '#122B1A',
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '-0.01em',
                   lineHeight: 1.35
                 }}
               >
@@ -1746,14 +1746,14 @@ export const HomePage: React.FC<HomePageProps> = ({
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.45rem',
+                gap: '0.4rem',
                 color: '#122B1A',
                 background: 'transparent',
                 border: 'none',
                 borderBottom: '2px solid #66BB2A',
-                padding: '0.25rem 0',
+                padding: '0.2rem 0',
                 paddingBottom: '2px',
-                fontSize: '1rem',
+                fontSize: '0.85rem',
                 fontWeight: 600,
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
@@ -1769,7 +1769,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               }}
             >
               <span>Start Scouting</span>
-              <ArrowRight size={16} color="#66BB2A" />
+              <ArrowRight size={14} color="#66BB2A" />
             </button>
           </div>
 

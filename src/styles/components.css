@@ -2608,7 +2608,7 @@
   }
 
   .rf-hero-announcement .rf-hero-announcement-text {
-    font-size: 0.95rem !important;
+    font-size: 0.85rem !important;
     line-height: 1.35 !important;
     color: #122B1A !important;
     display: block !important;
@@ -2620,7 +2620,7 @@
   }
 
   .rf-hero-announcement .rf-hero-announcement-btn {
-    font-size: 0.85rem !important;
+    font-size: 0.80rem !important;
     color: #122B1A !important;
     font-weight: 700 !important;
     border-bottom: 2px solid #66BB2A !important;
