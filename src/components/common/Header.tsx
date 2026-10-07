@@ -871,8 +871,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                           onMouseEnter={() => handleMouseEnter('network')}
                           onMouseLeave={handleMouseLeave}
                         >
-                          {renderNavFlyoutItem(<Users size={15} />, 'Active Introductions', 'Live client-talent connections', () => handleLinkClick('/dashboard/scout'))}
-                          {renderNavFlyoutItem(<Share2 size={15} />, 'Scout Links & QR', 'Encrypted referral tracking links', () => handleLinkClick('/dashboard/scout'))}
+                          {renderNavFlyoutItem(<Users size={15} />, 'Active Introductions', 'Live client-talent connections', () => handleLinkClick('/introductions'))}
+                          {renderNavFlyoutItem(<Share2 size={15} />, 'Scout Links & QR', 'Encrypted referral tracking links', () => handleLinkClick('/scout-links'))}
                           {renderNavFlyoutItem(<User size={15} />, 'Profile', 'Scout credentials & reputation status', () => handleLinkClick('/profile'))}
                           {renderNavFlyoutItem(<Wallet size={15} />, 'Earnings', '10% automatic escrow splits ledger', () => handleLinkClick('/wallet'))}
                         </div>

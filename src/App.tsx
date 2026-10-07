@@ -54,6 +54,8 @@ import { CommunityHubPage } from './pages/CommunityHubPage';
 import { PioneersPage } from './pages/PioneersPage';
 import { LinkTelemetryPage } from './pages/LinkTelemetryPage';
 import { ConversionRatesPage } from './pages/ConversionRatesPage';
+import { ActiveIntroductionsPage } from './pages/ActiveIntroductionsPage';
+import { ScoutLinksPage } from './pages/ScoutLinksPage';
 import { AuthGateWall } from './components/common/AuthGateWall';
 import { RoleOnboardingGate } from './components/common/RoleOnboardingGate';
 import { ProfileSwitchGate } from './components/common/ProfileSwitchGate';
@@ -327,6 +329,39 @@ export const App: React.FC = () => {
           );
         }
         return <ConversionRatesPage onNavigate={navigate} />;
+      case '/introductions':
+      case '/scout/introductions':
+        if (!currentUser) {
+          return <AuthGateWall pageName="Active Client-Talent Introductions" roleRequired="Scout" onNavigate={navigate} />;
+        }
+        if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
+          return (
+            <ProfileSwitchGate
+              targetRole="SCOUT"
+              currentRole={currentUser.active_role}
+              onNavigate={navigate}
+              onSwitch={() => switchRole('SCOUT')}
+            />
+          );
+        }
+        return <ActiveIntroductionsPage onNavigate={navigate} />;
+      case '/scout-links':
+      case '/scout/links':
+      case '/qr':
+        if (!currentUser) {
+          return <AuthGateWall pageName="Scout Links & Dynamic QR Generator" roleRequired="Scout" onNavigate={navigate} />;
+        }
+        if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
+          return (
+            <ProfileSwitchGate
+              targetRole="SCOUT"
+              currentRole={currentUser.active_role}
+              onNavigate={navigate}
+              onSwitch={() => switchRole('SCOUT')}
+            />
+          );
+        }
+        return <ScoutLinksPage onNavigate={navigate} />;
       case '/dashboard/talent':
         if (!currentUser) {
           return <AuthGateWall pageName="Talent Workspace & Contracts" roleRequired="Talent" onNavigate={navigate} />;
