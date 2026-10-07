@@ -6919,6 +6919,27 @@
   box-shadow: none !important;
 }
 
+/* =========================================================================
+   MESSAGES & INBOX INTERFACE - PURE WHITE CANVAS IN LIGHT MODE
+   ========================================================================= */
+:root:not([data-theme="dark"]) .rf-messages-card,
+[data-theme="light"] .rf-messages-card {
+  background-color: #FFFFFF !important;
+  border-color: rgba(18, 43, 26, 0.12) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05) !important;
+}
+
+:root:not([data-theme="dark"]) .rf-messages-threads-col,
+[data-theme="light"] .rf-messages-threads-col {
+  background-color: #F8FAF9 !important;
+  border-right-color: rgba(18, 43, 26, 0.08) !important;
+}
+
+:root:not([data-theme="dark"]) .rf-messages-chat-col,
+[data-theme="light"] .rf-messages-chat-col {
+  background-color: #FFFFFF !important;
+}
+
 
 
 
