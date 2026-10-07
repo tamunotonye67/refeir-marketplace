@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { useNotification } from '../context/NotificationContext';
 import { formatMoney } from '../data/currencies';
@@ -52,6 +53,8 @@ interface ScoutDashboardProps {
 
 export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) => {
   const { currentUser } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const {
     referralsList,
     commissionsList,
@@ -181,90 +184,149 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
       {/* Top Banner Header */}
       <div
         style={{
-          background: 'linear-gradient(135deg, rgba(36, 87, 255, 0.15) 0%, rgba(54, 224, 160, 0.15) 100%)',
-          border: '1px solid rgba(54, 224, 160, 0.3)',
-          borderRadius: 'var(--rf-radius-xl)',
-          padding: '2rem 2.5rem',
+          background: isDark
+            ? 'linear-gradient(135deg, rgba(36, 87, 255, 0.12) 0%, rgba(54, 224, 160, 0.12) 100%)'
+            : 'linear-gradient(135deg, rgba(36, 87, 255, 0.05) 0%, rgba(54, 224, 160, 0.08) 100%)',
+          border: isDark ? '1px solid rgba(54, 224, 160, 0.3)' : '1px solid #E2E8F0',
+          borderRadius: '24px',
+          padding: '2rem 2.25rem',
           marginBottom: '2rem',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1.5rem'
+          boxShadow: isDark ? 'none' : '0 4px 20px rgba(0, 0, 0, 0.04)'
         }}
       >
-        <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: 'var(--rf-mint)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-            <Compass size={14} />
-            <span>SCOUT COMMAND CENTER</span>
+        {/* Header Top Row: Title, Subtitle & Scout Pro Pill */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.25rem', marginBottom: '1.5rem' }}>
+          <div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', color: isDark ? 'var(--rf-mint)' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+              <Compass size={14} />
+              <span>SCOUT COMMAND CENTER</span>
+            </div>
+            <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: isDark ? 'var(--rf-cream)' : '#122B1A', letterSpacing: '-0.02em', margin: 0 }}>
+              YOUR NETWORK IS WORKING.
+            </h1>
+            <p style={{ color: isDark ? 'var(--rf-cream)' : '#475569', fontSize: '0.9375rem', marginTop: '0.35rem', opacity: isDark ? 0.9 : 1, maxWidth: '640px', lineHeight: 1.5 }}>
+              0% platform fee forever on 10% talent offers. Introduce local clients to earn monthly Airfee Tokens.
+            </p>
           </div>
-          <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-            YOUR NETWORK IS WORKING.
-          </h1>
-          <p style={{ color: 'var(--rf-cream)', fontSize: '0.9375rem', marginTop: '0.25rem', opacity: 0.9 }}>
-            0% platform fee forever on 10% talent offers. Introduce local clients to earn monthly Airfee Tokens.
-          </p>
+
+          {/* Minimalist Pro Status / Upgrade Pill */}
+          <div>
+            {currentUser?.is_pro && currentUser?.pro_tier === 'SCOUT_PRO' ? (
+              <div
+                style={{
+                  background: isDark ? 'rgba(244, 185, 66, 0.15)' : '#FEF3C7',
+                  border: '1.5px solid #F4B942',
+                  borderRadius: '100px',
+                  padding: '0.45rem 1rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: isDark ? '#F4B942' : '#B45309',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  textTransform: 'uppercase'
+                }}
+              >
+                <Award size={15} color="#F4B942" />
+                <span>Scout Pro Active • 0% Fees</span>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowProModal(true)}
+                style={{
+                  background: isDark ? 'rgba(244, 185, 66, 0.12)' : '#FFFBEB',
+                  border: isDark ? '1px solid rgba(244, 185, 66, 0.45)' : '1px solid #FCD34D',
+                  borderRadius: '100px',
+                  padding: '0.45rem 0.95rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  color: isDark ? '#F4B942' : '#B45309',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                title="Unlock Scout Pro Benefits and Monthly Airfee Tokens"
+              >
+                <Crown size={14} />
+                <span>Upgrade to Scout Pro</span>
+              </button>
+            )}
+          </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
-          {currentUser?.is_pro && currentUser?.pro_tier === 'SCOUT_PRO' ? (
-            <div
-              style={{
-                background: 'linear-gradient(135deg, rgba(244, 185, 66, 0.2), rgba(102, 187, 42, 0.2))',
-                border: '1.5px solid #F4B942',
-                borderRadius: 'var(--rf-radius-lg)',
-                padding: '0.65rem 1.25rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.65rem'
-              }}
-            >
-              <Award size={18} color="#F4B942" />
-              <div>
-                <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#F4B942', textTransform: 'uppercase' }}>
-                  Scout Pro Active
-                </div>
-                <div style={{ fontSize: '0.6875rem', color: 'var(--rf-cream)' }}>
-                  Auto +5 Airfee Tokens & 0% fee rate benefits
-                </div>
-              </div>
-            </div>
-          ) : (
-            <button
-              onClick={() => setShowProModal(true)}
-              className="rf-btn"
-              style={{
-                background: 'linear-gradient(135deg, #F4B942, #E5A024)',
-                color: '#07160D',
-                fontWeight: 800,
-                border: 'none',
-                gap: '0.4rem'
-              }}
-            >
-              <Crown size={16} />
-              <span>Upgrade to Scout Pro (Get Airfee)</span>
-            </button>
-          )}
-
+        {/* Minimalist, Well-Ordered Action Toolbar */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            flexWrap: 'wrap',
+            paddingTop: '1.25rem',
+            borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.06)'
+          }}
+        >
+          {/* 1. Primary Action: Find Talent to Refer */}
           <button
-            onClick={() => {
-              setReviewTargetData({
-                id: 'user-client-kenya',
-                name: 'David Kamau',
-                role: 'CLIENT',
-                projectTitle: 'East Africa Logistics Engine',
-                type: 'SCOUT_TO_CLIENT'
-              });
-              setShowReviewModal(true);
-            }}
+            onClick={() => onNavigate('/marketplace')}
             className="rf-btn rf-btn-mint"
-            style={{ gap: '0.4rem', fontWeight: 800 }}
-            title="Rate client payment punctuality and release speed"
+            style={{
+              height: '38px',
+              padding: '0 1.25rem',
+              gap: '0.45rem',
+              fontWeight: 800,
+              fontSize: '0.8125rem'
+            }}
           >
-            <ThumbsUp size={15} />
-            <span>Rate Client</span>
+            <Compass size={15} />
+            <span>Find Talent to Refer</span>
           </button>
 
+          {/* 2. Wallet */}
+          <button
+            onClick={() => onNavigate('/wallet')}
+            className="rf-btn rf-btn-secondary"
+            style={{
+              height: '38px',
+              padding: '0 1rem',
+              gap: '0.45rem',
+              fontWeight: 700,
+              fontSize: '0.8125rem'
+            }}
+          >
+            <Wallet size={15} />
+            <span>Wallet</span>
+          </button>
+
+          {/* 3. Statement */}
+          <button
+            onClick={() => setShowStatementModal(true)}
+            className="rf-btn rf-btn-secondary"
+            style={{
+              height: '38px',
+              padding: '0 1rem',
+              gap: '0.45rem',
+              fontWeight: 700,
+              fontSize: '0.8125rem'
+            }}
+            title="Download Audited Statement of Account"
+          >
+            <FileText size={15} />
+            <span>Statement</span>
+          </button>
+
+          {/* Subtle Segment Divider */}
+          <div
+            style={{
+              width: '1px',
+              height: '24px',
+              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.12)' : '#CBD5E1',
+              margin: '0 0.15rem'
+            }}
+          />
+
+          {/* 4. Endorse Talent */}
           <button
             onClick={() => {
               setReviewTargetData({
@@ -277,36 +339,43 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
               setShowReviewModal(true);
             }}
             className="rf-btn rf-btn-secondary"
-            style={{ gap: '0.4rem', fontWeight: 700 }}
+            style={{
+              height: '38px',
+              padding: '0 1rem',
+              gap: '0.45rem',
+              fontWeight: 700,
+              fontSize: '0.8125rem'
+            }}
             title="Endorse a talent on technical skills"
           >
-            <Star size={15} fill="#F4B942" color="#F4B942" />
+            <Star size={14} color="#F4B942" fill="#F4B942" />
             <span>Endorse Talent</span>
           </button>
 
+          {/* 5. Rate Client */}
           <button
-            onClick={() => setShowStatementModal(true)}
-            className="rf-btn rf-btn-secondary rf-btn-lg"
-            style={{ gap: '0.4rem', fontWeight: 700 }}
-            title="Download Audited Statement of Account"
+            onClick={() => {
+              setReviewTargetData({
+                id: 'user-client-kenya',
+                name: 'David Kamau',
+                role: 'CLIENT',
+                projectTitle: 'East Africa Logistics Engine',
+                type: 'SCOUT_TO_CLIENT'
+              });
+              setShowReviewModal(true);
+            }}
+            className="rf-btn rf-btn-secondary"
+            style={{
+              height: '38px',
+              padding: '0 1rem',
+              gap: '0.45rem',
+              fontWeight: 700,
+              fontSize: '0.8125rem'
+            }}
+            title="Rate client payment punctuality and release speed"
           >
-            <FileText size={16} />
-            <span>Statement</span>
-          </button>
-
-          <button
-            onClick={() => onNavigate('/marketplace')}
-            className="rf-btn rf-btn-mint rf-btn-lg"
-          >
-            <span>Find Talent to Refer</span>
-          </button>
-          <button
-            onClick={() => onNavigate('/wallet')}
-            className="rf-btn rf-btn-secondary rf-btn-lg"
-            style={{ gap: '0.5rem' }}
-          >
-            <Wallet size={18} />
-            <span>Wallet</span>
+            <ThumbsUp size={14} />
+            <span>Rate Client</span>
           </button>
         </div>
       </div>
