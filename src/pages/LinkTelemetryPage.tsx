@@ -584,7 +584,7 @@ export const LinkTelemetryPage: React.FC<LinkTelemetryPageProps> = ({ onNavigate
                       </span>
                       <span style={{ color: isDark ? '#475569' : '#CBD5E1' }}>•</span>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8125rem', color: isDark ? '#94A3B8' : '#475569' }}>
-                        <CountryFlag code={log.countryCode} />
+                        <CountryFlag countryIsoOrName={log.countryCode} showName={false} />
                         <span>{log.city}</span>
                       </span>
                     </div>

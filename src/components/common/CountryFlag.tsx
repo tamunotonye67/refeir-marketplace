@@ -3,18 +3,21 @@ import { getCountryByIso } from '../../data/countries';
 import { MapPin } from 'lucide-react';
 
 interface CountryFlagProps {
-  countryIsoOrName: string;
+  countryIsoOrName?: string;
+  code?: string;
   showName?: boolean;
   className?: string;
 }
 
 export const CountryFlag: React.FC<CountryFlagProps> = ({
   countryIsoOrName,
+  code,
   showName = true,
   className = ''
 }) => {
-  const country = getCountryByIso(countryIsoOrName) || {
-    name: countryIsoOrName
+  const targetIso = countryIsoOrName || code || 'GLOBAL';
+  const country = getCountryByIso(targetIso) || {
+    name: targetIso
   };
 
   return (
