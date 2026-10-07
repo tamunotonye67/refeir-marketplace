@@ -174,10 +174,6 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
           maxHeight: '92vh',
           display: 'flex',
           flexDirection: 'column',
-          backgroundColor: '#07160D',
-          border: '1.5px solid rgba(102, 187, 42, 0.45)',
-          borderRadius: 'var(--rf-radius-2xl)',
-          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(102, 187, 42, 0.15)',
           position: 'relative',
           overflow: 'hidden'
         }}
@@ -191,7 +187,7 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
             transform: 'translateX(-50%)',
             width: '280px',
             height: '100px',
-            background: 'radial-gradient(ellipse, rgba(102, 187, 42, 0.3) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(102, 187, 42, 0.2) 0%, transparent 70%)',
             pointerEvents: 'none'
           }}
         />
@@ -203,7 +199,7 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid var(--rf-bg-card-border)',
             position: 'relative',
             zIndex: 2,
             flexShrink: 0
@@ -227,7 +223,7 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
                   Add Payout Channel
                 </h3>
                 <span className="rf-badge rf-badge-mint rf-text-xs" style={{ padding: '0.15rem 0.5rem' }}>
@@ -243,11 +239,21 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
           <button
             onClick={onClose}
             style={{
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--rf-bg-surface-hover)',
+              border: '1px solid var(--rf-bg-card-border)',
               borderRadius: '50%',
               width: '32px',
               height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--rf-slate-400)',
+              cursor: 'pointer'
+            }}
+          >
+            <X size={16} />
+          </button>
+        </div>
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -284,7 +290,7 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
           >
             {/* 1. Channel Type Selector */}
             <div>
-              <label style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#FFFFFF', display: 'block', marginBottom: '0.5rem' }}>
+              <label className="rf-label" style={{ display: 'block', marginBottom: '0.5rem' }}>
                 Select Payout Channel Type
               </label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.625rem' }}>
@@ -293,8 +299,8 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                   onClick={() => handleTypeChange('BANK_ACCOUNT')}
                   style={{
                     padding: '0.75rem 0.5rem',
-                    background: methodType === 'BANK_ACCOUNT' ? 'rgba(102, 187, 42, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                    border: '1.5px solid ' + (methodType === 'BANK_ACCOUNT' ? 'var(--rf-leaf-green)' : 'rgba(255, 255, 255, 0.08)'),
+                    background: methodType === 'BANK_ACCOUNT' ? 'rgba(102, 187, 42, 0.2)' : 'var(--rf-bg-surface-hover)',
+                    border: '1.5px solid ' + (methodType === 'BANK_ACCOUNT' ? 'var(--rf-leaf-green)' : 'var(--rf-bg-card-border)'),
                     borderRadius: 'var(--rf-radius-lg)',
                     display: 'flex',
                     flexDirection: 'column',
@@ -304,8 +310,8 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                     transition: 'all 0.18s ease'
                   }}
                 >
-                  <Building size={20} color={methodType === 'BANK_ACCOUNT' ? 'var(--rf-leaf-green)' : '#94A3B8'} />
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: methodType === 'BANK_ACCOUNT' ? '#FFFFFF' : '#CBD5E1' }}>
+                  <Building size={20} color={methodType === 'BANK_ACCOUNT' ? 'var(--rf-leaf-green)' : 'var(--rf-slate-400)'} />
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: methodType === 'BANK_ACCOUNT' ? 'var(--rf-leaf-green)' : 'var(--rf-cream)' }}>
                     Bank Account
                   </span>
                 </button>
@@ -315,8 +321,8 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                   onClick={() => handleTypeChange('MOBILE_MONEY')}
                   style={{
                     padding: '0.75rem 0.5rem',
-                    background: methodType === 'MOBILE_MONEY' ? 'rgba(102, 187, 42, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                    border: '1.5px solid ' + (methodType === 'MOBILE_MONEY' ? 'var(--rf-leaf-green)' : 'rgba(255, 255, 255, 0.08)'),
+                    background: methodType === 'MOBILE_MONEY' ? 'rgba(102, 187, 42, 0.2)' : 'var(--rf-bg-surface-hover)',
+                    border: '1.5px solid ' + (methodType === 'MOBILE_MONEY' ? 'var(--rf-leaf-green)' : 'var(--rf-bg-card-border)'),
                     borderRadius: 'var(--rf-radius-lg)',
                     display: 'flex',
                     flexDirection: 'column',
@@ -326,8 +332,8 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                     transition: 'all 0.18s ease'
                   }}
                 >
-                  <Smartphone size={20} color={methodType === 'MOBILE_MONEY' ? 'var(--rf-leaf-green)' : '#94A3B8'} />
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: methodType === 'MOBILE_MONEY' ? '#FFFFFF' : '#CBD5E1' }}>
+                  <Smartphone size={20} color={methodType === 'MOBILE_MONEY' ? 'var(--rf-leaf-green)' : 'var(--rf-slate-400)'} />
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: methodType === 'MOBILE_MONEY' ? 'var(--rf-leaf-green)' : 'var(--rf-cream)' }}>
                     Mobile Money
                   </span>
                 </button>
@@ -337,8 +343,8 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                   onClick={() => handleTypeChange('OTHER')}
                   style={{
                     padding: '0.75rem 0.5rem',
-                    background: methodType === 'OTHER' ? 'rgba(102, 187, 42, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                    border: '1.5px solid ' + (methodType === 'OTHER' ? 'var(--rf-leaf-green)' : 'rgba(255, 255, 255, 0.08)'),
+                    background: methodType === 'OTHER' ? 'rgba(102, 187, 42, 0.2)' : 'var(--rf-bg-surface-hover)',
+                    border: '1.5px solid ' + (methodType === 'OTHER' ? 'var(--rf-leaf-green)' : 'var(--rf-bg-card-border)'),
                     borderRadius: 'var(--rf-radius-lg)',
                     display: 'flex',
                     flexDirection: 'column',
@@ -348,8 +354,8 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                     transition: 'all 0.18s ease'
                   }}
                 >
-                  <Coins size={20} color={methodType === 'OTHER' ? 'var(--rf-leaf-green)' : '#94A3B8'} />
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: methodType === 'OTHER' ? '#FFFFFF' : '#CBD5E1' }}>
+                  <Coins size={20} color={methodType === 'OTHER' ? 'var(--rf-leaf-green)' : 'var(--rf-slate-400)'} />
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: methodType === 'OTHER' ? 'var(--rf-leaf-green)' : 'var(--rf-cream)' }}>
                     USDC / USDT
                   </span>
                 </button>
@@ -358,23 +364,17 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
 
             {/* 2. Country / Jurisdiction */}
             <div>
-              <label style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#FFFFFF', display: 'block', marginBottom: '0.4rem' }}>
+              <label className="rf-label" style={{ display: 'block', marginBottom: '0.4rem' }}>
                 Country & Settlement Currency
               </label>
               <select
                 value={selectedCountry}
                 onChange={e => handleCountryChange(e.target.value)}
                 className="rf-select"
-                style={{
-                  width: '100%',
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  borderColor: 'rgba(102, 187, 42, 0.35)',
-                  color: '#FFFFFF',
-                  padding: '0.65rem 0.85rem'
-                }}
+                style={{ width: '100%', padding: '0.65rem 0.85rem' }}
               >
                 {COUNTRY_PRESETS.map(c => (
-                  <option key={c.code} value={c.code} style={{ background: '#0F2E1E', color: '#FFFFFF' }}>
+                  <option key={c.code} value={c.code}>
                     {c.name}
                   </option>
                 ))}
@@ -384,31 +384,24 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
             {/* 3. Institution / Bank Name */}
             {methodType !== 'OTHER' && (
               <div>
-                <label style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#FFFFFF', display: 'block', marginBottom: '0.4rem' }}>
+                <label className="rf-label" style={{ display: 'block', marginBottom: '0.4rem' }}>
                   {methodType === 'BANK_ACCOUNT' ? 'Select Bank / Financial Institution' : 'Select Mobile Money Operator'}
                 </label>
                 <select
                   value={institutionName}
                   onChange={e => setInstitutionName(e.target.value)}
                   className="rf-select"
-                  style={{
-                    width: '100%',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    borderColor: 'rgba(102, 187, 42, 0.35)',
-                    color: '#FFFFFF',
-                    padding: '0.65rem 0.85rem',
-                    marginBottom: institutionName === 'OTHER_CUSTOM' ? '0.5rem' : '0'
-                  }}
+                  style={{ width: '100%', padding: '0.65rem 0.85rem', marginBottom: institutionName === 'OTHER_CUSTOM' ? '0.5rem' : '0' }}
                 >
                   {(methodType === 'BANK_ACCOUNT' 
                     ? (BANK_PRESETS[selectedCountry] || ['Local Commercial Bank'])
                     : (MOMO_PRESETS[selectedCountry] || ['Direct Mobile Money'])
                   ).map((b: string) => (
-                    <option key={b} value={b} style={{ background: '#0F2E1E', color: '#FFFFFF' }}>
+                    <option key={b} value={b}>
                       {b}
                     </option>
                   ))}
-                  <option value="OTHER_CUSTOM" style={{ background: '#0F2E1E', color: '#FFFFFF' }}>
+                  <option value="OTHER_CUSTOM">
                     + Other / Custom Institution
                   </option>
                 </select>
@@ -421,13 +414,7 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                     value={customInstitution}
                     onChange={e => setCustomInstitution(e.target.value)}
                     className="rf-input"
-                    style={{
-                      width: '100%',
-                      background: 'rgba(0, 0, 0, 0.5)',
-                      borderColor: 'rgba(102, 187, 42, 0.35)',
-                      color: '#FFFFFF',
-                      padding: '0.65rem 0.85rem'
-                    }}
+                    style={{ width: '100%', padding: '0.65rem 0.85rem' }}
                   />
                 )}
               </div>
@@ -436,7 +423,7 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
             {/* 4. Account Number / IBAN / Phone / Wallet */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                <label style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#FFFFFF' }}>
+                <label className="rf-label">
                   {methodType === 'BANK_ACCOUNT' 
                     ? 'Account Number / NUBAN / IBAN'
                     : methodType === 'MOBILE_MONEY'
@@ -481,20 +468,14 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                   setVerifiedName(null);
                 }}
                 className="rf-input"
-                style={{
-                  width: '100%',
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  borderColor: 'rgba(102, 187, 42, 0.35)',
-                  color: '#FFFFFF',
-                  padding: '0.65rem 0.85rem'
-                }}
+                style={{ width: '100%', padding: '0.65rem 0.85rem' }}
               />
             </div>
 
             {/* 5. Account Holder Legal Name */}
             {methodType !== 'OTHER' && (
               <div>
-                <label style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#FFFFFF', display: 'block', marginBottom: '0.4rem' }}>
+                <label className="rf-label" style={{ display: 'block', marginBottom: '0.4rem' }}>
                   Account Holder Full Legal Name
                 </label>
                 <input
@@ -504,13 +485,7 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                   value={accountHolderName}
                   onChange={e => setAccountHolderName(e.target.value)}
                   className="rf-input"
-                  style={{
-                    width: '100%',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    borderColor: verifiedName ? 'var(--rf-leaf-green)' : 'rgba(102, 187, 42, 0.35)',
-                    color: '#FFFFFF',
-                    padding: '0.65rem 0.85rem'
-                  }}
+                  style={{ width: '100%', padding: '0.65rem 0.85rem' }}
                 />
                 {verifiedName && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginTop: '0.35rem', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 700 }}>
@@ -528,16 +503,16 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '0.85rem 1rem',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--rf-bg-surface-hover)',
+                border: '1px solid var(--rf-bg-card-border)',
                 borderRadius: 'var(--rf-radius-md)'
               }}
             >
               <div>
-                <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#FFFFFF' }}>
+                <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--rf-cream)' }}>
                   Set as Preferred / Default Payout Destination
                 </div>
-                <div style={{ fontSize: '0.72rem', color: '#94A3B8' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>
                   Automatic destination for milestone releases and scout referral rewards.
                 </div>
               </div>
@@ -556,13 +531,13 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
                 alignItems: 'center',
                 gap: '0.65rem',
                 padding: '0.75rem',
-                background: 'rgba(102, 187, 42, 0.08)',
-                border: '1px solid rgba(102, 187, 42, 0.2)',
+                background: 'rgba(102, 187, 42, 0.1)',
+                border: '1px solid rgba(102, 187, 42, 0.25)',
                 borderRadius: 'var(--rf-radius-md)'
               }}
             >
               <ShieldCheck size={18} color="var(--rf-leaf-green)" style={{ flexShrink: 0 }} />
-              <p style={{ fontSize: '0.75rem', color: '#CBD5E1', margin: 0, lineHeight: 1.4 }}>
+              <p style={{ fontSize: '0.75rem', color: 'var(--rf-cream)', margin: 0, lineHeight: 1.4 }}>
                 <strong>Bank-Grade Encryption:</strong> Your identifiers are stored securely and masked across public views.
               </p>
             </div>
@@ -572,20 +547,19 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
           <div
             style={{
               padding: '1.25rem 1.75rem',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+              borderTop: '1px solid var(--rf-bg-card-border)',
               display: 'flex',
               justifyContent: 'flex-end',
               alignItems: 'center',
               gap: '0.75rem',
-              background: 'rgba(0, 0, 0, 0.2)',
+              background: 'var(--rf-bg-surface-hover)',
               flexShrink: 0
             }}
           >
             <button
               type="button"
               onClick={onClose}
-              className="rf-btn rf-btn-ghost rf-btn-sm"
-              style={{ color: '#CBD5E1' }}
+              className="rf-btn rf-btn-secondary rf-btn-sm"
             >
               Cancel
             </button>

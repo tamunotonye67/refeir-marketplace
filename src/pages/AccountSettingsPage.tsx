@@ -913,8 +913,8 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
 
         {/* 4. IDENTITY VERIFICATION SECTION */}
         {(activeSection === 'ALL' || activeSection === 'VERIFICATION') && (
-          <div className="rf-card" style={{ padding: '2rem', background: 'linear-gradient(135deg, rgba(102, 187, 42, 0.08) 0%, rgba(7, 23, 14, 0.95) 100%)', border: '1.5px solid rgba(102, 187, 42, 0.3)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+          <div className="rf-card rf-card-station" style={{ padding: '2rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--rf-bg-card-border)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                 <ShieldCheck size={24} color="var(--rf-leaf-green)" />
                 <div>
@@ -933,7 +933,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
-              <div style={{ padding: '1rem', background: 'rgba(0, 0, 0, 0.3)', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <div className="rf-card-inner-box" style={{ padding: '1rem' }}>
                 <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 800, marginBottom: '0.25rem' }}>
                   OCR Document Verification
                 </div>
@@ -945,7 +945,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
                 </div>
               </div>
 
-              <div style={{ padding: '1rem', background: 'rgba(0, 0, 0, 0.3)', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <div className="rf-card-inner-box" style={{ padding: '1rem' }}>
                 <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 800, marginBottom: '0.25rem' }}>
                   Facial Liveness Audit
                 </div>
@@ -957,7 +957,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
                 </div>
               </div>
 
-              <div style={{ padding: '1rem', background: 'rgba(0, 0, 0, 0.3)', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+              <div className="rf-card-inner-box" style={{ padding: '1rem' }}>
                 <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 800, marginBottom: '0.25rem' }}>
                   Trust Badge
                 </div>

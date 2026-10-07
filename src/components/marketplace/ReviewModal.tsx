@@ -154,14 +154,14 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     <div className="rf-modal-backdrop" onClick={onClose}>
       <div
         className="rf-modal-content"
-        style={{ maxWidth: '580px', backgroundColor: '#07160D', border: '1.5px solid rgba(102, 187, 42, 0.45)', padding: 0 }}
+        style={{ maxWidth: '580px', padding: 0 }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
         <div
           style={{
             padding: '1.5rem 1.75rem',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid var(--rf-bg-card-border)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between'
@@ -209,7 +209,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} style={{ padding: '1.75rem' }}>
           {/* Overall Star Rating */}
-          <div style={{ marginBottom: '1.5rem', textAlign: 'center', background: 'rgba(255, 255, 255, 0.02)', padding: '1.25rem', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+          <div style={{ marginBottom: '1.5rem', textAlign: 'center', background: 'var(--rf-bg-surface-hover)', padding: '1.25rem', borderRadius: '16px', border: '1px solid var(--rf-bg-card-border)' }}>
             <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--rf-slate-300)', marginBottom: '0.5rem' }}>
               Overall Experience Rating
             </div>
@@ -224,7 +224,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
                     border: 'none',
                     cursor: 'pointer',
                     padding: '0.25rem',
-                    color: star <= ratingOverall ? '#F4B942' : 'rgba(255, 255, 255, 0.2)',
+                    color: star <= ratingOverall ? '#F4B942' : 'rgba(100, 116, 139, 0.3)',
                     transition: 'transform 0.15s ease'
                   }}
                   onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
@@ -275,9 +275,9 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
                         flex: 1,
                         padding: '0.4rem',
                         borderRadius: '6px',
-                        background: score <= ratingPaysWell ? 'rgba(244, 185, 66, 0.25)' : 'rgba(255, 255, 255, 0.05)',
-                        border: score <= ratingPaysWell ? '1px solid #F4B942' : '1px solid rgba(255, 255, 255, 0.1)',
-                        color: score <= ratingPaysWell ? '#FFFFFF' : 'var(--rf-slate-400)',
+                        background: score <= ratingPaysWell ? 'rgba(244, 185, 66, 0.25)' : 'var(--rf-bg-surface-hover)',
+                        border: score <= ratingPaysWell ? '1px solid #F4B942' : '1px solid var(--rf-bg-card-border)',
+                        color: score <= ratingPaysWell ? '#D97706' : 'var(--rf-slate-400)',
                         fontSize: '0.75rem',
                         fontWeight: 800,
                         cursor: 'pointer'
@@ -310,9 +310,9 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
                         flex: 1,
                         padding: '0.4rem',
                         borderRadius: '6px',
-                        background: score <= ratingPaysOnTime ? 'rgba(102, 187, 42, 0.25)' : 'rgba(255, 255, 255, 0.05)',
-                        border: score <= ratingPaysOnTime ? '1px solid #66BB2A' : '1px solid rgba(255, 255, 255, 0.1)',
-                        color: score <= ratingPaysOnTime ? '#FFFFFF' : 'var(--rf-slate-400)',
+                        background: score <= ratingPaysOnTime ? 'rgba(102, 187, 42, 0.25)' : 'var(--rf-bg-surface-hover)',
+                        border: score <= ratingPaysOnTime ? '1px solid #66BB2A' : '1px solid var(--rf-bg-card-border)',
+                        color: score <= ratingPaysOnTime ? '#2E7D32' : 'var(--rf-slate-400)',
                         fontSize: '0.75rem',
                         fontWeight: 800,
                         cursor: 'pointer'
@@ -364,9 +364,9 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
                     borderRadius: '9999px',
                     fontSize: '0.75rem',
                     fontWeight: 700,
-                    background: selectedBadges.includes(badge) ? 'rgba(102, 187, 42, 0.25)' : 'rgba(255, 255, 255, 0.05)',
-                    border: selectedBadges.includes(badge) ? '1px solid #66BB2A' : '1px solid rgba(255, 255, 255, 0.1)',
-                    color: selectedBadges.includes(badge) ? '#FFFFFF' : 'var(--rf-slate-400)',
+                    background: selectedBadges.includes(badge) ? 'rgba(102, 187, 42, 0.25)' : 'var(--rf-bg-surface-hover)',
+                    border: selectedBadges.includes(badge) ? '1px solid #66BB2A' : '1px solid var(--rf-bg-card-border)',
+                    color: selectedBadges.includes(badge) ? '#2E7D32' : 'var(--rf-slate-400)',
                     cursor: 'pointer',
                     transition: 'all 0.15s ease'
                   }}

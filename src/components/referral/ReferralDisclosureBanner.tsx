@@ -12,14 +12,8 @@ export const ReferralDisclosureBanner: React.FC<ReferralDisclosureBannerProps> =
 }) => {
   return (
     <div
-      className={`rf-disclosure-banner ${className}`}
+      className={`rf-referral-disclosure-banner ${className}`}
       style={{
-        background: 'linear-gradient(90deg, rgba(15, 46, 30, 0.95) 0%, rgba(18, 51, 33, 0.95) 100%)',
-        borderLeft: '4px solid var(--rf-leaf-green)',
-        borderRadius: '0 var(--rf-radius-md) var(--rf-radius-md) 0',
-        borderTop: '1px solid var(--rf-bg-card-border)',
-        borderRight: '1px solid var(--rf-bg-card-border)',
-        borderBottom: '1px solid var(--rf-bg-card-border)',
         padding: '1rem 1.25rem',
         display: 'flex',
         alignItems: 'center',

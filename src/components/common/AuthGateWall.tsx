@@ -52,10 +52,9 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
         className="rf-card"
         style={{
           padding: '3rem 2.5rem',
-          background: 'linear-gradient(180deg, rgba(15, 46, 30, 0.95) 0%, rgba(8, 20, 14, 0.98) 100%)',
-          border: '1px solid rgba(102, 187, 42, 0.35)',
+          border: '1px solid var(--rf-bg-card-border)',
           borderRadius: '24px',
-          boxShadow: '0 24px 60px rgba(0, 0, 0, 0.65)'
+          boxShadow: 'var(--rf-shadow-xl)'
         }}
       >
         {/* Lock Icon & Header */}
@@ -111,10 +110,10 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
           <div
             style={{
               display: 'flex',
-              background: 'rgba(0, 0, 0, 0.4)',
+              background: 'var(--rf-bg-surface-hover)',
               padding: '4px',
               borderRadius: 'var(--rf-radius-md)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid var(--rf-bg-card-border)',
               marginBottom: '1.75rem'
             }}
           >

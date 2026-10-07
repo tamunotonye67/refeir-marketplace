@@ -1312,10 +1312,8 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
               maxWidth: '640px',
               maxHeight: '90vh',
               overflowY: 'auto',
-              backgroundColor: '#07160D',
               border: '1.5px solid var(--rf-mint)',
               borderRadius: 'var(--rf-radius-2xl)',
-              boxShadow: '0 25px 60px rgba(0,0,0,0.9)',
               padding: '2rem'
             }}
             onClick={e => e.stopPropagation()}
@@ -1425,8 +1423,8 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
                   onDragLeave={() => setIsDragOver(false)}
                   onDrop={handleFileDrop}
                   style={{
-                    border: isDragOver ? '2px dashed var(--rf-mint)' : '2px dashed var(--rf-navy-border)',
-                    backgroundColor: isDragOver ? 'rgba(54, 224, 160, 0.08)' : 'rgba(255, 255, 255, 0.02)',
+                    border: isDragOver ? '2px dashed var(--rf-mint)' : '2px dashed var(--rf-bg-card-border)',
+                    backgroundColor: isDragOver ? 'rgba(54, 224, 160, 0.08)' : 'var(--rf-bg-surface-hover)',
                     borderRadius: 'var(--rf-radius-lg)',
                     padding: '1.5rem',
                     textAlign: 'center',

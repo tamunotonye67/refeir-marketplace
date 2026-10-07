@@ -361,13 +361,13 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
           <div
             className="rf-modal-content"
             onClick={e => e.stopPropagation()}
-            style={{ maxWidth: '620px', backgroundColor: '#07160D', border: '1.5px solid rgba(102, 187, 42, 0.45)', padding: 0 }}
+            style={{ maxWidth: '620px', padding: 0 }}
           >
             {/* Header */}
             <div
               style={{
                 padding: '1.5rem 1.75rem',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                borderBottom: '1px solid var(--rf-bg-card-border)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between'
@@ -426,10 +426,8 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
 
                 {/* 5% Client + 5% Talent Fee Breakdown Card */}
                 <div
+                  className="rf-card-inner-box"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(102, 187, 42, 0.3)',
-                    borderRadius: '12px',
                     padding: '1rem',
                     marginBottom: '1.25rem'
                   }}
@@ -452,7 +450,7 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
                     </span>
                   </div>
 
-                  <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '0.5rem', marginTop: '0.5rem' }}>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', borderTop: '1px solid var(--rf-bg-card-border)', paddingTop: '0.5rem', marginTop: '0.5rem' }}>
                     Refeir collects 5% from client + 5% from talent upon final milestone release (10% total Refeir revenue).
                   </div>
                 </div>

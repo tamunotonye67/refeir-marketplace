@@ -2587,8 +2587,8 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
               <div style={{ position: 'absolute', bottom: '15px', left: '25px', right: '25px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
                   <span className="rf-badge rf-badge-mint rf-text-xs" style={{ marginBottom: '0.35rem' }}>{selectedClub.tag}</span>
-                  <h1 style={{ fontSize: '1.6rem', fontWeight: 900, color: 'var(--rf-cream)', margin: 0 }}>{selectedClub.name}</h1>
-                  <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', margin: '3px 0 0' }}>{selectedClub.slogan}</p>
+                  <h1 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#FFFFFF', margin: 0 }}>{selectedClub.name}</h1>
+                  <p style={{ fontSize: '0.8125rem', color: '#E2E8F0', margin: '3px 0 0' }}>{selectedClub.slogan}</p>
                 </div>
 
                 <button
@@ -2623,7 +2623,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             </div>
 
             {/* Guild Sub-Navigation Tabs */}
-            <div style={{ display: 'flex', gap: '0.5rem', padding: '1rem 1.5rem', background: '#051009', borderBottom: '1px solid var(--rf-navy-border)', overflowX: 'auto' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', padding: '1rem 1.5rem', background: 'var(--rf-bg-surface-hover)', borderBottom: '1px solid var(--rf-bg-card-border)', overflowX: 'auto' }}>
               {[
                 { id: 'FEED', label: '💬 Discussion Feed & Sprints', icon: MessageCircle },
                 { id: 'MEMBERS', label: `👥 Engineers & Scouts (${selectedClub.memberList.length})`, icon: Users },
@@ -2651,12 +2651,12 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             </div>
 
             {/* Guild Tab Content */}
-            <div style={{ padding: '1.75rem', background: '#07160D' }}>
+            <div style={{ padding: '1.75rem', background: 'var(--rf-bg-card)' }}>
               {/* SUB-TAB 1: FEED */}
               {activeClubTab === 'FEED' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   {/* Post into Guild Form */}
-                  <form onSubmit={handlePostToGuild} style={{ padding: '1rem', background: 'rgba(255, 255, 255, 0.03)', borderRadius: 'var(--rf-radius-lg)', border: '1px solid var(--rf-navy-border)' }}>
+                  <form onSubmit={handlePostToGuild} style={{ padding: '1rem', background: 'var(--rf-bg-surface-hover)', borderRadius: 'var(--rf-radius-lg)', border: '1px solid var(--rf-bg-card-border)' }}>
                     <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
                       Share with {selectedClub.name}
                     </div>

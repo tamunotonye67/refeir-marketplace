@@ -152,7 +152,7 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
                 style={{
                   padding: '0.4rem 0.75rem',
                   borderRadius: 'var(--rf-radius-sm)',
-                  background: '#07160D',
+                  background: 'var(--rf-bg-surface)',
                   border: '1px solid var(--rf-leaf-green)',
                   color: 'var(--rf-leaf-green)',
                   fontWeight: 800,
@@ -330,7 +330,7 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
                   <span>Direct Corporate Wire & ACH Instructions</span>
                 </div>
 
-                <div style={{ background: '#07160D', padding: '0.75rem', borderRadius: 'var(--rf-radius-sm)', border: '1px solid rgba(102, 187, 42, 0.25)', fontSize: '0.78rem' }}>
+                <div className="rf-card-inner-box" style={{ padding: '0.75rem', fontSize: '0.78rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                     <span style={{ color: 'var(--rf-slate-400)' }}>Beneficiary:</span>
                     <span style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>Refeir Sovereign Escrow Trust, LLC</span>
@@ -348,7 +348,7 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
                     <span style={{ color: 'var(--rf-slate-400)' }}>International IBAN / SWIFT:</span>
                     <span style={{ fontWeight: 800, color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono)' }}>CHASUS33 • GB42REFEIR8829</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.35rem', borderTop: '1px dashed rgba(255, 255, 255, 0.1)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.35rem', borderTop: '1px dashed var(--rf-bg-card-border)' }}>
                     <span style={{ color: 'var(--rf-leaf-green)', fontWeight: 800 }}>Escrow Milestone Reference Code:</span>
                     <span style={{ fontWeight: 900, color: 'var(--rf-leaf-green)', fontFamily: 'var(--rf-font-mono)' }}>REF-ESC-{project.id.slice(0, 6).toUpperCase()}</span>
                   </div>
@@ -358,7 +358,7 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
 
             {/* TAB 3: USDC / USDT Crypto Stablecoin Escrow */}
             {paymentMethod === 'CRYPTO_STABLECOIN' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem', padding: '1rem', background: 'rgba(255, 255, 255, 0.02)', borderRadius: 'var(--rf-radius-md)', border: '1px solid var(--rf-navy-border)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem', padding: '1rem', background: 'var(--rf-bg-surface-hover)', borderRadius: 'var(--rf-radius-md)', border: '1px solid var(--rf-navy-border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#38BDF8', fontSize: '0.8125rem', fontWeight: 800 }}>
                     <Coins size={16} />
@@ -379,9 +379,9 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
                         borderRadius: '4px',
                         fontSize: '0.75rem',
                         fontWeight: 700,
-                        background: cryptoNetwork === net ? '#38BDF8' : 'rgba(255, 255, 255, 0.05)',
+                        background: cryptoNetwork === net ? '#38BDF8' : 'var(--rf-bg-surface)',
                         color: cryptoNetwork === net ? '#07160D' : 'var(--rf-cream)',
-                        border: 'none',
+                        border: '1px solid var(--rf-bg-card-border)',
                         cursor: 'pointer'
                       }}
                     >
@@ -390,7 +390,7 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
                   ))}
                 </div>
 
-                <div style={{ background: '#07160D', padding: '0.75rem', borderRadius: 'var(--rf-radius-sm)', border: '1px solid rgba(56, 189, 248, 0.3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="rf-card-inner-box" style={{ padding: '0.75rem', border: '1px solid rgba(56, 189, 248, 0.3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <div style={{ fontSize: '0.6875rem', color: 'var(--rf-slate-400)' }}>Smart Contract Escrow Vault:</div>
                     <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono)' }}>

@@ -442,88 +442,247 @@ code::-webkit-scrollbar-thumb:hover,
 
 /* ==========================================================================
    STRICT CONTRAST & ACCESSIBILITY ENFORCEMENT RULES (GLOBAL)
-   Rule 1: Any text on a dark background MUST be bright (White / Cream / Mint)
-   Rule 2: Any text on a bright background MUST be dark (Dark green #0F2E1E / #122B1A)
-   Rule 3: Modals, popups, prompt boxes, dialogs, and select options must enforce high contrast
+   Rule 1: Any text on a dark background MUST be bright/white (#FFFFFF / #CBD5E1 / #94A3B8)
+   Rule 2: Any text on a white/light background MUST be dark/black (#122B1A / #0F172A / #1E293B / #475569)
+   Rule 3: In White Mode, all page surfaces, cards, modals, and tables reflect clean white mode
    ========================================================================== */
 
-/* ─── 1. DARK SURFACES, MODALS, POPUPS, DIALOGS & PROMPT BOXES ─── */
-.rf-modal-content,
-.rf-modal-dialog,
-.rf-modal-body,
-.rf-dialog,
-.rf-popup,
-.rf-prompt-box,
-.rf-flyout-content,
-.rf-dropdown-menu,
-.rf-toast,
-[class*="modal-content"],
-[class*="dialog-box"],
-[class*="prompt-box"],
-[class*="popup-box"],
-[data-theme="dark"] .rf-card,
-[data-theme="dark"] .rf-modal-content,
-[data-theme="dark"] .rf-dropdown {
+/* ─── 1. DARK SURFACES & DARK THEME — MANDATORY BRIGHT/WHITE TEXT ─── */
+[data-theme="dark"],
+.rf-dark-surface,
+.rf-card-dark,
+.rf-hero-dark,
+.rf-banner-dark,
+.rf-header-dark,
+.rf-trusted-brands-section,
+.rf-dark-container {
+  --rf-cream: #F8FAF8;
+  --rf-cream-subtle: #EBF2EC;
+  --rf-slate-100: #F8FAFC;
+  --rf-slate-200: #E2E8F0;
+  --rf-slate-300: #CBD5E1;
+  --rf-slate-400: #94A3B8;
+  --rf-slate-500: #64748B;
   color: #F8FAF8;
 }
 
-.rf-modal-content h1, .rf-modal-content h2, .rf-modal-content h3, 
-.rf-modal-content h4, .rf-modal-content h5, .rf-modal-content h6,
-.rf-dialog h1, .rf-dialog h2, .rf-dialog h3, 
-.rf-dialog h4, .rf-dialog h5, .rf-dialog h6,
-.rf-prompt-box h1, .rf-prompt-box h2, .rf-prompt-box h3,
-.rf-prompt-box h4, .rf-prompt-box h5, .rf-prompt-box h6,
-.rf-popup h1, .rf-popup h2, .rf-popup h3,
-.rf-popup h4, .rf-popup h5, .rf-popup h6 {
+/* Headings on dark backgrounds must be pure white */
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
+[data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6,
+.rf-dark-surface h1, .rf-dark-surface h2, .rf-dark-surface h3, 
+.rf-dark-surface h4, .rf-dark-surface h5, .rf-dark-surface h6,
+.rf-card-dark h1, .rf-card-dark h2, .rf-card-dark h3, 
+.rf-card-dark h4, .rf-card-dark h5, .rf-card-dark h6,
+.rf-hero-dark h1, .rf-hero-dark h2, .rf-hero-dark h3,
+.rf-hero-dark h4, .rf-hero-dark h5, .rf-hero-dark h6,
+.rf-banner-dark h1, .rf-banner-dark h2, .rf-banner-dark h3,
+.rf-banner-dark h4, .rf-banner-dark h5, .rf-banner-dark h6,
+.rf-dark-container h1, .rf-dark-container h2, .rf-dark-container h3,
+.rf-dark-container h4, .rf-dark-container h5, .rf-dark-container h6 {
   color: #FFFFFF !important;
 }
 
-.rf-modal-content p, .rf-dialog p, .rf-prompt-box p, .rf-popup p,
-.rf-modal-content span:not(.rf-badge):not(.rf-btn),
-.rf-dialog span:not(.rf-badge):not(.rf-btn),
-.rf-prompt-box span:not(.rf-badge):not(.rf-btn),
-.rf-popup span:not(.rf-badge):not(.rf-btn) {
-  color: #CBD5E1;
-}
-
-.rf-modal-content strong, .rf-dialog strong, .rf-prompt-box strong, .rf-popup strong,
-.rf-modal-content b, .rf-dialog b, .rf-prompt-box b, .rf-popup b,
-.rf-modal-content label, .rf-dialog label, .rf-prompt-box label, .rf-popup label {
+/* Strong / bold on dark backgrounds */
+[data-theme="dark"] strong, [data-theme="dark"] b,
+.rf-dark-surface strong, .rf-dark-surface b,
+.rf-card-dark strong, .rf-card-dark b,
+.rf-hero-dark strong, .rf-hero-dark b,
+.rf-banner-dark strong, .rf-banner-dark b,
+.rf-dark-container strong, .rf-dark-container b {
   color: #FFFFFF !important;
 }
 
-/* ─── 2. INPUTS, TEXTAREAS & SELECTS (PREVENT BLACK ON DARK) ─── */
-.rf-modal-content input:not([type="checkbox"]):not([type="radio"]),
-.rf-modal-content textarea,
-.rf-modal-content select,
-.rf-dialog input:not([type="checkbox"]):not([type="radio"]),
-.rf-dialog textarea,
-.rf-dialog select,
-.rf-prompt-box input:not([type="checkbox"]):not([type="radio"]),
-.rf-prompt-box textarea,
-.rf-prompt-box select,
-.rf-popup input:not([type="checkbox"]):not([type="radio"]),
-.rf-popup textarea,
-.rf-popup select {
+/* Paragraphs & body text on dark backgrounds */
+[data-theme="dark"] p,
+.rf-dark-surface p,
+.rf-card-dark p,
+.rf-hero-dark p,
+.rf-banner-dark p,
+.rf-dark-container p {
+  color: #F8FAFC !important;
+}
+
+/* Secondary & muted text on dark backgrounds must be bright slate */
+[data-theme="dark"] .rf-text-muted,
+.rf-dark-surface .rf-text-muted,
+.rf-card-dark .rf-text-muted,
+.rf-hero-dark .rf-text-muted,
+.rf-banner-dark .rf-text-muted,
+.rf-dark-container .rf-text-muted,
+.rf-dark-surface span:not(.rf-badge):not(.rf-btn),
+.rf-card-dark span:not(.rf-badge):not(.rf-btn),
+.rf-hero-dark span:not(.rf-badge):not(.rf-btn),
+.rf-banner-dark span:not(.rf-badge):not(.rf-btn),
+.rf-dark-container span:not(.rf-badge):not(.rf-btn) {
+  color: #CBD5E1 !important;
+}
+
+/* Form labels on dark backgrounds */
+[data-theme="dark"] .rf-label, [data-theme="dark"] label,
+.rf-dark-surface .rf-label, .rf-dark-surface label,
+.rf-card-dark .rf-label, .rf-card-dark label,
+.rf-dark-container .rf-label, .rf-dark-container label {
+  color: #FFFFFF !important;
+}
+
+/* Inputs on dark backgrounds */
+[data-theme="dark"] .rf-input,
+[data-theme="dark"] .rf-select,
+[data-theme="dark"] .rf-textarea,
+.rf-dark-surface input:not([type="checkbox"]):not([type="radio"]),
+.rf-dark-surface textarea,
+.rf-dark-surface select,
+.rf-card-dark input:not([type="checkbox"]):not([type="radio"]),
+.rf-card-dark textarea,
+.rf-card-dark select,
+.rf-dark-container input:not([type="checkbox"]):not([type="radio"]),
+.rf-dark-container textarea,
+.rf-dark-container select {
   color: #FFFFFF !important;
   background-color: rgba(7, 22, 13, 0.92) !important;
   border: 1px solid rgba(102, 187, 42, 0.35) !important;
 }
 
-.rf-modal-content input::placeholder,
-.rf-dialog input::placeholder,
-.rf-prompt-box input::placeholder,
-.rf-popup input::placeholder,
-.rf-modal-content textarea::placeholder,
-.rf-dialog textarea::placeholder,
-.rf-prompt-box textarea::placeholder,
-.rf-popup textarea::placeholder {
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder,
+.rf-dark-surface input::placeholder,
+.rf-dark-surface textarea::placeholder,
+.rf-card-dark input::placeholder,
+.rf-card-dark textarea::placeholder,
+.rf-dark-container input::placeholder,
+.rf-dark-container textarea::placeholder {
   color: rgba(255, 255, 255, 0.5) !important;
 }
 
-select option {
+[data-theme="dark"] select option,
+.rf-dark-surface select option,
+.rf-card-dark select option,
+.rf-dark-container select option {
   background-color: #0F2E1E !important;
   color: #FFFFFF !important;
+}
+
+/* ─── 2. WHITE MODE (LIGHT THEME) — CLEAN WHITE SURFACES & DARK TEXT ─── */
+:root:not([data-theme="dark"]),
+[data-theme="light"] {
+  --rf-bg-base: #FFFFFF;
+  --rf-bg-deep: #F8FAF9;
+  --rf-bg-surface: #FFFFFF;
+  --rf-bg-card: #FFFFFF;
+  --rf-cream: #122B1A;
+  --rf-cream-subtle: #2C4A36;
+  --rf-slate-100: #1E293B;
+  --rf-slate-200: #334155;
+  --rf-slate-300: #475569;
+  --rf-slate-400: #64748B;
+  --rf-slate-500: #94A3B8;
+}
+
+/* All standard cards, modals, and dialogs in light mode must be white */
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface),
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface),
+:root:not([data-theme="dark"]) .rf-dropdown-menu,
+[data-theme="light"] .rf-card:not(.rf-dark-surface),
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface),
+[data-theme="light"] .rf-dropdown-menu {
+  background-color: #FFFFFF !important;
+  color: #122B1A !important;
+}
+
+/* Headings in light mode on white surfaces must be crisp dark */
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) h1,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) h2,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) h3,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) h4,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) h5,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) h6,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) h1,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) h2,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) h3,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) h4,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) h5,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) h6,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) h1,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) h2,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) h3,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) h4,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) h5,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) h6,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) h1,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) h2,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) h3,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) h4,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) h5,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) h6 {
+  color: #122B1A !important;
+}
+
+/* Bold / Strong text on light surfaces */
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) strong,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) b,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) strong,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) b,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) strong,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) b,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) strong,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) b {
+  color: #0F172A !important;
+}
+
+/* Paragraphs & body text on light surfaces */
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) p,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) p,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) p,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) p {
+  color: #1E293B !important;
+}
+
+/* Secondary text on light surfaces */
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) .rf-text-muted,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) .rf-text-muted,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) .rf-text-muted,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) .rf-text-muted {
+  color: #475569 !important;
+}
+
+/* Labels on light surfaces */
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) .rf-label,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) label,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) .rf-label,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) label,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) .rf-label,
+[data-theme="light"] .rf-card:not(.rf-dark-surface) label,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) .rf-label,
+[data-theme="light"] .rf-modal-content:not(.rf-dark-surface) label {
+  color: #122B1A !important;
+}
+
+/* Inputs on light surfaces */
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) input:not([type="checkbox"]):not([type="radio"]),
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) textarea,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) select,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) input:not([type="checkbox"]):not([type="radio"]),
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) textarea,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) select,
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid rgba(18, 43, 26, 0.16) !important;
+}
+
+:root:not([data-theme="dark"]) input::placeholder,
+:root:not([data-theme="dark"]) textarea::placeholder,
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+:root:not([data-theme="dark"]) select option,
+[data-theme="light"] select option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
 }
 
 /* ─── 3. BRIGHT / LEMON SURFACES (STRICT DARK GREEN TEXT) ─── */

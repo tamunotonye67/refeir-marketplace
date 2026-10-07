@@ -274,10 +274,8 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
       {/* PENDING REVIEW REQUESTS FROM TALENTS BANNER */}
       {myPendingReviewRequests.length > 0 && (
         <div
+          className="rf-card-callout-gold"
           style={{
-            background: 'linear-gradient(135deg, rgba(244, 185, 66, 0.15) 0%, rgba(10, 26, 18, 0.9) 100%)',
-            border: '1.5px solid #F4B942',
-            borderRadius: 'var(--rf-radius-xl)',
             padding: '1.5rem 2rem',
             marginBottom: '2.5rem',
             display: 'flex',
@@ -401,10 +399,8 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
         {/* If not Pro, show VIP Pro Gate Banner */}
         {!isClientPro && (
           <div
+            className="rf-card-callout-blue"
             style={{
-              background: 'linear-gradient(135deg, rgba(125, 162, 255, 0.12) 0%, rgba(15, 35, 60, 0.8) 100%)',
-              border: '1.5px solid rgba(125, 162, 255, 0.4)',
-              borderRadius: 'var(--rf-radius-lg)',
               padding: '1.5rem',
               marginBottom: '1.5rem',
               display: 'flex',
@@ -1025,10 +1021,8 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
             style={{
               width: '100%',
               maxWidth: '540px',
-              backgroundColor: '#07160D',
               border: '1.5px solid #7DA2FF',
               borderRadius: 'var(--rf-radius-2xl)',
-              boxShadow: '0 25px 60px rgba(0,0,0,0.9)',
               padding: '2rem'
             }}
             onClick={e => e.stopPropagation()}
@@ -1159,10 +1153,8 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
             style={{
               width: '100%',
               maxWidth: '520px',
-              backgroundColor: '#07160D',
               border: '1.5px solid rgba(245, 158, 11, 0.5)',
               borderRadius: 'var(--rf-radius-2xl)',
-              boxShadow: '0 25px 60px rgba(0,0,0,0.9)',
               padding: '2rem'
             }}
             onClick={e => e.stopPropagation()}

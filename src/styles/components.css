@@ -6798,6 +6798,19 @@
   box-shadow: none;
 }
 
+.rf-card-callout-blue {
+  background: #F0F6FF !important;
+  border: 1.5px solid rgba(125, 162, 255, 0.45) !important;
+  border-radius: var(--rf-radius-xl);
+  box-shadow: 0 4px 16px rgba(125, 162, 255, 0.08);
+}
+
+[data-theme="dark"] .rf-card-callout-blue {
+  background: linear-gradient(135deg, rgba(125, 162, 255, 0.15) 0%, rgba(15, 35, 60, 0.85) 100%) !important;
+  border: 1.5px solid rgba(125, 162, 255, 0.5) !important;
+  box-shadow: none;
+}
+
 /* Inner modules inside cards (messages, metric blocks, token inventories) */
 .rf-card-inner-box {
   background: #F8FAF9;
