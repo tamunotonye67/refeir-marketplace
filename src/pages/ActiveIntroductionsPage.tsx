@@ -758,7 +758,7 @@ export const ActiveIntroductionsPage: React.FC<ActiveIntroductionsPageProps> = (
                 >
                   {talentList.slice(0, 10).map(t => (
                     <option key={t.id} value={t.id}>
-                      {t.full_name} ({t.professional_title})
+                      {t.full_name} ({t.headline})
                     </option>
                   ))}
                 </select>
