@@ -1997,7 +1997,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <p
                     style={{
                       fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-                      fontWeight: 500,
+                      fontWeight: 600,
                       color: 'rgba(255, 255, 255, 0.95)',
                       lineHeight: 1.65,
                       maxWidth: '560px',
@@ -2005,7 +2005,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       textShadow: '0 2px 10px rgba(0, 0, 0, 0.55)'
                     }}
                   >
-                    Connect clients with verified professionals across 54 nations and earn a guaranteed 10% commission on every completed milestone
+                    Refer or Recruit experts who use AI to amplify their talent, turning connections into profit or satisfaction.
                   </p>
 
                   {/* Search Bar */}
