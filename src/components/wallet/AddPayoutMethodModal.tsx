@@ -254,25 +254,6 @@ export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({
             <X size={16} />
           </button>
         </div>
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--rf-slate-300)',
-              cursor: 'pointer',
-              transition: 'all 0.15s ease'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = '#FFFFFF';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = 'var(--rf-slate-300)';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-            }}
-          >
-            <X size={16} />
-          </button>
-        </div>
 
         {/* Modal Body / Form */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>

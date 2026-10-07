@@ -219,9 +219,6 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
         </div>
       )}
 
-      {/* ROLE-SPECIFIC BENEFIT & PROTECTION BANNER (Fixed Dark Gradient Overlays with High-Contrast White Text) */}
-      {currentUser?.active_role === 'SCOUT' ? (
-        /* Scout: Airfee Token Status & Fee Protection Bar */
       {/* ROLE-SPECIFIC BENEFIT & PROTECTION BANNER */}
       {currentUser?.active_role === 'SCOUT' ? (
         /* Scout: Airfee Token Status & Fee Protection Bar */
