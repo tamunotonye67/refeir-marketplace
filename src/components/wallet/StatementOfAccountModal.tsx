@@ -2,6 +2,8 @@ import React, { useState, useMemo, useRef } from 'react';
 import { User, UserRole, Money, StatementItem, StatementSummary } from '../../types';
 import { formatMoney, createMoney } from '../../data/currencies';
 import { getTaxJurisdiction } from '../../data/taxJurisdictions';
+import { useTheme } from '../../context/ThemeContext';
+import { RefeirLogo } from '../common/RefeirLogo';
 import {
   FileText,
   Download,
@@ -32,6 +34,8 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
   onClose,
   onOpenTaxSettings
 }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodOption>('MTD');
   const [selectedCurrency, setSelectedCurrency] = useState<string>('NGN');
   const [isExportingCsv, setIsExportingCsv] = useState(false);
@@ -307,15 +311,15 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
       <div
         className="rf-statement-modal-wrapper"
         style={{
-          background: 'var(--rf-navy-surface)',
-          border: '1.5px solid var(--rf-navy-border)',
-          borderRadius: 'var(--rf-radius-2xl)',
+          background: isDark ? '#0A1810' : '#FFFFFF',
+          border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid #E2E8F0',
+          borderRadius: '24px',
           width: '100%',
           maxWidth: '920px',
           maxHeight: '92vh',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7)',
+          boxShadow: isDark ? '0 25px 60px rgba(0, 0, 0, 0.7)' : '0 20px 50px rgba(0, 0, 0, 0.15)',
           overflow: 'hidden'
         }}
       >
@@ -323,36 +327,36 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
         <div
           className="rf-no-print"
           style={{
-            padding: '1.25rem 1.75rem',
-            borderBottom: '1px solid var(--rf-navy-border)',
+            padding: '1.15rem 1.75rem',
+            borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: '1rem',
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)'
+            background: isDark ? 'rgba(255, 255, 255, 0.02)' : '#F8FAFC'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '10px',
-                background: 'rgba(54, 224, 160, 0.15)',
+                background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--rf-mint)'
+                color: isDark ? 'var(--rf-leaf-green)' : '#16A34A'
               }}
             >
-              <FileText size={20} />
+              <FileText size={18} />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+              <h2 style={{ fontSize: '1.05rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', margin: 0 }}>
                 Official Statement of Account
               </h2>
-              <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+              <span style={{ fontSize: '0.72rem', color: isDark ? '#94A3B8' : '#64748B' }}>
                 FIRS & Cross-Border Compliant Financial Ledger
               </span>
             </div>
@@ -363,8 +367,17 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
             <select
               value={selectedCurrency}
               onChange={e => setSelectedCurrency(e.target.value)}
-              className="rf-select"
-              style={{ fontSize: '0.8125rem', padding: '0.35rem 0.65rem', width: 'auto' }}
+              className="rf-input"
+              style={{
+                fontSize: '0.8125rem',
+                height: '36px',
+                padding: '0 0.75rem',
+                width: 'auto',
+                background: isDark ? 'rgba(255, 255, 255, 0.05)' : '#FFFFFF',
+                color: isDark ? '#FFFFFF' : '#0F172A',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #CBD5E1',
+                borderRadius: '8px'
+              }}
             >
               <option value="NGN">NGN (₦ - Nigeria HQ)</option>
               <option value="KES">KES (KSh - Kenya)</option>
@@ -377,8 +390,17 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
             <select
               value={selectedPeriod}
               onChange={e => setSelectedPeriod(e.target.value as PeriodOption)}
-              className="rf-select"
-              style={{ fontSize: '0.8125rem', padding: '0.35rem 0.65rem', width: 'auto' }}
+              className="rf-input"
+              style={{
+                fontSize: '0.8125rem',
+                height: '36px',
+                padding: '0 0.75rem',
+                width: 'auto',
+                background: isDark ? 'rgba(255, 255, 255, 0.05)' : '#FFFFFF',
+                color: isDark ? '#FFFFFF' : '#0F172A',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #CBD5E1',
+                borderRadius: '8px'
+              }}
             >
               <option value="MTD">August 2026 (MTD)</option>
               <option value="LAST_MONTH">July 2026 (Last Month)</option>
@@ -391,7 +413,7 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
             <button
               onClick={handlePrint}
               className="rf-btn rf-btn-mint rf-btn-sm"
-              style={{ fontWeight: 800, gap: '0.35rem' }}
+              style={{ height: '36px', fontWeight: 800, gap: '0.35rem' }}
               title="Print official PDF statement"
             >
               <Printer size={14} />
@@ -402,7 +424,7 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
             <button
               onClick={handleExportCsv}
               className="rf-btn rf-btn-secondary rf-btn-sm"
-              style={{ gap: '0.35rem' }}
+              style={{ height: '36px', gap: '0.35rem' }}
               title="Export as CSV for accounting"
             >
               <Download size={14} />
@@ -413,7 +435,17 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
             <button
               onClick={onClose}
               className="rf-btn rf-btn-ghost rf-btn-sm"
-              style={{ padding: '0.4rem', color: 'var(--rf-slate-400)' }}
+              style={{
+                width: '36px',
+                height: '36px',
+                padding: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: isDark ? '#94A3B8' : '#64748B',
+                borderRadius: '8px'
+              }}
+              title="Close Statement"
             >
               <X size={18} />
             </button>
@@ -427,139 +459,198 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
           style={{
             padding: '2.5rem',
             overflowY: 'auto',
-            background: 'var(--rf-bg-page)',
-            color: 'var(--rf-cream)',
+            background: isDark ? '#0A1810' : '#FFFFFF',
+            color: isDark ? '#FFFFFF' : '#0F172A',
             fontFamily: 'var(--rf-font-sans)'
           }}
         >
-          {/* Header Letterhead */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid rgba(54, 224, 160, 0.4)', paddingBottom: '1.75rem', marginBottom: '2rem' }}>
+          {/* Header Letterhead: Official Refeir Brand & Clean Metadata */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
+              paddingBottom: '1.75rem',
+              marginBottom: '1.75rem',
+              flexWrap: 'wrap',
+              gap: '1.5rem'
+            }}
+          >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '0.5rem' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--rf-mint)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#07160D', fontWeight: 900, fontSize: '1.125rem' }}>
-                  R
-                </div>
-                <span style={{ fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.03em', color: 'var(--rf-cream)' }}>
-                  REFEIR <span style={{ color: 'var(--rf-mint)' }}>TECHNOLOGIES</span>
-                </span>
+              <div style={{ marginBottom: '0.65rem' }}>
+                <RefeirLogo size="md" isLight={isDark} showTagline={false} />
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)', lineHeight: 1.5 }}>
-                <strong>Refeir Technologies Ltd.</strong> • RC-1892044<br />
-                <strong>FIRS Tax ID (TIN):</strong> 24891023-0001 • <strong>VAT No:</strong> NG-VAT-1892044<br />
-                12 Marina Boulevard, Victoria Island, Lagos, Nigeria<br />
-                Regional Hubs: Nairobi (Silicon Savannah) • Accra • London
+              <div style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', lineHeight: 1.5 }}>
+                Refeir Technologies Ltd. • RC-1892044 • FIRS Tax ID: 24891023-0001<br />
+                Pan-African Escrow Custody • Lagos • Nairobi • Accra • London
               </div>
             </div>
 
             <div style={{ textAlign: 'right' }}>
-              <div className="rf-badge rf-badge-mint rf-text-xs" style={{ marginBottom: '0.5rem', display: 'inline-flex' }}>
-                AUDITED ACCOUNT STATEMENT
-              </div>
-              <div style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono)' }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: '6px',
+                  fontSize: '0.6875rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase',
+                  background: isDark ? 'rgba(102, 187, 42, 0.12)' : '#DCFCE7',
+                  color: isDark ? 'var(--rf-leaf-green)' : '#16A34A',
+                  marginBottom: '0.4rem'
+                }}
+              >
+                Audited Statement
+              </span>
+              <div style={{ fontSize: '0.875rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', fontFamily: 'monospace' }}>
                 {summary.statementNumber}
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', marginTop: '2px' }}>
                 Date Issued: {summary.generatedAt}
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-mint)', fontWeight: 700, marginTop: '2px' }}>
+              <div style={{ fontSize: '0.75rem', color: isDark ? '#CBD5E1' : '#334155', fontWeight: 600, marginTop: '2px' }}>
                 Period: {periodDetails.label}
               </div>
             </div>
           </div>
 
-          {/* Account Holder & Tax Information Banner */}
+          {/* Account Holder & Tax Information: Minimalist & Clean */}
           <div
             style={{
-              background: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid var(--rf-navy-border)',
-              borderRadius: 'var(--rf-radius-lg)',
+              background: isDark ? 'rgba(255, 255, 255, 0.02)' : '#F8FAFC',
+              border: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid #E2E8F0',
+              borderRadius: '14px',
               padding: '1.25rem 1.5rem',
-              marginBottom: '2rem',
+              marginBottom: '1.75rem',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '1.25rem'
             }}
           >
             <div>
-              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Account Holder Name
+              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: isDark ? '#94A3B8' : '#64748B', letterSpacing: '0.04em' }}>
+                Account Holder
               </span>
-              <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>
+              <div style={{ fontSize: '1rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', marginTop: '3px' }}>
                 {user?.first_name} {user?.last_name}
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
-                Role: <strong style={{ color: 'var(--rf-mint)' }}>{user?.active_role}</strong> • User ID: {user?.id}
+              <div style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', marginTop: '2px' }}>
+                Role: <strong style={{ color: isDark ? 'var(--rf-leaf-green)' : '#16A34A' }}>{user?.active_role}</strong> • User ID: {user?.id}
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
+              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: isDark ? '#94A3B8' : '#64748B', letterSpacing: '0.04em' }}>
                 Tax Residency & Authority
               </span>
-              <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', marginTop: '3px' }}>
                 {country} ({taxJurisdiction.tax_authority.split('(')[0].trim()})
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+              <div style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', marginTop: '2px' }}>
                 {country === 'Nigeria' ? 'Headquarters Jurisdiction (FIRS / LIRS)' : 'Cross-Border Treaty Partner'}
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                Tax ID / TIN / KRA PIN
+              <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', color: isDark ? '#94A3B8' : '#64748B', letterSpacing: '0.04em' }}>
+                Tax Identification (TIN)
               </span>
-              <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--rf-mint)', fontFamily: 'var(--rf-font-mono)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.9375rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', fontFamily: 'monospace', marginTop: '3px' }}>
                 {taxIdDisplay}
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+              <div style={{ fontSize: '0.75rem', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', fontWeight: 600, marginTop: '2px' }}>
                 Status: Verified Resident
               </div>
             </div>
           </div>
 
-          {/* Executive Ledger Summary Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))', gap: '0.75rem', marginBottom: '2rem' }}>
-            <div style={{ padding: '0.85rem', background: 'rgba(255, 255, 255, 0.03)', borderRadius: 'var(--rf-radius-md)', border: '1px solid var(--rf-navy-border)' }}>
-              <span style={{ fontSize: '0.6875rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>
+          {/* Executive Ledger Summary: Minimalist, Balanced, Cohesive */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+              gap: '0.75rem',
+              marginBottom: '2rem'
+            }}
+          >
+            <div
+              style={{
+                padding: '0.9rem',
+                background: isDark ? 'rgba(255, 255, 255, 0.02)' : '#F8FAFC',
+                borderRadius: '12px',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid #E2E8F0'
+              }}
+            >
+              <span style={{ fontSize: '0.6875rem', color: isDark ? '#94A3B8' : '#64748B', textTransform: 'uppercase', fontWeight: 700 }}>
                 Opening Balance
               </span>
-              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>
+              <div style={{ fontSize: '1rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', marginTop: '3px' }}>
                 {formatMoney(createMoney(summary.openingBalance, selectedCurrency))}
               </div>
             </div>
 
-            <div style={{ padding: '0.85rem', background: 'rgba(54, 224, 160, 0.06)', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(54, 224, 160, 0.2)' }}>
-              <span style={{ fontSize: '0.6875rem', color: 'var(--rf-mint)', textTransform: 'uppercase', fontWeight: 700 }}>
+            <div
+              style={{
+                padding: '0.9rem',
+                background: isDark ? 'rgba(255, 255, 255, 0.02)' : '#F8FAFC',
+                borderRadius: '12px',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid #E2E8F0'
+              }}
+            >
+              <span style={{ fontSize: '0.6875rem', color: isDark ? '#94A3B8' : '#64748B', textTransform: 'uppercase', fontWeight: 700 }}>
                 Total Credits (+)
               </span>
-              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--rf-mint)', marginTop: '2px' }}>
+              <div style={{ fontSize: '1rem', fontWeight: 800, color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', marginTop: '3px' }}>
                 {formatMoney(createMoney(summary.totalCredits, selectedCurrency))}
               </div>
             </div>
 
-            <div style={{ padding: '0.85rem', background: 'rgba(239, 68, 68, 0.08)', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(239, 68, 68, 0.25)' }}>
-              <span style={{ fontSize: '0.6875rem', color: '#EF4444', textTransform: 'uppercase', fontWeight: 700 }}>
+            <div
+              style={{
+                padding: '0.9rem',
+                background: isDark ? 'rgba(255, 255, 255, 0.02)' : '#F8FAFC',
+                borderRadius: '12px',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid #E2E8F0'
+              }}
+            >
+              <span style={{ fontSize: '0.6875rem', color: isDark ? '#94A3B8' : '#64748B', textTransform: 'uppercase', fontWeight: 700 }}>
                 Total Debits (-)
               </span>
-              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#EF4444', marginTop: '2px' }}>
+              <div style={{ fontSize: '1rem', fontWeight: 800, color: isDark ? '#CBD5E1' : '#334155', marginTop: '3px' }}>
                 {formatMoney(createMoney(summary.totalDebits, selectedCurrency))}
               </div>
             </div>
 
-            <div style={{ padding: '0.85rem', background: 'rgba(244, 185, 66, 0.08)', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(244, 185, 66, 0.25)' }}>
-              <span style={{ fontSize: '0.6875rem', color: 'var(--rf-golden-yellow)', textTransform: 'uppercase', fontWeight: 700 }}>
+            <div
+              style={{
+                padding: '0.9rem',
+                background: isDark ? 'rgba(255, 255, 255, 0.02)' : '#F8FAFC',
+                borderRadius: '12px',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid #E2E8F0'
+              }}
+            >
+              <span style={{ fontSize: '0.6875rem', color: isDark ? '#94A3B8' : '#64748B', textTransform: 'uppercase', fontWeight: 700 }}>
                 Taxes & WHT
               </span>
-              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--rf-golden-yellow)', marginTop: '2px' }}>
+              <div style={{ fontSize: '1rem', fontWeight: 800, color: isDark ? '#CBD5E1' : '#334155', marginTop: '3px' }}>
                 {formatMoney(createMoney(summary.totalWht + summary.totalVat, selectedCurrency))}
               </div>
             </div>
 
-            <div style={{ padding: '0.85rem', background: 'rgba(36, 87, 255, 0.08)', borderRadius: 'var(--rf-radius-md)', border: '1.5px solid rgba(36, 87, 255, 0.35)' }}>
-              <span style={{ fontSize: '0.6875rem', color: 'var(--rf-leaf-green)', textTransform: 'uppercase', fontWeight: 800 }}>
+            <div
+              style={{
+                padding: '0.9rem',
+                background: isDark ? 'rgba(102, 187, 42, 0.06)' : '#F0FDF4',
+                borderRadius: '12px',
+                border: isDark ? '1.5px solid rgba(102, 187, 42, 0.3)' : '1.5px solid #BBF7D0'
+              }}
+            >
+              <span style={{ fontSize: '0.6875rem', color: isDark ? 'var(--rf-leaf-green)' : '#166534', textTransform: 'uppercase', fontWeight: 800 }}>
                 Closing Balance
               </span>
-              <div style={{ fontSize: '1.125rem', fontWeight: 900, color: 'var(--rf-cream)', marginTop: '2px' }}>
+              <div style={{ fontSize: '1.05rem', fontWeight: 900, color: isDark ? '#FFFFFF' : '#14532D', marginTop: '3px' }}>
                 {formatMoney(createMoney(summary.closingBalance, selectedCurrency))}
               </div>
             </div>
@@ -567,17 +658,17 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
 
           {/* Itemized Financial Ledger Table */}
           <div style={{ marginBottom: '2.5rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span>Itemized Financial Ledger & Escrow Settlement Records</span>
-              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--rf-slate-400)' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: isDark ? '#94A3B8' : '#64748B' }}>
                 {ledgerItems.length} Transactions Recorded
               </span>
             </h3>
 
-            <div style={{ overflowX: 'auto', border: '1px solid var(--rf-navy-border)', borderRadius: 'var(--rf-radius-lg)' }}>
+            <div style={{ overflowX: 'auto', border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0', borderRadius: '12px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8125rem', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ background: 'rgba(18, 43, 26, 0.04)', borderBottom: '1px solid var(--rf-navy-border)', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontSize: '0.6875rem', fontWeight: 800 }}>
+                  <tr style={{ background: isDark ? 'rgba(255, 255, 255, 0.03)' : '#F8FAFC', borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0', color: isDark ? '#94A3B8' : '#64748B', textTransform: 'uppercase', fontSize: '0.6875rem', fontWeight: 800 }}>
                     <th style={{ padding: '0.75rem 1rem' }}>Date & Ref</th>
                     <th style={{ padding: '0.75rem 1rem' }}>Description & Counterparty</th>
                     <th style={{ padding: '0.75rem 1rem' }}>Type</th>
@@ -588,15 +679,15 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
                 </thead>
                 <tbody>
                   {ledgerItems.map(item => (
-                    <tr key={item.id} style={{ borderBottom: '1px solid var(--rf-navy-border)' }}>
+                    <tr key={item.id} style={{ borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid #F1F5F9' }}>
                       <td style={{ padding: '0.85rem 1rem', whiteSpace: 'nowrap' }}>
-                        <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{item.date_formatted}</div>
-                        <div style={{ fontSize: '0.6875rem', color: 'var(--rf-slate-400)', fontFamily: 'var(--rf-font-mono)' }}>{item.reference_code}</div>
+                        <div style={{ fontWeight: 700, color: isDark ? '#FFFFFF' : '#0F172A' }}>{item.date_formatted}</div>
+                        <div style={{ fontSize: '0.6875rem', color: isDark ? '#94A3B8' : '#64748B', fontFamily: 'monospace' }}>{item.reference_code}</div>
                       </td>
                       <td style={{ padding: '0.85rem 1rem' }}>
-                        <div style={{ fontWeight: 600, color: 'var(--rf-cream)' }}>{item.description}</div>
+                        <div style={{ fontWeight: 600, color: isDark ? '#FFFFFF' : '#0F172A' }}>{item.description}</div>
                         {item.counterparty && (
-                          <div style={{ fontSize: '0.6875rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+                          <div style={{ fontSize: '0.6875rem', color: isDark ? '#94A3B8' : '#64748B', marginTop: '2px' }}>
                             Party: {item.counterparty}
                           </div>
                         )}
@@ -608,22 +699,22 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
                             fontWeight: 800,
                             padding: '0.15rem 0.45rem',
                             borderRadius: '4px',
-                            background: item.type === 'CREDIT' ? 'rgba(54, 224, 160, 0.15)' : 'rgba(255, 87, 87, 0.15)',
-                            color: item.type === 'CREDIT' ? 'var(--rf-mint)' : '#FF7D7D'
+                            background: item.type === 'CREDIT' ? (isDark ? 'rgba(54, 224, 160, 0.15)' : '#DCFCE7') : (isDark ? 'rgba(255, 87, 87, 0.15)' : '#FEE2E2'),
+                            color: item.type === 'CREDIT' ? (isDark ? 'var(--rf-mint)' : '#16A34A') : '#DC2626'
                           }}
                         >
                           {item.type}
                         </span>
                       </td>
-                      <td style={{ padding: '0.85rem 1rem', textAlign: 'right', fontWeight: 800, color: item.type === 'CREDIT' ? 'var(--rf-mint)' : '#FF7D7D' }}>
+                      <td style={{ padding: '0.85rem 1rem', textAlign: 'right', fontWeight: 800, color: item.type === 'CREDIT' ? (isDark ? 'var(--rf-mint)' : '#16A34A') : '#DC2626' }}>
                         {item.type === 'CREDIT' ? '+' : '-'}{formatMoney(item.amount)}
                       </td>
-                      <td style={{ padding: '0.85rem 1rem', textAlign: 'right', color: 'var(--rf-slate-400)', fontSize: '0.75rem' }}>
+                      <td style={{ padding: '0.85rem 1rem', textAlign: 'right', color: isDark ? '#94A3B8' : '#64748B', fontSize: '0.75rem' }}>
                         {item.wht_amount && item.wht_amount.amount_minor > 0
                           ? `WHT: ${formatMoney(item.wht_amount)}`
                           : (item.vat_amount && item.vat_amount.amount_minor > 0 ? `VAT: ${formatMoney(item.vat_amount)}` : '—')}
                       </td>
-                      <td style={{ padding: '0.85rem 1rem', textAlign: 'right', fontWeight: 800, color: 'var(--rf-cream)', fontFamily: 'var(--rf-font-mono)' }}>
+                      <td style={{ padding: '0.85rem 1rem', textAlign: 'right', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', fontFamily: 'monospace' }}>
                         {formatMoney(item.balance_after)}
                       </td>
                     </tr>
@@ -658,7 +749,7 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
           {/* Official Verification Seal & Cryptographic Signature */}
           <div
             style={{
-              borderTop: '2px dashed var(--rf-navy-border)',
+              borderTop: isDark ? '2px dashed rgba(255, 255, 255, 0.08)' : '2px dashed #E2E8F0',
               paddingTop: '1.5rem',
               display: 'flex',
               justifyContent: 'space-between',
@@ -668,34 +759,34 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
             }}
           >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--rf-mint)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: isDark ? 'var(--rf-mint)' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
                 <CheckCircle2 size={16} />
                 <span>Verified Cryptographic Audit Hash</span>
               </div>
-              <div style={{ fontSize: '0.6875rem', fontFamily: 'var(--rf-font-mono)', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.6875rem', fontFamily: 'monospace', color: isDark ? '#94A3B8' : '#64748B', marginTop: '2px' }}>
                 {summary.digitalHash}
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--rf-slate-500)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.6875rem', color: isDark ? '#64748B' : '#94A3B8', marginTop: '2px' }}>
                 This is an official computer-generated statement issued by Refeir Technologies Ltd. Valid without physical signature when verified online.
               </div>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ width: '48px', height: '48px', background: 'rgba(255,255,255,0.08)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.25rem' }}>
-                  <QrCode size={36} color="var(--rf-mint)" />
+                <div style={{ width: '48px', height: '48px', background: isDark ? 'rgba(255,255,255,0.06)' : '#F1F5F9', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.25rem' }}>
+                  <QrCode size={34} color={isDark ? 'var(--rf-mint)' : '#16A34A'} />
                 </div>
-                <span style={{ fontSize: '0.625rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Scan to Verify</span>
+                <span style={{ fontSize: '0.625rem', color: isDark ? '#94A3B8' : '#64748B', textTransform: 'uppercase' }}>Scan to Verify</span>
               </div>
 
-              <div style={{ textAlign: 'right', borderLeft: '1px solid var(--rf-navy-border)', paddingLeft: '1rem' }}>
-                <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
+              <div style={{ textAlign: 'right', borderLeft: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0', paddingLeft: '1rem' }}>
+                <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A' }}>
                   Refeir Financial Controller
                 </div>
-                <div style={{ fontSize: '0.6875rem', color: 'var(--rf-slate-400)' }}>
+                <div style={{ fontSize: '0.6875rem', color: isDark ? '#94A3B8' : '#64748B' }}>
                   Treasury & Escrow Operations
                 </div>
-                <div style={{ fontSize: '0.625rem', color: 'var(--rf-leaf-green)', fontWeight: 700, marginTop: '2px' }}>
+                <div style={{ fontSize: '0.625rem', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', fontWeight: 700, marginTop: '2px' }}>
                   SEALED & RECONCILED
                 </div>
               </div>
@@ -708,8 +799,8 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
           className="rf-no-print"
           style={{
             padding: '1rem 1.75rem',
-            borderTop: '1px solid var(--rf-navy-border)',
-            background: 'var(--rf-navy-surface)',
+            borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
+            background: isDark ? 'rgba(255, 255, 255, 0.02)' : '#F8FAFC',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -721,14 +812,14 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
             <button
               onClick={onOpenTaxSettings}
               className="rf-btn rf-btn-ghost rf-btn-sm"
-              style={{ gap: '0.35rem', color: 'var(--rf-mint)' }}
+              style={{ gap: '0.35rem', color: isDark ? 'var(--rf-mint)' : '#16A34A' }}
             >
               <Percent size={14} />
               <span>Edit Tax Profile & Country Details</span>
             </button>
           ) : (
-            <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
-              Tax ID: <strong style={{ color: 'var(--rf-cream)' }}>{taxIdDisplay}</strong> ({country})
+            <div style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B' }}>
+              Tax ID: <strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>{taxIdDisplay}</strong> ({country})
             </div>
           )}
 
