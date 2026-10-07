@@ -932,8 +932,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                           onMouseEnter={() => handleMouseEnter('telemetry')}
                           onMouseLeave={handleMouseLeave}
                         >
-                          {renderNavFlyoutItem(<Activity size={15} />, 'Link Telemetry', 'Live referral clicks & audit logs', () => handleLinkClick('/dashboard/scout'))}
-                          {renderNavFlyoutItem(<TrendingUp size={15} />, 'Conversion Rates', 'Milestone settlement conversion rate', () => handleLinkClick('/dashboard/scout'))}
+                          {renderNavFlyoutItem(<Activity size={15} />, 'Link Telemetry', 'Live referral clicks & audit logs', () => handleLinkClick('/telemetry'))}
+                          {renderNavFlyoutItem(<TrendingUp size={15} />, 'Conversion Rates', 'Milestone settlement conversion rate', () => handleLinkClick('/conversions'))}
                           {renderNavFlyoutHeading('Opportunity Sourcing')}
                           {renderNavFlyoutItem(<Briefcase size={15} />, 'Hot Market Niches', 'High-budget client hiring briefs', () => handleLinkClick('/jobs'))}
                         </div>

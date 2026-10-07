@@ -52,6 +52,8 @@ import { AgenciesPage } from './pages/AgenciesPage';
 import { ProjectCatalogPage } from './pages/ProjectCatalogPage';
 import { CommunityHubPage } from './pages/CommunityHubPage';
 import { PioneersPage } from './pages/PioneersPage';
+import { LinkTelemetryPage } from './pages/LinkTelemetryPage';
+import { ConversionRatesPage } from './pages/ConversionRatesPage';
 import { AuthGateWall } from './components/common/AuthGateWall';
 import { RoleOnboardingGate } from './components/common/RoleOnboardingGate';
 import { ProfileSwitchGate } from './components/common/ProfileSwitchGate';
@@ -292,6 +294,39 @@ export const App: React.FC = () => {
           return <RoleOnboardingGate targetRole="SCOUT" onNavigate={navigate} />;
         }
         return <ScoutDashboard onNavigate={navigate} />;
+      case '/telemetry':
+      case '/scout/telemetry':
+        if (!currentUser) {
+          return <AuthGateWall pageName="Link Telemetry & Click Audit Logs" roleRequired="Scout" onNavigate={navigate} />;
+        }
+        if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
+          return (
+            <ProfileSwitchGate
+              targetRole="SCOUT"
+              currentRole={currentUser.active_role}
+              onNavigate={navigate}
+              onSwitch={() => switchRole('SCOUT')}
+            />
+          );
+        }
+        return <LinkTelemetryPage onNavigate={navigate} />;
+      case '/conversions':
+      case '/conversion-rates':
+      case '/scout/conversions':
+        if (!currentUser) {
+          return <AuthGateWall pageName="Conversion Rates & Funnel Analytics" roleRequired="Scout" onNavigate={navigate} />;
+        }
+        if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
+          return (
+            <ProfileSwitchGate
+              targetRole="SCOUT"
+              currentRole={currentUser.active_role}
+              onNavigate={navigate}
+              onSwitch={() => switchRole('SCOUT')}
+            />
+          );
+        }
+        return <ConversionRatesPage onNavigate={navigate} />;
       case '/dashboard/talent':
         if (!currentUser) {
           return <AuthGateWall pageName="Talent Workspace & Contracts" roleRequired="Talent" onNavigate={navigate} />;
