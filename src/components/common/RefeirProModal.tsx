@@ -30,11 +30,8 @@ export const RefeirProModal: React.FC<RefeirProModalProps> = ({
 }) => {
   const { currentUser, upgradeToPro } = useAuth();
   const { showToast } = useNotification();
-  let activeTheme: 'dark' | 'light' = 'dark';
-  try {
-    const { theme } = useTheme();
-    activeTheme = theme;
-  } catch {}
+  const { theme } = useTheme();
+  const activeTheme = theme;
 
   const [activeTab, setActiveTab] = useState<'SCOUT' | 'TALENT' | 'CLIENT'>(() => {
     if (defaultRole === 'TALENT') return 'TALENT';

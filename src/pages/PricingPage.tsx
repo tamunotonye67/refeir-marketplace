@@ -11,11 +11,8 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
   const [showProModal, setShowProModal] = useState(false);
   const [proRole, setProRole] = useState<'SCOUT' | 'TALENT' | 'CLIENT'>('SCOUT');
   
-  let isDark = false;
-  try {
-    const { theme } = useTheme();
-    isDark = theme === 'dark';
-  } catch {}
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const openProModalForRole = (role: 'SCOUT' | 'TALENT' | 'CLIENT') => {
     setProRole(role);
@@ -572,7 +569,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Example Calculation Table with 3 Scenarios */}
-      <section className="rf-section" style={{ backgroundColor: isDark ? 'var(--rf-bg-surface)' : '#F8FAF9' }}>
+      <section className="rf-section" style={{ backgroundColor: isDark ? 'var(--rf-bg-surface)' : '#FFFFFF' }}>
         <div className="rf-container" style={{ maxWidth: '980px' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <span className="rf-badge rf-badge-mint" style={{ marginBottom: '0.5rem' }}>
