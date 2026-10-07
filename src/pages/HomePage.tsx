@@ -2096,26 +2096,6 @@ export const HomePage: React.FC<HomePageProps> = ({
                       <span className="rf-mobile-only">Refer & Earn</span>
                     </button>
                   </div>
-
-                  {/* Trust stat pills — evenly distributed from left to right on larger screens */}
-                  <div className="rf-hero-trust-badges">
-                    <div className="rf-hero-trust-badge-item">
-                      <Globe2 size={15} color="#66BB2A" />
-                      <span><strong style={{ color: '#FFFFFF' }}>54</strong> African Nations</span>
-                    </div>
-                    <div className="rf-hero-trust-badge-item">
-                      <Lock size={15} color="#66BB2A" />
-                      <span><strong style={{ color: '#FFFFFF' }}>10%</strong> Locked Scout Reward</span>
-                    </div>
-                    <div className="rf-hero-trust-badge-item">
-                      <ShieldCheck size={15} color="#66BB2A" />
-                      <span><strong style={{ color: '#FFFFFF' }}>100%</strong> Trust Vault</span>
-                    </div>
-                    <div className="rf-hero-trust-badge-item">
-                      <CheckCircle2 size={15} color="#66BB2A" />
-                      <span><strong style={{ color: '#FFFFFF' }}>Verified</strong> Top Talents</span>
-                    </div>
-                  </div>
                 </>
               )}
             </div>
