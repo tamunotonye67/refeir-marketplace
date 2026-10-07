@@ -216,9 +216,15 @@ export const RefeirProModal: React.FC<RefeirProModalProps> = ({
               flex: 1,
               padding: '0.65rem 0.5rem',
               borderRadius: 'var(--rf-radius-lg)',
-              border: activeTab === 'SCOUT' ? '1.5px solid #F4B942' : isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
-              background: activeTab === 'SCOUT' ? (isDark ? 'rgba(244, 185, 66, 0.12)' : 'rgba(244, 185, 66, 0.15)') : 'transparent',
-              color: activeTab === 'SCOUT' ? '#F4B942' : isDark ? 'var(--rf-slate-400)' : '#527560',
+              border: activeTab === 'SCOUT'
+                ? (isDark ? '1.5px solid #F4B942' : '1.5px solid #D97706')
+                : (isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.1)'),
+              background: activeTab === 'SCOUT'
+                ? (isDark ? 'rgba(244, 185, 66, 0.12)' : '#FEF3C7')
+                : 'transparent',
+              color: activeTab === 'SCOUT'
+                ? (isDark ? '#F4B942' : '#B45309')
+                : (isDark ? 'var(--rf-slate-400)' : '#475569'),
               fontWeight: 800,
               fontSize: '0.8125rem',
               cursor: 'pointer',
@@ -240,9 +246,15 @@ export const RefeirProModal: React.FC<RefeirProModalProps> = ({
               flex: 1,
               padding: '0.65rem 0.5rem',
               borderRadius: 'var(--rf-radius-lg)',
-              border: activeTab === 'TALENT' ? '1.5px solid #F4B942' : isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
-              background: activeTab === 'TALENT' ? (isDark ? 'rgba(244, 185, 66, 0.12)' : 'rgba(244, 185, 66, 0.15)') : 'transparent',
-              color: activeTab === 'TALENT' ? '#F4B942' : isDark ? 'var(--rf-slate-400)' : '#527560',
+              border: activeTab === 'TALENT'
+                ? (isDark ? '1.5px solid #F4B942' : '1.5px solid #D97706')
+                : (isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.1)'),
+              background: activeTab === 'TALENT'
+                ? (isDark ? 'rgba(244, 185, 66, 0.12)' : '#FEF3C7')
+                : 'transparent',
+              color: activeTab === 'TALENT'
+                ? (isDark ? '#F4B942' : '#B45309')
+                : (isDark ? 'var(--rf-slate-400)' : '#475569'),
               fontWeight: 800,
               fontSize: '0.8125rem',
               cursor: 'pointer',
@@ -264,9 +276,15 @@ export const RefeirProModal: React.FC<RefeirProModalProps> = ({
               flex: 1,
               padding: '0.65rem 0.5rem',
               borderRadius: 'var(--rf-radius-lg)',
-              border: activeTab === 'CLIENT' ? '1.5px solid #F4B942' : isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
-              background: activeTab === 'CLIENT' ? (isDark ? 'rgba(244, 185, 66, 0.12)' : 'rgba(244, 185, 66, 0.15)') : 'transparent',
-              color: activeTab === 'CLIENT' ? '#F4B942' : isDark ? 'var(--rf-slate-400)' : '#527560',
+              border: activeTab === 'CLIENT'
+                ? (isDark ? '1.5px solid #7DA2FF' : '1.5px solid #2563EB')
+                : (isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.1)'),
+              background: activeTab === 'CLIENT'
+                ? (isDark ? 'rgba(125, 162, 255, 0.12)' : '#EFF6FF')
+                : 'transparent',
+              color: activeTab === 'CLIENT'
+                ? (isDark ? '#7DA2FF' : '#1D4ED8')
+                : (isDark ? 'var(--rf-slate-400)' : '#475569'),
               fontWeight: 800,
               fontSize: '0.8125rem',
               cursor: 'pointer',
@@ -491,14 +509,14 @@ export const RefeirProModal: React.FC<RefeirProModalProps> = ({
                   { title: 'Custom NDA & Confidential Briefings', desc: 'Source sensitive talent without publishing public job requirements.' }
                 ].map((item, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                    <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'rgba(125, 162, 255, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7DA2FF', flexShrink: 0, marginTop: '2px' }}>
+                    <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: isDark ? 'rgba(125, 162, 255, 0.15)' : '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#7DA2FF' : '#1D4ED8', flexShrink: 0, marginTop: '2px' }}>
                       <Check size={13} />
                     </div>
                     <div>
                       <div style={{ fontSize: '0.875rem', fontWeight: 700, color: isDark ? 'var(--rf-cream)' : '#0F2E1B' }}>
                         {item.title}
                       </div>
-                      <div style={{ fontSize: '0.75rem', color: isDark ? 'var(--rf-slate-400)' : '#527560' }}>
+                      <div style={{ fontSize: '0.75rem', color: isDark ? 'var(--rf-slate-400)' : '#475569' }}>
                         {item.desc}
                       </div>
                     </div>
@@ -517,7 +535,7 @@ export const RefeirProModal: React.FC<RefeirProModalProps> = ({
                   fontSize: '0.9375rem',
                   padding: '0.85rem',
                   justifyContent: 'center',
-                  background: isAlreadyPro('CLIENT') ? 'var(--rf-mint)' : 'linear-gradient(135deg, #7DA2FF, #4F7BF0)',
+                  background: isAlreadyPro('CLIENT') ? 'var(--rf-mint)' : 'linear-gradient(135deg, #2563EB, #1D4ED8)',
                   color: '#FFFFFF',
                   border: 'none'
                 }}
