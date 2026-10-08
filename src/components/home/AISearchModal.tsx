@@ -927,7 +927,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
                   <div className="rf-briefing-textarea-box">
                     <textarea
-                      rows={5}
+                      rows={4}
                       value={jobDetails}
                       onChange={(e) => setJobDetails(e.target.value)}
                       placeholder="e.g. Creative director for a brand identity refresh"
