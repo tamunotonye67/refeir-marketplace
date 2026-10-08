@@ -6375,7 +6375,7 @@
   overflow: hidden;
   margin-top: 1rem;
   margin-bottom: 3.5rem;
-  max-height: 380px;
+  max-height: 420px;
 }
 
 .rf-ai-search-overlay.is-light .rf-personalized-banner-card {
@@ -6400,7 +6400,7 @@
   position: relative;
   width: 38px;
   height: 38px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6422,15 +6422,15 @@
 }
 
 .rf-pr-banner-title {
-  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+  font-size: clamp(1.85rem, 2.5vw, 2.35rem);
   font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.45rem 0;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.5rem 0;
 }
 
 .rf-pr-banner-sub {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
   margin: 0 0 1.25rem 0;
 }
@@ -6487,7 +6487,7 @@
   overflow: hidden;
   height: 100%;
   min-height: 280px;
-  max-height: 380px;
+  max-height: 420px;
 }
 
 .rf-pr-banner-image {
@@ -6883,7 +6883,8 @@
   }
 
   .rf-pr-banner-title {
-    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 5vw, 1.75rem);
+    line-height: 1.25;
   }
 
   .rf-pr-how-actions {
