@@ -182,10 +182,12 @@ export const App: React.FC = () => {
       );
     }
 
-    // 4. Talent Profile (/talent/:id)
-    if (basePath.startsWith('/talent/')) {
-      const talentId = basePath.replace('/talent/', '');
-      const talent = talentList.find(t => t.id === talentId) || selectedTalent || SEED_TALENT[0];
+    // 4. Talent Profile (/talent/:id or /profile/:id)
+    if (basePath.startsWith('/talent/') || (basePath.startsWith('/profile/') && basePath.length > 9)) {
+      const talentId = basePath.startsWith('/talent/') 
+        ? basePath.replace('/talent/', '') 
+        : basePath.replace('/profile/', '');
+      const talent = talentList.find(t => t.id === talentId) || SEED_TALENT.find(t => t.id === talentId) || selectedTalent || SEED_TALENT[0];
       return (
         <TalentProfilePage
           talent={talent}
@@ -238,6 +240,7 @@ export const App: React.FC = () => {
           />
         );
       case '/jobs':
+      case '/job-board':
         return <JobBoardPage onNavigate={navigate} />;
       case '/dashboard':
         if (!currentUser) {

@@ -187,13 +187,16 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     }
   }, [budgetType, hourlyRate, fixedBudget]);
 
-  // Lock body scroll while modal is active
+  // Lock body & html scroll while modal is active so background page doesn't show frozen scrollbar
   useEffect(() => {
     if (isOpen) {
-      const originalOverflow = document.body.style.overflow;
+      const originalBodyOverflow = document.body.style.overflow;
+      const originalHtmlOverflow = document.documentElement.style.overflow;
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       return () => {
-        document.body.style.overflow = originalOverflow;
+        document.body.style.overflow = originalBodyOverflow;
+        document.documentElement.style.overflow = originalHtmlOverflow;
       };
     }
   }, [isOpen]);
@@ -1558,7 +1561,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       type="button"
                       onClick={() => {
                         onClose();
-                        onNavigate(`/profile/${talent.id}`);
+                        onNavigate(`/talent/${talent.id}`);
                       }}
                       className="rf-refeir-hire-btn"
                     >
@@ -1569,7 +1572,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       type="button"
                       onClick={() => {
                         onClose();
-                        onNavigate(`/marketplace?refer=${talent.id}`);
+                        onNavigate(`/talent/${talent.id}?refer=true`);
                       }}
                       className="rf-refeir-refer-btn"
                       title="Refer this talent and earn bounty"
@@ -1641,7 +1644,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   type="button"
                   onClick={() => {
                     onClose();
-                    onNavigate('/job-board');
+                    onNavigate('/jobs');
                   }}
                   className="rf-pr-banner-cta-btn"
                 >
@@ -1820,7 +1823,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     type="button"
                     onClick={() => {
                       onClose();
-                      onNavigate('/job-board');
+                      onNavigate('/jobs');
                     }}
                     className="rf-pr-how-post-btn"
                   >
@@ -1840,24 +1843,24 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* ===================================================================
-                SECTION 5: MINIMALIST DARK FOOTER (IMAGE 4)
-                =================================================================== */}
-            <div className="rf-personalized-footer-bar">
-              <div className="rf-pr-footer-content">
-                <span>© 2015 - 2026 Refeir® Global Inc. • </span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onClose();
-                    onNavigate('/privacy');
-                  }}
-                  className="rf-pr-footer-link"
-                >
-                  Privacy Policy
-                </button>
-              </div>
+          {/* ===================================================================
+              SECTION 5: MINIMALIST DARK FOOTER (IMAGE 4)
+              =================================================================== */}
+          <div className="rf-personalized-footer-bar">
+            <div className="rf-pr-footer-content">
+              <span>© 2015 - 2026 Refeir® Global Inc. • </span>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onNavigate('/privacy');
+                }}
+                className="rf-pr-footer-link"
+              >
+                Privacy Policy
+              </button>
             </div>
           </div>
         </div>

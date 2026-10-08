@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TalentProfile, Service, PortfolioItem } from '../types';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { useAuth } from '../context/AuthContext';
@@ -38,6 +38,12 @@ export const TalentProfilePage: React.FC<TalentProfilePageProps> = ({
   const activeRole = currentUser?.active_role;
   const [showReferModal, setShowReferModal] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+
+  useEffect(() => {
+    if (window.location.search.includes('refer')) {
+      setShowReferModal(true);
+    }
+  }, []);
 
   const talentServices = servicesList.filter(s => s.talent_id === talent.id);
 
