@@ -2677,7 +2677,7 @@
     border-radius: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    min-height: 580px !important;
+    min-height: 600px !important;
     box-shadow: none !important;
     margin: 0 !important;
   }
@@ -2691,7 +2691,7 @@
   }
 
   .rf-hero-video-content {
-    padding: 3.5rem 1.25rem 4rem 1.25rem !important;
+    padding: 4.75rem 1.25rem 4rem 1.25rem !important;
   }
 
   /* Hero Search Bar on Mobile: Balanced padding, centered alignment, and ample breathing room */
