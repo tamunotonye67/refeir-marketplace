@@ -1195,10 +1195,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
             {/* Header: Refeir Brand Header & Filter Badges */}
             <div className="rf-personalized-header-row">
               <div className="rf-personalized-header-left">
-                <div className="rf-refeir-badge-pill">
-                  <span className="rf-refeir-pill-dot" />
-                  <span>Pan-African AI Shortlist</span>
-                </div>
                 <h1 className="rf-personalized-title">Your matched specialists</h1>
                 <p className="rf-personalized-query-quote">
                   Curated based on your brief: “{jobDetails || (searchQuery ? searchQuery : 'AI chatbot developer for support automation')}”

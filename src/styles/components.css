@@ -5725,38 +5725,6 @@
    SECTION 1: REFEIR PAN-AFRICAN TALENT CARDS GRID (3x2)
    ========================================================================== */
 
-.rf-refeir-badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(22, 163, 74, 0.1);
-  border: 1px solid rgba(22, 163, 74, 0.25);
-  color: #16A34A;
-  border-radius: 9999px;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  margin-bottom: 0.65rem;
-}
-
-.rf-ai-search-overlay.is-dark .rf-refeir-badge-pill {
-  background: rgba(102, 187, 42, 0.15);
-  border-color: rgba(102, 187, 42, 0.35);
-  color: #86EFAC;
-}
-
-.rf-refeir-pill-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #16A34A;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.rf-ai-search-overlay.is-dark .rf-refeir-pill-dot {
-  background: #4ADE80;
-}
 
 .rf-filter-dot {
   width: 8px;
