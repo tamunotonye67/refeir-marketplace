@@ -1749,7 +1749,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               overflow: 'hidden',
               minHeight: isMobile ? '600px' : 'clamp(680px, 85vh, 880px)',
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               boxShadow: isMobile ? 'none' : '0 24px 60px rgba(18, 43, 26, 0.18)',
               backgroundColor: '#0A170F',
               width: '100%',
@@ -1794,8 +1794,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                 position: 'relative',
                 zIndex: 2,
                 padding: isMobile
-                  ? '5.25rem 1.25rem 4rem 1.25rem'
-                  : 'clamp(7rem, 11vw, 9.5rem) clamp(2.5rem, 5vw, 4.5rem) clamp(4.5rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4.5rem)',
+                  ? '6rem 1.25rem 4.5rem 1.25rem'
+                  : 'clamp(7.5rem, 12vw, 10.5rem) clamp(2.5rem, 5vw, 4.5rem) clamp(4.5rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4.5rem)',
                 width: '100%'
               }}
             >
