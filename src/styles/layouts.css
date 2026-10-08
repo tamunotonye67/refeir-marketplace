@@ -72,15 +72,16 @@ main {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--rf-bg-card-border);
+  border-bottom: none;
   display: flex;
   align-items: center;
-  box-shadow: 0 1px 8px rgba(18, 43, 26, 0.06);
+  box-shadow: none;
   width: 100%;
 }
 
 [data-theme="dark"] .rf-header {
   background: rgba(10, 23, 15, 0.92);
+  border-bottom: none;
   box-shadow: none;
 }
 

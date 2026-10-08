@@ -404,7 +404,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
   return (
     <>
-      <header className="rf-header" ref={headerRef}>
+      <header className="rf-header" ref={headerRef} style={{ borderBottom: 'none', boxShadow: 'none' }}>
         {currentPath === '/help' || currentPath.startsWith('/help') ? (
           /* =========================================================================
              DEDICATED HELP & SUPPORT NAVBAR
