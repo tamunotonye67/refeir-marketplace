@@ -1947,7 +1947,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       MozOsxFontSmoothing: 'grayscale'
                     }}
                   >
-                    Refer or Recruit experts who use AI to amplify their talent, turning connections into profit or satisfaction.
+                    Refer or hire talented professionals who use AI to work smarter, deliver better, and turn real connections into real opportunities
                   </p>
 
                   {/* Search Bar */}
