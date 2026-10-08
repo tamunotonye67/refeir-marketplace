@@ -1913,16 +1913,17 @@ export const HomePage: React.FC<HomePageProps> = ({
                   {/* Static Hero Headline */}
                   <h1
                     style={{
-                      fontFamily: 'var(--rf-font-display)',
+                      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
                       fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
-                      fontWeight: 600,
-                      lineHeight: 1.16,
+                      fontWeight: 500,
+                      lineHeight: 1.15,
+                      letterSpacing: '-0.03em',
                       color: '#FFFFFF',
                       margin: 0,
                       marginBottom: '1.25rem',
                       maxWidth: '860px',
                       paddingBottom: '0.4rem',
-                      textShadow: '0 4px 24px rgba(0,0,0,0.55)'
+                      textShadow: '0 2px 16px rgba(0, 0, 0, 0.4)'
                     }}
                   >
                     The smarter way to find and share freelance work
@@ -1931,13 +1932,15 @@ export const HomePage: React.FC<HomePageProps> = ({
                   {/* Subheadline */}
                   <p
                     style={{
-                      fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-                      fontWeight: 600,
-                      color: 'rgba(255, 255, 255, 0.95)',
-                      lineHeight: 1.65,
-                      maxWidth: '560px',
+                      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+                      fontSize: 'clamp(1rem, 2vw, 1.18rem)',
+                      fontWeight: 400,
+                      color: 'rgba(255, 255, 255, 0.92)',
+                      lineHeight: 1.62,
+                      letterSpacing: '-0.01em',
+                      maxWidth: '580px',
                       marginBottom: '2rem',
-                      textShadow: '0 2px 10px rgba(0, 0, 0, 0.55)'
+                      textShadow: '0 2px 8px rgba(0, 0, 0, 0.35)'
                     }}
                   >
                     Refer or Recruit experts who use AI to amplify their talent, turning connections into profit or satisfaction.
