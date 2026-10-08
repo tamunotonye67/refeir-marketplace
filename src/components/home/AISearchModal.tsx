@@ -50,7 +50,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const [phase, setPhase] = useState<'loading' | 'results' | 'briefing' | 'submitting' | 'personalized_results'>('loading');
   const [briefingStep, setBriefingStep] = useState<number>(1);
   const [matchedTalent, setMatchedTalent] = useState<TalentProfile[]>([]);
-  const [selectedTalents, setSelectedTalents] = useState<string[]>([]);
 
   // Briefing User Choices
   const [urgency, setUrgency] = useState<string>('Now');
@@ -185,7 +184,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
       setShowExamples(false);
       setFilterAvailableOnly(false);
       setActiveDropdown(null);
-      setSelectedTalents([]);
 
       // Pre-fill initial skills based on defaults
       const defaults = availableSkills.filter(s => s.defaultSelected).map(s => s.name);
@@ -247,37 +245,14 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
   // Dynamic Headline formatting for Results screen
   const getHeadline = () => {
-    const rawQ = searchQuery ? searchQuery.trim() : '';
-    if (!rawQ) {
-      if (intent === 'work') return 'We found thousands of top client gigs & projects';
-      if (intent === 'scout') return 'We found thousands of high-yield referral bounties';
-      return 'We found thousands of top-rated experts';
-    }
-
-    // Capitalize acronyms and words elegantly
-    const formattedQuery = rawQ
-      .split(/\s+/)
-      .map(word => {
-        const lower = word.toLowerCase();
-        if (lower === 'ai') return 'AI';
-        if (lower === 'ui' || lower === 'ux') return lower.toUpperCase();
-        if (lower === 'seo' || lower === 'llm' || lower === 'api') return lower.toUpperCase();
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-      })
-      .join(' ');
-
+    const displayQuery = searchQuery ? searchQuery.toLowerCase() : 'tech & creative';
     if (intent === 'work') {
-      return `We found thousands of top client gigs & projects for ${formattedQuery}`;
+      return `We found thousands of top client gigs & projects for ${displayQuery}`;
     }
     if (intent === 'scout') {
-      return `We found thousands of high-yield referral bounties for ${formattedQuery}`;
+      return `We found thousands of high-yield referral bounties for ${displayQuery}`;
     }
-
-    const lowerQ = rawQ.toLowerCase();
-    if (lowerQ.endsWith('pros') || lowerQ.endsWith('experts') || lowerQ.endsWith('talent') || lowerQ.endsWith('developers') || lowerQ.endsWith('designers')) {
-      return `We found thousands of top-rated ${formattedQuery}`;
-    }
-    return `We found thousands of top-rated ${formattedQuery} experts`;
+    return `We found thousands of top-rated ${displayQuery} pros`;
   };
 
   const getLoadingActionText = () => {
@@ -587,6 +562,18 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           </div>
 
           <div className="rf-ai-search-results-container">
+            {/* Subtle Constellation Particle Backdrop */}
+            <div className="rf-ai-search-particles" aria-hidden="true">
+              <div className="rf-particle p1" />
+              <div className="rf-particle p2" />
+              <div className="rf-particle p3" />
+              <div className="rf-particle p4" />
+              <div className="rf-particle p5" />
+              <div className="rf-particle p6" />
+              <div className="rf-particle p7" />
+              <div className="rf-particle p8" />
+            </div>
+
             <div className="rf-ai-search-results-card">
               {/* Left Column: Heading, Stars, CTA & Info Links */}
               <div className="rf-ai-search-left-col">
@@ -596,7 +583,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                 <div className="rf-ai-search-rating-row">
                   <div className="rf-ai-search-stars">
                     {[...Array(5)].map((_, s) => (
-                      <Star key={s} size={16} fill="#F59E0B" color="#F59E0B" />
+                      <Star key={s} size={18} fill="#F6B21A" color="#F6B21A" />
                     ))}
                   </div>
                   <span className="rf-ai-search-score">4.8</span>
@@ -648,47 +635,27 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               {/* Right Column: 2x2 Curated Matching Talent Cards */}
               <div className="rf-ai-search-right-col">
                 <div className="rf-ai-talent-grid">
-                  {matchedTalent.map((talent) => {
-                    const isSelected = selectedTalents.includes(talent.id);
-                    return (
-                      <div
-                        key={talent.id}
-                        className={`rf-ai-talent-card ${isSelected ? 'is-selected' : ''}`}
-                        onClick={() => {
-                          // Toggle card selection locally; nothing navigates until Continue button is clicked
-                          setSelectedTalents(prev =>
-                            prev.includes(talent.id) ? prev.filter(t => t !== talent.id) : [...prev, talent.id]
-                          );
-                        }}
-                        role="button"
-                        tabIndex={0}
-                        title={isSelected ? `${talent.full_name} selected` : `Click to select ${talent.full_name}`}
-                      >
-                        {isSelected && (
-                          <div className="rf-ai-talent-select-badge" aria-label="Selected">
-                            <Check size={12} strokeWidth={3} />
-                          </div>
-                        )}
-                        <div className="rf-ai-talent-avatar-wrap">
-                          <img
-                            src={talent.avatar_url}
-                            alt={talent.full_name}
-                            className="rf-ai-talent-avatar"
-                            loading="lazy"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
-                            }}
-                          />
-                          <span className="rf-ai-talent-status-dot" title="Available now" />
-                          <span className="rf-ai-talent-verified-badge">
-                            <Star size={10} fill="#FFFFFF" color="#FFFFFF" />
-                          </span>
-                        </div>
-
-                        <div className="rf-ai-talent-name">{formatShortName(talent.full_name)}</div>
+                  {matchedTalent.map((talent) => (
+                    <div
+                      key={talent.id}
+                      className="rf-ai-talent-card"
+                    >
+                      <div className="rf-ai-talent-avatar-wrap">
+                        <img
+                          src={talent.avatar_url}
+                          alt={talent.full_name}
+                          className="rf-ai-talent-avatar"
+                          loading="lazy"
+                        />
+                        <span className="rf-ai-talent-status-dot" title="Available now" />
+                        <span className="rf-ai-talent-verified-badge">
+                          <Star size={11} fill="#FFFFFF" color="#FFFFFF" />
+                        </span>
                       </div>
-                    );
-                  })}
+
+                      <div className="rf-ai-talent-name">{formatShortName(talent.full_name)}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
