@@ -1914,16 +1914,18 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <h1
                     style={{
                       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                      fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
+                      fontSize: 'clamp(2.3rem, 4.8vw, 3.95rem)',
                       fontWeight: 500,
                       lineHeight: 1.15,
-                      letterSpacing: '-0.03em',
+                      letterSpacing: '-0.025em',
                       color: '#FFFFFF',
                       margin: 0,
                       marginBottom: '1.25rem',
-                      maxWidth: '860px',
+                      maxWidth: '880px',
                       paddingBottom: '0.4rem',
-                      textShadow: '0 2px 16px rgba(0, 0, 0, 0.4)'
+                      textShadow: '0 2px 10px rgba(0, 0, 0, 0.28)',
+                      WebkitFontSmoothing: 'antialiased',
+                      MozOsxFontSmoothing: 'grayscale'
                     }}
                   >
                     The smarter way to find and share freelance work
@@ -1933,14 +1935,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <p
                     style={{
                       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                      fontSize: 'clamp(1rem, 2vw, 1.18rem)',
+                      fontSize: 'clamp(1.05rem, 2.1vw, 1.24rem)',
                       fontWeight: 400,
-                      color: 'rgba(255, 255, 255, 0.92)',
+                      color: 'rgba(255, 255, 255, 0.94)',
                       lineHeight: 1.62,
                       letterSpacing: '-0.01em',
-                      maxWidth: '580px',
+                      maxWidth: '620px',
                       marginBottom: '2rem',
-                      textShadow: '0 2px 8px rgba(0, 0, 0, 0.35)'
+                      textShadow: '0 2px 8px rgba(0, 0, 0, 0.25)',
+                      WebkitFontSmoothing: 'antialiased',
+                      MozOsxFontSmoothing: 'grayscale'
                     }}
                   >
                     Refer or Recruit experts who use AI to amplify their talent, turning connections into profit or satisfaction.
