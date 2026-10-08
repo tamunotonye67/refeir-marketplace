@@ -122,47 +122,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [selectedServiceForRefer, setSelectedServiceForRefer] = useState<Service | null>(null);
   const [activeWizardCardIndex, setActiveWizardCardIndex] = useState<number>(0);
 
-  // Dynamic Disintegrating & Morphing Hero Headlines (Strict 2-Line Format)
-  const HERO_HEADLINES: React.ReactNode[] = [
-    <>
-      <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
-        Refer a <span className="rf-talent-stylish">talent</span> and
-      </span>
-      <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
-        earn from the connect
-      </span>
-    </>,
-    <>
-      <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
-        Get a scout to rec
-      </span>
-      <span style={{ display: 'block', whiteSpace: 'nowrap' }}>
-        the right <span className="rf-talent-stylish">talent</span> for you
-      </span>
-    </>
-  ];
-  const [headlineIndex, setHeadlineIndex] = useState<number>(0);
-  const [headlineStatus, setHeadlineStatus] = useState<'entering' | 'active' | 'disintegrating'>('active');
-
-  useEffect(() => {
-    const cycleInterval = setInterval(() => {
-      // 1. Begin faster disintegration
-      setHeadlineStatus('disintegrating');
-
-      // 2. Once disintegrated, change text and start materializing
-      setTimeout(() => {
-        setHeadlineIndex(prev => (prev + 1) % HERO_HEADLINES.length);
-        setHeadlineStatus('entering');
-
-        // 3. Settle into active resting state
-        setTimeout(() => {
-          setHeadlineStatus('active');
-        }, 720);
-      }, 620);
-    }, 3600);
-
-    return () => clearInterval(cycleInterval);
-  }, [HERO_HEADLINES.length]);
 
   // How It Works Tab State & Data
   const [howItWorksTab, setHowItWorksTab] = useState<'recruiting' | 'hunting' | 'scouting'>('recruiting');
@@ -1951,57 +1910,23 @@ export const HomePage: React.FC<HomePageProps> = ({
               ) : (
                 /* Default Hero Content */
                 <>
-                  {/* Hero Headline with Grow & Reveal Transition (Zero Layout Shift for Text Below) */}
-                  <div
+                  {/* Static Hero Headline */}
+                  <h1
                     style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr',
-                      gridTemplateRows: 'auto',
-                      alignItems: 'start',
+                      fontFamily: 'var(--rf-font-display)',
+                      fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
+                      fontWeight: 600,
+                      lineHeight: 1.16,
+                      color: '#FFFFFF',
+                      margin: 0,
                       marginBottom: '1.25rem',
-                      maxWidth: '860px'
+                      maxWidth: '860px',
+                      paddingBottom: '0.4rem',
+                      textShadow: '0 4px 24px rgba(0,0,0,0.55)'
                     }}
                   >
-                    {/* Fixed Ghost Baseline to lock physical height so text beneath never shifts */}
-                    <h1
-                      aria-hidden="true"
-                      style={{
-                        gridArea: '1 / 1',
-                        fontFamily: 'var(--rf-font-display)',
-                        fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
-                        fontWeight: 600,
-                        lineHeight: 1.16,
-                        color: 'transparent',
-                        margin: 0,
-                        paddingBottom: '0.4rem',
-                        visibility: 'hidden',
-                        pointerEvents: 'none',
-                        userSelect: 'none'
-                      }}
-                    >
-                      <span style={{ display: 'block' }}>Refer a talent and</span>
-                      <span style={{ display: 'block' }}>earn from the connect</span>
-                    </h1>
-
-                    {/* Animated Visible Headline */}
-                    <h1
-                      key={headlineIndex}
-                      className={`rf-headline-${headlineStatus}`}
-                      style={{
-                        gridArea: '1 / 1',
-                        fontFamily: 'var(--rf-font-display)',
-                        fontSize: 'clamp(2.1rem, 4.4vw, 3.65rem)',
-                        fontWeight: 600,
-                        lineHeight: 1.16,
-                        color: '#FFFFFF',
-                        margin: 0,
-                        paddingBottom: '0.4rem',
-                        textShadow: '0 4px 24px rgba(0,0,0,0.55)'
-                      }}
-                    >
-                      {HERO_HEADLINES[headlineIndex]}
-                    </h1>
-                  </div>
+                    The smarter way to find and share freelance work
+                  </h1>
 
                   {/* Subheadline */}
                   <p
