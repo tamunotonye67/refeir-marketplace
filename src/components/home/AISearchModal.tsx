@@ -20,7 +20,10 @@ import {
   Maximize2,
   UserCheck,
   CreditCard,
-  Pin
+  Pin,
+  ShieldCheck,
+  Sparkles,
+  Share2
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { SEED_TALENT } from '../../data/seedTalent';
@@ -312,84 +315,114 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     `Full-lifecycle specialist to build clean architecture, optimize conversions, and ensure on-time delivery.`
   ];
 
-  // Curated 6 Talents for the Personalized Results Page (Matching the exact inspiration image!)
+  // Curated 6 Verified Pan-African Talents for the Refeir Personalized Results Page
   const personalizedTalentRoster = [
     {
       id: 'talent-taib-b',
       name: 'Taib B.',
       fullName: 'Taib Benani',
+      role: 'AI Chatbot & Workflow Architect',
+      country: 'Morocco',
+      flag: '🇲🇦',
+      city: 'Casablanca',
       rate: 20,
-      rating: 4.4,
+      rating: 4.9,
       reviewsCount: 144,
       avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?auto=format&fit=crop&w=400&q=80',
       availableNow: true,
-      skillsMatched: '3/3 skills',
-      badgeType: 'arrow-green',
+      matchPercentage: 98,
+      bountyPercent: 12,
+      skills: ['OpenAI & Claude', 'Make.com', 'LangChain'],
       isOnline: true
     },
     {
       id: 'talent-carla-i',
       name: 'Carla I.',
       fullName: 'Carla Ibe',
+      role: 'Conversational UX & AI Support Lead',
+      country: 'Kenya',
+      flag: '🇰🇪',
+      city: 'Nairobi',
       rate: 50,
-      rating: 3.9,
-      reviewsCount: 27,
+      rating: 4.8,
+      reviewsCount: 47,
       avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80',
-      availableNow: false,
-      skillsMatched: '3/3 skills',
-      badgeType: 'arrow-green',
-      isOnline: false
+      availableNow: true,
+      matchPercentage: 96,
+      bountyPercent: 10,
+      skills: ['Voice AI', 'Python Bots', 'HubSpot AI'],
+      isOnline: true
     },
     {
       id: 'talent-axel-b',
       name: 'Axel B.',
       fullName: 'Axel Boateng',
-      rate: 250,
-      rating: 4.9,
+      role: 'Enterprise LLM & Agentic Systems Engineer',
+      country: 'Ghana',
+      flag: '🇬🇭',
+      city: 'Accra',
+      rate: 75,
+      rating: 5.0,
       reviewsCount: 283,
       avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
       availableNow: false,
-      skillsMatched: '1/3 skills',
-      badgeType: 'crown-gold',
+      matchPercentage: 95,
+      bountyPercent: 15,
+      skills: ['Autonomous Agents', 'Vector DB', 'RAG Pipelines'],
       isOnline: false
     },
     {
       id: 'talent-lisa-a',
       name: 'Lisa A.',
       fullName: 'Lisa Adeleke',
-      rate: 125,
+      role: 'Full-Stack AI Developer & Bot Specialist',
+      country: 'Nigeria',
+      flag: '🇳🇬',
+      city: 'Lagos',
+      rate: 65,
       rating: 5.0,
       reviewsCount: 62,
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
       availableNow: true,
-      skillsMatched: '2/3 skills',
-      badgeType: 'star-pink',
+      matchPercentage: 97,
+      bountyPercent: 10,
+      skills: ['Next.js AI', 'FastAPI', 'Custom LLMs'],
       isOnline: true
     },
     {
       id: 'talent-artur-m',
       name: 'Artur M.',
       fullName: 'Artur Mensah',
+      role: 'Support Automation & NLP Engineer',
+      country: 'South Africa',
+      flag: '🇿🇦',
+      city: 'Johannesburg',
       rate: 40,
       rating: 4.9,
-      reviewsCount: 1657,
+      reviewsCount: 165,
       avatar: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=400&q=80',
       availableNow: true,
-      skillsMatched: '1/3 skills',
-      badgeType: 'star-pink',
+      matchPercentage: 94,
+      bountyPercent: 12,
+      skills: ['Dialogflow CX', 'CRM Bots', 'Python'],
       isOnline: true
     },
     {
       id: 'talent-zofia-c',
       name: 'Zofia C.',
       fullName: 'Zofia Chinedu',
+      role: 'AI Customer Operations & RAG Specialist',
+      country: 'Rwanda',
+      flag: '🇷🇼',
+      city: 'Kigali',
       rate: 36,
       rating: 5.0,
-      reviewsCount: 18,
-      avatar: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=400&q=80',
+      reviewsCount: 28,
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
       availableNow: false,
-      skillsMatched: '1/3 skills',
-      badgeType: 'star-blue',
+      matchPercentage: 93,
+      bountyPercent: 10,
+      skills: ['Fine-Tuning', 'Zendesk AI', 'LangSmith'],
       isOnline: false
     }
   ];
@@ -1160,13 +1193,17 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           </div>
 
           <div className="rf-personalized-main-content">
-            {/* Header: Query Subtitle & Headline + Filter Badges */}
+            {/* Header: Refeir Brand Header & Filter Badges */}
             <div className="rf-personalized-header-row">
               <div className="rf-personalized-header-left">
-                <span className="rf-personalized-query-quote">
-                  “{jobDetails || (searchQuery ? `Creative Director For A ${searchQuery} Refresh` : 'Creative Director For A Brand Identity Refresh')}”
-                </span>
-                <h1 className="rf-personalized-title">Your personalized results</h1>
+                <div className="rf-refeir-badge-pill">
+                  <Sparkles size={13} className="rf-sparkle-pill-icon" />
+                  <span>Pan-African AI Shortlist</span>
+                </div>
+                <h1 className="rf-personalized-title">Your matched specialists</h1>
+                <p className="rf-personalized-query-quote">
+                  Curated based on your brief: “{jobDetails || (searchQuery ? searchQuery : 'AI chatbot developer for support automation')}”
+                </p>
               </div>
 
               {/* Filter Pills on Right */}
@@ -1176,6 +1213,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   onClick={() => setFilterAvailableOnly(!filterAvailableOnly)}
                   className={`rf-pr-filter-pill ${filterAvailableOnly ? 'is-active' : ''}`}
                 >
+                  <span className="rf-filter-dot" />
                   <span>Available now</span>
                 </button>
 
@@ -1185,6 +1223,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     onClick={() => setActiveDropdown(activeDropdown === 'rate' ? null : 'rate')}
                     className="rf-pr-filter-pill"
                   >
+                    <DollarSign size={13} />
                     <span>Rate ({budgetType === 'hourly' ? `$${hourlyRate}/hr` : `$${fixedBudget}`})</span>
                     <ChevronDown size={14} />
                   </button>
@@ -1202,7 +1241,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     onClick={() => setActiveDropdown(activeDropdown === 'location' ? null : 'location')}
                     className="rf-pr-filter-pill"
                   >
-                    <span>Location (1)</span>
+                    <span>Location (Africa-wide)</span>
                     <ChevronDown size={14} />
                   </button>
                   {activeDropdown === 'location' && (
@@ -1218,6 +1257,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     onClick={() => setActiveDropdown(activeDropdown === 'skills' ? null : 'skills')}
                     className="rf-pr-filter-pill"
                   >
+                    <Sliders size={13} />
                     <span>Skills ({selectedSkills.length || 3})</span>
                     <ChevronDown size={14} />
                   </button>
@@ -1233,77 +1273,125 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
             </div>
 
             {/* ===================================================================
-                SECTION 1: 3x2 TALENT CARDS GRID
+                SECTION 1: REFEIR PAN-AFRICAN TALENT CARDS GRID (3x2)
                 =================================================================== */}
-            <div className="rf-personalized-talent-grid">
+            <div className="rf-refeir-talent-grid">
               {displayedPersonalizedTalents.map((talent) => (
                 <div
                   key={talent.id}
-                  className="rf-pr-talent-card"
-                  onClick={() => {
-                    onClose();
-                    onNavigate(`/profile/${talent.id}`);
-                  }}
-                  title={`View ${talent.fullName}'s verified profile`}
+                  className="rf-refeir-talent-card"
                 >
-                  {/* Top Profile Summary */}
-                  <div className="rf-pr-talent-top">
-                    <div className="rf-pr-avatar-wrap">
+                  {/* Card Top: Avatar, Location, Match Score */}
+                  <div className="rf-refeir-card-header">
+                    <div className="rf-refeir-avatar-box">
                       <img
                         src={talent.avatar}
                         alt={talent.fullName}
-                        className="rf-pr-avatar-img"
+                        className="rf-refeir-avatar-img"
                         loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                        }}
                       />
-                      {/* Top-Left Online Dot */}
-                      <span className={`rf-pr-online-dot ${talent.isOnline ? 'is-online' : 'is-offline'}`} />
-                      
-                      {/* Bottom-Right Badge Icon */}
-                      <span className={`rf-pr-badge-icon ${talent.badgeType}`}>
-                        {talent.badgeType === 'arrow-green' && <ArrowRight size={13} className="rf-arrow-up-rotate" />}
-                        {talent.badgeType === 'crown-gold' && <span className="rf-crown-icon">👑</span>}
-                        {talent.badgeType === 'star-pink' && <Star size={11} fill="#FFFFFF" color="#FFFFFF" />}
-                        {talent.badgeType === 'star-blue' && <Star size={11} fill="#FFFFFF" color="#FFFFFF" />}
+                      <span className={`rf-refeir-online-pulse ${talent.isOnline ? 'is-online' : 'is-offline'}`} title={talent.isOnline ? 'Active now' : 'Offline'} />
+                    </div>
+
+                    <div className="rf-refeir-header-meta">
+                      <div className="rf-refeir-name-row">
+                        <h3 className="rf-refeir-talent-name">{talent.fullName}</h3>
+                        <span className="rf-refeir-verified-badge" title="Refeir Verified Pro">
+                          <ShieldCheck size={13} className="rf-shield-icon" />
+                          <span>Verified</span>
+                        </span>
+                      </div>
+
+                      <div className="rf-refeir-location-row">
+                        <span className="rf-refeir-country-flag">{talent.flag}</span>
+                        <span className="rf-refeir-city">{talent.city}, {talent.country}</span>
+                      </div>
+
+                      <p className="rf-refeir-talent-role">{talent.role}</p>
+                    </div>
+
+                    {/* AI Match Badge */}
+                    <div className="rf-refeir-match-badge" title="AI Match Confidence based on your brief">
+                      <Sparkles size={11} className="rf-sparkle-match-icon" />
+                      <span>{talent.matchPercentage}% Match</span>
+                    </div>
+                  </div>
+
+                  {/* Metrics Bar: Rate, Rating, Availability */}
+                  <div className="rf-refeir-card-metrics">
+                    <div className="rf-refeir-metric-item">
+                      <span className="rf-metric-label">Rate</span>
+                      <span className="rf-metric-value">${talent.rate}<span className="rf-metric-unit">/hr</span></span>
+                    </div>
+                    <div className="rf-refeir-metric-divider" />
+                    <div className="rf-refeir-metric-item">
+                      <span className="rf-metric-label">Rating</span>
+                      <span className="rf-metric-value">
+                        <Star size={12} fill="#F59E0B" color="#F59E0B" style={{ marginRight: '3px' }} />
+                        {talent.rating}
+                        <span className="rf-metric-sub">({talent.reviewsCount})</span>
                       </span>
                     </div>
-
-                    <div className="rf-pr-talent-meta">
-                      <h3 className="rf-pr-talent-name">{talent.name}</h3>
-                      <div className="rf-pr-talent-rate">$ {talent.rate}/hr</div>
-                      <div className="rf-pr-talent-rating">
-                        <Star size={14} fill="#F6B21A" color="#F6B21A" />
-                        <span className="rf-pr-rating-num">{talent.rating}</span>
-                        <span className="rf-pr-review-count">({talent.reviewsCount})</span>
-                      </div>
+                    <div className="rf-refeir-metric-divider" />
+                    <div className="rf-refeir-metric-item">
+                      <span className="rf-metric-label">Status</span>
+                      <span className={`rf-metric-status ${talent.availableNow ? 'is-available' : 'is-queued'}`}>
+                        {talent.availableNow ? 'Available' : 'Next week'}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Middle Badges Row 1: Great Match & Available Now */}
-                  <div className="rf-pr-badges-row-1">
-                    <div className="rf-pr-badge-pill">
-                      <Medal size={14} className="rf-pr-medal-icon" />
-                      <span>Great match</span>
-                    </div>
-                    {talent.availableNow && (
-                      <div className="rf-pr-badge-pill is-available">
-                        <Check size={14} className="rf-pr-check-icon" />
-                        <span>Available now</span>
-                      </div>
-                    )}
+                  {/* Matched Skill Tags */}
+                  <div className="rf-refeir-skills-row">
+                    {talent.skills.map((skill, sIdx) => (
+                      <span key={sIdx} className="rf-refeir-skill-chip">
+                        {skill}
+                      </span>
+                    ))}
                   </div>
 
-                  {/* Middle Badges Row 2: Skills Match */}
-                  <div className="rf-pr-badges-row-2">
-                    <div className="rf-pr-skills-pill">
-                      <Check size={14} className="rf-pr-check-icon" />
-                      <span>{talent.skillsMatched}</span>
-                    </div>
+                  {/* Signature Refeir Referral Bounty Strip */}
+                  <div className="rf-refeir-bounty-strip">
+                    <span className="rf-bounty-icon">🎁</span>
+                    <span className="rf-bounty-text">
+                      <strong>{talent.bountyPercent}% Referral Bounty</strong> for client scouts
+                    </span>
+                  </div>
+
+                  {/* Action Footer: View Profile + Refer & Earn */}
+                  <div className="rf-refeir-card-actions">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        onNavigate(`/profile/${talent.id}`);
+                      }}
+                      className="rf-refeir-hire-btn"
+                    >
+                      <span>View Profile & Hire</span>
+                      <ArrowRight size={13} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        onNavigate(`/marketplace?refer=${talent.id}`);
+                      }}
+                      className="rf-refeir-refer-btn"
+                      title="Refer this talent and earn bounty"
+                    >
+                      <Share2 size={12} />
+                      <span>Refer & Earn</span>
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Centered CTA: View more matching talent */}
+            {/* Centered CTA: Explore Full Pan-African Marketplace */}
             <div className="rf-personalized-more-action">
               <button
                 type="button"
@@ -1311,9 +1399,10 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   onClose();
                   onNavigate('/marketplace');
                 }}
-                className="rf-personalized-view-more-btn"
+                className="rf-refeir-explore-all-btn"
               >
-                View more matching talent
+                <span>Explore All Pan-African Specialists</span>
+                <ArrowRight size={15} />
               </button>
             </div>
 
