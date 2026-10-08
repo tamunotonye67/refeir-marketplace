@@ -1935,14 +1935,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <p
                     style={{
                       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                      fontSize: 'clamp(1.05rem, 2.1vw, 1.24rem)',
-                      fontWeight: 400,
-                      color: 'rgba(255, 255, 255, 0.94)',
+                      fontSize: 'clamp(1.05rem, 2.2vw, 1.35rem)',
+                      fontWeight: 500,
+                      color: 'rgba(255, 255, 255, 0.96)',
                       lineHeight: 1.62,
                       letterSpacing: '-0.01em',
-                      maxWidth: '620px',
+                      maxWidth: '660px',
                       marginBottom: '2rem',
-                      textShadow: '0 2px 8px rgba(0, 0, 0, 0.25)',
+                      textShadow: '0 2px 8px rgba(0, 0, 0, 0.28)',
                       WebkitFontSmoothing: 'antialiased',
                       MozOsxFontSmoothing: 'grayscale'
                     }}
