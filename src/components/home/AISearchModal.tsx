@@ -1457,8 +1457,8 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
               <div className="rf-pr-banner-right">
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=80"
-                  alt="Professional freelancer smiling at desk"
+                  src="/african_woman_headset.jpg"
+                  alt="African specialist with hands-free headset"
                   className="rf-pr-banner-image"
                   loading="lazy"
                 />
