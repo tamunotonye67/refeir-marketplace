@@ -1956,7 +1956,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     onSubmit={handleSearchSubmit}
                     onClick={() => setIsHeroSearchActive(true)}
                     className="rf-hero-search-form"
-                    style={{ maxWidth: '540px', marginBottom: '1.75rem', cursor: 'pointer' }}
+                    style={{ maxWidth: '680px', width: '100%', marginBottom: '1.75rem', cursor: 'pointer' }}
                   >
                     <div
                       className="rf-hero-search-container"
@@ -1969,10 +1969,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                         border: '1px solid rgba(102, 187, 42, 0.4)',
                         borderRadius: '16px',
                         padding: '0.4rem 0.5rem',
-                        boxShadow: '0 8px 32px rgba(0,0,0,0.35)'
+                        boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
+                        color: '#FFFFFF'
                       }}
                     >
-                      <div className="rf-hero-search-left-icon" style={{ paddingLeft: '0.75rem', paddingRight: '0.5rem', display: 'flex', alignItems: 'center' }}>
+                      <div className="rf-hero-search-left-icon" style={{ paddingLeft: '0.75rem', paddingRight: '0.5rem', display: 'flex', alignItems: 'center', color: '#4ADE80' }}>
                         <Search size={19} className="rf-search-icon-wiggle" />
                       </div>
                       <input
@@ -1984,6 +1985,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                         className="rf-hero-search-input"
                         style={{
                           background: 'transparent',
+                          backgroundColor: 'transparent',
                           border: 'none',
                           outline: 'none',
                           color: '#FFFFFF',

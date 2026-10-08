@@ -2491,6 +2491,42 @@
   display: inline;
 }
 
+/* Ensure hero search inputs are strictly transparent with crisp white text in both light and dark themes */
+.rf-hero-search-input,
+.rf-hero-search-container input,
+.rf-hero-search-form input,
+.rf-hero-expanded-input-wrap input,
+:root:not([data-theme="dark"]) .rf-hero-search-input,
+:root:not([data-theme="dark"]) .rf-hero-search-container input,
+:root:not([data-theme="dark"]) .rf-hero-search-form input,
+:root:not([data-theme="dark"]) .rf-hero-expanded-input-wrap input,
+[data-theme="light"] .rf-hero-search-input,
+[data-theme="light"] .rf-hero-search-container input,
+[data-theme="light"] .rf-hero-search-form input,
+[data-theme="light"] .rf-hero-expanded-input-wrap input {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.rf-hero-search-input::placeholder,
+.rf-hero-search-container input::placeholder,
+.rf-hero-search-form input::placeholder,
+.rf-hero-expanded-input-wrap input::placeholder,
+:root:not([data-theme="dark"]) .rf-hero-search-input::placeholder,
+:root:not([data-theme="dark"]) .rf-hero-search-container input::placeholder,
+:root:not([data-theme="dark"]) .rf-hero-search-form input::placeholder,
+:root:not([data-theme="dark"]) .rf-hero-expanded-input-wrap input::placeholder,
+[data-theme="light"] .rf-hero-search-input::placeholder,
+[data-theme="light"] .rf-hero-search-container input::placeholder,
+[data-theme="light"] .rf-hero-search-form input::placeholder,
+[data-theme="light"] .rf-hero-expanded-input-wrap input::placeholder {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
 .rf-mobile-only {
   display: none;
 }

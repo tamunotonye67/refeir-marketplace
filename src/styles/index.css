@@ -664,7 +664,7 @@ code::-webkit-scrollbar-thumb:hover,
 :root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) input:not([type="checkbox"]):not([type="radio"]),
 :root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) textarea,
 :root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) select,
-[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not(.rf-hero-search-input):not(.rf-hero-expanded-input-wrap input),
 [data-theme="light"] textarea,
 [data-theme="light"] select {
   background-color: #FFFFFF !important;
@@ -672,9 +672,9 @@ code::-webkit-scrollbar-thumb:hover,
   border: 1px solid rgba(18, 43, 26, 0.16) !important;
 }
 
-:root:not([data-theme="dark"]) input::placeholder,
+:root:not([data-theme="dark"]) input:not(.rf-hero-search-input):not(.rf-hero-expanded-input-wrap input)::placeholder,
 :root:not([data-theme="dark"]) textarea::placeholder,
-[data-theme="light"] input::placeholder,
+[data-theme="light"] input:not(.rf-hero-search-input):not(.rf-hero-expanded-input-wrap input)::placeholder,
 [data-theme="light"] textarea::placeholder {
   color: #94A3B8 !important;
 }
