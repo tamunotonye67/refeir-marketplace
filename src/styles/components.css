@@ -5652,12 +5652,17 @@
   color: #86EFAC;
 }
 
-.rf-sparkle-pill-icon {
-  color: #16A34A;
+.rf-refeir-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #16A34A;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
-.rf-ai-search-overlay.is-dark .rf-sparkle-pill-icon {
-  color: #86EFAC;
+.rf-ai-search-overlay.is-dark .rf-refeir-pill-dot {
+  background: #4ADE80;
 }
 
 .rf-filter-dot {
@@ -5884,9 +5889,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.rf-sparkle-match-icon {
-  color: currentColor;
-}
 
 /* Metrics Bar */
 .rf-refeir-card-metrics {
@@ -6035,6 +6037,15 @@
 .rf-bounty-icon {
   font-size: 0.9rem;
   flex-shrink: 0;
+}
+
+.rf-bounty-mini-icon {
+  color: #16A34A;
+  flex-shrink: 0;
+}
+
+.rf-ai-search-overlay.is-dark .rf-bounty-mini-icon {
+  color: #4ADE80;
 }
 
 .rf-bounty-text {

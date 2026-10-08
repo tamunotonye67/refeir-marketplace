@@ -22,7 +22,6 @@ import {
   CreditCard,
   Pin,
   ShieldCheck,
-  Sparkles,
   Share2
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
@@ -1197,7 +1196,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
             <div className="rf-personalized-header-row">
               <div className="rf-personalized-header-left">
                 <div className="rf-refeir-badge-pill">
-                  <Sparkles size={13} className="rf-sparkle-pill-icon" />
+                  <span className="rf-refeir-pill-dot" />
                   <span>Pan-African AI Shortlist</span>
                 </div>
                 <h1 className="rf-personalized-title">Your matched specialists</h1>
@@ -1223,9 +1222,9 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     onClick={() => setActiveDropdown(activeDropdown === 'rate' ? null : 'rate')}
                     className="rf-pr-filter-pill"
                   >
-                    <DollarSign size={13} />
+                    <DollarSign size={12} strokeWidth={1.8} />
                     <span>Rate ({budgetType === 'hourly' ? `$${hourlyRate}/hr` : `$${fixedBudget}`})</span>
-                    <ChevronDown size={14} />
+                    <ChevronDown size={12} strokeWidth={1.8} />
                   </button>
                   {activeDropdown === 'rate' && (
                     <div className="rf-pr-dropdown-menu">
@@ -1242,7 +1241,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     className="rf-pr-filter-pill"
                   >
                     <span>Location (Africa-wide)</span>
-                    <ChevronDown size={14} />
+                    <ChevronDown size={12} strokeWidth={1.8} />
                   </button>
                   {activeDropdown === 'location' && (
                     <div className="rf-pr-dropdown-menu">
@@ -1257,9 +1256,9 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     onClick={() => setActiveDropdown(activeDropdown === 'skills' ? null : 'skills')}
                     className="rf-pr-filter-pill"
                   >
-                    <Sliders size={13} />
+                    <Sliders size={12} strokeWidth={1.8} />
                     <span>Skills ({selectedSkills.length || 3})</span>
-                    <ChevronDown size={14} />
+                    <ChevronDown size={12} strokeWidth={1.8} />
                   </button>
                   {activeDropdown === 'skills' && (
                     <div className="rf-pr-dropdown-menu">
@@ -1300,7 +1299,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       <div className="rf-refeir-name-row">
                         <h3 className="rf-refeir-talent-name">{talent.fullName}</h3>
                         <span className="rf-refeir-verified-badge" title="Refeir Verified Pro">
-                          <ShieldCheck size={13} className="rf-shield-icon" />
+                          <ShieldCheck size={12} strokeWidth={2} className="rf-shield-icon" />
                           <span>Verified</span>
                         </span>
                       </div>
@@ -1313,9 +1312,8 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       <p className="rf-refeir-talent-role">{talent.role}</p>
                     </div>
 
-                    {/* AI Match Badge */}
+                    {/* AI Match Badge (Clean & Minimalist) */}
                     <div className="rf-refeir-match-badge" title="AI Match Confidence based on your brief">
-                      <Sparkles size={11} className="rf-sparkle-match-icon" />
                       <span>{talent.matchPercentage}% Match</span>
                     </div>
                   </div>
@@ -1330,7 +1328,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     <div className="rf-refeir-metric-item">
                       <span className="rf-metric-label">Rating</span>
                       <span className="rf-metric-value">
-                        <Star size={12} fill="#F59E0B" color="#F59E0B" style={{ marginRight: '3px' }} />
+                        <Star size={11} fill="#F59E0B" color="#F59E0B" strokeWidth={1.5} style={{ marginRight: '3px' }} />
                         {talent.rating}
                         <span className="rf-metric-sub">({talent.reviewsCount})</span>
                       </span>
@@ -1355,7 +1353,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
                   {/* Signature Refeir Referral Bounty Strip */}
                   <div className="rf-refeir-bounty-strip">
-                    <span className="rf-bounty-icon">🎁</span>
+                    <Share2 size={12} strokeWidth={1.8} className="rf-bounty-mini-icon" />
                     <span className="rf-bounty-text">
                       <strong>{talent.bountyPercent}% Referral Bounty</strong> for client scouts
                     </span>
@@ -1372,7 +1370,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       className="rf-refeir-hire-btn"
                     >
                       <span>View Profile & Hire</span>
-                      <ArrowRight size={13} />
+                      <ArrowRight size={13} strokeWidth={1.8} />
                     </button>
                     <button
                       type="button"
@@ -1383,7 +1381,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       className="rf-refeir-refer-btn"
                       title="Refer this talent and earn bounty"
                     >
-                      <Share2 size={12} />
+                      <Share2 size={12} strokeWidth={1.8} />
                       <span>Refer & Earn</span>
                     </button>
                   </div>
@@ -1402,7 +1400,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                 className="rf-refeir-explore-all-btn"
               >
                 <span>Explore All Pan-African Specialists</span>
-                <ArrowRight size={15} />
+                <ArrowRight size={14} strokeWidth={1.8} />
               </button>
             </div>
 
