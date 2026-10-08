@@ -1794,8 +1794,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                 position: 'relative',
                 zIndex: 2,
                 padding: isMobile
-                  ? '4.75rem 1.25rem 4rem 1.25rem'
-                  : 'clamp(5.75rem, 9.5vw, 8rem) clamp(2.5rem, 5vw, 4.5rem) clamp(4.5rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4.5rem)',
+                  ? '5.25rem 1.25rem 4rem 1.25rem'
+                  : 'clamp(7rem, 11vw, 9.5rem) clamp(2.5rem, 5vw, 4.5rem) clamp(4.5rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4.5rem)',
                 width: '100%'
               }}
             >
@@ -1920,9 +1920,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                       letterSpacing: '-0.025em',
                       color: '#FFFFFF',
                       margin: 0,
-                      marginBottom: '1.25rem',
+                      marginTop: '0.85rem',
+                      marginBottom: '0.65rem',
                       maxWidth: '880px',
-                      paddingBottom: '0.4rem',
+                      paddingBottom: '0',
                       textShadow: '0 2px 10px rgba(0, 0, 0, 0.28)',
                       WebkitFontSmoothing: 'antialiased',
                       MozOsxFontSmoothing: 'grayscale'
@@ -1938,16 +1939,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                       fontSize: 'clamp(1.05rem, 2.2vw, 1.35rem)',
                       fontWeight: 500,
                       color: 'rgba(255, 255, 255, 0.96)',
-                      lineHeight: 1.62,
+                      lineHeight: 1.58,
                       letterSpacing: '-0.01em',
-                      maxWidth: '660px',
+                      maxWidth: '680px',
                       marginBottom: '2rem',
                       textShadow: '0 2px 8px rgba(0, 0, 0, 0.28)',
                       WebkitFontSmoothing: 'antialiased',
                       MozOsxFontSmoothing: 'grayscale'
                     }}
                   >
-                    Refer or hire experts who use AI to work smarter, deliver better, and turn real connections into real opportunities
+                    Refer or hire experts across Africa who use AI to work smarter, deliver better, and turn real connections into real opportunities
                   </p>
 
                   {/* Search Bar */}
