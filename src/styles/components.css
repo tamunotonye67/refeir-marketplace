@@ -6412,21 +6412,13 @@
   transform: rotate(-90deg);
 }
 
-.rf-pr-gauge-progress {
-  stroke: #16A34A;
-}
-
-.rf-ai-search-overlay.is-dark .rf-pr-gauge-progress {
-  stroke: #4ADE80;
-}
-
 .rf-pr-gauge-pin {
   position: absolute;
-  color: #16A34A;
+  color: #111827;
 }
 
 .rf-ai-search-overlay.is-dark .rf-pr-gauge-pin {
-  color: #4ADE80;
+  color: #FFFFFF;
 }
 
 .rf-pr-banner-title {

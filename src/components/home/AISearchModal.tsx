@@ -21,6 +21,7 @@ import {
   UserCheck,
   CreditCard,
   FileText,
+  Pin,
   ShieldCheck,
   Share2
 } from 'lucide-react';
@@ -1605,19 +1606,19 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                 {/* 90% Progress Ring Gauge Icon */}
                 <div className="rf-pr-banner-gauge-circle">
                   <svg viewBox="0 0 44 44" className="rf-pr-gauge-svg">
-                    <circle cx="22" cy="22" r="17" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.15" />
+                    <circle cx="22" cy="22" r="17" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.2" />
                     <circle
                       cx="22"
                       cy="22"
                       r="17"
                       fill="none"
-                      className="rf-pr-gauge-progress"
+                      stroke="#111827"
                       strokeWidth="3.2"
                       strokeDasharray="96 15"
                       strokeLinecap="round"
                     />
                   </svg>
-                  <FileText size={16} strokeWidth={2} className="rf-pr-gauge-pin" />
+                  <Pin size={17} className="rf-pr-gauge-pin" />
                 </div>
 
                 <h2 className="rf-pr-banner-title">
