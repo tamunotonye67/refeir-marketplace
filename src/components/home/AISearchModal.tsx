@@ -67,10 +67,29 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
   // Personalized Results State
   const [filterAvailableOnly, setFilterAvailableOnly] = useState<boolean>(false);
+  const [filterRateBracket, setFilterRateBracket] = useState<string>('all');
+  const [filterLocation, setFilterLocation] = useState<string>('all');
+  const [filterSkill, setFilterSkill] = useState<string>('all');
   const [openAccordion, setOpenAccordion] = useState<number | null>(1);
   const [activeDropdown, setActiveDropdown] = useState<'rate' | 'location' | 'skills' | null>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(true);
+  const filterPillsRef = useRef<HTMLDivElement>(null);
+
+  // Close filter dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterPillsRef.current && !filterPillsRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+    if (activeDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [activeDropdown]);
 
   // Dynamic Category Label
   const categoryLabel = useMemo(() => {
@@ -426,9 +445,82 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     }
   ];
 
-  const displayedPersonalizedTalents = filterAvailableOnly 
-    ? personalizedTalentRoster.filter(t => t.availableNow) 
-    : personalizedTalentRoster;
+  const displayedPersonalizedTalents = useMemo(() => {
+    return personalizedTalentRoster.filter(talent => {
+      // 1. Availability filter
+      if (filterAvailableOnly && !talent.availableNow) {
+        return false;
+      }
+
+      // 2. Rate bracket filter
+      if (filterRateBracket === 'under-35' && talent.rate >= 35) {
+        return false;
+      }
+      if (filterRateBracket === '35-50' && (talent.rate < 35 || talent.rate > 50)) {
+        return false;
+      }
+      if (filterRateBracket === '50-70' && (talent.rate < 50 || talent.rate > 70)) {
+        return false;
+      }
+      if (filterRateBracket === '70-plus' && talent.rate < 70) {
+        return false;
+      }
+
+      // 3. Location filter
+      if (filterLocation !== 'all' && talent.country.toLowerCase() !== filterLocation.toLowerCase()) {
+        return false;
+      }
+
+      // 4. Skill filter
+      if (filterSkill !== 'all') {
+        const matchesSkill = talent.skills.some(s => 
+          s.toLowerCase().includes(filterSkill.toLowerCase()) || 
+          filterSkill.toLowerCase().includes(s.toLowerCase())
+        );
+        if (!matchesSkill) return false;
+      }
+
+      return true;
+    });
+  }, [filterAvailableOnly, filterRateBracket, filterLocation, filterSkill, personalizedTalentRoster]);
+
+  const hasActiveFilters = filterAvailableOnly || filterRateBracket !== 'all' || filterLocation !== 'all' || filterSkill !== 'all';
+
+  const handleResetFilters = () => {
+    setFilterAvailableOnly(false);
+    setFilterRateBracket('all');
+    setFilterLocation('all');
+    setFilterSkill('all');
+    setActiveDropdown(null);
+  };
+
+  const getRateButtonLabel = () => {
+    switch (filterRateBracket) {
+      case 'under-35': return 'Rate (<$35/hr)';
+      case '35-50': return 'Rate ($35–$50/hr)';
+      case '50-70': return 'Rate ($50–$70/hr)';
+      case '70-plus': return 'Rate ($70+/hr)';
+      default: return `Rate (${budgetType === 'hourly' ? `$${hourlyRate}/hr` : `$${fixedBudget}`})`;
+    }
+  };
+
+  const getLocationButtonLabel = () => {
+    if (filterLocation === 'all') return 'Location (Africa-wide)';
+    const flags: Record<string, string> = {
+      Nigeria: '🇳🇬',
+      Kenya: '🇰🇪',
+      'South Africa': '🇿🇦',
+      Ghana: '🇬🇭',
+      Morocco: '🇲🇦',
+      Rwanda: '🇷🇼'
+    };
+    return `Location (${filterLocation} ${flags[filterLocation] || ''})`;
+  };
+
+  const getSkillsButtonLabel = () => {
+    if (filterSkill === 'all') return `Skills (${selectedSkills.length || 3})`;
+    return `Skill (${filterSkill})`;
+  };
 
   if (!isOpen) return null;
 
@@ -1202,7 +1294,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               </div>
 
               {/* Filter Pills on Right */}
-              <div className="rf-personalized-filter-pills">
+              <div className="rf-personalized-filter-pills" ref={filterPillsRef}>
                 <button
                   type="button"
                   onClick={() => setFilterAvailableOnly(!filterAvailableOnly)}
@@ -1212,65 +1304,169 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   <span>Available now</span>
                 </button>
 
+                {/* Rate Filter Dropdown */}
                 <div className="rf-pr-dropdown-anchor">
                   <button
                     type="button"
                     onClick={() => setActiveDropdown(activeDropdown === 'rate' ? null : 'rate')}
-                    className="rf-pr-filter-pill"
+                    className={`rf-pr-filter-pill ${filterRateBracket !== 'all' || activeDropdown === 'rate' ? 'is-active' : ''}`}
                   >
                     <DollarSign size={12} strokeWidth={1.8} />
-                    <span>Rate ({budgetType === 'hourly' ? `$${hourlyRate}/hr` : `$${fixedBudget}`})</span>
-                    <ChevronDown size={12} strokeWidth={1.8} />
+                    <span>{getRateButtonLabel()}</span>
+                    <ChevronDown size={12} strokeWidth={1.8} style={{ transform: activeDropdown === 'rate' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s ease' }} />
                   </button>
                   {activeDropdown === 'rate' && (
                     <div className="rf-pr-dropdown-menu">
-                      <div className="rf-pr-dropdown-item">Budget: {budgetType === 'hourly' ? `$${hourlyRate}/hr` : `$${fixedBudget} fixed`}</div>
-                      <div className="rf-pr-dropdown-sub">Configured in your briefing</div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="rf-pr-dropdown-anchor">
-                  <button
-                    type="button"
-                    onClick={() => setActiveDropdown(activeDropdown === 'location' ? null : 'location')}
-                    className="rf-pr-filter-pill"
-                  >
-                    <span>Location (Africa-wide)</span>
-                    <ChevronDown size={12} strokeWidth={1.8} />
-                  </button>
-                  {activeDropdown === 'location' && (
-                    <div className="rf-pr-dropdown-menu">
-                      <div className="rf-pr-dropdown-item">{locationPref}</div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="rf-pr-dropdown-anchor">
-                  <button
-                    type="button"
-                    onClick={() => setActiveDropdown(activeDropdown === 'skills' ? null : 'skills')}
-                    className="rf-pr-filter-pill"
-                  >
-                    <Sliders size={12} strokeWidth={1.8} />
-                    <span>Skills ({selectedSkills.length || 3})</span>
-                    <ChevronDown size={12} strokeWidth={1.8} />
-                  </button>
-                  {activeDropdown === 'skills' && (
-                    <div className="rf-pr-dropdown-menu">
-                      {selectedSkills.slice(0, 4).map((s, idx) => (
-                        <div key={idx} className="rf-pr-dropdown-item">✓ {s}</div>
+                      <div className="rf-pr-dropdown-header">Hourly Rates</div>
+                      {[
+                        { id: 'all', label: 'All Rates', sub: '$20 – $75+/hr across Africa' },
+                        { id: 'under-35', label: 'Under $35/hr', sub: 'Budget-friendly specialists' },
+                        { id: '35-50', label: '$35 – $50/hr', sub: 'Mid-tier vetted specialists' },
+                        { id: '50-70', label: '$50 – $70/hr', sub: 'Senior AI & bot architects' },
+                        { id: '70-plus', label: '$70+/hr', sub: 'Lead & enterprise systems' },
+                      ].map(opt => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => {
+                            setFilterRateBracket(opt.id);
+                            setActiveDropdown(null);
+                          }}
+                          className={`rf-pr-dropdown-option ${filterRateBracket === opt.id ? 'is-selected' : ''}`}
+                        >
+                          <div>
+                            <div className="rf-pr-opt-label">{opt.label}</div>
+                            <div className="rf-pr-opt-sub">{opt.sub}</div>
+                          </div>
+                          {filterRateBracket === opt.id && (
+                            <span className="rf-pr-opt-check"><Check size={14} strokeWidth={2.5} /></span>
+                          )}
+                        </button>
                       ))}
                     </div>
                   )}
                 </div>
+
+                {/* Location Filter Dropdown */}
+                <div className="rf-pr-dropdown-anchor">
+                  <button
+                    type="button"
+                    onClick={() => setActiveDropdown(activeDropdown === 'location' ? null : 'location')}
+                    className={`rf-pr-filter-pill ${filterLocation !== 'all' || activeDropdown === 'location' ? 'is-active' : ''}`}
+                  >
+                    <span>{getLocationButtonLabel()}</span>
+                    <ChevronDown size={12} strokeWidth={1.8} style={{ transform: activeDropdown === 'location' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s ease' }} />
+                  </button>
+                  {activeDropdown === 'location' && (
+                    <div className="rf-pr-dropdown-menu">
+                      <div className="rf-pr-dropdown-header">Talent Country</div>
+                      {[
+                        { id: 'all', label: 'Africa-wide (All)', flag: '🌍', sub: 'Pan-African network' },
+                        { id: 'Nigeria', label: 'Nigeria', flag: '🇳🇬', sub: 'Lagos & Abuja' },
+                        { id: 'Kenya', label: 'Kenya', flag: '🇰🇪', sub: 'Nairobi tech hub' },
+                        { id: 'South Africa', label: 'South Africa', flag: '🇿🇦', sub: 'Johannesburg & Cape Town' },
+                        { id: 'Ghana', label: 'Ghana', flag: '🇬🇭', sub: 'Accra innovation pro' },
+                        { id: 'Morocco', label: 'Morocco', flag: '🇲🇦', sub: 'Casablanca & Rabat' },
+                        { id: 'Rwanda', label: 'Rwanda', flag: '🇷🇼', sub: 'Kigali AI specialists' },
+                      ].map(loc => (
+                        <button
+                          key={loc.id}
+                          type="button"
+                          onClick={() => {
+                            setFilterLocation(loc.id);
+                            setActiveDropdown(null);
+                          }}
+                          className={`rf-pr-dropdown-option ${filterLocation === loc.id ? 'is-selected' : ''}`}
+                        >
+                          <div>
+                            <div className="rf-pr-opt-label">{loc.flag} {loc.label}</div>
+                            <div className="rf-pr-opt-sub">{loc.sub}</div>
+                          </div>
+                          {filterLocation === loc.id && (
+                            <span className="rf-pr-opt-check"><Check size={14} strokeWidth={2.5} /></span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Skills Filter Dropdown */}
+                <div className="rf-pr-dropdown-anchor">
+                  <button
+                    type="button"
+                    onClick={() => setActiveDropdown(activeDropdown === 'skills' ? null : 'skills')}
+                    className={`rf-pr-filter-pill ${filterSkill !== 'all' || activeDropdown === 'skills' ? 'is-active' : ''}`}
+                  >
+                    <Sliders size={12} strokeWidth={1.8} />
+                    <span>{getSkillsButtonLabel()}</span>
+                    <ChevronDown size={12} strokeWidth={1.8} style={{ transform: activeDropdown === 'skills' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s ease' }} />
+                  </button>
+                  {activeDropdown === 'skills' && (
+                    <div className="rf-pr-dropdown-menu">
+                      <div className="rf-pr-dropdown-header">Specialization Domain</div>
+                      {[
+                        { id: 'all', label: 'All Specializations', sub: 'All matched skills' },
+                        { id: 'OpenAI', label: 'OpenAI & Claude LLMs', sub: 'Prompt chains & assistants' },
+                        { id: 'Voice AI', label: 'Voice AI & Speech', sub: 'Conversational audio agents' },
+                        { id: 'Agents', label: 'Autonomous Agents & RAG', sub: 'Multi-agent systems & Vector DB' },
+                        { id: 'Custom LLMs', label: 'Custom LLMs & APIs', sub: 'FastAPI, Next.js & fine-tuning' },
+                        { id: 'Bots', label: 'Support Automation & CRM', sub: 'Zendesk, Dialogflow CX, HubSpot' },
+                        { id: 'Make.com', label: 'Make.com & Workflows', sub: 'No-code integration' },
+                      ].map(sk => (
+                        <button
+                          key={sk.id}
+                          type="button"
+                          onClick={() => {
+                            setFilterSkill(sk.id);
+                            setActiveDropdown(null);
+                          }}
+                          className={`rf-pr-dropdown-option ${filterSkill === sk.id ? 'is-selected' : ''}`}
+                        >
+                          <div>
+                            <div className="rf-pr-opt-label">{sk.label}</div>
+                            <div className="rf-pr-opt-sub">{sk.sub}</div>
+                          </div>
+                          {filterSkill === sk.id && (
+                            <span className="rf-pr-opt-check"><Check size={14} strokeWidth={2.5} /></span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Clear Filters Reset Pill */}
+                {hasActiveFilters && (
+                  <button
+                    type="button"
+                    onClick={handleResetFilters}
+                    className="rf-pr-clear-all-pill"
+                    title="Reset all filters"
+                  >
+                    Reset
+                  </button>
+                )}
               </div>
             </div>
 
             {/* ===================================================================
                 SECTION 1: REFEIR PAN-AFRICAN TALENT CARDS GRID (3x2)
                 =================================================================== */}
-            <div className="rf-refeir-talent-grid">
+            {displayedPersonalizedTalents.length === 0 ? (
+              <div className="rf-pr-empty-filter-state">
+                <p className="rf-pr-empty-title">No specialists match your exact filters</p>
+                <p className="rf-pr-empty-sub">Try broadening your rate bracket, country, or skill domain to explore more verified professionals.</p>
+                <button
+                  type="button"
+                  onClick={handleResetFilters}
+                  className="rf-pr-reset-filters-btn"
+                >
+                  Reset all filters
+                </button>
+              </div>
+            ) : (
+              <div className="rf-refeir-talent-grid">
               {displayedPersonalizedTalents.map((talent) => (
                 <div
                   key={talent.id}
@@ -1384,6 +1580,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                 </div>
               ))}
             </div>
+            )}
 
             {/* Centered CTA: Explore Full Pan-African Marketplace */}
             <div className="rf-personalized-more-action">
