@@ -199,7 +199,7 @@ export const SEED_TALENT: TalentProfile[] = [
     full_name: 'Yasmine Bennani',
     headline: 'Growth Marketing & Pan-African E-commerce Strategist',
     bio: 'Data-driven performance marketer helping cross-border businesses scale across North and Francophone West Africa. Managed $1.5M+ in ad spend with 4.8x average ROAS.',
-    avatar_url: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=400&q=80',
+    avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     country_id: 'morocco',
     country_name: 'Morocco',
     city: 'Casablanca',
