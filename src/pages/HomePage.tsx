@@ -1757,9 +1757,8 @@ export const HomePage: React.FC<HomePageProps> = ({
         className="rf-hero-section"
         style={{
           background: isDark ? 'var(--rf-bg-base)' : (isMobile ? '#0A170F' : 'var(--rf-bg-base)'),
-          padding: isMobile ? '0' : 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem) 0 clamp(1rem, 3vw, 2rem)',
-          paddingBottom: 0,
-          marginBottom: 0,
+          padding: isMobile ? '0' : 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem)',
+          paddingBottom: isMobile ? 0 : 'clamp(2.5rem, 5vw, 4rem)',
           width: '100%',
           overflowX: 'hidden'
         }}
@@ -1770,9 +1769,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             maxWidth: isMobile ? '100%' : '1270px',
             width: '100%',
             padding: 0,
-            paddingBottom: 0,
-            margin: isMobile ? '0' : '0 auto',
-            marginBottom: 0
+            margin: isMobile ? '0' : '0 auto'
           }}
         >
           {/* Scout Referral Announcement Banner — Leaf/Lemon Green to White Gradient in Light Mode, Classic Gradient in Dark Mode */}
@@ -1861,7 +1858,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             className="rf-hero-video-card"
             style={{
               position: 'relative',
-              borderRadius: isMobile ? '0' : '28px 28px 0 0',
+              borderRadius: isMobile ? '0' : '28px',
               overflow: 'hidden',
               minHeight: isMobile ? 'auto' : 'clamp(680px, 85vh, 880px)',
               display: 'flex',
@@ -1869,8 +1866,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               boxShadow: isMobile ? 'none' : '0 24px 60px rgba(18, 43, 26, 0.18)',
               backgroundColor: '#0A170F',
               width: '100%',
-              maxWidth: '100vw',
-              marginBottom: 0
+              maxWidth: '100vw'
             }}
           >
             {/* Background Video — Pexels CDN (reliable, CORS-safe, no auth needed) */}

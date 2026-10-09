@@ -2545,24 +2545,6 @@
   display: none;
 }
 
-.rf-hero-section {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.rf-hero-container {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.rf-hero-video-card {
-  margin-bottom: 0 !important;
-}
-
-.rf-trusted-brands-section {
-  margin-top: 0 !important;
-}
-
 .rf-desktop-only {
   display: inline;
 }
