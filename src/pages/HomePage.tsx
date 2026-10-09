@@ -1666,7 +1666,9 @@ export const HomePage: React.FC<HomePageProps> = ({
             className={`rf-hero-announcement ${isScrolled ? 'is-scrolled' : ''}`}
             style={{
               background: isDark
-                ? 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)'
+                ? (isScrolled && isMobile
+                    ? 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(6, 20, 11, 0.90) 100%)'
+                    : 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.25) 100%)')
                 : 'linear-gradient(90deg, rgba(102, 187, 42, 0.28) 0%, rgba(184, 238, 52, 0.16) 38%, rgba(255, 255, 255, 0.92) 85%, #FFFFFF 100%)',
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)',
@@ -1679,19 +1681,28 @@ export const HomePage: React.FC<HomePageProps> = ({
                 ? '1px solid rgba(18, 43, 26, 0.12)'
                 : '1px solid rgba(102, 187, 42, 0.25)',
               borderRadius: isMobile ? '0' : '16px',
-              padding: isMobile ? '0.75rem 1rem' : '1rem 1.75rem',
+              padding: isMobile ? (isScrolled ? '0.45rem 0.85rem' : '0.75rem 1rem') : '1rem 1.75rem',
               marginBottom: isMobile ? '0' : '1rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              gap: '1.25rem',
+              gap: isMobile && isScrolled ? '0.5rem' : '1.25rem',
               boxShadow: isMobile ? '0 4px 16px rgba(0, 0, 0, 0.06)' : '0 4px 20px rgba(18, 43, 26, 0.05)',
-              flexWrap: 'wrap',
+              flexWrap: isMobile && isScrolled ? 'nowrap' : 'wrap',
               width: '100%',
               boxSizing: 'border-box'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flex: 1, minWidth: '280px' }}>
+            <div
+              className="rf-hero-announcement-text-wrap"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.625rem',
+                flex: 1,
+                minWidth: isMobile && isScrolled ? 0 : '280px'
+              }}
+            >
               <span
                 className="rf-hero-announcement-text"
                 style={{
