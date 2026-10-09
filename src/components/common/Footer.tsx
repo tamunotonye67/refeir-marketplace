@@ -137,17 +137,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
           {/* Col 1: Brand & Ethos */}
           <div className="rf-footer-brand-col">
             <div style={{ marginBottom: '1.25rem' }}>
-              <RefeirLogo size="md" showTagline={true} />
+              <RefeirLogo size="sm" showTagline={false} />
             </div>
             <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', lineHeight: 1.6, maxWidth: '380px', marginBottom: '1.25rem' }}>
               Africa's referral-powered professional marketplace. Connecting clients with verified professionals while scouts earn guaranteed rewards from successful connections.
             </p>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(102, 187, 42, 0.12)', border: '1px solid rgba(102, 187, 42, 0.3)', padding: '0.375rem 0.875rem', borderRadius: 'var(--rf-radius-full)' }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)' }} className="rf-pulse" />
-              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)' }}>
-                Refer and Earn
-              </span>
-            </div>
           </div>
 
           {/* Col 2: Regional Marketplaces & Resources */}
