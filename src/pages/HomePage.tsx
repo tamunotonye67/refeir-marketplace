@@ -2235,37 +2235,21 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 2. RECRUITER TALENT CATEGORIES SHOWCASE */}
       <section className="rf-section" style={{ backgroundColor: 'var(--rf-bg-surface)' }}>
         <div className="rf-container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
             <div>
-              <span
-                style={{
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.08em',
-                  color: 'var(--rf-leaf-green)',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: '0.5rem'
-                }}
-              >
-                FOR RECRUITERS & HIRING TEAMS
-              </span>
               <h2
                 style={{
                   fontFamily: 'var(--rf-font-display)',
-                  fontSize: 'clamp(1.75rem, 3.5vw, 2.35rem)',
-                  fontWeight: 800,
+                  fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
+                  fontWeight: 500,
                   color: 'var(--rf-cream)',
                   lineHeight: 1.2,
-                  letterSpacing: '-0.025em',
-                  maxWidth: '480px'
+                  letterSpacing: '-0.02em',
+                  margin: 0
                 }}
               >
-                Explore Talent Categories<br />Across Africa
+                Explore Talent Categories
               </h2>
-              <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem' }}>
-                Pre-vetted engineering, design, AI, and compliance leaders ready for milestone engagement.
-              </p>
             </div>
             <button onClick={() => onNavigate('/marketplace')} className="rf-btn rf-btn-secondary" style={{ gap: '0.5rem' }}>
               <span>View All 54 African Countries</span>
@@ -3039,12 +3023,12 @@ export const HomePage: React.FC<HomePageProps> = ({
             <h2
               style={{
                 fontFamily: 'var(--rf-font-display)',
-                fontSize: 'clamp(2rem, 4vw, 2.6rem)',
-                fontWeight: 800,
+                fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
+                fontWeight: 500,
                 color: 'var(--rf-cream)',
                 lineHeight: 1.2,
-                letterSpacing: '-0.025em',
-                maxWidth: '540px',
+                letterSpacing: '-0.02em',
+                maxWidth: '600px',
                 margin: '0.5rem auto 0',
                 textAlign: 'center'
               }}
@@ -3240,12 +3224,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               <h2
                 style={{
                   fontFamily: 'var(--rf-font-display)',
-                  fontSize: 'clamp(1.75rem, 3.5vw, 2.35rem)',
-                  fontWeight: 800,
+                  fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
+                  fontWeight: 500,
                   color: 'var(--rf-cream)',
                   lineHeight: 1.2,
-                  letterSpacing: '-0.025em',
-                  maxWidth: '480px'
+                  letterSpacing: '-0.02em',
+                  maxWidth: '560px'
                 }}
               >
                 Popular Services<br />with Guaranteed Rewards
@@ -3293,12 +3277,12 @@ export const HomePage: React.FC<HomePageProps> = ({
             <h2
               style={{
                 fontFamily: 'var(--rf-font-display)',
-                fontSize: 'clamp(2rem, 4vw, 2.6rem)',
-                fontWeight: 800,
+                fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
+                fontWeight: 500,
                 color: 'var(--rf-cream)',
                 lineHeight: 1.2,
-                letterSpacing: '-0.025em',
-                maxWidth: '540px',
+                letterSpacing: '-0.02em',
+                maxWidth: '600px',
                 margin: '0.5rem auto 0',
                 textAlign: 'center'
               }}
@@ -3483,7 +3467,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>
             THE REFEIR MANIFESTO
           </span>
-          <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.75rem', marginBottom: '1.5rem', lineHeight: 1.2 }}>
+          <h2 style={{ fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)', fontWeight: 500, color: 'var(--rf-cream)', marginTop: '0.75rem', marginBottom: '1.5rem', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
             "Sometimes the most valuable thing you can say is: <span style={{ color: 'var(--rf-leaf-green)' }}>I know someone</span>."
           </h2>
           <p style={{ color: 'var(--rf-cream)', fontSize: '1.0625rem', lineHeight: 1.7, marginBottom: '2rem', opacity: 0.9 }}>
@@ -3550,8 +3534,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               </span>
               <h2
                 style={{
-                  fontSize: 'clamp(2rem, 4vw, 2.75rem)',
-                  fontWeight: 800,
+                  fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
+                  fontWeight: 500,
                   color: 'var(--rf-cream)',
                   lineHeight: 1.15,
                   letterSpacing: '-0.02em',
@@ -3719,11 +3703,11 @@ export const HomePage: React.FC<HomePageProps> = ({
             className="rf-refer-earn-title"
             style={{
               fontFamily: 'var(--rf-font-display)',
-              fontSize: 'clamp(1.9rem, 4vw, 2.75rem)',
-              fontWeight: 800,
+              fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
+              fontWeight: 500,
               color: '#FFFFFF',
               marginBottom: '0.85rem',
-              letterSpacing: '-0.025em'
+              letterSpacing: '-0.02em'
             }}
           >
             Refer and Earn
