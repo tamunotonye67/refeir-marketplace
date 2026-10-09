@@ -1869,7 +1869,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               position: 'relative',
               borderRadius: isMobile ? '0' : '28px',
               overflow: 'hidden',
-              minHeight: isMobile ? '600px' : 'clamp(680px, 85vh, 880px)',
+              minHeight: isMobile ? 'auto' : 'clamp(680px, 85vh, 880px)',
               display: 'flex',
               alignItems: 'flex-start',
               boxShadow: isMobile ? 'none' : '0 24px 60px rgba(18, 43, 26, 0.18)',
@@ -1916,7 +1916,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 position: 'relative',
                 zIndex: 2,
                 padding: isMobile
-                  ? '6rem 1.25rem 4.5rem 1.25rem'
+                  ? '5.25rem 1.25rem 1rem 1.25rem'
                   : 'clamp(7.5rem, 12vw, 10.5rem) clamp(2.5rem, 5vw, 4.5rem) clamp(4.5rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4.5rem)',
                 width: '100%'
               }}
@@ -2132,7 +2132,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </form>
 
                   {/* CTA Buttons */}
-                  <div className="rf-hero-cta-group" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.875rem', marginBottom: '2rem' }}>
+                  <div className="rf-hero-cta-group" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.875rem', marginBottom: isMobile ? '0.5rem' : '2rem' }}>
                     <button
                       onClick={() => onNavigate('/marketplace')}
                       className="rf-btn rf-btn-primary rf-btn-lg rf-hero-cta-btn"
@@ -2179,12 +2179,12 @@ export const HomePage: React.FC<HomePageProps> = ({
           background: '#0A170F',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-          padding: '2.25rem 0',
+          padding: isMobile ? '1.25rem 0' : '2.25rem 0',
           overflow: 'hidden',
           position: 'relative'
         }}
       >
-        <div className="rf-trusted-brands-title-wrap" style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '0 1rem' }}>
+        <div className="rf-trusted-brands-title-wrap" style={{ textAlign: 'center', marginBottom: isMobile ? '0.75rem' : '1.5rem', padding: '0 1rem' }}>
           <p
             style={{
               fontFamily: 'var(--rf-font-display)',
