@@ -6943,23 +6943,6 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Scout Accordion Toggle Sign (+ / -) */
-.rf-scout-toggle-sign {
-  font-size: 1.35rem;
-  font-weight: 500;
-  line-height: 1;
-  color: #16A34A;
-  margin-left: 0.75rem;
-  flex-shrink: 0;
-  width: 18px;
-  text-align: center;
-  user-select: none;
-}
-
-.rf-ai-search-overlay.is-dark .rf-scout-toggle-sign {
-  color: #66BB2A;
-}
-
 /* ==========================================================================
    SECTION 5: MINIMALIST DARK FOOTER (IMAGE 4)
    ========================================================================== */

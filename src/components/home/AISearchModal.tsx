@@ -1897,7 +1897,10 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                         <span className="rf-pr-step-num">1</span>
                         <span className="rf-pr-step-text">Share your brief with a Scout</span>
                       </div>
-                      <span className="rf-scout-toggle-sign">{openScoutAccordion === 1 ? '−' : '+'}</span>
+                      <ChevronDown
+                        size={18}
+                        className={`rf-pr-chevron ${openScoutAccordion === 1 ? 'is-rotated' : ''}`}
+                      />
                     </button>
                     {openScoutAccordion === 1 && (
                       <div className="rf-pr-accordion-body">
@@ -1917,7 +1920,10 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                         <span className="rf-pr-step-num">2</span>
                         <span className="rf-pr-step-text">Scouts tap their private networks</span>
                       </div>
-                      <span className="rf-scout-toggle-sign">{openScoutAccordion === 2 ? '−' : '+'}</span>
+                      <ChevronDown
+                        size={18}
+                        className={`rf-pr-chevron ${openScoutAccordion === 2 ? 'is-rotated' : ''}`}
+                      />
                     </button>
                     {openScoutAccordion === 2 && (
                       <div className="rf-pr-accordion-body">
@@ -1937,7 +1943,10 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                         <span className="rf-pr-step-num">3</span>
                         <span className="rf-pr-step-text">Hire vetted talent with confidence</span>
                       </div>
-                      <span className="rf-scout-toggle-sign">{openScoutAccordion === 3 ? '−' : '+'}</span>
+                      <ChevronDown
+                        size={18}
+                        className={`rf-pr-chevron ${openScoutAccordion === 3 ? 'is-rotated' : ''}`}
+                      />
                     </button>
                     {openScoutAccordion === 3 && (
                       <div className="rf-pr-accordion-body">
