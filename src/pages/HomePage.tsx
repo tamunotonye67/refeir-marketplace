@@ -3200,19 +3200,6 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="rf-container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
             <div>
-              <span
-                style={{
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.08em',
-                  color: 'var(--rf-leaf-green)',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: '0.5rem'
-                }}
-              >
-                HIGH-CONVERTING PACKAGES
-              </span>
               <h2
                 style={{
                   fontFamily: 'var(--rf-font-display)',
@@ -3221,10 +3208,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                   color: 'var(--rf-cream)',
                   lineHeight: 1.2,
                   letterSpacing: '-0.02em',
-                  maxWidth: '560px'
+                  margin: 0
                 }}
               >
-                Popular Services<br />with Guaranteed Rewards
+                Popular Services
               </h2>
               <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.35rem' }}>
                 Fixed deliverables with permanently locked referral commission rates.
