@@ -3706,7 +3706,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               letterSpacing: '-0.02em'
             }}
           >
-            Refer and Earn
+            Find Opportunities
           </h2>
           <p
             className="rf-refer-earn-subtitle"
@@ -3729,7 +3729,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               onClick={() => onNavigate('/marketplace')}
               className="rf-refer-earn-btn"
             >
-              <span>Join Refeir Today</span>
+              <span>Join Refeir</span>
               <ArrowRight size={17} />
             </button>
           </div>
