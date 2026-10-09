@@ -3240,19 +3240,6 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className="rf-section" style={{ backgroundColor: 'var(--rf-bg-surface)' }}>
         <div className="rf-container" style={{ maxWidth: '960px' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <span
-              style={{
-                fontSize: '0.75rem',
-                fontWeight: 800,
-                letterSpacing: '0.08em',
-                color: 'var(--rf-leaf-green)',
-                textTransform: 'uppercase',
-                display: 'block',
-                marginBottom: '0.5rem'
-              }}
-            >
-              THE REFEIR DIFFERENCE
-            </span>
             <h2
               style={{
                 fontFamily: 'var(--rf-font-display)',
@@ -3262,14 +3249,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                 lineHeight: 1.2,
                 letterSpacing: '-0.02em',
                 maxWidth: '600px',
-                margin: '0.5rem auto 0',
+                margin: '0 auto',
                 textAlign: 'center'
               }}
             >
-              How Refeir Compares<br />to Traditional Platforms
+              Why Choose Refeir?
             </h2>
             <p style={{ color: 'var(--rf-slate-300)', fontSize: '1rem', marginTop: '0.5rem' }}>
-              Turning word-of-mouth recommendations into a verifiable economic system.
+              How Refeir compares to traditional platforms
             </p>
           </div>
 
