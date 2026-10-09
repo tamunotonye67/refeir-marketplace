@@ -2236,26 +2236,20 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 2. RECRUITER TALENT CATEGORIES SHOWCASE */}
       <section className="rf-section" style={{ backgroundColor: 'var(--rf-bg-surface)' }}>
         <div className="rf-container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
-            <div>
-              <h2
-                style={{
-                  fontFamily: 'var(--rf-font-display)',
-                  fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
-                  fontWeight: 500,
-                  color: 'var(--rf-cream)',
-                  lineHeight: 1.2,
-                  letterSpacing: '-0.02em',
-                  margin: 0
-                }}
-              >
-                Explore Talent Categories
-              </h2>
-            </div>
-            <button onClick={() => onNavigate('/marketplace')} className="rf-btn rf-btn-secondary" style={{ gap: '0.5rem' }}>
-              <span>View All 54 African Countries</span>
-              <ArrowRight size={16} />
-            </button>
+          <div style={{ marginBottom: '2.5rem' }}>
+            <h2
+              style={{
+                fontFamily: 'var(--rf-font-display)',
+                fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
+                fontWeight: 500,
+                color: 'var(--rf-cream)',
+                lineHeight: 1.2,
+                letterSpacing: '-0.02em',
+                margin: 0
+              }}
+            >
+              Explore Talent Categories
+            </h2>
           </div>
 
           <div className="rf-grid-5 rf-talent-categories-slider" style={{ gap: '1rem' }}>
