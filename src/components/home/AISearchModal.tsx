@@ -23,11 +23,17 @@ import {
   FileText,
   Pin,
   ShieldCheck,
-  Share2
+  Share2,
+  Briefcase,
+  Copy,
+  CheckCheck,
+  TrendingUp
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { SEED_TALENT } from '../../data/seedTalent';
-import { TalentProfile } from '../../types';
+import { SEED_JOBS } from '../../data/seedJobs';
+import { formatMoney } from '../../data/currencies';
+import { TalentProfile, Job } from '../../types';
 
 interface AISearchModalProps {
   isOpen: boolean;
@@ -66,6 +72,15 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const [customSkillInput, setCustomSkillInput] = useState<string>('');
   const [isAddingCustomSkill, setIsAddingCustomSkill] = useState<boolean>(false);
 
+  // Intent-Specific Briefing Choices
+  const [workAvailability, setWorkAvailability] = useState<string>('Available Immediately');
+  const [clientScope, setClientScope] = useState<string>('Global / US & EU (USD)');
+  const [networkDomain, setNetworkDomain] = useState<string>('Software & AI Engineers');
+  const [networkRegion, setNetworkRegion] = useState<string>('Pan-African & Diaspora');
+  const [referralVolume, setReferralVolume] = useState<number>(3);
+  const [customScoutCode, setCustomScoutCode] = useState<string>('');
+  const [copiedJobId, setCopiedJobId] = useState<string | null>(null);
+
   // Personalized Results State
   const [filterAvailableOnly, setFilterAvailableOnly] = useState<boolean>(false);
   const [filterRateBracket, setFilterRateBracket] = useState<string>('all');
@@ -77,6 +92,34 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const filterPillsRef = useRef<HTMLDivElement>(null);
+
+  // Matching jobs for Work & Scout intents
+  const matchedJobs = useMemo(() => {
+    if (!searchQuery) return SEED_JOBS;
+    const q = searchQuery.toLowerCase();
+    const filtered = SEED_JOBS.filter(job => 
+      job.title.toLowerCase().includes(q) ||
+      job.category.toLowerCase().includes(q) ||
+      job.skills.some(s => s.toLowerCase().includes(q)) ||
+      job.description.toLowerCase().includes(q) ||
+      job.client_country.toLowerCase().includes(q)
+    );
+    return filtered.length > 0 ? filtered : SEED_JOBS;
+  }, [searchQuery]);
+
+  // Filtered jobs for personalized view (Work & Scout)
+  const displayedJobs = useMemo(() => {
+    return matchedJobs.filter(job => {
+      if (filterAvailableOnly && job.status !== 'OPEN') return false;
+      if (filterLocation !== 'all' && !job.client_country.toLowerCase().includes(filterLocation.toLowerCase())) {
+        return false;
+      }
+      if (filterSkill !== 'all' && !job.skills.some(s => s.toLowerCase() === filterSkill.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+  }, [matchedJobs, filterAvailableOnly, filterLocation, filterSkill]);
 
   // Close filter dropdowns when clicking outside
   useEffect(() => {
@@ -215,12 +258,22 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
       const defaults = availableSkills.filter(s => s.defaultSelected).map(s => s.name);
       setSelectedSkills(defaults);
 
-      // Pre-fill sample job details tailored to query
+      // Pre-fill sample job details tailored to query & intent
       if (searchQuery && searchQuery.trim()) {
         const cleanQ = searchQuery.trim();
         setJobDetails(`${cleanQ.charAt(0).toUpperCase() + cleanQ.slice(1)}`);
       } else {
-        setJobDetails('Creative Director for a brand identity refresh');
+        if (intent === 'work') {
+          setJobDetails('Full-Stack Engineer specialized in React, Node.js and AI APIs');
+        } else if (intent === 'scout') {
+          setJobDetails('Senior software engineers and product designers in West Africa');
+        } else {
+          setJobDetails('Creative Director for a brand identity refresh');
+        }
+      }
+
+      if (!customScoutCode) {
+        setCustomScoutCode(`RF-${Math.floor(100000 + Math.random() * 900000)}`);
       }
 
       const timer = setTimeout(() => {
@@ -260,7 +313,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
       return () => clearTimeout(timer);
     }
-  }, [isOpen, searchQuery, availableSkills]);
+  }, [isOpen, searchQuery, availableSkills, intent, customScoutCode]);
 
   // Format short name: "Amaka N."
   const formatShortName = (fullName: string) => {
@@ -331,12 +384,42 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     }
   };
 
-  // Example brief ideas for Step 4
-  const exampleBriefs = [
-    `Creative director for a brand identity refresh, modern visual guidelines, and design deliverables.`,
-    `Senior Figma designer to deliver responsive high-converting landing page prototypes with design tokens.`,
-    `Full-lifecycle specialist to build clean architecture, optimize conversions, and ensure on-time delivery.`
-  ];
+  // Copy Scout referral link handler
+  const handleCopyLink = (jobId: string) => {
+    const code = customScoutCode.trim() || 'RF-SCOUT-78';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://refeir.com';
+    const url = `${origin}/jobs/${jobId}?ref=${code}`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).catch(() => {});
+    }
+    setCopiedJobId(jobId);
+    setTimeout(() => {
+      setCopiedJobId(null);
+    }, 2000);
+  };
+
+  // Dynamic example brief ideas for Step 4
+  const exampleBriefs = useMemo(() => {
+    if (intent === 'work') {
+      return [
+        `Senior Full-Stack & AI developer (Python, React, TypeScript) with 5+ years building scale-up SaaS.`,
+        `Product Designer specializing in design systems, mobile apps, and developer handoff.`,
+        `DevOps & Cloud Engineer certified in AWS, Docker, and CI/CD pipelines.`
+      ];
+    }
+    if (intent === 'scout') {
+      return [
+        `Network of 30+ vetted full-stack and mobile engineers across Lagos, Nairobi, and Accra.`,
+        `Senior UI/UX and product designers with portfolio verification ready for US remote teams.`,
+        `Technical leads and engineering managers open to high-yield escrow contracts.`
+      ];
+    }
+    return [
+      `Creative director for a brand identity refresh, modern visual guidelines, and design deliverables.`,
+      `Senior Figma designer to deliver responsive high-converting landing page prototypes with design tokens.`,
+      `Full-lifecycle specialist to build clean architecture, optimize conversions, and ensure on-time delivery.`
+    ];
+  }, [intent]);
 
   // Curated 6 Verified Pan-African Talents for the Refeir Personalized Results Page
   const personalizedTalentRoster = [
@@ -715,10 +798,24 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       <Star key={s} size={18} fill="#F6B21A" color="#F6B21A" />
                     ))}
                   </div>
-                  <span className="rf-ai-search-score">4.8</span>
+                  <span className="rf-ai-search-score">
+                    {intent === 'work' ? '4.9' : intent === 'scout' ? '4.96' : '4.8'}
+                  </span>
                 </div>
-                <div className="rf-ai-search-rating-desc">Rated 4.8 / 5 on avg.</div>
-                <div className="rf-ai-search-rating-sub">From over 4k+ past clients</div>
+                <div className="rf-ai-search-rating-desc">
+                  {intent === 'work'
+                    ? 'Rated 4.9 / 5 by African talent'
+                    : intent === 'scout'
+                    ? 'Rated 4.96 / 5 by verified scouts'
+                    : 'Rated 4.8 / 5 on avg.'}
+                </div>
+                <div className="rf-ai-search-rating-sub">
+                  {intent === 'work'
+                    ? 'From $1.2M+ in escrow payouts released'
+                    : intent === 'scout'
+                    ? 'Over $480,000 paid in referral bounties'
+                    : 'From over 4k+ past clients'}
+                </div>
 
                 {/* Primary Continue Button -> Leads to the 5-Step Slides */}
                 <button
@@ -726,7 +823,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   onClick={() => setPhase('briefing')}
                   className="rf-ai-search-continue-btn"
                 >
-                  <span>Continue</span>
+                  <span>
+                    {intent === 'work'
+                      ? 'Personalize job matches'
+                      : intent === 'scout'
+                      ? 'Set up scout desk'
+                      : 'Continue'}
+                  </span>
                   <ArrowRight size={16} />
                 </button>
 
@@ -736,21 +839,21 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     type="button"
                     onClick={() => {
                       onClose();
-                      onNavigate('/why-refeir');
+                      onNavigate(intent === 'scout' ? '/scouts' : intent === 'work' ? '/protection' : '/why-refeir');
                     }}
                     className="rf-ai-search-link"
                   >
-                    How hiring works
+                    {intent === 'work' ? 'Payment protection' : intent === 'scout' ? 'How scouting works' : 'How hiring works'}
                   </button>
                   <button
                     type="button"
                     onClick={() => {
                       onClose();
-                      onNavigate('/pricing');
+                      onNavigate(intent === 'scout' ? '/scouts' : '/pricing');
                     }}
                     className="rf-ai-search-link"
                   >
-                    Platform pricing
+                    {intent === 'scout' ? 'Bounty tiers & rates' : 'Platform pricing'}
                   </button>
                 </div>
 
@@ -761,31 +864,68 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                 </div>
               </div>
 
-              {/* Right Column: 2x2 Curated Matching Talent Cards */}
+              {/* Right Column: Dynamic Matching Cards */}
               <div className="rf-ai-search-right-col">
-                <div className="rf-ai-talent-grid">
-                  {matchedTalent.map((talent) => (
-                    <div
-                      key={talent.id}
-                      className="rf-ai-talent-card"
-                    >
-                      <div className="rf-ai-talent-avatar-wrap">
-                        <img
-                          src={talent.avatar_url}
-                          alt={talent.full_name}
-                          className="rf-ai-talent-avatar"
-                          loading="lazy"
-                        />
-                        <span className="rf-ai-talent-status-dot" title="Available now" />
-                        <span className="rf-ai-talent-verified-badge">
-                          <Star size={11} fill="#FFFFFF" color="#FFFFFF" />
-                        </span>
-                      </div>
+                {intent === 'recruit' ? (
+                  <div className="rf-ai-talent-grid">
+                    {matchedTalent.map((talent) => (
+                      <div
+                        key={talent.id}
+                        className="rf-ai-talent-card"
+                      >
+                        <div className="rf-ai-talent-avatar-wrap">
+                          <img
+                            src={talent.avatar_url}
+                            alt={talent.full_name}
+                            className="rf-ai-talent-avatar"
+                            loading="lazy"
+                          />
+                          <span className="rf-ai-talent-status-dot" title="Available now" />
+                          <span className="rf-ai-talent-verified-badge">
+                            <Star size={11} fill="#FFFFFF" color="#FFFFFF" />
+                          </span>
+                        </div>
 
-                      <div className="rf-ai-talent-name">{formatShortName(talent.full_name)}</div>
-                    </div>
-                  ))}
-                </div>
+                        <div className="rf-ai-talent-name">{formatShortName(talent.full_name)}</div>
+                      </div>
+                    ))}
+                  </div>
+                ) : intent === 'work' ? (
+                  <div className="rf-ai-preview-job-list">
+                    {matchedJobs.slice(0, 3).map((job) => (
+                      <div key={job.id} className="rf-ai-preview-job-item">
+                        <div className="rf-ai-job-item-top">
+                          <span className="rf-ai-job-item-client">{job.client_name}</span>
+                          <span className="rf-ai-job-escrow-badge">Escrow Funded</span>
+                        </div>
+                        <div className="rf-ai-job-item-title">{job.title}</div>
+                        <div className="rf-ai-job-item-footer">
+                          <span className="rf-ai-job-country">🌍 {job.client_country}</span>
+                          <span className="rf-ai-job-budget">{formatMoney(job.budget)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="rf-ai-preview-job-list">
+                    {matchedJobs.slice(0, 3).map((job) => {
+                      const bountyAmt = Math.round((job.budget.amount_minor / 100) * 0.12) * 100;
+                      return (
+                        <div key={job.id} className="rf-ai-preview-job-item">
+                          <div className="rf-ai-job-item-top">
+                            <span className="rf-ai-job-item-client">{job.client_name}</span>
+                            <span className="rf-ai-bounty-badge">10%–15% Bounty</span>
+                          </div>
+                          <div className="rf-ai-job-item-title">{job.title}</div>
+                          <div className="rf-ai-job-item-footer">
+                            <span className="rf-ai-job-country">🌍 {job.client_country}</span>
+                            <span className="rf-ai-job-bounty-amt">Earn {formatMoney({ amount_minor: bountyAmt, currency: job.budget.currency })}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -831,174 +971,293 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
           {/* Slide Stage Container */}
           <div className="rf-briefing-stage">
-            {/* SLIDE 1: URGENCY & TIMELINE */}
+            {/* SLIDE 1: URGENCY & TIMELINE / AVAILABILITY / TALENT DOMAIN */}
             {briefingStep === 1 && (
               <div className="rf-briefing-slide" key="step-1">
                 <div className="rf-briefing-slide-inner">
-                  <h2 className="rf-briefing-title">How soon do you need help?</h2>
+                  <h2 className="rf-briefing-title">
+                    {intent === 'work'
+                      ? 'When can you take on client work?'
+                      : intent === 'scout'
+                      ? 'What talent domain is in your network?'
+                      : 'How soon do you need help?'}
+                  </h2>
                   <p className="rf-briefing-subtitle">
-                    We'll prioritize {categoryLabel} pros that can start immediately, if needed.
+                    {intent === 'work'
+                      ? "We'll prioritize open jobs and contracts matching your availability."
+                      : intent === 'scout'
+                      ? "We'll surface client briefs with high referral bounties in your sweet spot."
+                      : `We'll prioritize ${categoryLabel} pros that can start immediately, if needed.`}
                   </p>
 
                   <div className="rf-briefing-pills-row">
-                    {['Now', 'In 1-2 weeks', 'No Rush'].map(option => (
-                      <button
-                        key={option}
-                        type="button"
-                        onClick={() => {
-                          setUrgency(option);
-                          setTimeout(() => setBriefingStep(2), 220);
-                        }}
-                        className={`rf-briefing-pill-btn ${urgency === option ? 'is-active' : ''}`}
-                      >
-                        {option}
-                      </button>
-                    ))}
+                    {intent === 'work'
+                      ? ['Available Immediately', 'In 1–2 weeks', 'Part-Time (10–20h/wk)', 'Flexible / Weekends'].map(option => (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => {
+                              setWorkAvailability(option);
+                              setTimeout(() => setBriefingStep(2), 220);
+                            }}
+                            className={`rf-briefing-pill-btn ${workAvailability === option ? 'is-active' : ''}`}
+                          >
+                            {option}
+                          </button>
+                        ))
+                      : intent === 'scout'
+                      ? ['Software & AI Engineers', 'Product Designers & PMs', 'Growth & Marketing', 'Multi-Disciplinary Network'].map(option => (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => {
+                              setNetworkDomain(option);
+                              setTimeout(() => setBriefingStep(2), 220);
+                            }}
+                            className={`rf-briefing-pill-btn ${networkDomain === option ? 'is-active' : ''}`}
+                          >
+                            {option}
+                          </button>
+                        ))
+                      : ['Now', 'In 1-2 weeks', 'No Rush'].map(option => (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => {
+                              setUrgency(option);
+                              setTimeout(() => setBriefingStep(2), 220);
+                            }}
+                            className={`rf-briefing-pill-btn ${urgency === option ? 'is-active' : ''}`}
+                          >
+                            {option}
+                          </button>
+                        ))}
                   </div>
                 </div>
               </div>
             )}
 
-            {/* SLIDE 2: TALENT LOCATION */}
+            {/* SLIDE 2: TALENT LOCATION / CLIENT PREFERENCE / NETWORK REGION */}
             {briefingStep === 2 && (
               <div className="rf-briefing-slide" key="step-2">
                 <div className="rf-briefing-slide-inner">
-                  <h2 className="rf-briefing-title">Does talent location matter?</h2>
+                  <h2 className="rf-briefing-title">
+                    {intent === 'work'
+                      ? 'What kind of clients do you prefer?'
+                      : intent === 'scout'
+                      ? 'Where is your talent network concentrated?'
+                      : 'Does talent location matter?'}
+                  </h2>
                   <p className="rf-briefing-subtitle">
-                    We'll filter from hundreds of freelancers across 250+ countries.
+                    {intent === 'work'
+                      ? 'Choose whether you prefer international USD contracts or fast regional projects.'
+                      : intent === 'scout'
+                      ? 'Connect employers to certified local and diaspora talent circles.'
+                      : "We'll filter from hundreds of freelancers across 250+ countries."}
                   </p>
 
                   <div className="rf-briefing-pills-row">
-                    {['U.S. only', 'Near my timezone', 'Anywhere in the world'].map(option => (
-                      <button
-                        key={option}
-                        type="button"
-                        onClick={() => {
-                          setLocationPref(option);
-                          setTimeout(() => setBriefingStep(3), 220);
-                        }}
-                        className={`rf-briefing-pill-btn ${locationPref === option ? 'is-active' : ''}`}
-                      >
-                        {option}
-                      </button>
-                    ))}
+                    {intent === 'work'
+                      ? ['Global / US & EU (USD)', 'Pan-African Scale-ups', 'Local in my Country', 'Any Remote Team'].map(option => (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => {
+                              setClientScope(option);
+                              setTimeout(() => setBriefingStep(3), 220);
+                            }}
+                            className={`rf-briefing-pill-btn ${clientScope === option ? 'is-active' : ''}`}
+                          >
+                            {option}
+                          </button>
+                        ))
+                      : intent === 'scout'
+                      ? ['Nigeria & Ghana', 'Kenya & East Africa', 'South Africa & SADC', 'Pan-African & Diaspora'].map(option => (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => {
+                              setNetworkRegion(option);
+                              setTimeout(() => setBriefingStep(3), 220);
+                            }}
+                            className={`rf-briefing-pill-btn ${networkRegion === option ? 'is-active' : ''}`}
+                          >
+                            {option}
+                          </button>
+                        ))
+                      : ['U.S. only', 'Near my timezone', 'Anywhere in the world'].map(option => (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => {
+                              setLocationPref(option);
+                              setTimeout(() => setBriefingStep(3), 220);
+                            }}
+                            className={`rf-briefing-pill-btn ${locationPref === option ? 'is-active' : ''}`}
+                          >
+                            {option}
+                          </button>
+                        ))}
                   </div>
                 </div>
               </div>
             )}
 
-            {/* SLIDE 3: BUDGET IN MIND */}
+            {/* SLIDE 3: BUDGET IN MIND / TARGET RATE / SCOUT BOUNTY CALCULATOR */}
             {briefingStep === 3 && (
               <div className="rf-briefing-slide" key="step-3">
                 <div className="rf-briefing-slide-inner">
-                  <h2 className="rf-briefing-title">Do you have a budget in mind?</h2>
+                  <h2 className="rf-briefing-title">
+                    {intent === 'work'
+                      ? 'What is your target minimum compensation?'
+                      : intent === 'scout'
+                      ? 'What is your monthly talent referral goal?'
+                      : 'Do you have a budget in mind?'}
+                  </h2>
                   <p className="rf-briefing-subtitle">
-                    This helps prioritize freelancers within your range.
+                    {intent === 'work'
+                      ? "We'll filter out projects below your expectations so you never undercharge."
+                      : intent === 'scout'
+                      ? 'Estimate your monthly earnings based on an average 12% escrow bounty ($350–$1,200 per placement).'
+                      : 'This helps prioritize freelancers within your range.'}
                   </p>
 
-                  {/* Hourly vs Fixed Price Switcher Toggle */}
-                  <div className="rf-briefing-budget-toggle">
-                    <button
-                      type="button"
-                      onClick={() => setBudgetType('hourly')}
-                      className={`rf-briefing-toggle-opt ${budgetType === 'hourly' ? 'is-selected' : ''}`}
-                    >
-                      Hourly
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setBudgetType('fixed')}
-                      className={`rf-briefing-toggle-opt ${budgetType === 'fixed' ? 'is-selected' : ''}`}
-                    >
-                      Fixed price
-                    </button>
-                  </div>
-
-                  {/* Bell Curve Graphic & Interactive Rate Slider */}
-                  <div className="rf-briefing-curve-container">
-                    <div className="rf-briefing-curve-svg-box">
-                      <svg
-                        viewBox="0 0 600 150"
-                        className="rf-briefing-curve-svg"
-                        preserveAspectRatio="none"
-                        aria-hidden="true"
-                      >
-                        <defs>
-                          <linearGradient id="rfCurveGradDark" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#66BB2A" stopOpacity="0.45" />
-                            <stop offset="70%" stopColor="#66BB2A" stopOpacity="0.1" />
-                            <stop offset="100%" stopColor="#66BB2A" stopOpacity="0" />
-                          </linearGradient>
-                          <linearGradient id="rfCurveGradLight" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#16A34A" stopOpacity="0.25" />
-                            <stop offset="70%" stopColor="#16A34A" stopOpacity="0.06" />
-                            <stop offset="100%" stopColor="#16A34A" stopOpacity="0" />
-                          </linearGradient>
-                        </defs>
-
-                        <path
-                          d="M 30 145 C 180 145, 230 35, 300 35 C 370 35, 420 145, 570 145 L 570 148 L 30 148 Z"
-                          fill={isDark ? "url(#rfCurveGradDark)" : "url(#rfCurveGradLight)"}
-                        />
-
-                        <path
-                          d="M 30 145 C 180 145, 230 35, 300 35 C 370 35, 420 145, 570 145"
-                          fill="none"
-                          stroke={isDark ? "#66BB2A" : "#16A34A"}
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                        />
-
-                        <line
-                          x1="300"
-                          y1="12"
-                          x2="300"
-                          y2="145"
-                          stroke={isDark ? "rgba(255, 255, 255, 0.3)" : "rgba(15, 23, 42, 0.22)"}
-                          strokeWidth="1.5"
-                          strokeDasharray="4 3"
-                        />
-                      </svg>
-                    </div>
-
-                    <div className="rf-briefing-curve-labels">
-                      <span className="rf-curve-label-affordable">Affordable</span>
-                      <div className="rf-curve-label-typical">
-                        <span>Typical</span>
-                        <Info size={13} className="rf-curve-info-icon" />
+                  {intent === 'scout' ? (
+                    <div className="rf-briefing-calculator-container" style={{ width: '100%', maxWidth: '540px', margin: '0 auto' }}>
+                      <div className="rf-briefing-calculator-box">
+                        <div className="rf-calc-value-big">
+                          ${(referralVolume * 650).toLocaleString()} <span style={{ fontSize: '1rem', fontWeight: 600 }}>/ month</span>
+                        </div>
+                        <div className="rf-calc-subtext">
+                          Estimated passive bounty earnings for {referralVolume} {referralVolume === 1 ? 'placement' : 'placements'} per month
+                        </div>
                       </div>
-                      <span className="rf-curve-label-expert">Expert</span>
-                    </div>
 
-                    <div
-                      className="rf-briefing-price-bubble"
-                      style={{ left: `${budgetPercentage}%` }}
-                    >
-                      <span className="rf-briefing-price-text">
-                        {budgetType === 'hourly' ? `$${hourlyRate}/hour` : `$${fixedBudget.toLocaleString()}`}
-                      </span>
+                      <div className="rf-briefing-slider-track-wrap" style={{ marginTop: '1.75rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#64748B', marginBottom: '0.5rem' }}>
+                          <span>1 placement</span>
+                          <span><strong>{referralVolume}</strong> referrals/mo</span>
+                          <span>10 placements</span>
+                        </div>
+                        <input
+                          type="range"
+                          min={1}
+                          max={10}
+                          step={1}
+                          value={referralVolume}
+                          onChange={(e) => setReferralVolume(Number(e.target.value))}
+                          className="rf-briefing-range-slider"
+                          aria-label="Monthly referral goal"
+                        />
+                      </div>
                     </div>
+                  ) : (
+                    <>
+                      {/* Hourly vs Fixed Price Switcher Toggle */}
+                      <div className="rf-briefing-budget-toggle">
+                        <button
+                          type="button"
+                          onClick={() => setBudgetType('hourly')}
+                          className={`rf-briefing-toggle-opt ${budgetType === 'hourly' ? 'is-selected' : ''}`}
+                        >
+                          Hourly
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setBudgetType('fixed')}
+                          className={`rf-briefing-toggle-opt ${budgetType === 'fixed' ? 'is-selected' : ''}`}
+                        >
+                          Fixed price
+                        </button>
+                      </div>
 
-                    <div className="rf-briefing-slider-track-wrap">
-                      <input
-                        type="range"
-                        min={budgetType === 'hourly' ? 15 : 200}
-                        max={budgetType === 'hourly' ? 150 : 10000}
-                        step={budgetType === 'hourly' ? 1 : 50}
-                        value={budgetType === 'hourly' ? hourlyRate : fixedBudget}
-                        onChange={(e) => {
-                          const val = Number(e.target.value);
-                          if (budgetType === 'hourly') {
-                            setHourlyRate(val);
-                          } else {
-                            setFixedBudget(val);
-                          }
-                        }}
-                        className="rf-briefing-range-slider"
-                        aria-label="Select budget rate"
-                      />
-                    </div>
-                  </div>
+                      {/* Bell Curve Graphic & Interactive Rate Slider */}
+                      <div className="rf-briefing-curve-container">
+                        <div className="rf-briefing-curve-svg-box">
+                          <svg
+                            viewBox="0 0 600 150"
+                            className="rf-briefing-curve-svg"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                          >
+                            <defs>
+                              <linearGradient id="rfCurveGradDark" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#66BB2A" stopOpacity="0.45" />
+                                <stop offset="70%" stopColor="#66BB2A" stopOpacity="0.1" />
+                                <stop offset="100%" stopColor="#66BB2A" stopOpacity="0" />
+                              </linearGradient>
+                              <linearGradient id="rfCurveGradLight" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#16A34A" stopOpacity="0.25" />
+                                <stop offset="70%" stopColor="#16A34A" stopOpacity="0.06" />
+                                <stop offset="100%" stopColor="#16A34A" stopOpacity="0" />
+                              </linearGradient>
+                            </defs>
+
+                            <path
+                              d="M 30 145 C 180 145, 230 35, 300 35 C 370 35, 420 145, 570 145 L 570 148 L 30 148 Z"
+                              fill={isDark ? "url(#rfCurveGradDark)" : "url(#rfCurveGradLight)"}
+                            />
+
+                            <path
+                              d="M 30 145 C 180 145, 230 35, 300 35 C 370 35, 420 145, 570 145"
+                              fill="none"
+                              stroke={isDark ? "#66BB2A" : "#16A34A"}
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                            />
+
+                            <line
+                              x1="300"
+                              y1="12"
+                              x2="300"
+                              y2="145"
+                              stroke={isDark ? "rgba(255, 255, 255, 0.3)" : "rgba(15, 23, 42, 0.22)"}
+                              strokeWidth="1.5"
+                              strokeDasharray="4 3"
+                            />
+                          </svg>
+                        </div>
+
+                        <div className="rf-briefing-curve-labels">
+                          <span className="rf-curve-label-affordable">{intent === 'work' ? 'Entry tier' : 'Affordable'}</span>
+                          <div className="rf-curve-label-typical">
+                            <span>{intent === 'work' ? 'Market average' : 'Typical'}</span>
+                            <Info size={13} className="rf-curve-info-icon" />
+                          </div>
+                          <span className="rf-curve-label-expert">{intent === 'work' ? 'Senior lead' : 'Expert'}</span>
+                        </div>
+
+                        <div
+                          className="rf-briefing-price-bubble"
+                          style={{ left: `${budgetPercentage}%` }}
+                        >
+                          <span className="rf-briefing-price-text">
+                            {budgetType === 'hourly' ? `$${hourlyRate}/hour` : `$${fixedBudget.toLocaleString()}`}
+                          </span>
+                        </div>
+
+                        <div className="rf-briefing-slider-track-wrap">
+                          <input
+                            type="range"
+                            min={budgetType === 'hourly' ? 15 : 200}
+                            max={budgetType === 'hourly' ? 150 : 10000}
+                            step={budgetType === 'hourly' ? 1 : 50}
+                            value={budgetType === 'hourly' ? hourlyRate : fixedBudget}
+                            onChange={(e) => {
+                              const val = Number(e.target.value);
+                              if (budgetType === 'hourly') {
+                                setHourlyRate(val);
+                              } else {
+                                setFixedBudget(val);
+                              }
+                            }}
+                            className="rf-briefing-range-slider"
+                            aria-label="Select budget rate"
+                          />
+                        </div>
+                      </div>
+                    </>
+                  )}
 
                   <div className="rf-briefing-action-box">
                     <button
@@ -1013,13 +1272,23 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               </div>
             )}
 
-            {/* SLIDE 4: JOB DETAILS & SCOPE */}
+            {/* SLIDE 4: JOB DETAILS & SCOPE / PORTFOLIO SUPERPOWERS / ROLES TO VOUCH */}
             {briefingStep === 4 && (
               <div className="rf-briefing-slide" key="step-4">
                 <div className="rf-briefing-slide-inner">
-                  <h2 className="rf-briefing-title">Any job details to share?</h2>
+                  <h2 className="rf-briefing-title">
+                    {intent === 'work'
+                      ? 'Highlight your portfolio or superpowers'
+                      : intent === 'scout'
+                      ? 'Which roles can you easily source and vouch for?'
+                      : 'Any job details to share?'}
+                  </h2>
                   <p className="rf-briefing-subtitle">
-                    We'll search for talent who have relevant experience.
+                    {intent === 'work'
+                      ? 'Add your portfolio, GitHub, or a quick summary of what makes you stand out.'
+                      : intent === 'scout'
+                      ? 'Let us know the specialist roles you have trusted peers or connections for.'
+                      : "We'll search for talent who have relevant experience."}
                   </p>
 
                   <div className="rf-briefing-textarea-box">
@@ -1027,7 +1296,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       rows={4}
                       value={jobDetails}
                       onChange={(e) => setJobDetails(e.target.value)}
-                      placeholder="e.g. Creative director for a brand identity refresh"
+                      placeholder={
+                        intent === 'work'
+                          ? 'e.g. Senior Full-Stack & AI engineer with 5 years building high-load fintech and SaaS apps...'
+                          : intent === 'scout'
+                          ? 'e.g. Senior backend engineers (Go/Python), AI researchers, and Head of Growth leaders in Lagos & Nairobi...'
+                          : 'e.g. Creative director for a brand identity refresh'
+                      }
                       className="rf-briefing-textarea"
                     />
                   </div>
@@ -1074,14 +1349,37 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               </div>
             )}
 
-            {/* SLIDE 5: SPECIFIC SKILLS */}
+            {/* SLIDE 5: SPECIFIC SKILLS / TECH STACK / SCOUT CODE & SKILLS */}
             {briefingStep === 5 && (
               <div className="rf-briefing-slide" key="step-5">
                 <div className="rf-briefing-slide-inner">
-                  <h2 className="rf-briefing-title">Any specific skills required?</h2>
+                  <h2 className="rf-briefing-title">
+                    {intent === 'work'
+                      ? 'What are your core skills & tech stack?'
+                      : intent === 'scout'
+                      ? 'Customize your Refeir Scout attribution handle'
+                      : 'Any specific skills required?'}
+                  </h2>
                   <p className="rf-briefing-subtitle">
-                    You can add more custom skills later, if you decide to post your job.
+                    {intent === 'work'
+                      ? 'Select your primary skills to match with open escrow-funded contracts.'
+                      : intent === 'scout'
+                      ? 'This unique handle is attached to every link you share so bounties route directly to you.'
+                      : 'You can add more custom skills later, if you decide to post your job.'}
                   </p>
+
+                  {intent === 'scout' && (
+                    <div className="rf-briefing-scout-code-wrap" style={{ width: '100%', maxWidth: '420px', margin: '0 auto 1.25rem' }}>
+                      <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748B' }}>Scout Code:</span>
+                      <input
+                        type="text"
+                        value={customScoutCode}
+                        onChange={(e) => setCustomScoutCode(e.target.value.toUpperCase())}
+                        placeholder="RF-SCOUT-78"
+                        className="rf-scout-code-input"
+                      />
+                    </div>
+                  )}
 
                   <div className="rf-briefing-skills-cloud">
                     {availableSkills.map((skill) => {
@@ -1163,12 +1461,17 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                       onClick={handleFinishBriefing}
                       className="rf-briefing-primary-btn is-finish"
                     >
-                      Finish and view talent
+                      {intent === 'work'
+                        ? 'Finish and view jobs'
+                        : intent === 'scout'
+                        ? 'Finish and view active bounties'
+                        : 'Finish and view talent'}
                     </button>
                   </div>
                 </div>
               </div>
             )}
+
           </div>
         </div>
       )}
@@ -1264,9 +1567,19 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           <div className="rf-ai-search-loading-text">
             <span className="rf-ai-search-loading-label">
               <Compass size={16} className="rf-ai-search-pulse-icon" />
-              Matching verified talent for your brief
+              {intent === 'work'
+                ? 'Searching escrow-funded jobs matching your skills'
+                : intent === 'scout'
+                ? 'Curating high-yield referral bounties'
+                : 'Matching verified talent for your brief'}
             </span>
-            <h3 className="rf-ai-search-loading-query">Preparing your personalized shortlist...</h3>
+            <h3 className="rf-ai-search-loading-query">
+              {intent === 'work'
+                ? 'Preparing your personalized job matches...'
+                : intent === 'scout'
+                ? 'Unlocking 10%–15% scout referral opportunities...'
+                : 'Preparing your personalized shortlist...'}
+            </h3>
           </div>
         </div>
       )}
@@ -1292,9 +1605,19 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
             {/* Header: Refeir Brand Header & Filter Badges */}
             <div className="rf-personalized-header-row">
               <div className="rf-personalized-header-left">
-                <h1 className="rf-personalized-title">Your matched specialists</h1>
+                <h1 className="rf-personalized-title">
+                  {intent === 'work'
+                    ? 'Funded jobs matching your profile'
+                    : intent === 'scout'
+                    ? 'Active referral bounties for your network'
+                    : 'Your matched specialists'}
+                </h1>
                 <p className="rf-personalized-query-quote">
-                  Curated based on your brief: “{jobDetails || (searchQuery ? searchQuery : 'AI chatbot developer for support automation')}”
+                  {intent === 'work'
+                    ? `Curated contracts based on your skills & preferences: “${jobDetails || (searchQuery ? searchQuery : 'Full-stack & AI projects')}”`
+                    : intent === 'scout'
+                    ? `Earn 10%–15% escrow-guaranteed bounties by referring qualified talent: “${jobDetails || (searchQuery ? searchQuery : 'Verified tech talent')}”`
+                    : `Curated based on your brief: “${jobDetails || (searchQuery ? searchQuery : 'AI chatbot developer for support automation')}”`}
                 </p>
               </div>
 
@@ -1456,207 +1779,512 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
             </div>
 
             {/* ===================================================================
-                SECTION 1: REFEIR PAN-AFRICAN TALENT CARDS GRID (3x2)
+                SECTION 1: REFEIR PAN-AFRICAN TALENT / JOB / BOUNTY GRID
                 =================================================================== */}
-            {displayedPersonalizedTalents.length === 0 ? (
-              <div className="rf-pr-empty-filter-state">
-                <p className="rf-pr-empty-title">No specialists match your exact filters</p>
-                <p className="rf-pr-empty-sub">Try broadening your rate bracket, country, or skill domain to explore more verified professionals.</p>
-                <button
-                  type="button"
-                  onClick={handleResetFilters}
-                  className="rf-pr-reset-filters-btn"
-                >
-                  Reset all filters
-                </button>
-              </div>
-            ) : (
-              <div className="rf-refeir-talent-grid">
-              {displayedPersonalizedTalents.map((talent) => (
-                <div
-                  key={talent.id}
-                  className="rf-refeir-talent-card"
-                >
-                  {/* Card Top: Avatar, Location, Match Score */}
-                  <div className="rf-refeir-card-header">
-                    <div className="rf-refeir-avatar-box">
-                      <img
-                        src={talent.avatar}
-                        alt={talent.fullName}
-                        className="rf-refeir-avatar-img"
-                        loading="lazy"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
-                        }}
-                      />
-                      <span className={`rf-refeir-online-pulse ${talent.isOnline ? 'is-online' : 'is-offline'}`} title={talent.isOnline ? 'Active now' : 'Offline'} />
-                    </div>
+            {intent === 'recruit' ? (
+              displayedPersonalizedTalents.length === 0 ? (
+                <div className="rf-pr-empty-filter-state">
+                  <p className="rf-pr-empty-title">No specialists match your exact filters</p>
+                  <p className="rf-pr-empty-sub">Try broadening your rate bracket, country, or skill domain to explore more verified professionals.</p>
+                  <button
+                    type="button"
+                    onClick={handleResetFilters}
+                    className="rf-pr-reset-filters-btn"
+                  >
+                    Reset all filters
+                  </button>
+                </div>
+              ) : (
+                <div className="rf-refeir-talent-grid">
+                  {displayedPersonalizedTalents.map((talent) => (
+                    <div
+                      key={talent.id}
+                      className="rf-refeir-talent-card"
+                    >
+                      {/* Card Top: Avatar, Location, Match Score */}
+                      <div className="rf-refeir-card-header">
+                        <div className="rf-refeir-avatar-box">
+                          <img
+                            src={talent.avatar}
+                            alt={talent.fullName}
+                            className="rf-refeir-avatar-img"
+                            loading="lazy"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                            }}
+                          />
+                          <span className={`rf-refeir-online-pulse ${talent.isOnline ? 'is-online' : 'is-offline'}`} title={talent.isOnline ? 'Active now' : 'Offline'} />
+                        </div>
 
-                    <div className="rf-refeir-header-meta">
-                      <div className="rf-refeir-name-row">
-                        <h3 className="rf-refeir-talent-name">{talent.fullName}</h3>
-                        <span className="rf-refeir-verified-badge" title="Refeir Verified Pro">
-                          <ShieldCheck size={12} strokeWidth={2} className="rf-shield-icon" />
-                          <span>Verified</span>
+                        <div className="rf-refeir-header-meta">
+                          <div className="rf-refeir-name-row">
+                            <h3 className="rf-refeir-talent-name">{talent.fullName}</h3>
+                            <span className="rf-refeir-verified-badge" title="Refeir Verified Pro">
+                              <ShieldCheck size={12} strokeWidth={2} className="rf-shield-icon" />
+                              <span>Verified</span>
+                            </span>
+                          </div>
+
+                          <div className="rf-refeir-location-row">
+                            <span className="rf-refeir-country-flag">{talent.flag}</span>
+                            <span className="rf-refeir-city">{talent.city}, {talent.country}</span>
+                          </div>
+
+                          <p className="rf-refeir-talent-role">{talent.role}</p>
+                        </div>
+
+                        {/* AI Match Badge (Clean & Minimalist) */}
+                        <div className="rf-refeir-match-badge" title="AI Match Confidence based on your brief">
+                          <span>{talent.matchPercentage}% Match</span>
+                        </div>
+                      </div>
+
+                      {/* Metrics Bar: Rate, Rating, Availability */}
+                      <div className="rf-refeir-card-metrics">
+                        <div className="rf-refeir-metric-item">
+                          <span className="rf-metric-label">Rate</span>
+                          <span className="rf-metric-value">${talent.rate}<span className="rf-metric-unit">/hr</span></span>
+                        </div>
+                        <div className="rf-refeir-metric-divider" />
+                        <div className="rf-refeir-metric-item">
+                          <span className="rf-metric-label">Rating</span>
+                          <span className="rf-metric-value">
+                            <Star size={11} fill="#F59E0B" color="#F59E0B" strokeWidth={1.5} style={{ marginRight: '3px' }} />
+                            {talent.rating}
+                            <span className="rf-metric-sub">({talent.reviewsCount})</span>
+                          </span>
+                        </div>
+                        <div className="rf-refeir-metric-divider" />
+                        <div className="rf-refeir-metric-item">
+                          <span className="rf-metric-label">Status</span>
+                          <span className={`rf-metric-status ${talent.availableNow ? 'is-available' : 'is-queued'}`}>
+                            {talent.availableNow ? 'Available' : 'Next week'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Matched Skill Tags */}
+                      <div className="rf-refeir-skills-row">
+                        {talent.skills.map((skill, sIdx) => (
+                          <span key={sIdx} className="rf-refeir-skill-chip">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Signature Refeir Referral Bounty Strip */}
+                      <div className="rf-refeir-bounty-strip">
+                        <Share2 size={12} strokeWidth={1.8} className="rf-bounty-mini-icon" />
+                        <span className="rf-bounty-text">
+                          <strong>{talent.bountyPercent}% Referral Bounty</strong> for client scouts
                         </span>
                       </div>
 
-                      <div className="rf-refeir-location-row">
-                        <span className="rf-refeir-country-flag">{talent.flag}</span>
-                        <span className="rf-refeir-city">{talent.city}, {talent.country}</span>
+                      {/* Action Footer: View Profile + Refer & Earn */}
+                      <div className="rf-refeir-card-actions">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            onNavigate(`/talent/${talent.id}`);
+                          }}
+                          className="rf-refeir-hire-btn"
+                        >
+                          <span>View Profile & Hire</span>
+                          <ArrowRight size={13} strokeWidth={1.8} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            onNavigate(`/talent/${talent.id}?refer=true`);
+                          }}
+                          className="rf-refeir-refer-btn"
+                          title="Refer this talent and earn bounty"
+                        >
+                          <Share2 size={12} strokeWidth={1.8} />
+                          <span>Refer & Earn</span>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )
+            ) : intent === 'work' ? (
+              displayedJobs.length === 0 ? (
+                <div className="rf-pr-empty-filter-state">
+                  <p className="rf-pr-empty-title">No funded contracts match your exact filters</p>
+                  <p className="rf-pr-empty-sub">Try broadening your search or resetting filters to explore all available projects.</p>
+                  <button
+                    type="button"
+                    onClick={handleResetFilters}
+                    className="rf-pr-reset-filters-btn"
+                  >
+                    Reset all filters
+                  </button>
+                </div>
+              ) : (
+                <div className="rf-refeir-talent-grid">
+                  {displayedJobs.map((job) => (
+                    <div key={job.id} className="rf-refeir-talent-card">
+                      {/* Card Top: Client Initial Box, Header Meta, Escrow Badge */}
+                      <div className="rf-refeir-card-header">
+                        <div className="rf-refeir-avatar-box is-client">
+                          <span className="rf-refeir-client-initial">
+                            {job.client_name.charAt(0)}
+                          </span>
+                          <span className="rf-refeir-online-pulse is-online" title="Client active" />
+                        </div>
+
+                        <div className="rf-refeir-header-meta">
+                          <div className="rf-refeir-name-row">
+                            <h3 className="rf-refeir-talent-name">{job.client_name}</h3>
+                            <span className="rf-refeir-verified-badge" title="Escrow Payment Verified">
+                              <ShieldCheck size={12} strokeWidth={2} className="rf-shield-icon" />
+                              <span>Escrow Funded</span>
+                            </span>
+                          </div>
+
+                          <div className="rf-refeir-location-row">
+                            <span className="rf-refeir-country-flag">🌍</span>
+                            <span className="rf-refeir-city">{job.client_country}</span>
+                          </div>
+
+                          <p className="rf-refeir-talent-role" style={{ fontWeight: 700, color: isDark ? '#F8FAFC' : '#0F172A' }}>
+                            {job.title}
+                          </p>
+                        </div>
+
+                        <div className="rf-refeir-match-badge" title="Matching your skills">
+                          <span>98% Match</span>
+                        </div>
                       </div>
 
-                      <p className="rf-refeir-talent-role">{talent.role}</p>
-                    </div>
+                      {/* Metrics Bar: Budget, Proposals, Timeline */}
+                      <div className="rf-refeir-card-metrics">
+                        <div className="rf-refeir-metric-item">
+                          <span className="rf-metric-label">Budget</span>
+                          <span className="rf-metric-value is-escrow">{formatMoney(job.budget)}</span>
+                        </div>
+                        <div className="rf-refeir-metric-divider" />
+                        <div className="rf-refeir-metric-item">
+                          <span className="rf-metric-label">Proposals</span>
+                          <span className="rf-metric-value">{job.proposals_count} sent</span>
+                        </div>
+                        <div className="rf-refeir-metric-divider" />
+                        <div className="rf-refeir-metric-item">
+                          <span className="rf-metric-label">Timeline</span>
+                          <span className="rf-metric-status is-available">{job.deadline}</span>
+                        </div>
+                      </div>
 
-                    {/* AI Match Badge (Clean & Minimalist) */}
-                    <div className="rf-refeir-match-badge" title="AI Match Confidence based on your brief">
-                      <span>{talent.matchPercentage}% Match</span>
-                    </div>
-                  </div>
+                      <p className="rf-refeir-job-desc-snippet">{job.description}</p>
 
-                  {/* Metrics Bar: Rate, Rating, Availability */}
-                  <div className="rf-refeir-card-metrics">
-                    <div className="rf-refeir-metric-item">
-                      <span className="rf-metric-label">Rate</span>
-                      <span className="rf-metric-value">${talent.rate}<span className="rf-metric-unit">/hr</span></span>
-                    </div>
-                    <div className="rf-refeir-metric-divider" />
-                    <div className="rf-refeir-metric-item">
-                      <span className="rf-metric-label">Rating</span>
-                      <span className="rf-metric-value">
-                        <Star size={11} fill="#F59E0B" color="#F59E0B" strokeWidth={1.5} style={{ marginRight: '3px' }} />
-                        {talent.rating}
-                        <span className="rf-metric-sub">({talent.reviewsCount})</span>
-                      </span>
-                    </div>
-                    <div className="rf-refeir-metric-divider" />
-                    <div className="rf-refeir-metric-item">
-                      <span className="rf-metric-label">Status</span>
-                      <span className={`rf-metric-status ${talent.availableNow ? 'is-available' : 'is-queued'}`}>
-                        {talent.availableNow ? 'Available' : 'Next week'}
-                      </span>
-                    </div>
-                  </div>
+                      {/* Matched Skill Tags */}
+                      <div className="rf-refeir-skills-row">
+                        {job.skills.map((skill, sIdx) => (
+                          <span key={sIdx} className="rf-refeir-skill-chip">{skill}</span>
+                        ))}
+                      </div>
 
-                  {/* Matched Skill Tags */}
-                  <div className="rf-refeir-skills-row">
-                    {talent.skills.map((skill, sIdx) => (
-                      <span key={sIdx} className="rf-refeir-skill-chip">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                      {/* Security Strip */}
+                      <div className="rf-refeir-bounty-strip">
+                        <ShieldCheck size={12} strokeWidth={1.8} className="rf-bounty-mini-icon" />
+                        <span className="rf-bounty-text">
+                          <strong>Escrow Protection:</strong> Funds deposited safely prior to work commencement
+                        </span>
+                      </div>
 
-                  {/* Signature Refeir Referral Bounty Strip */}
-                  <div className="rf-refeir-bounty-strip">
-                    <Share2 size={12} strokeWidth={1.8} className="rf-bounty-mini-icon" />
-                    <span className="rf-bounty-text">
-                      <strong>{talent.bountyPercent}% Referral Bounty</strong> for client scouts
-                    </span>
-                  </div>
-
-                  {/* Action Footer: View Profile + Refer & Earn */}
-                  <div className="rf-refeir-card-actions">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onClose();
-                        onNavigate(`/talent/${talent.id}`);
-                      }}
-                      className="rf-refeir-hire-btn"
-                    >
-                      <span>View Profile & Hire</span>
-                      <ArrowRight size={13} strokeWidth={1.8} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onClose();
-                        onNavigate(`/talent/${talent.id}?refer=true`);
-                      }}
-                      className="rf-refeir-refer-btn"
-                      title="Refer this talent and earn bounty"
-                    >
-                      <Share2 size={12} strokeWidth={1.8} />
-                      <span>Refer & Earn</span>
-                    </button>
-                  </div>
+                      {/* Action Footer: Apply for Job + View Brief */}
+                      <div className="rf-refeir-card-actions">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            onNavigate(`/jobs/${job.id}`);
+                          }}
+                          className="rf-refeir-hire-btn"
+                        >
+                          <span>Apply for Job</span>
+                          <ArrowRight size={13} strokeWidth={1.8} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            onNavigate(`/jobs/${job.id}`);
+                          }}
+                          className="rf-refeir-refer-btn"
+                        >
+                          <Briefcase size={12} strokeWidth={1.8} />
+                          <span>View Brief</span>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              )
+            ) : (
+              displayedJobs.length === 0 ? (
+                <div className="rf-pr-empty-filter-state">
+                  <p className="rf-pr-empty-title">No referral bounties match your exact filters</p>
+                  <p className="rf-pr-empty-sub">Try broadening your search or resetting filters to explore all active bounty opportunities.</p>
+                  <button
+                    type="button"
+                    onClick={handleResetFilters}
+                    className="rf-pr-reset-filters-btn"
+                  >
+                    Reset all filters
+                  </button>
+                </div>
+              ) : (
+                <div className="rf-refeir-talent-grid">
+                  {displayedJobs.map((job) => {
+                    const bountyMinor = Math.round((job.budget.amount_minor / 100) * 0.12) * 100;
+                    const bountyFormatted = formatMoney({ amount_minor: bountyMinor, currency: job.budget.currency });
+                    const isCopied = copiedJobId === job.id;
+
+                    return (
+                      <div key={job.id} className="rf-refeir-talent-card">
+                        {/* Card Top: Client Avatar, Title, Bounty Tag */}
+                        <div className="rf-refeir-card-header">
+                          <div className="rf-refeir-avatar-box is-client" style={{ background: 'linear-gradient(135deg, #D97706 0%, #78350F 100%)' }}>
+                            <span className="rf-refeir-client-initial">
+                              {job.client_name.charAt(0)}
+                            </span>
+                            <span className="rf-refeir-online-pulse is-online" title="Client hiring" />
+                          </div>
+
+                          <div className="rf-refeir-header-meta">
+                            <div className="rf-refeir-name-row">
+                              <h3 className="rf-refeir-talent-name">{job.client_name}</h3>
+                              <span className="rf-refeir-verified-badge" title="Verified Bounty Payer">
+                                <ShieldCheck size={12} strokeWidth={2} className="rf-shield-icon" />
+                                <span>Verified Bounty</span>
+                              </span>
+                            </div>
+
+                            <div className="rf-refeir-location-row">
+                              <span className="rf-refeir-country-flag">🌍</span>
+                              <span className="rf-refeir-city">{job.client_country}</span>
+                            </div>
+
+                            <p className="rf-refeir-talent-role" style={{ fontWeight: 700, color: isDark ? '#F8FAFC' : '#0F172A' }}>
+                              {job.title}
+                            </p>
+                          </div>
+
+                          <div className="rf-refeir-match-badge is-bounty" title="Referral Bounty Tier">
+                            <span>12% Bounty</span>
+                          </div>
+                        </div>
+
+                        {/* Metrics Bar */}
+                        <div className="rf-refeir-card-metrics">
+                          <div className="rf-refeir-metric-item">
+                            <span className="rf-metric-label">Contract Value</span>
+                            <span className="rf-metric-value">{formatMoney(job.budget)}</span>
+                          </div>
+                          <div className="rf-refeir-metric-divider" />
+                          <div className="rf-refeir-metric-item">
+                            <span className="rf-metric-label">Your Bounty</span>
+                            <span className="rf-metric-value is-bounty-val">{bountyFormatted}</span>
+                          </div>
+                          <div className="rf-refeir-metric-divider" />
+                          <div className="rf-refeir-metric-item">
+                            <span className="rf-metric-label">Payout</span>
+                            <span className="rf-metric-status is-available">Instant Escrow</span>
+                          </div>
+                        </div>
+
+                        <p className="rf-refeir-job-desc-snippet">{job.description}</p>
+
+                        {/* Skills */}
+                        <div className="rf-refeir-skills-row">
+                          {job.skills.map((skill, sIdx) => (
+                            <span key={sIdx} className="rf-refeir-skill-chip">{skill}</span>
+                          ))}
+                        </div>
+
+                        {/* Signature Scout Bounty Strip */}
+                        <div className="rf-refeir-bounty-strip is-scout-highlight">
+                          <Share2 size={12} strokeWidth={1.8} className="rf-bounty-mini-icon" style={{ color: '#D97706' }} />
+                          <span className="rf-bounty-text">
+                            <strong>Scout Reward:</strong> Earn {bountyFormatted} immediately upon candidate contract milestone
+                          </span>
+                        </div>
+
+                        {/* Actions: Copy Referral Link + Refer Candidate */}
+                        <div className="rf-refeir-card-actions">
+                          <button
+                            type="button"
+                            onClick={() => handleCopyLink(job.id)}
+                            className="rf-refeir-hire-btn"
+                            style={{ background: isCopied ? '#059669' : '#D97706' }}
+                          >
+                            {isCopied ? <CheckCheck size={13} strokeWidth={2} /> : <Copy size={13} strokeWidth={2} />}
+                            <span>{isCopied ? 'Link Copied!' : 'Copy Referral Link'}</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              onClose();
+                              onNavigate(`/scouts?job=${job.id}`);
+                            }}
+                            className="rf-refeir-refer-btn"
+                            style={{ borderColor: 'rgba(217, 119, 6, 0.4)', color: '#D97706' }}
+                          >
+                            <Share2 size={12} strokeWidth={1.8} />
+                            <span>Refer Talent</span>
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )
             )}
 
-            {/* Centered CTA: Explore Full Pan-African Marketplace */}
+            {/* Centered CTA: Explore Full Pan-African Marketplace / Jobs / Bounties */}
             <div className="rf-personalized-more-action">
               <button
                 type="button"
                 onClick={() => {
                   onClose();
-                  onNavigate('/marketplace');
+                  onNavigate(intent === 'work' ? '/jobs' : intent === 'scout' ? '/scouts' : '/marketplace');
                 }}
                 className="rf-refeir-explore-all-btn"
               >
-                <span>Explore All Pan-African Specialists</span>
+                <span>
+                  {intent === 'work'
+                    ? 'Explore All Pan-African Jobs & Contracts'
+                    : intent === 'scout'
+                    ? 'Explore All Active Referral Bounties'
+                    : 'Explore All Pan-African Specialists'}
+                </span>
                 <ArrowRight size={14} strokeWidth={1.8} />
               </button>
             </div>
 
             {/* ===================================================================
-                SECTION 2: SPLIT BANNER ("Post your job for free")
+                SECTION 2: SPLIT BANNER
                 =================================================================== */}
             <div className="rf-personalized-banner-card">
               <div className="rf-pr-banner-left">
-                {/* 90% Progress Ring Gauge Icon */}
-                <div className="rf-pr-banner-gauge-circle">
-                  <svg viewBox="0 0 44 44" className="rf-pr-gauge-svg">
-                    <circle cx="22" cy="22" r="17" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.2" />
-                    <circle
-                      cx="22"
-                      cy="22"
-                      r="17"
-                      fill="none"
-                      stroke="#111827"
-                      strokeWidth="3.2"
-                      strokeDasharray="96 15"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  <Pin size={17} className="rf-pr-gauge-pin" />
-                </div>
+                {intent === 'work' ? (
+                  <>
+                    <div className="rf-pr-banner-gauge-circle" style={{ background: 'rgba(22, 163, 74, 0.1)', color: '#16A34A' }}>
+                      <ShieldCheck size={22} strokeWidth={2.2} />
+                    </div>
+                    <h2 className="rf-pr-banner-title">
+                      Work safely with Refeir Escrow Vault
+                    </h2>
+                    <p className="rf-pr-banner-sub">Guaranteed payouts on every completed milestone</p>
+                    <div className="rf-pr-banner-features">
+                      <div className="rf-pr-banner-feature-item">
+                        <ShieldCheck size={18} className="rf-pr-feat-icon" style={{ color: '#16A34A' }} />
+                        <span>Milestone funds are deposited into escrow before you start work</span>
+                      </div>
+                      <div className="rf-pr-banner-feature-item">
+                        <CreditCard size={18} className="rf-pr-feat-icon" />
+                        <span>Instant withdrawals to local African banks, Mobile Money, or USD</span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        onNavigate('/talent');
+                      }}
+                      className="rf-pr-banner-cta-btn"
+                    >
+                      Complete profile & start applying
+                    </button>
+                  </>
+                ) : intent === 'scout' ? (
+                  <>
+                    <div className="rf-pr-banner-gauge-circle" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#D97706' }}>
+                      <TrendingUp size={22} strokeWidth={2.2} />
+                    </div>
+                    <h2 className="rf-pr-banner-title">
+                      Earn passive income every time your network lands a job
+                    </h2>
+                    <p className="rf-pr-banner-sub">Active scouts earn an avg. of $1,800/mo in recurring bounties</p>
+                    <div className="rf-pr-banner-features">
+                      <div className="rf-pr-banner-feature-item">
+                        <TrendingUp size={18} className="rf-pr-feat-icon" style={{ color: '#D97706' }} />
+                        <span>Escrow-guaranteed payouts released immediately on milestone approval</span>
+                      </div>
+                      <div className="rf-pr-banner-feature-item">
+                        <Share2 size={18} className="rf-pr-feat-icon" />
+                        <span>Scout link tracks lifetime attribution across repeat contracts</span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        onNavigate('/scouts');
+                      }}
+                      className="rf-pr-banner-cta-btn"
+                    >
+                      Activate your Scout Desk
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    {/* 90% Progress Ring Gauge Icon */}
+                    <div className="rf-pr-banner-gauge-circle">
+                      <svg viewBox="0 0 44 44" className="rf-pr-gauge-svg">
+                        <circle cx="22" cy="22" r="17" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.2" />
+                        <circle
+                          cx="22"
+                          cy="22"
+                          r="17"
+                          fill="none"
+                          stroke="#111827"
+                          strokeWidth="3.2"
+                          strokeDasharray="96 15"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <Pin size={17} className="rf-pr-gauge-pin" />
+                    </div>
 
-                <h2 className="rf-pr-banner-title">
-                  Post your job for free and let freelancers come to you
-                </h2>
-                <p className="rf-pr-banner-sub">It's 90% complete!</p>
+                    <h2 className="rf-pr-banner-title">
+                      Post your job for free and let freelancers come to you
+                    </h2>
+                    <p className="rf-pr-banner-sub">It's 90% complete!</p>
 
-                <div className="rf-pr-banner-features">
-                  <div className="rf-pr-banner-feature-item">
-                    <UserCheck size={18} className="rf-pr-feat-icon" />
-                    <span>See who applies and interview top freelancers</span>
-                  </div>
-                  <div className="rf-pr-banner-feature-item">
-                    <CreditCard size={18} className="rf-pr-feat-icon" />
-                    <span>5% platform fee only if you hire</span>
-                  </div>
-                </div>
+                    <div className="rf-pr-banner-features">
+                      <div className="rf-pr-banner-feature-item">
+                        <UserCheck size={18} className="rf-pr-feat-icon" />
+                        <span>See who applies and interview top freelancers</span>
+                      </div>
+                      <div className="rf-pr-banner-feature-item">
+                        <CreditCard size={18} className="rf-pr-feat-icon" />
+                        <span>5% platform fee only if you hire</span>
+                      </div>
+                    </div>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    onClose();
-                    onNavigate('/jobs');
-                  }}
-                  className="rf-pr-banner-cta-btn"
-                >
-                  Finish your job post
-                </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        onNavigate('/jobs');
+                      }}
+                      className="rf-pr-banner-cta-btn"
+                    >
+                      Finish your job post
+                    </button>
+                  </>
+                )}
               </div>
 
               <div className="rf-pr-banner-right">
                 <img
-                  src="/african_woman_headset.jpg"
-                  alt="African specialist with hands-free headset"
+                  src={intent === 'scout' ? '/scout_hero.jpg' : '/african_woman_headset.jpg'}
+                  alt={intent === 'scout' ? 'Refeir Talent Scout' : 'African specialist with hands-free headset'}
                   className="rf-pr-banner-image"
                   loading="lazy"
                 />
@@ -1691,7 +2319,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
             </div>
 
             {/* ===================================================================
-                SECTION 4: "HOW HIRING WORKS" WITH VIDEO & ACCORDION
+                SECTION 4: "HOW IT WORKS" WITH VIDEO & ACCORDION
                 =================================================================== */}
             <div className="rf-personalized-how-it-works-grid">
               {/* Left Column: Interactive Video Player Card */}
@@ -1700,7 +2328,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   {/* Subtle video ambient backdrop */}
                   <div className="rf-pr-video-backdrop" />
 
-                  {/* Upwork/Refeir styled center logo */}
+                  {/* Refeir center logo */}
                   <div className="rf-pr-video-brand-center">
                     <span className="rf-pr-video-logo">refeir</span>
                   </div>
@@ -1745,7 +2373,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
               {/* Right Column: Numbered Steps Accordion & Actions */}
               <div className="rf-pr-how-right">
-                <h2 className="rf-pr-how-title">How hiring works</h2>
+                <h2 className="rf-pr-how-title">
+                  {intent === 'work'
+                    ? 'How working on Refeir works'
+                    : intent === 'scout'
+                    ? 'How scouting & referring works'
+                    : 'How hiring works'}
+                </h2>
 
                 <div className="rf-pr-accordion-list">
                   {/* Step 1 */}
@@ -1757,7 +2391,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">1</span>
-                        <span className="rf-pr-step-text">Post your job or project</span>
+                        <span className="rf-pr-step-text">
+                          {intent === 'work'
+                            ? 'Browse funded jobs & submit proposals'
+                            : intent === 'scout'
+                            ? 'Pick high-bounty client briefs'
+                            : 'Post your job or project'}
+                        </span>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1766,7 +2406,11 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openAccordion === 1 && (
                       <div className="rf-pr-accordion-body">
-                        Describe what you need, set your timeline and budget, and get personalized proposals from vetted experts within hours.
+                        {intent === 'work'
+                          ? 'Apply directly to verified jobs where clients have already deposited milestone funds into secure Refeir escrow.'
+                          : intent === 'scout'
+                          ? 'Explore hundreds of open client contracts looking for senior engineering, design, and growth talent.'
+                          : 'Describe what you need, set your timeline and budget, and get personalized proposals from vetted experts within hours.'}
                       </div>
                     )}
                   </div>
@@ -1780,7 +2424,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">2</span>
-                        <span className="rf-pr-step-text">Contact and hire top freelancers</span>
+                        <span className="rf-pr-step-text">
+                          {intent === 'work'
+                            ? 'Complete milestones & collaborate'
+                            : intent === 'scout'
+                            ? 'Share your unique Scout Link with talent'
+                            : 'Contact and hire top freelancers'}
+                        </span>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1789,7 +2439,11 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openAccordion === 2 && (
                       <div className="rf-pr-accordion-body">
-                        Interview candidates, review verified portfolios and client feedback, and begin collaboration protected by smart contracts.
+                        {intent === 'work'
+                          ? 'Work with international clients through structured, transparent milestones protected by Refeir smart contracts.'
+                          : intent === 'scout'
+                          ? 'Send your unique tracking link to skilled friends, alumni circles, or tech communities across Africa.'
+                          : 'Interview candidates, review verified portfolios and client feedback, and begin collaboration protected by smart contracts.'}
                       </div>
                     )}
                   </div>
@@ -1803,7 +2457,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">3</span>
-                        <span className="rf-pr-step-text">Pay securely, once work is delivered</span>
+                        <span className="rf-pr-step-text">
+                          {intent === 'work'
+                            ? 'Get paid instantly with zero friction'
+                            : intent === 'scout'
+                            ? 'Collect 10%–15% bounty in escrow'
+                            : 'Pay securely, once work is delivered'}
+                        </span>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1812,7 +2472,11 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openAccordion === 3 && (
                       <div className="rf-pr-accordion-body">
-                        Deposit funds securely in escrow. You only release payment when work is delivered to your complete satisfaction.
+                        {intent === 'work'
+                          ? 'Withdraw your earnings directly to your local bank, Payoneer, or Mobile Money with industry-low fees.'
+                          : intent === 'scout'
+                          ? 'When your referral gets hired and completes a milestone, your bounty is automatically deposited into your wallet.'
+                          : 'Deposit funds securely in escrow. You only release payment when work is delivered to your complete satisfaction.'}
                       </div>
                     )}
                   </div>
@@ -1824,29 +2488,29 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     type="button"
                     onClick={() => {
                       onClose();
-                      onNavigate('/jobs');
+                      onNavigate(intent === 'work' ? '/jobs' : intent === 'scout' ? '/scouts' : '/jobs');
                     }}
                     className="rf-pr-how-post-btn"
                   >
-                    Post your job
+                    {intent === 'work' ? 'Browse all open jobs' : intent === 'scout' ? 'Start scouting now' : 'Post your job'}
                   </button>
 
                   <button
                     type="button"
                     onClick={() => {
                       onClose();
-                      onNavigate('/pricing');
+                      onNavigate(intent === 'work' ? '/protection' : intent === 'scout' ? '/scouts' : '/pricing');
                     }}
                     className="rf-pr-how-plans-btn"
                   >
-                    Plans and pricing
+                    {intent === 'work' ? 'Payment protection' : intent === 'scout' ? 'Scout earnings guide' : 'Plans and pricing'}
                   </button>
                 </div>
               </div>
             </div>
 
             {/* ===================================================================
-                SECTION 4B: "OR YOU CAN GET SCOUTS TO DO THE JOB FOR YOU"
+                SECTION 4B: "OR YOU CAN GET SCOUTS / BE REPRESENTED / SCOUT PARTNER"
                 =================================================================== */}
             <div className="rf-scouts-how-it-works-grid">
               {/* Left Column: Scout Picture Card Blending into Background */}
@@ -1862,7 +2526,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
               {/* Right Column: Numbered Steps & Actions */}
               <div className="rf-pr-how-right">
-                <h2 className="rf-pr-how-title">Or you can get Scouts to do the job for you</h2>
+                <h2 className="rf-pr-how-title">
+                  {intent === 'work'
+                    ? 'Or let Refeir Scouts pitch and represent you'
+                    : intent === 'scout'
+                    ? 'Or become a certified Refeir Scout Partner'
+                    : 'Or you can get Scouts to do the job for you'}
+                </h2>
 
                 <div className="rf-pr-accordion-list">
                   {/* Step 1 */}
@@ -1874,7 +2544,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">1</span>
-                        <span className="rf-pr-step-text">Share your brief with a Scout</span>
+                        <span className="rf-pr-step-text">
+                          {intent === 'work'
+                            ? 'Get listed in the Refeir Scout Directory'
+                            : intent === 'scout'
+                            ? 'Apply for Scout Partner certification'
+                            : 'Share your brief with a Scout'}
+                        </span>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1883,7 +2559,11 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openScoutAccordion === 1 && (
                       <div className="rf-pr-accordion-body">
-                        Tell us what you're building, the skills you need, and your target budget. Our scout desk routes your brief to domain specialists with zero public noise.
+                        {intent === 'work'
+                          ? 'Verified scouts actively recommend top-performing freelancers to their private enterprise clients.'
+                          : intent === 'scout'
+                          ? 'Get early access to exclusive enterprise briefs from US, European, and African scale-ups before public posting.'
+                          : "Tell us what you're building, the skills you need, and your target budget. Our scout desk routes your brief to domain specialists with zero public noise."}
                       </div>
                     )}
                   </div>
@@ -1897,7 +2577,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">2</span>
-                        <span className="rf-pr-step-text">Scouts tap their private networks</span>
+                        <span className="rf-pr-step-text">
+                          {intent === 'work'
+                            ? 'Skip cold outreach and bidding wars'
+                            : intent === 'scout'
+                            ? 'Direct Slack & WhatsApp Scout Desk access'
+                            : 'Scouts tap their private networks'}
+                        </span>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1906,7 +2592,11 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openScoutAccordion === 2 && (
                       <div className="rf-pr-accordion-body">
-                        Certified scouts search private talent circles and recommend specialists who have proven, verifiable track records and authentic proof of work.
+                        {intent === 'work'
+                          ? 'Scouts introduce you directly to high-budget hiring managers looking for your exact skillset.'
+                          : intent === 'scout'
+                          ? 'Collaborate directly with Refeir talent directors to match specialists at record speed.'
+                          : 'Certified scouts search private talent circles and recommend specialists who have proven, verifiable track records and authentic proof of work.'}
                       </div>
                     )}
                   </div>
@@ -1920,7 +2610,13 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">3</span>
-                        <span className="rf-pr-step-text">Hire vetted talent with confidence</span>
+                        <span className="rf-pr-step-text">
+                          {intent === 'work'
+                            ? 'Keep 100% of your agreed contract rate'
+                            : intent === 'scout'
+                            ? 'Earn recurring bounties on enterprise squads'
+                            : 'Hire vetted talent with confidence'}
+                        </span>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1929,7 +2625,11 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openScoutAccordion === 3 && (
                       <div className="rf-pr-accordion-body">
-                        Receive a curated shortlist of 2–3 ready-to-interview specialists and begin work immediately, protected by Refeir milestone escrow.
+                        {intent === 'work'
+                          ? 'The scout bounty is paid as an incentive bonus by the client—never deducted from your earnings.'
+                          : intent === 'scout'
+                          ? 'Scale your passive earnings to over $3,500/month by referring entire cross-functional tech squads.'
+                          : 'Receive a curated shortlist of 2–3 ready-to-interview specialists and begin work immediately, protected by Refeir milestone escrow.'}
                       </div>
                     )}
                   </div>
@@ -1941,11 +2641,15 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     type="button"
                     onClick={() => {
                       onClose();
-                      onNavigate('/scouts');
+                      onNavigate(intent === 'work' ? '/talent' : '/scouts');
                     }}
                     className="rf-pr-how-post-btn"
                   >
-                    Get Scouts to find talent
+                    {intent === 'work'
+                      ? 'Get represented by a Scout'
+                      : intent === 'scout'
+                      ? 'Apply for Scout Certification'
+                      : 'Get Scouts to find talent'}
                   </button>
 
                   <button
@@ -1956,7 +2660,11 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     }}
                     className="rf-pr-how-plans-btn"
                   >
-                    Learn about Scouts
+                    {intent === 'work'
+                      ? 'How Scouts help talent'
+                      : intent === 'scout'
+                      ? 'Scout Partner playbook'
+                      : 'Learn about Scouts'}
                   </button>
                 </div>
               </div>

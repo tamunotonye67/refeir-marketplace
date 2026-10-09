@@ -6370,6 +6370,237 @@
   border-color: #66BB2A;
 }
 
+/* Client & Job Card Extensions */
+.rf-refeir-avatar-box.is-client {
+  background: linear-gradient(135deg, #16A34A 0%, #0F5132 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf-refeir-client-initial {
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.rf-refeir-job-desc-snippet {
+  font-size: 0.8125rem;
+  line-height: 1.48;
+  color: #64748B;
+  margin: 0.35rem 0 0.75rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rf-ai-search-overlay.is-dark .rf-refeir-job-desc-snippet {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.rf-refeir-match-badge.is-bounty {
+  background: rgba(245, 158, 11, 0.12);
+  color: #D97706;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.rf-ai-search-overlay.is-dark .rf-refeir-match-badge.is-bounty {
+  background: rgba(245, 158, 11, 0.2);
+  color: #FBBF24;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.rf-metric-value.is-escrow {
+  color: #16A34A;
+  font-weight: 700;
+}
+
+.rf-metric-value.is-bounty-val {
+  color: #D97706;
+  font-weight: 800;
+}
+
+.rf-ai-search-overlay.is-dark .rf-metric-value.is-bounty-val {
+  color: #FBBF24;
+}
+
+.rf-refeir-bounty-strip.is-scout-highlight {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px dashed rgba(245, 158, 11, 0.35);
+  color: #92400E;
+}
+
+.rf-ai-search-overlay.is-dark .rf-refeir-bounty-strip.is-scout-highlight {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #FDE68A;
+}
+
+/* Results Phase Preview Job & Bounty List */
+.rf-ai-preview-job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+.rf-ai-preview-job-item {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-preview-job-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.rf-ai-job-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.rf-ai-job-item-client {
+  font-weight: 600;
+  color: #64748B;
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-job-item-client {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rf-ai-job-escrow-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #16A34A;
+  background: rgba(22, 163, 74, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.rf-ai-bounty-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #D97706;
+  background: rgba(245, 158, 11, 0.12);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.rf-ai-job-item-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #0F172A;
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-job-item-title {
+  color: #F8FAFC;
+}
+
+.rf-ai-job-item-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.775rem;
+  color: #64748B;
+  margin-top: 0.2rem;
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-job-item-footer {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rf-ai-job-budget {
+  font-weight: 700;
+  color: #16A34A;
+}
+
+.rf-ai-job-bounty-amt {
+  font-weight: 800;
+  color: #D97706;
+}
+
+.rf-ai-search-overlay.is-dark .rf-ai-job-bounty-amt {
+  color: #FBBF24;
+}
+
+/* Scout Calculator & Code in Briefing Slides */
+.rf-briefing-calculator-box {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-top: 1.15rem;
+  text-align: center;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-calculator-box {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.rf-calc-value-big {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #D97706;
+}
+
+.rf-ai-search-overlay.is-dark .rf-calc-value-big {
+  color: #FBBF24;
+}
+
+.rf-calc-subtext {
+  font-size: 0.8125rem;
+  color: #64748B;
+  margin-top: 0.25rem;
+}
+
+.rf-ai-search-overlay.is-dark .rf-calc-subtext {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.rf-briefing-scout-code-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(245, 158, 11, 0.07);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.rf-ai-search-overlay.is-dark .rf-briefing-scout-code-wrap {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.rf-scout-code-input {
+  font-family: monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #D97706;
+  background: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  letter-spacing: 0.05em;
+}
+
+.rf-ai-search-overlay.is-dark .rf-scout-code-input {
+  color: #FBBF24;
+}
+
 /* Explore All Pan-African Specialists Action */
 .rf-personalized-more-action {
   display: flex;
