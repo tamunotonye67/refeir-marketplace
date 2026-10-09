@@ -1858,10 +1858,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   loading="lazy"
                 />
                 <div className="rf-scout-card-blend" />
-                <div className="rf-scout-card-info">
-                  <span className="rf-scout-card-badge">Refeir Scout Network</span>
-                  <p className="rf-scout-card-tagline">Vetting & introducing top talent across Africa</p>
-                </div>
               </div>
 
               {/* Right Column: Numbered Steps & Actions */}
