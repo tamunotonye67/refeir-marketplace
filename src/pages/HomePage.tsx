@@ -7,6 +7,7 @@ import { FeaturedTalentCard } from '../components/home/FeaturedTalentCard';
 import { PopularServiceCategoryCard, ServiceCategoryItem } from '../components/home/PopularServiceCategoryCard';
 import { ServiceCard } from '../components/marketplace/ServiceCard';
 import { AfricaMapExplorer } from '../components/marketplace/AfricaMapExplorer';
+import { Africa3DMap } from '../components/marketplace/Africa3DMap';
 import { GlobalBusinessTeamsVisual } from '../components/home/GlobalBusinessTeamsVisual';
 import { ReferModal } from '../components/referral/ReferModal';
 import { AISearchModal } from '../components/home/AISearchModal';
