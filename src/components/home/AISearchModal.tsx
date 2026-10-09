@@ -45,6 +45,42 @@ interface AISearchModalProps {
   onNavigate: (path: string) => void;
 }
 
+const AI_SEARCH_STORAGE_KEY = 'refeir_ai_search_session';
+
+interface AISearchSavedSession {
+  isOpen: boolean;
+  searchQuery?: string;
+  intent?: 'recruit' | 'work' | 'scout';
+  phase?: 'loading' | 'results' | 'briefing' | 'submitting' | 'personalized_results';
+  briefingStep?: number;
+  urgency?: string;
+  locationPref?: string;
+  budgetType?: 'hourly' | 'fixed';
+  hourlyRate?: number;
+  fixedBudget?: number;
+  jobDetails?: string;
+  selectedSkills?: string[];
+  workAvailability?: string;
+  clientScope?: string;
+  networkDomain?: string;
+  networkRegion?: string;
+  referralVolume?: number;
+  customScoutCode?: string;
+  filterAvailableOnly?: boolean;
+  filterRateBracket?: string;
+  filterLocation?: string;
+  filterSkill?: string;
+}
+
+const getSavedSession = (): AISearchSavedSession | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = sessionStorage.getItem(AI_SEARCH_STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (err) {}
+  return null;
+};
+
 export const AISearchModal: React.FC<AISearchModalProps> = ({
   isOpen,
   searchQuery,
@@ -56,37 +92,59 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
+  const initialSession = useRef<AISearchSavedSession | null>(getSavedSession()).current;
+  const isRestoredSessionRef = useRef<boolean>(
+    Boolean(
+      initialSession &&
+      (initialSession.phase === 'briefing' ||
+       initialSession.phase === 'personalized_results' ||
+       initialSession.phase === 'results')
+    )
+  );
+
   // Phases: 'loading' | 'results' | 'briefing' | 'submitting' | 'personalized_results'
-  const [phase, setPhase] = useState<'loading' | 'results' | 'briefing' | 'submitting' | 'personalized_results'>('loading');
-  const [briefingStep, setBriefingStep] = useState<number>(1);
+  const [phase, setPhase] = useState<'loading' | 'results' | 'briefing' | 'submitting' | 'personalized_results'>(() => {
+    if (initialSession?.phase) {
+      if (initialSession.phase === 'loading') return 'results';
+      if (initialSession.phase === 'submitting') return 'personalized_results';
+      return initialSession.phase;
+    }
+    return 'loading';
+  });
+  const [briefingStep, setBriefingStep] = useState<number>(() => {
+    if (initialSession?.briefingStep && initialSession.briefingStep >= 1) {
+      return initialSession.briefingStep;
+    }
+    return 1;
+  });
   const [matchedTalent, setMatchedTalent] = useState<TalentProfile[]>([]);
 
   // Briefing User Choices
-  const [urgency, setUrgency] = useState<string>('Now');
-  const [locationPref, setLocationPref] = useState<string>('Anywhere in the world');
-  const [budgetType, setBudgetType] = useState<'hourly' | 'fixed'>('hourly');
-  const [hourlyRate, setHourlyRate] = useState<number>(63);
-  const [fixedBudget, setFixedBudget] = useState<number>(1500);
-  const [jobDetails, setJobDetails] = useState<string>('');
+  const [urgency, setUrgency] = useState<string>(() => initialSession?.urgency || 'Now');
+  const [locationPref, setLocationPref] = useState<string>(() => initialSession?.locationPref || 'Anywhere in the world');
+  const [budgetType, setBudgetType] = useState<'hourly' | 'fixed'>(() => initialSession?.budgetType || 'hourly');
+  const [hourlyRate, setHourlyRate] = useState<number>(() => initialSession?.hourlyRate ?? 63);
+  const [fixedBudget, setFixedBudget] = useState<number>(() => initialSession?.fixedBudget ?? 1500);
+  const [jobDetails, setJobDetails] = useState<string>(() => initialSession?.jobDetails || '');
   const [showExamples, setShowExamples] = useState<boolean>(false);
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>(() => initialSession?.selectedSkills || []);
   const [customSkillInput, setCustomSkillInput] = useState<string>('');
   const [isAddingCustomSkill, setIsAddingCustomSkill] = useState<boolean>(false);
 
   // Intent-Specific Briefing Choices
-  const [workAvailability, setWorkAvailability] = useState<string>('Available Immediately');
-  const [clientScope, setClientScope] = useState<string>('Global / US & EU (USD)');
-  const [networkDomain, setNetworkDomain] = useState<string>('Software & AI Engineers');
-  const [networkRegion, setNetworkRegion] = useState<string>('Pan-African & Diaspora');
-  const [referralVolume, setReferralVolume] = useState<number>(3);
-  const [customScoutCode, setCustomScoutCode] = useState<string>('');
+  const [workAvailability, setWorkAvailability] = useState<string>(() => initialSession?.workAvailability || 'Available Immediately');
+  const [clientScope, setClientScope] = useState<string>(() => initialSession?.clientScope || 'Global / US & EU (USD)');
+  const [networkDomain, setNetworkDomain] = useState<string>(() => initialSession?.networkDomain || 'Software & AI Engineers');
+  const [networkRegion, setNetworkRegion] = useState<string>(() => initialSession?.networkRegion || 'Pan-African & Diaspora');
+  const [referralVolume, setReferralVolume] = useState<number>(() => initialSession?.referralVolume ?? 3);
+  const [customScoutCode, setCustomScoutCode] = useState<string>(() => initialSession?.customScoutCode || '');
   const [copiedJobId, setCopiedJobId] = useState<string | null>(null);
 
   // Personalized Results State
-  const [filterAvailableOnly, setFilterAvailableOnly] = useState<boolean>(false);
-  const [filterRateBracket, setFilterRateBracket] = useState<string>('all');
-  const [filterLocation, setFilterLocation] = useState<string>('all');
-  const [filterSkill, setFilterSkill] = useState<string>('all');
+  const [filterAvailableOnly, setFilterAvailableOnly] = useState<boolean>(() => initialSession?.filterAvailableOnly ?? false);
+  const [filterRateBracket, setFilterRateBracket] = useState<string>(() => initialSession?.filterRateBracket || 'all');
+  const [filterLocation, setFilterLocation] = useState<string>(() => initialSession?.filterLocation || 'all');
+  const [filterSkill, setFilterSkill] = useState<string>(() => initialSession?.filterSkill || 'all');
   const [openAccordion, setOpenAccordion] = useState<number | null>(1);
   const [openScoutAccordion, setOpenScoutAccordion] = useState<number | null>(1);
   const [activeDropdown, setActiveDropdown] = useState<'rate' | 'location' | 'skills' | null>(null);
@@ -249,37 +307,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   // Initial State Reset & Talents Filtering
   useEffect(() => {
     if (isOpen) {
-      setPhase('loading');
-      setBriefingStep(1);
-      setShowExamples(false);
-      setFilterAvailableOnly(false);
-      setActiveDropdown(null);
-
-      // Pre-fill initial skills based on defaults
-      const defaults = availableSkills.filter(s => s.defaultSelected).map(s => s.name);
-      setSelectedSkills(defaults);
-
-      // Pre-fill sample job details tailored to query & intent
-      if (searchQuery && searchQuery.trim()) {
-        const cleanQ = searchQuery.trim();
-        setJobDetails(`${cleanQ.charAt(0).toUpperCase() + cleanQ.slice(1)}`);
-      } else {
-        if (intent === 'work') {
-          setJobDetails('Full-Stack Engineer specialized in React, Node.js and AI APIs');
-        } else if (intent === 'scout') {
-          setJobDetails('Senior software engineers and product designers in West Africa');
-        } else {
-          setJobDetails('Creative Director for a brand identity refresh');
-        }
-      }
-
-      if (!customScoutCode) {
-        setCustomScoutCode(`RF-${Math.floor(100000 + Math.random() * 900000)}`);
-      }
-
-      const timer = setTimeout(() => {
-        setPhase('results');
-      }, 1900);
+      const isRestored = isRestoredSessionRef.current;
 
       // Tokenize search query and intelligently score & rank talents
       const rawQ = (searchQuery || '').toLowerCase().trim();
@@ -312,9 +340,135 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
 
       setMatchedTalent(combined.slice(0, 4));
 
+      // If a saved session was restored on reload, preserve current slide/results page!
+      if (isRestored) {
+        isRestoredSessionRef.current = false;
+        return;
+      }
+
+      // Otherwise, this is a fresh search initiation: start loading phase
+      setPhase('loading');
+      setBriefingStep(1);
+      setShowExamples(false);
+      setFilterAvailableOnly(false);
+      setActiveDropdown(null);
+
+      // Pre-fill initial skills based on defaults
+      const defaults = availableSkills.filter(s => s.defaultSelected).map(s => s.name);
+      setSelectedSkills(defaults);
+
+      // Pre-fill sample job details tailored to query & intent
+      if (searchQuery && searchQuery.trim()) {
+        const cleanQ = searchQuery.trim();
+        setJobDetails(`${cleanQ.charAt(0).toUpperCase() + cleanQ.slice(1)}`);
+      } else {
+        if (intent === 'work') {
+          setJobDetails('Full-Stack Engineer specialized in React, Node.js and AI APIs');
+        } else if (intent === 'scout') {
+          setJobDetails('Senior software engineers and product designers in West Africa');
+        } else {
+          setJobDetails('Creative Director for a brand identity refresh');
+        }
+      }
+
+      if (!customScoutCode) {
+        setCustomScoutCode(`RF-${Math.floor(100000 + Math.random() * 900000)}`);
+      }
+
+      const timer = setTimeout(() => {
+        setPhase('results');
+      }, 1900);
+
       return () => clearTimeout(timer);
     }
   }, [isOpen, searchQuery, availableSkills, intent, customScoutCode]);
+
+  // Auto-persist active session across page reloads & keep URL synchronized
+  useEffect(() => {
+    if (!isOpen) return;
+    try {
+      const sessionData: AISearchSavedSession = {
+        isOpen: true,
+        searchQuery,
+        intent,
+        phase,
+        briefingStep,
+        urgency,
+        locationPref,
+        budgetType,
+        hourlyRate,
+        fixedBudget,
+        jobDetails,
+        selectedSkills,
+        workAvailability,
+        clientScope,
+        networkDomain,
+        networkRegion,
+        referralVolume,
+        customScoutCode,
+        filterAvailableOnly,
+        filterRateBracket,
+        filterLocation,
+        filterSkill
+      };
+      sessionStorage.setItem(AI_SEARCH_STORAGE_KEY, JSON.stringify(sessionData));
+
+      // Synchronize URL search params
+      const params = new URLSearchParams(window.location.search);
+      params.set('ai_search', 'true');
+      if (searchQuery) params.set('q', searchQuery);
+      if (intent) params.set('intent', intent);
+      if (phase) params.set('phase', phase);
+      if (phase === 'briefing') {
+        params.set('step', String(briefingStep));
+      } else {
+        params.delete('step');
+      }
+      const newQuery = params.toString();
+      window.history.replaceState({}, '', `${window.location.pathname}${newQuery ? '?' + newQuery : ''}`);
+    } catch (err) {
+      console.error('Failed to sync AI search session', err);
+    }
+  }, [
+    isOpen,
+    searchQuery,
+    intent,
+    phase,
+    briefingStep,
+    urgency,
+    locationPref,
+    budgetType,
+    hourlyRate,
+    fixedBudget,
+    jobDetails,
+    selectedSkills,
+    workAvailability,
+    clientScope,
+    networkDomain,
+    networkRegion,
+    referralVolume,
+    customScoutCode,
+    filterAvailableOnly,
+    filterRateBracket,
+    filterLocation,
+    filterSkill
+  ]);
+
+  // Clean exit handler: removes session and URL search params
+  const handleExitModal = () => {
+    try {
+      sessionStorage.removeItem(AI_SEARCH_STORAGE_KEY);
+      const params = new URLSearchParams(window.location.search);
+      params.delete('ai_search');
+      params.delete('q');
+      params.delete('intent');
+      params.delete('phase');
+      params.delete('step');
+      const newQuery = params.toString();
+      window.history.replaceState({}, '', `${window.location.pathname}${newQuery ? '?' + newQuery : ''}`);
+    } catch (e) {}
+    onClose();
+  };
 
   // Format short name: "Amaka N."
   const formatShortName = (fullName: string) => {
@@ -686,7 +840,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           <div className="rf-ai-search-topbar">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleExitModal}
               className="rf-ai-search-exit-btn"
               aria-label="Exit search"
             >
@@ -809,7 +963,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           <div className="rf-ai-search-topbar">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleExitModal}
               className="rf-ai-search-exit-btn"
               aria-label="Exit search"
             >
@@ -1648,7 +1802,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           <div className="rf-personalized-topbar">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleExitModal}
               className="rf-personalized-exit-btn"
               aria-label="Exit results"
             >

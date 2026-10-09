@@ -371,9 +371,19 @@ export const HomePage: React.FC<HomePageProps> = ({
       onNavigate('/marketplace');
       return;
     }
+    const cleanQuery = searchQuery.trim();
     setIsHeroSearchActive(false);
-    setAiSearchQuery(searchQuery.trim());
+    setAiSearchQuery(cleanQuery);
     setShowAISearchModal(true);
+    try {
+      sessionStorage.setItem('refeir_ai_search_session', JSON.stringify({
+        isOpen: true,
+        searchQuery: cleanQuery,
+        intent: heroSearchIntent,
+        phase: 'loading',
+        briefingStep: 1
+      }));
+    } catch (err) {}
   };
 
   const handlePopularSearchSelect = (term: string) => {
@@ -381,10 +391,34 @@ export const HomePage: React.FC<HomePageProps> = ({
     setSearchQuery(term);
     setAiSearchQuery(term);
     setShowAISearchModal(true);
+    try {
+      sessionStorage.setItem('refeir_ai_search_session', JSON.stringify({
+        isOpen: true,
+        searchQuery: term,
+        intent: heroSearchIntent,
+        phase: 'loading',
+        briefingStep: 1
+      }));
+    } catch (err) {}
+  };
+
+  const handleAISearchClose = () => {
+    setShowAISearchModal(false);
+    try {
+      sessionStorage.removeItem('refeir_ai_search_session');
+      const params = new URLSearchParams(window.location.search);
+      params.delete('ai_search');
+      params.delete('q');
+      params.delete('intent');
+      params.delete('phase');
+      params.delete('step');
+      const newQuery = params.toString();
+      window.history.replaceState({}, '', `${window.location.pathname}${newQuery ? '?' + newQuery : ''}`);
+    } catch (err) {}
   };
 
   const handleAISearchContinue = (query: string, currentIntent: 'recruit' | 'work' | 'scout') => {
-    setShowAISearchModal(false);
+    handleAISearchClose();
     if (currentIntent === 'work') {
       onNavigate(`/marketplace?q=${encodeURIComponent(query)}&intent=work`);
     } else if (currentIntent === 'scout') {
@@ -575,9 +609,49 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
   const [isHeroSearchActive, setIsHeroSearchActive] = useState(false);
-  const [heroSearchIntent, setHeroSearchIntent] = useState<'recruit' | 'work' | 'scout'>('recruit');
-  const [showAISearchModal, setShowAISearchModal] = useState(false);
-  const [aiSearchQuery, setAiSearchQuery] = useState('');
+  const [heroSearchIntent, setHeroSearchIntent] = useState<'recruit' | 'work' | 'scout'>(() => {
+    if (typeof window === 'undefined') return 'recruit';
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlIntent = params.get('intent') as 'recruit' | 'work' | 'scout';
+      if (urlIntent && ['recruit', 'work', 'scout'].includes(urlIntent)) return urlIntent;
+      const saved = sessionStorage.getItem('refeir_ai_search_session');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.intent && ['recruit', 'work', 'scout'].includes(parsed.intent)) return parsed.intent;
+      }
+    } catch (e) {}
+    return 'recruit';
+  });
+
+  const [showAISearchModal, setShowAISearchModal] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('ai_search') === 'true') return true;
+      const saved = sessionStorage.getItem('refeir_ai_search_session');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return Boolean(parsed.isOpen);
+      }
+    } catch (e) {}
+    return false;
+  });
+
+  const [aiSearchQuery, setAiSearchQuery] = useState<string>(() => {
+    if (typeof window === 'undefined') return '';
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlQ = params.get('q');
+      if (urlQ) return urlQ;
+      const saved = sessionStorage.getItem('refeir_ai_search_session');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return parsed.searchQuery || '';
+      }
+    } catch (e) {}
+    return '';
+  });
   const heroSearchContainerRef = useRef<HTMLDivElement>(null);
   const heroSearchInputRef = useRef<HTMLInputElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
@@ -3701,7 +3775,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           isOpen={showAISearchModal}
           searchQuery={aiSearchQuery}
           intent={heroSearchIntent}
-          onClose={() => setShowAISearchModal(false)}
+          onClose={handleAISearchClose}
           onContinue={handleAISearchContinue}
           onNavigate={onNavigate}
         />
