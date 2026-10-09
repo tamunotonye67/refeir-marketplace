@@ -2782,7 +2782,7 @@
     font-size: clamp(0.78rem, 3.3vw, 0.85rem) !important;
     line-height: 1.45 !important;
     letter-spacing: -0.015em !important;
-    padding-right: clamp(1.25rem, 5.5vw, 2.75rem) !important;
+    padding-right: clamp(0.5rem, 3.5vw, 1.75rem) !important;
     max-width: 100% !important;
     margin-bottom: 1.25rem !important;
   }

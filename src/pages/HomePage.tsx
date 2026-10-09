@@ -2062,7 +2062,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       MozOsxFontSmoothing: 'grayscale'
                     }}
                   >
-                    Refer or hire experts across Africa who use AI to work<br className="rf-subheadline-mobile-br" /> smarter, deliver better, and turn real connections into real<br className="rf-subheadline-mobile-br" /> opportunities
+                    Refer or hire experts across Africa who use AI to work<br className="rf-subheadline-mobile-br" /> smarter, deliver better, and turn real connections into<br className="rf-subheadline-mobile-br" /> <span style={{ whiteSpace: 'nowrap' }}>real opportunities</span>
                   </p>
 
                   {/* Search Bar */}
