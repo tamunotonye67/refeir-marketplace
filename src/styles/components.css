@@ -2674,6 +2674,8 @@
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    background: linear-gradient(90deg, #CEEABF 0%, #E2F5D3 35%, #F4FBF0 70%, #FFFFFF 100%) !important;
+    opacity: 1 !important;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
@@ -2684,7 +2686,7 @@
   }
 
   .rf-hero-announcement .rf-hero-announcement-text span {
-    color: #2E7D32 !important;
+    color: #1B5E20 !important;
     font-weight: 800 !important;
   }
 
@@ -2709,16 +2711,15 @@
     flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: space-between !important;
-    background: linear-gradient(90deg, rgba(102, 187, 42, 0.28) 0%, rgba(184, 238, 52, 0.16) 38%, rgba(255, 255, 255, 0.92) 85%, #FFFFFF 100%) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
+    background: linear-gradient(90deg, #CEEABF 0%, #E2F5D3 35%, #F4FBF0 70%, #FFFFFF 100%) !important;
+    opacity: 1 !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
     border-bottom: 1px solid rgba(18, 43, 26, 0.15) !important;
   }
 
   [data-theme="dark"] .rf-hero-announcement.is-scrolled {
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(6, 20, 11, 0.90) 100%) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: linear-gradient(90deg, #CEEABF 0%, #E2F5D3 35%, #F4FBF0 70%, #FFFFFF 100%) !important;
+    border-bottom: 1px solid rgba(18, 43, 26, 0.15) !important;
   }
 
   .rf-hero-announcement.is-scrolled .rf-hero-announcement-text-wrap {
