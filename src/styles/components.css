@@ -1562,21 +1562,8 @@
   }
 }
 
-/* Subtle, Elegant Glowing Sparkle in ServiceCard */
-@keyframes rfSparkleGlowPulse {
-  0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 2px rgba(54, 224, 160, 0.4));
-    opacity: 0.85;
-  }
-  50% {
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 7px rgba(102, 249, 130, 0.9));
-    opacity: 1;
-  }
-}
-
-@keyframes rfTextSlideToSparkle {
+/* Clean Ribbon Badge in ServiceCard */
+@keyframes rfTextSlideRibbon {
   0% {
     transform: translateX(110%);
     opacity: 0;
@@ -1599,7 +1586,7 @@
   }
 }
 
-.rf-animated-sparkle-badge {
+.rf-service-ribbon-badge {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -1618,7 +1605,7 @@
   max-width: 200px;
 }
 
-.rf-sparkle-icon-anchor {
+.rf-ribbon-icon-anchor {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1627,15 +1614,14 @@
   flex-shrink: 0;
 }
 
-.rf-animated-sparkle-icon {
+.rf-ribbon-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--rf-mint);
-  animation: rfSparkleGlowPulse 2.4s ease-in-out infinite;
 }
 
-.rf-sparkle-text-viewport {
+.rf-ribbon-text-viewport {
   overflow: hidden;
   position: relative;
   display: flex;
@@ -1643,14 +1629,14 @@
   white-space: nowrap;
 }
 
-.rf-sparkle-sliding-text {
+.rf-ribbon-text {
   display: inline-block;
   white-space: nowrap;
   font-size: 0.6875rem;
   font-weight: 800;
   color: var(--rf-mint);
   letter-spacing: 0.02em;
-  animation: rfTextSlideToSparkle 4.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  animation: rfTextSlideRibbon 4.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
 }
 
 /* Animated Glowing / Beeping Shield Icon */
@@ -4226,7 +4212,7 @@
   border-radius: 50%;
 }
 
-.rf-core-spark-center {
+.rf-core-beacon-center {
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -4241,18 +4227,18 @@
   z-index: 2;
 }
 
-.rf-ai-search-overlay.is-light .rf-core-spark-center {
+.rf-ai-search-overlay.is-light .rf-core-beacon-center {
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(22, 163, 74, 0.28);
   box-shadow: 0 4px 16px rgba(22, 163, 74, 0.18), inset 0 0 8px rgba(22, 163, 74, 0.08);
 }
 
-.rf-core-spark-icon {
+.rf-core-beacon-icon {
   color: #86EFAC;
-  animation: rfSparkleGlow 2.2s ease-in-out infinite alternate;
+  transition: transform 0.3s ease;
 }
 
-.rf-ai-search-overlay.is-light .rf-core-spark-icon {
+.rf-ai-search-overlay.is-light .rf-core-beacon-icon {
   color: #16A34A;
 }
 
@@ -4349,10 +4335,7 @@
   100% { transform: scale(1.2); opacity: 0.75; }
 }
 
-@keyframes rfSparkleGlow {
-  0% { transform: scale(0.92) rotate(-5deg); opacity: 0.8; }
-  100% { transform: scale(1.08) rotate(5deg); opacity: 1; }
-}
+
 
 @keyframes rfSonarRipple {
   0% {

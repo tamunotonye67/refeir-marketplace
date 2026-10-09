@@ -18,7 +18,6 @@ import {
   Plus,
   Search,
   MessageCircle,
-  Sparkles,
   Link2,
   Eye,
   CheckCircle2,
@@ -490,7 +489,7 @@ export const ScoutLinksPage: React.FC<ScoutLinksPageProps> = ({ onNavigate }) =>
             {/* Right: Link Controls & Multi-Channel Sharing */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: isDark ? '#66BB2A' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-                <Sparkles size={14} />
+                <Link2 size={14} />
                 <span>ACTIVE TRACKING LINK DETAILS</span>
               </div>
 

@@ -27,8 +27,7 @@ import {
   Briefcase,
   Copy,
   CheckCheck,
-  TrendingUp,
-  Sparkles
+  TrendingUp
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { SEED_TALENT } from '../../data/seedTalent';
@@ -931,8 +930,8 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                 <div className="rf-loader-core-beacon">
                   <div className="rf-core-sonar-ripple" />
                   <div className="rf-core-sonar-ripple ripple-2" />
-                  <div className="rf-core-spark-center">
-                    <Sparkles size={20} className="rf-core-spark-icon" />
+                  <div className="rf-core-beacon-center">
+                    <Compass size={20} className="rf-core-beacon-icon" />
                   </div>
                 </div>
               </div>
@@ -1761,8 +1760,8 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               <div className="rf-loader-core-beacon">
                 <div className="rf-core-sonar-ripple" />
                 <div className="rf-core-sonar-ripple ripple-2" />
-                <div className="rf-core-spark-center">
-                  <Sparkles size={20} className="rf-core-spark-icon" />
+                <div className="rf-core-beacon-center">
+                  <Compass size={20} className="rf-core-beacon-icon" />
                 </div>
               </div>
             </div>

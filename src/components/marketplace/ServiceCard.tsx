@@ -31,27 +31,27 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         />
         {/* Ribbon Tag */}
         {activeRole === 'CLIENT' ? (
-          <div className="rf-animated-sparkle-badge" style={{ background: 'linear-gradient(135deg, rgba(36, 87, 255, 0.9), rgba(54, 224, 160, 0.9))' }}>
-            <div className="rf-sparkle-icon-anchor">
-              <span className="rf-animated-sparkle-icon">
+          <div className="rf-service-ribbon-badge" style={{ background: 'linear-gradient(135deg, rgba(36, 87, 255, 0.9), rgba(54, 224, 160, 0.9))' }}>
+            <div className="rf-ribbon-icon-anchor">
+              <span className="rf-ribbon-icon">
                 <ShieldCheck size={13} />
               </span>
             </div>
-            <div className="rf-sparkle-text-viewport">
-              <span className="rf-sparkle-sliding-text">
+            <div className="rf-ribbon-text-viewport">
+              <span className="rf-ribbon-text">
                 0% ESCROW FEE • PROTECTED DELIVERY
               </span>
             </div>
           </div>
         ) : (
-          <div className="rf-animated-sparkle-badge">
-            <div className="rf-sparkle-icon-anchor">
-              <span className="rf-animated-sparkle-icon">
+          <div className="rf-service-ribbon-badge">
+            <div className="rf-ribbon-icon-anchor">
+              <span className="rf-ribbon-icon">
                 <Award size={13} />
               </span>
             </div>
-            <div className="rf-sparkle-text-viewport">
-              <span className="rf-sparkle-sliding-text">
+            <div className="rf-ribbon-text-viewport">
+              <span className="rf-ribbon-text">
                 {service.referral_percentage}% REFERRAL REWARD
               </span>
             </div>

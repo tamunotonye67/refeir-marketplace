@@ -20,7 +20,7 @@ import {
   BarChart3,
   Calendar,
   Layers,
-  Sparkles,
+  BookOpen,
   ChevronRight
 } from 'lucide-react';
 
@@ -507,7 +507,7 @@ export const ConversionRatesPage: React.FC<ConversionRatesPageProps> = ({ onNavi
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: '#D97706', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.35rem' }}>
-              <Sparkles size={14} />
+              <BookOpen size={14} />
               <span>SCOUT CONVERSION PLAYBOOK</span>
             </div>
             <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#713F12', margin: 0 }}>
