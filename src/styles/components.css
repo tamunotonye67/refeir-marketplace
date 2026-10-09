@@ -6839,7 +6839,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3.5rem;
-  align-items: center;
+  align-items: stretch;
   margin-bottom: 5.5rem;
   padding-top: 3.5rem;
   border-top: 1px solid #E5E7EB;
@@ -6855,8 +6855,8 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.14);
-  min-height: 320px;
-  aspect-ratio: 16 / 10;
+  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -6963,6 +6963,11 @@
   .rf-scouts-how-it-works-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+
+  .rf-scout-feature-card {
+    min-height: 280px;
+    aspect-ratio: 16 / 10;
   }
 }
 
