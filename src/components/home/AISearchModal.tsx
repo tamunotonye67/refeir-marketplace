@@ -1841,6 +1841,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                   >
                     Plans and pricing
                   </button>
+                </div>
               </div>
             </div>
 
