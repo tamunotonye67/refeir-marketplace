@@ -445,20 +445,26 @@ export const TalentProfilePage: React.FC<TalentProfilePageProps> = ({
                   <span>Connect & Collaborate</span>
                 </button>
               ) : (
-                /* GUEST MODE: Both options */
+                /* GUEST MODE: Visitor needs to register as a client before hiring */
                 <>
                   <button
-                    onClick={() => onHire(talent)}
+                    onClick={() => onNavigate(`/register?role=client&talentId=${talent.id}`)}
                     className="rf-btn rf-btn-primary rf-btn-lg rf-w-full"
+                    style={{ fontWeight: 800, gap: '0.5rem' }}
                   >
-                    <span>Hire Professional</span>
+                    <Briefcase size={16} />
+                    <span>Register as Client to Hire</span>
                   </button>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textAlign: 'center', margin: '0.2rem 0 0 0' }}>
+                    Sign up as a client to start escrow contracts with this talent.
+                  </p>
                   <button
                     onClick={() => {
                       setSelectedService(null);
                       setShowReferModal(true);
                     }}
-                    className="rf-btn rf-btn-mint rf-btn-lg rf-w-full"
+                    className="rf-btn rf-btn-mint rf-btn-md rf-w-full"
+                    style={{ marginTop: '0.5rem' }}
                   >
                     <span>Refer {talent.full_name.split(' ')[0]} & Earn</span>
                   </button>

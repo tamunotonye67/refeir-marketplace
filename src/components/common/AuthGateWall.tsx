@@ -4,34 +4,47 @@ import { useTheme } from '../../context/ThemeContext';
 import { Shield, Lock, ArrowRight, UserCheck, Briefcase, Users, LogIn, UserPlus } from 'lucide-react';
 import { GLOBAL_COUNTRIES, getCountryByName } from '../../data/countries';
 
+import { TalentProfile } from '../../types';
+
 interface AuthGateWallProps {
   pageName: string;
   roleRequired?: string;
+  initialTab?: 'LOGIN' | 'SIGNUP';
+  initialRole?: 'SCOUT' | 'TALENT' | 'CLIENT';
+  talentToHire?: TalentProfile | null;
   onNavigate: (path: string) => void;
+  onSuccess?: () => void;
 }
 
 export const AuthGateWall: React.FC<AuthGateWallProps> = ({
   pageName,
   roleRequired = 'Member',
-  onNavigate
+  initialTab = 'LOGIN',
+  initialRole = 'CLIENT',
+  talentToHire,
+  onNavigate,
+  onSuccess
 }) => {
   const { login, signup } = useAuth();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
-  const [activeTab, setActiveTab] = useState<'LOGIN' | 'SIGNUP'>('LOGIN');
+  const [activeTab, setActiveTab] = useState<'LOGIN' | 'SIGNUP'>(initialTab);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [dialCode, setDialCode] = useState('+1');
-  const [role, setRole] = useState<'SCOUT' | 'TALENT' | 'CLIENT'>('SCOUT');
+  const [role, setRole] = useState<'SCOUT' | 'TALENT' | 'CLIENT'>(initialRole);
   const [country, setCountry] = useState('United States');
 
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     await login(email, password || undefined);
+    if (onSuccess) {
+      onSuccess();
+    }
   };
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
@@ -48,6 +61,9 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
       active_role: role,
       country
     });
+    if (onSuccess) {
+      onSuccess();
+    }
   };
 
   return (
@@ -102,17 +118,59 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
               border: isDark ? 'none' : '1px solid rgba(22, 163, 74, 0.2)'
             }}
           >
-            <Shield size={13} /> AUTHENTICATION REQUIRED
+            <Shield size={13} /> {talentToHire ? 'CLIENT REGISTRATION' : 'AUTHENTICATION REQUIRED'}
           </span>
 
           <h1 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-            Sign In to Access {pageName}
+            {talentToHire ? `Register as a Client to Hire ${talentToHire.full_name}` : `Sign In to Access ${pageName}`}
           </h1>
 
-          <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '520px', margin: '0.75rem auto 0', lineHeight: 1.6 }}>
-            This workspace contains private financial custody, active contracts, and sensitive communications. Please log in or create your verified Refeir account.
+          <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '540px', margin: '0.75rem auto 0', lineHeight: 1.6 }}>
+            {talentToHire
+              ? `Create your client account to initiate escrow-protected milestones and collaborate directly with ${talentToHire.full_name.split(' ')[0]}.`
+              : `This workspace contains private financial custody, active contracts, and sensitive communications. Please log in or create your verified Refeir account.`}
           </p>
         </div>
+
+        {/* Talent Target Preview Card */}
+        {talentToHire && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              backgroundColor: isDark ? 'rgba(54, 224, 160, 0.08)' : '#F8FAF9',
+              border: isDark ? '1px solid rgba(54, 224, 160, 0.25)' : '1px solid rgba(22, 163, 74, 0.2)',
+              borderRadius: '16px',
+              padding: '1rem 1.25rem',
+              maxWidth: '480px',
+              margin: '0 auto 2rem'
+            }}
+          >
+            <img
+              src={talentToHire.avatar_url}
+              alt={talentToHire.full_name}
+              style={{
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '2px solid var(--rf-mint)'
+              }}
+            />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-mint)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                Selected Talent
+              </div>
+              <div style={{ fontSize: '1.0625rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {talentToHire.full_name}
+              </div>
+              <div style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#64748B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {talentToHire.headline}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Tab Switcher: Login vs Sign Up */}
         <div style={{ maxWidth: '420px', margin: '0 auto 2rem' }}>

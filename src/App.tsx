@@ -117,11 +117,12 @@ export const App: React.FC = () => {
 
   const handleHire = (talent: TalentProfile, service?: Service, referral?: any) => {
     if (!currentUser) {
-      login('david.kamau@twigalogistics.co.ke');
+      navigate(`/register?role=client&talentId=${talent.id}`);
+      return;
     } else if (currentUser.active_role !== 'CLIENT') {
       switchRole('CLIENT');
     }
-    const clientName = currentUser ? `${currentUser.first_name} ${currentUser.last_name}` : 'David Kamau';
+    const clientName = `${currentUser.first_name} ${currentUser.last_name}`;
     const proj = createProjectFromService(
       talent,
       service,
@@ -448,6 +449,50 @@ export const App: React.FC = () => {
           return <AuthGateWall pageName="Account Settings" onNavigate={navigate} />;
         }
         return <AccountSettingsPage onNavigate={navigate} />;
+      case '/register':
+      case '/signup': {
+        const roleParam = getQueryParam(currentPath, 'role').toUpperCase();
+        const initialRole = (roleParam === 'CLIENT' || roleParam === 'TALENT' || roleParam === 'SCOUT')
+          ? (roleParam as 'CLIENT' | 'TALENT' | 'SCOUT')
+          : 'CLIENT';
+        const talentId = getQueryParam(currentPath, 'talentId');
+        const targetTalent = talentId ? (talentList.find(t => t.id === talentId) || SEED_TALENT.find(t => t.id === talentId)) : null;
+
+        if (currentUser && currentUser.active_role === 'CLIENT') {
+          if (targetTalent) {
+            navigate(`/talent/${targetTalent.id}`);
+            return null;
+          }
+          navigate('/dashboard/client');
+          return null;
+        }
+
+        return (
+          <AuthGateWall
+            pageName={targetTalent ? `Hire ${targetTalent.full_name}` : "Client Registration"}
+            roleRequired={initialRole === 'CLIENT' ? 'Client' : initialRole === 'TALENT' ? 'Talent' : 'Scout'}
+            initialTab="SIGNUP"
+            initialRole={initialRole}
+            talentToHire={targetTalent}
+            onNavigate={navigate}
+            onSuccess={() => {
+              if (targetTalent) {
+                navigate(`/talent/${targetTalent.id}`);
+              } else {
+                navigate('/dashboard/client');
+              }
+            }}
+          />
+        );
+      }
+      case '/login':
+        return (
+          <AuthGateWall
+            pageName="Refeir Account"
+            initialTab="LOGIN"
+            onNavigate={navigate}
+          />
+        );
       case '/admin-login':
         if (currentUser && currentUser.roles.includes('ADMIN')) {
           return <AdminPortalPage onNavigate={navigate} />;

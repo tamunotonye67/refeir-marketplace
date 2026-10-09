@@ -3,6 +3,7 @@ import { useI18n } from '../context/I18nContext';
 import { useTheme } from '../context/ThemeContext';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { TalentCard } from '../components/marketplace/TalentCard';
+import { FeaturedTalentCard } from '../components/home/FeaturedTalentCard';
 import { ServiceCard } from '../components/marketplace/ServiceCard';
 import { AfricaMapExplorer } from '../components/marketplace/AfricaMapExplorer';
 import { Africa3DMap } from '../components/marketplace/Africa3DMap';
@@ -3162,24 +3163,21 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="rf-container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
             <div>
-              <span
+              <h2
                 style={{
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.08em',
-                  color: 'var(--rf-leaf-green)',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: '0.5rem'
+                  fontFamily: 'var(--rf-font-display)',
+                  fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',
+                  fontWeight: 500,
+                  color: 'var(--rf-cream)',
+                  lineHeight: 1.2,
+                  letterSpacing: '-0.02em',
+                  margin: 0
                 }}
               >
-                REFEIR PRO FEATURED TALENT
-              </span>
-              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                Featured Talent Ready for Hire
+                Featured Talent
               </h2>
-              <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem' }}>
-                Top vetted African professionals enrolled in Featured Talent Pro for accelerated global discovery.
+              <p style={{ color: 'var(--rf-slate-300)', fontSize: '1rem', marginTop: '0.5rem', maxWidth: '580px', lineHeight: 1.5 }}>
+                Top vetted African professionals ready to accelerate your projects.
               </p>
             </div>
             <button onClick={() => onNavigate('/marketplace')} className="rf-btn rf-btn-secondary" style={{ gap: '0.5rem' }}>
@@ -3191,12 +3189,12 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div className="rf-grid-cards rf-featured-talent-slider">
             {talentList
               .filter(talent => talent.is_pro || talent.is_featured)
+              .slice(0, 3)
               .map(talent => (
-                <TalentCard
+                <FeaturedTalentCard
                   key={talent.id}
                   talent={talent}
                   onSelect={onSelectTalent}
-                  onRefer={handleReferTalent}
                 />
               ))}
           </div>

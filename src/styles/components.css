@@ -2846,7 +2846,6 @@
     height: 0 !important;
   }
 
-  .rf-featured-talent-slider > *,
   .rf-popular-services-slider > * {
     flex: 0 0 285px !important;
     max-width: 285px !important;
@@ -2861,6 +2860,22 @@
     height: 430px !important;
     min-height: 430px !important;
     max-height: 430px !important;
+    box-sizing: border-box !important;
+  }
+
+  .rf-featured-talent-slider > * {
+    flex: 0 0 290px !important;
+    max-width: 290px !important;
+    min-width: 290px !important;
+    width: 290px !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: normal !important;
+    scroll-margin-left: 1.25rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-self: stretch !important;
+    height: auto !important;
+    min-height: 470px !important;
     box-sizing: border-box !important;
   }
 
@@ -7931,10 +7946,36 @@
   border-right-color: rgba(18, 43, 26, 0.08) !important;
 }
 
-:root:not([data-theme="dark"]) .rf-messages-chat-col,
-[data-theme="light"] .rf-messages-chat-col {
-  background-color: #FFFFFF !important;
+/* =========================================================================
+   FEATURED TALENT PROFILE CARDS (MODERN EDITORIAL CARDS)
+   ========================================================================= */
+.rf-talent-profile-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
 }
+
+.rf-talent-profile-card:hover {
+  transform: translateY(-6px);
+}
+
+[data-theme="dark"] .rf-talent-profile-card:hover {
+  border-color: rgba(54, 224, 160, 0.35) !important;
+  box-shadow: 0 22px 40px -10px rgba(0, 0, 0, 0.75), 0 0 24px rgba(54, 224, 160, 0.1) !important;
+}
+
+:root:not([data-theme="dark"]) .rf-talent-profile-card:hover,
+[data-theme="light"] .rf-talent-profile-card:hover {
+  border-color: rgba(22, 163, 74, 0.35) !important;
+  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.12), 0 8px 16px -4px rgba(22, 163, 74, 0.08) !important;
+}
+
+.rf-talent-profile-card:hover .rf-talent-card-image {
+  transform: scale(1.04);
+}
+
+.rf-talent-profile-card:hover .rf-talent-card-arrow {
+  transform: translateX(4px);
+}
+
 
 
 
