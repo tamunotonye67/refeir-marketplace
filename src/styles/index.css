@@ -586,6 +586,7 @@ code::-webkit-scrollbar-thumb:hover,
 [data-theme="light"] .rf-modal-content:not(.rf-dark-surface),
 [data-theme="light"] .rf-dropdown-menu {
   background-color: #FFFFFF !important;
+  background-image: none !important;
   color: #122B1A !important;
 }
 

@@ -1,5 +1,6 @@
-﻿import React from 'react';
+import React from 'react';
 import { UserRole } from '../../types';
+import { useTheme } from '../../context/ThemeContext';
 import {
   Briefcase,
   Code2,
@@ -24,6 +25,8 @@ export const ProfileSwitchGate: React.FC<ProfileSwitchGateProps> = ({
   onNavigate,
   onSwitch
 }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const getRoleConfig = (role: string) => {
     switch (role) {
       case 'SCOUT':
@@ -87,18 +90,19 @@ export const ProfileSwitchGate: React.FC<ProfileSwitchGateProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '3rem 1.5rem',
-        background: 'var(--rf-bg-base)'
+        background: isDark ? 'var(--rf-bg-base)' : '#F8FAF9'
       }}
     >
       <div
         style={{
           maxWidth: '580px',
           width: '100%',
-          background: 'var(--rf-bg-surface)',
-          border: '1px solid var(--rf-bg-card-border)',
+          backgroundColor: isDark ? '#0A1E12' : '#FFFFFF',
+          backgroundImage: isDark ? 'linear-gradient(180deg, rgba(14, 38, 25, 0.98) 0%, rgba(7, 20, 13, 0.99) 100%)' : 'none',
+          border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(18, 43, 26, 0.12)',
           borderRadius: '24px',
           padding: 'clamp(2rem, 4vw, 3rem)',
-          boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.12)',
+          boxShadow: isDark ? '0 25px 60px rgba(0, 0, 0, 0.7)' : '0 20px 48px rgba(18, 43, 26, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04)',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden'
@@ -141,7 +145,7 @@ export const ProfileSwitchGate: React.FC<ProfileSwitchGateProps> = ({
             <span>Active: {currentRole} Profile</span>
           </div>
 
-          <span style={{ color: 'var(--rf-slate-400)', fontSize: '0.85rem' }}>→</span>
+          <span style={{ color: isDark ? 'var(--rf-slate-400)' : '#64748B', fontSize: '0.85rem' }}>→</span>
 
           <div
             style={{
@@ -188,7 +192,7 @@ export const ProfileSwitchGate: React.FC<ProfileSwitchGateProps> = ({
           style={{
             fontSize: 'clamp(1.5rem, 3vw, 1.85rem)',
             fontWeight: 800,
-            color: 'var(--rf-cream)',
+            color: isDark ? '#FFFFFF' : '#0F172A',
             marginBottom: '0.75rem',
             lineHeight: 1.25
           }}
@@ -200,19 +204,19 @@ export const ProfileSwitchGate: React.FC<ProfileSwitchGateProps> = ({
         <p
           style={{
             fontSize: '0.9375rem',
-            color: 'var(--rf-slate-300)',
+            color: isDark ? '#CBD5E1' : '#475569',
             lineHeight: 1.55,
             marginBottom: '1.75rem'
           }}
         >
-          You are currently signed in under your <strong>{currentRole} Profile</strong>. Under Refeir's strict single-profile policy, you must switch your active profile to access <strong>{targetConfig.title}</strong> tools and features.
+          You are currently signed in under your <strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>{currentRole} Profile</strong>. Under Refeir's strict single-profile policy, you must switch your active profile to access <strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>{targetConfig.title}</strong> tools and features.
         </p>
 
         {/* Feature Preview Card */}
         <div
           style={{
-            background: 'var(--rf-bg-base)',
-            border: '1px solid var(--rf-bg-card-border)',
+            background: isDark ? 'rgba(0, 0, 0, 0.35)' : '#F8FAFC',
+            border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
             borderRadius: '14px',
             padding: '1rem 1.25rem',
             marginBottom: '2rem',
@@ -224,10 +228,10 @@ export const ProfileSwitchGate: React.FC<ProfileSwitchGateProps> = ({
         >
           <CheckCircle2 size={18} color={targetConfig.color} style={{ flexShrink: 0, marginTop: '2px' }} />
           <div>
-            <div style={{ fontSize: '0.84rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.2rem' }}>
+            <div style={{ fontSize: '0.84rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', marginBottom: '0.2rem' }}>
               What unlocks in {targetConfig.title}:
             </div>
-            <div style={{ fontSize: '0.78rem', color: 'var(--rf-slate-400)', lineHeight: 1.45 }}>
+            <div style={{ fontSize: '0.78rem', color: isDark ? '#CBD5E1' : '#64748B', lineHeight: 1.45 }}>
               {targetConfig.desc}
             </div>
           </div>
@@ -245,7 +249,9 @@ export const ProfileSwitchGate: React.FC<ProfileSwitchGateProps> = ({
               fontWeight: 800,
               gap: '0.5rem',
               justifyContent: 'center',
-              boxShadow: '0 4px 16px rgba(102, 187, 42, 0.3)'
+              background: isDark ? 'var(--rf-leaf-green)' : 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
+              color: isDark ? '#081C10' : '#FFFFFF',
+              boxShadow: isDark ? '0 4px 16px rgba(102, 187, 42, 0.3)' : '0 4px 16px rgba(22, 163, 74, 0.25)'
             }}
           >
             <RefreshCw size={17} />
@@ -261,7 +267,10 @@ export const ProfileSwitchGate: React.FC<ProfileSwitchGateProps> = ({
               padding: '0.75rem 1.5rem',
               fontSize: '0.875rem',
               fontWeight: 700,
-              justifyContent: 'center'
+              justifyContent: 'center',
+              backgroundColor: isDark ? 'transparent' : '#FFFFFF',
+              borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : '#CBD5E1',
+              color: isDark ? '#CBD5E1' : '#334155'
             }}
           >
             <span>Return to My {currentRole} Dashboard</span>

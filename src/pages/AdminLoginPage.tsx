@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { Shield, KeyRound, Eye, EyeOff, AlertTriangle, Lock, CheckCircle2 } from 'lucide-react';
 import { RefeirLogo } from '../components/common/RefeirLogo';
 
@@ -14,6 +15,8 @@ const ADMIN_CREDENTIALS = {
 
 export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) => {
   const { login, currentUser } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -94,17 +97,19 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
       <div style={{ width: '100%', maxWidth: '440px', position: 'relative' }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <RefeirLogo size="lg" isLight showTagline={false} />
+          <RefeirLogo size="lg" isLight={isDark} showTagline={false} />
         </div>
 
         {/* Card */}
         <div
           style={{
-            background: 'linear-gradient(145deg, rgba(10,26,18,0.97), rgba(7,20,12,0.99))',
-            border: '1px solid rgba(102,187,42,0.35)',
+            backgroundColor: isDark ? '#0A1E12' : '#FFFFFF',
+            backgroundImage: isDark ? 'linear-gradient(145deg, rgba(10,26,18,0.97), rgba(7,20,12,0.99))' : 'none',
+            border: isDark ? '1px solid rgba(102,187,42,0.35)' : '1px solid rgba(18,43,26,0.12)',
             borderRadius: 'var(--rf-radius-xl)',
             padding: '2.5rem',
-            boxShadow: '0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(102,187,42,0.1)',
+            boxShadow: isDark ? '0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(102,187,42,0.1)' : '0 20px 48px rgba(18, 43, 26, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04)',
+            color: isDark ? '#FFFFFF' : '#0F172A'
           }}
         >
           {/* Header */}
@@ -114,20 +119,20 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
                 width: '56px',
                 height: '56px',
                 borderRadius: '16px',
-                background: 'rgba(102,187,42,0.12)',
-                border: '1px solid rgba(102,187,42,0.3)',
+                background: isDark ? 'rgba(102,187,42,0.12)' : 'rgba(22,163,74,0.12)',
+                border: isDark ? '1px solid rgba(102,187,42,0.3)' : '1px solid rgba(22,163,74,0.3)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto 1rem',
               }}
             >
-              <Shield size={28} color="var(--rf-leaf-green)" />
+              <Shield size={28} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} />
             </div>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
               Admin Portal
             </h1>
-            <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)' }}>
+            <p style={{ fontSize: '0.875rem', color: isDark ? 'var(--rf-slate-400)' : '#475569' }}>
               Restricted access — Pan-African Governance Console
             </p>
           </div>
@@ -135,8 +140,8 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
           {/* Quick-fill hint */}
           <div
             style={{
-              background: 'rgba(125,162,255,0.06)',
-              border: '1px solid rgba(125,162,255,0.2)',
+              background: isDark ? 'rgba(125,162,255,0.06)' : '#F0F9F2',
+              border: isDark ? '1px solid rgba(125,162,255,0.2)' : '1px solid rgba(22,163,74,0.25)',
               borderRadius: 'var(--rf-radius-md)',
               padding: '0.875rem 1rem',
               marginBottom: '1.5rem',
@@ -145,12 +150,12 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
               gap: '0.625rem',
             }}
           >
-            <KeyRound size={15} color="#7DA2FF" style={{ flexShrink: 0, marginTop: '2px' }} />
+            <KeyRound size={15} color={isDark ? "#7DA2FF" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#7DA2FF', marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: isDark ? '#7DA2FF' : '#15803D', marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                 Demo Credentials
               </div>
-              <div style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', fontFamily: 'var(--rf-font-mono)', lineHeight: 1.6 }}>
+              <div style={{ fontSize: '0.8125rem', color: isDark ? 'var(--rf-slate-300)' : '#334155', fontFamily: 'var(--rf-font-mono)', lineHeight: 1.6 }}>
                 Email: admin@refeir.africa<br />
                 Password: Refeir@Admin2026
               </div>
@@ -161,9 +166,9 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
                   style={{
                     fontSize: '0.75rem',
                     fontWeight: 700,
-                    color: '#7DA2FF',
-                    background: 'rgba(125,162,255,0.1)',
-                    border: '1px solid rgba(125,162,255,0.25)',
+                    color: isDark ? '#7DA2FF' : '#15803D',
+                    background: isDark ? 'rgba(125,162,255,0.1)' : 'rgba(22,163,74,0.12)',
+                    border: isDark ? '1px solid rgba(125,162,255,0.25)' : '1px solid rgba(22,163,74,0.3)',
                     borderRadius: '100px',
                     padding: '0.25rem 0.75rem',
                     cursor: 'pointer',
@@ -172,8 +177,8 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
                     gap: '0.35rem',
                   }}
                 >
-                  {autofilled ? <CheckCircle2 size={12} color="#66bb2a" /> : <Lock size={12} />}
-                  {autofilled ? 'Credentials filled!' : 'Auto-fill credentials'}
+                  {autofilled ? <CheckCircle2 size={12} color={isDark ? "#66bb2a" : "#16A34A"} /> : <Lock size={12} />}
+                  <span>{autofilled ? 'Credentials filled!' : 'Auto-fill credentials'}</span>
                 </button>
 
                 <button
@@ -182,9 +187,9 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
                   style={{
                     fontSize: '0.75rem',
                     fontWeight: 700,
-                    color: '#86EFAC',
-                    background: 'rgba(102,187,42,0.15)',
-                    border: '1px solid rgba(102,187,42,0.35)',
+                    color: isDark ? '#86EFAC' : '#166534',
+                    background: isDark ? 'rgba(102,187,42,0.15)' : 'rgba(22,163,74,0.15)',
+                    border: isDark ? '1px solid rgba(102,187,42,0.35)' : '1px solid rgba(22,163,74,0.35)',
                     borderRadius: '100px',
                     padding: '0.25rem 0.75rem',
                     cursor: 'pointer',
@@ -193,7 +198,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
                     gap: '0.35rem',
                   }}
                 >
-                  <Shield size={12} color="#86EFAC" />
+                  <Shield size={12} color={isDark ? "#86EFAC" : "#166534"} />
                   <span>Instant Enter (Demo)</span>
                 </button>
               </div>
@@ -203,20 +208,25 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
           {/* Form */}
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.125rem' }}>
             <div className="rf-form-group">
-              <label className="rf-label">Admin Email</label>
+              <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Admin Email</label>
               <input
                 className="rf-input"
                 type="email"
                 placeholder="admin@refeir.africa"
                 value={email}
                 onChange={e => { setEmail(e.target.value); setError(''); }}
+                style={{
+                  backgroundColor: isDark ? 'rgba(7, 22, 13, 0.92)' : '#FFFFFF',
+                  color: isDark ? '#FFFFFF' : '#0F172A',
+                  border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
+                }}
                 required
                 autoComplete="email"
               />
             </div>
 
             <div className="rf-form-group">
-              <label className="rf-label">Password</label>
+              <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Password</label>
               <div style={{ position: 'relative' }}>
                 <input
                   className="rf-input"
@@ -224,16 +234,21 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
                   placeholder="••••••••••••••"
                   value={password}
                   onChange={e => { setPassword(e.target.value); setError(''); }}
+                  style={{
+                    backgroundColor: isDark ? 'rgba(7, 22, 13, 0.92)' : '#FFFFFF',
+                    color: isDark ? '#FFFFFF' : '#0F172A',
+                    border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1',
+                    paddingRight: '3rem'
+                  }}
                   required
                   autoComplete="current-password"
-                  style={{ paddingRight: '3rem' }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(p => !p)}
                   style={{
                     position: 'absolute', right: '0.875rem', top: '50%', transform: 'translateY(-50%)',
-                    background: 'none', border: 'none', cursor: 'pointer', color: 'var(--rf-slate-400)', padding: '0.25rem',
+                    background: 'none', border: 'none', cursor: 'pointer', color: isDark ? 'var(--rf-slate-400)' : '#64748B', padding: '0.25rem',
                   }}
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -256,7 +271,14 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
             <button
               type="submit"
               className="rf-btn rf-btn-primary rf-btn-lg"
-              style={{ marginTop: '0.5rem', gap: '0.5rem', position: 'relative' }}
+              style={{
+                marginTop: '0.5rem',
+                gap: '0.5rem',
+                position: 'relative',
+                background: isDark ? 'var(--rf-leaf-green)' : 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
+                color: isDark ? '#081C10' : '#FFFFFF',
+                boxShadow: isDark ? '0 4px 16px rgba(102, 187, 42, 0.3)' : '0 4px 16px rgba(22, 163, 74, 0.3)'
+              }}
               disabled={loading}
             >
               {loading ? (
@@ -274,10 +296,11 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
           </form>
 
           {/* Footer */}
-          <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid var(--rf-navy-border)', textAlign: 'center' }}>
+          <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: isDark ? '1px solid var(--rf-navy-border)' : '1px solid #E2E8F0', textAlign: 'center' }}>
             <button
+              type="button"
               onClick={() => onNavigate('/')}
-              style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', background: 'none', border: 'none', cursor: 'pointer' }}
+              style={{ fontSize: '0.8125rem', color: isDark ? 'var(--rf-slate-400)' : '#64748B', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}
             >
               ← Return to Refeir Homepage
             </button>

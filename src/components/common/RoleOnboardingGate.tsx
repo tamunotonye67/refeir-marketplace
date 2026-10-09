@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import { useNotification } from '../../context/NotificationContext';
 import {
   Compass,
@@ -30,6 +31,8 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
 }) => {
   const { currentUser, updateProfile } = useAuth();
   const { showToast } = useNotification();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   // SCOUT ONBOARDING FORM STATE
   const [scoutSpecialty, setScoutSpecialty] = useState(
@@ -167,11 +170,14 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
       <div
         className="rf-card"
         style={{
-          padding: '3rem 2.5rem',
-          background: 'linear-gradient(180deg, rgba(14, 38, 25, 0.95) 0%, rgba(7, 20, 13, 0.98) 100%)',
-          border: '1.5px solid rgba(102, 187, 42, 0.4)',
+          padding: 'clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 2.75rem)',
+          backgroundColor: isDark ? '#0A1E12' : '#FFFFFF',
+          backgroundImage: isDark ? 'linear-gradient(180deg, rgba(14, 38, 25, 0.98) 0%, rgba(7, 20, 13, 0.99) 100%)' : 'none',
+          border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(18, 43, 26, 0.12)',
           borderRadius: '24px',
-          boxShadow: '0 24px 70px rgba(0, 0, 0, 0.7)'
+          boxShadow: isDark ? '0 24px 70px rgba(0, 0, 0, 0.7)' : '0 20px 48px rgba(18, 43, 26, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04)',
+          color: isDark ? '#FFFFFF' : '#0F172A',
+          transition: 'all 0.25s ease'
         }}
       >
         {/* Top Role Badge */}
@@ -181,14 +187,14 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
               width: '60px',
               height: '60px',
               borderRadius: '50%',
-              background: 'rgba(102, 187, 42, 0.15)',
-              border: '1.5px solid rgba(102, 187, 42, 0.4)',
+              background: isDark ? 'rgba(102, 187, 42, 0.15)' : 'rgba(22, 163, 74, 0.12)',
+              border: isDark ? '1.5px solid rgba(102, 187, 42, 0.4)' : '1.5px solid rgba(22, 163, 74, 0.32)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto 1.25rem',
-              color: 'var(--rf-leaf-green)',
-              boxShadow: '0 0 25px rgba(102, 187, 42, 0.3)'
+              color: isDark ? 'var(--rf-leaf-green)' : '#16A34A',
+              boxShadow: isDark ? '0 0 25px rgba(102, 187, 42, 0.3)' : '0 0 20px rgba(22, 163, 74, 0.15)'
             }}
           >
             {targetRole === 'SCOUT' ? (
@@ -207,20 +213,20 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
               gap: '0.4rem',
               fontSize: '0.75rem',
               fontWeight: 800,
-              color: 'var(--rf-leaf-green)',
+              color: isDark ? 'var(--rf-leaf-green)' : '#15803D',
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
-              background: 'rgba(102, 187, 42, 0.1)',
+              background: isDark ? 'rgba(102, 187, 42, 0.1)' : 'rgba(22, 163, 74, 0.1)',
               padding: '0.3rem 0.85rem',
               borderRadius: '100px',
               marginBottom: '0.75rem',
-              border: '1px solid rgba(102, 187, 42, 0.25)'
+              border: isDark ? 'none' : '1px solid rgba(22, 163, 74, 0.2)'
             }}
           >
             <Shield size={13} /> PROFILE SETUP REQUIRED
           </div>
 
-          <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
             {targetRole === 'SCOUT'
               ? 'Complete Your Scout Profile'
               : targetRole === 'TALENT'
@@ -228,7 +234,7 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
               : 'Complete Client Organization Setup'}
           </h1>
 
-          <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', maxWidth: '560px', margin: '0.75rem auto 0', lineHeight: 1.6 }}>
+          <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '560px', margin: '0.75rem auto 0', lineHeight: 1.6 }}>
             {targetRole === 'SCOUT'
               ? 'To generate exclusive local client introduction links and earn 0% platform fee commissions, please fill in your scouting details.'
               : targetRole === 'TALENT'
@@ -287,24 +293,24 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
             {/* Scout Economic Benefits Callout */}
             <div
               style={{
-                background: 'rgba(102, 187, 42, 0.08)',
-                border: '1px solid rgba(102, 187, 42, 0.25)',
+                background: isDark ? 'rgba(102, 187, 42, 0.08)' : '#F0F9F2',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.25)' : '1px solid rgba(22, 163, 74, 0.25)',
                 borderRadius: 'var(--rf-radius-lg)',
                 padding: '1.25rem',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.5rem',
                 fontSize: '0.8125rem',
-                color: 'var(--rf-cream)'
+                color: isDark ? '#FFFFFF' : '#1E293B'
               }}
             >
-              <div style={{ fontWeight: 800, color: 'var(--rf-leaf-green)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <div style={{ fontWeight: 800, color: isDark ? 'var(--rf-leaf-green)' : '#15803D', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <CheckCircle2 size={16} /> YOUR ACTIVATED REFERRAL BENEFITS
               </div>
-              <ul style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.35rem', color: 'var(--rf-slate-300)' }}>
-                <li><strong>0% Fee Forever:</strong> Keep 100% of proceeds for talent offers &le; 10%.</li>
-                <li><strong>Monthly Airfee Tokens:</strong> Share your exclusive local client link to waive 2% fee on high-tier deals.</li>
-                <li><strong>Instant Automated Splits:</strong> Funds deposited directly upon milestone approval.</li>
+              <ul style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.35rem', color: isDark ? '#CBD5E1' : '#334155' }}>
+                <li><strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>0% Fee Forever:</strong> Keep 100% of proceeds for talent offers &le; 10%.</li>
+                <li><strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>Monthly Airfee Tokens:</strong> Share your exclusive local client link to waive 2% fee on high-tier deals.</li>
+                <li><strong style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>Instant Automated Splits:</strong> Funds deposited directly upon milestone approval.</li>
               </ul>
             </div>
 
@@ -314,7 +320,7 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
                 alignItems: 'flex-start',
                 gap: '0.625rem',
                 fontSize: '0.8125rem',
-                color: 'var(--rf-slate-300)',
+                color: isDark ? '#CBD5E1' : '#475569',
                 cursor: 'pointer',
                 marginTop: '0.5rem'
               }}
@@ -454,7 +460,7 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
                 alignItems: 'flex-start',
                 gap: '0.625rem',
                 fontSize: '0.8125rem',
-                color: 'var(--rf-slate-300)',
+                color: isDark ? '#CBD5E1' : '#475569',
                 cursor: 'pointer',
                 marginTop: '0.5rem'
               }}
@@ -475,7 +481,7 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
                 type="button"
                 onClick={() => onNavigate('/marketplace')}
                 className="rf-btn rf-btn-secondary"
-                style={{ flex: 1 }}
+                style={{ flex: 1, color: isDark ? '#CBD5E1' : '#334155' }}
               >
                 Browse Marketplace
               </button>
@@ -483,7 +489,12 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
                 type="submit"
                 disabled={isSubmitting}
                 className="rf-btn rf-btn-primary"
-                style={{ flex: 2, gap: '0.5rem' }}
+                style={{
+                  flex: 2,
+                  gap: '0.5rem',
+                  background: isDark ? 'var(--rf-leaf-green)' : 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
+                  color: isDark ? '#081C10' : '#FFFFFF'
+                }}
               >
                 <span>{isSubmitting ? 'Activating...' : 'Unlock Talent Workspace →'}</span>
               </button>
@@ -577,7 +588,7 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
                 alignItems: 'flex-start',
                 gap: '0.625rem',
                 fontSize: '0.8125rem',
-                color: 'var(--rf-slate-300)',
+                color: isDark ? '#CBD5E1' : '#475569',
                 cursor: 'pointer',
                 marginTop: '0.5rem'
               }}
@@ -598,7 +609,7 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
                 type="button"
                 onClick={() => onNavigate('/marketplace')}
                 className="rf-btn rf-btn-secondary"
-                style={{ flex: 1 }}
+                style={{ flex: 1, color: isDark ? '#CBD5E1' : '#334155' }}
               >
                 Browse Marketplace
               </button>
@@ -606,7 +617,12 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
                 type="submit"
                 disabled={isSubmitting}
                 className="rf-btn rf-btn-primary"
-                style={{ flex: 2, gap: '0.5rem' }}
+                style={{
+                  flex: 2,
+                  gap: '0.5rem',
+                  background: isDark ? 'var(--rf-leaf-green)' : 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
+                  color: isDark ? '#081C10' : '#FFFFFF'
+                }}
               >
                 <span>{isSubmitting ? 'Activating...' : 'Unlock Client Dashboard →'}</span>
               </button>
