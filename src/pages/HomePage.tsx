@@ -1751,14 +1751,15 @@ export const HomePage: React.FC<HomePageProps> = ({
         )}
       </div>
 
-      {/* 1. HERO SECTION — VIDEO IN A ROUNDED CONTAINER ON WHITE BACKGROUND */}
+      {/* 1. HERO SECTION — VIDEO IN A ROUNDED CONTAINER */}
       <section
         ref={heroSectionRef}
         className="rf-hero-section"
         style={{
-          background: 'var(--rf-bg-base)',
-          padding: isMobile ? '0' : 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem)',
-          paddingBottom: isMobile ? '0' : 'clamp(2.5rem, 5vw, 4rem)',
+          background: isDark ? 'var(--rf-bg-base)' : (isMobile ? '#0A170F' : 'var(--rf-bg-base)'),
+          padding: isMobile ? '0' : 'clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2rem) 0 clamp(1rem, 3vw, 2rem)',
+          paddingBottom: 0,
+          marginBottom: 0,
           width: '100%',
           overflowX: 'hidden'
         }}
@@ -1769,7 +1770,9 @@ export const HomePage: React.FC<HomePageProps> = ({
             maxWidth: isMobile ? '100%' : '1270px',
             width: '100%',
             padding: 0,
-            margin: isMobile ? '0' : '0 auto'
+            paddingBottom: 0,
+            margin: isMobile ? '0' : '0 auto',
+            marginBottom: 0
           }}
         >
           {/* Scout Referral Announcement Banner — Leaf/Lemon Green to White Gradient in Light Mode, Classic Gradient in Dark Mode */}
@@ -1862,12 +1865,11 @@ export const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
 
-          {/* Rounded Video Card */}
           <div
             className="rf-hero-video-card"
             style={{
               position: 'relative',
-              borderRadius: isMobile ? '0' : '28px',
+              borderRadius: isMobile ? '0' : '28px 28px 0 0',
               overflow: 'hidden',
               minHeight: isMobile ? 'auto' : 'clamp(680px, 85vh, 880px)',
               display: 'flex',
@@ -1875,7 +1877,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               boxShadow: isMobile ? 'none' : '0 24px 60px rgba(18, 43, 26, 0.18)',
               backgroundColor: '#0A170F',
               width: '100%',
-              maxWidth: '100vw'
+              maxWidth: '100vw',
+              marginBottom: 0
             }}
           >
             {/* Background Video — Pexels CDN (reliable, CORS-safe, no auth needed) */}
@@ -2160,8 +2163,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                         cursor: 'pointer'
                       }}
                     >
-                      <span className="rf-desktop-only">Start Referring & Earn</span>
-                      <span className="rf-mobile-only">Refer & Earn</span>
+                      <span className="rf-desktop-only">Find Opportunities</span>
+                      <span className="rf-mobile-only">Find Opportunities</span>
                     </button>
                   </div>
                 </>
@@ -2180,6 +2183,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
           padding: isMobile ? '1.25rem 0' : '2.25rem 0',
+          marginTop: 0,
           overflow: 'hidden',
           position: 'relative'
         }}

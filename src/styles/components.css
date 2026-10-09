@@ -2517,6 +2517,24 @@
   display: none;
 }
 
+.rf-hero-section {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.rf-hero-container {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.rf-hero-video-card {
+  margin-bottom: 0 !important;
+}
+
+.rf-trusted-brands-section {
+  margin-top: 0 !important;
+}
+
 .rf-desktop-only {
   display: inline;
 }
@@ -2593,6 +2611,8 @@
     padding-bottom: 0 !important;
     margin: 0 !important;
     margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    background: #0A170F !important;
     overflow-x: hidden !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -2603,7 +2623,9 @@
     padding: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    padding-bottom: 0 !important;
     margin: 0 !important;
+    margin-bottom: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
     overflow-x: hidden !important;
@@ -2725,6 +2747,7 @@
     min-height: auto !important;
     box-shadow: none !important;
     margin: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   .rf-hero-video-card video {
@@ -2819,7 +2842,9 @@
   }
 
   .rf-trusted-brands-section {
-    padding: 1.25rem 0 !important;
+    margin-top: 0 !important;
+    padding: 1.15rem 0 1.25rem 0 !important;
+    border-top: none !important;
   }
 
   .rf-trusted-brands-title-wrap {
