@@ -3527,19 +3527,6 @@ export const HomePage: React.FC<HomePageProps> = ({
             }}
           >
             <div>
-              <span
-                style={{
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.08em',
-                  color: 'var(--rf-leaf-green)',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: '0.5rem'
-                }}
-              >
-                {HOW_IT_WORKS_DATA[howItWorksTab].tag}
-              </span>
               <h2
                 style={{
                   fontSize: 'clamp(2.1rem, 4.2vw, 2.85rem)',

@@ -1312,12 +1312,12 @@
 .rf-how-toggle-group {
   display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 43, 26, 0.05);
+  border: 1px solid rgba(18, 43, 26, 0.12);
   border-radius: var(--rf-radius-full, 9999px);
   padding: 4px;
   gap: 0.35rem;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 3px rgba(18, 43, 26, 0.05);
 }
 
 .rf-how-toggle-btn {
@@ -1327,8 +1327,8 @@
   padding: 0.55rem 1.25rem;
   border-radius: var(--rf-radius-full, 9999px);
   font-size: 0.875rem;
-  font-weight: 600;
-  color: rgba(235, 245, 238, 0.75);
+  font-weight: 700;
+  color: #122B1A;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -1337,8 +1337,8 @@
 }
 
 .rf-how-toggle-btn:hover {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.06);
+  color: #0A1E14;
+  background: rgba(18, 43, 26, 0.08);
 }
 
 .rf-how-toggle-btn.active {
@@ -1346,6 +1346,22 @@
   color: #0A1E14 !important;
   box-shadow: 0 2px 10px rgba(102, 187, 42, 0.35);
   font-weight: 800;
+}
+
+/* Dark Theme overrides for How It Works Toggle */
+[data-theme="dark"] .rf-how-toggle-group {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .rf-how-toggle-btn {
+  color: rgba(235, 245, 238, 0.75);
+}
+
+[data-theme="dark"] .rf-how-toggle-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .rf-how-grid {
@@ -3446,8 +3462,8 @@
     justify-content: space-between !important;
     width: 100% !important;
     max-width: 100% !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(18, 43, 26, 0.05) !important;
+    border: 1px solid rgba(18, 43, 26, 0.12) !important;
     border-radius: 9999px !important;
     padding: 3px !important;
     gap: 0.25rem !important;
@@ -3470,7 +3486,7 @@
     white-space: nowrap !important;
     border-radius: 9999px !important;
     border: none !important;
-    color: rgba(235, 245, 238, 0.75) !important;
+    color: #122B1A !important;
     background: transparent !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
@@ -3479,7 +3495,16 @@
     background: var(--rf-leaf-green, #66BB2A) !important;
     color: #0A1E14 !important;
     font-weight: 800 !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 0 10px rgba(102, 187, 42, 0.3) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 10px rgba(102, 187, 42, 0.3) !important;
+  }
+
+  [data-theme="dark"] .rf-how-toggle-group {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  }
+
+  [data-theme="dark"] .rf-how-toggle-btn {
+    color: rgba(235, 245, 238, 0.75) !important;
   }
 
   .rf-how-grid {
