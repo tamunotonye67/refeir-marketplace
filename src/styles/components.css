@@ -6832,6 +6832,135 @@
 }
 
 /* ==========================================================================
+   SECTION 4B: "OR YOU CAN GET SCOUTS TO DO THE JOB FOR YOU"
+   ========================================================================== */
+
+.rf-scouts-how-it-works-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  margin-bottom: 5.5rem;
+  padding-top: 3.5rem;
+  border-top: 1px solid #E5E7EB;
+}
+
+.rf-ai-search-overlay.is-dark .rf-scouts-how-it-works-grid {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Scout Concierge Feature Card */
+.rf-scout-feature-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 330px;
+  padding: 2.25rem 2rem;
+  box-sizing: border-box;
+  background: linear-gradient(145deg, #092314 0%, #113820 55%, #184D2D 100%);
+  color: #FFFFFF;
+}
+
+.rf-ai-search-overlay.is-dark .rf-scout-feature-card {
+  background: linear-gradient(145deg, #06190E 0%, #0A2616 55%, #0F351F 100%);
+  border: 1px solid rgba(102, 187, 42, 0.25);
+}
+
+.rf-scout-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rf-scout-card-tag {
+  color: #86EFAC;
+}
+
+.rf-scout-card-status {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 600;
+}
+
+.rf-scout-card-center {
+  margin: 1.75rem 0;
+}
+
+.rf-scout-card-quote {
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
+}
+
+.rf-scout-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+  max-width: 440px;
+}
+
+.rf-scout-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.rf-scout-card-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rf-scout-metric-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #86EFAC;
+  letter-spacing: -0.02em;
+}
+
+.rf-scout-metric-lbl {
+  font-size: 0.725rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.rf-scout-card-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Scout Accordion Toggle Sign (+ / -) */
+.rf-scout-toggle-sign {
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1;
+  color: #16A34A;
+  margin-left: 0.75rem;
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+  user-select: none;
+}
+
+.rf-ai-search-overlay.is-dark .rf-scout-toggle-sign {
+  color: #66BB2A;
+}
+
+/* ==========================================================================
    SECTION 5: MINIMALIST DARK FOOTER (IMAGE 4)
    ========================================================================== */
 
@@ -6885,7 +7014,8 @@
     max-height: 280px;
   }
 
-  .rf-personalized-how-it-works-grid {
+  .rf-personalized-how-it-works-grid,
+  .rf-scouts-how-it-works-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }

@@ -72,6 +72,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const [filterLocation, setFilterLocation] = useState<string>('all');
   const [filterSkill, setFilterSkill] = useState<string>('all');
   const [openAccordion, setOpenAccordion] = useState<number | null>(1);
+  const [openScoutAccordion, setOpenScoutAccordion] = useState<number | null>(1);
   const [activeDropdown, setActiveDropdown] = useState<'rate' | 'location' | 'skills' | null>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(true);
@@ -1839,6 +1840,134 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     className="rf-pr-how-plans-btn"
                   >
                     Plans and pricing
+                  </button>
+              </div>
+            </div>
+
+            {/* ===================================================================
+                SECTION 4B: "OR YOU CAN GET SCOUTS TO DO THE JOB FOR YOU"
+                =================================================================== */}
+            <div className="rf-scouts-how-it-works-grid">
+              {/* Left Column: Scout Concierge Feature Card */}
+              <div className="rf-scout-feature-card">
+                <div className="rf-scout-card-top">
+                  <span className="rf-scout-card-tag">REFEIR SCOUT NETWORK</span>
+                  <span className="rf-scout-card-status">Direct Introductions</span>
+                </div>
+
+                <div className="rf-scout-card-center">
+                  <div className="rf-scout-card-quote">"Don't search. Get introduced."</div>
+                  <p className="rf-scout-card-desc">
+                    Tell our Scouts who you need. We source and introduce pre-vetted specialists directly from trusted personal networks.
+                  </p>
+                </div>
+
+                <div className="rf-scout-card-bottom">
+                  <div className="rf-scout-card-metric">
+                    <span className="rf-scout-metric-val">24–48h</span>
+                    <span className="rf-scout-metric-lbl">Curated shortlist</span>
+                  </div>
+                  <div className="rf-scout-card-divider" />
+                  <div className="rf-scout-card-metric">
+                    <span className="rf-scout-metric-val">100%</span>
+                    <span className="rf-scout-metric-lbl">Peer recommended</span>
+                  </div>
+                  <div className="rf-scout-card-divider" />
+                  <div className="rf-scout-card-metric">
+                    <span className="rf-scout-metric-val">0</span>
+                    <span className="rf-scout-metric-lbl">Proposal spam</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Numbered Steps & Actions */}
+              <div className="rf-pr-how-right">
+                <h2 className="rf-pr-how-title">Or you can get Scouts to do the job for you</h2>
+
+                <div className="rf-pr-accordion-list">
+                  {/* Step 1 */}
+                  <div className="rf-pr-accordion-item">
+                    <button
+                      type="button"
+                      onClick={() => setOpenScoutAccordion(openScoutAccordion === 1 ? null : 1)}
+                      className="rf-pr-accordion-header"
+                    >
+                      <div className="rf-pr-accordion-header-left">
+                        <span className="rf-pr-step-num">1</span>
+                        <span className="rf-pr-step-text">Share your brief with a Scout</span>
+                      </div>
+                      <span className="rf-scout-toggle-sign">{openScoutAccordion === 1 ? '−' : '+'}</span>
+                    </button>
+                    {openScoutAccordion === 1 && (
+                      <div className="rf-pr-accordion-body">
+                        Tell us what you're building, the skills you need, and your target budget. Our scout desk routes your brief to domain specialists with zero public noise.
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Step 2 */}
+                  <div className="rf-pr-accordion-item">
+                    <button
+                      type="button"
+                      onClick={() => setOpenScoutAccordion(openScoutAccordion === 2 ? null : 2)}
+                      className="rf-pr-accordion-header"
+                    >
+                      <div className="rf-pr-accordion-header-left">
+                        <span className="rf-pr-step-num">2</span>
+                        <span className="rf-pr-step-text">Scouts tap their private networks</span>
+                      </div>
+                      <span className="rf-scout-toggle-sign">{openScoutAccordion === 2 ? '−' : '+'}</span>
+                    </button>
+                    {openScoutAccordion === 2 && (
+                      <div className="rf-pr-accordion-body">
+                        Certified scouts search private talent circles and recommend specialists who have proven, verifiable track records and authentic proof of work.
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Step 3 */}
+                  <div className="rf-pr-accordion-item">
+                    <button
+                      type="button"
+                      onClick={() => setOpenScoutAccordion(openScoutAccordion === 3 ? null : 3)}
+                      className="rf-pr-accordion-header"
+                    >
+                      <div className="rf-pr-accordion-header-left">
+                        <span className="rf-pr-step-num">3</span>
+                        <span className="rf-pr-step-text">Hire vetted talent with confidence</span>
+                      </div>
+                      <span className="rf-scout-toggle-sign">{openScoutAccordion === 3 ? '−' : '+'}</span>
+                    </button>
+                    {openScoutAccordion === 3 && (
+                      <div className="rf-pr-accordion-body">
+                        Receive a curated shortlist of 2–3 ready-to-interview specialists and begin work immediately, protected by Refeir milestone escrow.
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Primary & Secondary Action Buttons */}
+                <div className="rf-pr-how-actions">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      onNavigate('/scouts');
+                    }}
+                    className="rf-pr-how-post-btn"
+                  >
+                    Get Scouts to find talent
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      onNavigate('/scouts');
+                    }}
+                    className="rf-pr-how-plans-btn"
+                  >
+                    Learn about Scouts
                   </button>
                 </div>
               </div>
