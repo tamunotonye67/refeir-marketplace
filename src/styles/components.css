@@ -2540,7 +2540,8 @@
   color: rgba(255, 255, 255, 0.65) !important;
 }
 
-.rf-mobile-only {
+.rf-mobile-only,
+.rf-subheadline-mobile-br {
   display: none;
 }
 
@@ -2790,11 +2791,16 @@
     padding: 5.25rem 1.25rem 1rem 1.25rem !important;
   }
 
-  /* Hero subheadline on mobile: refined font size so it sits comfortably on two lines instead of three */
+  /* Hero subheadline on mobile: right padding so 'smarter' starts on line 2 and 'opportunities' on line 3 */
+  .rf-subheadline-mobile-br {
+    display: inline !important;
+  }
+
   .rf-hero-subheadline {
-    font-size: clamp(0.72rem, 3.1vw, 0.8125rem) !important;
-    line-height: 1.4 !important;
+    font-size: clamp(0.78rem, 3.3vw, 0.85rem) !important;
+    line-height: 1.45 !important;
     letter-spacing: -0.015em !important;
+    padding-right: clamp(1.25rem, 5.5vw, 2.75rem) !important;
     max-width: 100% !important;
     margin-bottom: 1.25rem !important;
   }
