@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { TalentCard } from '../components/marketplace/TalentCard';
 import { FeaturedTalentCard } from '../components/home/FeaturedTalentCard';
+import { PopularServiceCategoryCard, ServiceCategoryItem } from '../components/home/PopularServiceCategoryCard';
 import { ServiceCard } from '../components/marketplace/ServiceCard';
 import { AfricaMapExplorer } from '../components/marketplace/AfricaMapExplorer';
 import { Africa3DMap } from '../components/marketplace/Africa3DMap';
@@ -66,6 +67,41 @@ interface HomePageProps {
   onSelectTalent: (talent: TalentProfile) => void;
   onSelectService: (service: Service) => void;
 }
+
+const POPULAR_SERVICE_CATEGORIES: ServiceCategoryItem[] = [
+  {
+    id: 'cat-design',
+    name: 'Product & UI/UX Design',
+    categoryQuery: 'Design & Creative',
+    description: 'Design systems, high-converting mobile & web interfaces, and interactive Figma prototypes.',
+    tags: ['Design Systems', 'UI/UX Prototyping', 'Fintech UX'],
+    type: 'design'
+  },
+  {
+    id: 'cat-engineering',
+    name: 'Web & Full-Stack Development',
+    categoryQuery: 'Development & Tech',
+    description: 'Scalable cloud architectures, high-throughput API gateways, and modern React/Node applications.',
+    tags: ['React & Node.js', 'Cloud APIs', 'Microservices'],
+    type: 'engineering'
+  },
+  {
+    id: 'cat-ai',
+    name: 'AI & Data Intelligence',
+    categoryQuery: 'AI & Data Science',
+    description: 'Custom NLP pipelines, machine learning models, autonomous bots, and BigQuery analytics.',
+    tags: ['Machine Learning', 'NLP Pipelines', 'Data Analytics'],
+    type: 'ai'
+  },
+  {
+    id: 'cat-mobile',
+    name: 'Mobile App Development',
+    categoryQuery: 'Development & Tech',
+    description: 'Native and cross-platform mobile apps for iOS and Android with offline-first local sync.',
+    tags: ['Flutter', 'iOS Swift', 'Cross-Platform'],
+    type: 'mobile'
+  }
+];
 
 export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
@@ -3195,7 +3231,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 5. POPULAR SERVICES WITH LOCKED REFERRAL REWARDS */}
+      {/* 5. POPULAR SERVICES GENERAL CATEGORIES */}
       <section className="rf-section">
         <div className="rf-container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
@@ -3213,23 +3249,24 @@ export const HomePage: React.FC<HomePageProps> = ({
               >
                 Popular Services
               </h2>
-              <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.35rem' }}>
-                Fixed deliverables with permanently locked referral commission rates.
+              <p style={{ color: 'var(--rf-slate-300)', fontSize: '1rem', marginTop: '0.45rem', maxWidth: '600px', lineHeight: 1.5 }}>
+                High-demand service categories delivered with milestone escrow protection.
               </p>
             </div>
-            <button onClick={() => onNavigate('/marketplace')} className="rf-btn rf-btn-secondary" style={{ gap: '0.5rem' }}>
+            <button onClick={() => onNavigate('/marketplace?type=services')} className="rf-btn rf-btn-secondary" style={{ gap: '0.5rem' }}>
               <span>Explore All Services</span>
               <ArrowRight size={16} />
             </button>
           </div>
 
           <div className="rf-grid-cards rf-popular-services-slider">
-            {servicesList.slice(0, 4).map(service => (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                onSelect={onSelectService}
-                onRefer={handleReferService}
+            {POPULAR_SERVICE_CATEGORIES.map(category => (
+              <PopularServiceCategoryCard
+                key={category.id}
+                category={category}
+                onSelect={(cat) => {
+                  onNavigate('/marketplace?type=services&category=' + encodeURIComponent(cat.categoryQuery));
+                }}
               />
             ))}
           </div>

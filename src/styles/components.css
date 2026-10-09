@@ -2857,9 +2857,8 @@
     display: flex !important;
     flex-direction: column !important;
     align-self: stretch !important;
-    height: 430px !important;
-    min-height: 430px !important;
-    max-height: 430px !important;
+    height: auto !important;
+    min-height: 380px !important;
     box-sizing: border-box !important;
   }
 
@@ -7975,6 +7974,37 @@
 .rf-talent-profile-card:hover .rf-talent-card-arrow {
   transform: translateX(4px);
 }
+
+/* =========================================================================
+   POPULAR SERVICE CATEGORY CARDS (VECTOR DIAGRAM CARDS)
+   ========================================================================= */
+.rf-popular-category-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.rf-popular-category-card:hover {
+  transform: translateY(-6px);
+}
+
+[data-theme="dark"] .rf-popular-category-card:hover {
+  border-color: rgba(54, 224, 160, 0.35) !important;
+  box-shadow: 0 22px 40px -10px rgba(0, 0, 0, 0.75), 0 0 24px rgba(54, 224, 160, 0.1) !important;
+}
+
+:root:not([data-theme="dark"]) .rf-popular-category-card:hover,
+[data-theme="light"] .rf-popular-category-card:hover {
+  border-color: rgba(22, 163, 74, 0.35) !important;
+  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.12), 0 8px 16px -4px rgba(22, 163, 74, 0.08) !important;
+}
+
+.rf-popular-category-card:hover .rf-category-diagram-container {
+  transform: scale(1.02);
+}
+
+.rf-popular-category-card:hover .rf-category-card-arrow {
+  transform: translateX(4px);
+}
+
 
 
 
