@@ -7,8 +7,7 @@ import { FeaturedTalentCard } from '../components/home/FeaturedTalentCard';
 import { PopularServiceCategoryCard, ServiceCategoryItem } from '../components/home/PopularServiceCategoryCard';
 import { ServiceCard } from '../components/marketplace/ServiceCard';
 import { AfricaMapExplorer } from '../components/marketplace/AfricaMapExplorer';
-import { Africa3DMap } from '../components/marketplace/Africa3DMap';
-import { PolygonNetwork3D } from '../components/common/PolygonNetwork3D';
+import { GlobalBusinessTeamsVisual } from '../components/home/GlobalBusinessTeamsVisual';
 import { ReferModal } from '../components/referral/ReferModal';
 import { AISearchModal } from '../components/home/AISearchModal';
 import { RefeirLogo } from '../components/common/RefeirLogo';
@@ -3397,24 +3396,33 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 8. BUSINESS & ENTERPRISE BANNER WITH 3D POLYGON RELATIONSHIPS MESH */}
-      <section className="rf-section" style={{ backgroundColor: 'var(--rf-bg-surface)', padding: '5rem 0' }}>
-        <div className="rf-container" style={{ maxWidth: '1270px' }}>
+      {/* 8. BUSINESS & ENTERPRISE FULL VIEWPORT SECTION */}
+      <section
+        className="rf-business-section"
+        style={{
+          width: '100%',
+          background: 'linear-gradient(135deg, #091D12 0%, #06150D 60%, #081910 100%)',
+          borderTop: '1px solid rgba(102, 187, 42, 0.22)',
+          borderBottom: '1px solid rgba(102, 187, 42, 0.22)',
+          padding: 'clamp(4rem, 7vw, 6rem) 0',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <div className="rf-container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2.5rem)' }}>
           <div
             className="rf-business-grid"
             style={{
-              background: 'linear-gradient(135deg, rgba(10, 28, 18, 0.95) 0%, rgba(8, 20, 14, 0.98) 100%)',
-              border: '1px solid rgba(102, 187, 42, 0.35)',
-              borderRadius: 'var(--rf-radius-2xl, 24px)',
-              padding: '2.5rem',
-              position: 'relative',
-              overflow: 'hidden',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+              background: 'transparent',
+              border: 'none',
+              borderRadius: 0,
+              boxShadow: 'none',
+              padding: 0
             }}
           >
-            {/* LEFT: 3D Animated Polygon Network of Links (Countries & People) */}
-            <div className="rf-business-polygon-wrap" style={{ position: 'relative', width: '100%', height: '420px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <PolygonNetwork3D />
+            {/* LEFT: Business & Global Teams Visual */}
+            <div className="rf-business-visual-wrap" style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <GlobalBusinessTeamsVisual />
             </div>
 
             {/* RIGHT: Refeir for Business Info & Action Buttons */}
@@ -3422,7 +3430,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               <span
                 style={{
                   fontSize: '0.75rem',
-                  fontWeight: 800,
+                  fontWeight: 700,
                   letterSpacing: '0.08em',
                   color: '#F6B21A',
                   textTransform: 'uppercase',
@@ -3436,16 +3444,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                 style={{
                   fontFamily: 'var(--rf-font-display)',
                   fontSize: 'clamp(1.85rem, 3.5vw, 2.5rem)',
-                  fontWeight: 800,
+                  fontWeight: 500,
                   color: '#FFFFFF',
-                  lineHeight: 1.2,
-                  letterSpacing: '-0.025em',
+                  lineHeight: 1.25,
+                  letterSpacing: '-0.02em',
                   marginTop: '0.25rem'
                 }}
               >
                 Refeir for Business<br />& Global Teams
               </h3>
-              <p style={{ color: 'rgba(235, 245, 238, 0.9)', fontSize: '1rem', marginTop: '0.85rem', lineHeight: 1.65, maxWidth: '560px' }}>
+              <p style={{ color: 'rgba(235, 245, 238, 0.9)', fontSize: '1.025rem', marginTop: '0.85rem', lineHeight: 1.65, maxWidth: '560px' }}>
                 Consolidated multi-currency invoicing, cross-border contractor tax compliance across 54 jurisdictions, and dedicated tech scout sourcing to build high-performance distributed teams.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.75rem' }}>

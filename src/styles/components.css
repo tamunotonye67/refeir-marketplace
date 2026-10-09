@@ -1564,11 +1564,22 @@
 }
 
 /* Refeir for Business & Global Teams Grid */
+.rf-business-section {
+  width: 100%;
+}
+
 .rf-business-grid {
   display: grid;
-  grid-template-columns: minmax(360px, 460px) 1fr;
+  grid-template-columns: minmax(360px, 500px) 1fr;
   align-items: center;
-  gap: 3.5rem;
+  gap: 4rem;
+}
+
+.rf-business-visual-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 960px) {
@@ -3328,8 +3339,7 @@
 
   /* 1. Global Viewport & Section Visual Overflow Guard (Prevents page from moving left/right while allowing container sliders) */
   .rf-scout-sourcing-grid,
-  .rf-ai-wizard-grid,
-  .rf-business-grid {
+  .rf-ai-wizard-grid {
     max-width: 100% !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
@@ -3375,17 +3385,20 @@
     border-radius: 12px !important;
   }
 
-  /* 3. Refeir for Business & Global Teams Card on Mobile */
+  /* 3. Refeir for Business & Global Teams Full Viewport on Mobile */
   .rf-business-grid {
-    padding: 1.75rem 1.15rem !important;
-    border-radius: 18px !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
     grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+    gap: 2rem !important;
   }
 
+  .rf-business-visual-wrap,
   .rf-business-polygon-wrap {
-    height: 320px !important;
-    min-height: 300px !important;
+    height: auto !important;
+    min-height: auto !important;
     width: 100% !important;
     overflow: visible !important;
   }
