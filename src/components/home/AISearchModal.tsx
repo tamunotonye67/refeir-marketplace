@@ -1925,7 +1925,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
               =================================================================== */}
           <div className="rf-personalized-footer-bar">
             <div className="rf-pr-footer-content">
-              <span>© 2015 - 2026 Refeir® Global Inc. • </span>
+              <span>© 2016 - 2017 Refeir Technologies Ltd. • </span>
               <button
                 type="button"
                 onClick={() => {
