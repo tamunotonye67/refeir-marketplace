@@ -3,7 +3,6 @@ import { useAuth } from './context/AuthContext';
 import { useMarketplace } from './context/MarketplaceContext';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
-import { MobileNav } from './components/common/MobileNav';
 import { ToastContainer } from './components/common/Toast';
 
 // Pages
@@ -600,9 +599,6 @@ export const App: React.FC = () => {
 
       {/* Global Footer (full marketing directory or slim 1-line utility bar) */}
       {!isFooterExcluded && <Footer onNavigate={navigate} compact={isCompactFooter} />}
-
-      {/* Mobile Bottom Navigation */}
-      {!isChromelessPage && <MobileNav onNavigate={navigate} currentPath={currentPath} />}
 
       {/* Global Toast Notifications Container */}
       <ToastContainer />
