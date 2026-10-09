@@ -1849,35 +1849,18 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                 SECTION 4B: "OR YOU CAN GET SCOUTS TO DO THE JOB FOR YOU"
                 =================================================================== */}
             <div className="rf-scouts-how-it-works-grid">
-              {/* Left Column: Scout Concierge Feature Card */}
+              {/* Left Column: Scout Picture Card Blending into Background */}
               <div className="rf-scout-feature-card">
-                <div className="rf-scout-card-top">
-                  <span className="rf-scout-card-tag">REFEIR SCOUT NETWORK</span>
-                  <span className="rf-scout-card-status">Direct Introductions</span>
-                </div>
-
-                <div className="rf-scout-card-center">
-                  <div className="rf-scout-card-quote">"Don't search. Get introduced."</div>
-                  <p className="rf-scout-card-desc">
-                    Tell our Scouts who you need. We source and introduce pre-vetted specialists directly from trusted personal networks.
-                  </p>
-                </div>
-
-                <div className="rf-scout-card-bottom">
-                  <div className="rf-scout-card-metric">
-                    <span className="rf-scout-metric-val">24–48h</span>
-                    <span className="rf-scout-metric-lbl">Curated shortlist</span>
-                  </div>
-                  <div className="rf-scout-card-divider" />
-                  <div className="rf-scout-card-metric">
-                    <span className="rf-scout-metric-val">100%</span>
-                    <span className="rf-scout-metric-lbl">Peer recommended</span>
-                  </div>
-                  <div className="rf-scout-card-divider" />
-                  <div className="rf-scout-card-metric">
-                    <span className="rf-scout-metric-val">0</span>
-                    <span className="rf-scout-metric-lbl">Proposal spam</span>
-                  </div>
+                <img
+                  src="/scout_hero.jpg"
+                  alt="Refeir Talent Scout"
+                  className="rf-scout-card-img"
+                  loading="lazy"
+                />
+                <div className="rf-scout-card-blend" />
+                <div className="rf-scout-card-info">
+                  <span className="rf-scout-card-badge">Refeir Scout Network</span>
+                  <p className="rf-scout-card-tagline">Vetting & introducing top talent across Africa</p>
                 </div>
               </div>
 

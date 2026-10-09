@@ -6849,98 +6849,94 @@
   border-top-color: rgba(255, 255, 255, 0.08);
 }
 
-/* Scout Concierge Feature Card */
+/* Scout Hero Feature Card */
 .rf-scout-feature-card {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.14);
+  min-height: 320px;
+  aspect-ratio: 16 / 10;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 330px;
-  padding: 2.25rem 2rem;
-  box-sizing: border-box;
-  background: linear-gradient(145deg, #092314 0%, #113820 55%, #184D2D 100%);
-  color: #FFFFFF;
+  justify-content: flex-end;
+  background: #092314;
 }
 
 .rf-ai-search-overlay.is-dark .rf-scout-feature-card {
-  background: linear-gradient(145deg, #06190E 0%, #0A2616 55%, #0F351F 100%);
-  border: 1px solid rgba(102, 187, 42, 0.25);
+  background: #06190E;
+  border: 1px solid rgba(102, 187, 42, 0.22);
 }
 
-.rf-scout-card-top {
+.rf-scout-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.4s ease;
+}
+
+.rf-scout-feature-card:hover .rf-scout-card-img {
+  transform: scale(1.02);
+}
+
+.rf-scout-card-blend {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 35, 20, 0.15) 0%,
+    transparent 35%,
+    rgba(9, 35, 20, 0.55) 70%,
+    rgba(9, 35, 20, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+.rf-ai-search-overlay.is-dark .rf-scout-card-blend {
+  background: linear-gradient(
+    180deg,
+    rgba(6, 25, 14, 0.25) 0%,
+    transparent 35%,
+    rgba(6, 25, 14, 0.65) 70%,
+    rgba(6, 25, 14, 0.95) 100%
+  );
+}
+
+.rf-scout-card-info {
+  position: relative;
+  z-index: 2;
+  padding: 1.75rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.75rem;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.rf-scout-card-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.725rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.rf-scout-card-tag {
   color: #86EFAC;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(134, 239, 172, 0.25);
 }
 
-.rf-scout-card-status {
-  color: rgba(255, 255, 255, 0.65);
-  font-weight: 600;
-}
-
-.rf-scout-card-center {
-  margin: 1.75rem 0;
-}
-
-.rf-scout-card-quote {
-  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: #FFFFFF;
-  margin-bottom: 0.75rem;
-}
-
-.rf-scout-card-desc {
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.82);
+.rf-scout-card-tagline {
   margin: 0;
-  max-width: 440px;
-}
-
-.rf-scout-card-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.rf-scout-card-metric {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.rf-scout-metric-val {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #86EFAC;
-  letter-spacing: -0.02em;
-}
-
-.rf-scout-metric-lbl {
-  font-size: 0.725rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
-}
-
-.rf-scout-card-divider {
-  width: 1px;
-  height: 28px;
-  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 /* ==========================================================================
