@@ -27,7 +27,8 @@ import {
   Briefcase,
   Copy,
   CheckCheck,
-  TrendingUp
+  TrendingUp,
+  Sparkles
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { SEED_TALENT } from '../../data/seedTalent';
@@ -340,6 +341,65 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     return 'Searching talent for';
   };
 
+  // Dynamic loading step ticker for the modern AI loader
+  const [loadingStepIdx, setLoadingStepIdx] = useState<number>(0);
+
+  useEffect(() => {
+    if (phase === 'loading') {
+      setLoadingStepIdx(0);
+      const t1 = setTimeout(() => setLoadingStepIdx(1), 600);
+      const t2 = setTimeout(() => setLoadingStepIdx(2), 1250);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
+    } else if (phase === 'submitting') {
+      setLoadingStepIdx(0);
+      const t1 = setTimeout(() => setLoadingStepIdx(1), 500);
+      return () => {
+        clearTimeout(t1);
+      };
+    }
+  }, [phase]);
+
+  const getLoadingStepText = () => {
+    if (phase === 'submitting') {
+      if (loadingStepIdx === 0) {
+        return intent === 'work'
+          ? 'Scanning escrow-funded opportunities...'
+          : intent === 'scout'
+          ? 'Calculating referral yield tiers...'
+          : 'Scoring vetted specialists...';
+      }
+      return intent === 'work'
+        ? 'Finalizing your personalized matches...'
+        : intent === 'scout'
+        ? 'Unlocking top bounty contracts...'
+        : 'Preparing your customized shortlist...';
+    }
+
+    // phase === 'loading'
+    if (loadingStepIdx === 0) {
+      return intent === 'work'
+        ? 'Analyzing work preferences...'
+        : intent === 'scout'
+        ? 'Analyzing scout network domain...'
+        : 'Analyzing brief requirements...';
+    }
+    if (loadingStepIdx === 1) {
+      return intent === 'work'
+        ? 'Scanning verified Pan-African contracts...'
+        : intent === 'scout'
+        ? 'Scanning high-bounty client briefs...'
+        : 'Scanning verified Pan-African network...';
+    }
+    return intent === 'work'
+      ? 'Synthesizing matching opportunities...'
+      : intent === 'scout'
+      ? 'Synthesizing referral opportunities...'
+      : 'Synthesizing top talent matches...';
+  };
+
   // Briefing Step Navigation
   const handleNextStep = () => {
     if (briefingStep < 5) {
@@ -362,7 +422,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
     setPhase('submitting');
     setTimeout(() => {
       setPhase('personalized_results');
-    }, 850);
+    }, 1100);
   };
 
   const toggleSkill = (skillName: string) => {
@@ -635,114 +695,98 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
           </div>
 
           <div className="rf-ai-search-loading-container">
-            <div className="rf-polygon-stage">
-              <div className="rf-polygon-rotator">
-                <svg
-                  viewBox="0 0 200 200"
-                  className="rf-polygon-svg"
-                  aria-hidden="true"
-                >
+            {/* Modern AI Refeir Intelligence Loader */}
+            <div className="rf-modern-ai-loader">
+              <div className="rf-loader-ambient-glow" />
+
+              <div className="rf-loader-rings-stage">
+                <svg viewBox="0 0 160 160" className="rf-loader-svg" aria-hidden="true">
                   <defs>
-                    <radialGradient id="rfPolyCoreGlow" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="#66BB2A" stopOpacity="0.45" />
-                      <stop offset="70%" stopColor="#16A34A" stopOpacity="0.12" />
-                      <stop offset="100%" stopColor="#05160C" stopOpacity="0" />
+                    <linearGradient id="rfModernLoaderGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#86EFAC" stopOpacity="0.95" />
+                      <stop offset="50%" stopColor="#22C55E" stopOpacity="0.75" />
+                      <stop offset="100%" stopColor="#16A34A" stopOpacity="0.05" />
+                    </linearGradient>
+                    <linearGradient id="rfModernLoaderGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#4ADE80" stopOpacity="0.9" />
+                      <stop offset="60%" stopColor="#66BB2A" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#66BB2A" stopOpacity="0.05" />
+                    </linearGradient>
+                    <radialGradient id="rfModernCoreAura" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#86EFAC" stopOpacity="0.35" />
+                      <stop offset="60%" stopColor="#16A34A" stopOpacity="0.1" />
+                      <stop offset="100%" stopColor="#16A34A" stopOpacity="0" />
                     </radialGradient>
-                    <linearGradient id="rfPolyEdgeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#86EFAC" />
-                      <stop offset="50%" stopColor="#66BB2A" />
-                      <stop offset="100%" stopColor="#16A34A" />
-                    </linearGradient>
-                    <linearGradient id="rfPolyEdgeGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#22C55E" />
-                      <stop offset="100%" stopColor="#4ADE80" />
-                    </linearGradient>
                   </defs>
 
-                  {/* Pulsing Core Aura */}
-                  <circle cx="100" cy="100" r="50" fill="url(#rfPolyCoreGlow)" className="rf-polygon-aura" />
+                  {/* Ambient Core Radial Glow */}
+                  <circle cx="80" cy="80" r="58" fill="url(#rfModernCoreAura)" className="rf-loader-aura-pulse" />
 
-                  {/* Outer Regular Dodecagon (12-Sided Polygon) */}
-                  <polygon
-                    points="100,16 142,27 173,58 184,100 173,142 142,173 100,184 58,173 27,142 16,100 27,58 58,27"
+                  {/* Outer Orbital Track Guide */}
+                  <circle cx="80" cy="80" r="68" fill="none" className="rf-loader-track-outer" />
+
+                  {/* Outer Sweeping Orbital Arc */}
+                  <circle
+                    cx="80"
+                    cy="80"
+                    r="68"
                     fill="none"
-                    stroke="url(#rfPolyEdgeGrad1)"
+                    stroke="url(#rfModernLoaderGrad1)"
+                    strokeWidth="2.8"
+                    strokeLinecap="round"
+                    strokeDasharray="250 175"
+                    className="rf-loader-arc-outer"
+                  />
+
+                  {/* Middle Counter-Rotating Track & Arc */}
+                  <circle cx="80" cy="80" r="48" fill="none" className="rf-loader-track-mid" />
+                  <circle
+                    cx="80"
+                    cy="80"
+                    r="48"
+                    fill="none"
+                    stroke="url(#rfModernLoaderGrad2)"
                     strokeWidth="2.2"
                     strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="rf-polygon-dodecagon"
+                    strokeDasharray="165 135"
+                    className="rf-loader-arc-mid"
                   />
 
-                  {/* Internal Geodesic Polygon Struts / Star Facets */}
-                  <polygon
-                    points="100,16 173,142 27,142"
+                  {/* Inner Harmonic Wave Ring */}
+                  <circle
+                    cx="80"
+                    cy="80"
+                    r="32"
                     fill="none"
-                    stroke="rgba(102, 187, 42, 0.45)"
-                    strokeWidth="1.2"
-                  />
-                  <polygon
-                    points="100,184 173,58 27,58"
-                    fill="none"
-                    stroke="rgba(102, 187, 42, 0.45)"
-                    strokeWidth="1.2"
-                  />
-
-                  {/* Mid Hexagonal Facet Ring */}
-                  <polygon
-                    points="100,40 152,70 152,130 100,160 48,130 48,70"
-                    fill="none"
-                    stroke="url(#rfPolyEdgeGrad2)"
-                    strokeWidth="1.8"
-                    strokeDasharray="6 4"
-                    className="rf-polygon-hex-ring"
-                  />
-
-                  {/* Inner Gyroscopic 3D Revolving Ellipses */}
-                  <ellipse
-                    cx="100"
-                    cy="100"
-                    rx="75"
-                    ry="28"
-                    fill="none"
-                    stroke="#86EFAC"
                     strokeWidth="1.5"
-                    transform="rotate(35 100 100)"
-                    className="rf-polygon-orbit-1"
-                  />
-                  <ellipse
-                    cx="100"
-                    cy="100"
-                    rx="75"
-                    ry="28"
-                    fill="none"
-                    stroke="#66BB2A"
-                    strokeWidth="1.5"
-                    transform="rotate(-35 100 100)"
-                    className="rf-polygon-orbit-2"
+                    className="rf-loader-arc-inner"
                   />
 
-                  {/* Central Diamond / Octahedron Node */}
-                  <polygon
-                    points="100,68 132,100 100,132 68,100"
-                    fill="rgba(102, 187, 42, 0.22)"
-                    stroke="#FFFFFF"
-                    strokeWidth="2"
-                    className="rf-polygon-core-gem"
-                  />
+                  {/* Orbiting Satellite Particle 1 */}
+                  <g className="rf-loader-satellite-orbit-1">
+                    <circle cx="80" cy="12" r="3.2" className="rf-loader-satellite-dot" />
+                  </g>
 
-                  {/* Vertex Nodes (Glowing Data Anchors) */}
-                  <circle cx="100" cy="16" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                  <circle cx="173" cy="58" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                  <circle cx="184" cy="100" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                  <circle cx="173" cy="142" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                  <circle cx="100" cy="184" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                  <circle cx="27" cy="142" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                  <circle cx="16" cy="100" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                  <circle cx="27" cy="58" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-
-                  {/* Center Node Beacon */}
-                  <circle cx="100" cy="100" r="6" fill="#86EFAC" stroke="#FFFFFF" strokeWidth="2" />
+                  {/* Orbiting Satellite Particle 2 */}
+                  <g className="rf-loader-satellite-orbit-2">
+                    <circle cx="80" cy="32" r="2.2" className="rf-loader-satellite-dot small" />
+                  </g>
                 </svg>
+
+                {/* Center Core Glass Beacon */}
+                <div className="rf-loader-core-beacon">
+                  <div className="rf-core-sonar-ripple" />
+                  <div className="rf-core-sonar-ripple ripple-2" />
+                  <div className="rf-core-spark-center">
+                    <Sparkles size={20} className="rf-core-spark-icon" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Real-Time Live Status Pill */}
+              <div className="rf-loader-status-pill">
+                <span className="rf-loader-pulse-dot" />
+                <span className="rf-loader-status-step">{getLoadingStepText()}</span>
               </div>
             </div>
 
@@ -1481,87 +1525,98 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
          ========================================================================= */}
       {phase === 'submitting' && (
         <div className="rf-ai-search-loading-container">
-          <div className="rf-polygon-stage">
-            <div className="rf-polygon-rotator">
-              <svg viewBox="0 0 200 200" className="rf-polygon-svg" aria-hidden="true">
+          {/* Modern AI Refeir Intelligence Loader */}
+          <div className="rf-modern-ai-loader">
+            <div className="rf-loader-ambient-glow" />
+
+            <div className="rf-loader-rings-stage">
+              <svg viewBox="0 0 160 160" className="rf-loader-svg" aria-hidden="true">
                 <defs>
-                  <radialGradient id="rfPolySubmitGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="#66BB2A" stopOpacity="0.45" />
-                    <stop offset="70%" stopColor="#16A34A" stopOpacity="0.12" />
-                    <stop offset="100%" stopColor="#05160C" stopOpacity="0" />
-                  </radialGradient>
-                  <linearGradient id="rfPolySubmitEdge" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#86EFAC" />
-                    <stop offset="50%" stopColor="#66BB2A" />
-                    <stop offset="100%" stopColor="#16A34A" />
+                  <linearGradient id="rfModernLoaderGrad1Submit" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#86EFAC" stopOpacity="0.95" />
+                    <stop offset="50%" stopColor="#22C55E" stopOpacity="0.75" />
+                    <stop offset="100%" stopColor="#16A34A" stopOpacity="0.05" />
                   </linearGradient>
+                  <linearGradient id="rfModernLoaderGrad2Submit" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#4ADE80" stopOpacity="0.9" />
+                    <stop offset="60%" stopColor="#66BB2A" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#66BB2A" stopOpacity="0.05" />
+                  </linearGradient>
+                  <radialGradient id="rfModernCoreAuraSubmit" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#86EFAC" stopOpacity="0.35" />
+                    <stop offset="60%" stopColor="#16A34A" stopOpacity="0.1" />
+                    <stop offset="100%" stopColor="#16A34A" stopOpacity="0" />
+                  </radialGradient>
                 </defs>
 
-                <circle cx="100" cy="100" r="50" fill="url(#rfPolySubmitGlow)" className="rf-polygon-aura" />
+                {/* Ambient Core Radial Glow */}
+                <circle cx="80" cy="80" r="58" fill="url(#rfModernCoreAuraSubmit)" className="rf-loader-aura-pulse" />
 
-                <polygon
-                  points="100,16 142,27 173,58 184,100 173,142 142,173 100,184 58,173 27,142 16,100 27,58 58,27"
+                {/* Outer Orbital Track Guide */}
+                <circle cx="80" cy="80" r="68" fill="none" className="rf-loader-track-outer" />
+
+                {/* Outer Sweeping Orbital Arc */}
+                <circle
+                  cx="80"
+                  cy="80"
+                  r="68"
                   fill="none"
-                  stroke="url(#rfPolySubmitEdge)"
+                  stroke="url(#rfModernLoaderGrad1Submit)"
+                  strokeWidth="2.8"
+                  strokeLinecap="round"
+                  strokeDasharray="250 175"
+                  className="rf-loader-arc-outer"
+                />
+
+                {/* Middle Counter-Rotating Track & Arc */}
+                <circle cx="80" cy="80" r="48" fill="none" className="rf-loader-track-mid" />
+                <circle
+                  cx="80"
+                  cy="80"
+                  r="48"
+                  fill="none"
+                  stroke="url(#rfModernLoaderGrad2Submit)"
                   strokeWidth="2.2"
-                  className="rf-polygon-dodecagon"
+                  strokeLinecap="round"
+                  strokeDasharray="165 135"
+                  className="rf-loader-arc-mid"
                 />
 
-                <polygon
-                  points="100,16 173,142 27,142"
+                {/* Inner Harmonic Wave Ring */}
+                <circle
+                  cx="80"
+                  cy="80"
+                  r="32"
                   fill="none"
-                  stroke="rgba(102, 187, 42, 0.45)"
-                  strokeWidth="1.2"
-                />
-                <polygon
-                  points="100,184 173,58 27,58"
-                  fill="none"
-                  stroke="rgba(102, 187, 42, 0.45)"
-                  strokeWidth="1.2"
-                />
-
-                <ellipse
-                  cx="100"
-                  cy="100"
-                  rx="75"
-                  ry="28"
-                  fill="none"
-                  stroke="#86EFAC"
                   strokeWidth="1.5"
-                  transform="rotate(35 100 100)"
-                  className="rf-polygon-orbit-1"
-                />
-                <ellipse
-                  cx="100"
-                  cy="100"
-                  rx="75"
-                  ry="28"
-                  fill="none"
-                  stroke="#66BB2A"
-                  strokeWidth="1.5"
-                  transform="rotate(-35 100 100)"
-                  className="rf-polygon-orbit-2"
+                  className="rf-loader-arc-inner"
                 />
 
-                <polygon
-                  points="100,68 132,100 100,132 68,100"
-                  fill="rgba(102, 187, 42, 0.22)"
-                  stroke="#FFFFFF"
-                  strokeWidth="2"
-                  className="rf-polygon-core-gem"
-                />
+                {/* Orbiting Satellite Particle 1 */}
+                <g className="rf-loader-satellite-orbit-1">
+                  <circle cx="80" cy="12" r="3.2" className="rf-loader-satellite-dot" />
+                </g>
 
-                <circle cx="100" cy="16" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                <circle cx="173" cy="58" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                <circle cx="184" cy="100" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                <circle cx="173" cy="142" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                <circle cx="100" cy="184" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                <circle cx="27" cy="142" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                <circle cx="16" cy="100" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-                <circle cx="27" cy="58" r="3.5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="1.5" />
-
-                <circle cx="100" cy="100" r="6" fill="#86EFAC" stroke="#FFFFFF" strokeWidth="2" />
+                {/* Orbiting Satellite Particle 2 */}
+                <g className="rf-loader-satellite-orbit-2">
+                  <circle cx="80" cy="32" r="2.2" className="rf-loader-satellite-dot small" />
+                </g>
               </svg>
+
+              {/* Center Core Glass Beacon */}
+              <div className="rf-loader-core-beacon">
+                <div className="rf-core-sonar-ripple" />
+                <div className="rf-core-sonar-ripple ripple-2" />
+                <div className="rf-core-spark-center">
+                  <Sparkles size={20} className="rf-core-spark-icon" />
+                </div>
+              </div>
+            </div>
+
+            {/* Real-Time Live Status Pill */}
+            <div className="rf-loader-status-pill">
+              <span className="rf-loader-pulse-dot" />
+              <span className="rf-loader-status-step">{getLoadingStepText()}</span>
             </div>
           </div>
           <div className="rf-ai-search-loading-text">
