@@ -13,17 +13,15 @@ import {
   DollarSign,
   Medal,
   Award,
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
-  Maximize2,
   UserCheck,
   CreditCard,
   FileText,
   Pin,
   ShieldCheck,
-  Share2
+  Share2,
+  Lock,
+  Globe2,
+  CheckCircle2
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { SEED_TALENT } from '../../data/seedTalent';
@@ -73,8 +71,6 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
   const [filterSkill, setFilterSkill] = useState<string>('all');
   const [openAccordion, setOpenAccordion] = useState<number | null>(1);
   const [activeDropdown, setActiveDropdown] = useState<'rate' | 'location' | 'skills' | null>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
-  const [isMuted, setIsMuted] = useState<boolean>(true);
   const filterPillsRef = useRef<HTMLDivElement>(null);
 
   // Close filter dropdowns when clicking outside
@@ -1690,61 +1686,105 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
             </div>
 
             {/* ===================================================================
-                SECTION 4: "HOW HIRING WORKS" WITH VIDEO & ACCORDION
+                SECTION 4: "HOW REFEIR WORKS" — THE PAN-AFRICAN TRUST ENGINE
                 =================================================================== */}
             <div className="rf-personalized-how-it-works-grid">
-              {/* Left Column: Interactive Video Player Card */}
-              <div className="rf-pr-video-card">
-                <div className="rf-pr-video-screen">
-                  {/* Subtle video ambient backdrop */}
-                  <div className="rf-pr-video-backdrop" />
+              {/* Left Column: Refeir Cross-Border Trust Architecture Card */}
+              <div className="rf-pr-trust-card">
+                <div className="rf-pr-trust-card-top">
+                  <div className="rf-pr-trust-status-badge">
+                    <span className="rf-pr-live-dot" />
+                    <span>Refeir Trust Protocol • Active Escrow</span>
+                  </div>
+                  <span className="rf-pr-trust-badge-sub">v2.4 Protected</span>
+                </div>
 
-                  {/* Upwork/Refeir styled center logo */}
-                  <div className="rf-pr-video-brand-center">
-                    <span className="rf-pr-video-logo">refeir</span>
+                {/* Tri-Party Settlement Simulation Flow */}
+                <div className="rf-pr-flow-container">
+                  <div className="rf-pr-flow-box">
+                    <span className="rf-pr-flow-label">Client</span>
+                    <strong className="rf-pr-flow-name">Nairobi, KE 🇰🇪</strong>
+                    <span className="rf-pr-flow-detail">Funded in Escrow</span>
                   </div>
 
-                  {/* Bottom Video Controls Bar */}
-                  <div className="rf-pr-video-controls">
-                    <button
-                      type="button"
-                      onClick={() => setIsVideoPlaying(!isVideoPlaying)}
-                      className="rf-pr-video-ctrl-btn"
-                      aria-label={isVideoPlaying ? "Pause video" : "Play video"}
-                    >
-                      {isVideoPlaying ? <Pause size={15} /> : <Play size={15} />}
-                    </button>
+                  <div className="rf-pr-flow-arrow">
+                    <ArrowRight size={14} />
+                  </div>
 
-                    <div className="rf-pr-video-time">0:03 / 0:32</div>
+                  <div className="rf-pr-flow-box is-vault">
+                    <span className="rf-pr-flow-label">
+                      <Lock size={10} style={{ marginRight: '3px' }} />
+                      Trust Vault
+                    </span>
+                    <strong className="rf-pr-flow-name">Milestone Custody</strong>
+                    <span className="rf-pr-flow-detail">100% Protected</span>
+                  </div>
 
-                    {/* Progress track */}
-                    <div className="rf-pr-video-scrubber">
-                      <div className="rf-pr-video-scrub-fill" style={{ width: '12%' }} />
+                  <div className="rf-pr-flow-arrow">
+                    <ArrowRight size={14} />
+                  </div>
+
+                  <div className="rf-pr-flow-box is-talent">
+                    <span className="rf-pr-flow-label">
+                      <ShieldCheck size={10} style={{ marginRight: '3px' }} />
+                      Talent & Scout
+                    </span>
+                    <strong className="rf-pr-flow-name">Lagos + Accra</strong>
+                    <span className="rf-pr-flow-detail">Payout + 12% Bounty</span>
+                  </div>
+                </div>
+
+                {/* Real-time Ledger Milestones */}
+                <div className="rf-pr-ledger-list">
+                  <div className="rf-pr-ledger-row is-approved">
+                    <div className="rf-pr-ledger-left">
+                      <CheckCircle2 size={16} className="rf-pr-ledger-icon" />
+                      <span>Milestone 1: Architectural System & Wireframes</span>
                     </div>
+                    <span className="rf-pr-ledger-badge done">Approved ✓</span>
+                  </div>
 
-                    <button
-                      type="button"
-                      onClick={() => setIsMuted(!isMuted)}
-                      className="rf-pr-video-ctrl-btn"
-                      aria-label="Toggle mute"
-                    >
-                      {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                    </button>
+                  <div className="rf-pr-ledger-row is-active">
+                    <div className="rf-pr-ledger-left">
+                      <span className="rf-pr-ledger-pulse-icon" />
+                      <span>Milestone 2: Production Deliverables & Assets</span>
+                    </div>
+                    <span className="rf-pr-ledger-badge in-progress">In Escrow</span>
+                  </div>
 
-                    <button
-                      type="button"
-                      className="rf-pr-video-ctrl-btn"
-                      aria-label="Toggle fullscreen"
-                    >
-                      <Maximize2 size={15} />
-                    </button>
+                  <div className="rf-pr-ledger-row is-bounty">
+                    <div className="rf-pr-ledger-left">
+                      <Share2 size={14} className="rf-pr-ledger-icon bounty" />
+                      <span>Scout Attribution Reward (30-Day Locked Lock)</span>
+                    </div>
+                    <span className="rf-pr-ledger-badge bounty">12% Auto-Credited</span>
+                  </div>
+                </div>
+
+                {/* Bottom Trust Pillars */}
+                <div className="rf-pr-trust-footer-pills">
+                  <div className="rf-pr-tf-pill">
+                    <ShieldCheck size={13} />
+                    <span>5% Platform Fee Only If You Hire</span>
+                  </div>
+                  <div className="rf-pr-tf-pill">
+                    <Globe2 size={13} />
+                    <span>54 African Currencies & Local Rails</span>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column: Numbered Steps Accordion & Actions */}
+              {/* Right Column: Refeir 4-Step Accordion & Actions */}
               <div className="rf-pr-how-right">
-                <h2 className="rf-pr-how-title">How hiring works</h2>
+                <div className="rf-pr-how-eyebrow">
+                  <ShieldCheck size={14} />
+                  <span>THE REFEIR TRUST MODEL</span>
+                </div>
+
+                <h2 className="rf-pr-how-title">How hiring works on Refeir</h2>
+                <p className="rf-pr-how-subtitle">
+                  Refeir replaces cold job-board spam with trusted peer recommendations, guaranteed scout bounties, and 100% milestone escrow protection across Africa.
+                </p>
 
                 <div className="rf-pr-accordion-list">
                   {/* Step 1 */}
@@ -1756,7 +1796,10 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">1</span>
-                        <span className="rf-pr-step-text">Post your job or project</span>
+                        <div className="rf-pr-step-title-wrap">
+                          <span className="rf-pr-step-text">Curated briefs & vetted talent discovery</span>
+                          <span className="rf-pr-step-tag">Zero Proposal Spam</span>
+                        </div>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1765,7 +1808,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openAccordion === 1 && (
                       <div className="rf-pr-accordion-body">
-                        Describe what you need, set your timeline and budget, and get personalized proposals from vetted experts within hours.
+                        Describe what you need in seconds or browse certified specialists directly. Unlike traditional boards where dozens of unqualified bots flood your inbox, Refeir connects you exclusively with pre-vetted professionals backed by verified skill credentials and authentic portfolios.
                       </div>
                     )}
                   </div>
@@ -1779,7 +1822,10 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">2</span>
-                        <span className="rf-pr-step-text">Contact and hire top freelancers</span>
+                        <div className="rf-pr-step-title-wrap">
+                          <span className="rf-pr-step-text">Milestone contracts & 100% Trust Vault protection</span>
+                          <span className="rf-pr-step-tag">Zero-Risk Escrow</span>
+                        </div>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1788,7 +1834,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openAccordion === 2 && (
                       <div className="rf-pr-accordion-body">
-                        Interview candidates, review verified portfolios and client feedback, and begin collaboration protected by smart contracts.
+                        Lock in milestones and agreed deliverables before work starts. Your funds are deposited securely into the Refeir Trust Vault—giving freelancers the certainty to begin immediately, while ensuring payments are only released when you inspect and approve each deliverable.
                       </div>
                     )}
                   </div>
@@ -1802,7 +1848,10 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     >
                       <div className="rf-pr-accordion-header-left">
                         <span className="rf-pr-step-num">3</span>
-                        <span className="rf-pr-step-text">Pay securely, once work is delivered</span>
+                        <div className="rf-pr-step-title-wrap">
+                          <span className="rf-pr-step-text">Seamless cross-border rails with a transparent 5% fee</span>
+                          <span className="rf-pr-step-tag">54 African Hubs</span>
+                        </div>
                       </div>
                       <ChevronDown
                         size={18}
@@ -1811,7 +1860,33 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     </button>
                     {openAccordion === 3 && (
                       <div className="rf-pr-accordion-body">
-                        Deposit funds securely in escrow. You only release payment when work is delivered to your complete satisfaction.
+                        Pay effortlessly using your native payment method: M-Pesa (Kenya/Tanzania), Mobile Money (MTN/Airtel/MoMo), local bank transfer, or global cards. While older platforms take up to 20% in predatory fees, Refeir charges clients a fair, transparent 5% platform fee only upon successful hiring.
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Step 4 */}
+                  <div className="rf-pr-accordion-item">
+                    <button
+                      type="button"
+                      onClick={() => setOpenAccordion(openAccordion === 4 ? null : 4)}
+                      className="rf-pr-accordion-header"
+                    >
+                      <div className="rf-pr-accordion-header-left">
+                        <span className="rf-pr-step-num">4</span>
+                        <div className="rf-pr-step-title-wrap">
+                          <span className="rf-pr-step-text">Locked scout attribution & community bounties</span>
+                          <span className="rf-pr-step-tag">Refer & Earn 10–15%</span>
+                        </div>
+                      </div>
+                      <ChevronDown
+                        size={18}
+                        className={`rf-pr-chevron ${openAccordion === 4 ? 'is-rotated' : ''}`}
+                      />
+                    </button>
+                    {openAccordion === 4 && (
+                      <div className="rf-pr-accordion-body">
+                        Refeir's secret weapon: every professional introduction is tied to a locked referral code (RF-XXXXXX). Scouts and clients who refer winning talent receive legally guaranteed 10%–15% referral bounties straight to their Refeir Wallet, aligning incentives for everyone.
                       </div>
                     )}
                   </div>
@@ -1827,18 +1902,18 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                     }}
                     className="rf-pr-how-post-btn"
                   >
-                    Post your job
+                    Post your job for free
                   </button>
 
                   <button
                     type="button"
                     onClick={() => {
                       onClose();
-                      onNavigate('/pricing');
+                      onNavigate('/demo-tour');
                     }}
                     className="rf-pr-how-plans-btn"
                   >
-                    Plans and pricing
+                    Interactive Demo Tour →
                   </button>
                 </div>
               </div>
