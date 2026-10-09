@@ -2788,7 +2788,7 @@
   }
 
   .rf-hero-video-content {
-    padding: 5.25rem 1.25rem 1rem 1.25rem !important;
+    padding: 5.25rem 1.25rem 2.25rem 1.25rem !important;
   }
 
   /* Hero subheadline on mobile: right padding so 'smarter' starts on line 2 and 'opportunities' on line 3 */
@@ -2854,7 +2854,7 @@
     align-items: center !important;
     gap: 0.5rem !important;
     width: 100% !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 1rem !important;
   }
 
   .rf-hero-cta-btn {

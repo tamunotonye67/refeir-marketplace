@@ -1910,7 +1910,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 position: 'relative',
                 zIndex: 2,
                 padding: isMobile
-                  ? '5.25rem 1.25rem 1rem 1.25rem'
+                  ? '5.25rem 1.25rem 2.25rem 1.25rem'
                   : 'clamp(7.5rem, 12vw, 10.5rem) clamp(2.5rem, 5vw, 4.5rem) clamp(4.5rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4.5rem)',
                 width: '100%'
               }}
@@ -2126,7 +2126,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </form>
 
                   {/* CTA Buttons */}
-                  <div className="rf-hero-cta-group" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.875rem', marginBottom: isMobile ? '0.5rem' : '2rem' }}>
+                  <div className="rf-hero-cta-group" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.875rem', marginBottom: isMobile ? '1rem' : '2rem' }}>
                     <button
                       onClick={() => onNavigate('/marketplace')}
                       className="rf-btn rf-btn-primary rf-btn-lg rf-hero-cta-btn"
