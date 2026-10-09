@@ -2056,6 +2056,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                   {/* Subheadline */}
                   <p
+                    className="rf-hero-subheadline"
                     style={{
                       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
                       fontSize: 'clamp(1.05rem, 2.2vw, 1.35rem)',
