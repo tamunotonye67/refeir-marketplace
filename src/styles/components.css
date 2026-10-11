@@ -2770,7 +2770,11 @@
   }
 
   .rf-hero-video-content {
-    padding: 5.25rem 1.25rem 2.25rem 1.25rem !important;
+    padding: 6.25rem 1.25rem 2.25rem 1.25rem !important;
+  }
+
+  .rf-hero-headline {
+    padding-top: 0.5rem !important;
   }
 
   /* Hero subheadline on mobile: right padding so 'smarter' starts on line 2 and 'opportunities' on line 3 */

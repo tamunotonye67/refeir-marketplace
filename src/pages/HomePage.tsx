@@ -1907,7 +1907,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 position: 'relative',
                 zIndex: 2,
                 padding: isMobile
-                  ? '5.25rem 1.25rem 2.25rem 1.25rem'
+                  ? '6.25rem 1.25rem 2.25rem 1.25rem'
                   : 'clamp(7.5rem, 12vw, 10.5rem) clamp(2.5rem, 5vw, 4.5rem) clamp(4.5rem, 7vw, 6.5rem) clamp(2.5rem, 5vw, 4.5rem)',
                 width: '100%'
               }}
@@ -2025,6 +2025,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <>
                   {/* Static Hero Headline */}
                   <h1
+                    className="rf-hero-headline"
                     style={{
                       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
                       fontSize: 'clamp(2.3rem, 4.8vw, 3.95rem)',
@@ -2036,6 +2037,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       marginTop: '0.85rem',
                       marginBottom: '0.65rem',
                       maxWidth: '880px',
+                      paddingTop: isMobile ? '0.5rem' : '0',
                       paddingBottom: '0',
                       textShadow: '0 2px 10px rgba(0, 0, 0, 0.28)',
                       WebkitFontSmoothing: 'antialiased',
