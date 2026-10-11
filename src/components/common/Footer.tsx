@@ -132,10 +132,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
 
   return (
     <footer style={{ backgroundColor: 'var(--rf-bg-deep)', borderTop: '1px solid var(--rf-bg-card-border)', marginTop: 'auto', overflow: 'hidden', position: 'relative' }}>
-      <div className="rf-container" style={{ paddingTop: '4rem', paddingBottom: '3rem' }}>
+      <div className="rf-container rf-footer-container" style={{ paddingTop: '4rem', paddingBottom: '3rem' }}>
         <div className="rf-footer-grid">
-          {/* Col 1: Brand & Ethos */}
-          <div className="rf-footer-brand-col">
+          {/* Col 1: Brand & Ethos — Desktop Only */}
+          <div className="rf-footer-brand-col rf-desktop-only">
             <div style={{ marginBottom: '1.25rem' }}>
               <RefeirLogo size="sm" showTagline={false} />
             </div>

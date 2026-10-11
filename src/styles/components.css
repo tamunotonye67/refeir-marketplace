@@ -2329,10 +2329,12 @@
   }
 
   .rf-footer-brand-col {
-    grid-column: 1 / -1 !important;
-    margin-bottom: 0.75rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--rf-bg-card-border);
+    display: none !important;
+  }
+
+  .rf-footer-container {
+    padding-top: 1.75rem !important;
+    padding-bottom: 2.5rem !important;
   }
 
   .rf-footer-accordion-item {
