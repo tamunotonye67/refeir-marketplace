@@ -8079,12 +8079,20 @@
   transform: translateX(4px);
 }
 
+/* Category Grid Expand Controls (Wider Screen Devices vs Mobile) */
+.rf-categories-expand-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
 
+.rf-categories-expand-btn-side {
+  display: inline-flex;
+}
 
-
-
-
-
-
-
-
+@media (max-width: 768px) {
+  .rf-categories-expand-wrap,
+  .rf-categories-expand-btn-side {
+    display: none !important;
+  }
+}

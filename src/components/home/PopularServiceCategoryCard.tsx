@@ -8,7 +8,7 @@ export interface ServiceCategoryItem {
   categoryQuery: string;
   description: string;
   tags: string[];
-  type: 'design' | 'engineering' | 'ai' | 'mobile';
+  type: 'design' | 'engineering' | 'ai' | 'mobile' | 'cloud' | 'cybersecurity' | 'fintech' | 'growth';
 }
 
 interface PopularServiceCategoryCardProps {
@@ -248,6 +248,213 @@ export const PopularServiceCategoryCard: React.FC<PopularServiceCategoryCardProp
             <rect x="20" y="65" width="28" height="28" rx="5" stroke={strokeMuted} strokeWidth="1" fill={isDark ? 'rgba(7, 22, 13, 0.7)' : '#FFFFFF'} />
             <path d="M28 79 H40 M34 73 V85" stroke={strokeSecondary} strokeWidth="1.2" strokeLinecap="round" />
             <path d="M48 79 H60" stroke={strokeMuted} strokeWidth="1" strokeDasharray="2 2" />
+          </svg>
+        );
+
+      case 'cloud':
+        return (
+          <svg viewBox="0 0 280 160" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-cloud" width="16" height="16" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1" fill={gridDotColor} />
+              </pattern>
+            </defs>
+            <rect width="280" height="160" fill="url(#grid-cloud)" />
+
+            {/* Cloud Architecture Outline */}
+            <path
+              d="M75 88 C60 88 48 76 48 62 C48 50 58 40 70 38 C75 22 92 12 112 12 C132 12 148 24 153 38 C160 36 168 38 174 44 C182 52 182 64 175 72 C182 75 186 82 186 90 C186 100 178 108 168 108 H75 C60 108 52 98 52 88"
+              stroke={strokePrimary}
+              strokeWidth="1.5"
+              fill={fillSubtle}
+              strokeDasharray="4 2"
+            />
+
+            {/* Container Pod 1 */}
+            <g transform="translate(68, 52)">
+              <rect width="44" height="34" rx="5" stroke={strokeSecondary} strokeWidth="1.5" fill={isDark ? 'rgba(7, 22, 13, 0.85)' : '#FFFFFF'} />
+              <line x1="8" y1="12" x2="26" y2="12" stroke={strokePrimary} strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="8" y1="18" x2="36" y2="18" stroke={strokeSecondary} strokeWidth="1.2" strokeLinecap="round" />
+              <circle cx="36" cy="12" r="2" fill={strokeSecondary} />
+              <rect x="8" y="24" width="28" height="4" rx="2" fill={fillSubtle} />
+            </g>
+
+            {/* Container Pod 2 */}
+            <g transform="translate(125, 42)">
+              <rect width="48" height="38" rx="5" stroke={strokePrimary} strokeWidth="1.5" fill={isDark ? 'rgba(7, 22, 13, 0.85)' : '#FFFFFF'} />
+              <circle cx="16" cy="14" r="3" stroke={strokeSecondary} strokeWidth="1.2" />
+              <line x1="24" y1="14" x2="40" y2="14" stroke={strokePrimary} strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="10" y1="22" x2="38" y2="22" stroke={strokeMuted} strokeWidth="1.2" strokeLinecap="round" />
+              <rect x="10" y="28" width="28" height="4" rx="2" fill={strokeSecondary} opacity="0.6" />
+            </g>
+
+            {/* CI/CD Pipeline Flow Line */}
+            <path d="M40 128 H240" stroke={strokeMuted} strokeWidth="1.5" />
+            <circle cx="65" cy="128" r="5" stroke={strokePrimary} strokeWidth="1.5" fill={isDark ? '#07160D' : '#FFFFFF'} />
+            <circle cx="65" cy="128" r="2" fill={strokePrimary} />
+            <circle cx="140" cy="128" r="5" stroke={strokeSecondary} strokeWidth="1.5" fill={isDark ? '#07160D' : '#FFFFFF'} />
+            <circle cx="140" cy="128" r="2" fill={strokeSecondary} />
+            <circle cx="215" cy="128" r="5" stroke={strokePrimary} strokeWidth="1.5" fill={isDark ? '#07160D' : '#FFFFFF'} />
+            <path d="M213 128 L215 130 L218 126" stroke={strokePrimary} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+
+            {/* Terminal prompt badge */}
+            <rect x="195" y="30" width="55" height="34" rx="4" stroke={strokeMuted} strokeWidth="1.2" fill={fillSubtle} />
+            <text x="202" y="46" fill={strokeSecondary} fontSize="8" fontFamily="monospace" fontWeight="bold">&gt;_</text>
+            <line x1="218" y1="44" x2="238" y2="44" stroke={strokePrimary} strokeWidth="1.2" strokeLinecap="round" />
+            <line x1="202" y1="54" x2="242" y2="54" stroke={strokeMuted} strokeWidth="1" strokeLinecap="round" />
+
+            {/* Connectors */}
+            <path d="M149 80 V123" stroke={strokeSecondary} strokeWidth="1.2" strokeDasharray="2 2" />
+            <path d="M90 86 V123" stroke={strokeMuted} strokeWidth="1.2" strokeDasharray="2 2" />
+          </svg>
+        );
+
+      case 'cybersecurity':
+        return (
+          <svg viewBox="0 0 280 160" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-sec" width="16" height="16" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1" fill={gridDotColor} />
+              </pattern>
+            </defs>
+            <rect width="280" height="160" fill="url(#grid-sec)" />
+
+            {/* Outer Security Perimeter Radar Lines */}
+            <circle cx="140" cy="76" r="64" stroke={strokeMuted} strokeWidth="1" strokeDasharray="3 3" />
+            <circle cx="140" cy="76" r="48" stroke={fillSubtle} strokeWidth="1.5" />
+
+            {/* Center Heraldic Shield */}
+            <path
+              d="M140 24 L178 38 V78 C178 108 140 128 140 128 C140 128 102 108 102 78 V38 Z"
+              stroke={strokePrimary}
+              strokeWidth="2"
+              fill={isDark ? 'rgba(7, 22, 13, 0.88)' : '#FFFFFF'}
+            />
+
+            {/* Inner Shield Accent */}
+            <path
+              d="M140 32 L170 43 V74 C170 98 140 116 140 116 C140 116 110 98 110 74 V43 Z"
+              stroke={strokeSecondary}
+              strokeWidth="1.2"
+              fill={fillSubtle}
+              strokeDasharray="2 2"
+            />
+
+            {/* Central Padlock */}
+            <rect x="131" y="68" width="18" height="15" rx="3" stroke={strokePrimary} strokeWidth="1.5" fill={fillSubtle} />
+            <path d="M135 68 V62 C135 59.2 137.2 57 140 57 C142.8 57 145 59.2 145 62 V68" stroke={strokePrimary} strokeWidth="1.5" strokeLinecap="round" />
+            <circle cx="140" cy="74" r="1.5" fill={strokeSecondary} />
+            <line x1="140" y1="75.5" x2="140" y2="79" stroke={strokeSecondary} strokeWidth="1.5" strokeLinecap="round" />
+
+            {/* Left Verification Check Node */}
+            <rect x="36" y="58" width="46" height="36" rx="6" stroke={strokeMuted} strokeWidth="1.2" fill={fillSubtle} />
+            <circle cx="50" cy="76" r="6" stroke={strokeSecondary} strokeWidth="1.2" />
+            <path d="M48 76 L50 78 L53 74" stroke={strokeSecondary} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            <line x1="60" y1="73" x2="74" y2="73" stroke={strokePrimary} strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="60" y1="79" x2="70" y2="79" stroke={strokeMuted} strokeWidth="1" strokeLinecap="round" />
+
+            {/* Right Audit Ledger / Hash Node */}
+            <rect x="198" y="58" width="48" height="36" rx="6" stroke={strokeMuted} strokeWidth="1.2" fill={fillSubtle} />
+            <line x1="208" y1="68" x2="236" y2="68" stroke={strokePrimary} strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="208" y1="76" x2="232" y2="76" stroke={strokeSecondary} strokeWidth="1.2" strokeLinecap="round" />
+            <line x1="208" y1="84" x2="226" y2="84" stroke={strokeMuted} strokeWidth="1" strokeLinecap="round" />
+
+            {/* Connection Links */}
+            <path d="M82 76 H102" stroke={strokeSecondary} strokeWidth="1.2" strokeDasharray="3 3" />
+            <path d="M178 76 H198" stroke={strokeSecondary} strokeWidth="1.2" strokeDasharray="3 3" />
+          </svg>
+        );
+
+      case 'fintech':
+        return (
+          <svg viewBox="0 0 280 160" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-fintech" width="16" height="16" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1" fill={gridDotColor} />
+              </pattern>
+            </defs>
+            <rect width="280" height="160" fill="url(#grid-fintech)" />
+
+            {/* Smart Payment Card Frame */}
+            <rect x="42" y="28" width="125" height="78" rx="8" stroke={strokePrimary} strokeWidth="1.5" fill={isDark ? 'rgba(7, 22, 13, 0.88)' : '#FFFFFF'} />
+            
+            {/* EMV Smart Chip */}
+            <rect x="56" y="44" width="22" height="16" rx="3" stroke={strokeSecondary} strokeWidth="1.2" fill={fillSubtle} />
+            <line x1="67" y1="44" x2="67" y2="60" stroke={strokeSecondary} strokeWidth="1" />
+            <line x1="56" y1="52" x2="78" y2="52" stroke={strokeSecondary} strokeWidth="1" />
+
+            {/* Cardholder & Number lines */}
+            <line x1="56" y1="74" x2="108" y2="74" stroke={strokePrimary} strokeWidth="2" strokeLinecap="round" />
+            <line x1="56" y1="84" x2="88" y2="84" stroke={strokeMuted} strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="120" y1="84" x2="148" y2="84" stroke={strokeSecondary} strokeWidth="1.5" strokeLinecap="round" />
+
+            {/* Escrow Milestone Settlement Box */}
+            <rect x="154" y="52" width="86" height="75" rx="7" stroke={strokeSecondary} strokeWidth="1.5" fill={isDark ? 'rgba(7, 22, 13, 0.95)' : '#FFFFFF'} />
+            <circle cx="174" cy="72" r="8" stroke={strokePrimary} strokeWidth="1.5" fill={fillSubtle} />
+            <path d="M171 72 L173 74 L177 69" stroke={strokePrimary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <line x1="188" y1="70" x2="226" y2="70" stroke={strokePrimary} strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="188" y1="76" x2="216" y2="76" stroke={strokeMuted} strokeWidth="1.2" strokeLinecap="round" />
+            
+            {/* Escrow Badge */}
+            <rect x="166" y="94" width="62" height="20" rx="4" fill={fillSubtle} stroke={strokeMuted} strokeWidth="1" />
+            <text x="174" y="108" fill={strokeSecondary} fontSize="9" fontFamily="sans-serif" fontWeight="bold">100% ESCROW</text>
+
+            {/* Currency Flow Arrow Link */}
+            <path d="M104 106 C104 122 135 125 154 116" stroke={strokePrimary} strokeWidth="1.5" strokeDasharray="3 3" />
+            <circle cx="104" cy="106" r="2.5" fill={strokePrimary} />
+            <circle cx="154" cy="116" r="2.5" fill={strokeSecondary} />
+          </svg>
+        );
+
+      case 'growth':
+        return (
+          <svg viewBox="0 0 280 160" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-growth" width="16" height="16" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1" fill={gridDotColor} />
+              </pattern>
+            </defs>
+            <rect width="280" height="160" fill="url(#grid-growth)" />
+
+            {/* Growth Chart Frame */}
+            <rect x="30" y="24" width="220" height="114" rx="7" stroke={strokeMuted} strokeWidth="1.2" fill={isDark ? 'rgba(7, 22, 13, 0.7)' : '#FFFFFF'} />
+            
+            {/* Grid baseline & axis */}
+            <line x1="45" y1="118" x2="235" y2="118" stroke={strokeMuted} strokeWidth="1" />
+            <line x1="45" y1="40" x2="45" y2="118" stroke={strokeMuted} strokeWidth="1" />
+            <line x1="45" y1="80" x2="235" y2="80" stroke={strokeMuted} strokeWidth="0.8" strokeDasharray="2 2" />
+
+            {/* Growth Gradient Area & Trajectory Curve */}
+            <path
+              d="M48 112 Q85 106 120 88 T180 58 T230 38"
+              stroke={strokePrimary}
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+            <path
+              d="M48 112 Q85 106 120 88 T180 58 T230 38 V118 H48 Z"
+              fill={fillSubtle}
+              opacity="0.6"
+            />
+
+            {/* Metric Nodes on Curve */}
+            <circle cx="120" cy="88" r="3.5" stroke={strokeSecondary} strokeWidth="1.5" fill={isDark ? '#07160D' : '#FFFFFF'} />
+            <circle cx="180" cy="58" r="3.5" stroke={strokePrimary} strokeWidth="1.5" fill={isDark ? '#07160D' : '#FFFFFF'} />
+            <circle cx="230" cy="38" r="5" stroke={strokeSecondary} strokeWidth="2" fill={strokePrimary} />
+
+            {/* Floating Metric Badge */}
+            <g transform="translate(145, 26)">
+              <rect width="65" height="24" rx="5" stroke={strokePrimary} strokeWidth="1.2" fill={isDark ? 'rgba(7, 22, 13, 0.95)' : '#FFFFFF'} />
+              <path d="M154 39 L159 34 L164 36 L171 29" stroke={strokeSecondary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <text x="174" y="42" fill={strokePrimary} fontSize="9" fontFamily="sans-serif" fontWeight="bold">+148%</text>
+            </g>
+
+            {/* Mini Keyword / Campaign Pills */}
+            <rect x="52" y="34" width="44" height="14" rx="3" fill={fillSubtle} stroke={strokeSecondary} strokeWidth="0.8" />
+            <line x1="58" y1="41" x2="88" y2="41" stroke={strokeSecondary} strokeWidth="1.2" strokeLinecap="round" />
+
+            <rect x="52" y="52" width="36" height="14" rx="3" fill={fillSubtle} stroke={strokeMuted} strokeWidth="0.8" />
+            <line x1="58" y1="59" x2="80" y2="59" stroke={strokeMuted} strokeWidth="1.2" strokeLinecap="round" />
           </svg>
         );
 

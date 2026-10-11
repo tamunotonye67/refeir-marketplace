@@ -43,6 +43,7 @@ import {
   ChevronRight,
   ChevronLeft,
   ChevronDown,
+  ChevronUp,
   PenTool,
   Video,
   Camera,
@@ -100,6 +101,38 @@ const POPULAR_SERVICE_CATEGORIES: ServiceCategoryItem[] = [
     description: 'Native and cross-platform mobile apps for iOS and Android with offline-first local sync.',
     tags: ['Flutter', 'iOS Swift', 'Cross-Platform'],
     type: 'mobile'
+  },
+  {
+    id: 'cat-cloud',
+    name: 'Cloud & DevOps Engineering',
+    categoryQuery: 'Development & Tech',
+    description: 'Cloud infrastructure, Kubernetes orchestration, CI/CD automation pipelines, and AWS/GCP architecture.',
+    tags: ['Kubernetes', 'AWS & GCP', 'CI/CD Pipelines'],
+    type: 'cloud'
+  },
+  {
+    id: 'cat-cybersecurity',
+    name: 'Cybersecurity & Auditing',
+    categoryQuery: 'Development & Tech',
+    description: 'Smart contract audits, penetration testing, SOC2 compliance, and zero-trust security architectures.',
+    tags: ['Penetration Testing', 'Smart Contract Audits', 'Compliance'],
+    type: 'cybersecurity'
+  },
+  {
+    id: 'cat-fintech',
+    name: 'Fintech & Payment Systems',
+    categoryQuery: 'Development & Tech',
+    description: 'Mobile money rails, cross-border payment APIs, Paystack/Flutterwave integrations, and escrow protocols.',
+    tags: ['Payment Gateways', 'Mobile Money', 'Escrow Rails'],
+    type: 'fintech'
+  },
+  {
+    id: 'cat-growth',
+    name: 'Growth & Digital Marketing',
+    categoryQuery: 'Digital Marketing',
+    description: 'Performance marketing, technical SEO, conversion rate optimization, and viral product-led growth loops.',
+    tags: ['Performance Ads', 'Technical SEO', 'Product Growth'],
+    type: 'growth'
   }
 ];
 
@@ -646,6 +679,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
   const [isHeroSearchActive, setIsHeroSearchActive] = useState(false);
+  const [isCategoriesExpanded, setIsCategoriesExpanded] = useState(false);
   const [heroSearchIntent, setHeroSearchIntent] = useState<'recruit' | 'work' | 'scout'>(() => {
     if (typeof window === 'undefined') return 'recruit';
     try {
@@ -3248,14 +3282,28 @@ export const HomePage: React.FC<HomePageProps> = ({
                 High-demand service categories delivered with milestone escrow protection.
               </p>
             </div>
-            <button onClick={() => onNavigate('/marketplace?type=services')} className="rf-btn rf-btn-secondary" style={{ gap: '0.5rem' }}>
-              <span>Explore All Services</span>
-              <ArrowRight size={16} />
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => setIsCategoriesExpanded(!isCategoriesExpanded)}
+                className="rf-btn rf-btn-secondary rf-categories-expand-btn-side"
+                style={{ gap: '0.45rem', padding: '0.6rem 1.15rem', fontSize: '0.875rem' }}
+              >
+                <span>{isCategoriesExpanded ? 'Show Fewer' : 'View More Categories'}</span>
+                {isCategoriesExpanded ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+              </button>
+              <button onClick={() => onNavigate('/marketplace?type=services')} className="rf-btn rf-btn-secondary" style={{ gap: '0.5rem' }}>
+                <span>Explore All Services</span>
+                <ArrowRight size={16} />
+              </button>
+            </div>
           </div>
 
           <div className="rf-grid-cards rf-popular-services-slider">
-            {POPULAR_SERVICE_CATEGORIES.map(category => (
+            {((!isMobile && !isCategoriesExpanded)
+              ? POPULAR_SERVICE_CATEGORIES.slice(0, 4)
+              : POPULAR_SERVICE_CATEGORIES
+            ).map(category => (
               <PopularServiceCategoryCard
                 key={category.id}
                 category={category}
@@ -3265,6 +3313,35 @@ export const HomePage: React.FC<HomePageProps> = ({
               />
             ))}
           </div>
+
+          {/* Expand / Collapse Button below cards on wider screen devices */}
+          {!isMobile && (
+            <div className="rf-categories-expand-wrap">
+              <button
+                type="button"
+                onClick={() => setIsCategoriesExpanded(!isCategoriesExpanded)}
+                className="rf-btn rf-btn-secondary"
+                style={{
+                  padding: '0.75rem 2rem',
+                  borderRadius: '14px',
+                  fontSize: '0.925rem',
+                  fontWeight: 600,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.55rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <span>
+                  {isCategoriesExpanded
+                    ? 'Show Fewer Categories'
+                    : `View More Categories (${POPULAR_SERVICE_CATEGORIES.length - 4} More)`}
+                </span>
+                {isCategoriesExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
