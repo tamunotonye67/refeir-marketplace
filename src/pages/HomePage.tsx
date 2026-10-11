@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+﻿import React, { useState, useRef, useEffect } from 'react';
 import { useI18n } from '../context/I18nContext';
 import { useTheme } from '../context/ThemeContext';
 import { useMarketplace } from '../context/MarketplaceContext';
@@ -2346,344 +2346,6 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* SCOUT SOURCING SHOWCASE CARD — LET EXPERTS FIND THE RIGHT FREELANCER */}
-      <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
-        <div className="rf-container" style={{ maxWidth: '1270px' }}>
-          <div
-            className="rf-scout-sourcing-grid"
-            style={{
-              background: 'linear-gradient(135deg, #0F2E1E 0%, #0A1E14 55%, #122B1A 100%)',
-              border: '1px solid rgba(102, 187, 42, 0.25)',
-              borderRadius: '28px',
-              padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.75rem, 4vw, 3.5rem)',
-              boxShadow: '0 24px 60px -12px rgba(10, 23, 15, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
-          >
-            {/* Ambient Background Glow */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '-30%',
-                right: '-15%',
-                width: '500px',
-                height: '500px',
-                borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(102, 187, 42, 0.2) 0%, transparent 70%)',
-                pointerEvents: 'none'
-              }}
-            />
-
-            {/* Left Content */}
-            <div className="rf-scout-sourcing-text" style={{ position: 'relative', zIndex: 2 }}>
-              {/* Official Refeir Logo & Label */}
-              <div className="rf-scout-logo-row" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                <div className="rf-scout-logo-wrap">
-                  <RefeirLogo size="lg" isLight={true} showTagline={false} />
-                </div>
-                <span className="rf-scout-sourcing-glass-badge">
-                  Scout Sourcing
-                </span>
-              </div>
-
-              {/* Headline */}
-              <h2
-                className="rf-scout-sourcing-title"
-                style={{
-                  fontFamily: 'var(--rf-font-sans)',
-                  fontSize: 'clamp(2.1rem, 4.4vw, 2.9rem)',
-                  fontWeight: 400,
-                  color: '#FFFFFF',
-                  lineHeight: 1.2,
-                  letterSpacing: '-0.015em',
-                  marginBottom: '1.75rem'
-                }}
-              >
-                Let scouts find the right freelancer for you
-              </h2>
-
-              {/* 3 Bullet Points */}
-              <div className="rf-scout-sourcing-bullets" style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem', marginBottom: '2.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
-                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                    <Check size={14} color="#66BB2A" strokeWidth={3} />
-                  </div>
-                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
-                    Work with scouts who reconnoiter our marketplace, source, and recommend talents for you
-                  </span>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
-                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                    <Check size={14} color="#66BB2A" strokeWidth={3} />
-                  </div>
-                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
-                    Get a report with clear recommendations
-                  </span>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
-                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                    <Check size={14} color="#66BB2A" strokeWidth={3} />
-                  </div>
-                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
-                    Recruit recommended freelance talent with confidence
-                  </span>
-                </div>
-              </div>
-
-              {/* Button & Guarantee */}
-              <div className="rf-scout-sourcing-btn-row" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
-                <button
-                  onClick={() => onNavigate('/scout-sourcing')}
-                  className="rf-btn rf-btn-primary rf-btn-lg rf-scout-sourcing-btn"
-                  style={{
-                    padding: '0.95rem 2rem',
-                    fontSize: '1.05rem',
-                    fontWeight: 800,
-                    boxShadow: '0 4px 20px rgba(102, 187, 42, 0.45)'
-                  }}
-                >
-                  Explore scout sourcing
-                </button>
-
-                <div className="rf-scout-guarantee-text" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.925rem', fontWeight: 600 }}>
-                  <div className="rf-shield-beep-container">
-                    <span className="rf-shield-beep-icon">
-                      <ShieldCheck size={18} color="#66BB2A" />
-                    </span>
-                  </div>
-                  <span>100% money back guarantee</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Visual — Stacked Profile Pictures with Big Mouse Pointer */}
-            <div
-              className="rf-scout-sourcing-visual"
-              style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '380px'
-              }}
-            >
-              {/* Back Stacked Card: Shortlist & Candidate Match Report */}
-              <div
-                className="rf-scout-back-card"
-                style={{
-                  position: 'absolute',
-                  width: '88%',
-                  maxWidth: '360px',
-                  background: 'rgba(255, 255, 255, 0.12)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '22px',
-                  padding: '1.5rem',
-                  color: '#FFFFFF',
-                  transform: 'rotate(6deg) translateY(-22px) translateX(24px)',
-                  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-                  zIndex: 1
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                    <img
-                      src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=150&auto=format&fit=crop&q=80"
-                      alt="Candidate Profile"
-                      className="rf-scout-back-avatar"
-                      style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #66BB2A' }}
-                    />
-                    <div>
-                      <div className="rf-scout-back-name" style={{ fontSize: '0.875rem', fontWeight: 800 }}>Kofi Mensah 🇬🇭</div>
-                      <div className="rf-scout-back-role" style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>Lead Mobile Architect</div>
-                    </div>
-                  </div>
-                  <span className="rf-scout-back-badge" style={{ fontSize: '0.72rem', fontWeight: 800, color: '#66BB2A', background: 'rgba(102, 187, 42, 0.2)', padding: '0.2rem 0.5rem', borderRadius: '9999px' }}>
-                    99% Match
-                  </span>
-                </div>
-                <div className="rf-scout-back-tags" style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>Flutter</span>
-                  <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>React Native</span>
-                  <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>FastAPI</span>
-                </div>
-              </div>
-
-              {/* Front Stacked Card: Scout Profile */}
-              <div
-                className="rf-scout-amara-card"
-                style={{
-                  position: 'relative',
-                  width: '92%',
-                  maxWidth: '380px',
-                  background: '#FFFFFF',
-                  borderRadius: '22px',
-                  padding: '1.75rem',
-                  boxShadow: '0 25px 60px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.2)',
-                  color: '#122B1A',
-                  transform: 'rotate(-2deg)',
-                  zIndex: 2,
-                  transition: 'transform 0.3s ease'
-                }}
-              >
-                {/* Scout Header */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
-                  <div style={{ position: 'relative' }}>
-                    <img
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80"
-                      alt="Scout Profile"
-                      className="rf-scout-amara-avatar"
-                      style={{
-                        width: '64px',
-                        height: '64px',
-                        borderRadius: '50%',
-                        objectFit: 'cover',
-                        border: '3px solid #66BB2A',
-                        boxShadow: '0 4px 12px rgba(102, 187, 42, 0.35)'
-                      }}
-                    />
-                    <div
-                      className="rf-scout-amara-star"
-                      style={{
-                        position: 'absolute',
-                        bottom: '-2px',
-                        right: '-2px',
-                        background: '#66BB2A',
-                        color: '#0F2E1E',
-                        borderRadius: '50%',
-                        width: '20px',
-                        height: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '0.65rem',
-                        fontWeight: 900
-                      }}
-                    >
-                      ★
-                    </div>
-                  </div>
-
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'space-between' }}>
-                      <span className="rf-scout-amara-name" style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F2E1E' }}>Amara Okafor 🇳🇬</span>
-                      <span className="rf-scout-amara-badge" style={{ fontSize: '0.75rem', fontWeight: 800, color: '#2E7D32', background: 'rgba(102, 187, 42, 0.15)', padding: '0.15rem 0.5rem', borderRadius: '9999px' }}>
-                        Top 1% Scout
-                      </span>
-                    </div>
-                    <p className="rf-scout-amara-role" style={{ fontSize: '0.8rem', color: '#64748B', margin: '0.15rem 0 0.4rem 0', fontWeight: 500 }}>
-                      Senior Pan-African Tech Scout
-                    </p>
-                    <div className="rf-scout-amara-rating" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.75rem', color: '#166534', fontWeight: 700 }}>
-                      <span>⭐ 4.98 Rating</span>
-                      <span>•</span>
-                      <span>340+ Hires Recommended</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Sourcing Report Pill */}
-                <div
-                  className="rf-scout-amara-dossier"
-                  style={{
-                    background: '#F0FDF4',
-                    border: '1px solid rgba(102, 187, 42, 0.25)',
-                    borderRadius: '12px',
-                    padding: '0.85rem 1rem',
-                    marginBottom: '1rem'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', color: '#166534', letterSpacing: '0.04em' }}>
-                      Active Sourcing Dossier
-                    </span>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#2E7D32' }}>
-                      Matched in 24h
-                    </span>
-                  </div>
-                  <p style={{ fontSize: '0.825rem', color: '#14532D', margin: 0, fontWeight: 600 }}>
-                    "Shortlisted 3 Principal Engineers with Trust Vault milestone protection."
-                  </p>
-                </div>
-
-                {/* Scout Trust Stats */}
-                <div className="rf-scout-amara-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(18, 43, 26, 0.08)', paddingTop: '0.85rem' }}>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
-                    Reward: <strong style={{ color: '#0F2E1E' }}>10% Guaranteed</strong>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.75rem', fontWeight: 700, color: '#2E7D32' }}>
-                    <ShieldCheck size={14} color="#66BB2A" />
-                    <span>Verified Scout</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Big Mouse Pointer SVG pointing at Scout Card */}
-              <div
-                className="rf-scout-pointer-tooltip"
-                style={{
-                  position: 'absolute',
-                  bottom: '12%',
-                  right: '12%',
-                  zIndex: 10,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.65rem',
-                  pointerEvents: 'none',
-                  filter: 'drop-shadow(0 10px 24px rgba(0,0,0,0.45))',
-                  animation: 'rfFloat 3s ease-in-out infinite'
-                }}
-              >
-                {/* Pointer SVG */}
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  className="rf-scout-pointer-svg"
-                  style={{ transform: 'rotate(-25deg)', flexShrink: 0 }}
-                >
-                  <path
-                    d="M6 3L26 14L16 17L12 27L6 3Z"
-                    fill="#122B1A"
-                    stroke="#66BB2A"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  <circle cx="16" cy="14" r="2.5" fill="#66BB2A" />
-                </svg>
-
-                {/* Attached Interactive Tooltip */}
-                <div
-                  className="rf-scout-pointer-badge"
-                  style={{
-                    background: '#0F2E1E',
-                    color: '#FFFFFF',
-                    border: '1.5px solid #66BB2A',
-                    borderRadius: '9999px',
-                    padding: '0.4rem 0.85rem',
-                    fontSize: '0.78rem',
-                    fontWeight: 800,
-                    boxShadow: '0 4px 16px rgba(102, 187, 42, 0.4)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.4rem',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#66BB2A' }} className="rf-pulse" />
-                  <span>Hire via Scout Amara</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* AI WIZARD & CREATIVE STACKED CARDS SHOWCASE (90% Black Curved Container) */}
       <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
         <div className="rf-container" style={{ maxWidth: '1270px' }}>
@@ -3057,6 +2719,344 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* SCOUT SOURCING SHOWCASE CARD — LET EXPERTS FIND THE RIGHT FREELANCER */}
+      <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
+        <div className="rf-container" style={{ maxWidth: '1270px' }}>
+          <div
+            className="rf-scout-sourcing-grid"
+            style={{
+              background: 'linear-gradient(135deg, #0F2E1E 0%, #0A1E14 55%, #122B1A 100%)',
+              border: '1px solid rgba(102, 187, 42, 0.25)',
+              borderRadius: '28px',
+              padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.75rem, 4vw, 3.5rem)',
+              boxShadow: '0 24px 60px -12px rgba(10, 23, 15, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            {/* Ambient Background Glow */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '-30%',
+                right: '-15%',
+                width: '500px',
+                height: '500px',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(102, 187, 42, 0.2) 0%, transparent 70%)',
+                pointerEvents: 'none'
+              }}
+            />
+
+            {/* Left Content */}
+            <div className="rf-scout-sourcing-text" style={{ position: 'relative', zIndex: 2 }}>
+              {/* Official Refeir Logo & Label */}
+              <div className="rf-scout-logo-row" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                <div className="rf-scout-logo-wrap">
+                  <RefeirLogo size="lg" isLight={true} showTagline={false} />
+                </div>
+                <span className="rf-scout-sourcing-glass-badge">
+                  Scout Sourcing
+                </span>
+              </div>
+
+              {/* Headline */}
+              <h2
+                className="rf-scout-sourcing-title"
+                style={{
+                  fontFamily: 'var(--rf-font-sans)',
+                  fontSize: 'clamp(2.1rem, 4.4vw, 2.9rem)',
+                  fontWeight: 400,
+                  color: '#FFFFFF',
+                  lineHeight: 1.2,
+                  letterSpacing: '-0.015em',
+                  marginBottom: '1.75rem'
+                }}
+              >
+                Let scouts find the right freelancer for you
+              </h2>
+
+              {/* 3 Bullet Points */}
+              <div className="rf-scout-sourcing-bullets" style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem', marginBottom: '2.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
+                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                    <Check size={14} color="#66BB2A" strokeWidth={3} />
+                  </div>
+                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
+                    Work with scouts who reconnoiter our marketplace, source, and recommend talents for you
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
+                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                    <Check size={14} color="#66BB2A" strokeWidth={3} />
+                  </div>
+                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
+                    Get a report with clear recommendations
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
+                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                    <Check size={14} color="#66BB2A" strokeWidth={3} />
+                  </div>
+                  <span className="rf-scout-bullet-text" style={{ fontSize: '1.02rem', color: 'rgba(235, 245, 238, 0.95)', lineHeight: 1.5, fontWeight: 500 }}>
+                    Recruit recommended freelance talent with confidence
+                  </span>
+                </div>
+              </div>
+
+              {/* Button & Guarantee */}
+              <div className="rf-scout-sourcing-btn-row" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+                <button
+                  onClick={() => onNavigate('/scout-sourcing')}
+                  className="rf-btn rf-btn-primary rf-btn-lg rf-scout-sourcing-btn"
+                  style={{
+                    padding: '0.95rem 2rem',
+                    fontSize: '1.05rem',
+                    fontWeight: 800,
+                    boxShadow: '0 4px 20px rgba(102, 187, 42, 0.45)'
+                  }}
+                >
+                  Explore scout sourcing
+                </button>
+
+                <div className="rf-scout-guarantee-text" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.925rem', fontWeight: 600 }}>
+                  <div className="rf-shield-beep-container">
+                    <span className="rf-shield-beep-icon">
+                      <ShieldCheck size={18} color="#66BB2A" />
+                    </span>
+                  </div>
+                  <span>100% money back guarantee</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Visual — Stacked Profile Pictures with Big Mouse Pointer */}
+            <div
+              className="rf-scout-sourcing-visual"
+              style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '380px'
+              }}
+            >
+              {/* Back Stacked Card: Shortlist & Candidate Match Report */}
+              <div
+                className="rf-scout-back-card"
+                style={{
+                  position: 'absolute',
+                  width: '88%',
+                  maxWidth: '360px',
+                  background: 'rgba(255, 255, 255, 0.12)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '22px',
+                  padding: '1.5rem',
+                  color: '#FFFFFF',
+                  transform: 'rotate(6deg) translateY(-22px) translateX(24px)',
+                  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+                  zIndex: 1
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                    <img
+                      src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=150&auto=format&fit=crop&q=80"
+                      alt="Candidate Profile"
+                      className="rf-scout-back-avatar"
+                      style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #66BB2A' }}
+                    />
+                    <div>
+                      <div className="rf-scout-back-name" style={{ fontSize: '0.875rem', fontWeight: 800 }}>Kofi Mensah 🇬🇭</div>
+                      <div className="rf-scout-back-role" style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>Lead Mobile Architect</div>
+                    </div>
+                  </div>
+                  <span className="rf-scout-back-badge" style={{ fontSize: '0.72rem', fontWeight: 800, color: '#66BB2A', background: 'rgba(102, 187, 42, 0.2)', padding: '0.2rem 0.5rem', borderRadius: '9999px' }}>
+                    99% Match
+                  </span>
+                </div>
+                <div className="rf-scout-back-tags" style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>Flutter</span>
+                  <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>React Native</span>
+                  <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.15)', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>FastAPI</span>
+                </div>
+              </div>
+
+              {/* Front Stacked Card: Scout Profile */}
+              <div
+                className="rf-scout-amara-card"
+                style={{
+                  position: 'relative',
+                  width: '92%',
+                  maxWidth: '380px',
+                  background: '#FFFFFF',
+                  borderRadius: '22px',
+                  padding: '1.75rem',
+                  boxShadow: '0 25px 60px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.2)',
+                  color: '#122B1A',
+                  transform: 'rotate(-2deg)',
+                  zIndex: 2,
+                  transition: 'transform 0.3s ease'
+                }}
+              >
+                {/* Scout Header */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
+                  <div style={{ position: 'relative' }}>
+                    <img
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80"
+                      alt="Scout Profile"
+                      className="rf-scout-amara-avatar"
+                      style={{
+                        width: '64px',
+                        height: '64px',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        border: '3px solid #66BB2A',
+                        boxShadow: '0 4px 12px rgba(102, 187, 42, 0.35)'
+                      }}
+                    />
+                    <div
+                      className="rf-scout-amara-star"
+                      style={{
+                        position: 'absolute',
+                        bottom: '-2px',
+                        right: '-2px',
+                        background: '#66BB2A',
+                        color: '#0F2E1E',
+                        borderRadius: '50%',
+                        width: '20px',
+                        height: '20px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '0.65rem',
+                        fontWeight: 900
+                      }}
+                    >
+                      ★
+                    </div>
+                  </div>
+
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'space-between' }}>
+                      <span className="rf-scout-amara-name" style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F2E1E' }}>Amara Okafor 🇳🇬</span>
+                      <span className="rf-scout-amara-badge" style={{ fontSize: '0.75rem', fontWeight: 800, color: '#2E7D32', background: 'rgba(102, 187, 42, 0.15)', padding: '0.15rem 0.5rem', borderRadius: '9999px' }}>
+                        Top 1% Scout
+                      </span>
+                    </div>
+                    <p className="rf-scout-amara-role" style={{ fontSize: '0.8rem', color: '#64748B', margin: '0.15rem 0 0.4rem 0', fontWeight: 500 }}>
+                      Senior Pan-African Tech Scout
+                    </p>
+                    <div className="rf-scout-amara-rating" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.75rem', color: '#166534', fontWeight: 700 }}>
+                      <span>⭐ 4.98 Rating</span>
+                      <span>•</span>
+                      <span>340+ Hires Recommended</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sourcing Report Pill */}
+                <div
+                  className="rf-scout-amara-dossier"
+                  style={{
+                    background: '#F0FDF4',
+                    border: '1px solid rgba(102, 187, 42, 0.25)',
+                    borderRadius: '12px',
+                    padding: '0.85rem 1rem',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', color: '#166534', letterSpacing: '0.04em' }}>
+                      Active Sourcing Dossier
+                    </span>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#2E7D32' }}>
+                      Matched in 24h
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '0.825rem', color: '#14532D', margin: 0, fontWeight: 600 }}>
+                    "Shortlisted 3 Principal Engineers with Trust Vault milestone protection."
+                  </p>
+                </div>
+
+                {/* Scout Trust Stats */}
+                <div className="rf-scout-amara-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(18, 43, 26, 0.08)', paddingTop: '0.85rem' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                    Reward: <strong style={{ color: '#0F2E1E' }}>10% Guaranteed</strong>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.75rem', fontWeight: 700, color: '#2E7D32' }}>
+                    <ShieldCheck size={14} color="#66BB2A" />
+                    <span>Verified Scout</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Big Mouse Pointer SVG pointing at Scout Card */}
+              <div
+                className="rf-scout-pointer-tooltip"
+                style={{
+                  position: 'absolute',
+                  bottom: '12%',
+                  right: '12%',
+                  zIndex: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.65rem',
+                  pointerEvents: 'none',
+                  filter: 'drop-shadow(0 10px 24px rgba(0,0,0,0.45))',
+                  animation: 'rfFloat 3s ease-in-out infinite'
+                }}
+              >
+                {/* Pointer SVG */}
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  className="rf-scout-pointer-svg"
+                  style={{ transform: 'rotate(-25deg)', flexShrink: 0 }}
+                >
+                  <path
+                    d="M6 3L26 14L16 17L12 27L6 3Z"
+                    fill="#122B1A"
+                    stroke="#66BB2A"
+                    strokeWidth="2.5"
+                    strokeLinejoin="round"
+                  />
+                  <circle cx="16" cy="14" r="2.5" fill="#66BB2A" />
+                </svg>
+
+                {/* Attached Interactive Tooltip */}
+                <div
+                  className="rf-scout-pointer-badge"
+                  style={{
+                    background: '#0F2E1E',
+                    color: '#FFFFFF',
+                    border: '1.5px solid #66BB2A',
+                    borderRadius: '9999px',
+                    padding: '0.4rem 0.85rem',
+                    fontSize: '0.78rem',
+                    fontWeight: 800,
+                    boxShadow: '0 4px 16px rgba(102, 187, 42, 0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#66BB2A' }} className="rf-pulse" />
+                  <span>Hire via Scout Amara</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
