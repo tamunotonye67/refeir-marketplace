@@ -1240,7 +1240,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/why-refeir')}
+                            onClick={() => handleLinkClick('/scout-sourcing')}
                           >
                             <div className="rf-mega-menu-item-title">How Scouting Works</div>
                             <div className="rf-mega-menu-item-desc">Learn about the 10% lifetime locked referral architecture</div>

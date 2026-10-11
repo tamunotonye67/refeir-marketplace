@@ -208,7 +208,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
                 <button onClick={() => onNavigate('/affiliates')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Affiliate programs
                 </button>
-                <button onClick={() => onNavigate('/dashboard/scout')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/scout-sourcing')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Refer a client
                 </button>
                 <button onClick={() => onNavigate('/tools')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
@@ -280,10 +280,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
               <button onClick={() => onNavigate('/enterprise')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Direct contracts
               </button>
-              <button onClick={() => onNavigate('/scouts')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/scout-sourcing')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Scout Network
               </button>
-              <button onClick={() => onNavigate('/scouts#benefits')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/scout-sourcing#benefits')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Scout benefits
               </button>
               <button onClick={() => onNavigate('/jobs')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">

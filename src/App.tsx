@@ -43,6 +43,7 @@ import { InvestorsPage } from './pages/InvestorsPage';
 import { SuccessStoriesPage } from './pages/SuccessStoriesPage';
 import { AffiliatePage } from './pages/AffiliatePage';
 import { ScoutsPage } from './pages/ScoutsPage';
+import { ScoutSourcingPage } from './pages/ScoutSourcingPage';
 import { ReleaseNotesPage } from './pages/ReleaseNotesPage';
 import { FreeToolsPage } from './pages/FreeToolsPage';
 import { ReviewsPage } from './pages/ReviewsPage';
@@ -553,6 +554,10 @@ export const App: React.FC = () => {
         return <AffiliatePage onNavigate={navigate} />;
       case '/scouts':
         return <ScoutsPage onNavigate={navigate} />;
+      case '/scout-sourcing':
+      case '/scouting':
+      case '/how-scouting-works':
+        return <ScoutSourcingPage onNavigate={navigate} />;
       case '/release-notes':
         return <ReleaseNotesPage onNavigate={navigate} />;
       case '/tools':

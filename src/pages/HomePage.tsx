@@ -302,7 +302,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           title: 'Go client hunting',
           description: "Explore the market to see a client's needs or maybe you have a local client you want to link to a talent.",
           buttonText: 'Start Scouting',
-          buttonAction: () => onNavigate('/dashboard/scout'),
+          buttonAction: () => onNavigate('/scout-sourcing'),
           thumbnail: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?w=800&auto=format&fit=crop&q=80',
           videoUrl: 'https://cdn.pixabay.com/video/2020/11/22/57649-484128903_large.mp4'
         },
@@ -317,7 +317,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           title: 'Get your commission',
           description: 'Once the talent has delievered the job, your 10% commission is guaranteed.',
           buttonText: 'Build a fortune',
-          buttonAction: () => onNavigate('/dashboard/scout'),
+          buttonAction: () => onNavigate('/scout-sourcing'),
           thumbnail: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&auto=format&fit=crop&q=80'
         }
       ]
@@ -1856,7 +1856,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             <button
-              onClick={() => onNavigate('/dashboard/scout')}
+              onClick={() => onNavigate('/scout-sourcing')}
               className="rf-hero-announcement-btn"
               style={{
                 display: 'inline-flex',
@@ -2436,18 +2436,16 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Button & Guarantee */}
               <div className="rf-scout-sourcing-btn-row" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
                 <button
-                  onClick={() => onNavigate('/dashboard/scout')}
+                  onClick={() => onNavigate('/scout-sourcing')}
                   className="rf-btn rf-btn-primary rf-btn-lg rf-scout-sourcing-btn"
                   style={{
-                    gap: '0.625rem',
                     padding: '0.95rem 2rem',
                     fontSize: '1.05rem',
                     fontWeight: 800,
                     boxShadow: '0 4px 20px rgba(102, 187, 42, 0.45)'
                   }}
                 >
-                  <span>Explore scout sourcing</span>
-                  <ArrowRight size={18} />
+                  Explore scout sourcing
                 </button>
 
                 <div className="rf-scout-guarantee-text" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.925rem', fontWeight: 600 }}>
@@ -3207,7 +3205,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </p>
 
               <button
-                onClick={() => onNavigate('/dashboard/scout')}
+                onClick={() => onNavigate('/scout-sourcing')}
                 className="rf-scout-cta-btn"
               >
                 <span>Start Referring & Earn →</span>
@@ -3560,7 +3558,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <button
-              onClick={() => onNavigate('/dashboard/scout')}
+              onClick={() => onNavigate('/scout-sourcing')}
               className="rf-btn rf-btn-mint rf-btn-lg"
             >
               <span>Join the Scout Network</span>
