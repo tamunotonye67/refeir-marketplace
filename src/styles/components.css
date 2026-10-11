@@ -8096,3 +8096,19 @@
     display: none !important;
   }
 }
+
+/* AI Pricing Insights Revolving Torus Geometry */
+@keyframes rfSpinSpirograph {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rf-ai-spirograph-svg {
+  animation: rfSpinSpirograph 28s linear infinite;
+  transform-origin: center center;
+}
+

@@ -7,7 +7,7 @@ import { FeaturedTalentCard } from '../components/home/FeaturedTalentCard';
 import { PopularServiceCategoryCard, ServiceCategoryItem } from '../components/home/PopularServiceCategoryCard';
 import { ServiceCard } from '../components/marketplace/ServiceCard';
 import { AfricaMapExplorer } from '../components/marketplace/AfricaMapExplorer';
-import { Africa3DMap } from '../components/marketplace/Africa3DMap';
+import { AIPricingInsights } from '../components/home/AIPricingInsights';
 import { GlobalBusinessTeamsVisual } from '../components/home/GlobalBusinessTeamsVisual';
 import { ReferModal } from '../components/referral/ReferModal';
 import { AISearchModal } from '../components/home/AISearchModal';
@@ -3447,10 +3447,10 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 7A. 3D INTERACTIVE AFRICA MAP — FIND PROVEN TALENTS IN AND ACROSS AFRICA */}
+      {/* 7A. REFEIR AI PRICING & TALENT INSIGHTS */}
       <section style={{ padding: '4rem 0 2rem 0', background: 'var(--rf-bg-base)' }}>
         <div className="rf-container" style={{ maxWidth: '1270px' }}>
-          <Africa3DMap onNavigate={onNavigate} />
+          <AIPricingInsights onNavigate={onNavigate} />
         </div>
       </section>
 
