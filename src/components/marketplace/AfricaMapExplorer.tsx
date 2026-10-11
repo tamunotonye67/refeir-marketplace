@@ -54,7 +54,7 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
             </span>
           </div>
           <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-            Explore Africa by Region & Country
+            What's your preferred location?
           </h2>
           <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
             Discover top-tier engineering, creative, and business talent across 54 sovereign nations.
