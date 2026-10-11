@@ -8116,7 +8116,8 @@
 
 /* AI Pricing Insights Layout & Typography */
 .rf-ai-pricing-insights-card {
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr) !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0 !important;
 }
 
 .rf-ai-pricing-postheader {
@@ -8126,6 +8127,18 @@
 @media (max-width: 900px) {
   .rf-ai-pricing-insights-card {
     grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+
+  .rf-ai-pricing-left-col {
+    padding-right: 0 !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding-bottom: 2.25rem !important;
+  }
+
+  .rf-ai-pricing-right-col {
+    padding-left: 0 !important;
   }
 
   .rf-ai-pricing-postheader {

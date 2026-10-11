@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 
 interface AIPricingInsightsProps {
@@ -56,6 +56,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
   const [prompt, setPrompt] = useState('');
   const [estimate, setEstimate] = useState<PriceEstimate | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const calculateEstimate = (text: string) => {
     if (!text.trim()) return;
@@ -100,10 +101,10 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
         position: 'relative',
         overflow: 'hidden',
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gridTemplateColumns: '1fr 1fr',
         alignItems: 'center',
-        gap: 'clamp(2rem, 5vw, 4rem)',
-        padding: 'clamp(2.5rem, 5vw, 4.5rem) clamp(1.75rem, 4vw, 3.75rem)'
+        gap: '0',
+        padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.75rem, 4vw, 3.5rem)'
       }}
     >
       {/* Background Diagonal Texture Pattern */}
@@ -135,7 +136,15 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
       />
 
       {/* LEFT COLUMN: Clean Copy & Input */}
-      <div className="rf-ai-pricing-left-col" style={{ position: 'relative', zIndex: 2 }}>
+      <div
+        className="rf-ai-pricing-left-col"
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          paddingRight: 'clamp(1.5rem, 3vw, 2.75rem)',
+          borderRight: '1px solid rgba(255, 255, 255, 0.12)'
+        }}
+      >
         <h2
           style={{
             fontFamily: 'var(--rf-font-display)',
@@ -177,6 +186,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             }}
           >
             <input
+              ref={inputRef}
               type="text"
               value={prompt}
               onChange={e => setPrompt(e.target.value)}
@@ -293,56 +303,138 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
         )}
       </div>
 
-      {/* RIGHT COLUMN: Neon Lime Revolving Geometric Torus / Spirograph */}
+      {/* RIGHT COLUMN: Animated AI GIF + Spirograph Graphic + Describe what you want Button */}
       <div
+        className="rf-ai-pricing-right-col"
         style={{
           position: 'relative',
           zIndex: 2,
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '280px',
-          width: '100%'
+          width: '100%',
+          paddingLeft: 'clamp(1.5rem, 3vw, 2.75rem)'
         }}
       >
         <div
-          className="rf-ai-spirograph-wrap"
           style={{
-            position: 'relative',
-            width: '260px',
-            height: '260px',
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            gap: '1.35rem',
+            width: '100%'
           }}
         >
-          {/* Overlapping Torus Ring Mandala / Spirograph SVG */}
-          <svg
-            viewBox="0 0 260 260"
-            width="240"
-            height="240"
-            className="rf-ai-spirograph-svg"
+          {/* Visual Container: Animated Waveform GIF + Spirograph Halo */}
+          <div
             style={{
-              filter: 'drop-shadow(0 0 16px rgba(163, 230, 53, 0.55)) drop-shadow(0 0 32px rgba(102, 187, 42, 0.35))'
+              position: 'relative',
+              width: '260px',
+              height: '180px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
-            <g transform="translate(130, 130)">
-              {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map(deg => (
-                <ellipse
-                  key={deg}
-                  cx="0"
-                  cy="0"
-                  rx="65"
-                  ry="32"
-                  transform={`rotate(${deg})`}
-                  fill="none"
-                  stroke="#D4F933"
-                  strokeWidth="2.2"
-                  opacity="0.9"
-                />
-              ))}
-            </g>
-          </svg>
+            {/* Spirograph Torus SVG (existing graphic rotating in background) */}
+            <div
+              className="rf-ai-spirograph-wrap"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: 0.6,
+                transform: 'scale(0.85)'
+              }}
+            >
+              <svg
+                viewBox="0 0 260 260"
+                width="220"
+                height="220"
+                className="rf-ai-spirograph-svg"
+                style={{
+                  filter: 'drop-shadow(0 0 16px rgba(163, 230, 53, 0.45)) drop-shadow(0 0 28px rgba(102, 187, 42, 0.3))'
+                }}
+              >
+                <g transform="translate(130, 130)">
+                  {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map(deg => (
+                    <ellipse
+                      key={deg}
+                      cx="0"
+                      cy="0"
+                      rx="65"
+                      ry="32"
+                      transform={`rotate(${deg})`}
+                      fill="none"
+                      stroke="#D4F933"
+                      strokeWidth="2.2"
+                      opacity="0.9"
+                    />
+                  ))}
+                </g>
+              </svg>
+            </div>
+
+            {/* Neural Animated GIF Playing */}
+            <img
+              src="/ai_waveform.gif"
+              alt="Neural AI Waveform Animation"
+              style={{
+                position: 'relative',
+                zIndex: 3,
+                maxWidth: '240px',
+                width: '100%',
+                height: 'auto',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 0 16px rgba(102, 187, 42, 0.4))'
+              }}
+            />
+          </div>
+
+          {/* Button: "Describe what you want" */}
+          <button
+            type="button"
+            onClick={() => inputRef.current?.focus()}
+            className="rf-describe-what-you-want-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '0.7rem 1.6rem',
+              borderRadius: '9999px',
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              border: '1.5px solid rgba(102, 187, 42, 0.4)',
+              color: '#FFFFFF',
+              fontSize: '0.925rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              letterSpacing: '-0.01em',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.35)',
+              transition: 'all 0.2s ease',
+              whiteSpace: 'nowrap'
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.backgroundColor = 'rgba(102, 187, 42, 0.2)';
+              e.currentTarget.style.borderColor = '#66BB2A';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 24px rgba(102, 187, 42, 0.35)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+              e.currentTarget.style.borderColor = 'rgba(102, 187, 42, 0.4)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.35)';
+            }}
+          >
+            <span>Describe what you want</span>
+          </button>
         </div>
       </div>
     </div>
