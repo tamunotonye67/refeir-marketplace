@@ -241,6 +241,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
               <button onClick={() => onNavigate('/catalog')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Project Catalog
               </button>
+              <button onClick={() => onNavigate('/ai-wizards')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                AI Innovation Studios
+              </button>
               <button onClick={() => onNavigate('/agencies')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Hire an agency
               </button>

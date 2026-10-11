@@ -44,6 +44,7 @@ import { SuccessStoriesPage } from './pages/SuccessStoriesPage';
 import { AffiliatePage } from './pages/AffiliatePage';
 import { ScoutsPage } from './pages/ScoutsPage';
 import { ScoutSourcingPage } from './pages/ScoutSourcingPage';
+import { AiWizardsPage } from './pages/AiWizardsPage';
 import { ReleaseNotesPage } from './pages/ReleaseNotesPage';
 import { FreeToolsPage } from './pages/FreeToolsPage';
 import { ReviewsPage } from './pages/ReviewsPage';
@@ -558,6 +559,21 @@ export const App: React.FC = () => {
       case '/scouting':
       case '/how-scouting-works':
         return <ScoutSourcingPage onNavigate={navigate} />;
+      case '/ai-wizards':
+      case '/ai-studios':
+      case '/ai-innovation':
+      case '/ai-creative':
+      case '/ai-agents':
+      case '/ai-3d': {
+        const pillarParam = getQueryParam(currentPath, 'pillar');
+        const initialPillar =
+          pillarParam === 'agents' || basePath === '/ai-agents'
+            ? 'agents'
+            : pillarParam === 'visuals' || basePath === '/ai-3d'
+            ? 'visuals'
+            : 'creative';
+        return <AiWizardsPage onNavigate={navigate} initialPillar={initialPillar} />;
+      }
       case '/release-notes':
         return <ReleaseNotesPage onNavigate={navigate} />;
       case '/tools':

@@ -1122,10 +1122,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/marketplace?category=AI+%26+Data')}
+                            onClick={() => handleLinkClick('/ai-wizards')}
                           >
-                            <div className="rf-mega-menu-item-title">AI & Data Science</div>
-                            <div className="rf-mega-menu-item-desc">LLM specialists, Data Analysts, ML engineers</div>
+                            <div className="rf-mega-menu-item-title">AI Studios & Data Science</div>
+                            <div className="rf-mega-menu-item-desc">Generative Video, Autonomous Agents & LLM Engineers</div>
                           </div>
 
                           <div
