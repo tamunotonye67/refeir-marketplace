@@ -1,15 +1,13 @@
 import React, { useState, useRef } from 'react';
 import {
   MapPin,
-  ArrowRight,
   ShieldCheck,
   Compass,
   Users,
   Briefcase,
   Layers,
   RotateCcw,
-  Zap,
-  Globe2
+  Zap
 } from 'lucide-react';
 
 interface Africa3DMapProps {
@@ -559,11 +557,10 @@ export const Africa3DMap: React.FC<Africa3DMapProps> = ({ onNavigate }) => {
           RIGHT COLUMN: "Find Hidden Talents in Africa," SHOWCASE & ACTIVE HUB CARD
           ========================================================================= */}
       <div style={{ position: 'relative', zIndex: 2 }}>
-        {/* Category Badge */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(102, 187, 42, 0.15)', border: '1px solid rgba(102, 187, 42, 0.35)', padding: '0.3rem 0.85rem', borderRadius: '9999px', marginBottom: '1rem' }}>
-          <Globe2 size={14} color="#66BB2A" />
-          <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#66BB2A', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-            54 Pan-African Sovereign Nations
+        {/* Category Badge — No Icons */}
+        <div style={{ display: 'inline-flex', alignItems: 'center', background: 'rgba(102, 187, 42, 0.14)', border: '1px solid rgba(102, 187, 42, 0.35)', padding: '0.35rem 0.95rem', borderRadius: '9999px', marginBottom: '1rem' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#66BB2A', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+            Refeir AI Intelligence
           </span>
         </div>
 
@@ -579,7 +576,7 @@ export const Africa3DMap: React.FC<Africa3DMapProps> = ({ onNavigate }) => {
             maxWidth: '540px'
           }}
         >
-          Find Proven Talents<br />in and Across <span style={{ color: '#66BB2A' }}>Africa</span>
+          Get the Best Pricing or Talent<br />Using Refeir <span style={{ color: '#66BB2A' }}>AI</span>
         </h2>
 
         {/* Subtitle */}
@@ -592,7 +589,7 @@ export const Africa3DMap: React.FC<Africa3DMapProps> = ({ onNavigate }) => {
             maxWidth: '520px'
           }}
         >
-          Unearth exceptional engineering, AI research, design, and regulatory leaders thriving across 54 tech epicenters and fast-rising secondary talent hubs.
+          Benchmark real-time market rates across African tech hubs, discover vetted engineers and creators, and let Refeir AI match you with top talent optimized for your budget.
         </p>
 
         {/* Active Selected Hub Card */}
@@ -675,19 +672,18 @@ export const Africa3DMap: React.FC<Africa3DMapProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Action CTAs */}
+        {/* Action CTAs — Clean Typography, No Icons */}
         <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <button
             onClick={() => onNavigate('/marketplace')}
             className="rf-btn rf-btn-primary rf-btn-lg"
             style={{
-              gap: '0.5rem',
               fontWeight: 800,
-              boxShadow: '0 4px 20px rgba(102, 187, 42, 0.45)'
+              boxShadow: '0 4px 20px rgba(102, 187, 42, 0.45)',
+              padding: '0.85rem 2.25rem'
             }}
           >
-            <span>Explore</span>
-            <ArrowRight size={18} />
+            <span>Find Talent with AI</span>
           </button>
 
           <button
@@ -695,8 +691,7 @@ export const Africa3DMap: React.FC<Africa3DMapProps> = ({ onNavigate }) => {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.85rem 1.5rem',
+              padding: '0.85rem 1.65rem',
               borderRadius: '12px',
               fontSize: '0.95rem',
               fontWeight: 700,
