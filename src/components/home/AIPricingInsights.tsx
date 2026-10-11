@@ -135,35 +135,35 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
       />
 
       {/* LEFT COLUMN: Clean Copy & Input */}
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: '560px' }}>
+      <div className="rf-ai-pricing-left-col" style={{ position: 'relative', zIndex: 2 }}>
         <h2
           style={{
             fontFamily: 'var(--rf-font-display)',
             fontSize: 'clamp(2.1rem, 4.2vw, 3.1rem)',
-            fontWeight: 700,
+            fontWeight: 400,
             color: '#FFFFFF',
             lineHeight: 1.15,
-            letterSpacing: '-0.03em',
-            margin: '0 0 1rem 0'
+            letterSpacing: '-0.025em',
+            margin: '0 0 0.85rem 0'
           }}
         >
-          Get insights into freelancer pricing
+          Pay less for more with Refeir
         </h2>
 
         <p
+          className="rf-ai-pricing-postheader"
           style={{
-            fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
-            color: 'rgba(235, 245, 238, 0.88)',
-            lineHeight: 1.55,
-            marginBottom: '2rem',
-            maxWidth: '480px'
+            fontSize: 'clamp(0.78rem, 1.1vw, 0.875rem)',
+            color: 'rgba(235, 245, 238, 0.85)',
+            lineHeight: 1.5,
+            marginBottom: '2rem'
           }}
         >
-          We'll calculate the average cost for freelancers with the skills you need.
+          Let us help you estimate the average cost for freelancers with what you're looking for.
         </p>
 
         {/* Input Container — Clean White Card */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ maxWidth: '560px' }}>
           <div
             style={{
               background: '#FFFFFF',
