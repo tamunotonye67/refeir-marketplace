@@ -8282,4 +8282,86 @@
   }
 }
 
+/* ==========================================================================
+   AI PRICING INSIGHTS: ANIMATED ESCROW PADLOCK (STAGE 2)
+   ========================================================================== */
+@keyframes rfPadlockShackleLock {
+  0% {
+    transform: translateY(-9px);
+  }
+  14% {
+    transform: translateY(0);
+  }
+  78% {
+    transform: translateY(0);
+  }
+  88% {
+    transform: translateY(-9px);
+  }
+  100% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes rfPadlockRadarRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rfPadlockRadarCounterRotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes rfPadlockGlowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(102, 187, 42, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(163, 230, 53, 0.7));
+  }
+}
+
+@keyframes rfPadlockKeyholeBeam {
+  0%, 100% {
+    opacity: 0.75;
+    filter: drop-shadow(0 0 2px rgba(163, 230, 53, 0.5));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 7px rgba(212, 249, 51, 0.95));
+  }
+}
+
+.rf-ai-padlock-shackle {
+  animation: rfPadlockShackleLock 3.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  transform-origin: center center;
+}
+
+.rf-ai-padlock-radar {
+  animation: rfPadlockRadarRotate 22s linear infinite;
+  transform-origin: 110px 65px;
+}
+
+.rf-ai-padlock-radar-reverse {
+  animation: rfPadlockRadarCounterRotate 16s linear infinite;
+  transform-origin: 110px 65px;
+}
+
+.rf-ai-padlock-body {
+  animation: rfPadlockGlowPulse 3.8s ease-in-out infinite;
+}
+
+.rf-ai-padlock-keyhole {
+  animation: rfPadlockKeyholeBeam 2.2s ease-in-out infinite;
+}
+
 

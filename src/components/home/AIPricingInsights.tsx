@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { ArrowRight, TrendingUp, Compass, BarChart2 } from 'lucide-react';
+import { ArrowRight, TrendingUp, Compass, BarChart2, ShieldCheck } from 'lucide-react';
 
 interface AIPricingInsightsProps {
   onNavigate: (path: string) => void;
@@ -457,7 +457,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             </div>
           )}
 
-          {/* STAGE 2: Geometric Constellation Matrix & Vetted Pan-African Hub */}
+          {/* STAGE 2: Animated Escrow Milestone Padlock */}
           {animStage === 2 && (
             <div
               key="stage-2"
@@ -485,36 +485,90 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                   marginBottom: '0.65rem'
                 }}
               >
-                <Compass size={13} color="#66BB2A" />
+                <ShieldCheck size={13} color="#66BB2A" />
                 <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '0.02em' }}>
-                  Pan-African Talent Matrix
+                  Escrow Milestone Vault
                 </span>
-                <span style={{ fontSize: '0.7rem', color: '#66BB2A', fontWeight: 800 }}>54 Nations</span>
+                <span style={{ fontSize: '0.7rem', color: '#66BB2A', fontWeight: 800 }}>Locked & Safe</span>
               </div>
 
-              {/* Geometric Polyhedral Constellation SVG */}
+              {/* Animated Vector Padlock Graphic */}
               <div style={{ position: 'relative', width: '220px', height: '120px' }}>
-                <svg viewBox="0 0 220 120" width="100%" height="100%">
-                  {/* Faceted Geometric Coordinate Lines */}
-                  <polygon
-                    points="110,12 185,42 160,105 60,105 35,42"
-                    fill="none"
-                    stroke="rgba(163, 230, 53, 0.35)"
-                    strokeWidth="1.2"
-                  />
-                  <line x1="110" y1="12" x2="160" y2="105" stroke="rgba(102, 187, 42, 0.25)" strokeWidth="1" strokeDasharray="3 3" />
-                  <line x1="110" y1="12" x2="60" y2="105" stroke="rgba(102, 187, 42, 0.25)" strokeWidth="1" strokeDasharray="3 3" />
-                  <line x1="35" y1="42" x2="185" y2="42" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="1" />
-                  <line x1="35" y1="42" x2="160" y2="105" stroke="rgba(212, 249, 51, 0.3)" strokeWidth="1" />
-                  <line x1="185" y1="42" x2="60" y2="105" stroke="rgba(212, 249, 51, 0.3)" strokeWidth="1" />
+                <svg viewBox="0 0 220 120" width="100%" height="100%" style={{ overflow: 'visible' }}>
+                  <defs>
+                    <linearGradient id="rfPadlockBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#163E27" />
+                      <stop offset="100%" stopColor="#0B1F13" />
+                    </linearGradient>
+                    <linearGradient id="rfPadlockShackleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#D4F933" />
+                      <stop offset="60%" stopColor="#A3E635" />
+                      <stop offset="100%" stopColor="#66BB2A" />
+                    </linearGradient>
+                  </defs>
 
-                  {/* Hub Nodes */}
-                  <circle cx="110" cy="12" r="4.5" fill="#A3E635" />
-                  <circle cx="185" cy="42" r="4" fill="#66BB2A" />
-                  <circle cx="160" cy="105" r="4" fill="#D4F933" />
-                  <circle cx="60" cy="105" r="4" fill="#66BB2A" />
-                  <circle cx="35" cy="42" r="4" fill="#A3E635" />
-                  <circle cx="110" cy="62" r="5" fill="#FFFFFF" stroke="#66BB2A" strokeWidth="2" />
+                  {/* Concentric Rotating Telemetry Rings */}
+                  <circle
+                    cx="110"
+                    cy="65"
+                    r="54"
+                    fill="none"
+                    stroke="rgba(102, 187, 42, 0.22)"
+                    strokeWidth="1.2"
+                    strokeDasharray="5 5"
+                    className="rf-ai-padlock-radar"
+                  />
+                  <circle
+                    cx="110"
+                    cy="65"
+                    r="40"
+                    fill="none"
+                    stroke="rgba(163, 230, 53, 0.18)"
+                    strokeWidth="1"
+                    strokeDasharray="3 4"
+                    className="rf-ai-padlock-radar-reverse"
+                  />
+
+                  {/* Security Grid Lines */}
+                  <line x1="32" y1="65" x2="188" y2="65" stroke="rgba(102, 187, 42, 0.15)" strokeWidth="1" strokeDasharray="3 3" />
+                  <line x1="110" y1="12" x2="110" y2="118" stroke="rgba(102, 187, 42, 0.15)" strokeWidth="1" strokeDasharray="3 3" />
+
+                  {/* Shackle (Snaps shut with keyframe animation) */}
+                  <g className="rf-ai-padlock-shackle">
+                    <path
+                      d="M 92 56 V 36 A 18 18 0 0 1 128 36 V 56"
+                      fill="none"
+                      stroke="url(#rfPadlockShackleGrad)"
+                      strokeWidth="5.5"
+                      strokeLinecap="round"
+                    />
+                  </g>
+
+                  {/* Padlock Body with Fintech Emerald Gradient */}
+                  <rect
+                    x="81"
+                    y="53"
+                    width="58"
+                    height="45"
+                    rx="8"
+                    ry="8"
+                    fill="url(#rfPadlockBodyGrad)"
+                    stroke="rgba(102, 187, 42, 0.85)"
+                    strokeWidth="1.6"
+                    className="rf-ai-padlock-body"
+                  />
+
+                  {/* Padlock Core Keyhole with Illuminated Glow Beam */}
+                  <g className="rf-ai-padlock-keyhole">
+                    <circle cx="110" cy="71" r="4.2" fill="#D4F933" />
+                    <path d="M 107.8 72.5 L 112.2 72.5 L 113.5 83 L 106.5 83 Z" fill="#D4F933" />
+                  </g>
+
+                  {/* Corner Rivet Details */}
+                  <circle cx="89" cy="61" r="1.6" fill="#66BB2A" />
+                  <circle cx="131" cy="61" r="1.6" fill="#66BB2A" />
+                  <circle cx="89" cy="90" r="1.6" fill="#66BB2A" opacity="0.6" />
+                  <circle cx="131" cy="90" r="1.6" fill="#66BB2A" opacity="0.6" />
                 </svg>
               </div>
 
@@ -523,7 +577,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                   marginTop: '0.5rem',
                   fontSize: '0.74rem',
                   fontWeight: 600,
-                  color: 'rgba(235, 245, 238, 0.75)',
+                  color: 'rgba(235, 245, 238, 0.85)',
                   letterSpacing: '0.02em'
                 }}
               >
