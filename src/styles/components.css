@@ -8496,7 +8496,7 @@
 }
 
 /* ==========================================================================
-   REFEIR FOR BUSINESS: SKYSCRAPER SKYLINE VISUAL OVERLAP
+   REFEIR FOR BUSINESS: TALL SLEEK SKYSCRAPER WITH GRADIENT VIGNETTE OVERLAP
    ========================================================================== */
 .rf-business-skyscraper-wrap {
   position: relative;
@@ -8504,23 +8504,52 @@
   display: flex;
   align-items: flex-end;
   justifyContent: center;
-  margin-top: clamp(-85px, -7vw, -125px);
-  z-index: 10;
+  margin-top: clamp(-140px, -12vw, -200px);
+  margin-bottom: -1.5rem;
+  z-index: 15;
+}
+
+.rf-business-skyscraper-inner {
+  position: relative;
+  display: flex;
+  justifyContent: center;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 320px;
 }
 
 .rf-business-skyscraper-img {
   width: 100%;
-  max-width: 560px;
+  max-width: 320px;
   height: auto;
+  max-height: 520px;
   object-fit: contain;
   object-position: bottom center;
-  filter: drop-shadow(0 -8px 24px rgba(0, 0, 0, 0.16)) drop-shadow(0 16px 36px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 -10px 24px rgba(0, 0, 0, 0.12)) drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
+  /* Modern CSS mask gradient: Crisp at top, fading seamlessly into the dark section background at base */
+  mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgba(0, 0, 0, 0.5) 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 68%, rgba(0, 0, 0, 0.5) 86%, transparent 100%);
+}
+
+/* Base dark vignette overlay to blend into the container floor */
+.rf-business-skyscraper-vignette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, #081910 10%, rgba(9, 29, 18, 0.7) 45%, transparent 100%);
+  pointer-events: none;
 }
 
 @media (max-width: 960px) {
   .rf-business-skyscraper-wrap {
-    margin-top: -50px;
+    margin-top: -80px;
     margin-bottom: 1rem;
+  }
+  .rf-business-skyscraper-inner,
+  .rf-business-skyscraper-img {
+    max-width: 260px;
   }
 }
 
