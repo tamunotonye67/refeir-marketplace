@@ -1,192 +1,288 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 380" width="100%" height="100%" fill="none">
-  <!-- Modern Flat 2D Business Negotiations / Closing Deal Illustration for Refeir for Business -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" width="100%" height="100%" fill="none">
+  <!-- Refeir for Business: Modern Flat 2D Executive Negotiations & Deal Closing Visual -->
   <defs>
-    <!-- Background Soft Ambient Glow -->
-    <radialGradient id="bizAura" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stopColor="#A3E635" stopOpacity="0.22" />
-      <stop offset="60%" stopColor="#2E7D32" stopOpacity="0.08" />
-      <stop offset="100%" stopColor="#091D12" stopOpacity="0" />
+    <!-- Soft Luminous Radial Glow Behind Room -->
+    <radialGradient id="roomAura" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stopColor="#A3E635" stopOpacity="0.32" />
+      <stop offset="50%" stopColor="#22C55E" stopOpacity="0.14" />
+      <stop offset="85%" stopColor="#0B3020" stopOpacity="0.04" />
+      <stop offset="100%" stopColor="#06180E" stopOpacity="0" />
     </radialGradient>
 
-    <!-- Table Top & Structure -->
-    <linearGradient id="bizTableGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stopColor="#1B4228" />
-      <stop offset="50%" stopColor="#285C39" />
-      <stop offset="100%" stopColor="#1B4228" />
+    <!-- Executive Backdrop Canvas -->
+    <linearGradient id="officeCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#0E3321" />
+      <stop offset="50%" stopColor="#12402A" />
+      <stop offset="100%" stopColor="#0A2719" />
     </linearGradient>
 
-    <linearGradient id="bizTableEdge" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stopColor="#A3E635" stopOpacity="0.6" />
-      <stop offset="100%" stopColor="#2E7D32" stopOpacity="0.1" />
+    <!-- Polished White Marble Conference Table -->
+    <linearGradient id="tableTopGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#FFFFFF" />
+      <stop offset="50%" stopColor="#F8FAFC" />
+      <stop offset="100%" stopColor="#EDF2F7" />
     </linearGradient>
 
-    <!-- Character 1 (Left - Client / Executive): Warm Navy/Slate Green Suit -->
-    <linearGradient id="suitLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#1E3A2F" />
-      <stop offset="100%" stopColor="#13261F" />
-    </linearGradient>
-
-    <!-- Character 2 (Right - Partner / Talent Leader): Forest Emerald Blazer -->
-    <linearGradient id="suitRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#2D6A4F" />
-      <stop offset="100%" stopColor="#1B4332" />
-    </linearGradient>
-
-    <!-- Handshake Seal Ring -->
-    <linearGradient id="handshakeRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#A3E635" />
+    <!-- Table Emerald Edge -->
+    <linearGradient id="tableEdgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#22C55E" />
+      <stop offset="50%" stopColor="#A3E635" />
       <stop offset="100%" stopColor="#22C55E" />
     </linearGradient>
 
-    <!-- Document Contract Accent -->
-    <linearGradient id="contractGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#FFFFFF" />
-      <stop offset="100%" stopColor="#E2E8F0" />
+    <!-- Executive Suit 1 (Left - Client): Tailored Midnight Navy -->
+    <linearGradient id="suitNavyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1E293B" />
+      <stop offset="100%" stopColor="#0F172A" />
     </linearGradient>
+
+    <!-- Executive Suit 2 (Right - Partner): Vibrant Modern Emerald Blazer -->
+    <linearGradient id="suitEmeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#10B981" />
+      <stop offset="100%" stopColor="#047857" />
+    </linearGradient>
+
+    <!-- Gold Badge Gradient -->
+    <linearGradient id="goldBadgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#FBBF24" />
+      <stop offset="100%" stopColor="#D97706" />
+    </linearGradient>
+
+    <!-- Trust Ripple Gradient -->
+    <linearGradient id="trustRippleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#A3E635" />
+      <stop offset="100%" stopColor="#38BDF8" />
+    </linearGradient>
+
+    <!-- Drop Shadows for Floating Elements -->
+    <filter id="pillShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
   </defs>
 
-  <!-- Ambient Backdrop Halo -->
-  <circle cx="270" cy="190" r="170" fill="url(#bizAura)" />
-
-  <!-- Geometric Subtle Tech Grid Vectors (African Fintech Trade Connectivity) -->
-  <g opacity="0.4">
-    <path d="M 120 70 L 420 70" stroke="rgba(163, 230, 53, 0.2)" strokeWidth="1" strokeDasharray="4 6" />
-    <path d="M 80 120 L 460 120" stroke="rgba(163, 230, 53, 0.15)" strokeWidth="1" strokeDasharray="4 6" />
-    <circle cx="270" cy="70" r="3" fill="#A3E635" />
-    <circle cx="160" cy="120" r="2.5" fill="#66BB2A" />
-    <circle cx="380" cy="120" r="2.5" fill="#66BB2A" />
-  </g>
-
-  <!-- Ground Floor Soft Shadow -->
-  <ellipse cx="270" cy="342" rx="220" ry="12" fill="rgba(0, 0, 0, 0.45)" />
+  <!-- Ambient Light Sphere Behind Scene -->
+  <circle cx="300" cy="205" r="190" fill="url(#roomAura)" />
 
   <!-- =========================================================================
-     EXECUTIVE CONFERENCE TABLE & PROPS
+     MODERN EXECUTIVE ARCHITECTURAL BACKDROP CARD
      ========================================================================= -->
-  <!-- Table Base & Legs -->
-  <rect x="264" y="270" width="12" height="70" rx="3" fill="#0D2015" />
-  <path d="M 230 338 L 310 338" stroke="#0D2015" strokeWidth="6" strokeLinecap="round" />
-  
-  <!-- Modern Sleek Floating Table Top -->
-  <rect x="135" y="258" width="270" height="15" rx="7.5" fill="url(#bizTableGrad)" />
-  <rect x="135" y="258" width="270" height="2" rx="1" fill="url(#bizTableEdge)" />
+  <rect x="25" y="20" width="550" height="380" rx="28" fill="url(#officeCardGrad)" stroke="rgba(163, 230, 53, 0.35)" strokeWidth="1.5" />
 
-  <!-- Digital Tablet / Milestone Document on Table -->
-  <g transform="translate(230, 246)">
-    <!-- Document Folder Base -->
-    <rect x="0" y="0" width="80" height="13" rx="3" fill="url(#contractGrad)" />
-    <!-- Signature Line Accent (Gold/Emerald) -->
-    <line x1="8" y1="5" x2="36" y2="5" stroke="#2D6A4F" strokeWidth="2" strokeLinecap="round" />
-    <line x1="8" y1="9" x2="28" y2="9" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" />
-    <!-- Verified Deal Check Badge on Contract -->
-    <circle cx="68" cy="6.5" r="4.5" fill="#F6B21A" />
-    <path d="M 66 6.5 L 67.5 8 L 70.5 5" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+  <!-- Architectural Modern Window Grid Pattern -->
+  <g opacity="0.35">
+    <!-- Horizontal Mullions -->
+    <line x1="25" y1="90" x2="575" y2="90" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" strokeDasharray="6 6" />
+    <line x1="25" y1="165" x2="575" y2="165" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="1" />
+    <!-- Vertical Mullions -->
+    <line x1="170" y1="20" x2="170" y2="280" stroke="rgba(255, 255, 255, 0.1)" strokeWidth="1" />
+    <line x1="430" y1="20" x2="430" y2="280" stroke="rgba(255, 255, 255, 0.1)" strokeWidth="1" />
+    <!-- Modern Tech Nodes on Grid -->
+    <circle cx="170" cy="90" r="3" fill="#A3E635" />
+    <circle cx="430" cy="90" r="3" fill="#38BDF8" />
+    <circle cx="300" cy="90" r="2.5" fill="#FBBF24" />
   </g>
 
-  <!-- Modern Coffee Mug on Left Side of Table -->
-  <rect x="165" y="246" width="12" height="13" rx="2" fill="#E2E8F0" opacity="0.9" />
-  <path d="M 177 248 C 180 248, 180 254, 177 254" stroke="#E2E8F0" strokeWidth="1.8" fill="none" />
-
-  <!-- Stylized Desk Plant on Right Side of Table -->
-  <path d="M 374 252 L 377 259 C 377.5 260 382.5 260 383 259 L 386 252 Z" fill="#F6B21A" />
-  <circle cx="380" cy="248" r="4" fill="#66BB2A" />
-  <circle cx="384" cy="245" r="3" fill="#A3E635" />
-  <circle cx="376" cy="246" r="3" fill="#2E7D32" />
+  <!-- Ambient Light Reflection on Floor -->
+  <ellipse cx="300" cy="385" rx="240" ry="14" fill="rgba(0, 0, 0, 0.4)" />
 
   <!-- =========================================================================
-     CHARACTER 1 (LEFT): EXECUTIVE / CLIENT
+     CHAIRS (ERGONOMIC MODERN EXECUTIVE DESIGN)
+     ========================================================================= -->
+  <!-- Left Executive Chair -->
+  <g id="chair-left">
+    <path d="M 100 240 C 92 195, 105 160, 128 152" stroke="#64748B" strokeWidth="8" strokeLinecap="round" />
+    <path d="M 96 265 L 75 365" stroke="#475569" strokeWidth="5" strokeLinecap="round" />
+    <circle cx="75" cy="365" r="4" fill="#334155" />
+    <circle cx="115" cy="365" r="4" fill="#334155" />
+  </g>
+
+  <!-- Right Executive Chair -->
+  <g id="chair-right">
+    <path d="M 500 240 C 508 195, 495 160, 472 152" stroke="#64748B" strokeWidth="8" strokeLinecap="round" />
+    <path d="M 504 265 L 525 365" stroke="#475569" strokeWidth="5" strokeLinecap="round" />
+    <circle cx="525" cy="365" r="4" fill="#334155" />
+    <circle cx="485" cy="365" r="4" fill="#334155" />
+  </g>
+
+  <!-- =========================================================================
+     EXECUTIVE CONFERENCE TABLE & TECH ACCENTS
+     ========================================================================= -->
+  <!-- Table Base & Central Column -->
+  <rect x="293" y="290" width="14" height="75" rx="4" fill="#475569" />
+  <path d="M 245 365 L 355 365" stroke="#64748B" strokeWidth="6" strokeLinecap="round" />
+
+  <!-- Table Floating Shadow -->
+  <ellipse cx="300" cy="365" rx="190" ry="10" fill="rgba(0, 0, 0, 0.3)" />
+
+  <!-- White Marble Table Top with Emerald Underglow -->
+  <rect x="130" y="275" width="340" height="22" rx="11" fill="url(#tableTopGrad)" stroke="#E2E8F0" strokeWidth="1.5" />
+  <rect x="130" y="293" width="340" height="4" rx="2" fill="url(#tableEdgeGrad)" />
+
+  <!-- Tablet / Document Milestone on Table -->
+  <g transform="translate(245, 260)">
+    <!-- Document Pad Base -->
+    <rect x="0" y="0" width="110" height="18" rx="4" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.2" />
+    <!-- Signature Lines -->
+    <line x1="12" y1="7" x2="52" y2="7" stroke="#0F172A" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="12" y1="12" x2="40" y2="12" stroke="#64748B" strokeWidth="1.8" strokeLinecap="round" />
+    <!-- Gold Verified Seal -->
+    <circle cx="94" cy="9" r="6" fill="url(#goldBadgeGrad)" />
+    <path d="M 91 9 L 93 11 L 97 7" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </g>
+
+  <!-- Left Side: Modern Open Laptop -->
+  <g transform="translate(152, 245)">
+    <!-- Base -->
+    <rect x="0" y="26" width="46" height="5" rx="2.5" fill="#CBD5E1" />
+    <!-- Screen -->
+    <rect x="5" y="4" width="36" height="23" rx="3" fill="#0F172A" stroke="#94A3B8" strokeWidth="1" />
+    <!-- Screen Chart Mini Elements -->
+    <rect x="10" y="18" width="5" height="6" rx="1" fill="#22C55E" />
+    <rect x="18" y="13" width="5" height="11" rx="1" fill="#38BDF8" />
+    <rect x="26" y="9" width="5" height="15" rx="1" fill="#A3E635" />
+  </g>
+
+  <!-- Ceramic Coffee Cup Left -->
+  <rect x="210" y="262" width="13" height="15" rx="3" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1" />
+  <path d="M 223 265 C 227 265, 227 272, 223 272" stroke="#FFFFFF" strokeWidth="2" fill="none" />
+
+  <!-- Stylized Desk Plant Right -->
+  <g transform="translate(425, 252)">
+    <path d="M 3 14 L 6 23 C 6.5 24 13.5 24 14 23 L 17 14 Z" fill="#D97706" />
+    <circle cx="10" cy="10" r="5" fill="#22C55E" />
+    <circle cx="6" cy="7" r="4" fill="#A3E635" />
+    <circle cx="14" cy="8" r="4" fill="#16A34A" />
+  </g>
+
+  <!-- =========================================================================
+     CHARACTER 1 (LEFT): EXECUTIVE CLIENT
      ========================================================================= -->
   <g id="executive-left">
-    <!-- Executive Chair -->
-    <path d="M 100 230 C 95 190, 105 160, 125 155" stroke="#0D2015" strokeWidth="10" strokeLinecap="round" />
-    <path d="M 98 250 L 80 340" stroke="#0D2015" strokeWidth="6" strokeLinecap="round" />
+    <!-- Head & Hair (Warm African Leader) -->
+    <circle cx="160" cy="116" r="24" fill="#8D5538" />
+    <!-- Styled Hair -->
+    <path d="M 138 112 C 138 90, 150 82, 166 82 C 182 82, 186 94, 184 112 C 178 96, 162 92, 142 104 Z" fill="#18181B" />
+    <!-- Facial Profile & Ear -->
+    <circle cx="146" cy="118" r="5" fill="#8D5538" />
 
-    <!-- Head & Hair (Professional African Leader / Executive) -->
-    <circle cx="152" cy="115" r="22" fill="#5C3826" />
-    <!-- Sleek Modern Hair -->
-    <path d="M 132 110 C 132 92, 142 86, 156 86 C 172 86, 176 96, 174 112 C 168 98, 154 94, 136 104 Z" fill="#1A110B" />
-    <!-- Facial Profile / Ear -->
-    <circle cx="140" cy="116" r="4.5" fill="#5C3826" />
+    <!-- Neck & Crisp White Collar -->
+    <rect x="153" y="138" width="14" height="16" rx="2" fill="#8D5538" />
+    <path d="M 148 152 L 160 162 L 172 152 Z" fill="#FFFFFF" />
+    <!-- Emerald Necktie -->
+    <path d="M 158 160 L 162 160 L 161 192 L 158 192 Z" fill="#22C55E" />
 
-    <!-- Neck & Crisp Collar -->
-    <rect x="146" y="134" width="13" height="14" rx="2" fill="#5C3826" />
-    <path d="M 142 146 L 152 154 L 162 146 Z" fill="#FFFFFF" />
-    <!-- Tie Accent (Vibrant Refeir Emerald) -->
-    <path d="M 150 152 L 154 152 L 153 178 L 150 178 Z" fill="#66BB2A" />
-
-    <!-- Torso / Tailored Executive Suit Jacket -->
-    <path d="M 125 150 C 140 146, 164 146, 178 150 L 184 260 L 118 260 Z" fill="url(#suitLeftGrad)" />
+    <!-- Tailored Midnight Navy Suit -->
+    <path d="M 130 156 C 146 150, 174 150, 190 156 L 198 275 L 122 275 Z" fill="url(#suitNavyGrad)" stroke="#334155" strokeWidth="1" />
     <!-- Lapels -->
-    <path d="M 134 150 L 148 190 L 144 260" stroke="#284E3F" strokeWidth="2" />
-    <path d="M 168 150 L 156 190 L 160 260" stroke="#284E3F" strokeWidth="2" />
+    <path d="M 140 156 L 156 200 L 152 275" stroke="#475569" strokeWidth="2.5" />
+    <path d="M 180 156 L 166 200 L 170 275" stroke="#475569" strokeWidth="2.5" />
 
-    <!-- Left Leg & Slacks Sitting -->
-    <path d="M 118 260 L 160 260 L 160 336 L 142 336 Z" fill="#13261F" />
+    <!-- Pocket Square (Vibrant Lime) -->
+    <line x1="138" y1="205" x2="148" y2="202" stroke="#A3E635" strokeWidth="3" strokeLinecap="round" />
 
-    <!-- Right Arm Reaching Forward Across Table for Handshake -->
-    <path d="M 165 168 C 178 185, 205 208, 240 216" stroke="url(#suitLeftGrad)" strokeWidth="18" strokeLinecap="round" />
-    <!-- Cuff & Hand -->
-    <path d="M 235 214 L 243 216" stroke="#FFFFFF" strokeWidth="4" strokeLinecap="round" />
-    <path d="M 242 216 L 258 217" stroke="#5C3826" strokeWidth="11" strokeLinecap="round" />
+    <!-- Trousers Sitting -->
+    <path d="M 122 275 L 168 275 L 168 360 L 146 360 Z" fill="#0F172A" />
+
+    <!-- Right Arm Extending Forward for Handshake -->
+    <path d="M 174 176 C 190 195, 222 216, 266 226" stroke="url(#suitNavyGrad)" strokeWidth="20" strokeLinecap="round" />
+    <!-- Crisp White Shirt Cuff -->
+    <path d="M 260 224 L 268 226" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" />
+    <!-- Watch Accent (Gold) -->
+    <circle cx="261" cy="225" r="3.5" fill="#FBBF24" />
+    <!-- Hand -->
+    <path d="M 268 226 L 286 227" stroke="#8D5538" strokeWidth="13" strokeLinecap="round" />
   </g>
 
   <!-- =========================================================================
-     CHARACTER 2 (RIGHT): STRATEGIC PARTNER / TALENT DIRECTOR
+     CHARACTER 2 (RIGHT): STRATEGIC TALENT PARTNER
      ========================================================================= -->
   <g id="partner-right">
-    <!-- Executive Chair -->
-    <path d="M 440 230 C 445 190, 435 160, 415 155" stroke="#0D2015" strokeWidth="10" strokeLinecap="round" />
-    <path d="M 442 250 L 460 340" stroke="#0D2015" strokeWidth="6" strokeLinecap="round" />
+    <!-- Head & Hair (Warm Modern African Woman Leader) -->
+    <circle cx="440" cy="116" r="24" fill="#9A644D" />
+    <!-- Elegant Styled Hair Updo with Bun -->
+    <path d="M 418 114 C 416 88, 436 78, 458 80 C 472 84, 468 104, 464 122 C 458 100, 444 88, 426 96 Z" fill="#18181B" />
+    <circle cx="462" cy="88" r="12" fill="#18181B" />
+    <!-- Ear & Gold Hoop Earring -->
+    <circle cx="454" cy="118" r="5" fill="#9A644D" />
+    <circle cx="454" cy="122" r="2.5" fill="#FBBF24" />
 
-    <!-- Head & Hair (Modern Professional Woman Leader / Partner) -->
-    <circle cx="388" cy="115" r="22" fill="#7A4B32" />
-    <!-- Elegant Updo / Styled Hair -->
-    <path d="M 370 114 C 368 90, 385 82, 404 84 C 416 88, 412 104, 408 120 C 404 102, 392 92, 376 98 Z" fill="#1A110B" />
-    <!-- Bun Accent -->
-    <circle cx="406" cy="92" r="10" fill="#1A110B" />
-    <!-- Ear & Minimalist Gold Earring -->
-    <circle cx="400" cy="116" r="4.5" fill="#7A4B32" />
-    <circle cx="400" cy="120" r="2" fill="#F6B21A" />
+    <!-- Neck & Crisp White Inner Blouse -->
+    <rect x="433" y="138" width="14" height="16" rx="2" fill="#9A644D" />
+    <path d="M 425 152 Q 440 164 455 152 Z" fill="#FFFFFF" />
+    <!-- Minimalist Gold Pendant -->
+    <circle cx="440" cy="158" r="2.5" fill="#FBBF24" />
 
-    <!-- Neck & Contemporary Top -->
-    <rect x="381" y="134" width="13" height="14" rx="2" fill="#7A4B32" />
-    <path d="M 374 146 Q 388 156 401 146 Z" fill="#D4F933" opacity="0.9" />
+    <!-- Vibrant Emerald Tailored Blazer -->
+    <path d="M 410 156 C 426 150, 454 150, 470 156 L 478 275 L 402 275 Z" fill="url(#suitEmeraldGrad)" stroke="#059669" strokeWidth="1" />
+    <!-- Blazer Contours -->
+    <path d="M 420 156 L 436 206 L 432 275" stroke="#34D399" strokeWidth="2.5" />
+    <path d="M 460 156 L 446 206 L 450 275" stroke="#34D399" strokeWidth="2.5" />
 
-    <!-- Torso / Tailored Emerald Blazer -->
-    <path d="M 362 150 C 376 146, 400 146, 415 150 L 422 260 L 356 260 Z" fill="url(#suitRightGrad)" />
-    <!-- Blazer Lines -->
-    <path d="M 372 150 L 386 195 L 382 260" stroke="#3D8562" strokeWidth="2" />
-    <path d="M 406 150 L 394 195 L 398 260" stroke="#3D8562" strokeWidth="2" />
+    <!-- Trousers Sitting -->
+    <path d="M 432 275 L 478 275 L 478 360 L 456 360 Z" fill="#064E3B" />
 
-    <!-- Slacks Sitting -->
-    <path d="M 380 260 L 422 260 L 422 336 L 404 336 Z" fill="#1B4332" />
-
-    <!-- Left Arm Reaching Forward to Complete Handshake -->
-    <path d="M 375 168 C 362 185, 335 208, 298 216" stroke="url(#suitRightGrad)" strokeWidth="18" strokeLinecap="round" />
-    <!-- Cuff & Hand -->
-    <path d="M 302 214 L 295 216" stroke="#D4F933" strokeWidth="4" strokeLinecap="round" />
-    <path d="M 297 216 L 278 217" stroke="#7A4B32" strokeWidth="11" strokeLinecap="round" />
+    <!-- Left Arm Extending Forward for Handshake -->
+    <path d="M 426 176 C 410 195, 378 216, 334 226" stroke="url(#suitEmeraldGrad)" strokeWidth="20" strokeLinecap="round" />
+    <!-- Crisp White Cuff -->
+    <path d="M 340 224 L 332 226" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" />
+    <!-- Hand -->
+    <path d="M 332 226 L 314 227" stroke="#9A644D" strokeWidth="13" strokeLinecap="round" />
   </g>
 
   <!-- =========================================================================
-     THE CLOSING DEAL HANDSHAKE & TRUST EMERALD RESONANCE RING
+     THE CLOSING DEAL HANDSHAKE & TRUST RESONANCE
      ========================================================================= -->
-  <g id="handshake-closing-deal">
-    <!-- Radiant Pulsing Trust Aura Ring Behind Handshake -->
-    <circle cx="268" cy="216" r="28" fill="none" stroke="url(#handshakeRingGrad)" strokeWidth="2" strokeDasharray="5 4" opacity="0.8" />
-    <circle cx="268" cy="216" r="38" fill="none" stroke="rgba(163, 230, 53, 0.25)" strokeWidth="1.2" strokeDasharray="3 5" />
-    
+  <g id="handshake-interaction">
+    <!-- Radiant Pulsing Trust Aura Rings Behind Handshake -->
+    <circle cx="300" cy="227" r="32" fill="none" stroke="url(#trustRippleGrad)" strokeWidth="2.5" strokeDasharray="6 4" opacity="0.9" />
+    <circle cx="300" cy="227" r="46" fill="none" stroke="rgba(163, 230, 53, 0.35)" strokeWidth="1.5" strokeDasharray="4 6" />
+
     <!-- Firm Interlocked Hands Meeting at Center -->
-    <!-- Left Hand Clasp -->
-    <path d="M 252 216 C 260 214, 268 212, 276 216 C 274 221, 268 223, 260 221 Z" fill="#5C3826" />
-    <!-- Right Hand Clasp -->
-    <path d="M 282 216 C 274 214, 266 212, 258 216 C 260 221, 266 223, 274 221 Z" fill="#7A4B32" />
+    <path d="M 282 226 C 292 223, 302 221, 312 226 C 309 232, 302 234, 292 232 Z" fill="#8D5538" />
+    <path d="M 318 226 C 308 223, 298 221, 288 226 C 291 232, 298 234, 308 232 Z" fill="#9A644D" />
 
-    <!-- Thumb Lock & Grip -->
-    <path d="M 262 210 Q 268 212 272 217" stroke="#5C3826" strokeWidth="5" strokeLinecap="round" />
-    <path d="M 274 210 Q 268 212 264 217" stroke="#7A4B32" strokeWidth="5" strokeLinecap="round" />
+    <!-- Thumb Grips -->
+    <path d="M 293 218 Q 301 221, 306 227" stroke="#8D5538" strokeWidth="6" strokeLinecap="round" />
+    <path d="M 307 218 Q 299 221, 294 227" stroke="#9A644D" strokeWidth="6" strokeLinecap="round" />
 
-    <!-- Deal Closed Spark / Verified Connection Dot -->
-    <circle cx="268" cy="216" r="4.5" fill="#D4F933" stroke="#0E2316" strokeWidth="1.5" />
+    <!-- Deal Verified Connection Point -->
+    <circle cx="300" cy="227" r="5" fill="#A3E635" stroke="#0E3321" strokeWidth="2" />
+  </g>
+
+  <!-- =========================================================================
+     FLOATING MODERN GLASSMORPHIC FINTECH BADGES
+     ========================================================================= -->
+  <!-- Top Center: Deal Closed & Escrow Funded Pill -->
+  <g transform="translate(210, 165)" filter="url(#pillShadow)">
+    <rect x="0" y="0" width="180" height="38" rx="19" fill="#FFFFFF" stroke="#22C55E" strokeWidth="2" />
+    <!-- Gold Check Shield Badge -->
+    <circle cx="21" cy="19" r="11" fill="url(#goldBadgeGrad)" />
+    <path d="M 16 19 L 19.5 22.5 L 26 16" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    <!-- Text Elements -->
+    <text x="39" y="16.5" fill="#0F172A" fontSize="10.5" fontWeight="800" fontFamily="system-ui, sans-serif">DEAL CLOSED</text>
+    <text x="39" y="29" fill="#16A34A" fontSize="9" fontWeight="700" fontFamily="system-ui, sans-serif">₦15,000,000 Escrow Funded</text>
+  </g>
+
+  <!-- Top Left: Verified Enterprise Badge -->
+  <g transform="translate(50, 44)" filter="url(#pillShadow)">
+    <rect x="0" y="0" width="168" height="34" rx="17" fill="#FFFFFF" fillOpacity="0.96" stroke="#38BDF8" strokeWidth="1.8" />
+    <circle cx="18" cy="17" r="9" fill="#0284C7" />
+    <path d="M 14 17 L 16.5 19.5 L 22 14" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <text x="34" y="15" fill="#0F172A" fontSize="9.5" fontWeight="800" fontFamily="system-ui, sans-serif">Verified Enterprise</text>
+    <text x="34" y="26" fill="#0284C7" fontSize="8" fontWeight="700" fontFamily="system-ui, sans-serif">Pre-Vetted Senior Team</text>
+  </g>
+
+  <!-- Top Right: 100% Escrow Protected Badge -->
+  <g transform="translate(382, 44)" filter="url(#pillShadow)">
+    <rect x="0" y="0" width="168" height="34" rx="17" fill="#FFFFFF" fillOpacity="0.96" stroke="#22C55E" strokeWidth="1.8" />
+    <circle cx="18" cy="17" r="9" fill="#16A34A" />
+    <path d="M 14 17 L 16.5 19.5 L 22 14" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <text x="34" y="15" fill="#0F172A" fontSize="9.5" fontWeight="800" fontFamily="system-ui, sans-serif">100% Escrow Secured</text>
+    <text x="34" y="26" fill="#16A34A" fontSize="8" fontWeight="700" fontFamily="system-ui, sans-serif">Milestone-Based Release</text>
   </g>
 </svg>
