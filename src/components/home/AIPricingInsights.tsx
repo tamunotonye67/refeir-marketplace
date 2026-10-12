@@ -95,6 +95,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
         }}
       >
         <h2
+          className="rf-ai-pricing-title"
           style={{
             fontFamily: 'var(--rf-font-display)',
             fontSize: 'clamp(2.1rem, 4.2vw, 3.1rem)',

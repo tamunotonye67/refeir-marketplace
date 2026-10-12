@@ -48,6 +48,7 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '2rem' }}>
         <div>
           <h2
+            className="rf-africa-explorer-title"
             style={{
               fontFamily: 'var(--rf-font-display)',
               fontSize: 'clamp(2.1rem, 3.8vw, 2.85rem)',

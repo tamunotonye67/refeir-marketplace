@@ -3419,6 +3419,13 @@
     border-radius: 20px !important;
   }
 
+  .rf-africa-explorer-title {
+    font-size: clamp(1.45rem, 5.2vw, 1.85rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 0.45rem !important;
+  }
+
   .rf-africa-overview-bar {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.75rem 0.65rem !important;
@@ -8287,8 +8294,9 @@
     min-height: 200px !important;
   }
 
-  .rf-ai-pricing-postheader {
-    white-space: normal !important;
+  .rf-ai-pricing-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
+    line-height: 1.2 !important;
   }
 }
 
@@ -8297,6 +8305,12 @@
     padding: 1.35rem 1rem !important;
     gap: 1.25rem !important;
     border-radius: 20px !important;
+  }
+
+  .rf-ai-pricing-title {
+    font-size: clamp(1.4rem, 5.8vw, 1.75rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.02em !important;
   }
 
   .rf-ai-pricing-left-col {
