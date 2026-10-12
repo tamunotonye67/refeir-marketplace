@@ -8319,7 +8319,7 @@
 
 @keyframes rfScanBeamSweep {
   0% {
-    transform: translateX(25px);
+    transform: translateX(20px);
     opacity: 0;
   }
   12% {
@@ -8329,7 +8329,7 @@
     opacity: 0.85;
   }
   100% {
-    transform: translateX(315px);
+    transform: translateX(400px);
     opacity: 0;
   }
 }
@@ -8359,12 +8359,12 @@
 
 .rf-node-ping-ring {
   animation: rfNodeRadarPulse 2.2s ease-out infinite;
-  transform-origin: 170px 56px;
+  transform-origin: 210px 60px;
 }
 
 .rf-node-ping-ring-delayed {
   animation: rfNodeRadarPulse 2.2s ease-out 1.1s infinite;
-  transform-origin: 170px 56px;
+  transform-origin: 210px 60px;
 }
 
 .rf-graph-scanner-beam {
