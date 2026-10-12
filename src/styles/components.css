@@ -8294,7 +8294,7 @@
    ========================================================================== */
 @keyframes rfPadlockShackleLock {
   0% {
-    transform: translateY(-9px);
+    transform: translateY(-14px);
   }
   14% {
     transform: translateY(0);
@@ -8303,10 +8303,10 @@
     transform: translateY(0);
   }
   88% {
-    transform: translateY(-9px);
+    transform: translateY(-14px);
   }
   100% {
-    transform: translateY(-9px);
+    transform: translateY(-14px);
   }
 }
 
@@ -8355,12 +8355,12 @@
 
 .rf-ai-padlock-radar {
   animation: rfPadlockRadarRotate 22s linear infinite;
-  transform-origin: 110px 65px;
+  transform-origin: 130px 80px;
 }
 
 .rf-ai-padlock-radar-reverse {
   animation: rfPadlockRadarCounterRotate 16s linear infinite;
-  transform-origin: 110px 65px;
+  transform-origin: 130px 80px;
 }
 
 .rf-ai-padlock-body {

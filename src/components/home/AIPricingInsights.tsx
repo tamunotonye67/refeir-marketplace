@@ -384,82 +384,70 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                 minHeight: '230px'
               }}
             >
-              {/* Badge Indicator */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(163, 230, 53, 0.35)',
-                  padding: '0.35rem 0.85rem',
-                  borderRadius: '9999px',
-                  marginBottom: '0.75rem'
-                }}
-              >
-                <TrendingUp size={13} color="#A3E635" />
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '0.02em' }}>
-                  Live Market Rate Curve
-                </span>
-                <span style={{ fontSize: '0.7rem', color: '#A3E635', fontWeight: 800 }}>-60%</span>
-              </div>
-
-              {/* Vector Comparative Graph */}
-              <svg viewBox="0 0 340 130" width="100%" height="130" style={{ overflow: 'visible' }}>
+              {/* Perfectly Proportional Vector Comparative Graph */}
+              <svg viewBox="0 0 340 135" width="100%" height="135" style={{ overflow: 'visible' }}>
                 <defs>
-                  <linearGradient id="curveFillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#A3E635" stopOpacity="0.32" />
+                  <linearGradient id="rfCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#A3E635" stopOpacity="0.36" />
                     <stop offset="100%" stopColor="#66BB2A" stopOpacity="0.0" />
                   </linearGradient>
                 </defs>
 
                 {/* Coordinate Grid Lines */}
-                <line x1="20" y1="20" x2="320" y2="20" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
-                <line x1="20" y1="60" x2="320" y2="60" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
-                <line x1="20" y1="100" x2="320" y2="100" stroke="rgba(255, 255, 255, 0.12)" />
+                <line x1="20" y1="28" x2="320" y2="28" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
+                <line x1="20" y1="62" x2="320" y2="62" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
+                <line x1="20" y1="96" x2="320" y2="96" stroke="rgba(255, 255, 255, 0.14)" />
+                <line x1="170" y1="28" x2="170" y2="96" stroke="rgba(163, 230, 53, 0.14)" strokeDasharray="2 3" />
 
-                {/* Traditional Agency Curve (Higher, Dashed Muted Line) */}
+                {/* Traditional Global Agencies Benchmark (Dashed Muted Line) */}
                 <path
-                  d="M 25 35 C 90 28, 170 42, 250 30 C 280 25, 305 32, 315 28"
+                  d="M 25 36 C 95 34, 170 30, 245 27 C 280 25, 305 24, 315 23"
                   fill="none"
-                  stroke="rgba(255, 255, 255, 0.38)"
+                  stroke="rgba(255, 255, 255, 0.4)"
                   strokeWidth="1.8"
                   strokeDasharray="4 3"
                 />
-                <text x="215" y="24" fill="rgba(255, 255, 255, 0.55)" fontSize="9" fontWeight="600">
-                  Global Agencies $75/hr
+                <text x="315" y="16" textAnchor="end" fill="rgba(255, 255, 255, 0.55)" fontSize="9.5" fontWeight="600">
+                  Global Agencies $75/hr+
                 </text>
 
-                {/* Refeir Area Fill Under Curve */}
+                {/* Refeir Area Gradient Fill Under Curve */}
                 <path
-                  d="M 25 100 L 25 82 C 95 86, 170 65, 245 68 C 285 70, 305 62, 315 58 L 315 100 Z"
-                  fill="url(#curveFillGrad)"
+                  d="M 25 96 L 25 78 C 95 76, 135 64, 170 60 C 205 56, 255 46, 315 42 L 315 96 Z"
+                  fill="url(#rfCurveGrad)"
                 />
 
                 {/* Refeir Verified Network Curve (Glowing Green Curve) */}
                 <path
-                  d="M 25 82 C 95 86, 170 65, 245 68 C 285 70, 305 62, 315 58"
+                  d="M 25 78 C 95 76, 135 64, 170 60 C 205 56, 255 46, 315 42"
                   fill="none"
                   stroke="#A3E635"
-                  strokeWidth="2.4"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
                 />
 
                 {/* Data Points */}
-                <circle cx="170" cy="65" r="4" fill="#A3E635" stroke="#FFFFFF" strokeWidth="1.5" />
-                <circle cx="245" cy="68" r="4" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="1.5" />
-                <circle cx="315" cy="58" r="4.5" fill="#D4F933" stroke="#FFFFFF" strokeWidth="1.5" />
+                <circle cx="55" cy="75" r="3.5" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="1.5" />
+                <circle cx="170" cy="60" r="5" fill="#D4F933" stroke="#FFFFFF" strokeWidth="2" />
+                <circle cx="285" cy="44" r="4" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="1.5" />
 
-                <text x="140" y="54" fill="#A3E635" fontSize="10.5" fontWeight="800">
+                {/* Featured Refeir Badge Centered Over Senior Tier */}
+                <rect x="122" y="32" width="96" height="20" rx="10" fill="rgba(12, 28, 17, 0.88)" stroke="#A3E635" strokeWidth="1.2" />
+                <text x="170" y="46" textAnchor="middle" fill="#D4F933" fontSize="10.5" fontWeight="800">
                   Refeir $32/hr
                 </text>
-              </svg>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: '92%', marginTop: '0.4rem', fontSize: '0.72rem', color: 'rgba(255, 255, 255, 0.5)' }}>
-                <span>Junior Talent</span>
-                <span style={{ color: '#A3E635', fontWeight: 700 }}>Senior & Lead Tier</span>
-                <span>Principal Specialist</span>
-              </div>
+                {/* Mathematically Aligned Tier Labels */}
+                <text x="55" y="118" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="10" fontWeight="500">
+                  Junior Talent
+                </text>
+                <text x="170" y="118" textAnchor="middle" fill="#A3E635" fontSize="10.5" fontWeight="700">
+                  Senior & Lead Tier
+                </text>
+                <text x="285" y="118" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="10" fontWeight="500">
+                  Principal Specialist
+                </text>
+              </svg>
             </div>
           )}
 
@@ -478,32 +466,12 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                 minHeight: '230px'
               }}
             >
-              {/* Badge */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(102, 187, 42, 0.35)',
-                  padding: '0.35rem 0.85rem',
-                  borderRadius: '9999px',
-                  marginBottom: '0.65rem'
-                }}
-              >
-                <ShieldCheck size={13} color="#66BB2A" />
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '0.02em' }}>
-                  Escrow Milestone Vault
-                </span>
-                <span style={{ fontSize: '0.7rem', color: '#66BB2A', fontWeight: 800 }}>Locked & Safe</span>
-              </div>
-
-              {/* Animated Vector Padlock Graphic */}
-              <div style={{ position: 'relative', width: '220px', height: '120px' }}>
-                <svg viewBox="0 0 220 120" width="100%" height="100%" style={{ overflow: 'visible' }}>
+              {/* Prominent Large Animated Vector Padlock Graphic */}
+              <div style={{ position: 'relative', width: '260px', height: '150px' }}>
+                <svg viewBox="0 0 260 150" width="100%" height="100%" style={{ overflow: 'visible' }}>
                   <defs>
                     <linearGradient id="rfPadlockBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#163E27" />
+                      <stop offset="0%" stopColor="#18462B" />
                       <stop offset="100%" stopColor="#0B1F13" />
                     </linearGradient>
                     <linearGradient id="rfPadlockShackleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -515,75 +483,75 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
 
                   {/* Concentric Rotating Telemetry Rings */}
                   <circle
-                    cx="110"
-                    cy="65"
-                    r="54"
+                    cx="130"
+                    cy="80"
+                    r="68"
                     fill="none"
                     stroke="rgba(102, 187, 42, 0.22)"
                     strokeWidth="1.2"
-                    strokeDasharray="5 5"
+                    strokeDasharray="6 6"
                     className="rf-ai-padlock-radar"
                   />
                   <circle
-                    cx="110"
-                    cy="65"
-                    r="40"
+                    cx="130"
+                    cy="80"
+                    r="50"
                     fill="none"
                     stroke="rgba(163, 230, 53, 0.18)"
                     strokeWidth="1"
-                    strokeDasharray="3 4"
+                    strokeDasharray="4 4"
                     className="rf-ai-padlock-radar-reverse"
                   />
 
                   {/* Security Grid Lines */}
-                  <line x1="32" y1="65" x2="188" y2="65" stroke="rgba(102, 187, 42, 0.15)" strokeWidth="1" strokeDasharray="3 3" />
-                  <line x1="110" y1="12" x2="110" y2="118" stroke="rgba(102, 187, 42, 0.15)" strokeWidth="1" strokeDasharray="3 3" />
+                  <line x1="25" y1="80" x2="235" y2="80" stroke="rgba(102, 187, 42, 0.15)" strokeWidth="1" strokeDasharray="3 3" />
+                  <line x1="130" y1="12" x2="130" y2="148" stroke="rgba(102, 187, 42, 0.15)" strokeWidth="1" strokeDasharray="3 3" />
 
                   {/* Shackle (Snaps shut with keyframe animation) */}
                   <g className="rf-ai-padlock-shackle">
                     <path
-                      d="M 92 56 V 36 A 18 18 0 0 1 128 36 V 56"
+                      d="M 102 68 V 38 A 28 28 0 0 1 158 38 V 68"
                       fill="none"
                       stroke="url(#rfPadlockShackleGrad)"
-                      strokeWidth="5.5"
+                      strokeWidth="8"
                       strokeLinecap="round"
                     />
                   </g>
 
                   {/* Padlock Body with Fintech Emerald Gradient */}
                   <rect
-                    x="81"
-                    y="53"
-                    width="58"
-                    height="45"
-                    rx="8"
-                    ry="8"
+                    x="86"
+                    y="64"
+                    width="88"
+                    height="66"
+                    rx="12"
+                    ry="12"
                     fill="url(#rfPadlockBodyGrad)"
                     stroke="rgba(102, 187, 42, 0.85)"
-                    strokeWidth="1.6"
+                    strokeWidth="2"
                     className="rf-ai-padlock-body"
                   />
 
                   {/* Padlock Core Keyhole with Illuminated Glow Beam */}
                   <g className="rf-ai-padlock-keyhole">
-                    <circle cx="110" cy="71" r="4.2" fill="#D4F933" />
-                    <path d="M 107.8 72.5 L 112.2 72.5 L 113.5 83 L 106.5 83 Z" fill="#D4F933" />
+                    <circle cx="130" cy="90" r="6" fill="#D4F933" />
+                    <path d="M 126.8 92.5 L 133.2 92.5 L 135 107 L 125 107 Z" fill="#D4F933" />
                   </g>
 
                   {/* Corner Rivet Details */}
-                  <circle cx="89" cy="61" r="1.6" fill="#66BB2A" />
-                  <circle cx="131" cy="61" r="1.6" fill="#66BB2A" />
-                  <circle cx="89" cy="90" r="1.6" fill="#66BB2A" opacity="0.6" />
-                  <circle cx="131" cy="90" r="1.6" fill="#66BB2A" opacity="0.6" />
+                  <circle cx="98" cy="76" r="2.2" fill="#66BB2A" />
+                  <circle cx="162" cy="76" r="2.2" fill="#66BB2A" />
+                  <circle cx="98" cy="118" r="2.2" fill="#66BB2A" opacity="0.6" />
+                  <circle cx="162" cy="118" r="2.2" fill="#66BB2A" opacity="0.6" />
                 </svg>
               </div>
 
               <span
                 style={{
-                  marginTop: '0.5rem',
-                  fontSize: '0.74rem',
-                  fontWeight: 600,
-                  color: 'rgba(235, 245, 238, 0.85)',
+                  marginTop: '0.65rem',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  color: 'rgba(235, 245, 238, 0.95)',
                   letterSpacing: '0.02em'
                 }}
               >
