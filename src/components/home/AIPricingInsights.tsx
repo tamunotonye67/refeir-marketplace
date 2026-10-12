@@ -305,39 +305,23 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
               <button
                 type="button"
                 onClick={() => textareaRef.current?.focus()}
-                className="rf-ai-geometric-pulse"
+                className="rf-ai-mirror-btn"
                 style={{
                   position: 'relative',
                   zIndex: 10,
                   display: 'inline-flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: '0.65rem',
-                  padding: '0.85rem 1.8rem',
+                  padding: '0.95rem 2.2rem',
                   borderRadius: '9999px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  border: '1.5px solid rgba(163, 230, 53, 0.55)',
                   color: '#FFFFFF',
-                  fontSize: '0.96rem',
+                  fontSize: '0.98rem',
                   fontWeight: 700,
                   cursor: 'pointer',
                   letterSpacing: '-0.01em',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 24px rgba(102, 187, 42, 0.35)',
-                  transition: 'all 0.25s ease',
+                  transition: 'all 0.3s ease',
                   whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.backgroundColor = 'rgba(102, 187, 42, 0.24)';
-                  e.currentTarget.style.borderColor = '#A3E635';
-                  e.currentTarget.style.transform = 'translateY(-2px) scale(1.03)';
-                  e.currentTarget.style.boxShadow = '0 12px 38px rgba(102, 187, 42, 0.5)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(163, 230, 53, 0.55)';
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 24px rgba(102, 187, 42, 0.35)';
                 }}
               >
                 <span
@@ -347,11 +331,10 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                     borderRadius: '50%',
                     backgroundColor: '#A3E635',
                     display: 'inline-block',
-                    boxShadow: '0 0 8px #A3E635'
+                    boxShadow: '0 0 10px #A3E635'
                   }}
                 />
-                <span>Describe what you want</span>
-                <ArrowRight size={15} color="#A3E635" />
+                <span style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.45)' }}>Describe what you want</span>
               </button>
 
               <span
