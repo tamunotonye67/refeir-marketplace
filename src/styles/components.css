@@ -8139,6 +8139,16 @@
 }
 
 /* AI Pricing Insights Layout & Typography */
+.rf-ai-pricing-section {
+  padding: 4rem 0 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .rf-ai-pricing-section {
+    padding: 1.5rem 0 1rem 0 !important;
+  }
+}
+
 .rf-ai-pricing-insights-card {
   grid-template-columns: 1fr 1fr !important;
   gap: 0 !important;
@@ -8151,22 +8161,40 @@
 @media (max-width: 900px) {
   .rf-ai-pricing-insights-card {
     grid-template-columns: 1fr !important;
-    gap: 2.5rem !important;
+    gap: 1.5rem !important;
+    padding: 1.75rem 1.25rem !important;
   }
 
   .rf-ai-pricing-left-col {
     padding-right: 0 !important;
     border-right: none !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
-    padding-bottom: 2.25rem !important;
+    padding-bottom: 1.5rem !important;
   }
 
   .rf-ai-pricing-right-col {
     padding-left: 0 !important;
+    min-height: 200px !important;
   }
 
   .rf-ai-pricing-postheader {
     white-space: normal !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .rf-ai-pricing-insights-card {
+    padding: 1.35rem 1rem !important;
+    gap: 1.25rem !important;
+    border-radius: 20px !important;
+  }
+
+  .rf-ai-pricing-left-col {
+    padding-bottom: 1.25rem !important;
+  }
+
+  .rf-ai-pricing-right-col {
+    min-height: 180px !important;
   }
 }
 

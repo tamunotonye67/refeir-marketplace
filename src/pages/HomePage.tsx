@@ -3442,7 +3442,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* 7A. REFEIR AI PRICING & TALENT INSIGHTS */}
-      <section style={{ padding: '4rem 0 2rem 0', background: 'var(--rf-bg-base)' }}>
+      <section className="rf-ai-pricing-section" style={{ background: 'var(--rf-bg-base)' }}>
         <div className="rf-container" style={{ maxWidth: '1270px' }}>
           <AIPricingInsights
             onNavigate={onNavigate}
