@@ -111,41 +111,41 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
           marginBottom: '2rem'
         }}
       >
-        <div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
+        <div className="rf-africa-stat-item">
+          <span className="rf-africa-stat-label" style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
             Active Region
           </span>
-          <div style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: regionData[selectedRegion].color }} />
+          <div className="rf-africa-stat-val" style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: regionData[selectedRegion].color, flexShrink: 0 }} />
             {selectedRegion}
           </div>
         </div>
 
-        <div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
+        <div className="rf-africa-stat-item">
+          <span className="rf-africa-stat-label" style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
             Verified Professionals
           </span>
-          <div style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-mint)', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-            <Users size={16} />
+          <div className="rf-africa-stat-val" style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-mint)', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+            <Users size={15} style={{ flexShrink: 0 }} />
             {regionData[selectedRegion].talentCount.toLocaleString()}+ Talent
           </div>
         </div>
 
-        <div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
+        <div className="rf-africa-stat-item">
+          <span className="rf-africa-stat-label" style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
             Protected Projects
           </span>
-          <div style={{ fontSize: '1.125rem', fontWeight: 800, color: '#7DA2FF', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-            <Briefcase size={16} />
+          <div className="rf-africa-stat-val" style={{ fontSize: '1.125rem', fontWeight: 800, color: '#7DA2FF', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+            <Briefcase size={15} style={{ flexShrink: 0 }} />
             {regionData[selectedRegion].projectCount} Active
           </div>
         </div>
 
-        <div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
+        <div className="rf-africa-stat-item">
+          <span className="rf-africa-stat-label" style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
             Key Metropolises
           </span>
-          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--rf-cream)', marginTop: '2px' }}>
+          <div className="rf-africa-stat-val rf-africa-hubs-val" style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--rf-cream)', marginTop: '2px' }}>
             {regionData[selectedRegion].keyHubs.join(' • ')}
           </div>
         </div>
