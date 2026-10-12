@@ -146,8 +146,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
             {/* Flat 2D Illustration: Professional at desk with tree & leaves representing growth */}
             <div
               style={{
-                marginTop: '1.5rem',
-                maxWidth: '340px',
+                marginTop: '1.75rem',
+                maxWidth: '440px',
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
@@ -159,9 +159,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
                 alt="Professional career growth and talent workspace"
                 style={{
                   width: '100%',
-                  maxWidth: '320px',
+                  maxWidth: '420px',
                   height: 'auto',
-                  display: 'block'
+                  display: 'block',
+                  opacity: 0.72,
+                  transition: 'opacity 0.25s ease'
                 }}
               />
             </div>
