@@ -1,18 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { ArrowRight, TrendingUp, Compass, BarChart2, ShieldCheck } from 'lucide-react';
+import { PricingMatchFlow } from './PricingMatchFlow';
 
 interface AIPricingInsightsProps {
   onNavigate: (path: string) => void;
+  /** Kept for backwards compatibility; the pricing section now uses its own budget-match flow. */
   onOpenAISearch?: (query: string) => void;
 }
 
-export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate, onOpenAISearch }) => {
+export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
   const [prompt, setPrompt] = useState('');
   const [isCalculating, setIsCalculating] = useState(false);
+  const [showMatchFlow, setShowMatchFlow] = useState(false);
   const [animStage, setAnimStage] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -25,16 +27,11 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    const cleanQuery = prompt.trim() || 'Software Engineer';
     setIsCalculating(true);
     setTimeout(() => {
       setIsCalculating(false);
-      if (onOpenAISearch) {
-        onOpenAISearch(cleanQuery);
-      } else {
-        onNavigate(`/marketplace?q=${encodeURIComponent(cleanQuery)}`);
-      }
-    }, 180);
+      setShowMatchFlow(true);
+    }, 150);
   };
 
   return (
@@ -590,6 +587,13 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
           )}
         </div>
       </div>
+
+      <PricingMatchFlow
+        isOpen={showMatchFlow}
+        initialBrief={prompt}
+        onClose={() => setShowMatchFlow(false)}
+        onNavigate={onNavigate}
+      />
     </div>
   );
 };
