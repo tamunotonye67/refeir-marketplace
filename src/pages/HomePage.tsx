@@ -3788,7 +3788,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               textShadow: '0 1px 8px rgba(0, 0, 0, 0.45)'
             }}
           >
-            The next opportunity might already be in your network.<br />
+            The next opportunity might already be in your network.{' '}
+            <br className="rf-desktop-only" />
             Find someone. Refer someone. Get work done. Earn from the connection.
           </p>
 
