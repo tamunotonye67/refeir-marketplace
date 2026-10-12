@@ -9781,3 +9781,185 @@
     display: none;
   }
 }
+
+/* =========================================================================
+   FINTECH VOLUME & TRAJECTORY CHART (STRIPE / MERCURY SPEC - NEVER STRETCHES)
+   ========================================================================= */
+
+.rf-fintech-chart-card {
+  background-color: var(--rf-bg-card);
+  border: 1px solid var(--rf-bg-card-border);
+  border-radius: var(--rf-radius-lg);
+  padding: 1.5rem;
+  position: relative;
+  overflow: visible;
+}
+
+.rf-fintech-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.rf-fintech-chart-main-val {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--rf-cream);
+  font-variant-numeric: tabular-nums;
+  margin: 0.25rem 0 0.35rem 0;
+}
+
+.rf-fintech-chart-stage {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  margin-bottom: 2.5rem;
+}
+
+.rf-fintech-grid-lines {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.rf-fintech-grid-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.rf-fintech-grid-line {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--rf-bg-card-border), var(--rf-bg-card-border) 4px, transparent 4px, transparent 8px);
+}
+
+.rf-fintech-grid-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--rf-slate-400);
+  font-variant-numeric: tabular-nums;
+  padding-right: 0.65rem;
+  width: 48px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.rf-fintech-columns-wrapper {
+  position: absolute;
+  top: 10px;
+  bottom: 0;
+  left: 52px;
+  right: 16px;
+  display: grid;
+  align-items: flex-end;
+  gap: clamp(8px, 1.8vw, 24px);
+}
+
+.rf-fintech-col {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: background-color 0.2s ease;
+}
+
+.rf-fintech-col:hover,
+.rf-fintech-col.is-active {
+  background-color: rgba(102, 187, 42, 0.08);
+}
+
+.rf-fintech-bar-pillar {
+  width: 100%;
+  max-width: 44px;
+  min-width: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 8px 8px 3px 3px;
+  position: relative;
+  transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease, filter 0.2s ease;
+}
+
+.rf-fintech-col:hover .rf-fintech-bar-pillar,
+.rf-fintech-col.is-active .rf-fintech-bar-pillar {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 0 16px rgba(102, 187, 42, 0.35);
+}
+
+.rf-fintech-bar-glow-cap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #D4F933;
+  box-shadow: 0 0 8px #A3E635;
+  border-radius: 8px 8px 0 0;
+}
+
+.rf-fintech-col-footer {
+  position: absolute;
+  top: 100%;
+  left: 52px;
+  right: 16px;
+  display: grid;
+  gap: clamp(8px, 1.8vw, 24px);
+  padding-top: 0.65rem;
+}
+
+.rf-fintech-col-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--rf-slate-400);
+  text-align: center;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.rf-fintech-col-label.is-active {
+  color: var(--rf-cream);
+  font-weight: 800;
+}
+
+.rf-fintech-tooltip-card {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--rf-bg-deep);
+  border: 1px solid var(--rf-bg-card-border);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  min-width: 175px;
+  z-index: 50;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+}
+
+.rf-fintech-trend-svg {
+  position: absolute;
+  top: 10px;
+  bottom: 0;
+  left: 52px;
+  right: 16px;
+  width: calc(100% - 68px);
+  height: calc(100% - 10px);
+  pointer-events: none;
+  overflow: visible;
+}

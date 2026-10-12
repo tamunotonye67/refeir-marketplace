@@ -1695,22 +1695,48 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                 </div>
               </div>
 
-              {/* Visual GMV Growth Trend Area Chart (Modern Interactive SVG) */}
-              <div className="rf-analytics-chart-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+              {/* Modern Fintech Volume & Trajectory Chart (Stripe / Mercury Standard - Never Stretches) */}
+              <div className="rf-fintech-chart-card">
+                {/* Dynamic Hero Header with Live Counter */}
+                <div className="rf-fintech-chart-header">
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                        Escrow GMV Trajectory & Velocity ({activeDataset.timeframeLabel})
-                      </h4>
+                      <span className="rf-analytics-badge is-positive" style={{ fontSize: '0.6875rem' }}>
+                        <span className="rf-analytics-pulse-dot" style={{ width: '6px', height: '6px' }} />
+                        Escrow GMV Trajectory
+                      </span>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+                        {hoveredPointIndex !== null
+                          ? `${activeDataset.points[hoveredPointIndex].label} 2026 Milestone Snapshot`
+                          : activeDataset.timeframeLabel}
+                      </span>
                     </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '3px' }}>
-                      Hover over any checkpoint to inspect volume milestones, scout payouts, and settlement yield.
+
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.85rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
+                      <div className="rf-fintech-chart-main-val">
+                        {hoveredPointIndex !== null
+                          ? activeDataset.points[hoveredPointIndex].gmvText
+                          : activeDataset.escrowVolume}
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--rf-leaf-green)' }}>
+                        <ArrowUpRight size={15} />
+                        <span>
+                          {hoveredPointIndex !== null
+                            ? `${activeDataset.points[hoveredPointIndex].deals} Contracts Verified`
+                            : activeDataset.escrowGrowth}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p style={{ fontSize: '0.78125rem', color: 'var(--rf-slate-400)', margin: '2px 0 0 0' }}>
+                      {hoveredPointIndex !== null
+                        ? `Scout attribution payout: ${activeDataset.points[hoveredPointIndex].scoutText} (10%) across verified talent milestones.`
+                        : `Macro volume released to African engineers, designers, and creatives across 5 corridors.`}
                     </p>
                   </div>
 
                   {/* Series Toggle & Legend */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
                     <div className="rf-analytics-chart-controls">
                       {(['ALL', 'ESCROW', 'SCOUT'] as const).map(m => (
                         <button
@@ -1718,7 +1744,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                           onClick={() => setAnalyticsMetric(m)}
                           className={`rf-analytics-chart-toggle-btn ${analyticsMetric === m ? 'is-active' : ''}`}
                         >
-                          {m === 'ALL' ? 'All Metrics' : m === 'ESCROW' ? 'Gross Escrow Focus' : 'Scout Bounties Focus'}
+                          {m === 'ALL' ? 'All Series' : m === 'ESCROW' ? 'Gross GMV' : 'Scout Bounties'}
                         </button>
                       ))}
                     </div>
@@ -1740,223 +1766,218 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                   </div>
                 </div>
 
-                {/* Responsive SVG Area Chart Container */}
-                <div style={{ width: '100%', height: '240px', position: 'relative' }}>
-                  <svg
-                    viewBox="0 0 760 220"
-                    preserveAspectRatio="none"
-                    style={{ width: '100%', height: '100%', overflow: 'visible' }}
-                  >
-                    <defs>
-                      <linearGradient id="gmvModernGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--rf-leaf-green)" stopOpacity="0.4" />
-                        <stop offset="60%" stopColor="var(--rf-leaf-green)" stopOpacity="0.12" />
-                        <stop offset="100%" stopColor="var(--rf-leaf-green)" stopOpacity="0.0" />
-                      </linearGradient>
-                      <linearGradient id="scoutModernGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.35" />
-                        <stop offset="70%" stopColor="#38BDF8" stopOpacity="0.08" />
-                        <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-
-                    {/* Horizontal Reference Grid Lines & Left Y-Axis Labels */}
+                {/* Stage: Responsive Dual-Layer Volume Pillars + Smooth Trend Line */}
+                <div className="rf-fintech-chart-stage">
+                  {/* Background Reference Lines with Tabular Labels */}
+                  <div className="rf-fintech-grid-lines">
                     {activeDataset.ticks.map((t, idx) => (
-                      <g key={idx}>
-                        <line
-                          x1="55"
-                          y1={t.y}
-                          x2="710"
-                          y2={t.y}
-                          stroke="var(--rf-bg-card-border)"
-                          strokeDasharray={t.y === 185 ? '0' : '4 4'}
-                          strokeWidth="1"
-                        />
-                        <text
-                          x="45"
-                          y={t.y + 3}
-                          textAnchor="end"
-                          fill="var(--rf-slate-400)"
-                          fontSize="9.5"
-                          fontWeight="600"
-                          fontFamily="sans-serif"
-                        >
-                          {t.label}
-                        </text>
-                      </g>
+                      <div key={idx} className="rf-fintech-grid-row">
+                        <span className="rf-fintech-grid-label">{t.label}</span>
+                        <div className="rf-fintech-grid-line" />
+                      </div>
                     ))}
+                  </div>
 
-                    {/* Scout Area & Line (Cyan) */}
-                    {(analyticsMetric === 'ALL' || analyticsMetric === 'SCOUT') && (
-                      <>
-                        <path
-                          d={scoutAreaPath}
-                          fill="url(#scoutModernGradient)"
-                        />
-                        <path
-                          d={scoutLinePath}
-                          fill="none"
-                          stroke="#38BDF8"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </>
-                    )}
+                  {/* Overlay Trend Spline SVG (Mathematically Aligned to Column Centers) */}
+                  {(() => {
+                    const colW = 1000 / numPts;
+                    const splineCoords = activeDataset.points.map((pt, i) => ({
+                      cx: colW * i + colW / 2,
+                      cy: 235 - (pt.gmv / maxVal) * 195
+                    }));
+                    const scoutSplineCoords = activeDataset.points.map((pt, i) => ({
+                      cx: colW * i + colW / 2,
+                      cy: 235 - (pt.scout / maxVal) * 195
+                    }));
 
-                    {/* GMV Area & Line (Emerald) */}
-                    {(analyticsMetric === 'ALL' || analyticsMetric === 'ESCROW') && (
-                      <>
-                        <path
-                          d={gmvAreaPath}
-                          fill="url(#gmvModernGradient)"
-                        />
-                        <path
-                          d={gmvLinePath}
-                          fill="none"
-                          stroke="var(--rf-leaf-green)"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </>
-                    )}
+                    const makePath = (coords: { cx: number; cy: number }[]) => {
+                      if (coords.length === 0) return '';
+                      let d = `M ${coords[0].cx} ${coords[0].cy}`;
+                      for (let i = 0; i < coords.length - 1; i++) {
+                        const p0 = coords[i];
+                        const p1 = coords[i + 1];
+                        const mx = (p0.cx + p1.cx) / 2;
+                        d += ` C ${mx} ${p0.cy}, ${mx} ${p1.cy}, ${p1.cx} ${p1.cy}`;
+                      }
+                      return d;
+                    };
 
-                    {/* Hover Vertical Guide Line */}
-                    {hoveredPointIndex !== null && (
-                      <line
-                        x1={gmvCoords[hoveredPointIndex].x}
-                        y1="25"
-                        x2={gmvCoords[hoveredPointIndex].x}
-                        y2="185"
-                        stroke="rgba(102, 187, 42, 0.55)"
-                        strokeDasharray="3 3"
-                        strokeWidth="1.5"
-                      />
-                    )}
+                    const gmvPath = makePath(splineCoords);
+                    const scoutPath = makePath(scoutSplineCoords);
 
-                    {/* Data Points on GMV Line */}
-                    {gmvCoords.map((pt, idx) => {
-                      const isHovered = hoveredPointIndex === idx;
-                      return (
-                        <g key={idx}>
-                          {/* X-Axis Month / Date Label */}
-                          <text
-                            x={pt.x}
-                            y="204"
-                            textAnchor="middle"
-                            fill={isHovered ? 'var(--rf-cream)' : 'var(--rf-slate-400)'}
-                            fontSize="10"
-                            fontWeight={isHovered ? '800' : '500'}
-                          >
-                            {pt.label}
-                          </text>
+                    return (
+                      <svg
+                        className="rf-fintech-trend-svg"
+                        viewBox="0 0 1000 240"
+                        preserveAspectRatio="none"
+                      >
+                        <defs>
+                          <linearGradient id="fintechGmvLineGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stopColor="#10B981" />
+                            <stop offset="50%" stopColor="#A3E635" />
+                            <stop offset="100%" stopColor="#D4F933" />
+                          </linearGradient>
+                        </defs>
 
-                          {/* Scout Dot */}
-                          {(analyticsMetric === 'ALL' || analyticsMetric === 'SCOUT') && (
-                            <circle
-                              cx={scoutCoords[idx].x}
-                              cy={scoutCoords[idx].y}
-                              r={isHovered ? '5' : '3'}
-                              fill="var(--rf-bg-surface)"
-                              stroke="#38BDF8"
-                              strokeWidth="2"
-                            />
-                          )}
+                        {/* Scout Blue Trend Line */}
+                        {(analyticsMetric === 'ALL' || analyticsMetric === 'SCOUT') && (
+                          <path
+                            d={scoutPath}
+                            fill="none"
+                            stroke="#38BDF8"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            opacity="0.85"
+                          />
+                        )}
 
-                          {/* GMV Dot */}
-                          {(analyticsMetric === 'ALL' || analyticsMetric === 'ESCROW') && (
-                            <g>
-                              {isHovered && (
-                                <circle
-                                  cx={pt.x}
-                                  cy={pt.y}
-                                  r="9"
-                                  fill="var(--rf-leaf-green)"
-                                  fillOpacity="0.25"
-                                />
+                        {/* Escrow Emerald Trend Line */}
+                        {(analyticsMetric === 'ALL' || analyticsMetric === 'ESCROW') && (
+                          <path
+                            d={gmvPath}
+                            fill="none"
+                            stroke="url(#fintechGmvLineGrad)"
+                            strokeWidth="3.2"
+                            strokeLinecap="round"
+                          />
+                        )}
+
+                        {/* Nodes on Line */}
+                        {splineCoords.map((pt, i) => {
+                          const isHovered = hoveredPointIndex === i;
+                          return (
+                            <g key={i}>
+                              {(analyticsMetric === 'ALL' || analyticsMetric === 'ESCROW') && (
+                                <>
+                                  {isHovered && (
+                                    <circle
+                                      cx={pt.cx}
+                                      cy={pt.cy}
+                                      r="8"
+                                      fill="var(--rf-leaf-green)"
+                                      fillOpacity="0.3"
+                                    />
+                                  )}
+                                  <circle
+                                    cx={pt.cx}
+                                    cy={pt.cy}
+                                    r={isHovered ? '5' : '3.5'}
+                                    fill="var(--rf-bg-surface)"
+                                    stroke="var(--rf-leaf-green)"
+                                    strokeWidth="2.5"
+                                  />
+                                </>
                               )}
-                              <circle
-                                cx={pt.x}
-                                cy={pt.y}
-                                r={isHovered ? '5.5' : '3.8'}
-                                fill="var(--rf-bg-surface)"
-                                stroke="var(--rf-leaf-green)"
-                                strokeWidth="2.5"
-                              />
                             </g>
+                          );
+                        })}
+                      </svg>
+                    );
+                  })()}
+
+                  {/* Responsive Column Pillars */}
+                  <div
+                    className="rf-fintech-columns-wrapper"
+                    style={{ gridTemplateColumns: `repeat(${numPts}, 1fr)` }}
+                  >
+                    {activeDataset.points.map((pt, idx) => {
+                      const isHovered = hoveredPointIndex === idx;
+                      const barHeightPct = Math.max(14, (pt.gmv / maxVal) * 85);
+                      const scoutHeightPct = Math.max(8, (pt.scout / pt.gmv) * 100);
+
+                      return (
+                        <div
+                          key={pt.label}
+                          className={`rf-fintech-col ${isHovered ? 'is-active' : ''}`}
+                          onMouseEnter={() => setHoveredPointIndex(idx)}
+                          onMouseLeave={() => setHoveredPointIndex(null)}
+                        >
+                          {/* Floating Glassmorphic Tooltip Card */}
+                          {isHovered && (
+                            <div className="rf-fintech-tooltip-card">
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--rf-bg-card-border)', paddingBottom: '0.35rem', marginBottom: '0.35rem' }}>
+                                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
+                                  {pt.label} 2026
+                                </span>
+                                <span className="rf-analytics-badge is-positive" style={{ padding: '0.1rem 0.4rem', fontSize: '0.65rem' }}>
+                                  {pt.deals} Deals
+                                </span>
+                              </div>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', fontSize: '0.75rem' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
+                                  <span style={{ color: 'var(--rf-slate-400)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)' }} />
+                                    Escrow GMV:
+                                  </span>
+                                  <strong style={{ color: 'var(--rf-cream)' }}>{pt.gmvText}</strong>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
+                                  <span style={{ color: 'var(--rf-slate-400)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38BDF8' }} />
+                                    Scout Bounty:
+                                  </span>
+                                  <strong style={{ color: '#38BDF8' }}>{pt.scoutText}</strong>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem', paddingTop: '0.25rem', borderTop: '1px solid var(--rf-bg-card-border)', fontSize: '0.7rem' }}>
+                                  <span style={{ color: 'var(--rf-slate-400)' }}>Net Take (5%):</span>
+                                  <span style={{ color: 'var(--rf-leaf-green)', fontWeight: 700 }}>
+                                    ₦{(pt.gmv * 0.05).toFixed(2)}M
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
                           )}
-                        </g>
+
+                          {/* Modern Volume Pillar Bar */}
+                          <div
+                            className="rf-fintech-bar-pillar"
+                            style={{
+                              height: `${barHeightPct}%`,
+                              background: isHovered
+                                ? 'linear-gradient(180deg, #A3E635 0%, #2E7D32 60%, rgba(13, 34, 22, 0.9) 100%)'
+                                : 'linear-gradient(180deg, rgba(163, 230, 53, 0.85) 0%, rgba(46, 125, 50, 0.6) 60%, rgba(13, 34, 22, 0.4) 100%)',
+                              border: isHovered ? '1px solid rgba(163, 230, 53, 0.8)' : '1px solid rgba(102, 187, 42, 0.35)'
+                            }}
+                          >
+                            <span className="rf-fintech-bar-glow-cap" />
+
+                            {/* Nested Scout Attribution Layer */}
+                            {(analyticsMetric === 'ALL' || analyticsMetric === 'SCOUT') && (
+                              <div
+                                style={{
+                                  width: '100%',
+                                  height: `${scoutHeightPct}%`,
+                                  background: 'linear-gradient(180deg, #38BDF8 0%, rgba(2, 132, 199, 0.5) 100%)',
+                                  borderRadius: '0 0 2px 2px'
+                                }}
+                              />
+                            )}
+                          </div>
+                        </div>
                       );
                     })}
+                  </div>
 
-                    {/* Invisible Hit Zones for Hover Tracking */}
-                    {gmvCoords.map((pt, idx) => (
-                      <rect
-                        key={`hit-${idx}`}
-                        x={pt.x - 32}
-                        y="20"
-                        width="64"
-                        height="170"
-                        fill="transparent"
-                        style={{ cursor: 'pointer' }}
-                        onMouseEnter={() => setHoveredPointIndex(idx)}
-                        onMouseLeave={() => setHoveredPointIndex(null)}
-                      />
+                  {/* Responsive Bottom Month Axis Labels */}
+                  <div
+                    className="rf-fintech-col-footer"
+                    style={{ gridTemplateColumns: `repeat(${numPts}, 1fr)` }}
+                  >
+                    {activeDataset.points.map((pt, idx) => (
+                      <span
+                        key={pt.label}
+                        className={`rf-fintech-col-label ${hoveredPointIndex === idx ? 'is-active' : ''}`}
+                      >
+                        {pt.label}
+                      </span>
                     ))}
-                  </svg>
-
-                  {/* Interactive Floating Tooltip */}
-                  {activePoint && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        left: `${(activePoint.x / 760) * 100}%`,
-                        top: `${Math.max(12, Math.min(65, (activePoint.y / 220) * 100 - 32))}%`,
-                        transform: 'translate(-50%, -100%)',
-                        backgroundColor: 'var(--rf-bg-deep)',
-                        border: '1px solid var(--rf-bg-card-border)',
-                        borderRadius: '8px',
-                        padding: '0.65rem 0.85rem',
-                        boxShadow: '0 12px 28px rgba(0, 0, 0, 0.45)',
-                        pointerEvents: 'none',
-                        zIndex: 25,
-                        minWidth: '180px',
-                        backdropFilter: 'blur(8px)',
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--rf-bg-card-border)', paddingBottom: '0.35rem', marginBottom: '0.35rem' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                          {activePoint.label} ({activeDataset.timeframeLabel})
-                        </span>
-                        <span className="rf-analytics-badge is-positive" style={{ padding: '0.1rem 0.4rem', fontSize: '0.65rem' }}>
-                          {activePoint.deals} Deals
-                        </span>
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', fontSize: '0.75rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
-                          <span style={{ color: 'var(--rf-slate-400)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)' }} />
-                            Escrow GMV:
-                          </span>
-                          <strong style={{ color: 'var(--rf-cream)' }}>{activePoint.gmvText}</strong>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
-                          <span style={{ color: 'var(--rf-slate-400)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38BDF8' }} />
-                            Scout Bounty (10%):
-                          </span>
-                          <strong style={{ color: '#38BDF8' }}>{activePoint.scoutText}</strong>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
 
                 {/* Chart Micro Footer Metrics */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--rf-bg-card-border)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
-                    <span style={{ color: 'var(--rf-slate-400)' }}>Peak Volume:</span>
+                    <span style={{ color: 'var(--rf-slate-400)' }}>Peak Milestone Volume:</span>
                     <strong style={{ color: 'var(--rf-cream)' }}>{activeDataset.peakVolume}</strong>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
@@ -1964,8 +1985,12 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
                     <strong style={{ color: 'var(--rf-cream)' }}>{activeDataset.avgEscrow}</strong>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
-                    <span style={{ color: 'var(--rf-slate-400)' }}>Release Latency:</span>
+                    <span style={{ color: 'var(--rf-slate-400)' }}>Settlement Clearance:</span>
                     <strong style={{ color: 'var(--rf-leaf-green)' }}>&lt; 2.4 hrs post-signoff</strong>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
+                    <span style={{ color: 'var(--rf-slate-400)' }}>Corridors Active:</span>
+                    <strong style={{ color: '#38BDF8' }}>5 Sovereign Corridors</strong>
                   </div>
                 </div>
               </div>
