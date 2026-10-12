@@ -1,178 +1,164 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 290" width="100%" height="100%" fill="none">
-  <!-- Refeir High-Contrast Modern 2D Flat Business Deal & Negotiation SVG Illustration -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 280" width="100%" height="100%" fill="none">
+  <!-- Refeir Clean Flat 2D Business Deal & Negotiation SVG (Zero Black, Warm & High Contrast) -->
   <defs>
-    <!-- Crisp High-Contrast Gradients -->
-    <!-- Client (Left): Bright Electric Cyan / Royal Azure Suit -->
-    <linearGradient id="clientSuitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Left Person: Royal Azure & Sky Blue Jacket -->
+    <linearGradient id="clientJacketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stopColor="#38BDF8" />
       <stop offset="100%" stopColor="#0284C7" />
     </linearGradient>
 
-    <!-- Partner (Right): Radiant Vibrant Lime & Emerald Green Blazer -->
-    <linearGradient id="partnerSuitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Right Person: Leaf & Emerald Green Jacket -->
+    <linearGradient id="partnerJacketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stopColor="#A3E635" />
-      <stop offset="100%" stopColor="#4ADE80" />
+      <stop offset="100%" stopColor="#2E7D32" />
     </linearGradient>
 
-    <!-- Warm Golden Amber Tie & Accents -->
-    <linearGradient id="goldAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#FDE047" />
-      <stop offset="100%" stopColor="#F59E0B" />
+    <!-- Table Surface: Warm Rich Wood (Ochre & Honey Amber) -->
+    <linearGradient id="woodTableGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#D97706" />
+      <stop offset="50%" stopColor="#F59E0B" />
+      <stop offset="100%" stopColor="#D97706" />
     </linearGradient>
 
-    <!-- Sleek Conference Table: Bright Crisp Slate Surface for High Contrast -->
-    <linearGradient id="brightTableTopGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stopColor="#E2E8F0" />
-      <stop offset="50%" stopColor="#FFFFFF" />
-      <stop offset="100%" stopColor="#E2E8F0" />
+    <!-- Warm Golden Accents & Terracotta Pot -->
+    <linearGradient id="potGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#F6B21A" />
+      <stop offset="100%" stopColor="#D97706" />
     </linearGradient>
 
-    <!-- Laptop Glowing Screen -->
-    <linearGradient id="brightLaptopScreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#38BDF8" />
-      <stop offset="100%" stopColor="#818CF8" />
+    <!-- Laptop Screen Glow (Soft Mint / Light Leaf Green) -->
+    <linearGradient id="screenGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#E8F9D6" />
+      <stop offset="100%" stopColor="#CEF5A0" />
     </linearGradient>
 
-    <!-- Ambient Aura behind the scene -->
-    <radialGradient id="sceneAuraGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stopColor="#10B981" stopOpacity="0.30" />
-      <stop offset="60%" stopColor="#38BDF8" stopOpacity="0.15" />
-      <stop offset="100%" stopColor="#091D12" stopOpacity="0" />
-    </radialGradient>
+    <!-- Leaves Gradient -->
+    <linearGradient id="treeLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#A3E635" />
+      <stop offset="100%" stopColor="#2E7D32" />
+    </linearGradient>
   </defs>
 
-  <!-- Ambient Radiant Backlight Aura (Illuminates the entire scene against dark website background) -->
-  <ellipse cx="230" cy="150" rx="195" ry="110" fill="url(#sceneAuraGrad)" />
+  <!-- Ground subtle base shadow -->
+  <ellipse cx="230" cy="256" rx="180" ry="8" fill="rgba(18, 43, 26, 0.25)" />
 
-  <!-- Ground subtle shadow -->
-  <ellipse cx="230" cy="265" rx="190" ry="10" fill="rgba(0, 0, 0, 0.45)" />
-
-  <!-- Subtle Architecture Backdrop (Thin, luminous glowing guidelines) -->
-  <g stroke="rgba(255, 255, 255, 0.12)" strokeWidth="1.2">
-    <line x1="85" y1="20" x2="85" y2="185" />
-    <line x1="230" y1="20" x2="230" y2="155" strokeDasharray="4 6" />
-    <line x1="375" y1="20" x2="375" y2="185" />
-    <line x1="40" y1="95" x2="420" y2="95" strokeDasharray="3 4" />
-  </g>
-
-  <!-- Upward Trajectory Arc (Bright Lime Green) -->
-  <path d="M 70 215 C 135 145, 230 85, 385 68" stroke="#A3E635" strokeWidth="2" strokeDasharray="6 6" opacity="0.85" />
-  <circle cx="385" cy="68" r="5" fill="#A3E635" />
-  <circle cx="385" cy="68" r="2.5" fill="#FFFFFF" />
+  <!-- Background Growth Trajectory Graphic (Harmonic upward arc) -->
+  <path d="M 90 205 C 160 145, 250 95, 380 65" stroke="rgba(163, 230, 53, 0.4)" strokeWidth="2" strokeDasharray="5 5" fill="none" />
+  <circle cx="380" cy="65" r="4.5" fill="#66BB2A" />
+  <circle cx="380" cy="65" r="2" fill="#FFFFFF" />
 
   <!-- ========================================== -->
-  <!-- LEFT FIGURE: Enterprise Client (Bright Cyan Suit) -->
+  <!-- LEFT PERSON: Enterprise Client (Azure Blue) -->
   <!-- ========================================== -->
   <g id="client-figure">
-    <!-- Chair Back: Crisp Slate with Outline -->
-    <rect x="54" y="110" width="46" height="68" rx="10" fill="#1E293B" stroke="rgba(56, 189, 248, 0.4)" strokeWidth="2" />
-    <line x1="77" y1="178" x2="77" y2="252" stroke="#0F172A" strokeWidth="5" strokeLinecap="round" />
-    <line x1="60" y1="252" x2="94" y2="252" stroke="#0F172A" strokeWidth="3.5" strokeLinecap="round" />
+    <!-- Ergonomic Office Chair: Deep Forest Green (no black) -->
+    <rect x="58" y="110" width="46" height="64" rx="8" fill="#153823" stroke="rgba(163, 230, 53, 0.3)" strokeWidth="1.5" />
+    <path d="M 64 172 L 52 192 C 50 195 54 198 57 196 L 68 178 Z" fill="#122E1D" />
+    <path d="M 81 174 L 81 250" stroke="#122E1D" strokeWidth="4.5" strokeLinecap="round" />
+    <path d="M 98 172 L 110 192 C 112 195 108 198 105 196 L 94 178 Z" fill="#122E1D" />
 
-    <!-- Head & Hair -->
-    <ellipse cx="104" cy="82" rx="15" ry="17" fill="#8D5B36" stroke="#BA7A48" strokeWidth="1" />
-    <path d="M 90 80 C 90 65, 104 62, 117 66 C 122 71, 121 79, 118 84 C 111 77, 98 75, 90 80 Z" fill="#1E140F" />
+    <!-- Head & Hair (Warm Mocha & Rich Dark Chestnut) -->
+    <ellipse cx="106" cy="80" rx="14" ry="15" fill="#6B4125" />
+    <path d="M 94 78 C 94 66, 106 63, 117 67 C 121 71, 120 79, 117 83 C 111 77, 102 75, 94 78 Z" fill="#382112" />
     <!-- Neck -->
-    <rect x="100" y="97" width="9" height="11" fill="#8D5B36" />
+    <rect x="102" y="93" width="8" height="10" fill="#6B4125" />
 
-    <!-- Torso / Bright Cyan Suit -->
-    <path d="M 84 108 C 80 118, 77 160, 77 186 L 131 186 C 131 160, 128 118, 124 108 C 117 104, 91 104, 84 108 Z" fill="url(#clientSuitGrad)" />
-    
-    <!-- Crisp Pure White Shirt & Bright Golden Tie -->
-    <polygon points="99,108 109,108 104,126" fill="#FFFFFF" />
-    <polygon points="103,115 105,115 106,140 102,140" fill="url(#goldAccentGrad)" />
+    <!-- Torso: Azure Blue Jacket -->
+    <path d="M 90 102 C 86 110, 84 150, 84 174 L 132 174 C 132 150, 130 110, 126 102 C 120 98, 96 98, 90 102 Z" fill="url(#clientJacketGrad)" />
+    <!-- Pure White Collar & Golden Tie -->
+    <polygon points="102,102 110,102 106,118" fill="#F8FAFC" />
+    <polygon points="105,108 107,108 108,132 104,132" fill="#F6B21A" />
 
-    <!-- Right Arm (reaching across table) -->
-    <path d="M 120 124 C 140 132, 172 144, 206 148 L 204 162 C 164 157, 134 144, 116 137 Z" fill="url(#clientSuitGrad)" />
-    <!-- Hand -->
-    <ellipse cx="210" cy="154" rx="8" ry="6" fill="#8D5B36" stroke="#BA7A48" strokeWidth="1" />
+    <!-- Arm reaching forward across the table -->
+    <path d="M 120 114 C 138 124, 168 136, 202 140 L 200 152 C 160 148, 132 134, 114 126 Z" fill="#0284C7" />
+    <!-- Hand on table (Warm Mocha) -->
+    <ellipse cx="206" cy="146" rx="7" ry="5" fill="#6B4125" />
   </g>
 
   <!-- ========================================== -->
-  <!-- RIGHT FIGURE: African Partner / Architect (Bright Lime Blazer) -->
+  <!-- RIGHT PERSON: Lead Architect (Emerald Green) -->
   <!-- ========================================== -->
   <g id="partner-figure">
-    <!-- Chair Back: Crisp Slate with Outline -->
-    <rect x="360" y="110" width="46" height="68" rx="10" fill="#1E293B" stroke="rgba(163, 230, 53, 0.4)" strokeWidth="2" />
-    <line x1="383" y1="178" x2="383" y2="252" stroke="#0F172A" strokeWidth="5" strokeLinecap="round" />
-    <line x1="366" y1="252" x2="400" y2="252" stroke="#0F172A" strokeWidth="3.5" strokeLinecap="round" />
+    <!-- Ergonomic Office Chair: Deep Forest Green (no black) -->
+    <rect x="356" y="110" width="46" height="64" rx="8" fill="#153823" stroke="rgba(163, 230, 53, 0.3)" strokeWidth="1.5" />
+    <path d="M 362 172 L 350 192 C 348 195 352 198 355 196 L 366 178 Z" fill="#122E1D" />
+    <path d="M 379 174 L 379 250" stroke="#122E1D" strokeWidth="4.5" strokeLinecap="round" />
+    <path d="M 396 172 L 408 192 C 410 195 406 198 403 196 L 392 178 Z" fill="#122E1D" />
 
-    <!-- Head & Hair (stylish bun) -->
-    <ellipse cx="356" cy="82" rx="15" ry="17" fill="#8D5B36" stroke="#BA7A48" strokeWidth="1" />
-    <circle cx="356" cy="65" r="9" fill="#1E140F" />
-    <path d="M 342 80 C 342 66, 358 63, 370 67 C 373 72, 372 81, 369 85 C 362 77, 351 76, 342 80 Z" fill="#1E140F" />
+    <!-- Head & Hair (Warm Mocha & Rich Dark Chestnut Bun) -->
+    <ellipse cx="354" cy="80" rx="14" ry="15" fill="#6B4125" />
+    <circle cx="354" cy="65" r="7.5" fill="#382112" />
+    <path d="M 342 78 C 342 66, 354 63, 365 67 C 369 71, 368 79, 365 83 C 359 77, 350 75, 342 78 Z" fill="#382112" />
     <!-- Neck -->
-    <rect x="351" y="97" width="9" height="11" fill="#8D5B36" />
+    <rect x="350" y="93" width="8" height="10" fill="#6B4125" />
 
-    <!-- Torso / Radiant Lime & Green Blazer -->
-    <path d="M 336 108 C 332 118, 329 160, 329 186 L 383 186 C 383 160, 380 118, 376 108 C 369 104, 343 104, 336 108 Z" fill="url(#partnerSuitGrad)" />
-    
-    <!-- Pure White Inner Blouse with Pearl Detail -->
-    <polygon points="351,108 361,108 356,128" fill="#FFFFFF" />
-    <circle cx="356" cy="118" r="2.5" fill="#E2E8F0" />
+    <!-- Torso: Smart Emerald Green Jacket -->
+    <path d="M 338 102 C 334 110, 332 150, 332 174 L 380 174 C 380 150, 378 110, 374 102 C 368 98, 344 98, 338 102 Z" fill="url(#partnerJacketGrad)" />
+    <!-- Pure White Collar -->
+    <polygon points="350,102 358,102 354,118" fill="#F8FAFC" />
 
-    <!-- Left Arm (reaching forward to shake hands) -->
-    <path d="M 340 126 C 318 134, 286 146, 252 149 L 254 163 C 292 160, 324 146, 344 139 Z" fill="url(#partnerSuitGrad)" />
-    <!-- Hand -->
-    <ellipse cx="248" cy="155" rx="8" ry="6" fill="#8D5B36" stroke="#BA7A48" strokeWidth="1" />
+    <!-- Arm reaching forward to shake hands -->
+    <path d="M 340 116 C 320 126, 290 138, 256 142 L 258 154 C 298 150, 326 136, 346 128 Z" fill="#256629" />
+    <!-- Hand (Warm Mocha) -->
+    <ellipse cx="252" cy="147" rx="7" ry="5" fill="#6B4125" />
   </g>
 
   <!-- ========================================== -->
-  <!-- CENTER HANDSHAKE CLASP & GLOWING SEAL -->
+  <!-- CENTER HANDSHAKE CLASP -->
   <!-- ========================================== -->
   <g id="handshake-clasp">
-    <!-- Firm Interlocked Hands with Warm Amber Glow -->
-    <ellipse cx="229" cy="154" rx="16" ry="11" fill="#784725" stroke="#FDE047" strokeWidth="2.5" />
-    <path d="M 220 152 Q 229 160 238 152" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" fill="none" />
+    <!-- Warm Interlocked Hands -->
+    <ellipse cx="229" cy="147" rx="14" ry="9" fill="#58351E" stroke="#F6B21A" strokeWidth="1.8" />
+    <path d="M 221 144 Q 229 152 237 144" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" fill="none" />
 
-    <!-- Concentric Golden Agreement Halo -->
-    <circle cx="229" cy="154" r="26" stroke="#F59E0B" strokeWidth="2" strokeDasharray="5 5" fill="none" />
-    <circle cx="229" cy="154" r="34" stroke="rgba(253, 224, 71, 0.35)" strokeWidth="1.2" fill="none" />
+    <!-- Radiant Agreement Glow Ring -->
+    <circle cx="229" cy="147" r="22" stroke="rgba(246, 178, 26, 0.55)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
   </g>
 
   <!-- ========================================== -->
-  <!-- HIGH-CONTRAST MODERN CONFERENCE DESK -->
+  <!-- MODERN WOODEN CONFERENCE TABLE & ITEMS -->
   <!-- ========================================== -->
   <g id="conference-table">
-    <!-- Desk Surface: Crisp Solid White / Light Slate (Stands out brilliantly on dark background) -->
-    <rect x="105" y="166" width="250" height="14" rx="7" fill="url(#brightTableTopGrad)" stroke="#38BDF8" strokeWidth="1.5" />
+    <!-- Warm Rich Wood Table Surface (No black) -->
+    <rect x="110" y="158" width="240" height="10" rx="5" fill="url(#woodTableGrad)" stroke="#FDE047" strokeWidth="1" />
     
-    <!-- Desk Legs: Solid Clean Silver-Slate Legs -->
-    <line x1="128" y1="180" x2="128" y2="258" stroke="#94A3B8" strokeWidth="6" strokeLinecap="round" />
-    <line x1="332" y1="180" x2="332" y2="258" stroke="#94A3B8" strokeWidth="6" strokeLinecap="round" />
-    <!-- Desk Crossbar -->
-    <line x1="128" y1="222" x2="332" y2="222" stroke="#64748B" strokeWidth="3" />
+    <!-- Desk Legs: Deep Forest Green -->
+    <line x1="130" y1="168" x2="130" y2="250" stroke="#122E1D" strokeWidth="4.5" strokeLinecap="round" />
+    <line x1="330" y1="168" x2="330" y2="250" stroke="#122E1D" strokeWidth="4.5" strokeLinecap="round" />
+    <!-- Crossbar -->
+    <line x1="130" y1="210" x2="330" y2="210" stroke="#122E1D" strokeWidth="2.5" />
 
-    <!-- CLIENT LAPTOP: Sleek Dark Slate with Glowing Cyan Screen -->
-    <polygon points="132,168 174,168 170,173 135,173" fill="#334155" />
-    <polygon points="138,168 147,138 178,138 173,168" fill="#0F172A" stroke="#38BDF8" strokeWidth="1.2" />
-    <polygon points="140,166 148,140 176,140 172,166" fill="url(#brightLaptopScreenGrad)" />
-    <!-- Code / Architecture Lines on Screen -->
-    <line x1="151" y1="147" x2="167" y2="147" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" />
-    <line x1="151" y1="153" x2="171" y2="153" stroke="#FDE047" strokeWidth="1.8" strokeLinecap="round" />
-    <line x1="151" y1="159" x2="164" y2="159" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" />
+    <!-- LAPTOP: Slate Grey with Mint Green Glowing Screen (like footer) -->
+    <polygon points="135,160 178,160 174,163 139,163" fill="#64748B" />
+    <polygon points="142,160 150,132 180,132 176,160" fill="#1E293B" stroke="#38BDF8" strokeWidth="1" />
+    <polygon points="144,158 151,134 178,134 174,158" fill="url(#screenGlowGrad)" />
+    <!-- Code lines on screen -->
+    <line x1="153" y1="140" x2="168" y2="140" stroke="#2E7D32" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="152" y1="144" x2="173" y2="144" stroke="#66BB2A" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="151" y1="148" x2="165" y2="148" stroke="#4CAF50" strokeWidth="1.5" strokeLinecap="round" />
 
-    <!-- CONTRACT DOCUMENT WITH GOLD ESCROW SEAL -->
-    <rect x="282" y="154" width="32" height="19" rx="3" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.5" transform="rotate(-5 282 154)" />
-    <line x1="287" y1="161" x2="305" y2="159" stroke="#64748B" strokeWidth="2" strokeLinecap="round" />
-    <line x1="287" y1="166" x2="301" y2="165" stroke="#64748B" strokeWidth="2" strokeLinecap="round" />
-    <!-- Wax Escrow Seal: Bold Amber & Gold -->
-    <circle cx="306" cy="165" r="4.5" fill="url(#goldAccentGrad)" stroke="#92400E" strokeWidth="1" />
+    <!-- CONTRACT DOCUMENT WITH GOLD SEAL -->
+    <rect x="278" y="148" width="30" height="18" rx="2.5" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1" transform="rotate(-6 278 148)" />
+    <line x1="283" y1="154" x2="301" y2="152" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="284" y1="159" x2="298" y2="157" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" />
+    <!-- Gold Wax Escrow Seal -->
+    <circle cx="302" cy="158" r="4" fill="url(#potGrad)" />
 
-    <!-- Ceramic Coffee Mug (Clean Pure White with Green Accent Line) -->
-    <rect x="194" y="157" width="11" height="11" rx="3" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.2" />
-    <path d="M 205 159 C 208 159, 208 164, 205 164" stroke="#CBD5E1" strokeWidth="1.2" fill="none" />
-    <line x1="198" y1="161" x2="201" y2="165" stroke="#10B981" strokeWidth="2" strokeLinecap="round" />
+    <!-- Ceramic Coffee Mug on Desk (Pure White with green emblem) -->
+    <rect x="195" y="150" width="10" height="10" rx="2" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1" />
+    <path d="M 205 153 C 208 153, 208 157, 205 157" stroke="#CBD5E1" strokeWidth="1" fill="none" />
+    <line x1="199" y1="153" x2="202" y2="157" stroke="#66BB2A" strokeWidth="1.5" />
   </g>
 
-  <!-- Potted Office Plant for Warmth & Pop of Green (Left) -->
-  <g id="office-plant" transform="translate(18, 175)">
-    <!-- Terracotta / Bright Gold Pot -->
-    <path d="M 12 42 L 16 74 C 17 76 31 76 32 74 L 36 42 Z" fill="url(#goldAccentGrad)" stroke="#B45309" strokeWidth="1.2" />
-    <rect x="11" y="38" width="26" height="5" rx="2.5" fill="#FDE047" />
-    <!-- Vibrant Green Leaves -->
-    <path d="M 24 38 C 14 24, 6 20, 10 9 C 20 14, 24 28, 24 38 Z" fill="#22C55E" />
-    <path d="M 24 38 C 32 20, 42 18, 39 7 C 29 13, 25 27, 24 38 Z" fill="#4ADE80" />
-    <path d="M 24 38 C 21 16, 28 5, 25 0 C 30 7, 27 24, 24 38 Z" fill="#A3E635" />
+  <!-- Potted Growth Plant on Left (Matching Footer Pottery & Leaves) -->
+  <g id="growth-plant" transform="translate(18, 168)">
+    <!-- Terracotta Ochre Pot -->
+    <path d="M 14 42 L 18 72 C 19 74 33 74 34 72 L 38 42 Z" fill="url(#potGrad)" />
+    <rect x="12" y="38" width="28" height="5" rx="2.5" fill="#C98405" />
+
+    <!-- Lush Flat 2D Leaves -->
+    <path d="M 26 38 C 16 22, 10 18, 16 8 C 24 13, 26 26, 26 38 Z" fill="#2E7D32" />
+    <path d="M 26 38 C 34 18, 44 16, 40 6 C 30 11, 26 25, 26 38 Z" fill="#66BB2A" />
+    <path d="M 26 38 C 23 16, 30 5, 28 0 C 33 7, 30 24, 26 38 Z" fill="#A3E635" />
   </g>
 </svg>

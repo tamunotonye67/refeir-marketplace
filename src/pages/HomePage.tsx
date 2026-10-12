@@ -3508,82 +3508,21 @@ export const HomePage: React.FC<HomePageProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: '1.25rem'
+                  padding: '0.75rem'
                 }}
               >
-                {/* Luminous Glow Backdrop to make the 2D illustration pop against dark background */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: '10%',
-                    borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(163, 230, 53, 0.18) 45%, transparent 75%)',
-                    filter: 'blur(36px)',
-                    pointerEvents: 'none'
-                  }}
-                />
-
                 <img
                   src="/business_deal_closed.svg"
                   alt="Refeir for Business - Modern 2D Flat Business Deal and Strategic Negotiation"
                   style={{
-                    position: 'relative',
-                    zIndex: 2,
                     width: '100%',
                     maxWidth: '460px',
                     height: 'auto',
                     display: 'block',
-                    filter: 'drop-shadow(0 20px 45px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 28px rgba(56, 189, 248, 0.16))',
+                    filter: 'drop-shadow(0 16px 36px rgba(0, 0, 0, 0.35))',
                     transition: 'transform 0.3s ease'
                   }}
                 />
-
-                {/* Floating Modern High-Contrast Trust Badges */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '4%',
-                    left: '0%',
-                    background: 'rgba(10, 24, 16, 0.94)',
-                    border: '1px solid rgba(56, 189, 248, 0.55)',
-                    borderRadius: '9999px',
-                    padding: '0.45rem 0.95rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    boxShadow: '0 12px 28px rgba(0, 0, 0, 0.5), 0 0 16px rgba(56, 189, 248, 0.25)',
-                    backdropFilter: 'blur(10px)',
-                    zIndex: 10
-                  }}
-                >
-                  <Building2 size={15} style={{ color: '#38BDF8' }} />
-                  <span style={{ fontSize: '0.78125rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '0.01em' }}>
-                    Pan-African Enterprise Hub
-                  </span>
-                </div>
-
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '6%',
-                    right: '0%',
-                    background: 'rgba(10, 24, 16, 0.94)',
-                    border: '1px solid rgba(163, 230, 53, 0.55)',
-                    borderRadius: '9999px',
-                    padding: '0.45rem 0.95rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    boxShadow: '0 12px 28px rgba(0, 0, 0, 0.5), 0 0 16px rgba(163, 230, 53, 0.25)',
-                    backdropFilter: 'blur(10px)',
-                    zIndex: 10
-                  }}
-                >
-                  <ShieldCheck size={15} style={{ color: 'var(--rf-leaf-green)' }} />
-                  <span style={{ fontSize: '0.78125rem', fontWeight: 700, color: '#FFFFFF', letterSpacing: '0.01em' }}>
-                    100% Escrow Safeguarded
-                  </span>
-                </div>
               </div>
             </div>
 
