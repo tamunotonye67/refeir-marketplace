@@ -8201,4 +8201,32 @@
   animation: rfGeometricPulseSlow 3s ease-in-out infinite;
 }
 
+@keyframes rfWaveFlow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 60;
+  }
+}
+
+.rf-ai-wave-flowing {
+  stroke-dasharray: 8 6;
+  animation: rfWaveFlow 3s linear infinite;
+}
+
+@keyframes rfOrbitSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rf-ai-orbit-spin {
+  animation: rfOrbitSpin 24s linear infinite;
+  transform-origin: center center;
+}
+
 

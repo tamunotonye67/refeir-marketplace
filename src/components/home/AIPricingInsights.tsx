@@ -181,18 +181,19 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
         </p>
 
         {/* Input Container — Clean Taller White Card */}
-        <form onSubmit={handleSubmit} style={{ maxWidth: '560px' }}>
+        <form onSubmit={handleSubmit} style={{ maxWidth: '580px', width: '100%' }}>
           <div
             style={{
               background: '#FFFFFF',
-              borderRadius: '24px',
-              padding: '0.85rem 1rem 0.85rem 1.6rem',
-              minHeight: '68px',
+              borderRadius: '28px',
+              padding: '0.95rem 1.15rem 0.95rem 1.85rem',
+              minHeight: '76px',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.85rem',
-              boxShadow: '0 16px 44px rgba(0, 0, 0, 0.4)',
-              transition: 'all 0.2s ease'
+              gap: '1rem',
+              boxShadow: '0 18px 48px rgba(0, 0, 0, 0.42)',
+              transition: 'all 0.2s ease',
+              boxSizing: 'border-box'
             }}
           >
             <input
@@ -207,11 +208,11 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                 outline: 'none',
                 background: 'transparent',
                 color: '#0F172A',
-                fontSize: 'clamp(1rem, 1.25vw, 1.12rem)',
+                fontSize: 'clamp(1.05rem, 1.35vw, 1.18rem)',
                 fontFamily: 'inherit',
                 fontWeight: 500,
                 minWidth: 0,
-                padding: '0.35rem 0'
+                padding: '0.45rem 0'
               }}
             />
 
@@ -223,9 +224,9 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                 color: '#FFFFFF',
                 border: 'none',
                 borderRadius: '9999px',
-                padding: '0.9rem 2.1rem',
-                minHeight: '50px',
-                fontSize: '0.98rem',
+                padding: '1rem 2.4rem',
+                minHeight: '54px',
+                fontSize: '1.02rem',
                 fontWeight: 700,
                 letterSpacing: '-0.01em',
                 cursor: 'pointer',
@@ -383,9 +384,11 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                   </defs>
 
                   {/* Concentric Radar Vector Rings */}
-                  <circle cx="180" cy="110" r="95" fill="none" stroke="rgba(163, 230, 53, 0.15)" strokeWidth="1" strokeDasharray="4 6" />
-                  <circle cx="180" cy="110" r="70" fill="url(#aiRadarGrad)" stroke="rgba(102, 187, 42, 0.3)" strokeWidth="1.2" />
-                  <circle cx="180" cy="110" r="45" fill="none" stroke="rgba(212, 249, 51, 0.5)" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <g className="rf-ai-orbit-spin">
+                    <circle cx="180" cy="110" r="95" fill="none" stroke="rgba(163, 230, 53, 0.18)" strokeWidth="1" strokeDasharray="6 8" />
+                    <circle cx="180" cy="110" r="70" fill="url(#aiRadarGrad)" stroke="rgba(102, 187, 42, 0.35)" strokeWidth="1.2" />
+                    <circle cx="180" cy="110" r="45" fill="none" stroke="rgba(212, 249, 51, 0.55)" strokeWidth="1.5" strokeDasharray="4 4" />
+                  </g>
 
                   {/* Harmonic Wave Lines */}
                   <path
@@ -393,13 +396,16 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                     fill="none"
                     stroke="#A3E635"
                     strokeWidth="1.8"
-                    opacity="0.8"
+                    opacity="0.85"
+                    className="rf-ai-wave-flowing"
                   />
                   <path
                     d="M 20 110 Q 65 145, 110 110 T 200 110 T 290 110 T 340 110"
                     fill="none"
-                    stroke="rgba(255, 255, 255, 0.35)"
+                    stroke="rgba(255, 255, 255, 0.38)"
                     strokeWidth="1.2"
+                    className="rf-ai-wave-flowing"
+                    style={{ animationDirection: 'reverse', animationDuration: '4.5s' }}
                   />
                   <path
                     d="M 40 110 Q 110 60, 180 110 T 320 110"
@@ -407,7 +413,9 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                     stroke="#66BB2A"
                     strokeWidth="1.4"
                     strokeDasharray="6 4"
-                    opacity="0.6"
+                    opacity="0.65"
+                    className="rf-ai-wave-flowing"
+                    style={{ animationDuration: '5.5s' }}
                   />
 
                   {/* Geometric Intersection Nodes */}
