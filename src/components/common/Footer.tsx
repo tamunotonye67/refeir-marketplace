@@ -142,6 +142,29 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
             <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', lineHeight: 1.6, maxWidth: '380px', marginBottom: '1.25rem' }}>
               Africa's referral-powered professional marketplace. Connecting clients with verified professionals while scouts earn guaranteed rewards from successful connections.
             </p>
+
+            {/* Flat 2D Illustration: Professional at desk with tree & leaves representing growth */}
+            <div
+              style={{
+                marginTop: '1.5rem',
+                maxWidth: '340px',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start'
+              }}
+            >
+              <img
+                src="/growth_workspace.svg"
+                alt="Professional career growth and talent workspace"
+                style={{
+                  width: '100%',
+                  maxWidth: '320px',
+                  height: 'auto',
+                  display: 'block'
+                }}
+              />
+            </div>
           </div>
 
           {/* Col 2: Regional Marketplaces & Resources */}
