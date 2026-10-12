@@ -7543,12 +7543,27 @@
   }
 
   .rf-scout-feature-card {
-    min-height: 280px;
+    min-height: 220px;
+    height: auto;
     aspect-ratio: 16 / 10;
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 16px;
   }
-}
-
 @media (max-width: 768px) {
+  .rf-scouts-how-it-works-grid {
+    padding-top: 2rem !important;
+    margin-bottom: 3rem !important;
+    gap: 1.5rem !important;
+  }
+
+  .rf-scout-feature-card {
+    min-height: 200px !important;
+    aspect-ratio: 16 / 11 !important;
+    border-radius: 14px !important;
+  }
+
   .rf-personalized-topbar {
     padding: 1.25rem 1.5rem;
   }
