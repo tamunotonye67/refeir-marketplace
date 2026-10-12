@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useI18n } from '../context/I18nContext';
 import { useTheme } from '../context/ThemeContext';
 import { useMarketplace } from '../context/MarketplaceContext';
@@ -2346,9 +2346,9 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* AI WIZARD & CREATIVE STACKED CARDS SHOWCASE (90% Black Curved Container) */}
+      {/* AI WIZARD & SCOUT SOURCING SHOWCASE CARDS */}
       <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
-        <div className="rf-container" style={{ maxWidth: '1270px' }}>
+        <div className="rf-container" style={{ maxWidth: '1270px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div
             className="rf-ai-wizard-grid"
             style={{
@@ -2720,12 +2720,8 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
           </div>
-        </div>
-      </section>
 
-      {/* SCOUT SOURCING SHOWCASE CARD — LET EXPERTS FIND THE RIGHT FREELANCER */}
-      <section style={{ padding: '0 0 5rem 0', background: 'var(--rf-bg-surface)' }}>
-        <div className="rf-container" style={{ maxWidth: '1270px' }}>
+          {/* SCOUT SOURCING SHOWCASE CARD — LET EXPERTS FIND THE RIGHT FREELANCER */}
           <div
             className="rf-scout-sourcing-grid"
             style={{
