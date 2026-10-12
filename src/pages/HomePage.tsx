@@ -3498,17 +3498,14 @@ export const HomePage: React.FC<HomePageProps> = ({
               padding: 0
             }}
           >
-            {/* LEFT: Enterprise Skyscraper Architectural Visual (Extends upward to overlap into white section above, vignettes at base) */}
+            {/* LEFT: Enterprise Business Negotiations & Deal Closing 2D Visual */}
             <div className="rf-business-visual-wrap">
-              <div className="rf-business-skyscraper-wrap">
-                <div className="rf-business-skyscraper-inner">
-                  <img
-                    src="/enterprise_skyscraper.png"
-                    alt="Refeir for Business & Global Teams - Enterprise Architectural Hub"
-                    className="rf-business-skyscraper-img"
-                  />
-                  <div className="rf-business-skyscraper-vignette" />
-                </div>
+              <div className="rf-business-deal-wrap">
+                <img
+                  src="/business_negotiation.svg"
+                  alt="Refeir for Business & Global Teams - Strategic Negotiations and Closing Deals"
+                  className="rf-business-deal-img"
+                />
               </div>
             </div>
 
