@@ -3498,26 +3498,31 @@ export const HomePage: React.FC<HomePageProps> = ({
               padding: 0
             }}
           >
-            {/* LEFT: Enterprise Skyscraper Visual with Radiant Ambient Lighting */}
-            <div className="rf-business-visual-wrap">
-              <div className="rf-business-skyscraper-wrap">
-                <div className="rf-business-skyscraper-inner">
-                  <img
-                    src="/enterprise_skyscraper.png"
-                    alt="Refeir for Business & Global Teams - Enterprise Architectural Hub"
-                    className="rf-business-skyscraper-img"
-                  />
-                  {/* Floating Modern Trust Badges */}
-                  <div className="rf-skyscraper-badge-pill rf-skyscraper-badge-top">
-                    <Building2 size={15} style={{ color: '#38BDF8' }} />
-                    <span>Pan-African Enterprise Hub</span>
-                  </div>
-
-                  <div className="rf-skyscraper-badge-pill rf-skyscraper-badge-bottom">
-                    <ShieldCheck size={15} style={{ color: 'var(--rf-leaf-green)' }} />
-                    <span>100% Escrow Safeguarded</span>
-                  </div>
-                </div>
+            {/* LEFT: Modern Flat 2D Business Deal & Strategic Negotiation Visual */}
+            <div className="rf-business-visual-wrap" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  maxWidth: '480px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '1rem'
+                }}
+              >
+                <img
+                  src="/business_deal_closed.svg"
+                  alt="Refeir for Business - Modern 2D Flat Business Deal and Strategic Negotiation"
+                  style={{
+                    width: '100%',
+                    maxWidth: '440px',
+                    height: 'auto',
+                    display: 'block',
+                    filter: 'drop-shadow(0 20px 45px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 25px rgba(102, 187, 42, 0.12))',
+                    transition: 'transform 0.3s ease'
+                  }}
+                />
               </div>
             </div>
 

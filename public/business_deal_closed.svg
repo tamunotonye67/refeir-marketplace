@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 280" width="100%" height="100%" fill="none">
+  <!-- Refeir Modern 2D Flat Business Deal & Negotiation SVG Illustration -->
+  <defs>
+    <!-- Gradient for Client (Left) -->
+    <linearGradient id="clientJacketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1E3A8A" />
+      <stop offset="100%" stopColor="#0F172A" />
+    </linearGradient>
+
+    <!-- Gradient for Lead Architect / Business Partner (Right) -->
+    <linearGradient id="partnerJacketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#66BB2A" />
+      <stop offset="100%" stopColor="#1E4620" />
+    </linearGradient>
+
+    <!-- Sleek Conference Table Gradient -->
+    <linearGradient id="tableTopGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#153320" />
+      <stop offset="50%" stopColor="#1C4029" />
+      <stop offset="100%" stopColor="#153320" />
+    </linearGradient>
+
+    <!-- Escrow Deal Shield / Glow -->
+    <linearGradient id="dealGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#F6B21A" />
+      <stop offset="100%" stopColor="#D97706" />
+    </linearGradient>
+
+    <!-- Laptop Screen Glow -->
+    <linearGradient id="laptopScreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#D9F99D" />
+      <stop offset="100%" stopColor="#86EFAC" />
+    </linearGradient>
+  </defs>
+
+  <!-- Ground subtle base shadow -->
+  <ellipse cx="220" cy="256" rx="190" ry="10" fill="rgba(6, 21, 13, 0.45)" />
+
+  <!-- Background Subtle Architecture / Window Frame Lines -->
+  <g stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1.5">
+    <line x1="80" y1="20" x2="80" y2="180" />
+    <line x1="220" y1="20" x2="220" y2="160" strokeDasharray="4 6" />
+    <line x1="360" y1="20" x2="360" y2="180" />
+    <line x1="40" y1="90" x2="400" y2="90" strokeDasharray="3 4" />
+  </g>
+
+  <!-- Dynamic Upward Trajectory Deal Arc -->
+  <path d="M 70 210 C 130 140, 220 90, 370 70" stroke="rgba(102, 187, 42, 0.25)" strokeWidth="2.5" strokeDasharray="6 6" />
+  <circle cx="370" cy="70" r="4.5" fill="#66BB2A" />
+  <circle cx="370" cy="70" r="2" fill="#FFFFFF" />
+
+  <!-- ========================================== -->
+  <!-- LEFT PERSON: Enterprise Client (Navy Suit) -->
+  <!-- ========================================== -->
+  <g id="client-figure">
+    <!-- Chair Back -->
+    <rect x="52" y="108" width="42" height="64" rx="10" fill="#0C1D13" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="1.5" />
+    <line x1="73" y1="172" x2="73" y2="245" stroke="#08140D" strokeWidth="4.5" strokeLinecap="round" />
+    <line x1="58" y1="245" x2="88" y2="245" stroke="#08140D" strokeWidth="3" strokeLinecap="round" />
+
+    <!-- Head & Hair (clean modern flat silhouette) -->
+    <ellipse cx="98" cy="82" rx="14" ry="16" fill="#6B4125" />
+    <path d="M 85 80 C 85 67, 98 64, 110 68 C 114 73, 114 80, 111 84 C 105 78, 93 76, 85 80 Z" fill="#20140D" />
+    <!-- Neck -->
+    <rect x="94" y="96" width="9" height="10" fill="#6B4125" />
+
+    <!-- Torso / Navy Jacket -->
+    <path d="M 80 106 C 76 116, 74 158, 74 182 L 122 182 C 122 158, 120 116, 116 106 C 110 102, 86 102, 80 106 Z" fill="url(#clientJacketGrad)" />
+    <!-- White Shirt & Amber Tie -->
+    <polygon points="94,106 102,106 98,122" fill="#F8FAFC" />
+    <polygon points="97,112 99,112 100,136 96,136" fill="#F6B21A" />
+
+    <!-- Right Arm (reaching across the table to shake hands) -->
+    <path d="M 112 120 C 130 128, 158 140, 192 144 L 190 156 C 152 152, 124 138, 108 132 Z" fill="#1E3A8A" />
+    <!-- Hand -->
+    <ellipse cx="196" cy="148" rx="7" ry="5" fill="#6B4125" />
+  </g>
+
+  <!-- ========================================== -->
+  <!-- RIGHT PERSON: African Lead Architect / Partner (Green Jacket) -->
+  <!-- ========================================== -->
+  <g id="partner-figure">
+    <!-- Chair Back -->
+    <rect x="346" y="108" width="42" height="64" rx="10" fill="#0C1D13" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="1.5" />
+    <line x1="367" y1="172" x2="367" y2="245" stroke="#08140D" strokeWidth="4.5" strokeLinecap="round" />
+    <line x1="352" y1="245" x2="382" y2="245" stroke="#08140D" strokeWidth="3" strokeLinecap="round" />
+
+    <!-- Head & Hair (stylish modern bun / texture) -->
+    <ellipse cx="342" cy="82" rx="14" ry="16" fill="#6B4125" />
+    <circle cx="342" cy="67" r="8" fill="#1A1009" />
+    <path d="M 330 80 C 330 68, 344 65, 355 69 C 358 74, 357 82, 354 85 C 348 78, 338 77, 330 80 Z" fill="#1A1009" />
+    <!-- Neck -->
+    <rect x="337" y="96" width="9" height="10" fill="#6B4125" />
+
+    <!-- Torso / Emerald Green Jacket -->
+    <path d="M 324 106 C 320 116, 318 158, 318 182 L 366 182 C 366 158, 364 116, 360 106 C 354 102, 330 102, 324 106 Z" fill="url(#partnerJacketGrad)" />
+    <!-- Crisp White Collar Top -->
+    <polygon points="338,106 346,106 342,124" fill="#F8FAFC" />
+
+    <!-- Left Arm (reaching forward to complete the handshake) -->
+    <path d="M 326 122 C 306 130, 276 142, 238 145 L 240 157 C 280 154, 310 140, 330 134 Z" fill="#2E7D32" />
+    <!-- Hand -->
+    <ellipse cx="234" cy="149" rx="7" ry="5" fill="#6B4125" />
+  </g>
+
+  <!-- ========================================== -->
+  <!-- CENTER HANDSHAKE CLASP & DEAL SEAL -->
+  <!-- ========================================== -->
+  <g id="handshake-clasp">
+    <!-- Firm Interlocked Hands Silhouette -->
+    <ellipse cx="215" cy="148" rx="14" ry="9" fill="#58351E" stroke="#F6B21A" strokeWidth="1.5" />
+    <path d="M 207 145 Q 215 152 223 145" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+
+    <!-- Radiant Deal Closing Glow Ring -->
+    <circle cx="215" cy="148" r="22" stroke="rgba(246, 178, 26, 0.45)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
+  </g>
+
+  <!-- ========================================== -->
+  <!-- MODERN CONFERENCE DESK & ACCESSORIES -->
+  <!-- ========================================== -->
+  <g id="conference-table">
+    <!-- Desk Table Surface -->
+    <rect x="100" y="162" width="240" height="12" rx="6" fill="url(#tableTopGrad)" stroke="rgba(102, 187, 42, 0.35)" strokeWidth="1" />
+    
+    <!-- Desk Legs -->
+    <line x1="120" y1="174" x2="120" y2="250" stroke="#0D2216" strokeWidth="5" strokeLinecap="round" />
+    <line x1="320" y1="174" x2="320" y2="250" stroke="#0D2216" strokeWidth="5" strokeLinecap="round" />
+    <!-- Desk Cross Stretcher Bar -->
+    <line x1="120" y1="215" x2="320" y2="215" stroke="#0D2216" strokeWidth="3" />
+
+    <!-- CLIENT LAPTOP (Left side of desk) -->
+    <polygon points="125,164 165,164 162,168 128,168" fill="#475569" />
+    <polygon points="132,164 140,138 168,138 164,164" fill="#0F172A" />
+    <polygon points="134,162 141,140 166,140 162,162" fill="url(#laptopScreenGrad)" />
+    <!-- Screen Code / Chart Lines -->
+    <line x1="143" y1="146" x2="158" y2="146" stroke="#166534" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="143" y1="151" x2="162" y2="151" stroke="#15803D" strokeWidth="1.5" strokeLinecap="round" />
+
+    <!-- CONTRACT DOCUMENT WITH ESCROW SEAL (Right side of desk) -->
+    <rect x="268" y="152" width="28" height="16" rx="2" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1" transform="rotate(-6 268 152)" />
+    <line x1="272" y1="158" x2="288" y2="156" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="273" y1="162" x2="285" y2="161" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" />
+    <!-- Gold Wax / Verified Escrow Stamp on Contract -->
+    <circle cx="290" cy="161" r="3.5" fill="url(#dealGlowGrad)" />
+
+    <!-- Minimal Ceramic Coffee Mug -->
+    <rect x="180" y="153" width="9" height="10" rx="2" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1" />
+    <path d="M 189 155 C 192 155, 192 159, 189 159" stroke="#CBD5E1" strokeWidth="1" fill="none" />
+  </g>
+
+  <!-- Potted Office Plant for Warmth & Refeir Aesthetic (Left) -->
+  <g id="office-plant" transform="translate(18, 172)">
+    <!-- Pot -->
+    <path d="M 10 40 L 14 70 C 15 72 27 72 28 70 L 32 40 Z" fill="#C98405" />
+    <rect x="9" y="37" width="24" height="4" rx="2" fill="#F6B21A" />
+    <!-- Leaves -->
+    <path d="M 21 37 C 12 25, 6 22, 10 12 C 18 16, 21 28, 21 37 Z" fill="#2E7D32" />
+    <path d="M 21 37 C 28 22, 36 20, 34 10 C 26 15, 22 27, 21 37 Z" fill="#66BB2A" />
+    <path d="M 21 37 C 18 18, 24 8, 22 4 C 26 10, 24 25, 21 37 Z" fill="#A3E635" />
+  </g>
+</svg>
