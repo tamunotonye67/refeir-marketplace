@@ -3498,14 +3498,26 @@ export const HomePage: React.FC<HomePageProps> = ({
               padding: 0
             }}
           >
-            {/* LEFT: Enterprise Business Negotiations & Deal Closing 2D Visual */}
+            {/* LEFT: Enterprise Skyscraper Visual with Radiant Ambient Lighting */}
             <div className="rf-business-visual-wrap">
-              <div className="rf-business-deal-wrap">
-                <img
-                  src="/business_negotiation.svg"
-                  alt="Refeir for Business & Global Teams - Strategic Negotiations and Closing Deals"
-                  className="rf-business-deal-img"
-                />
+              <div className="rf-business-skyscraper-wrap">
+                <div className="rf-business-skyscraper-inner">
+                  <img
+                    src="/enterprise_skyscraper.png"
+                    alt="Refeir for Business & Global Teams - Enterprise Architectural Hub"
+                    className="rf-business-skyscraper-img"
+                  />
+                  {/* Floating Modern Trust Badges */}
+                  <div className="rf-skyscraper-badge-pill rf-skyscraper-badge-top">
+                    <Building2 size={15} style={{ color: '#38BDF8' }} />
+                    <span>Pan-African Enterprise Hub</span>
+                  </div>
+
+                  <div className="rf-skyscraper-badge-pill rf-skyscraper-badge-bottom">
+                    <ShieldCheck size={15} style={{ color: 'var(--rf-leaf-green)' }} />
+                    <span>100% Escrow Safeguarded</span>
+                  </div>
+                </div>
               </div>
             </div>
 
