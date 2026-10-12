@@ -4,58 +4,14 @@ import { ArrowRight, TrendingUp, Compass, BarChart2 } from 'lucide-react';
 
 interface AIPricingInsightsProps {
   onNavigate: (path: string) => void;
+  onOpenAISearch?: (query: string) => void;
 }
 
-interface PriceEstimate {
-  query: string;
-  role: string;
-  hourlyRange: string;
-  fixedRange: string;
-  typicalTurnaround: string;
-  availableTalents: number;
-}
-
-const SAMPLE_ESTIMATES: Record<string, PriceEstimate> = {
-  mobile: {
-    query: 'Mobile App Development',
-    role: 'Senior Flutter / React Native Engineer',
-    hourlyRange: '$35 - $65/hr',
-    fixedRange: '$2,400 - $5,500',
-    typicalTurnaround: '3 - 6 Weeks',
-    availableTalents: 140
-  },
-  design: {
-    query: 'Product & UI/UX Design',
-    role: 'Lead Product & Design System Designer',
-    hourlyRange: '$30 - $55/hr',
-    fixedRange: '$1,500 - $3,800',
-    typicalTurnaround: '2 - 4 Weeks',
-    availableTalents: 185
-  },
-  ai: {
-    query: 'AI & Machine Learning Integration',
-    role: 'AI Engineer / LLM Specialist',
-    hourlyRange: '$45 - $85/hr',
-    fixedRange: '$3,000 - $7,500',
-    typicalTurnaround: '2 - 5 Weeks',
-    availableTalents: 95
-  },
-  web: {
-    query: 'Fullstack Web Application',
-    role: 'Senior React & Node.js Developer',
-    hourlyRange: '$32 - $60/hr',
-    fixedRange: '$2,000 - $4,800',
-    typicalTurnaround: '3 - 5 Weeks',
-    availableTalents: 220
-  }
-};
-
-export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate }) => {
+export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate, onOpenAISearch }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
   const [prompt, setPrompt] = useState('');
-  const [estimate, setEstimate] = useState<PriceEstimate | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [animStage, setAnimStage] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -67,34 +23,18 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
     return () => clearInterval(timer);
   }, []);
 
-  const calculateEstimate = (text: string) => {
-    if (!text.trim()) return;
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const cleanQuery = prompt.trim() || 'Software Engineer';
     setIsCalculating(true);
-
     setTimeout(() => {
-      const lower = text.toLowerCase();
-      let matched: PriceEstimate;
-
-      if (lower.includes('design') || lower.includes('ui') || lower.includes('ux') || lower.includes('figma')) {
-        matched = { ...SAMPLE_ESTIMATES.design, query: text };
-      } else if (lower.includes('ai') || lower.includes('ml') || lower.includes('bot') || lower.includes('data')) {
-        matched = { ...SAMPLE_ESTIMATES.ai, query: text };
-      } else if (lower.includes('mobile') || lower.includes('app') || lower.includes('flutter') || lower.includes('ios') || lower.includes('android')) {
-        matched = { ...SAMPLE_ESTIMATES.mobile, query: text };
-      } else {
-        matched = { ...SAMPLE_ESTIMATES.web, query: text };
-      }
-
-      setEstimate(matched);
       setIsCalculating(false);
-    }, 450);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (prompt.trim()) {
-      calculateEstimate(prompt);
-    }
+      if (onOpenAISearch) {
+        onOpenAISearch(cleanQuery);
+      } else {
+        onNavigate(`/marketplace?q=${encodeURIComponent(cleanQuery)}`);
+      }
+    }, 180);
   };
 
   return (
@@ -244,71 +184,6 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             </div>
           </div>
         </form>
-
-        {/* Dynamic Estimated Pricing Output Card when user calculates */}
-        {estimate && (
-          <div
-            style={{
-              marginTop: '1.5rem',
-              background: 'rgba(255, 255, 255, 0.06)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(102, 187, 42, 0.35)',
-              borderRadius: '16px',
-              padding: '1.25rem 1.5rem',
-              animation: 'fadeIn 0.3s ease'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-              <div>
-                <span style={{ fontSize: '0.72rem', color: '#66BB2A', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block' }}>
-                  Refeir Market Average
-                </span>
-                <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFFFFF' }}>
-                  {estimate.role}
-                </span>
-              </div>
-              <span style={{ fontSize: '0.78rem', color: '#E2E8F0', background: 'rgba(255, 255, 255, 0.1)', padding: '0.2rem 0.65rem', borderRadius: '9999px', fontWeight: 600 }}>
-                {estimate.availableTalents}+ Vetted in Africa
-              </span>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '0.65rem 0.85rem', borderRadius: '10px' }}>
-                <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', display: 'block' }}>Hourly Benchmark</span>
-                <span style={{ fontSize: '1rem', fontWeight: 800, color: '#A3E635' }}>{estimate.hourlyRange}</span>
-              </div>
-              <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '0.65rem 0.85rem', borderRadius: '10px' }}>
-                <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', display: 'block' }}>Fixed Milestone</span>
-                <span style={{ fontSize: '1rem', fontWeight: 800, color: '#FFFFFF' }}>{estimate.fixedRange}</span>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
-              <span style={{ fontSize: '0.78rem', color: 'rgba(235, 245, 238, 0.75)' }}>
-                Typical Turnaround: <strong style={{ color: '#FFFFFF' }}>{estimate.typicalTurnaround}</strong>
-              </span>
-
-              <button
-                type="button"
-                onClick={() => onNavigate(`/marketplace?q=${encodeURIComponent(estimate.query)}`)}
-                style={{
-                  background: '#66BB2A',
-                  color: '#07160D',
-                  border: 'none',
-                  borderRadius: '10px',
-                  padding: '0.5rem 1.15rem',
-                  fontSize: '0.825rem',
-                  fontWeight: 800,
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                <span>Browse Matching Talents</span>
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* RIGHT COLUMN: Animated Geometric Shapes, Interactive Button & Dynamic Graph Transition */}

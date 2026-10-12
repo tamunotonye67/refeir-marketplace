@@ -3444,7 +3444,24 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 7A. REFEIR AI PRICING & TALENT INSIGHTS */}
       <section style={{ padding: '4rem 0 2rem 0', background: 'var(--rf-bg-base)' }}>
         <div className="rf-container" style={{ maxWidth: '1270px' }}>
-          <AIPricingInsights onNavigate={onNavigate} />
+          <AIPricingInsights
+            onNavigate={onNavigate}
+            onOpenAISearch={(query) => {
+              const clean = query.trim() || 'Software Engineer';
+              setAiSearchQuery(clean);
+              setHeroSearchIntent('recruit');
+              setShowAISearchModal(true);
+              try {
+                sessionStorage.setItem('refeir_ai_search_session', JSON.stringify({
+                  isOpen: true,
+                  searchQuery: clean,
+                  intent: 'recruit',
+                  phase: 'loading',
+                  briefingStep: 1
+                }));
+              } catch (err) {}
+            }}
+          />
         </div>
       </section>
 
