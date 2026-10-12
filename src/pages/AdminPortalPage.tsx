@@ -46,7 +46,14 @@ import {
   BarChart3,
   PieChart,
   DollarSign,
-  ArrowUpRight
+  ArrowUpRight,
+  Code2,
+  Cpu,
+  Palette,
+  Layers,
+  Zap,
+  ChevronRight,
+  Filter
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -174,8 +181,10 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
     } catch {}
   };
 
-  // Analytics Period State
+  // Analytics State
   const [analyticsPeriod, setAnalyticsPeriod] = useState<'7D' | '30D' | '90D' | '1Y'>('30D');
+  const [analyticsMetric, setAnalyticsMetric] = useState<'ALL' | 'ESCROW' | 'SCOUT'>('ALL');
+  const [hoveredPointIndex, setHoveredPointIndex] = useState<number | null>(null);
 
   // Pioneer Applications State
   const [pioneerAppsList, setPioneerAppsList] = useState<PioneerApplication[]>([
@@ -1192,272 +1201,1038 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate = (
         {/* ========================================================
             TAB 2: FULL ANALYTICS DASHBOARD
             ======================================================== */}
-        {activeTab === 'ANALYTICS' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {/* Analytics Header & Period Controls */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-              <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                  Pan-African Marketplace Analytics
-                </h3>
-                <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.25rem' }}>
-                  Real-time macro volume, revenue take rates, country distribution, and conversion funnels.
-                </p>
-              </div>
+        {activeTab === 'ANALYTICS' && (() => {
+          const analyticsDataByPeriod: Record<string, {
+            escrowVolume: string;
+            escrowGrowth: string;
+            netTake: string;
+            scoutPaid: string;
+            activeTalents: string;
+            talentsGrowth: string;
+            avgEscrow: string;
+            peakVolume: string;
+            timeframeLabel: string;
+            maxGmv: number;
+            ticks: { y: number; label: string }[];
+            points: { label: string; gmv: number; scout: number; gmvText: string; scoutText: string; deals: number }[];
+          }> = {
+            '7D': {
+              escrowVolume: '₦14.20M',
+              escrowGrowth: '+14.8% vs last week',
+              netTake: '₦710,000',
+              scoutPaid: '₦1,420,000',
+              activeTalents: '1,420',
+              talentsGrowth: '+42 vetted this week',
+              avgEscrow: '₦380,000',
+              peakVolume: '₦2.42M (Fri)',
+              timeframeLabel: 'Last 7 Days',
+              maxGmv: 3.0,
+              ticks: [
+                { y: 35, label: '₦3.0M' },
+                { y: 85, label: '₦2.0M' },
+                { y: 135, label: '₦1.0M' },
+                { y: 185, label: '₦0' }
+              ],
+              points: [
+                { label: 'Mon', gmv: 1.65, scout: 0.165, gmvText: '₦1.65M', scoutText: '₦165K', deals: 8 },
+                { label: 'Tue', gmv: 1.82, scout: 0.182, gmvText: '₦1.82M', scoutText: '₦182K', deals: 11 },
+                { label: 'Wed', gmv: 2.15, scout: 0.215, gmvText: '₦2.15M', scoutText: '₦215K', deals: 14 },
+                { label: 'Thu', gmv: 1.98, scout: 0.198, gmvText: '₦1.98M', scoutText: '₦198K', deals: 12 },
+                { label: 'Fri', gmv: 2.42, scout: 0.242, gmvText: '₦2.42M', scoutText: '₦242K', deals: 16 },
+                { label: 'Sat', gmv: 2.08, scout: 0.208, gmvText: '₦2.08M', scoutText: '₦208K', deals: 13 },
+                { label: 'Sun', gmv: 2.10, scout: 0.210, gmvText: '₦2.10M', scoutText: '₦210K', deals: 12 }
+              ]
+            },
+            '30D': {
+              escrowVolume: '₦48.65M',
+              escrowGrowth: '+32.4% vs last month',
+              netTake: '₦2.43M',
+              scoutPaid: '₦4.86M',
+              activeTalents: '1,420',
+              talentsGrowth: '+18.2% new talents',
+              avgEscrow: '₦480,000',
+              peakVolume: '₦48.65M (Cumulative)',
+              timeframeLabel: 'Last 30 Days (2026)',
+              maxGmv: 55.0,
+              ticks: [
+                { y: 35, label: '₦50M' },
+                { y: 85, label: '₦35M' },
+                { y: 135, label: '₦20M' },
+                { y: 185, label: '₦0' }
+              ],
+              points: [
+                { label: 'Jan', gmv: 12.0, scout: 1.20, gmvText: '₦12.0M', scoutText: '₦1.20M', deals: 64 },
+                { label: 'Feb', gmv: 18.4, scout: 1.84, gmvText: '₦18.4M', scoutText: '₦1.84M', deals: 92 },
+                { label: 'Mar', gmv: 25.1, scout: 2.51, gmvText: '₦25.1M', scoutText: '₦2.51M', deals: 128 },
+                { label: 'Apr', gmv: 31.8, scout: 3.18, gmvText: '₦31.8M', scoutText: '₦3.18M', deals: 165 },
+                { label: 'May', gmv: 39.2, scout: 3.92, gmvText: '₦39.2M', scoutText: '₦3.92M', deals: 198 },
+                { label: 'Jun', gmv: 48.65, scout: 4.86, gmvText: '₦48.65M', scoutText: '₦4.86M', deals: 248 }
+              ]
+            },
+            '90D': {
+              escrowVolume: '₦126.80M',
+              escrowGrowth: '+41.2% vs last quarter',
+              netTake: '₦6.34M',
+              scoutPaid: '₦12.68M',
+              activeTalents: '1,420',
+              talentsGrowth: '+26.5% quarter growth',
+              avgEscrow: '₦520,000',
+              peakVolume: '₦126.8M (Cumulative)',
+              timeframeLabel: 'Last 90 Days',
+              maxGmv: 140.0,
+              ticks: [
+                { y: 35, label: '₦140M' },
+                { y: 85, label: '₦95M' },
+                { y: 135, label: '₦50M' },
+                { y: 185, label: '₦0' }
+              ],
+              points: [
+                { label: 'Apr 1', gmv: 52.0, scout: 5.20, gmvText: '₦52.0M', scoutText: '₦5.20M', deals: 280 },
+                { label: 'Apr 15', gmv: 64.5, scout: 6.45, gmvText: '₦64.5M', scoutText: '₦6.45M', deals: 340 },
+                { label: 'May 1', gmv: 78.2, scout: 7.82, gmvText: '₦78.2M', scoutText: '₦7.82M', deals: 410 },
+                { label: 'May 15', gmv: 93.6, scout: 9.36, gmvText: '₦93.6M', scoutText: '₦9.36M', deals: 495 },
+                { label: 'Jun 1', gmv: 110.4, scout: 11.04, gmvText: '₦110.4M', scoutText: '₦11.04M', deals: 580 },
+                { label: 'Jun 15', gmv: 126.8, scout: 12.68, gmvText: '₦126.8M', scoutText: '₦12.68M', deals: 665 }
+              ]
+            },
+            '1Y': {
+              escrowVolume: '₦384.20M',
+              escrowGrowth: '+112.5% YoY annual surge',
+              netTake: '₦19.21M',
+              scoutPaid: '₦38.42M',
+              activeTalents: '1,420',
+              talentsGrowth: '+145% annual verified',
+              avgEscrow: '₦540,000',
+              peakVolume: '₦384.2M (Annual)',
+              timeframeLabel: 'Trailing 12 Months',
+              maxGmv: 420.0,
+              ticks: [
+                { y: 35, label: '₦400M' },
+                { y: 85, label: '₦270M' },
+                { y: 135, label: '₦140M' },
+                { y: 185, label: '₦0' }
+              ],
+              points: [
+                { label: 'Q3 \'25', gmv: 85.0, scout: 8.50, gmvText: '₦85.0M', scoutText: '₦8.50M', deals: 450 },
+                { label: 'Q4 \'25', gmv: 130.0, scout: 13.00, gmvText: '₦130.0M', scoutText: '₦13.00M', deals: 680 },
+                { label: 'Nov', gmv: 175.0, scout: 17.50, gmvText: '₦175.0M', scoutText: '₦17.50M', deals: 920 },
+                { label: 'Dec', gmv: 220.0, scout: 22.00, gmvText: '₦220.0M', scoutText: '₦22.00M', deals: 1150 },
+                { label: 'Jan \'26', gmv: 270.0, scout: 27.00, gmvText: '₦270.0M', scoutText: '₦27.00M', deals: 1410 },
+                { label: 'Mar', gmv: 315.0, scout: 31.50, gmvText: '₦315.0M', scoutText: '₦31.50M', deals: 1650 },
+                { label: 'May', gmv: 350.0, scout: 35.00, gmvText: '₦350.0M', scoutText: '₦35.00M', deals: 1820 },
+                { label: 'Jun', gmv: 384.2, scout: 38.42, gmvText: '₦384.2M', scoutText: '₦38.42M', deals: 2014 }
+              ]
+            }
+          };
 
-              <div className="rf-admin-period-group">
-                {(['7D', '30D', '90D', '1Y'] as const).map(p => (
-                  <button
-                    key={p}
-                    onClick={() => setAnalyticsPeriod(p)}
-                    className={`rf-admin-period-btn ${analyticsPeriod === p ? 'is-active' : ''}`}
-                  >
-                    {p}
-                  </button>
-                ))}
-              </div>
-            </div>
+          const activeDataset = analyticsDataByPeriod[analyticsPeriod] || analyticsDataByPeriod['30D'];
+          const maxVal = activeDataset.maxGmv;
+          const numPts = activeDataset.points.length;
 
-            {/* Top 4 Metrics Summary */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
-              <div className="rf-admin-card">
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                  Total Escrow Volume
-                </span>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
-                  ₦48.65M
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: 'var(--rf-leaf-green)', marginTop: '0.25rem', fontWeight: 700 }}>
-                  <ArrowUpRight size={14} />
-                  <span>+32.4% vs last period</span>
-                </div>
-              </div>
+          // Compute SVG coordinates (viewBox 0 0 760 220)
+          const gmvCoords = activeDataset.points.map((pt, idx) => ({
+            x: 60 + (idx / (numPts - 1)) * 640,
+            y: 185 - (pt.gmv / maxVal) * 145,
+            ...pt
+          }));
 
-              <div className="rf-admin-card">
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                  Net Platform Take
-                </span>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-leaf-green)', marginTop: '0.25rem' }}>
-                  ₦2.43M
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                  5.0% platform escrow fee
-                </div>
-              </div>
+          const scoutCoords = activeDataset.points.map((pt, idx) => ({
+            x: 60 + (idx / (numPts - 1)) * 640,
+            y: 185 - (pt.scout / maxVal) * 145,
+            ...pt
+          }));
 
-              <div className="rf-admin-card">
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                  Scout Commissions Paid
-                </span>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#38BDF8', marginTop: '0.25rem' }}>
-                  ₦4.86M
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
-                  10.0% guaranteed attribution
-                </div>
-              </div>
+          // Smooth Bezier Generator
+          const buildBezierPath = (pts: { x: number; y: number }[]) => {
+            if (pts.length === 0) return '';
+            let path = `M ${pts[0].x} ${pts[0].y}`;
+            for (let i = 0; i < pts.length - 1; i++) {
+              const p0 = pts[i];
+              const p1 = pts[i + 1];
+              const cpX = (p0.x + p1.x) / 2;
+              path += ` C ${cpX} ${p0.y}, ${cpX} ${p1.y}, ${p1.x} ${p1.y}`;
+            }
+            return path;
+          };
 
-              <div className="rf-admin-card">
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--rf-slate-400)' }}>
-                  Active Verified Talents
-                </span>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.25rem' }}>
-                  1,420
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: 'var(--rf-leaf-green)', marginTop: '0.25rem', fontWeight: 700 }}>
-                  <ArrowUpRight size={14} />
-                  <span>+18.2% new talents</span>
-                </div>
-              </div>
-            </div>
+          const gmvLinePath = buildBezierPath(gmvCoords);
+          const gmvAreaPath = `${gmvLinePath} L ${gmvCoords[gmvCoords.length - 1].x} 185 L ${gmvCoords[0].x} 185 Z`;
 
-            {/* Visual GMV Growth Trend Area Chart (SVG Native) */}
-            <div className="rf-admin-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+          const scoutLinePath = buildBezierPath(scoutCoords);
+          const scoutAreaPath = `${scoutLinePath} L ${scoutCoords[scoutCoords.length - 1].x} 185 L ${scoutCoords[0].x} 185 Z`;
+
+          const sovereignMarketsList = [
+            {
+              name: 'Nigeria',
+              flag: '🇳🇬',
+              code: 'NGN',
+              volume: '₦21.40M',
+              share: 44,
+              deals: 348,
+              growth: '+28.4% YoY',
+              color: 'var(--rf-leaf-green)',
+              gradient: 'linear-gradient(90deg, #10B981 0%, #A3E635 100%)'
+            },
+            {
+              name: 'Kenya',
+              flag: '🇰🇪',
+              code: 'KES',
+              volume: '₦11.20M',
+              share: 23,
+              deals: 182,
+              growth: '+34.1% YoY',
+              color: '#38BDF8',
+              gradient: 'linear-gradient(90deg, #0284C7 0%, #38BDF8 100%)'
+            },
+            {
+              name: 'Ghana',
+              flag: '🇬🇭',
+              code: 'GHS',
+              volume: '₦6.80M',
+              share: 14,
+              deals: 105,
+              growth: '+19.5% YoY',
+              color: '#F4B942',
+              gradient: 'linear-gradient(90deg, #D97706 0%, #FBBF24 100%)'
+            },
+            {
+              name: 'South Africa',
+              flag: '🇿🇦',
+              code: 'ZAR',
+              volume: '₦5.30M',
+              share: 11,
+              deals: 88,
+              growth: '+22.0% YoY',
+              color: '#C084FC',
+              gradient: 'linear-gradient(90deg, #9333EA 0%, #C084FC 100%)'
+            },
+            {
+              name: 'Rwanda & EAC',
+              flag: '🇷🇼',
+              code: 'RWF',
+              volume: '₦3.95M',
+              share: 8,
+              deals: 64,
+              growth: '+41.8% YoY',
+              color: '#34D399',
+              gradient: 'linear-gradient(90deg, #059669 0%, #34D399 100%)'
+            }
+          ];
+
+          const talentCategoriesList = [
+            {
+              division: 'Tech & Software Engineering',
+              share: 42,
+              count: '596 talents',
+              avgRate: '₦480K / milestone',
+              icon: Code2,
+              color: 'var(--rf-leaf-green)',
+              accentBg: 'rgba(102, 187, 42, 0.12)'
+            },
+            {
+              division: 'AI & Data Solutions',
+              share: 24,
+              count: '340 talents',
+              avgRate: '₦620K / milestone',
+              icon: Cpu,
+              color: '#38BDF8',
+              accentBg: 'rgba(56, 189, 248, 0.12)'
+            },
+            {
+              division: 'UI/UX & Product Design',
+              share: 18,
+              count: '255 talents',
+              avgRate: '₦380K / milestone',
+              icon: Palette,
+              color: '#F4B942',
+              accentBg: 'rgba(244, 185, 66, 0.12)'
+            },
+            {
+              division: 'Growth, Marketing & SEO',
+              share: 10,
+              count: '142 talents',
+              avgRate: '₦290K / milestone',
+              icon: TrendingUp,
+              color: '#EC4899',
+              accentBg: 'rgba(236, 72, 153, 0.12)'
+            },
+            {
+              division: 'Product & Business Ops',
+              share: 6,
+              count: '87 talents',
+              avgRate: '₦410K / milestone',
+              icon: Briefcase,
+              color: '#818CF8',
+              accentBg: 'rgba(129, 140, 248, 0.12)'
+            }
+          ];
+
+          const conversionFunnelList = [
+            {
+              step: '01',
+              title: 'Scout Links Clicked',
+              count: '12,840',
+              subtext: 'Unique Link Visitors',
+              badge: 'Top of Funnel',
+              yieldText: '24.8% Signup Yield',
+              icon: Globe2,
+              color: '#38BDF8'
+            },
+            {
+              step: '02',
+              title: 'Vetted Talent Profiles',
+              count: '3,180',
+              subtext: 'Verified African Talents',
+              badge: 'Identity Vetted',
+              yieldText: '23.4% Hire Conversion',
+              icon: Users,
+              color: 'var(--rf-leaf-green)'
+            },
+            {
+              step: '03',
+              title: 'Client Funded Escrows',
+              count: '745',
+              subtext: 'Milestones Safeguarded',
+              badge: 'Guaranteed Escrow',
+              yieldText: '96.4% Completion',
+              icon: Wallet,
+              color: '#F4B942'
+            },
+            {
+              step: '04',
+              title: 'Clean Settled Payouts',
+              count: '718',
+              subtext: 'Dispute-Free Releases',
+              badge: 'Zero Default',
+              yieldText: '96.4% Net Throughput',
+              icon: ShieldCheck,
+              color: 'var(--rf-leaf-green)'
+            }
+          ];
+
+          const liveTelemetryTransactions = [
+            {
+              id: 'TXN-9082',
+              talent: 'Oluwaseun Adeyemi',
+              role: 'Senior Backend Engineer',
+              flag: '🇳🇬',
+              country: 'Nigeria',
+              escrowVal: '₦2,400,000',
+              scoutFee: '₦240,000 (10%)',
+              status: 'SETTLED',
+              time: '12m ago'
+            },
+            {
+              id: 'TXN-9081',
+              talent: 'Faith Wanjiku',
+              role: 'AI / LLM Specialist',
+              flag: '🇰🇪',
+              country: 'Kenya',
+              escrowVal: 'KES 285,000 (₦3.42M)',
+              scoutFee: 'KES 28,500',
+              status: 'SETTLED',
+              time: '38m ago'
+            },
+            {
+              id: 'TXN-9080',
+              talent: 'Kofi Mensah',
+              role: 'Lead UI/UX Designer',
+              flag: '🇬🇭',
+              country: 'Ghana',
+              escrowVal: 'GHS 16,500 (₦1.65M)',
+              scoutFee: 'GHS 1,650',
+              status: 'IN_ESCROW',
+              time: '1h ago'
+            },
+            {
+              id: 'TXN-9079',
+              talent: 'Ntsika Khumalo',
+              role: 'Smart Contract Auditor',
+              flag: '🇿🇦',
+              country: 'South Africa',
+              escrowVal: 'ZAR 42,000 (₦3.36M)',
+              scoutFee: 'ZAR 4,200',
+              status: 'SETTLED',
+              time: '2h ago'
+            }
+          ];
+
+          const activePoint = hoveredPointIndex !== null ? gmvCoords[hoveredPointIndex] : null;
+
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {/* Analytics Header & Period Controls */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                    Monthly GMV & Transaction Trajectory (2026)
-                  </h4>
-                  <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
-                    Escrow volume released to African engineers, designers, and creatives.
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                      Pan-African Marketplace Analytics
+                    </h3>
+                    <span className="rf-analytics-badge is-positive" style={{ padding: '0.15rem 0.5rem', fontSize: '0.6875rem' }}>
+                      <span className="rf-analytics-pulse-dot" style={{ width: '6px', height: '6px' }} />
+                      Telemetry Live
+                    </span>
+                  </div>
+                  <p style={{ color: 'var(--rf-slate-400)', fontSize: '0.8125rem', marginTop: '0.35rem' }}>
+                    Real-time macro escrow volume, platform take rates, sovereign corridors, and talent conversion pipelines.
                   </p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.75rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)' }} />
-                    <span style={{ color: 'var(--rf-slate-400)' }}>Gross Escrow (₦)</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#38BDF8' }} />
-                    <span style={{ color: 'var(--rf-slate-400)' }}>Scout Attributions</span>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                  <div className="rf-admin-period-group">
+                    {(['7D', '30D', '90D', '1Y'] as const).map(p => (
+                      <button
+                        key={p}
+                        onClick={() => {
+                          setAnalyticsPeriod(p);
+                          setHoveredPointIndex(null);
+                        }}
+                        className={`rf-admin-period-btn ${analyticsPeriod === p ? 'is-active' : ''}`}
+                      >
+                        {p}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {/* Responsive SVG Area Chart */}
-              <div style={{ width: '100%', height: '220px', position: 'relative' }}>
-                <svg viewBox="0 0 700 200" preserveAspectRatio="none" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-                  <defs>
-                    <linearGradient id="gmvGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--rf-leaf-green)" stopOpacity="0.35" />
-                      <stop offset="100%" stopColor="var(--rf-leaf-green)" stopOpacity="0.0" />
-                    </linearGradient>
-                    <linearGradient id="scoutGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Horizontal Grid lines */}
-                  <line x1="0" y1="40" x2="700" y2="40" stroke="var(--rf-bg-card-border)" strokeDasharray="3 3" />
-                  <line x1="0" y1="90" x2="700" y2="90" stroke="var(--rf-bg-card-border)" strokeDasharray="3 3" />
-                  <line x1="0" y1="140" x2="700" y2="140" stroke="var(--rf-bg-card-border)" strokeDasharray="3 3" />
-                  <line x1="0" y1="190" x2="700" y2="190" stroke="var(--rf-bg-card-border)" />
-
-                  {/* Scout Line (Blue) */}
-                  <path
-                    d="M 20 170 Q 140 155, 260 140 T 500 110 T 680 80"
-                    fill="none"
-                    stroke="#38BDF8"
-                    strokeWidth="2.5"
-                  />
-
-                  {/* GMV Area & Line (Emerald Green) */}
-                  <path
-                    d="M 20 160 Q 140 130, 260 100 T 500 65 T 680 25 L 680 190 L 20 190 Z"
-                    fill="url(#gmvGradient)"
-                  />
-                  <path
-                    d="M 20 160 Q 140 130, 260 100 T 500 65 T 680 25"
-                    fill="none"
-                    stroke="var(--rf-leaf-green)"
-                    strokeWidth="3"
-                  />
-
-                  {/* Data Points */}
-                  {[
-                    { cx: 20, cy: 160, label: '₦12M', m: 'Jan' },
-                    { cx: 140, cy: 130, label: '₦18M', m: 'Feb' },
-                    { cx: 260, cy: 100, label: '₦25M', m: 'Mar' },
-                    { cx: 380, cy: 80, label: '₦31M', m: 'Apr' },
-                    { cx: 500, cy: 65, label: '₦39M', m: 'May' },
-                    { cx: 680, cy: 25, label: '₦48.6M', m: 'Jun' }
-                  ].map((pt, idx) => (
-                    <g key={idx}>
-                      <circle cx={pt.cx} cy={pt.cy} r="4" fill="var(--rf-bg-surface)" stroke="var(--rf-leaf-green)" strokeWidth="2.5" />
-                      <text x={pt.cx} y={pt.cy - 10} textAnchor="middle" fill="var(--rf-cream)" fontSize="10" fontWeight="700">
-                        {pt.label}
-                      </text>
-                      <text x={pt.cx} y="198" textAnchor="middle" fill="var(--rf-slate-400)" fontSize="10">
-                        {pt.m}
-                      </text>
-                    </g>
-                  ))}
-                </svg>
-              </div>
-            </div>
-
-            {/* Split Row: Country Share & Category Distribution */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
-              {/* Country Volume Leaderboard */}
-              <div className="rf-admin-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                    Top Sovereign Markets by Volume
-                  </h4>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Share of GMV</span>
+              {/* Top 4 Elevated KPI Cards */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '1rem' }}>
+                {/* KPI 1: Escrow Volume */}
+                <div className="rf-analytics-kpi-card">
+                  <div className="rf-analytics-kpi-top">
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--rf-slate-400)' }}>
+                      Total Escrow Volume
+                    </span>
+                    <div className="rf-analytics-kpi-icon-wrap" style={{ backgroundColor: 'rgba(102, 187, 42, 0.14)', color: 'var(--rf-leaf-green)' }}>
+                      <Wallet size={19} />
+                    </div>
+                  </div>
+                  <div className="rf-analytics-kpi-val">
+                    {activeDataset.escrowVolume}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
+                    <span className="rf-analytics-badge is-positive">
+                      <ArrowUpRight size={13} />
+                      {activeDataset.escrowGrowth}
+                    </span>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>
+                      {activeDataset.timeframeLabel}
+                    </span>
+                  </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {[
-                    { name: 'Nigeria 🇳🇬', code: 'NGN', amount: '₦21.4M', pct: 44, color: 'var(--rf-leaf-green)' },
-                    { name: 'Kenya 🇰🇪', code: 'KES', amount: '₦11.2M', pct: 23, color: '#38BDF8' },
-                    { name: 'Ghana 🇬🇭', code: 'GHS', amount: '₦6.8M', pct: 14, color: '#F4B942' },
-                    { name: 'South Africa 🇿🇦', code: 'ZAR', amount: '₦5.3M', pct: 11, color: '#A855F7' },
-                    { name: 'Rwanda & Others 🇷🇼', code: 'RWF', amount: '₦3.95M', pct: 8, color: '#10B981' }
-                  ].map(c => (
-                    <div key={c.name}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '0.35rem' }}>
-                        <span style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{c.name}</span>
-                        <span style={{ fontWeight: 800, color: 'var(--rf-cream)' }}>
-                          {c.amount} <span style={{ color: 'var(--rf-slate-400)', fontWeight: 500 }}>({c.pct}%)</span>
+                {/* KPI 2: Net Platform Take */}
+                <div className="rf-analytics-kpi-card">
+                  <div className="rf-analytics-kpi-top">
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--rf-slate-400)' }}>
+                      Net Platform Take
+                    </span>
+                    <div className="rf-analytics-kpi-icon-wrap" style={{ backgroundColor: 'rgba(102, 187, 42, 0.14)', color: 'var(--rf-leaf-green)' }}>
+                      <TrendingUp size={19} />
+                    </div>
+                  </div>
+                  <div className="rf-analytics-kpi-val" style={{ color: 'var(--rf-leaf-green)' }}>
+                    {activeDataset.netTake}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
+                    <span className="rf-analytics-badge is-positive">
+                      <CheckCircle2 size={13} />
+                      5.0% Fixed Fee
+                    </span>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>
+                      Escrow Service Monetization
+                    </span>
+                  </div>
+                </div>
+
+                {/* KPI 3: Scout Commissions Paid */}
+                <div className="rf-analytics-kpi-card">
+                  <div className="rf-analytics-kpi-top">
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--rf-slate-400)' }}>
+                      Scout Commissions Paid
+                    </span>
+                    <div className="rf-analytics-kpi-icon-wrap" style={{ backgroundColor: 'rgba(56, 189, 248, 0.14)', color: '#38BDF8' }}>
+                      <Award size={19} />
+                    </div>
+                  </div>
+                  <div className="rf-analytics-kpi-val" style={{ color: '#38BDF8' }}>
+                    {activeDataset.scoutPaid}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
+                    <span className="rf-analytics-badge is-cyan">
+                      <ArrowUpRight size={13} />
+                      10.0% Guaranteed Bounty
+                    </span>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>
+                      Talent Referrers
+                    </span>
+                  </div>
+                </div>
+
+                {/* KPI 4: Active Verified Talents */}
+                <div className="rf-analytics-kpi-card">
+                  <div className="rf-analytics-kpi-top">
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--rf-slate-400)' }}>
+                      Active Verified Talents
+                    </span>
+                    <div className="rf-analytics-kpi-icon-wrap" style={{ backgroundColor: 'rgba(244, 185, 66, 0.14)', color: '#F4B942' }}>
+                      <Users size={19} />
+                    </div>
+                  </div>
+                  <div className="rf-analytics-kpi-val">
+                    {activeDataset.activeTalents}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
+                    <span className="rf-analytics-badge is-amber">
+                      <ArrowUpRight size={13} />
+                      {activeDataset.talentsGrowth}
+                    </span>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>
+                      5 Sovereign Hubs
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Visual GMV Growth Trend Area Chart (Modern Interactive SVG) */}
+              <div className="rf-analytics-chart-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                        Escrow GMV Trajectory & Velocity ({activeDataset.timeframeLabel})
+                      </h4>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '3px' }}>
+                      Hover over any checkpoint to inspect volume milestones, scout payouts, and settlement yield.
+                    </p>
+                  </div>
+
+                  {/* Series Toggle & Legend */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div className="rf-analytics-chart-controls">
+                      {(['ALL', 'ESCROW', 'SCOUT'] as const).map(m => (
+                        <button
+                          key={m}
+                          onClick={() => setAnalyticsMetric(m)}
+                          className={`rf-analytics-chart-toggle-btn ${analyticsMetric === m ? 'is-active' : ''}`}
+                        >
+                          {m === 'ALL' ? 'All Metrics' : m === 'ESCROW' ? 'Gross Escrow Focus' : 'Scout Bounties Focus'}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', fontSize: '0.75rem' }}>
+                      {(analyticsMetric === 'ALL' || analyticsMetric === 'ESCROW') && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                          <span style={{ width: '9px', height: '9px', borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)', boxShadow: '0 0 6px rgba(102, 187, 42, 0.5)' }} />
+                          <span style={{ color: 'var(--rf-cream)', fontWeight: 600 }}>Gross Escrow (₦)</span>
+                        </div>
+                      )}
+                      {(analyticsMetric === 'ALL' || analyticsMetric === 'SCOUT') && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                          <span style={{ width: '9px', height: '9px', borderRadius: '50%', backgroundColor: '#38BDF8', boxShadow: '0 0 6px rgba(56, 189, 248, 0.5)' }} />
+                          <span style={{ color: 'var(--rf-slate-400)' }}>Scout Attributions</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Responsive SVG Area Chart Container */}
+                <div style={{ width: '100%', height: '240px', position: 'relative' }}>
+                  <svg
+                    viewBox="0 0 760 220"
+                    preserveAspectRatio="none"
+                    style={{ width: '100%', height: '100%', overflow: 'visible' }}
+                  >
+                    <defs>
+                      <linearGradient id="gmvModernGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--rf-leaf-green)" stopOpacity="0.4" />
+                        <stop offset="60%" stopColor="var(--rf-leaf-green)" stopOpacity="0.12" />
+                        <stop offset="100%" stopColor="var(--rf-leaf-green)" stopOpacity="0.0" />
+                      </linearGradient>
+                      <linearGradient id="scoutModernGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.35" />
+                        <stop offset="70%" stopColor="#38BDF8" stopOpacity="0.08" />
+                        <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Horizontal Reference Grid Lines & Left Y-Axis Labels */}
+                    {activeDataset.ticks.map((t, idx) => (
+                      <g key={idx}>
+                        <line
+                          x1="55"
+                          y1={t.y}
+                          x2="710"
+                          y2={t.y}
+                          stroke="var(--rf-bg-card-border)"
+                          strokeDasharray={t.y === 185 ? '0' : '4 4'}
+                          strokeWidth="1"
+                        />
+                        <text
+                          x="45"
+                          y={t.y + 3}
+                          textAnchor="end"
+                          fill="var(--rf-slate-400)"
+                          fontSize="9.5"
+                          fontWeight="600"
+                          fontFamily="sans-serif"
+                        >
+                          {t.label}
+                        </text>
+                      </g>
+                    ))}
+
+                    {/* Scout Area & Line (Cyan) */}
+                    {(analyticsMetric === 'ALL' || analyticsMetric === 'SCOUT') && (
+                      <>
+                        <path
+                          d={scoutAreaPath}
+                          fill="url(#scoutModernGradient)"
+                        />
+                        <path
+                          d={scoutLinePath}
+                          fill="none"
+                          stroke="#38BDF8"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </>
+                    )}
+
+                    {/* GMV Area & Line (Emerald) */}
+                    {(analyticsMetric === 'ALL' || analyticsMetric === 'ESCROW') && (
+                      <>
+                        <path
+                          d={gmvAreaPath}
+                          fill="url(#gmvModernGradient)"
+                        />
+                        <path
+                          d={gmvLinePath}
+                          fill="none"
+                          stroke="var(--rf-leaf-green)"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </>
+                    )}
+
+                    {/* Hover Vertical Guide Line */}
+                    {hoveredPointIndex !== null && (
+                      <line
+                        x1={gmvCoords[hoveredPointIndex].x}
+                        y1="25"
+                        x2={gmvCoords[hoveredPointIndex].x}
+                        y2="185"
+                        stroke="rgba(102, 187, 42, 0.55)"
+                        strokeDasharray="3 3"
+                        strokeWidth="1.5"
+                      />
+                    )}
+
+                    {/* Data Points on GMV Line */}
+                    {gmvCoords.map((pt, idx) => {
+                      const isHovered = hoveredPointIndex === idx;
+                      return (
+                        <g key={idx}>
+                          {/* X-Axis Month / Date Label */}
+                          <text
+                            x={pt.x}
+                            y="204"
+                            textAnchor="middle"
+                            fill={isHovered ? 'var(--rf-cream)' : 'var(--rf-slate-400)'}
+                            fontSize="10"
+                            fontWeight={isHovered ? '800' : '500'}
+                          >
+                            {pt.label}
+                          </text>
+
+                          {/* Scout Dot */}
+                          {(analyticsMetric === 'ALL' || analyticsMetric === 'SCOUT') && (
+                            <circle
+                              cx={scoutCoords[idx].x}
+                              cy={scoutCoords[idx].y}
+                              r={isHovered ? '5' : '3'}
+                              fill="var(--rf-bg-surface)"
+                              stroke="#38BDF8"
+                              strokeWidth="2"
+                            />
+                          )}
+
+                          {/* GMV Dot */}
+                          {(analyticsMetric === 'ALL' || analyticsMetric === 'ESCROW') && (
+                            <g>
+                              {isHovered && (
+                                <circle
+                                  cx={pt.x}
+                                  cy={pt.y}
+                                  r="9"
+                                  fill="var(--rf-leaf-green)"
+                                  fillOpacity="0.25"
+                                />
+                              )}
+                              <circle
+                                cx={pt.x}
+                                cy={pt.y}
+                                r={isHovered ? '5.5' : '3.8'}
+                                fill="var(--rf-bg-surface)"
+                                stroke="var(--rf-leaf-green)"
+                                strokeWidth="2.5"
+                              />
+                            </g>
+                          )}
+                        </g>
+                      );
+                    })}
+
+                    {/* Invisible Hit Zones for Hover Tracking */}
+                    {gmvCoords.map((pt, idx) => (
+                      <rect
+                        key={`hit-${idx}`}
+                        x={pt.x - 32}
+                        y="20"
+                        width="64"
+                        height="170"
+                        fill="transparent"
+                        style={{ cursor: 'pointer' }}
+                        onMouseEnter={() => setHoveredPointIndex(idx)}
+                        onMouseLeave={() => setHoveredPointIndex(null)}
+                      />
+                    ))}
+                  </svg>
+
+                  {/* Interactive Floating Tooltip */}
+                  {activePoint && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: `${(activePoint.x / 760) * 100}%`,
+                        top: `${Math.max(12, Math.min(65, (activePoint.y / 220) * 100 - 32))}%`,
+                        transform: 'translate(-50%, -100%)',
+                        backgroundColor: 'var(--rf-bg-deep)',
+                        border: '1px solid var(--rf-bg-card-border)',
+                        borderRadius: '8px',
+                        padding: '0.65rem 0.85rem',
+                        boxShadow: '0 12px 28px rgba(0, 0, 0, 0.45)',
+                        pointerEvents: 'none',
+                        zIndex: 25,
+                        minWidth: '180px',
+                        backdropFilter: 'blur(8px)',
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--rf-bg-card-border)', paddingBottom: '0.35rem', marginBottom: '0.35rem' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
+                          {activePoint.label} ({activeDataset.timeframeLabel})
+                        </span>
+                        <span className="rf-analytics-badge is-positive" style={{ padding: '0.1rem 0.4rem', fontSize: '0.65rem' }}>
+                          {activePoint.deals} Deals
                         </span>
                       </div>
-                      <div className="rf-admin-progress-bar">
-                        <div className="rf-admin-progress-fill" style={{ width: `${c.pct}%`, background: c.color }} />
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', fontSize: '0.75rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
+                          <span style={{ color: 'var(--rf-slate-400)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--rf-leaf-green)' }} />
+                            Escrow GMV:
+                          </span>
+                          <strong style={{ color: 'var(--rf-cream)' }}>{activePoint.gmvText}</strong>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
+                          <span style={{ color: 'var(--rf-slate-400)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38BDF8' }} />
+                            Scout Bounty (10%):
+                          </span>
+                          <strong style={{ color: '#38BDF8' }}>{activePoint.scoutText}</strong>
+                        </div>
                       </div>
                     </div>
-                  ))}
+                  )}
+                </div>
+
+                {/* Chart Micro Footer Metrics */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--rf-bg-card-border)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
+                    <span style={{ color: 'var(--rf-slate-400)' }}>Peak Volume:</span>
+                    <strong style={{ color: 'var(--rf-cream)' }}>{activeDataset.peakVolume}</strong>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
+                    <span style={{ color: 'var(--rf-slate-400)' }}>Avg Milestone Escrow:</span>
+                    <strong style={{ color: 'var(--rf-cream)' }}>{activeDataset.avgEscrow}</strong>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem' }}>
+                    <span style={{ color: 'var(--rf-slate-400)' }}>Release Latency:</span>
+                    <strong style={{ color: 'var(--rf-leaf-green)' }}>&lt; 2.4 hrs post-signoff</strong>
+                  </div>
                 </div>
               </div>
 
-              {/* Skill Division & Funnel Conversion */}
-              <div className="rf-admin-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                    Talent Category Distribution
-                  </h4>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>Active Hires</span>
+              {/* Split Row: Sovereign Markets Leaderboard & Category Distribution */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+                {/* Sovereign Markets Leaderboard */}
+                <div className="rf-analytics-chart-card">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.15rem' }}>
+                    <div>
+                      <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                        Top Sovereign Markets by Volume
+                      </h4>
+                      <p style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+                        Macro escrow throughput across Pan-African fiat corridors.
+                      </p>
+                    </div>
+                    <span className="rf-analytics-badge is-positive">
+                      5 Active Corridors
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    {sovereignMarketsList.map((c, idx) => (
+                      <div key={c.name} className="rf-analytics-market-row">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span className="rf-analytics-rank-chip">#{idx + 1}</span>
+                            <span style={{ fontSize: '1.1rem' }}>{c.flag}</span>
+                            <span style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{c.name}</span>
+                            <span style={{ fontSize: '0.6875rem', fontWeight: 700, padding: '0.1rem 0.4rem', borderRadius: '4px', backgroundColor: 'var(--rf-bg-deep)', color: 'var(--rf-slate-400)' }}>
+                              {c.code}
+                            </span>
+                          </div>
+                          <div style={{ textAlign: 'right' }}>
+                            <span style={{ fontWeight: 800, color: 'var(--rf-cream)' }}>
+                              {c.volume}
+                            </span>
+                            <span style={{ color: 'var(--rf-slate-400)', fontSize: '0.75rem', marginLeft: '0.35rem', fontWeight: 600 }}>
+                              ({c.share}%)
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Custom Modern Progress Bar */}
+                        <div className="rf-admin-progress-bar" style={{ height: '7px' }}>
+                          <div
+                            className="rf-admin-progress-fill"
+                            style={{ width: `${c.share}%`, background: c.gradient }}
+                          />
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>
+                          <span>{c.deals} verified contracts funded</span>
+                          <span style={{ color: 'var(--rf-leaf-green)', fontWeight: 700 }}>{c.growth}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid var(--rf-bg-card-border)', fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>
+                    <span className="rf-analytics-pulse-dot" style={{ width: '6px', height: '6px' }} />
+                    <span>Real-time local fiat clearance via Flutterwave, Paystack, and M-Pesa.</span>
+                  </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {[
-                    { division: 'Tech & Software Engineering', share: '42%', count: '596 talents', color: 'var(--rf-leaf-green)' },
-                    { division: 'AI & Data Solutions', share: '24%', count: '340 talents', color: '#38BDF8' },
-                    { division: 'UI/UX & Product Design', share: '18%', count: '255 talents', color: '#F4B942' },
-                    { division: 'Growth, Marketing & SEO', share: '10%', count: '142 talents', color: '#EC4899' },
-                    { division: 'Product & Business Ops', share: '6%', count: '87 talents', color: '#6366F1' }
-                  ].map(d => (
-                    <div key={d.division}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '0.35rem' }}>
-                        <span style={{ fontWeight: 600, color: 'var(--rf-cream)' }}>{d.division}</span>
-                        <span style={{ fontWeight: 800, color: 'var(--rf-cream)' }}>
-                          {d.share} <span style={{ color: 'var(--rf-slate-400)', fontWeight: 500 }}>({d.count})</span>
-                        </span>
-                      </div>
-                      <div className="rf-admin-progress-bar">
-                        <div className="rf-admin-progress-fill" style={{ width: d.share, background: d.color }} />
-                      </div>
+                {/* Talent Category Distribution */}
+                <div className="rf-analytics-chart-card">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.15rem' }}>
+                    <div>
+                      <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                        Talent Category Distribution
+                      </h4>
+                      <p style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+                        Headcount and milestone velocity across high-skill divisions.
+                      </p>
                     </div>
-                  ))}
+                    <span className="rf-analytics-badge is-cyan">
+                      1,420 Hired
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    {talentCategoriesList.map(d => {
+                      const IconComp = d.icon;
+                      return (
+                        <div key={d.division} className="rf-analytics-market-row">
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                              <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: d.accentBg, color: d.color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <IconComp size={14} />
+                              </div>
+                              <div>
+                                <div style={{ fontWeight: 700, color: 'var(--rf-cream)' }}>{d.division}</div>
+                              </div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                              <span style={{ fontWeight: 800, color: 'var(--rf-cream)' }}>
+                                {d.share}%
+                              </span>
+                              <span style={{ color: 'var(--rf-slate-400)', fontSize: '0.72rem', marginLeft: '0.35rem' }}>
+                                ({d.count})
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="rf-admin-progress-bar" style={{ height: '7px' }}>
+                            <div
+                              className="rf-admin-progress-fill"
+                              style={{ width: `${d.share}%`, background: d.color }}
+                            />
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>
+                            <span>Avg contract benchmark:</span>
+                            <span style={{ color: 'var(--rf-cream)', fontWeight: 600 }}>{d.avgRate}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid var(--rf-bg-card-border)', fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>
+                    <Zap size={13} style={{ color: '#F4B942' }} />
+                    <span>Top skill surging this month: TypeScript Fullstack and AI/LLM Prompt Engineering.</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Connected Conversion Funnel Pipeline */}
+              <div className="rf-analytics-chart-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <div>
+                    <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                      Pan-African Platform Conversion Pipeline
+                    </h4>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+                      End-to-end attribution conversion from initial Scout link visit to dispute-free milestone payout.
+                    </p>
+                  </div>
+                  <span className="rf-analytics-badge is-positive">
+                    96.4% Escrow Settlement Rate
+                  </span>
+                </div>
+
+                <div className="rf-analytics-funnel-pipeline">
+                  {conversionFunnelList.map(item => {
+                    const StageIcon = item.icon;
+                    return (
+                      <div key={item.step} className="rf-analytics-funnel-step">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                          <span style={{ fontSize: '0.6875rem', fontWeight: 800, padding: '0.15rem 0.45rem', borderRadius: '4px', backgroundColor: 'var(--rf-bg-deep)', color: 'var(--rf-slate-400)' }}>
+                            STAGE {item.step}
+                          </span>
+                          <div style={{ width: '30px', height: '30px', borderRadius: '8px', backgroundColor: 'var(--rf-bg-deep)', color: item.color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <StageIcon size={16} />
+                          </div>
+                        </div>
+
+                        <div style={{ fontSize: '1.65rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                          {item.count}
+                        </div>
+
+                        <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--rf-cream)', marginTop: '0.35rem' }}>
+                          {item.title}
+                        </div>
+
+                        <div style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', marginTop: '0.2rem' }}>
+                          {item.subtext}
+                        </div>
+
+                        <div style={{ marginTop: '0.85rem', paddingTop: '0.65rem', borderTop: '1px solid var(--rf-bg-card-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: item.color }}>
+                            {item.yieldText}
+                          </span>
+                          <span style={{ fontSize: '0.65rem', color: 'var(--rf-slate-400)' }}>
+                            {item.badge}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Real-Time Settlement Telemetry & Escrow Ledger */}
+              <div className="rf-analytics-chart-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <div>
+                    <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+                      Live Escrow Settlement Telemetry
+                    </h4>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', marginTop: '2px' }}>
+                      Recent automated escrow milestone clearances with guaranteed Scout attribution.
+                    </p>
+                  </div>
+                  <span className="rf-analytics-badge is-positive">
+                    <span className="rf-analytics-pulse-dot" style={{ width: '6px', height: '6px' }} />
+                    Zero Pending Disputes
+                  </span>
+                </div>
+
+                <div className="rf-admin-table-container">
+                  <table className="rf-admin-table">
+                    <thead>
+                      <tr>
+                        <th>Transaction ID</th>
+                        <th>Talent & Sovereign Hub</th>
+                        <th>Role / Skillset</th>
+                        <th>Milestone Volume</th>
+                        <th>Scout Attribution (10%)</th>
+                        <th>Settlement Status</th>
+                        <th>Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {liveTelemetryTransactions.map(tx => (
+                        <tr key={tx.id}>
+                          <td>
+                            <span style={{ fontWeight: 700, fontFamily: 'monospace', fontSize: '0.8125rem', color: 'var(--rf-leaf-green)' }}>
+                              {tx.id}
+                            </span>
+                          </td>
+                          <td>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                              <span>{tx.flag}</span>
+                              <span style={{ fontWeight: 700 }}>{tx.talent}</span>
+                              <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)' }}>({tx.country})</span>
+                            </div>
+                          </td>
+                          <td>
+                            <span style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)' }}>
+                              {tx.role}
+                            </span>
+                          </td>
+                          <td>
+                            <span style={{ fontWeight: 800, color: 'var(--rf-cream)' }}>
+                              {tx.escrowVal}
+                            </span>
+                          </td>
+                          <td>
+                            <span style={{ fontWeight: 700, color: '#38BDF8' }}>
+                              {tx.scoutFee}
+                            </span>
+                          </td>
+                          <td>
+                            <span
+                              className={`rf-analytics-badge ${tx.status === 'SETTLED' ? 'is-positive' : 'is-amber'}`}
+                              style={{ padding: '0.15rem 0.5rem' }}
+                            >
+                              {tx.status === 'SETTLED' ? 'SETTLED' : 'IN ESCROW'}
+                            </span>
+                          </td>
+                          <td>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>
+                              {tx.time}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-
-            {/* Conversion Funnel Strip */}
-            <div className="rf-admin-card">
-              <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1rem' }}>
-                Platform Conversion Funnel
-              </h4>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
-                <div className="rf-admin-box-subtle">
-                  <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>1. Scout Links Clicked</span>
-                  <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>12,840</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>100% Unique Visitors</div>
-                </div>
-
-                <div className="rf-admin-box-subtle">
-                  <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>2. Registered Profiles</span>
-                  <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>3,180</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 600 }}>24.7% Signup Rate</div>
-                </div>
-
-                <div className="rf-admin-box-subtle">
-                  <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>3. Client Funded Escrows</span>
-                  <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '2px' }}>745</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 600 }}>23.4% Hire Conversion</div>
-                </div>
-
-                <div className="rf-admin-box-subtle">
-                  <span style={{ fontSize: '0.72rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 700 }}>4. Completed Payouts</span>
-                  <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-leaf-green)', marginTop: '2px' }}>718</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', fontWeight: 600 }}>96.3% Settlement Rate</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* ========================================================
             TAB 3: PIONEER APPLICATIONS

@@ -7855,6 +7855,225 @@
   border-color: var(--rf-leaf-green);
 }
 
+/* =========================================================================
+   MODERN ANALYTICS DASHBOARD STYLING
+   ========================================================================= */
+
+.rf-analytics-kpi-card {
+  background-color: var(--rf-bg-card);
+  border: 1px solid var(--rf-bg-card-border);
+  border-radius: var(--rf-radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.rf-analytics-kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(102, 187, 42, 0.35);
+  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.25);
+}
+
+.rf-analytics-kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.rf-analytics-kpi-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf-analytics-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.rf-analytics-badge.is-positive {
+  background-color: rgba(46, 125, 50, 0.16);
+  color: var(--rf-leaf-green);
+  border: 1px solid rgba(102, 187, 42, 0.25);
+}
+
+.rf-analytics-badge.is-cyan {
+  background-color: rgba(56, 189, 248, 0.12);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.rf-analytics-badge.is-amber {
+  background-color: rgba(244, 185, 66, 0.12);
+  color: #F4B942;
+  border: 1px solid rgba(244, 185, 66, 0.25);
+}
+
+.rf-analytics-badge.is-purple {
+  background-color: rgba(168, 85, 247, 0.12);
+  color: #C084FC;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+.rf-analytics-kpi-val {
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--rf-cream);
+}
+
+.rf-analytics-kpi-sub {
+  font-size: 0.78125rem;
+  color: var(--rf-slate-400);
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rf-analytics-chart-card {
+  background-color: var(--rf-bg-card);
+  border: 1px solid var(--rf-bg-card-border);
+  border-radius: var(--rf-radius-lg);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.rf-analytics-chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--rf-bg-deep);
+  border: 1px solid var(--rf-bg-card-border);
+  border-radius: var(--rf-radius-md);
+  padding: 3px;
+}
+
+.rf-analytics-chart-toggle-btn {
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--rf-radius-sm);
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--rf-slate-400);
+  cursor: pointer;
+  transition: all var(--rf-transition-fast);
+}
+
+.rf-analytics-chart-toggle-btn.is-active {
+  background-color: var(--rf-bg-surface);
+  color: var(--rf-cream);
+  box-shadow: var(--rf-shadow-sm);
+}
+
+.rf-analytics-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--rf-leaf-green);
+  box-shadow: 0 0 0 0 rgba(102, 187, 42, 0.6);
+  animation: rfAnalyticsPulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+  display: inline-block;
+}
+
+@keyframes rfAnalyticsPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 187, 42, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(102, 187, 42, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 187, 42, 0);
+  }
+}
+
+.rf-analytics-market-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--rf-radius-md);
+  background-color: var(--rf-bg-surface);
+  border: 1px solid var(--rf-bg-card-border);
+  transition: border-color var(--rf-transition-fast), background-color var(--rf-transition-fast);
+}
+
+.rf-analytics-market-row:hover {
+  background-color: var(--rf-bg-surface-hover);
+  border-color: rgba(102, 187, 42, 0.3);
+}
+
+.rf-analytics-rank-chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  background-color: var(--rf-bg-deep);
+  color: var(--rf-cream);
+  border: 1px solid var(--rf-bg-card-border);
+}
+
+.rf-analytics-funnel-pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .rf-analytics-funnel-pipeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .rf-analytics-funnel-pipeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rf-analytics-funnel-step {
+  background-color: var(--rf-bg-surface);
+  border: 1px solid var(--rf-bg-card-border);
+  border-radius: var(--rf-radius-lg);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all var(--rf-transition-fast);
+}
+
+.rf-analytics-funnel-step:hover {
+  border-color: rgba(102, 187, 42, 0.3);
+  transform: translateY(-2px);
+}
+
+.rf-analytics-hover-guide {
+  pointer-events: none;
+  transition: all 0.15s ease-out;
+}
+
 @media (max-width: 768px) {
   .rf-admin-topbar {
     padding: 0.65rem 1rem;
