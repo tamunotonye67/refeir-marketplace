@@ -58,7 +58,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
   const [estimate, setEstimate] = useState<PriceEstimate | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [animStage, setAnimStage] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -180,73 +180,68 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
           Let us help you estimate the average cost for freelancers with what you're looking for.
         </p>
 
-        {/* Input Container — Clean Taller White Card */}
+        {/* Input Container — Expanded Tall Card with Next button at bottom right */}
         <form onSubmit={handleSubmit} style={{ maxWidth: '580px', width: '100%' }}>
-          <div
-            style={{
-              background: '#FFFFFF',
-              borderRadius: '28px',
-              padding: '0.95rem 1.15rem 0.95rem 1.85rem',
-              minHeight: '76px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              boxShadow: '0 18px 48px rgba(0, 0, 0, 0.42)',
-              transition: 'all 0.2s ease',
-              boxSizing: 'border-box'
-            }}
-          >
-            <input
-              ref={inputRef}
-              type="text"
-              value={prompt}
-              onChange={e => setPrompt(e.target.value)}
-              placeholder="To start, describe what you need done."
-              style={{
-                flex: 1,
-                border: 'none',
-                outline: 'none',
-                background: 'transparent',
-                color: '#0F172A',
-                fontSize: 'clamp(1.05rem, 1.35vw, 1.18rem)',
-                fontFamily: 'inherit',
-                fontWeight: 500,
-                minWidth: 0,
-                padding: '0.45rem 0'
-              }}
-            />
+          <div className="rf-ai-pricing-search-box">
+            <div style={{ flex: 1, width: '100%' }}>
+              <textarea
+                ref={textareaRef}
+                value={prompt}
+                onChange={e => setPrompt(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSubmit(e);
+                  }
+                }}
+                placeholder="To start, describe what you need done."
+                rows={2}
+                className="rf-ai-pricing-input"
+                style={{
+                  fontSize: 'clamp(1.05rem, 1.35vw, 1.18rem)',
+                  width: '100%',
+                  border: 'none',
+                  outline: 'none',
+                  boxShadow: 'none',
+                  background: 'transparent'
+                }}
+              />
+            </div>
 
-            <button
-              type="submit"
-              disabled={isCalculating}
-              style={{
-                background: '#111A14',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: '9999px',
-                padding: '1rem 2.4rem',
-                minHeight: '54px',
-                fontSize: '1.02rem',
-                fontWeight: 700,
-                letterSpacing: '-0.01em',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                whiteSpace: 'nowrap',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = '#1E3325';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = '#111A14';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              <span>{isCalculating ? 'Calculating...' : 'Next'}</span>
-            </button>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginTop: '0.85rem' }}>
+              <button
+                type="submit"
+                disabled={isCalculating}
+                style={{
+                  background: '#111A14',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '9999px',
+                  padding: '0.85rem 2.2rem',
+                  minHeight: '48px',
+                  fontSize: '0.98rem',
+                  fontWeight: 700,
+                  letterSpacing: '-0.01em',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = '#1E3325';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = '#111A14';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <span>{isCalculating ? 'Calculating...' : 'Next'}</span>
+              </button>
+            </div>
           </div>
         </form>
 
@@ -428,7 +423,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
               {/* The "Describe what you want" Button integrated into the geometric animation */}
               <button
                 type="button"
-                onClick={() => inputRef.current?.focus()}
+                onClick={() => textareaRef.current?.focus()}
                 className="rf-ai-geometric-pulse"
                 style={{
                   position: 'relative',

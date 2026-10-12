@@ -8229,4 +8229,57 @@
   transform-origin: center center;
 }
 
+/* AI Pricing Insights Expanded Search Card */
+.rf-ai-pricing-search-box {
+  background: #FFFFFF !important;
+  border-radius: 26px !important;
+  padding: 1.25rem 1.4rem 1.15rem 1.6rem !important;
+  min-height: 145px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42) !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  outline: none !important;
+  width: 100% !important;
+}
+
+.rf-ai-pricing-input {
+  width: 100% !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #0F172A !important;
+  font-family: inherit !important;
+  font-weight: 500 !important;
+  resize: none !important;
+  padding: 0.25rem 0 0 0 !important;
+  margin: 0 !important;
+  line-height: 1.5 !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+.rf-ai-pricing-input:focus,
+.rf-ai-pricing-input:focus-visible,
+.rf-ai-pricing-input:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.rf-ai-pricing-input::placeholder {
+  color: #94A3B8 !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 640px) {
+  .rf-ai-pricing-search-box {
+    min-height: 125px !important;
+    padding: 1rem 1.15rem 1rem 1.25rem !important;
+  }
+}
+
 
