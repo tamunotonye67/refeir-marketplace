@@ -3738,7 +3738,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           overflow: 'hidden',
           textAlign: 'center',
           padding: 'clamp(3.5rem, 6vw, 5.5rem) 1.25rem',
-          backgroundColor: '#0A170F'
+          backgroundColor: '#0A170F',
+          marginBottom: 0
         }}
       >
         {/* Subtle Blurred Map Texture Background */}
