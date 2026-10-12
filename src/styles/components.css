@@ -8364,4 +8364,38 @@
   animation: rfPadlockKeyholeBeam 2.2s ease-in-out infinite;
 }
 
+/* ==========================================================================
+   BOTTOM CTA: SKYSCRAPERS SKYLINE SECTION OVERLAP
+   ========================================================================== */
+.rf-skyline-overlap-wrap {
+  position: absolute;
+  top: clamp(-75px, -5.5vw, -105px);
+  left: 0;
+  right: 0;
+  display: flex;
+  justifyContent: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rf-skyline-overlap-img {
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
+  max-height: 320px;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 -4px 14px rgba(0, 0, 0, 0.12));
+}
+
+@media (max-width: 768px) {
+  .rf-skyline-overlap-wrap {
+    top: -45px;
+  }
+  .rf-skyline-overlap-img {
+    min-width: 100%;
+    max-height: 180px;
+  }
+}
+
 

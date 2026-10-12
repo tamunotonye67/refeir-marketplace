@@ -3730,54 +3730,36 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 9. BOTTOM CALL TO ACTION — MINIMALISTIC, MODERN REFER & EARN BANNER */}
+      {/* 9. BOTTOM CALL TO ACTION — MODERN CORPORATE SKYSCRAPERS CITY OVERLAP */}
       <section
         className="rf-refer-earn-cta-section"
         style={{
           position: 'relative',
-          overflow: 'hidden',
+          overflow: 'visible',
           textAlign: 'center',
-          padding: 'clamp(3.5rem, 6vw, 5.5rem) 1.25rem',
+          padding: 'clamp(4.25rem, 7vw, 6.5rem) 1.25rem clamp(3.5rem, 5vw, 4.5rem)',
           backgroundColor: '#0A170F',
           marginBottom: 0
         }}
       >
-        {/* Subtle Blurred Map Texture Background */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url('/google_map_bg.jpg')`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            filter: 'blur(10px) brightness(0.40) saturate(1.1)',
-            transform: 'scale(1.06)',
-            zIndex: 0
-          }}
-        />
+        {/* Realistic High-Rise Skyscrapers PNG - Overlapping the top boundary into the white section */}
+        <div className="rf-skyline-overlap-wrap">
+          <img
+            src="/skyscrapers_skyline.png"
+            alt="Refeir Pan-African & Global Business Skylines"
+            className="rf-skyline-overlap-img"
+          />
+        </div>
 
-        {/* Dark Vignette & Subtle Radial Gradient */}
+        {/* Ambient Dark Gradient Wash for High Text Contrast */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
             background:
-              'radial-gradient(ellipse at center, rgba(10, 23, 15, 0.55) 0%, rgba(8, 18, 12, 0.92) 75%, rgba(6, 14, 9, 0.98) 100%)',
-            zIndex: 1
-          }}
-        />
-
-        {/* Ambient Top Separator Border */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '1px',
-            background: 'linear-gradient(90deg, transparent, rgba(102, 187, 42, 0.35), transparent)',
-            zIndex: 2
+              'linear-gradient(180deg, rgba(10, 23, 15, 0.42) 0%, rgba(10, 23, 15, 0.88) 48%, #0A170F 92%)',
+            zIndex: 2,
+            pointerEvents: 'none'
           }}
         />
 
@@ -3790,7 +3772,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               fontWeight: 500,
               color: '#FFFFFF',
               marginBottom: '0.85rem',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
+              textShadow: '0 2px 14px rgba(0, 0, 0, 0.55)'
             }}
           >
             Find Opportunities
@@ -3798,12 +3781,13 @@ export const HomePage: React.FC<HomePageProps> = ({
           <p
             className="rf-refer-earn-subtitle"
             style={{
-              color: 'rgba(235, 245, 238, 0.88)',
+              color: 'rgba(235, 245, 238, 0.92)',
               fontSize: 'clamp(0.95rem, 2vw, 1.08rem)',
               marginBottom: '2rem',
               lineHeight: 1.6,
               maxWidth: '520px',
-              margin: '0 auto 2rem'
+              margin: '0 auto 2rem',
+              textShadow: '0 1px 8px rgba(0, 0, 0, 0.45)'
             }}
           >
             The next opportunity might already be in your network.<br />
