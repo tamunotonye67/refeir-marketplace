@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AFRICAN_COUNTRIES, REGIONS } from '../../data/countries';
 import { AfricanRegion, Country } from '../../types';
 import { CountryFlag } from '../common/CountryFlag';
-import { MapPin, Users, Briefcase, ArrowRight, Layers } from 'lucide-react';
+import { Users, Briefcase, ArrowRight, Layers } from 'lucide-react';
 
 interface AfricaMapExplorerProps {
   onSelectCountry: (countryId: string) => void;
@@ -47,14 +47,18 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '2rem' }}>
         <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.375rem', background: 'rgba(102, 187, 42, 0.12)', border: '1px solid rgba(102, 187, 42, 0.3)', padding: '0.25rem 0.625rem', borderRadius: 'var(--rf-radius-full)', marginBottom: '0.5rem' }}>
-            <MapPin size={13} color="var(--rf-leaf-green)" />
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-leaf-green)', textTransform: 'uppercase' }}>
-              Pan-African Marketplace Grid
-            </span>
-          </div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-            What's your preferred location?
+          <h2
+            style={{
+              fontFamily: 'var(--rf-font-display)',
+              fontSize: 'clamp(2.1rem, 3.8vw, 2.85rem)',
+              fontWeight: 400,
+              color: 'var(--rf-cream)',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.15,
+              margin: '0 0 0.5rem 0'
+            }}
+          >
+            What is your preferred region or country?
           </h2>
           <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
             Discover top-tier engineering, creative, and business talent across 54 sovereign nations.

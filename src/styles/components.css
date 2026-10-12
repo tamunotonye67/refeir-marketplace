@@ -2551,6 +2551,15 @@
   display: inline;
 }
 
+/* Default / Desktop Region Button Text Display */
+.rf-region-name-abbr {
+  display: none !important;
+}
+
+.rf-region-name-full {
+  display: inline !important;
+}
+
 @media (max-width: 768px) {
   .rf-desktop-only {
     display: none !important;
@@ -2873,13 +2882,6 @@
     margin-bottom: 0.75rem !important;
   }
 
-/* Default Region Button Text Display */
-.rf-region-name-abbr {
-  display: none;
-}
-.rf-region-name-full {
-  display: inline;
-}
 
   /* Featured Talent & Popular Services: Swipable horizontally on mobile from right to left with guaranteed identical heights & smooth edge fade */
   .rf-featured-talent-slider,
