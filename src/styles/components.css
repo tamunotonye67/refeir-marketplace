@@ -7558,6 +7558,8 @@
     margin: 0 auto;
     border-radius: 16px;
   }
+}
+
 @media (max-width: 768px) {
   .rf-scouts-how-it-works-grid {
     padding-top: 2rem !important;
