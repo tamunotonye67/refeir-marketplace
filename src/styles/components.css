@@ -2339,13 +2339,18 @@
 
   .rf-footer-accordion-item {
     border-bottom: 1px solid var(--rf-bg-card-border);
-    padding: 0.25rem 0;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rf-footer-res-wrapper {
+    margin-top: 0 !important;
   }
 
   .rf-footer-section-header {
     cursor: pointer;
-    padding: 0.875rem 0;
-    margin-bottom: 0;
+    padding: 1.15rem 0 !important;
+    margin: 0 !important;
     -webkit-tap-highlight-color: transparent;
   }
 
