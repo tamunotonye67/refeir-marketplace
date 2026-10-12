@@ -8492,27 +8492,33 @@
   gap: 0 !important;
 }
 
+
 .rf-ai-pricing-postheader {
-  white-space: nowrap !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
 }
 
 @media (max-width: 900px) {
   .rf-ai-pricing-insights-card {
     grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-    padding: 1.75rem 1.25rem !important;
+    gap: 2rem !important;
+    padding: 2rem 1.5rem !important;
   }
 
   .rf-ai-pricing-left-col {
     padding-right: 0 !important;
     border-right: none !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
-    padding-bottom: 1.5rem !important;
+    padding-bottom: 1.75rem !important;
+    width: 100% !important;
   }
 
   .rf-ai-pricing-right-col {
     padding-left: 0 !important;
-    min-height: 200px !important;
+    min-height: 220px !important;
+    width: 100% !important;
+    overflow: hidden !important;
   }
 
   .rf-ai-pricing-title {
@@ -8523,23 +8529,39 @@
 
 @media (max-width: 640px) {
   .rf-ai-pricing-insights-card {
-    padding: 1.35rem 1rem !important;
-    gap: 1.25rem !important;
-    border-radius: 20px !important;
+    padding: 1.5rem 1rem !important;
+    gap: 1.5rem !important;
+    border-radius: 22px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .rf-ai-pricing-title {
-    font-size: clamp(1.4rem, 5.8vw, 1.75rem) !important;
-    line-height: 1.2 !important;
+    font-size: clamp(1.35rem, 5.2vw, 1.65rem) !important;
+    line-height: 1.25 !important;
     letter-spacing: -0.02em !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .rf-ai-pricing-postheader {
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 1.25rem !important;
+    white-space: normal !important;
   }
 
   .rf-ai-pricing-left-col {
-    padding-bottom: 1.25rem !important;
+    padding-bottom: 1.5rem !important;
   }
 
   .rf-ai-pricing-right-col {
-    min-height: 180px !important;
+    min-height: 190px !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
   }
 }
 
@@ -8711,42 +8733,51 @@
 
 @media (max-width: 640px) {
   .rf-ai-pricing-search-box {
-    flex-direction: row !important;
-    align-items: center !important;
-    justifyContent: space-between !important;
-    min-height: 58px !important;
-    max-height: 72px !important;
-    padding: 0.5rem 0.65rem 0.5rem 1.15rem !important;
-    border-radius: 9999px !important;
-    gap: 0.65rem !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justifyContent: flex-start !important;
+    min-height: unset !important;
+    max-height: none !important;
+    padding: 1rem 1.15rem 0.85rem 1.15rem !important;
+    border-radius: 20px !important;
+    gap: 0.75rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
   }
 
   .rf-ai-pricing-input-wrap {
     flex: 1 1 auto !important;
-    display: flex !important;
-    align-items: center !important;
+    display: block !important;
+    width: 100% !important;
     min-height: unset !important;
   }
 
   .rf-ai-pricing-input {
-    font-size: 0.86rem !important;
-    line-height: 1.35 !important;
+    font-size: 0.92rem !important;
+    line-height: 1.45 !important;
     padding: 0 !important;
+    width: 100% !important;
     height: auto !important;
-    max-height: 42px !important;
+    max-height: none !important;
+    min-height: 44px !important;
   }
 
   .rf-ai-pricing-btn-wrap {
-    width: auto !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
     flex-shrink: 0 !important;
-    margin-top: 0 !important;
+    margin-top: 0.25rem !important;
   }
 
   .rf-ai-pricing-submit-btn {
-    padding: 0.55rem 1.35rem !important;
+    padding: 0.55rem 1.6rem !important;
     min-height: 40px !important;
     height: 40px !important;
-    font-size: 0.88rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    border-radius: 9999px !important;
   }
 }
 

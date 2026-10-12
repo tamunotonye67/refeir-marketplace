@@ -109,10 +109,13 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
         <p
           className="rf-ai-pricing-postheader"
           style={{
-            fontSize: 'clamp(0.78rem, 1.1vw, 0.875rem)',
+            fontSize: 'clamp(0.82rem, 1.1vw, 0.92rem)',
             color: 'rgba(235, 245, 238, 0.85)',
             lineHeight: 1.5,
-            marginBottom: '2rem'
+            marginBottom: '1.75rem',
+            whiteSpace: 'normal',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word'
           }}
         >
           Let us help you estimate the average cost for freelancers with what you're looking for.
@@ -368,7 +371,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             >
               {/* Animated Live Moving Market Curve Graphic */}
               <div style={{ position: 'relative', width: '100%', maxWidth: '420px', height: '170px' }}>
-                <svg viewBox="0 0 420 160" width="100%" height="100%" style={{ overflow: 'visible' }}>
+                <svg viewBox="-5 0 435 160" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style={{ overflow: 'hidden' }}>
                   <defs>
                     <linearGradient id="rfCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                       <stop offset="0%" stopColor="#A3E635" stopOpacity="0.45" />
@@ -402,7 +405,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                     strokeWidth="1.5"
                     className="rf-agency-dash"
                   />
-                  <text x="400" y="21" textAnchor="end" fill="rgba(255, 255, 255, 0.65)" fontSize="10.5" fontWeight="600">
+                  <text x="400" y="21" textAnchor="end" fill="rgba(255, 255, 255, 0.65)" fontSize="10" fontWeight="600">
                     Global Agencies: $75/hr+
                   </text>
 
@@ -463,13 +466,13 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                   </text>
 
                   {/* Symmetrically Centered Tier Labels */}
-                  <text x="80" y="136" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="11.5" fontWeight="500">
+                  <text x="80" y="136" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="11" fontWeight="500">
                     Junior Talent
                   </text>
-                  <text x="210" y="136" textAnchor="middle" fill="#A3E635" fontSize="12.5" fontWeight="700">
+                  <text x="210" y="136" textAnchor="middle" fill="#A3E635" fontSize="12" fontWeight="700">
                     Senior & Lead Tier
                   </text>
-                  <text x="340" y="136" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="11.5" fontWeight="500">
+                  <text x="340" y="136" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="11" fontWeight="500">
                     Principal Specialist
                   </text>
                 </svg>
