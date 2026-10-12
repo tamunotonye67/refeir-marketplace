@@ -384,70 +384,114 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                 minHeight: '230px'
               }}
             >
-              {/* Perfectly Proportional Vector Comparative Graph */}
-              <svg viewBox="0 0 340 135" width="100%" height="135" style={{ overflow: 'visible' }}>
-                <defs>
-                  <linearGradient id="rfCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#A3E635" stopOpacity="0.36" />
-                    <stop offset="100%" stopColor="#66BB2A" stopOpacity="0.0" />
-                  </linearGradient>
-                </defs>
+              {/* Animated Live Moving Market Curve Graphic */}
+              <div style={{ position: 'relative', width: '340px', height: '140px' }}>
+                <svg viewBox="0 0 340 140" width="100%" height="100%" style={{ overflow: 'visible' }}>
+                  <defs>
+                    <linearGradient id="rfCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#A3E635" stopOpacity="0.45" />
+                      <stop offset="70%" stopColor="#66BB2A" stopOpacity="0.12" />
+                      <stop offset="100%" stopColor="#66BB2A" stopOpacity="0.0" />
+                    </linearGradient>
+                    <linearGradient id="rfScanBeamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#D4F933" stopOpacity="0.8" />
+                      <stop offset="50%" stopColor="#A3E635" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="#66BB2A" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
 
-                {/* Coordinate Grid Lines */}
-                <line x1="20" y1="28" x2="320" y2="28" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
-                <line x1="20" y1="62" x2="320" y2="62" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
-                <line x1="20" y1="96" x2="320" y2="96" stroke="rgba(255, 255, 255, 0.14)" />
-                <line x1="170" y1="28" x2="170" y2="96" stroke="rgba(163, 230, 53, 0.14)" strokeDasharray="2 3" />
+                  {/* Level Grid Reference Lines */}
+                  <line x1="25" y1="28" x2="315" y2="28" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
+                  <line x1="25" y1="64" x2="315" y2="64" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
+                  <line x1="25" y1="100" x2="315" y2="100" stroke="rgba(255, 255, 255, 0.16)" strokeWidth="1" />
 
-                {/* Traditional Global Agencies Benchmark (Dashed Muted Line) */}
-                <path
-                  d="M 25 36 C 95 34, 170 30, 245 27 C 280 25, 305 24, 315 23"
-                  fill="none"
-                  stroke="rgba(255, 255, 255, 0.4)"
-                  strokeWidth="1.8"
-                  strokeDasharray="4 3"
-                />
-                <text x="315" y="16" textAnchor="end" fill="rgba(255, 255, 255, 0.55)" fontSize="9.5" fontWeight="600">
-                  Global Agencies $75/hr+
-                </text>
+                  {/* Vertical Column Alignment Guidelines */}
+                  <line x1="65" y1="35" x2="65" y2="100" stroke="rgba(255, 255, 255, 0.06)" strokeDasharray="2 3" />
+                  <line x1="170" y1="46" x2="170" y2="100" stroke="rgba(163, 230, 53, 0.25)" strokeDasharray="2 3" />
+                  <line x1="275" y1="35" x2="275" y2="100" stroke="rgba(255, 255, 255, 0.06)" strokeDasharray="2 3" />
 
-                {/* Refeir Area Gradient Fill Under Curve */}
-                <path
-                  d="M 25 96 L 25 78 C 95 76, 135 64, 170 60 C 205 56, 255 46, 315 42 L 315 96 Z"
-                  fill="url(#rfCurveGrad)"
-                />
+                  {/* Level Global Agency Ceiling Benchmark (Animated Dashed Reference Line) */}
+                  <line
+                    x1="25"
+                    y1="28"
+                    x2="315"
+                    y2="28"
+                    stroke="rgba(255, 255, 255, 0.32)"
+                    strokeWidth="1.5"
+                    className="rf-agency-dash"
+                  />
+                  <text x="315" y="20" textAnchor="end" fill="rgba(255, 255, 255, 0.6)" fontSize="9.5" fontWeight="600">
+                    Global Agencies: $75/hr+
+                  </text>
 
-                {/* Refeir Verified Network Curve (Glowing Green Curve) */}
-                <path
-                  d="M 25 78 C 95 76, 135 64, 170 60 C 205 56, 255 46, 315 42"
-                  fill="none"
-                  stroke="#A3E635"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
+                  {/* Animated Area Gradient Fill Under Curve */}
+                  <path
+                    d="M 35 100 L 35 82 C 100 80, 135 60, 170 56 C 205 52, 240 46, 305 44 L 305 100 Z"
+                    fill="url(#rfCurveGrad)"
+                    className="rf-graph-area-glow"
+                  />
 
-                {/* Data Points */}
-                <circle cx="55" cy="75" r="3.5" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="1.5" />
-                <circle cx="170" cy="60" r="5" fill="#D4F933" stroke="#FFFFFF" strokeWidth="2" />
-                <circle cx="285" cy="44" r="4" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="1.5" />
+                  {/* Base Smooth Green Curve */}
+                  <path
+                    d="M 35 82 C 100 80, 135 60, 170 56 C 205 52, 240 46, 305 44"
+                    fill="none"
+                    stroke="rgba(163, 230, 53, 0.45)"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
 
-                {/* Featured Refeir Badge Centered Over Senior Tier */}
-                <rect x="122" y="32" width="96" height="20" rx="10" fill="rgba(12, 28, 17, 0.88)" stroke="#A3E635" strokeWidth="1.2" />
-                <text x="170" y="46" textAnchor="middle" fill="#D4F933" fontSize="10.5" fontWeight="800">
-                  Refeir $32/hr
-                </text>
+                  {/* Animated Flowing Laser Pulse Curve Line */}
+                  <path
+                    d="M 35 82 C 100 80, 135 60, 170 56 C 205 52, 240 46, 305 44"
+                    fill="none"
+                    stroke="#D4F933"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    className="rf-graph-flowing-curve"
+                  />
 
-                {/* Mathematically Aligned Tier Labels */}
-                <text x="55" y="118" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="10" fontWeight="500">
-                  Junior Talent
-                </text>
-                <text x="170" y="118" textAnchor="middle" fill="#A3E635" fontSize="10.5" fontWeight="700">
-                  Senior & Lead Tier
-                </text>
-                <text x="285" y="118" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="10" fontWeight="500">
-                  Principal Specialist
-                </text>
-              </svg>
+                  {/* Sweeping Scanner Vertical Beam */}
+                  <g className="rf-graph-scanner-beam">
+                    <line x1="0" y1="20" x2="0" y2="100" stroke="url(#rfScanBeamGrad)" strokeWidth="2" />
+                  </g>
+
+                  {/* Data Points (Junior, Senior, Principal) */}
+                  <circle cx="65" cy="74" r="3.5" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="1.5" />
+                  <circle cx="275" cy="46" r="3.8" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="1.5" />
+
+                  {/* Active Center Node Radar Ping Rings */}
+                  <circle cx="170" cy="56" r="5" fill="none" stroke="#D4F933" className="rf-node-ping-ring" />
+                  <circle cx="170" cy="56" r="5" fill="none" stroke="#A3E635" className="rf-node-ping-ring-delayed" />
+                  <circle cx="170" cy="56" r="5" fill="#D4F933" stroke="#FFFFFF" strokeWidth="2" />
+
+                  {/* Prominent Live Rate Badge Above Center Node */}
+                  <rect
+                    x="118"
+                    y="24"
+                    width="104"
+                    height="22"
+                    rx="11"
+                    fill="#0E2316"
+                    stroke="#66BB2A"
+                    strokeWidth="1.4"
+                  />
+                  <circle cx="130" cy="35" r="2.5" fill="#A3E635" />
+                  <text x="174" y="39" textAnchor="middle" fill="#FFFFFF" fontSize="10.5" fontWeight="800" letterSpacing="0.02em">
+                    Refeir $32/hr
+                  </text>
+
+                  {/* Symmetrically Centered Tier Labels */}
+                  <text x="65" y="122" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="10" fontWeight="500">
+                    Junior Talent
+                  </text>
+                  <text x="170" y="122" textAnchor="middle" fill="#A3E635" fontSize="11" fontWeight="700">
+                    Senior & Lead Tier
+                  </text>
+                  <text x="275" y="122" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="10" fontWeight="500">
+                    Principal Specialist
+                  </text>
+                </svg>
+              </div>
             </div>
           )}
 
