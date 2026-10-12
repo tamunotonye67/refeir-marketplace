@@ -138,12 +138,18 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                 rows={2}
                 className="rf-ai-pricing-input"
                 style={{
-                  fontSize: 'clamp(1.05rem, 1.35vw, 1.18rem)',
+                  fontSize: 'clamp(0.92rem, 1.1vw, 1.02rem)',
                   width: '100%',
-                  border: 'none',
+                  border: '0 none',
                   outline: 'none',
                   boxShadow: 'none',
-                  background: 'transparent'
+                  background: 'transparent',
+                  WebkitAppearance: 'none',
+                  appearance: 'none',
+                  resize: 'none',
+                  lineHeight: 1.55,
+                  color: '#0F172A',
+                  fontWeight: 400
                 }}
               />
             </div>

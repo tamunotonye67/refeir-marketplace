@@ -8248,31 +8248,37 @@
 
 .rf-ai-pricing-input {
   width: 100% !important;
-  border: none !important;
+  border: 0 none !important;
   outline: none !important;
   box-shadow: none !important;
+  -webkit-box-shadow: none !important;
   background: transparent !important;
   color: #0F172A !important;
   font-family: inherit !important;
-  font-weight: 500 !important;
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem) !important;
+  font-weight: 400 !important;
   resize: none !important;
   padding: 0.25rem 0 0 0 !important;
   margin: 0 !important;
-  line-height: 1.5 !important;
+  line-height: 1.55 !important;
   -webkit-appearance: none !important;
+  -moz-appearance: none !important;
   appearance: none !important;
 }
 
 .rf-ai-pricing-input:focus,
 .rf-ai-pricing-input:focus-visible,
-.rf-ai-pricing-input:active {
-  border: none !important;
+.rf-ai-pricing-input:active,
+.rf-ai-pricing-input:hover {
+  border: 0 none !important;
   outline: none !important;
   box-shadow: none !important;
+  -webkit-box-shadow: none !important;
 }
 
 .rf-ai-pricing-input::placeholder {
   color: #94A3B8 !important;
+  font-weight: 400 !important;
   opacity: 1 !important;
 }
 
