@@ -58,7 +58,9 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
               margin: '0 0 0.5rem 0'
             }}
           >
-            What is your preferred region or country?
+            What is your preferred
+            <br />
+            region or country?
           </h2>
           <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
             Discover top-tier engineering, creative, and business talent across 54 sovereign nations.
