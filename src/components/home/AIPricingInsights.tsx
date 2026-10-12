@@ -531,57 +531,6 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
               </span>
             </div>
           )}
-
-          {/* Bottom Interactive Stage Switcher */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              marginTop: '1.25rem',
-              zIndex: 10
-            }}
-          >
-            {[
-              { idx: 0, label: 'Describe' },
-              { idx: 1, label: 'Rate Curve' },
-              { idx: 2, label: 'Talent Matrix' }
-            ].map(stage => {
-              const isActive = animStage === stage.idx;
-              return (
-                <button
-                  key={stage.idx}
-                  type="button"
-                  onClick={() => setAnimStage(stage.idx)}
-                  style={{
-                    background: isActive ? 'rgba(163, 230, 53, 0.18)' : 'rgba(255, 255, 255, 0.05)',
-                    border: isActive ? '1px solid #A3E635' : '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '9999px',
-                    padding: '0.25rem 0.65rem',
-                    color: isActive ? '#A3E635' : 'rgba(255, 255, 255, 0.5)',
-                    fontSize: '0.68rem',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    letterSpacing: '0.02em',
-                    transition: 'all 0.2s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.35rem'
-                  }}
-                >
-                  <span
-                    style={{
-                      width: '4px',
-                      height: '4px',
-                      borderRadius: '50%',
-                      backgroundColor: isActive ? '#A3E635' : 'rgba(255, 255, 255, 0.4)'
-                    }}
-                  />
-                  <span>{stage.label}</span>
-                </button>
-              );
-            })}
-          </div>
         </div>
       </div>
     </div>
