@@ -3737,7 +3737,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           position: 'relative',
           overflow: 'visible',
           textAlign: 'center',
-          padding: 'clamp(4.25rem, 7vw, 6.5rem) 1.25rem clamp(3.5rem, 5vw, 4.5rem)',
+          padding: 'clamp(4.25rem, 7vw, 6.5rem) 1.25rem 1.5rem',
           backgroundColor: '#0A170F',
           marginBottom: 0
         }}

@@ -3598,7 +3598,8 @@
 
   /* 8. Minimalist Refer and Earn CTA Button on Mobile */
   .rf-refer-earn-cta-section {
-    padding: 3.25rem 1.25rem !important;
+    padding: 3.25rem 1.25rem 1.5rem !important;
+    margin-bottom: 0 !important;
   }
 
   .rf-refer-earn-title {

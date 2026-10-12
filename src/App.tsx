@@ -659,7 +659,7 @@ export const App: React.FC = () => {
       {!isChromelessPage && <Header onNavigate={navigate} currentPath={currentPath} />}
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, paddingTop: isChromelessPage ? 0 : 'var(--rf-header-height, 72px)', paddingBottom: 0 }}>
+      <main style={{ flex: 1, paddingTop: isChromelessPage ? 0 : 'var(--rf-header-height, 72px)', paddingBottom: 0, marginBottom: 0 }}>
         {renderCurrentPage()}
       </main>
 
