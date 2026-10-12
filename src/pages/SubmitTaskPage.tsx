@@ -299,10 +299,10 @@ export const SubmitTaskPage: React.FC<SubmitTaskPageProps> = ({ onNavigate, onOp
   };
 
   return (
-    <div style={{
+    <div className="rp-submittask-page" style={{
       minHeight: '100vh',
-      background: `linear-gradient(180deg, ${RF_FOREST_DARK} 0%, ${RF_DEEP_GREEN} 50%, ${RF_FOREST_DARK} 100%)`,
-      color: '#FFFFFF',
+      background: 'var(--rp-bg-page)',
+      color: 'var(--rp-text-main)',
       fontFamily: 'Plus Jakarta Sans, Manrope, sans-serif',
       paddingTop: 88,
       paddingBottom: 90

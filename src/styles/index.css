@@ -3796,3 +3796,697 @@ select.rp-has-custom-chevron {
   box-shadow: 0 0 0 3px rgba(24, 252, 92, 0.16), 0 4px 14px rgba(0, 0, 0, 0.4) !important;
   background: rgba(255, 255, 255, 0.06) !important;
 }
+
+/* ==========================================================================
+   ─── PIONEERS ADMIN PORTAL: LIGHT MODE THEME & MOBILE OPTIMIZATIONS ───
+   ========================================================================== */
+
+/* ─── 1. GLOBAL LIGHT MODE CONTAINER OVERRIDES ─── */
+[data-theme="light"] .rp-admin-portal,
+.theme-light .rp-admin-portal {
+  background: #F8FAF9 !important;
+  color: #0A1C12 !important;
+}
+
+/* Headings in Light Mode */
+[data-theme="light"] .rp-admin-portal h1,
+[data-theme="light"] .rp-admin-portal h2,
+[data-theme="light"] .rp-admin-portal h3,
+[data-theme="light"] .rp-admin-portal h4,
+[data-theme="light"] .rp-admin-portal h5,
+[data-theme="light"] .rp-admin-portal h6,
+.theme-light .rp-admin-portal h1,
+.theme-light .rp-admin-portal h2,
+.theme-light .rp-admin-portal h3,
+.theme-light .rp-admin-portal h4,
+.theme-light .rp-admin-portal h5,
+.theme-light .rp-admin-portal h6 {
+  color: #0A1C12 !important;
+}
+
+/* General Body & Paragraph text in Light Mode */
+[data-theme="light"] .rp-admin-portal p,
+.theme-light .rp-admin-portal p {
+  color: #273E31;
+}
+
+/* Muted subtitles & metadata */
+[data-theme="light"] .rp-admin-portal .text-muted,
+.theme-light .rp-admin-portal .text-muted {
+  color: #526E5E !important;
+}
+
+/* ─── 2. CARDS & CONTAINER BACKGROUND OVERRIDES IN LIGHT MODE ─── */
+[data-theme="light"] .rp-admin-portal div[style*="linear-gradient(135deg, #0B2317 0%, #06190F 100%)"],
+[data-theme="light"] .rp-admin-portal div[style*="linear-gradient(145deg, #0B2416 0%, #061A0F 100%)"],
+[data-theme="light"] .rp-admin-portal div[style*="linear-gradient(145deg, #0B2217 0%, #06170E 100%)"],
+[data-theme="light"] .rp-admin-portal div[style*="linear-gradient(160deg, #0A2417 0%, #06170E 100%)"],
+[data-theme="light"] .rp-admin-portal div[style*="linear-gradient(135deg, #0F2E1E 0%, #07180F 100%)"],
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(255, 255, 255, 0.02)'"],
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(255, 255, 255, 0.03)'"],
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(255, 255, 255, 0.04)'"],
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(255, 255, 255, 0.05)'"],
+[data-theme="light"] .rp-admin-portal div[style*="background: rgb(8, 28, 18)"],
+[data-theme="light"] .rp-admin-portal div[style*="background: #081C12"],
+[data-theme="light"] .rp-admin-portal div[style*="background: #07180F"],
+.theme-light .rp-admin-portal div[style*="linear-gradient(135deg, #0B2317 0%, #06190F 100%)"],
+.theme-light .rp-admin-portal div[style*="linear-gradient(145deg, #0B2416 0%, #061A0F 100%)"],
+.theme-light .rp-admin-portal div[style*="linear-gradient(145deg, #0B2217 0%, #06170E 100%)"],
+.theme-light .rp-admin-portal div[style*="linear-gradient(160deg, #0A2417 0%, #06170E 100%)"],
+.theme-light .rp-admin-portal div[style*="linear-gradient(135deg, #0F2E1E 0%, #07180F 100%)"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(255, 255, 255, 0.02)'"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(255, 255, 255, 0.03)'"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(255, 255, 255, 0.04)'"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(255, 255, 255, 0.05)'"],
+.theme-light .rp-admin-portal div[style*="background: rgb(8, 28, 18)"],
+.theme-light .rp-admin-portal div[style*="background: #081C12"],
+.theme-light .rp-admin-portal div[style*="background: #07180F"] {
+  background: #FFFFFF !important;
+  border-color: rgba(15, 46, 30, 0.1) !important;
+  box-shadow: 0 2px 12px rgba(15, 46, 30, 0.04) !important;
+}
+
+/* Light mode stat tiles and data panels */
+[data-theme="light"] .rp-admin-portal .rp-stat-card,
+.theme-light .rp-admin-portal .rp-stat-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 46, 30, 0.1) !important;
+  box-shadow: 0 2px 8px rgba(15, 46, 30, 0.03) !important;
+}
+
+/* Light mode sub-panels, info boxes and summaries */
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.2)'"],
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.25)'"],
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.3)'"],
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.35)'"],
+[data-theme="light"] .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.4)'"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.2)'"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.25)'"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.3)'"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.35)'"],
+.theme-light .rp-admin-portal div[style*="background: 'rgba(0, 0, 0, 0.4)'"] {
+  background: #F4F8F5 !important;
+  border-color: rgba(15, 46, 30, 0.09) !important;
+}
+
+/* ─── 3. FORM CONTROLS IN LIGHT MODE ─── */
+[data-theme="light"] .rp-admin-portal input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] .rp-admin-portal textarea,
+[data-theme="light"] .rp-admin-portal select,
+.theme-light .rp-admin-portal input:not([type="checkbox"]):not([type="radio"]),
+.theme-light .rp-admin-portal textarea,
+.theme-light .rp-admin-portal select {
+  background-color: #FFFFFF !important;
+  color: #0A1C12 !important;
+  border-color: rgba(15, 46, 30, 0.16) !important;
+}
+
+[data-theme="light"] .rp-admin-portal input::placeholder,
+[data-theme="light"] .rp-admin-portal textarea::placeholder,
+.theme-light .rp-admin-portal input::placeholder,
+.theme-light .rp-admin-portal textarea::placeholder {
+  color: #64748B !important;
+}
+
+[data-theme="light"] .rp-admin-portal input:focus,
+[data-theme="light"] .rp-admin-portal textarea:focus,
+[data-theme="light"] .rp-admin-portal select:focus,
+.theme-light .rp-admin-portal input:focus,
+.theme-light .rp-admin-portal textarea:focus,
+.theme-light .rp-admin-portal select:focus {
+  border-color: #15803D !important;
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15) !important;
+  background-color: #FFFFFF !important;
+}
+
+/* Labels in Light Mode */
+[data-theme="light"] .rp-admin-portal label,
+.theme-light .rp-admin-portal label {
+  color: #273E31 !important;
+}
+
+/* ─── 4. TABLES & DATA LISTS IN LIGHT MODE ─── */
+[data-theme="light"] .rp-admin-portal table,
+.theme-light .rp-admin-portal table {
+  background: #FFFFFF !important;
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-admin-portal thead tr,
+.theme-light .rp-admin-portal thead tr {
+  background: #EDF5F0 !important;
+}
+
+[data-theme="light"] .rp-admin-portal thead th,
+.theme-light .rp-admin-portal thead th {
+  color: #1E3A2B !important;
+  border-bottom: 1px solid rgba(15, 46, 30, 0.12) !important;
+}
+
+[data-theme="light"] .rp-admin-portal tbody tr,
+.theme-light .rp-admin-portal tbody tr {
+  border-bottom: 1px solid rgba(15, 46, 30, 0.08) !important;
+  background: #FFFFFF !important;
+}
+
+[data-theme="light"] .rp-admin-portal tbody tr:hover,
+.theme-light .rp-admin-portal tbody tr:hover {
+  background: #F4FAF6 !important;
+}
+
+[data-theme="light"] .rp-admin-portal tbody td,
+.theme-light .rp-admin-portal tbody td {
+  color: #0A1C12 !important;
+}
+
+/* ─── 5. MODALS & OVERLAYS IN LIGHT MODE ─── */
+[data-theme="light"] .rp-admin-modal-overlay,
+.theme-light .rp-admin-modal-overlay {
+  background: rgba(10, 28, 18, 0.5) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+[data-theme="light"] .rp-admin-modal-card,
+.theme-light .rp-admin-modal-card {
+  background: #FFFFFF !important;
+  color: #0A1C12 !important;
+  border: 1px solid rgba(15, 46, 30, 0.14) !important;
+  box-shadow: 0 25px 60px rgba(15, 46, 30, 0.18), 0 4px 16px rgba(15, 46, 30, 0.06) !important;
+}
+
+[data-theme="light"] .rp-admin-modal-card h1,
+[data-theme="light"] .rp-admin-modal-card h2,
+[data-theme="light"] .rp-admin-modal-card h3,
+[data-theme="light"] .rp-admin-modal-card h4,
+.theme-light .rp-admin-modal-card h1,
+.theme-light .rp-admin-modal-card h2,
+.theme-light .rp-admin-modal-card h3,
+.theme-light .rp-admin-modal-card h4 {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-admin-modal-card p,
+.theme-light .rp-admin-modal-card p {
+  color: #273E31 !important;
+}
+
+[data-theme="light"] .rp-admin-modal-card input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] .rp-admin-modal-card textarea,
+[data-theme="light"] .rp-admin-modal-card select,
+.theme-light .rp-admin-modal-card input:not([type="checkbox"]):not([type="radio"]),
+.theme-light .rp-admin-modal-card textarea,
+.theme-light .rp-admin-modal-card select {
+  background-color: #FFFFFF !important;
+  color: #0A1C12 !important;
+  border: 1px solid rgba(15, 46, 30, 0.18) !important;
+}
+
+/* Secondary & Cancel Buttons inside Light Modals */
+[data-theme="light"] .rp-admin-modal-card button[type="button"]:not([style*="background: rgb(239, 68, 68)"]):not([style*="background: #EF4444"]):not([style*="background: #ef4444"]),
+.theme-light .rp-admin-modal-card button[type="button"]:not([style*="background: rgb(239, 68, 68)"]):not([style*="background: #EF4444"]):not([style*="background: #ef4444"]) {
+  background: #F0F5F2 !important;
+  color: #1E3A2B !important;
+  border: 1px solid rgba(15, 46, 30, 0.14) !important;
+}
+
+/* ─── 6. MOBILE DEVICE OPTIMIZATIONS ─── */
+@media (max-width: 768px) {
+  /* Prevent horizontal screen shaking */
+  .rp-admin-portal {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+  }
+
+  .rp-admin-main-container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 12px !important;
+    padding-bottom: calc(90px + env(safe-area-inset-bottom, 20px)) !important;
+  }
+
+  /* Safe touch target heights */
+  .rp-admin-portal button,
+  .rp-admin-portal input,
+  .rp-admin-portal select {
+    min-height: 38px;
+  }
+
+  /* Touch scrolling smoothness */
+  .rp-admin-portal .rp-sleek-scroll,
+  .rp-admin-portal [style*="overflowX: 'auto'"],
+  .rp-admin-portal [style*="overflow-x: auto"] {
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Full responsive modal padding & safe-area margins */
+  .rp-admin-modal-overlay {
+    padding: 10px 8px calc(14px + env(safe-area-inset-bottom, 16px)) !important;
+    align-items: flex-end !important;
+  }
+
+  .rp-admin-modal-card {
+    max-height: calc(100dvh - 20px - env(safe-area-inset-bottom, 16px)) !important;
+    border-radius: 20px 20px 0 0 !important;
+    width: 100% !important;
+  }
+
+  /* Responsive tables: force auto scroll on mobile without breaking table integrity */
+  .rp-admin-portal table {
+    display: table !important;
+    min-width: 620px;
+  }
+
+  /* Responsive grid cards: single column on small phones */
+  .rp-admin-portal .grid-cols-mobile-1 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ==========================================================================
+   ─── SITE-WIDE LIGHT MODE STYLING ACROSS ALL PAGES ───
+   ========================================================================== */
+
+/* ─── 1. GLOBAL LIGHT MODE BACKGROUNDS & HEADINGS ─── */
+[data-theme="light"] .rp-about-page,
+[data-theme="light"] .rp-howitworks-page,
+[data-theme="light"] .rp-divisions-page,
+[data-theme="light"] .rp-faq-page,
+[data-theme="light"] .rp-contact-page,
+[data-theme="light"] .rp-rewards-page,
+[data-theme="light"] .rp-story-page,
+[data-theme="light"] .rp-squadtasks-page,
+[data-theme="light"] .rp-submittask-page,
+[data-theme="light"] .rp-profile-page,
+[data-theme="light"] .rp-privacy-page,
+[data-theme="light"] .rp-terms-page,
+.theme-light .rp-about-page,
+.theme-light .rp-howitworks-page,
+.theme-light .rp-divisions-page,
+.theme-light .rp-faq-page,
+.theme-light .rp-contact-page,
+.theme-light .rp-rewards-page,
+.theme-light .rp-story-page,
+.theme-light .rp-squadtasks-page,
+.theme-light .rp-submittask-page,
+.theme-light .rp-profile-page,
+.theme-light .rp-privacy-page,
+.theme-light .rp-terms-page {
+  background-color: #F8FAF9 !important;
+  color: #0A1C12 !important;
+}
+
+/* Light Mode Page Hero Headers */
+[data-theme="light"] .rp-about-page section:first-of-type,
+[data-theme="light"] .rp-howitworks-page section:first-of-type,
+[data-theme="light"] .rp-divisions-page section:first-of-type,
+[data-theme="light"] .rp-faq-page section:first-of-type,
+[data-theme="light"] .rp-contact-page section:first-of-type,
+[data-theme="light"] .rp-rewards-page section:first-of-type,
+[data-theme="light"] .rp-story-page section:first-of-type,
+[data-theme="light"] .rp-privacy-page section:first-of-type,
+[data-theme="light"] .rp-terms-page section:first-of-type,
+.theme-light .rp-about-page section:first-of-type,
+.theme-light .rp-howitworks-page section:first-of-type,
+.theme-light .rp-divisions-page section:first-of-type,
+.theme-light .rp-faq-page section:first-of-type,
+.theme-light .rp-contact-page section:first-of-type,
+.theme-light .rp-rewards-page section:first-of-type,
+.theme-light .rp-story-page section:first-of-type,
+.theme-light .rp-privacy-page section:first-of-type,
+.theme-light .rp-terms-page section:first-of-type {
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(102, 187, 42, 0.16) 0%, #F5FAF7 75%) !important;
+  color: #0A1C12 !important;
+  border-bottom: 1px solid rgba(15, 46, 30, 0.1) !important;
+}
+
+/* Hero Headings and subtitles */
+[data-theme="light"] .rp-about-page section:first-of-type h1,
+[data-theme="light"] .rp-howitworks-page section:first-of-type h1,
+[data-theme="light"] .rp-divisions-page section:first-of-type h1,
+[data-theme="light"] .rp-faq-page section:first-of-type h1,
+[data-theme="light"] .rp-contact-page section:first-of-type h1,
+[data-theme="light"] .rp-rewards-page section:first-of-type h1,
+[data-theme="light"] .rp-story-page section:first-of-type h1,
+[data-theme="light"] .rp-privacy-page section:first-of-type h1,
+[data-theme="light"] .rp-terms-page section:first-of-type h1,
+.theme-light .rp-about-page section:first-of-type h1,
+.theme-light .rp-howitworks-page section:first-of-type h1,
+.theme-light .rp-divisions-page section:first-of-type h1,
+.theme-light .rp-faq-page section:first-of-type h1,
+.theme-light .rp-contact-page section:first-of-type h1,
+.theme-light .rp-rewards-page section:first-of-type h1,
+.theme-light .rp-story-page section:first-of-type h1,
+.theme-light .rp-privacy-page section:first-of-type h1,
+.theme-light .rp-terms-page section:first-of-type h1 {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-about-page section:first-of-type p,
+[data-theme="light"] .rp-howitworks-page section:first-of-type p,
+[data-theme="light"] .rp-divisions-page section:first-of-type p,
+[data-theme="light"] .rp-faq-page section:first-of-type p,
+[data-theme="light"] .rp-contact-page section:first-of-type p,
+[data-theme="light"] .rp-rewards-page section:first-of-type p,
+[data-theme="light"] .rp-story-page section:first-of-type p,
+[data-theme="light"] .rp-privacy-page section:first-of-type p,
+[data-theme="light"] .rp-terms-page section:first-of-type p,
+.theme-light .rp-about-page section:first-of-type p,
+.theme-light .rp-howitworks-page section:first-of-type p,
+.theme-light .rp-divisions-page section:first-of-type p,
+.theme-light .rp-faq-page section:first-of-type p,
+.theme-light .rp-contact-page section:first-of-type p,
+.theme-light .rp-rewards-page section:first-of-type p,
+.theme-light .rp-story-page section:first-of-type p,
+.theme-light .rp-privacy-page section:first-of-type p,
+.theme-light .rp-terms-page section:first-of-type p {
+  color: #273E31 !important;
+}
+
+/* Light Mode Secondary Sections */
+[data-theme="light"] .rp-about-page section,
+[data-theme="light"] .rp-howitworks-page section,
+[data-theme="light"] .rp-divisions-page section,
+[data-theme="light"] .rp-faq-page section,
+[data-theme="light"] .rp-contact-page section,
+[data-theme="light"] .rp-rewards-page section,
+[data-theme="light"] .rp-story-page section,
+[data-theme="light"] .rp-privacy-page section,
+[data-theme="light"] .rp-terms-page section,
+.theme-light .rp-about-page section,
+.theme-light .rp-howitworks-page section,
+.theme-light .rp-divisions-page section,
+.theme-light .rp-faq-page section,
+.theme-light .rp-contact-page section,
+.theme-light .rp-rewards-page section,
+.theme-light .rp-story-page section,
+.theme-light .rp-privacy-page section,
+.theme-light .rp-terms-page section {
+  background-color: #F8FAF9;
+  color: #0A1C12;
+}
+
+/* ─── 2. REWARDS PAGE (CONTRIBUTOR LADDER) LIGHT MODE OVERRIDES ─── */
+[data-theme="light"] .rp-rewards-page,
+.theme-light .rp-rewards-page {
+  background: #F8FAF9 !important;
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-rewards-page h1,
+[data-theme="light"] .rp-rewards-page h2,
+[data-theme="light"] .rp-rewards-page h3,
+.theme-light .rp-rewards-page h1,
+.theme-light .rp-rewards-page h2,
+.theme-light .rp-rewards-page h3 {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-rewards-page p,
+.theme-light .rp-rewards-page p {
+  color: #273E31 !important;
+}
+
+/* Core Principle Notice Bar on Rewards Page */
+[data-theme="light"] .rp-rewards-page section[style*="background: 'rgba(102, 187, 42, 0.05)'"],
+.theme-light .rp-rewards-page section[style*="background: 'rgba(102, 187, 42, 0.05)'"] {
+  background: #EDF5F0 !important;
+  border-bottom: 1px solid rgba(15, 46, 30, 0.1) !important;
+}
+
+[data-theme="light"] .rp-rewards-page section[style*="background: 'rgba(102, 187, 42, 0.05)'"] p,
+.theme-light .rp-rewards-page section[style*="background: 'rgba(102, 187, 42, 0.05)'"] p {
+  color: #1E3A2B !important;
+}
+
+/* Ladder Level Stepper Buttons in Light Mode */
+[data-theme="light"] .rp-rewards-page div[style*="gridTemplateColumns"] button,
+.theme-light .rp-rewards-page div[style*="gridTemplateColumns"] button {
+  background: #FFFFFF !important;
+  border-color: rgba(15, 46, 30, 0.12) !important;
+  color: #0A1C12 !important;
+  box-shadow: 0 2px 8px rgba(15, 46, 30, 0.04) !important;
+}
+
+[data-theme="light"] .rp-rewards-page div[style*="gridTemplateColumns"] button div,
+.theme-light .rp-rewards-page div[style*="gridTemplateColumns"] button div {
+  color: #0A1C12 !important;
+}
+
+/* Selected Tier Deep-Dive Card on Rewards Page */
+[data-theme="light"] .rp-rewards-page div[style*="background: 'rgba(15, 46, 30, 0.45)'"],
+.theme-light .rp-rewards-page div[style*="background: 'rgba(15, 46, 30, 0.45)'"] {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(15, 46, 30, 0.12) !important;
+  box-shadow: 0 16px 40px rgba(15, 46, 30, 0.08) !important;
+}
+
+[data-theme="light"] .rp-rewards-page div[style*="background: 'rgba(15, 46, 30, 0.45)'"] h3,
+.theme-light .rp-rewards-page div[style*="background: 'rgba(15, 46, 30, 0.45)'"] h3 {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-rewards-page div[style*="background: 'rgba(0, 0, 0, 0.25)'"],
+[data-theme="light"] .rp-rewards-page div[style*="background: 'rgba(0,0,0,0.25)'"],
+[data-theme="light"] .rp-rewards-page div[style*="background: 'rgba(0, 0, 0, 0.2)'"],
+.theme-light .rp-rewards-page div[style*="background: 'rgba(0, 0, 0, 0.25)'"],
+.theme-light .rp-rewards-page div[style*="background: 'rgba(0,0,0,0.25)'"],
+.theme-light .rp-rewards-page div[style*="background: 'rgba(0, 0, 0, 0.2)'"] {
+  background: #F4F8F5 !important;
+  border-color: rgba(15, 46, 30, 0.09) !important;
+}
+
+/* ─── 3. STORY PAGE LIGHT MODE OVERRIDES ─── */
+[data-theme="light"] .rp-story-page,
+.theme-light .rp-story-page {
+  background: #F8FAF9 !important;
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-story-page h1,
+[data-theme="light"] .rp-story-page h2,
+[data-theme="light"] .rp-story-page h3,
+[data-theme="light"] .rp-story-page h4,
+.theme-light .rp-story-page h1,
+.theme-light .rp-story-page h2,
+.theme-light .rp-story-page h3,
+.theme-light .rp-story-page h4 {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-story-page p,
+[data-theme="light"] .rp-story-page li,
+.theme-light .rp-story-page p,
+.theme-light .rp-story-page li {
+  color: #273E31 !important;
+}
+
+[data-theme="light"] .rp-story-page div[style*="background: 'rgba(255, 255, 255, 0.03)'"],
+[data-theme="light"] .rp-story-page div[style*="background: 'rgba(255,255,255,0.03)'"],
+[data-theme="light"] .rp-story-page div[style*="background: 'rgba(255, 255, 255, 0.04)'"],
+[data-theme="light"] .rp-story-page div[style*="background: 'rgba(255, 255, 255, 0.05)'"],
+.theme-light .rp-story-page div[style*="background: 'rgba(255, 255, 255, 0.03)'"],
+.theme-light .rp-story-page div[style*="background: 'rgba(255,255,255,0.03)'"],
+.theme-light .rp-story-page div[style*="background: 'rgba(255, 255, 255, 0.04)'"],
+.theme-light .rp-story-page div[style*="background: 'rgba(255, 255, 255, 0.05)'"] {
+  background: #FFFFFF !important;
+  border-color: rgba(15, 46, 30, 0.1) !important;
+  box-shadow: 0 4px 16px rgba(15, 46, 30, 0.04) !important;
+}
+
+/* ─── 4. SQUAD TASKS PAGE LIGHT MODE OVERRIDES ─── */
+[data-theme="light"] .rp-squadtasks-page,
+.theme-light .rp-squadtasks-page {
+  background: #F8FAF9 !important;
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-squadtasks-page h1,
+[data-theme="light"] .rp-squadtasks-page h2,
+[data-theme="light"] .rp-squadtasks-page h3,
+[data-theme="light"] .rp-squadtasks-page h4,
+.theme-light .rp-squadtasks-page h1,
+.theme-light .rp-squadtasks-page h2,
+.theme-light .rp-squadtasks-page h3,
+.theme-light .rp-squadtasks-page h4 {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-squadtasks-page p,
+.theme-light .rp-squadtasks-page p {
+  color: #273E31 !important;
+}
+
+/* Unauthenticated Gate card on SquadTasksPage */
+[data-theme="light"] .rp-squadtasks-page div[style*="linear-gradient(180deg, rgba(15, 46, 30, 0.85) 0%, rgba(7, 24, 15, 0.98) 100%)"],
+.theme-light .rp-squadtasks-page div[style*="linear-gradient(180deg, rgba(15, 46, 30, 0.85) 0%, rgba(7, 24, 15, 0.98) 100%)"] {
+  background: #FFFFFF !important;
+  border-color: rgba(15, 46, 30, 0.14) !important;
+  box-shadow: 0 16px 48px rgba(15, 46, 30, 0.08) !important;
+}
+
+/* Quick Metrics Bar on SquadTasksPage */
+[data-theme="light"] .rp-squadtasks-page div[style*="background: 'rgba(0,0,0,0.35)'"],
+.theme-light .rp-squadtasks-page div[style*="background: 'rgba(0,0,0,0.35)'"] {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 46, 30, 0.1) !important;
+  box-shadow: 0 2px 8px rgba(15, 46, 30, 0.03) !important;
+}
+
+/* Filter Controls Container on SquadTasksPage */
+[data-theme="light"] .rp-squadtasks-page div[style*="background: 'rgba(15, 46, 30, 0.85)'"],
+.theme-light .rp-squadtasks-page div[style*="background: 'rgba(15, 46, 30, 0.85)'"] {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 46, 30, 0.12) !important;
+  box-shadow: 0 4px 16px rgba(15, 46, 30, 0.05) !important;
+}
+
+/* Mission Deliverable Cards in SquadTasksPage */
+[data-theme="light"] .rp-squadtasks-page div[style*="linear-gradient(145deg, rgba(15, 46, 30, 0.8) 0%, rgba(6, 23, 14, 0.9) 100%)"],
+.theme-light .rp-squadtasks-page div[style*="linear-gradient(145deg, rgba(15, 46, 30, 0.8) 0%, rgba(6, 23, 14, 0.9) 100%)"] {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 46, 30, 0.12) !important;
+  box-shadow: 0 6px 20px rgba(15, 46, 30, 0.05) !important;
+}
+
+/* Mobile select on SquadTasksPage */
+[data-theme="light"] #rp-mobile-squad-select,
+.theme-light #rp-mobile-squad-select {
+  background: #FFFFFF !important;
+  color: #0A1C12 !important;
+  border-color: rgba(15, 46, 30, 0.2) !important;
+}
+
+/* ─── 5. SUBMIT TASK / PROOF OF WORK PAGE LIGHT MODE OVERRIDES ─── */
+[data-theme="light"] .rp-submittask-page,
+.theme-light .rp-submittask-page {
+  background: #F8FAF9 !important;
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-submittask-form-card,
+[data-theme="light"] .rp-submittask-history-card,
+.theme-light .rp-submittask-form-card,
+.theme-light .rp-submittask-history-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 46, 30, 0.12) !important;
+  box-shadow: 0 12px 40px rgba(15, 46, 30, 0.06) !important;
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-submittask-header h1,
+.theme-light .rp-submittask-header h1 {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-submittask-header p,
+.theme-light .rp-submittask-header p {
+  color: #273E31 !important;
+}
+
+[data-theme="light"] .rp-submittask-tabs,
+.theme-light .rp-submittask-tabs {
+  background: rgba(15, 46, 30, 0.06) !important;
+  border: 1px solid rgba(15, 46, 30, 0.1) !important;
+}
+
+[data-theme="light"] .rp-submittask-tab-btn:not(.active),
+.theme-light .rp-submittask-tab-btn:not(.active) {
+  color: #4A6354 !important;
+}
+
+[data-theme="light"] .rp-submittask-tab-btn.active,
+.theme-light .rp-submittask-tab-btn.active {
+  background: #FFFFFF !important;
+  color: #0A1C12 !important;
+  box-shadow: 0 2px 8px rgba(15, 46, 30, 0.12) !important;
+}
+
+[data-theme="light"] .rp-submittask-task-card,
+.theme-light .rp-submittask-task-card {
+  background: #F8FAF9 !important;
+  border-color: rgba(15, 46, 30, 0.1) !important;
+}
+
+/* ─── 6. COMPLETE PROFILE PAGE LIGHT MODE OVERRIDES ─── */
+[data-theme="light"] .rp-profile-page,
+.theme-light .rp-profile-page {
+  background: #F8FAF9 !important;
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-profile-title,
+.theme-light .rp-profile-title {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-profile-subtitle,
+.theme-light .rp-profile-subtitle {
+  color: #273E31 !important;
+}
+
+[data-theme="light"] .rp-profile-card,
+.theme-light .rp-profile-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 46, 30, 0.12) !important;
+  box-shadow: 0 12px 40px rgba(15, 46, 30, 0.06) !important;
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-profile-section,
+.theme-light .rp-profile-section {
+  border-bottom-color: rgba(15, 46, 30, 0.08) !important;
+}
+
+[data-theme="light"] .rp-profile-section-title,
+.theme-light .rp-profile-section-title {
+  color: #0A1C12 !important;
+}
+
+[data-theme="light"] .rp-profile-label,
+.theme-light .rp-profile-label {
+  color: #273E31 !important;
+}
+
+[data-theme="light"] .rp-profile-input,
+[data-theme="light"] .rp-profile-select,
+[data-theme="light"] .rp-profile-textarea,
+.theme-light .rp-profile-input,
+.theme-light .rp-profile-select,
+.theme-light .rp-profile-textarea {
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0A1C12 !important;
+}
+
+/* ─── 7. STATUS LOOKUP & CONTRIBUTOR AUTH MODALS IN LIGHT MODE ─── */
+[data-theme="light"] .rp-status-modal-card,
+.theme-light .rp-status-modal-card {
+  background: #FFFFFF !important;
+  color: #0A1C12 !important;
+  border: 1px solid rgba(15, 46, 30, 0.14) !important;
+  box-shadow: 0 25px 60px rgba(15, 46, 30, 0.16) !important;
+}
+
+/* ─── 8. BOTTOM FOOTER IN LIGHT MODE ─── */
+[data-theme="light"] footer,
+.theme-light footer {
+  background: #EDF5F0 !important;
+  border-top: 1px solid rgba(15, 46, 30, 0.1) !important;
+  color: #273E31 !important;
+}
+
+[data-theme="light"] footer a,
+[data-theme="light"] footer button,
+.theme-light footer a,
+.theme-light footer button {
+  color: #1B3526 !important;
+}
+
+[data-theme="light"] footer a:hover,
+[data-theme="light"] footer button:hover,
+.theme-light footer a:hover,
+.theme-light footer button:hover {
+  color: #15803D !important;
+}

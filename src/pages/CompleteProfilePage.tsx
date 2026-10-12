@@ -800,7 +800,7 @@ export const CompleteProfilePage: React.FC<CompleteProfilePageProps> = ({ onNavi
   // ═══════════════════════════════════════════════════════════════════════════
   if (step === 'complete' && successCard) {
     return (
-      <div className="rp-profile-page" style={{ background: RF_DEEP_GREEN, minHeight: '100vh', color: '#FFFFFF' }}>
+      <div className="rp-profile-page" style={{ background: 'var(--rp-bg-page)', minHeight: '100vh', color: 'var(--rp-text-main)' }}>
         <div className="rp-profile-container" style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
           
           <div style={{
@@ -1379,7 +1379,7 @@ export const CompleteProfilePage: React.FC<CompleteProfilePageProps> = ({ onNavi
     const isFinalQuestion = currentQuestionIndex === totalQuestions - 1;
 
     return (
-      <div style={{ background: RF_DEEP_GREEN, minHeight: '100vh', color: '#FFFFFF', paddingTop: 100, paddingBottom: 90 }}>
+      <div className="rp-profile-page" style={{ background: 'var(--rp-bg-page)', minHeight: '100vh', color: 'var(--rp-text-main)', paddingTop: 100, paddingBottom: 90 }}>
         <div style={{ maxWidth: 660, margin: '0 auto', padding: '0 20px' }}>
           
           {/* Header & Step Tracker */}

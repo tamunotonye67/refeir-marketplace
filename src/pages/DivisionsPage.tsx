@@ -187,7 +187,7 @@ export const DivisionsPage: React.FC<DivisionsPageProps> = ({ onNavigate }) => {
   const activeDivision = DIVISIONS_CATALOG.find(d => d.id === selectedId) || DIVISIONS_CATALOG[0];
 
   return (
-    <div style={{ minHeight: '100vh', background: RF_DEEP_GREEN, color: '#1E293B' }}>
+    <div className="rp-divisions-page" style={{ minHeight: '100vh', background: 'var(--rp-bg-page)', color: 'var(--rp-text-main)' }}>
       {/* Header Banner */}
       <section style={{
         background: `linear-gradient(135deg, ${RF_DEEP_GREEN} 0%, ${RF_FOREST_DARK} 100%)`,

@@ -7,8 +7,10 @@ import {
   UserPlus, Trash2, Key, EyeOff, Copy, Ban, UserX, Calendar,
   Building2, Globe, Phone, Send, AtSign, Share2, Briefcase,
   AlertTriangle, Brain, Gift, Zap, Megaphone, PlusCircle, Radio, DollarSign,
-  Bell, X, CheckCheck, Menu, BarChart3, Activity, TrendingUp, Target, PieChart, Info, HelpCircle
+  Bell, X, CheckCheck, Menu, BarChart3, Activity, TrendingUp, Target, PieChart, Info, HelpCircle,
+  Sun, Moon
 } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 import { db, isFirebaseConfigured, checkFirebaseConnection, FirebaseHealthStatus } from '../lib/firebase';
 import {
   TaskSubmissionRecord,
@@ -235,7 +237,11 @@ const DEMO_APPLICATIONS: ApplicationRecord[] = [
 ];
 
 export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) => {
-  // Mobile Lockout Detection
+  // Theme state (Dark Mode vs White / Light Mode)
+  const { theme, toggleTheme } = useTheme();
+  const isLight = theme === 'light';
+
+  // Responsive device detection
   const [isMobile, setIsMobile] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     const isSmallScreen = window.innerWidth < 1024;
@@ -2057,40 +2063,99 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
   // ─── LOGIN SCREEN ────────────────────────────────────────────────────────────
   if (!isAuthenticated) {
     return (
-      <div style={{
-        minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: `linear-gradient(135deg, ${RF_DEEP_GREEN} 0%, ${RF_FOREST_DARK} 100%)`,
-        padding: isMobile ? '24px 16px' : 32, color: '#FFFFFF'
-      }}>
-        <div style={{
-          maxWidth: 440, width: '100%', background: 'rgba(15, 42, 26, 0.88)',
-          borderRadius: isMobile ? 20 : 24, padding: isMobile ? '32px 20px' : '40px 32px',
-          border: '1px solid rgba(102, 187, 42, 0.3)',
-          boxShadow: '0 25px 60px rgba(0,0,0,0.65)', textAlign: 'center', backdropFilter: 'blur(20px)'
-        }}>
+      <div
+        className={`rp-admin-login-screen ${isLight ? 'theme-light' : 'theme-dark'}`}
+        style={{
+          minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: isLight
+            ? 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(102, 187, 42, 0.15) 0%, #F5FAF7 75%)'
+            : `linear-gradient(135deg, ${RF_DEEP_GREEN} 0%, ${RF_FOREST_DARK} 100%)`,
+          padding: isMobile ? '24px 16px' : 32,
+          color: isLight ? '#0A1C12' : '#FFFFFF',
+          transition: 'background 0.25s ease, color 0.25s ease'
+        }}
+      >
+        <div
+          className="rp-admin-login-card"
+          style={{
+            maxWidth: 440, width: '100%',
+            background: isLight ? '#FFFFFF' : 'rgba(15, 42, 26, 0.88)',
+            borderRadius: isMobile ? 20 : 24, padding: isMobile ? '28px 18px' : '40px 32px',
+            border: isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(102, 187, 42, 0.3)',
+            boxShadow: isLight ? '0 25px 60px rgba(15, 46, 30, 0.08), 0 2px 10px rgba(0,0,0,0.02)' : '0 25px 60px rgba(0,0,0,0.65)',
+            textAlign: 'center', backdropFilter: 'blur(20px)',
+            transition: 'background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease'
+          }}
+        >
+          {/* Top Quick Actions Row: Return to Website & Theme Switcher */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <button
+              type="button"
+              onClick={() => onNavigate('/')}
+              style={{
+                background: isLight ? 'rgba(15, 46, 30, 0.05)' : 'rgba(255,255,255,0.06)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(255,255,255,0.12)',
+                color: isLight ? '#15803D' : RF_MINT_ACCENT,
+                padding: '5px 12px', borderRadius: 100, fontSize: 11.5, fontWeight: 600,
+                cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 5,
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <ArrowLeft size={13} />
+              <span>Return to Website</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={toggleTheme}
+              title={isLight ? 'Switch to Dark Mode' : 'Switch to White (Light) Mode'}
+              aria-label={isLight ? 'Switch to Dark Mode' : 'Switch to White (Light) Mode'}
+              style={{
+                background: isLight ? 'rgba(15, 46, 30, 0.06)' : 'rgba(255,255,255,0.06)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.14)' : '1px solid rgba(255,255,255,0.14)',
+                color: isLight ? '#0A1C12' : '#FED072',
+                width: 34, height: 34, borderRadius: '50%',
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', transition: 'all 0.18s ease'
+              }}
+            >
+              {isLight ? <Moon size={15} color="#0A1C12" /> : <Sun size={15} color="#FED072" />}
+            </button>
+          </div>
+
           <div style={{
-            width: 52, height: 52, borderRadius: 14, background: `${RF_LEAF_GREEN}20`,
-            border: `1px solid ${RF_LEAF_GREEN}44`, display: 'flex', alignItems: 'center',
-            justifyContent: 'center', margin: '0 auto 20px', color: RF_MINT_ACCENT
+            width: 52, height: 52, borderRadius: 14,
+            background: isLight ? 'rgba(21, 128, 61, 0.1)' : `${RF_LEAF_GREEN}20`,
+            border: isLight ? '1px solid rgba(21, 128, 61, 0.25)' : `1px solid ${RF_LEAF_GREEN}44`,
+            display: 'flex', alignItems: 'center',
+            justifyContent: 'center', margin: '0 auto 18px',
+            color: isLight ? '#15803D' : RF_MINT_ACCENT
           }}>
             <Lock size={24} />
           </div>
 
           <h2 style={{
-            fontSize: 24, fontWeight: 700, fontFamily: 'Plus Jakarta Sans, sans-serif',
-            marginBottom: 6, color: '#FFFFFF', letterSpacing: '-0.02em'
+            fontSize: 23, fontWeight: 700, fontFamily: 'Plus Jakarta Sans, sans-serif',
+            marginBottom: 6, color: isLight ? '#0A1C12' : '#FFFFFF', letterSpacing: '-0.02em'
           }}>
             Refeir Admissions Suite
           </h2>
 
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, marginBottom: 24 }}>
+          <p style={{
+            fontSize: 13,
+            color: isLight ? '#526E5E' : 'rgba(255,255,255,0.6)',
+            lineHeight: 1.6, marginBottom: 22
+          }}>
             Staff-only access portal. Sign in with your assigned credentials.
           </p>
 
           {/* Login Mode Toggle */}
           <div style={{
-            display: 'flex', background: 'rgba(255,255,255,0.05)', borderRadius: 100,
-            padding: 3, marginBottom: 22, border: '1px solid rgba(255,255,255,0.1)'
+            display: 'flex',
+            background: isLight ? '#EDF5F0' : 'rgba(255,255,255,0.05)',
+            borderRadius: 100,
+            padding: 3, marginBottom: 20,
+            border: isLight ? '1px solid rgba(15, 46, 30, 0.08)' : '1px solid rgba(255,255,255,0.1)'
           }}>
             {(['email', 'passcode'] as const).map(mode => (
               <button
@@ -2100,9 +2165,10 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 style={{
                   flex: 1, padding: '7px 0', borderRadius: 100, border: 'none', fontSize: 12.5,
                   fontWeight: loginMode === mode ? 700 : 500,
-                  background: loginMode === mode ? RF_LEAF_GREEN : 'transparent',
-                  color: loginMode === mode ? RF_DEEP_GREEN : 'rgba(255,255,255,0.6)',
-                  cursor: 'pointer', transition: 'all 0.2s'
+                  background: loginMode === mode ? (isLight ? '#15803D' : RF_LEAF_GREEN) : 'transparent',
+                  color: loginMode === mode ? (isLight ? '#FFFFFF' : RF_DEEP_GREEN) : (isLight ? '#526E5E' : 'rgba(255,255,255,0.6)'),
+                  cursor: 'pointer', transition: 'all 0.2s',
+                  boxShadow: loginMode === mode ? '0 2px 8px rgba(0,0,0,0.1)' : 'none'
                 }}
               >
                 {mode === 'email' ? '✉ Email & Password' : '🔑 Passcode'}
@@ -2121,8 +2187,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   autoFocus
                   style={{
                     width: '100%', padding: '12px 16px', borderRadius: 12, boxSizing: 'border-box',
-                    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(102, 187, 42, 0.25)',
-                    color: '#FFFFFF', fontSize: 14, outline: 'none'
+                    background: isLight ? '#FFFFFF' : 'rgba(255,255,255,0.06)',
+                    border: isLight ? '1px solid #CBD5E1' : '1px solid rgba(102, 187, 42, 0.25)',
+                    color: isLight ? '#0A1C12' : '#FFFFFF', fontSize: 14, outline: 'none'
                   }}
                 />
                 <div style={{ position: 'relative' }}>
@@ -2133,8 +2200,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                     onChange={e => setLoginPassword(e.target.value)}
                     style={{
                       width: '100%', padding: '12px 44px 12px 16px', borderRadius: 12, boxSizing: 'border-box',
-                      background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(102, 187, 42, 0.25)',
-                      color: '#FFFFFF', fontSize: 14, outline: 'none'
+                      background: isLight ? '#FFFFFF' : 'rgba(255,255,255,0.06)',
+                      border: isLight ? '1px solid #CBD5E1' : '1px solid rgba(102, 187, 42, 0.25)',
+                      color: isLight ? '#0A1C12' : '#FFFFFF', fontSize: 14, outline: 'none'
                     }}
                   />
                   <button
@@ -2142,7 +2210,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                     onClick={() => setShowLoginPassword(p => !p)}
                     style={{
                       position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)',
-                      background: 'none', border: 'none', color: 'rgba(255,255,255,0.5)',
+                      background: 'none', border: 'none',
+                      color: isLight ? '#64748B' : 'rgba(255,255,255,0.5)',
                       cursor: 'pointer', padding: 4, display: 'flex', alignItems: 'center'
                     }}
                   >
@@ -2159,16 +2228,20 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 autoFocus
                 style={{
                   width: '100%', padding: '12px 16px', borderRadius: 12, boxSizing: 'border-box',
-                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(102, 187, 42, 0.25)',
-                  color: '#FFFFFF', fontSize: 14, outline: 'none', textAlign: 'center'
+                  background: isLight ? '#FFFFFF' : 'rgba(255,255,255,0.06)',
+                  border: isLight ? '1px solid #CBD5E1' : '1px solid rgba(102, 187, 42, 0.25)',
+                  color: isLight ? '#0A1C12' : '#FFFFFF', fontSize: 14, outline: 'none', textAlign: 'center'
                 }}
               />
             )}
 
             {authError && (
               <div style={{
-                padding: '10px 14px', borderRadius: 10, background: 'rgba(239, 68, 68, 0.15)',
-                border: '1px solid rgba(239, 68, 68, 0.4)', color: '#FCA5A5', fontSize: 12.5, textAlign: 'left'
+                padding: '10px 14px', borderRadius: 10,
+                background: isLight ? '#FEE2E2' : 'rgba(239, 68, 68, 0.15)',
+                border: isLight ? '1px solid #FCA5A5' : '1px solid rgba(239, 68, 68, 0.4)',
+                color: isLight ? '#991B1B' : '#FCA5A5',
+                fontSize: 12.5, textAlign: 'left'
               }}>
                 {authError}
               </div>
@@ -2177,9 +2250,12 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
             <button
               type="submit"
               style={{
-                background: RF_LEAF_GREEN, color: RF_DEEP_GREEN, border: 'none',
+                background: isLight ? '#15803D' : RF_LEAF_GREEN,
+                color: isLight ? '#FFFFFF' : RF_DEEP_GREEN,
+                border: 'none',
                 padding: '13px 24px', borderRadius: 100, fontSize: 14, fontWeight: 700,
-                cursor: 'pointer', transition: 'all 0.2s', boxShadow: `0 4px 16px ${RF_LEAF_GREEN}44`,
+                cursor: 'pointer', transition: 'all 0.2s',
+                boxShadow: isLight ? '0 4px 16px rgba(21, 128, 61, 0.3)' : `0 4px 16px ${RF_LEAF_GREEN}44`,
                 marginTop: 4
               }}
             >
@@ -2188,8 +2264,15 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
           </form>
 
           {loginMode === 'passcode' && (
-            <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-              <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', margin: '0 0 8px' }}>
+            <div style={{
+              marginTop: 20, paddingTop: 16,
+              borderTop: isLight ? '1px solid rgba(15, 46, 30, 0.08)' : '1px solid rgba(255,255,255,0.08)'
+            }}>
+              <p style={{
+                fontSize: 11,
+                color: isLight ? '#64748B' : 'rgba(255,255,255,0.4)',
+                margin: '0 0 8px'
+              }}>
                 Quick fill (demo):
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: 6, flexWrap: 'wrap' }}>
@@ -2205,10 +2288,17 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                     type="button"
                     onClick={() => setPasscode(code)}
                     style={{
-                      background: accent ? 'rgba(24, 252, 92, 0.08)' : 'rgba(255,255,255,0.06)',
-                      border: `1px solid ${accent ? 'rgba(24, 252, 92, 0.25)' : 'rgba(255,255,255,0.15)'}`,
-                      color: accent ? RF_MINT_ACCENT : 'rgba(255,255,255,0.8)',
-                      padding: '3px 10px', borderRadius: 100, fontSize: 11, cursor: 'pointer'
+                      background: accent
+                        ? (isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(24, 252, 92, 0.08)')
+                        : (isLight ? '#F0F5F2' : 'rgba(255,255,255,0.06)'),
+                      border: accent
+                        ? (isLight ? '1px solid rgba(21, 128, 61, 0.3)' : '1px solid rgba(24, 252, 92, 0.25)')
+                        : (isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255,255,255,0.15)'),
+                      color: accent
+                        ? (isLight ? '#15803D' : RF_MINT_ACCENT)
+                        : (isLight ? '#273E31' : 'rgba(255,255,255,0.8)'),
+                      padding: '3px 10px', borderRadius: 100, fontSize: 11, cursor: 'pointer',
+                      transition: 'all 0.15s ease'
                     }}
                   >
                     {label}
@@ -2219,7 +2309,10 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
           )}
 
           {loginMode === 'email' && (
-            <p style={{ marginTop: 16, fontSize: 11, color: 'rgba(255,255,255,0.35)' }}>
+            <p style={{
+              marginTop: 16, fontSize: 11,
+              color: isLight ? '#64748B' : 'rgba(255,255,255,0.35)'
+            }}>
               Don't have login credentials? Contact the Super Admin to be added to the staff registry.
             </p>
           )}
@@ -2230,24 +2323,33 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
 
   // ─── AUTHENTICATED ADMIN SUITE ───────────────────────────────────────────────
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#07180F',
-      color: '#FFFFFF',
-      paddingTop: 0,
-      fontFamily: 'Plus Jakarta Sans, sans-serif'
-    }}>
+    <div
+      className={`rp-admin-portal ${isLight ? 'theme-light' : 'theme-dark'}`}
+      style={{
+        minHeight: '100vh',
+        background: isLight ? '#F8FAF9' : '#07180F',
+        color: isLight ? '#0A1C12' : '#FFFFFF',
+        paddingTop: 0,
+        fontFamily: 'Plus Jakarta Sans, sans-serif',
+        transition: 'background 0.25s ease, color 0.25s ease'
+      }}
+    >
       {/* Modern Minimalist Top Admin Navigation Bar */}
-      <header style={{
-        background: 'rgba(8, 26, 17, 0.94)',
-        borderBottom: '1px solid rgba(102, 187, 42, 0.16)',
-        padding: isMobile ? '10px 14px' : '12px 24px',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)'
-      }}>
+      <header
+        className="rp-admin-header"
+        style={{
+          background: isLight ? 'rgba(255, 255, 255, 0.96)' : 'rgba(8, 26, 17, 0.94)',
+          borderBottom: isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(102, 187, 42, 0.16)',
+          boxShadow: isLight ? '0 2px 14px rgba(15, 46, 30, 0.04)' : 'none',
+          padding: isMobile ? '10px 14px' : '12px 24px',
+          position: 'sticky',
+          top: 0,
+          zIndex: 100,
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          transition: 'background 0.25s ease, border-color 0.25s ease'
+        }}
+      >
         <div style={{
           maxWidth: 1280,
           margin: '0 auto',
@@ -2268,9 +2370,13 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 }}
                 aria-label="Toggle Admin Navigation Menu"
                 style={{
-                  background: adminMobileNavOpen ? 'rgba(24, 252, 92, 0.16)' : 'rgba(255, 255, 255, 0.05)',
-                  border: `1px solid ${adminMobileNavOpen ? RF_MINT_ACCENT : 'rgba(255, 255, 255, 0.12)'}`,
-                  color: adminMobileNavOpen ? RF_MINT_ACCENT : '#FFFFFF',
+                  background: adminMobileNavOpen
+                    ? (isLight ? 'rgba(21, 128, 61, 0.14)' : 'rgba(24, 252, 92, 0.16)')
+                    : (isLight ? '#F0F5F2' : 'rgba(255, 255, 255, 0.05)'),
+                  border: adminMobileNavOpen
+                    ? (isLight ? '1px solid rgba(21, 128, 61, 0.35)' : `1px solid ${RF_MINT_ACCENT}`)
+                    : (isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(255, 255, 255, 0.12)'),
+                  color: adminMobileNavOpen ? (isLight ? '#15803D' : RF_MINT_ACCENT) : (isLight ? '#0A1C12' : '#FFFFFF'),
                   width: 34,
                   height: 34,
                   borderRadius: 9,
@@ -2287,15 +2393,15 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
             )}
 
             <div style={{
-              background: 'rgba(24, 252, 92, 0.12)',
-              border: '1px solid rgba(24, 252, 92, 0.28)',
+              background: isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(24, 252, 92, 0.12)',
+              border: isLight ? '1px solid rgba(21, 128, 61, 0.25)' : '1px solid rgba(24, 252, 92, 0.28)',
               width: isMobile ? 28 : 34,
               height: isMobile ? 28 : 34,
               borderRadius: 8,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: RF_MINT_ACCENT,
+              color: isLight ? '#15803D' : RF_MINT_ACCENT,
               flexShrink: 0
             }}>
               <Shield size={isMobile ? 15 : 17} />
@@ -2304,7 +2410,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
               <h1 style={{
                 fontSize: isMobile ? 15 : 19,
                 fontWeight: 800,
-                color: '#FFFFFF',
+                color: isLight ? '#0A1C12' : '#FFFFFF',
                 letterSpacing: '-0.02em',
                 margin: 0,
                 lineHeight: 1.2,
@@ -2314,14 +2420,44 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
               }}>
                 {isMobile ? 'Refeir Admissions' : 'Refeir Admissions Suite'}
               </h1>
-              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', display: isMobile ? 'none' : 'block', marginTop: 2 }}>
+              <span style={{
+                fontSize: 11,
+                color: isLight ? '#526E5E' : 'rgba(255,255,255,0.45)',
+                display: isMobile ? 'none' : 'block',
+                marginTop: 2
+              }}>
                 Live admissions, verification &amp; pioneer governance console
               </span>
             </div>
           </div>
 
           {/* Right Action Cluster */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 8, position: 'relative', flexShrink: 0 }} ref={notifDropdownRef}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 8, position: 'relative', flexShrink: 0 }} ref={notifDropdownRef}>
+            {/* Theme Mode Switcher Toggle Button (Visible on Desktop and Mobile) */}
+            <button
+              onClick={toggleTheme}
+              title={isLight ? 'Switch to Dark Mode' : 'Switch to White (Light) Mode'}
+              aria-label={isLight ? 'Switch to Dark Mode' : 'Switch to White (Light) Mode'}
+              className="rp-admin-theme-toggle"
+              style={{
+                background: isLight ? '#F0F5F2' : 'rgba(255,255,255,0.05)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.14)' : '1px solid rgba(255,255,255,0.12)',
+                color: isLight ? '#0A1C12' : '#FED072',
+                height: 34,
+                width: 34,
+                borderRadius: 9,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                transition: 'all 0.15s ease',
+                flexShrink: 0
+              }}
+            >
+              {isLight ? <Moon size={15} color="#0A1C12" /> : <Sun size={15} color="#FED072" />}
+            </button>
+
             {/* Notification Center Trigger */}
             <button
               onClick={() => {
@@ -2331,9 +2467,13 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
               }}
               title="Notification Center"
               style={{
-                background: notificationOpen ? 'rgba(24, 252, 92, 0.18)' : 'rgba(255,255,255,0.05)',
-                border: notificationOpen ? `1px solid ${RF_MINT_ACCENT}55` : '1px solid rgba(255,255,255,0.12)',
-                color: notificationOpen ? RF_MINT_ACCENT : '#FFFFFF',
+                background: notificationOpen
+                  ? (isLight ? 'rgba(21, 128, 61, 0.14)' : 'rgba(24, 252, 92, 0.18)')
+                  : (isLight ? '#F0F5F2' : 'rgba(255,255,255,0.05)'),
+                border: notificationOpen
+                  ? (isLight ? '1px solid rgba(21, 128, 61, 0.35)' : `1px solid ${RF_MINT_ACCENT}55`)
+                  : (isLight ? '1px solid rgba(15, 46, 30, 0.14)' : '1px solid rgba(255,255,255,0.12)'),
+                color: notificationOpen ? (isLight ? '#15803D' : RF_MINT_ACCENT) : (isLight ? '#0A1C12' : '#FFFFFF'),
                 height: 34,
                 width: 34,
                 borderRadius: 9,
@@ -2355,15 +2495,15 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   minWidth: 16,
                   height: 16,
                   borderRadius: 8,
-                  background: RF_MINT_ACCENT,
-                  color: RF_DEEP_GREEN,
+                  background: isLight ? '#15803D' : RF_MINT_ACCENT,
+                  color: isLight ? '#FFFFFF' : RF_DEEP_GREEN,
                   fontSize: 9.5,
                   fontWeight: 800,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: '0 4px',
-                  boxShadow: '0 0 8px rgba(24, 252, 92, 0.6)'
+                  boxShadow: isLight ? '0 0 6px rgba(21, 128, 61, 0.5)' : '0 0 8px rgba(24, 252, 92, 0.6)'
                 }}>
                   {unreadNotifCount}
                 </span>
@@ -2383,9 +2523,11 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   width: 34,
                   height: 34,
                   borderRadius: '50%',
-                  background: adminProfileDockerOpen ? 'rgba(24, 252, 92, 0.22)' : 'rgba(24, 252, 92, 0.12)',
-                  border: `1.5px solid ${adminProfileDockerOpen ? RF_MINT_ACCENT : 'rgba(24, 252, 92, 0.35)'}`,
-                  color: RF_MINT_ACCENT,
+                  background: adminProfileDockerOpen
+                    ? (isLight ? 'rgba(21, 128, 61, 0.18)' : 'rgba(24, 252, 92, 0.22)')
+                    : (isLight ? '#EDF5F0' : 'rgba(24, 252, 92, 0.12)'),
+                  border: `1.5px solid ${adminProfileDockerOpen ? (isLight ? '#15803D' : RF_MINT_ACCENT) : (isLight ? 'rgba(21, 128, 61, 0.3)' : 'rgba(24, 252, 92, 0.35)')}`,
+                  color: isLight ? '#15803D' : RF_MINT_ACCENT,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -2406,8 +2548,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   width: 8,
                   height: 8,
                   borderRadius: '50%',
-                  background: RF_MINT_ACCENT,
-                  border: '1.5px solid #07180F'
+                  background: isLight ? '#15803D' : RF_MINT_ACCENT,
+                  border: isLight ? '1.5px solid #FFFFFF' : '1.5px solid #07180F'
                 }} />
               </button>
             )}
@@ -2418,8 +2560,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 display: 'flex',
                 alignItems: 'center',
                 gap: 6,
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: isLight ? '#F0F5F2' : 'rgba(255,255,255,0.04)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255,255,255,0.08)',
                 padding: '3px 8px',
                 borderRadius: 8,
                 height: 32
@@ -2428,8 +2570,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   width: 20,
                   height: 20,
                   borderRadius: '50%',
-                  background: 'rgba(24, 252, 92, 0.15)',
-                  color: RF_MINT_ACCENT,
+                  background: isLight ? 'rgba(21, 128, 61, 0.14)' : 'rgba(24, 252, 92, 0.15)',
+                  color: isLight ? '#15803D' : RF_MINT_ACCENT,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -2439,15 +2581,15 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 }}>
                   {loggedInStaff.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                 </div>
-                <span style={{ fontSize: 12, fontWeight: 600, color: '#FFFFFF', whiteSpace: 'nowrap' }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: isLight ? '#0A1C12' : '#FFFFFF', whiteSpace: 'nowrap' }}>
                   {loggedInStaff.name}
                 </span>
                 <span style={{
                   fontSize: 9,
                   fontWeight: 700,
-                  color: RF_MINT_ACCENT,
-                  background: 'rgba(24, 252, 92, 0.1)',
-                  border: '1px solid rgba(24, 252, 92, 0.2)',
+                  color: isLight ? '#15803D' : RF_MINT_ACCENT,
+                  background: isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(24, 252, 92, 0.1)',
+                  border: isLight ? '1px solid rgba(21, 128, 61, 0.25)' : '1px solid rgba(24, 252, 92, 0.2)',
                   padding: '1px 5px',
                   borderRadius: 4,
                   textTransform: 'uppercase',
@@ -2464,9 +2606,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 onClick={() => onNavigate('/')}
                 title="Return to Main Website"
                 style={{
-                  background: 'rgba(24, 252, 92, 0.08)',
-                  border: '1px solid rgba(24, 252, 92, 0.22)',
-                  color: RF_MINT_ACCENT,
+                  background: isLight ? 'rgba(21, 128, 61, 0.08)' : 'rgba(24, 252, 92, 0.08)',
+                  border: isLight ? '1px solid rgba(21, 128, 61, 0.25)' : '1px solid rgba(24, 252, 92, 0.22)',
+                  color: isLight ? '#15803D' : RF_MINT_ACCENT,
                   height: 32,
                   padding: '0 13px',
                   borderRadius: 8,
@@ -2480,12 +2622,12 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   flexShrink: 0
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.background = 'rgba(24, 252, 92, 0.16)';
-                  e.currentTarget.style.borderColor = RF_MINT_ACCENT;
+                  e.currentTarget.style.background = isLight ? 'rgba(21, 128, 61, 0.16)' : 'rgba(24, 252, 92, 0.16)';
+                  e.currentTarget.style.borderColor = isLight ? '#15803D' : RF_MINT_ACCENT;
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.background = 'rgba(24, 252, 92, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(24, 252, 92, 0.22)';
+                  e.currentTarget.style.background = isLight ? 'rgba(21, 128, 61, 0.08)' : 'rgba(24, 252, 92, 0.08)';
+                  e.currentTarget.style.borderColor = isLight ? 'rgba(21, 128, 61, 0.25)' : 'rgba(24, 252, 92, 0.22)';
                 }}
               >
                 <ArrowLeft size={13} />
@@ -2499,9 +2641,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 onClick={handleLogout}
                 title="Sign Out"
                 style={{
-                  background: 'rgba(239, 68, 68, 0.08)',
-                  border: '1px solid rgba(239, 68, 68, 0.22)',
-                  color: '#FCA5A5',
+                  background: isLight ? 'rgba(239, 68, 68, 0.07)' : 'rgba(239, 68, 68, 0.08)',
+                  border: isLight ? '1px solid rgba(239, 68, 68, 0.22)' : '1px solid rgba(239, 68, 68, 0.22)',
+                  color: isLight ? '#DC2626' : '#FCA5A5',
                   height: 32,
                   padding: '0 12px',
                   borderRadius: 8,
@@ -3114,6 +3256,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
       {adminMobileNavOpen && isMobile && (
         <div
           onClick={() => setAdminMobileNavOpen(false)}
+          className="rp-admin-drawer"
           style={{
             position: 'fixed',
             top: 0,
@@ -3125,14 +3268,15 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
             minHeight: '100dvh',
             maxHeight: '100dvh',
             zIndex: 99999,
-            background: 'rgba(3, 12, 7, 0.98)',
+            background: isLight ? '#FFFFFF' : 'rgba(3, 12, 7, 0.98)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
             overscrollBehavior: 'none',
-            touchAction: 'none'
+            touchAction: 'none',
+            color: isLight ? '#0A1C12' : '#FFFFFF'
           }}
         >
           {/* Drawer Top Navigation Bar */}
@@ -3140,34 +3284,34 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
             onClick={e => e.stopPropagation()}
             style={{
               padding: '14px 18px',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+              borderBottom: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255, 255, 255, 0.08)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: 'rgba(15, 46, 30, 0.95)',
+              background: isLight ? '#FFFFFF' : 'rgba(15, 46, 30, 0.95)',
               flexShrink: 0,
               touchAction: 'none'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{
-                background: 'rgba(24, 252, 92, 0.15)',
-                border: '1px solid rgba(24, 252, 92, 0.35)',
+                background: isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(24, 252, 92, 0.15)',
+                border: isLight ? '1px solid rgba(21, 128, 61, 0.25)' : '1px solid rgba(24, 252, 92, 0.35)',
                 width: 32,
                 height: 32,
                 borderRadius: 8,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: RF_MINT_ACCENT
+                color: isLight ? '#15803D' : RF_MINT_ACCENT
               }}>
                 <Shield size={16} />
               </div>
               <div>
-                <div style={{ fontSize: 14.5, fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.01em' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: isLight ? '#0A1C12' : '#FFFFFF', letterSpacing: '-0.01em' }}>
                   Refeir Admissions Suite
                 </div>
-                <div style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.5)' }}>
+                <div style={{ fontSize: 10.5, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.5)' }}>
                   Navigation &amp; Governance Center
                 </div>
               </div>
@@ -3180,9 +3324,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 width: 34,
                 height: 34,
                 borderRadius: '50%',
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                color: '#FFFFFF',
+                background: isLight ? '#F0F5F2' : 'rgba(255, 255, 255, 0.08)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(255, 255, 255, 0.15)',
+                color: isLight ? '#0A1C12' : '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -3212,8 +3356,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
             {/* Staff identity card */}
             {loggedInStaff && (
               <div style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: isLight ? '#F4F8F5' : 'rgba(255,255,255,0.03)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255,255,255,0.08)',
                 borderRadius: 14,
                 padding: '12px 14px',
                 display: 'flex',
@@ -3222,19 +3366,20 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div style={{
-                    width: 34, height: 34, borderRadius: '50%', background: 'rgba(24, 252, 92, 0.15)',
-                    border: '1px solid rgba(24, 252, 92, 0.3)',
-                    color: RF_MINT_ACCENT, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    width: 34, height: 34, borderRadius: '50%',
+                    background: isLight ? 'rgba(21, 128, 61, 0.14)' : 'rgba(24, 252, 92, 0.15)',
+                    border: isLight ? '1px solid rgba(21, 128, 61, 0.3)' : '1px solid rgba(24, 252, 92, 0.3)',
+                    color: isLight ? '#15803D' : RF_MINT_ACCENT, display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 12, fontWeight: 800
                   }}>
                     {loggedInStaff.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                   </div>
                   <div>
-                    <div style={{ fontSize: 13.5, fontWeight: 700, color: '#FFFFFF' }}>{loggedInStaff.name}</div>
-                    <div style={{ fontSize: 11, color: RF_MINT_ACCENT, fontWeight: 600 }}>{loggedInStaff.role.replace('_', ' ')}</div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: isLight ? '#0A1C12' : '#FFFFFF' }}>{loggedInStaff.name}</div>
+                    <div style={{ fontSize: 11, color: isLight ? '#15803D' : RF_MINT_ACCENT, fontWeight: 600 }}>{loggedInStaff.role.replace('_', ' ')}</div>
                   </div>
                 </div>
-                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', fontFamily: 'monospace' }}>STAFF ID: {loggedInStaff.id}</span>
+                <span style={{ fontSize: 10, color: isLight ? '#64748B' : 'rgba(255,255,255,0.4)', fontFamily: 'monospace' }}>STAFF ID: {loggedInStaff.id}</span>
               </div>
             )}
 
@@ -3264,8 +3409,12 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                       style={{
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                         padding: '12px 14px', borderRadius: 12,
-                        background: isActive ? 'rgba(24, 252, 92, 0.12)' : 'rgba(255,255,255,0.03)',
-                        border: isActive ? '1px solid rgba(24, 252, 92, 0.35)' : '1px solid rgba(255,255,255,0.06)',
+                        background: isActive
+                          ? (isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(24, 252, 92, 0.12)')
+                          : (isLight ? '#F8FAF9' : 'rgba(255,255,255,0.03)'),
+                        border: isActive
+                          ? (isLight ? '1px solid rgba(21, 128, 61, 0.3)' : '1px solid rgba(24, 252, 92, 0.35)')
+                          : (isLight ? '1px solid rgba(15, 46, 30, 0.08)' : '1px solid rgba(255,255,255,0.06)'),
                         cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s ease',
                         boxShadow: isActive ? '0 4px 14px rgba(24, 252, 92, 0.15)' : 'none'
                       }}
@@ -3273,26 +3422,28 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                         <div style={{
                           width: 36, height: 36, borderRadius: 10,
-                          background: isActive ? 'rgba(24, 252, 92, 0.22)' : 'rgba(255,255,255,0.05)',
-                          border: `1px solid ${isActive ? RF_MINT_ACCENT : 'rgba(255,255,255,0.1)'}`,
-                          color: isActive ? RF_MINT_ACCENT : 'rgba(255,255,255,0.6)',
+                          background: isActive
+                            ? (isLight ? 'rgba(21, 128, 61, 0.18)' : 'rgba(24, 252, 92, 0.22)')
+                            : (isLight ? '#EDF5F0' : 'rgba(255,255,255,0.05)'),
+                          border: `1px solid ${isActive ? (isLight ? '#15803D' : RF_MINT_ACCENT) : (isLight ? 'rgba(15, 46, 30, 0.1)' : 'rgba(255,255,255,0.1)')}`,
+                          color: isActive ? (isLight ? '#15803D' : RF_MINT_ACCENT) : (isLight ? '#526E5E' : 'rgba(255,255,255,0.6)'),
                           display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
                         }}>
                           <Icon size={17} />
                         </div>
                         <div>
-                          <div style={{ fontSize: 13.5, fontWeight: isActive ? 700 : 600, color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.85)' }}>
+                          <div style={{ fontSize: 13.5, fontWeight: isActive ? 700 : 600, color: isActive ? (isLight ? '#15803D' : '#FFFFFF') : (isLight ? '#0A1C12' : 'rgba(255,255,255,0.85)') }}>
                             {item.label}
                           </div>
-                          <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', marginTop: 2 }}>
+                          <div style={{ fontSize: 11, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.45)', marginTop: 2 }}>
                             {item.desc}
                           </div>
                         </div>
                       </div>
                       <span style={{
                         fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 100,
-                        background: isActive ? 'rgba(24, 252, 92, 0.2)' : 'rgba(255,255,255,0.07)',
-                        color: isActive ? RF_MINT_ACCENT : 'rgba(255,255,255,0.55)', flexShrink: 0
+                        background: isActive ? (isLight ? 'rgba(21, 128, 61, 0.16)' : 'rgba(24, 252, 92, 0.2)') : (isLight ? 'rgba(15, 46, 30, 0.06)' : 'rgba(255,255,255,0.07)'),
+                        color: isActive ? (isLight ? '#15803D' : RF_MINT_ACCENT) : (isLight ? '#526E5E' : 'rgba(255,255,255,0.55)'), flexShrink: 0
                       }}>
                         {item.count}
                       </span>
@@ -3301,12 +3452,49 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 })}
             </div>
 
+            {/* Mobile Drawer Theme Switcher Tile */}
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '12px 14px', borderRadius: 12,
+              background: isLight ? '#F0F5F2' : 'rgba(255,255,255,0.04)',
+              border: isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(255,255,255,0.08)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{
+                  width: 32, height: 32, borderRadius: 8,
+                  background: isLight ? 'rgba(21, 128, 61, 0.12)' : 'rgba(254, 208, 114, 0.15)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                  {isLight ? <Moon size={16} color="#0A1C12" /> : <Sun size={16} color="#FED072" />}
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: isLight ? '#0A1C12' : '#FFFFFF' }}>
+                    {isLight ? 'White Mode Active' : 'Dark Mode Active'}
+                  </div>
+                  <div style={{ fontSize: 11, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.5)' }}>
+                    {isLight ? 'Switch to dark theme' : 'Switch to white mode'}
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={toggleTheme}
+                style={{
+                  padding: '6px 12px', borderRadius: 8,
+                  background: isLight ? '#15803D' : RF_MINT_ACCENT,
+                  color: isLight ? '#FFFFFF' : RF_DEEP_GREEN,
+                  fontSize: 12, fontWeight: 700, cursor: 'pointer', border: 'none'
+                }}
+              >
+                {isLight ? 'Dark Mode' : 'White Mode'}
+              </button>
+            </div>
+
             {/* Quick action bar */}
             <div style={{
               display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10,
               paddingTop: 14,
               paddingBottom: 'calc(10px + env(safe-area-inset-bottom, 14px))',
-              borderTop: '1px solid rgba(255,255,255,0.07)', marginTop: 'auto'
+              borderTop: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255,255,255,0.07)', marginTop: 'auto'
             }}>
               <button
                 onClick={() => {
@@ -3314,8 +3502,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   onNavigate('/');
                 }}
                 style={{
-                  background: 'rgba(24, 252, 92, 0.12)', border: '1px solid rgba(24, 252, 92, 0.3)',
-                  color: RF_MINT_ACCENT, padding: '12px 10px', borderRadius: 12, fontSize: 13, fontWeight: 700,
+                  background: isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(24, 252, 92, 0.12)',
+                  border: isLight ? '1px solid rgba(21, 128, 61, 0.25)' : '1px solid rgba(24, 252, 92, 0.3)',
+                  color: isLight ? '#15803D' : RF_MINT_ACCENT, padding: '12px 10px', borderRadius: 12, fontSize: 13, fontWeight: 700,
                   cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6
                 }}
               >
@@ -3324,8 +3513,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
               <button
                 onClick={() => { handleLogout(); setAdminMobileNavOpen(false); }}
                 style={{
-                  background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.3)',
-                  color: '#FCA5A5', padding: '12px 10px', borderRadius: 12, fontSize: 13, fontWeight: 700,
+                  background: isLight ? 'rgba(239, 68, 68, 0.08)' : 'rgba(239, 68, 68, 0.12)',
+                  border: isLight ? '1px solid rgba(239, 68, 68, 0.25)' : '1px solid rgba(239, 68, 68, 0.3)',
+                  color: isLight ? '#DC2626' : '#FCA5A5', padding: '12px 10px', borderRadius: 12, fontSize: 13, fontWeight: 700,
                   cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6
                 }}
               >
@@ -3355,18 +3545,20 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
         >
           <div
             onClick={e => e.stopPropagation()}
+            className="rp-admin-profile-docker"
             style={{
-              background: '#081C12',
-              borderTop: `1.5px solid ${RF_MINT_ACCENT}55`,
+              background: isLight ? '#FFFFFF' : '#081C12',
+              borderTop: isLight ? '1.5px solid rgba(21, 128, 61, 0.3)' : `1.5px solid ${RF_MINT_ACCENT}55`,
               borderRadius: '24px 24px 0 0',
               padding: '16px 20px calc(24px + env(safe-area-inset-bottom, 20px))',
-              boxShadow: '0 -10px 40px rgba(0,0,0,0.6)',
+              boxShadow: isLight ? '0 -10px 40px rgba(15, 46, 30, 0.12)' : '0 -10px 40px rgba(0,0,0,0.6)',
               maxHeight: '85dvh',
               overflowY: 'auto',
               WebkitOverflowScrolling: 'touch',
               display: 'flex',
               flexDirection: 'column',
-              gap: 16
+              gap: 16,
+              color: isLight ? '#0A1C12' : '#FFFFFF'
             }}
           >
             {/* Drag Pill */}
@@ -3375,7 +3567,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 width: 40,
                 height: 4,
                 borderRadius: 2,
-                background: 'rgba(255,255,255,0.2)',
+                background: isLight ? 'rgba(15, 46, 30, 0.18)' : 'rgba(255,255,255,0.2)',
                 margin: '0 auto 4px',
                 cursor: 'pointer'
               }}
@@ -3385,10 +3577,14 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <span style={{ fontSize: 11, color: RF_MINT_ACCENT, textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700, display: 'block' }}>
+                <span style={{
+                  fontSize: 11,
+                  color: isLight ? '#15803D' : RF_MINT_ACCENT,
+                  textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700, display: 'block'
+                }}>
                   Authenticated Staff Docker
                 </span>
-                <h3 style={{ margin: 0, fontSize: 17, fontWeight: 800, color: '#FFFFFF' }}>
+                <h3 style={{ margin: 0, fontSize: 17, fontWeight: 800, color: isLight ? '#0A1C12' : '#FFFFFF' }}>
                   Reviewer Profile &amp; Settings
                 </h3>
               </div>
@@ -3398,9 +3594,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   width: 32,
                   height: 32,
                   borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  color: 'rgba(255,255,255,0.7)',
+                  background: isLight ? '#F0F5F2' : 'rgba(255,255,255,0.06)',
+                  border: isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(255,255,255,0.12)',
+                  color: isLight ? '#0A1C12' : 'rgba(255,255,255,0.7)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -3414,8 +3610,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
 
             {/* Profile Identity Card */}
             <div style={{
-              background: 'rgba(24, 252, 92, 0.04)',
-              border: '1px solid rgba(24, 252, 92, 0.18)',
+              background: isLight ? '#F4F8F5' : 'rgba(24, 252, 92, 0.04)',
+              border: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(24, 252, 92, 0.18)',
               borderRadius: 16,
               padding: '14px 16px',
               display: 'flex',
@@ -3426,9 +3622,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 width: 48,
                 height: 48,
                 borderRadius: '50%',
-                background: 'rgba(24, 252, 92, 0.15)',
-                border: `2px solid ${RF_MINT_ACCENT}`,
-                color: RF_MINT_ACCENT,
+                background: isLight ? 'rgba(21, 128, 61, 0.14)' : 'rgba(24, 252, 92, 0.15)',
+                border: `2px solid ${isLight ? '#15803D' : RF_MINT_ACCENT}`,
+                color: isLight ? '#15803D' : RF_MINT_ACCENT,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -3440,13 +3636,13 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: 15, fontWeight: 700, color: '#FFFFFF', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: isLight ? '#0A1C12' : '#FFFFFF', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {loggedInStaff.name}
                   </span>
                   <span style={{
                     fontSize: 10,
                     fontWeight: 800,
-                    color: isSuperAdmin ? RF_GOLD_YELLOW : RF_MINT_ACCENT,
+                    color: isSuperAdmin ? (isLight ? '#B45309' : RF_GOLD_YELLOW) : (isLight ? '#15803D' : RF_MINT_ACCENT),
                     background: isSuperAdmin ? 'rgba(246, 178, 26, 0.15)' : 'rgba(24, 252, 92, 0.12)',
                     padding: '2px 7px',
                     borderRadius: 100,
@@ -3457,14 +3653,14 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                     {loggedInStaff.role === 'SUPER_ADMIN' ? 'Super Admin' : loggedInStaff.role.replace('_', ' ')}
                   </span>
                 </div>
-                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div style={{ fontSize: 12, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.5)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {loggedInStaff.email}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: RF_MINT_ACCENT, boxShadow: `0 0 6px ${RF_MINT_ACCENT}` }} />
-                  <span style={{ fontSize: 11, color: RF_MINT_ACCENT, fontWeight: 600 }}>Active Session</span>
-                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)' }}>•</span>
-                  <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: isLight ? '#15803D' : RF_MINT_ACCENT, boxShadow: `0 0 6px ${RF_MINT_ACCENT}` }} />
+                  <span style={{ fontSize: 11, color: isLight ? '#15803D' : RF_MINT_ACCENT, fontWeight: 600 }}>Active Session</span>
+                  <span style={{ fontSize: 11, color: isLight ? '#94A3B8' : 'rgba(255,255,255,0.35)' }}>•</span>
+                  <span style={{ fontSize: 11, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.6)' }}>
                     {loggedInStaff.assigned_division ? loggedInStaff.assigned_division.replace('_', ' ') : 'All Squads'}
                   </span>
                 </div>
@@ -3478,39 +3674,73 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
               gap: 8
             }}>
               <div style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.07)',
+                background: isLight ? '#F8FAF9' : 'rgba(255,255,255,0.03)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.08)' : '1px solid rgba(255,255,255,0.07)',
                 borderRadius: 12,
                 padding: '10px 8px',
                 textAlign: 'center'
               }}>
-                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', display: 'block' }}>Applicants</span>
-                <span style={{ fontSize: 16, fontWeight: 800, color: '#FFFFFF', marginTop: 2, display: 'block' }}>{stats.total}</span>
+                <span style={{ fontSize: 10, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.45)', textTransform: 'uppercase', display: 'block' }}>Applicants</span>
+                <span style={{ fontSize: 16, fontWeight: 800, color: isLight ? '#0A1C12' : '#FFFFFF', marginTop: 2, display: 'block' }}>{stats.total}</span>
               </div>
               <div style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.07)',
+                background: isLight ? '#F8FAF9' : 'rgba(255,255,255,0.03)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.08)' : '1px solid rgba(255,255,255,0.07)',
                 borderRadius: 12,
                 padding: '10px 8px',
                 textAlign: 'center'
               }}>
-                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', display: 'block' }}>Pending</span>
+                <span style={{ fontSize: 10, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.45)', textTransform: 'uppercase', display: 'block' }}>Pending</span>
                 <span style={{ fontSize: 16, fontWeight: 800, color: RF_GOLD_YELLOW, marginTop: 2, display: 'block' }}>{stats.pending}</span>
               </div>
               <div style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.07)',
+                background: isLight ? '#F8FAF9' : 'rgba(255,255,255,0.03)',
+                border: isLight ? '1px solid rgba(15, 46, 30, 0.08)' : '1px solid rgba(255,255,255,0.07)',
                 borderRadius: 12,
                 padding: '10px 8px',
                 textAlign: 'center'
               }}>
-                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', display: 'block' }}>Verified</span>
-                <span style={{ fontSize: 16, fontWeight: 800, color: RF_MINT_ACCENT, marginTop: 2, display: 'block' }}>{taskStats.verified}</span>
+                <span style={{ fontSize: 10, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.45)', textTransform: 'uppercase', display: 'block' }}>Verified</span>
+                <span style={{ fontSize: 16, fontWeight: 800, color: isLight ? '#15803D' : RF_MINT_ACCENT, marginTop: 2, display: 'block' }}>{taskStats.verified}</span>
               </div>
             </div>
 
             {/* Actions List */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {/* Theme Mode Toggle Button */}
+              <button
+                onClick={toggleTheme}
+                style={{
+                  background: isLight ? '#F0F5F2' : 'rgba(255,255,255,0.04)',
+                  border: isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(255,255,255,0.1)',
+                  color: isLight ? '#0A1C12' : '#FFFFFF',
+                  padding: '12px 16px',
+                  borderRadius: 12,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  transition: 'all 0.15s'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  {isLight ? <Moon size={16} color="#0A1C12" /> : <Sun size={16} color="#FED072" />}
+                  <span>{isLight ? 'Switch to Dark Mode' : 'Switch to White (Light) Mode'}</span>
+                </div>
+                <span style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: 6,
+                  background: isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(254, 208, 114, 0.15)',
+                  color: isLight ? '#15803D' : '#FED072'
+                }}>
+                  {isLight ? 'White Mode' : 'Dark Mode'}
+                </span>
+              </button>
+
               {/* Switch Profile Button */}
               <button
                 onClick={() => {
@@ -3518,9 +3748,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   handleLogout();
                 }}
                 style={{
-                  background: 'rgba(24, 252, 92, 0.12)',
-                  border: `1px solid ${RF_MINT_ACCENT}55`,
-                  color: RF_MINT_ACCENT,
+                  background: isLight ? 'rgba(21, 128, 61, 0.08)' : 'rgba(24, 252, 92, 0.12)',
+                  border: isLight ? '1px solid rgba(21, 128, 61, 0.25)' : `1px solid ${RF_MINT_ACCENT}55`,
+                  color: isLight ? '#15803D' : RF_MINT_ACCENT,
                   padding: '12px 16px',
                   borderRadius: 12,
                   fontSize: 13,
@@ -3546,9 +3776,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   setAdminProfileDockerOpen(false);
                 }}
                 style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: '#FFFFFF',
+                  background: isLight ? '#F0F5F2' : 'rgba(255,255,255,0.04)',
+                  border: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255,255,255,0.1)',
+                  color: isLight ? '#0A1C12' : '#FFFFFF',
                   padding: '12px 16px',
                   borderRadius: 12,
                   fontSize: 13,
@@ -3573,9 +3803,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   setAdminProfileDockerOpen(false);
                 }}
                 style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: '#FFFFFF',
+                  background: isLight ? '#F0F5F2' : 'rgba(255,255,255,0.04)',
+                  border: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255,255,255,0.1)',
+                  color: isLight ? '#0A1C12' : '#FFFFFF',
                   padding: '12px 16px',
                   borderRadius: 12,
                   fontSize: 13,
@@ -3600,9 +3830,9 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                   handleLogout();
                 }}
                 style={{
-                  background: 'rgba(239, 68, 68, 0.1)',
-                  border: '1px solid rgba(239, 68, 68, 0.3)',
-                  color: '#FCA5A5',
+                  background: isLight ? 'rgba(239, 68, 68, 0.08)' : 'rgba(239, 68, 68, 0.1)',
+                  border: isLight ? '1px solid rgba(239, 68, 68, 0.25)' : '1px solid rgba(239, 68, 68, 0.3)',
+                  color: isLight ? '#DC2626' : '#FCA5A5',
                   padding: '12px 16px',
                   borderRadius: 12,
                   fontSize: 13,
@@ -3625,20 +3855,25 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
         </div>
       )}
 
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: isMobile ? '16px 14px calc(90px + env(safe-area-inset-bottom, 24px))' : '26px 24px 80px' }}>
+      <div className="rp-admin-main-container" style={{ maxWidth: 1280, margin: '0 auto', padding: isMobile ? '16px 14px calc(90px + env(safe-area-inset-bottom, 24px))' : '26px 24px 80px' }}>
         {/* Mobile Active Section Breadcrumb & Switcher Trigger */}
         {isMobile && (
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            marginBottom: 20, padding: '10px 14px',
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.07)',
-            borderRadius: 12
-          }}>
+          <div
+            className="rp-admin-breadcrumb"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              marginBottom: 12, padding: '10px 14px',
+              background: isLight ? '#FFFFFF' : 'rgba(255, 255, 255, 0.03)',
+              border: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255, 255, 255, 0.07)',
+              borderRadius: 12,
+              boxShadow: isLight ? '0 2px 8px rgba(15, 46, 30, 0.03)' : 'none'
+            }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{
                 width: 28, height: 28, borderRadius: 8,
-                background: 'rgba(24, 252, 92, 0.15)', color: RF_MINT_ACCENT,
+                background: isLight ? 'rgba(21, 128, 61, 0.12)' : 'rgba(24, 252, 92, 0.15)',
+                color: isLight ? '#15803D' : RF_MINT_ACCENT,
                 display: 'flex', alignItems: 'center', justifyContent: 'center'
               }}>
                 {adminTab === 'applications' && <UserCheck size={15} />}
@@ -3650,10 +3885,10 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                 {adminTab === 'analytics' && <BarChart3 size={15} />}
               </div>
               <div>
-                <span style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block' }}>
+                <span style={{ fontSize: 10.5, color: isLight ? '#526E5E' : 'rgba(255,255,255,0.45)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block' }}>
                   Current Section
                 </span>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: isLight ? '#0A1C12' : '#FFFFFF' }}>
                   {adminTab === 'applications' && 'Candidate Applications'}
                   {adminTab === 'proofs' && 'Task Proofs of Work'}
                   {adminTab === 'members' && 'Pioneer Profiles Registry'}
@@ -3667,32 +3902,117 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
             <button
               onClick={() => setAdminMobileNavOpen(true)}
               style={{
-                background: 'rgba(24, 252, 92, 0.12)', border: '1px solid rgba(24, 252, 92, 0.28)',
-                color: RF_MINT_ACCENT, padding: '6px 12px', borderRadius: 100, fontSize: 11.5,
+                background: isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(24, 252, 92, 0.12)',
+                border: isLight ? '1px solid rgba(21, 128, 61, 0.28)' : '1px solid rgba(24, 252, 92, 0.28)',
+                color: isLight ? '#15803D' : RF_MINT_ACCENT, padding: '6px 12px', borderRadius: 100, fontSize: 11.5,
                 fontWeight: 700, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 5
               }}
             >
-              <Menu size={12} /> Switch
+              <Menu size={12} /> Menu
             </button>
+          </div>
+        )}
+
+        {/* Mobile Horizontal Section Tabs Bar (Quick One-Touch Navigation) */}
+        {isMobile && (
+          <div
+            className="rp-sleek-scroll"
+            style={{
+              display: 'flex',
+              gap: 6,
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: 'none',
+              paddingBottom: 4,
+              marginBottom: 16
+            }}
+          >
+            {[
+              { id: 'applications', label: 'Admissions', icon: UserCheck, count: stats.total },
+              { id: 'proofs', label: 'Proofs', icon: FileCheck, count: taskStats.total },
+              { id: 'members', label: 'Pioneers', icon: Users, count: membersList.length, onClick: refreshMembers },
+              { id: 'workers', label: 'Staff', icon: Briefcase, count: staffList.length },
+              { id: 'certificates', label: 'Certs', icon: Award, count: certificatesList.length, onClick: refreshCertificates },
+              { id: 'tasks', label: 'Missions', icon: Megaphone, count: tasksList.filter(t => t.status === 'ACTIVE').length, onClick: refreshTasks },
+              { id: 'analytics', label: 'Analytics', icon: BarChart3, count: 0 },
+            ]
+              .filter(item => isTabAuthorized(loggedInStaff?.role || 'SUPER_ADMIN', item.id))
+              .map(item => {
+                const isActive = adminTab === item.id;
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setAdminTab(item.id as any);
+                      if (item.onClick) item.onClick();
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 5,
+                      padding: '7px 11px',
+                      borderRadius: 100,
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                      fontSize: 11.5,
+                      fontWeight: isActive ? 700 : 600,
+                      background: isActive
+                        ? (isLight ? '#15803D' : RF_MINT_ACCENT)
+                        : (isLight ? '#FFFFFF' : 'rgba(255, 255, 255, 0.05)'),
+                      color: isActive
+                        ? (isLight ? '#FFFFFF' : RF_DEEP_GREEN)
+                        : (isLight ? '#273E31' : 'rgba(255, 255, 255, 0.75)'),
+                      border: isActive
+                        ? 'none'
+                        : (isLight ? '1px solid rgba(15, 46, 30, 0.12)' : '1px solid rgba(255, 255, 255, 0.1)'),
+                      boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.15)' : (isLight ? '0 1px 4px rgba(15, 46, 30, 0.04)' : 'none'),
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    <Icon size={12} />
+                    <span>{item.label}</span>
+                    <span style={{
+                      fontSize: 10,
+                      fontWeight: 800,
+                      padding: '1px 5px',
+                      borderRadius: 100,
+                      background: isActive
+                        ? (isLight ? 'rgba(255,255,255,0.25)' : 'rgba(15,46,30,0.2)')
+                        : (isLight ? 'rgba(15,46,30,0.06)' : 'rgba(255,255,255,0.08)'),
+                      color: isActive
+                        ? (isLight ? '#FFFFFF' : RF_DEEP_GREEN)
+                        : (isLight ? '#526E5E' : 'rgba(255,255,255,0.6)')
+                    }}>
+                      {item.count}
+                    </span>
+                  </button>
+                );
+              })}
           </div>
         )}
 
         {/* Desktop Navigation Tabs (Hidden on mobile) */}
         {!isMobile && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            marginBottom: 26,
-            padding: '4px',
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.07)',
-            borderRadius: 12,
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
-          }}>
+          <div
+            className="rp-admin-tabbar"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              marginBottom: 26,
+              padding: '4px',
+              background: isLight ? '#FFFFFF' : 'rgba(255, 255, 255, 0.03)',
+              border: isLight ? '1px solid rgba(15, 46, 30, 0.1)' : '1px solid rgba(255, 255, 255, 0.07)',
+              borderRadius: 12,
+              boxShadow: isLight ? '0 2px 8px rgba(15, 46, 30, 0.03)' : 'none',
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+          >
             {[
               { id: 'applications', label: 'Applications', icon: UserCheck, count: stats.total },
               { id: 'proofs', label: 'Task Proofs', icon: FileCheck, count: taskStats.total },
@@ -3721,10 +4041,10 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                       borderRadius: 8,
                       fontSize: 12.5,
                       fontWeight: isActive ? 700 : 500,
-                      color: isActive ? RF_MINT_ACCENT : 'rgba(255, 255, 255, 0.65)',
-                      background: isActive ? 'rgba(24, 252, 92, 0.12)' : 'transparent',
-                      border: isActive ? '1px solid rgba(24, 252, 92, 0.28)' : '1px solid transparent',
-                      boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.2)' : 'none',
+                      color: isActive ? (isLight ? '#15803D' : RF_MINT_ACCENT) : (isLight ? '#526E5E' : 'rgba(255, 255, 255, 0.65)'),
+                      background: isActive ? (isLight ? 'rgba(21, 128, 61, 0.1)' : 'rgba(24, 252, 92, 0.12)') : 'transparent',
+                      border: isActive ? (isLight ? '1px solid rgba(21, 128, 61, 0.28)' : '1px solid rgba(24, 252, 92, 0.28)') : '1px solid transparent',
+                      boxShadow: isActive ? (isLight ? '0 2px 6px rgba(21, 128, 61, 0.08)' : '0 2px 8px rgba(0,0,0,0.2)') : 'none',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
@@ -3736,8 +4056,8 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
                     <span>{tab.label}</span>
                     {tab.id !== 'analytics' && (
                       <span style={{
-                        background: isActive ? 'rgba(24, 252, 92, 0.2)' : 'rgba(255, 255, 255, 0.08)',
-                        color: isActive ? RF_MINT_ACCENT : 'rgba(255, 255, 255, 0.55)',
+                        background: isActive ? (isLight ? 'rgba(21, 128, 61, 0.16)' : 'rgba(24, 252, 92, 0.2)') : (isLight ? 'rgba(15, 46, 30, 0.06)' : 'rgba(255, 255, 255, 0.08)'),
+                        color: isActive ? (isLight ? '#15803D' : RF_MINT_ACCENT) : (isLight ? '#526E5E' : 'rgba(255, 255, 255, 0.55)'),
                         padding: '1px 6px',
                         borderRadius: 6,
                         fontSize: 10.5,
@@ -7592,20 +7912,29 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
 
       {/* ─── DETAILED APPLICANT REVIEW MODAL ────────────────────────────────────── */}
       {modalOpen && activeApp && (
-        <div style={{
-          position: 'fixed', inset: 0, zIndex: 1000,
-          background: 'rgba(5, 18, 11, 0.85)', backdropFilter: 'blur(12px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          padding: isMobile ? '12px 10px calc(16px + env(safe-area-inset-bottom, 16px))' : 20
-        }} onClick={() => setModalOpen(false)}>
-          <div style={{
-            background: 'linear-gradient(145deg, #0B2416 0%, #061A0F 100%)',
-            border: '1px solid rgba(102, 187, 42, 0.35)',
-            borderRadius: isMobile ? 18 : 24, maxWidth: 680, width: '100%',
-            maxHeight: isMobile ? 'calc(100dvh - 28px - env(safe-area-inset-bottom, 16px))' : '90vh',
-            boxShadow: '0 25px 60px rgba(0,0,0,0.85)', position: 'relative',
-            display: 'flex', flexDirection: 'column', overflow: 'hidden'
-          }} onClick={e => e.stopPropagation()}>
+        <div
+          className="rp-admin-modal-overlay"
+          style={{
+            position: 'fixed', inset: 0, zIndex: 1000,
+            background: isLight ? 'rgba(15, 46, 30, 0.45)' : 'rgba(5, 18, 11, 0.85)', backdropFilter: 'blur(12px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: isMobile ? '12px 10px calc(16px + env(safe-area-inset-bottom, 16px))' : 20
+          }}
+          onClick={() => setModalOpen(false)}
+        >
+          <div
+            className="rp-admin-modal-card"
+            style={{
+              background: isLight ? '#FFFFFF' : 'linear-gradient(145deg, #0B2416 0%, #061A0F 100%)',
+              border: isLight ? '1px solid rgba(15, 46, 30, 0.14)' : '1px solid rgba(102, 187, 42, 0.35)',
+              borderRadius: isMobile ? 18 : 24, maxWidth: 680, width: '100%',
+              maxHeight: isMobile ? 'calc(100dvh - 28px - env(safe-area-inset-bottom, 16px))' : '90vh',
+              boxShadow: isLight ? '0 25px 60px rgba(15, 46, 30, 0.16)' : '0 25px 60px rgba(0,0,0,0.85)', position: 'relative',
+              display: 'flex', flexDirection: 'column', overflow: 'hidden',
+              color: isLight ? '#0A1C12' : '#FFFFFF'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
             {/* Modal Header */}
             <div style={{
               padding: isMobile ? '16px 18px' : '24px 28px', borderBottom: '1px solid rgba(255,255,255,0.08)',
@@ -7953,20 +8282,29 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
 
       {/* ─── DETAILED TASK PROOF REVIEW MODAL ────────────────────────────────────── */}
       {taskModalOpen && activeTask && (
-        <div style={{
-          position: 'fixed', inset: 0, zIndex: 1000,
-          background: 'rgba(5, 18, 11, 0.85)', backdropFilter: 'blur(12px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          padding: isMobile ? '12px 10px calc(16px + env(safe-area-inset-bottom, 16px))' : 20
-        }} onClick={() => setTaskModalOpen(false)}>
-          <div style={{
-            background: 'linear-gradient(145deg, #0B2416 0%, #061A0F 100%)',
-            border: '1px solid rgba(102, 187, 42, 0.35)',
-            borderRadius: isMobile ? 18 : 24, maxWidth: 740, width: '100%',
-            maxHeight: isMobile ? 'calc(100dvh - 28px - env(safe-area-inset-bottom, 16px))' : '90vh',
-            boxShadow: '0 25px 60px rgba(0,0,0,0.85)', position: 'relative',
-            display: 'flex', flexDirection: 'column', overflow: 'hidden'
-          }} onClick={e => e.stopPropagation()}>
+        <div
+          className="rp-admin-modal-overlay"
+          style={{
+            position: 'fixed', inset: 0, zIndex: 1000,
+            background: isLight ? 'rgba(15, 46, 30, 0.45)' : 'rgba(5, 18, 11, 0.85)', backdropFilter: 'blur(12px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: isMobile ? '12px 10px calc(16px + env(safe-area-inset-bottom, 16px))' : 20
+          }}
+          onClick={() => setTaskModalOpen(false)}
+        >
+          <div
+            className="rp-admin-modal-card"
+            style={{
+              background: isLight ? '#FFFFFF' : 'linear-gradient(145deg, #0B2416 0%, #061A0F 100%)',
+              border: isLight ? '1px solid rgba(15, 46, 30, 0.14)' : '1px solid rgba(102, 187, 42, 0.35)',
+              borderRadius: isMobile ? 18 : 24, maxWidth: 740, width: '100%',
+              maxHeight: isMobile ? 'calc(100dvh - 28px - env(safe-area-inset-bottom, 16px))' : '90vh',
+              boxShadow: isLight ? '0 25px 60px rgba(15, 46, 30, 0.16)' : '0 25px 60px rgba(0,0,0,0.85)', position: 'relative',
+              display: 'flex', flexDirection: 'column', overflow: 'hidden',
+              color: isLight ? '#0A1C12' : '#FFFFFF'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
             {/* Modal Header */}
             <div style={{
               padding: isMobile ? '14px 16px' : '20px 24px', borderBottom: '1px solid rgba(255,255,255,0.08)',
@@ -8358,6 +8696,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
       {/* ─── ADD NEW WORKER MODAL ──────────────────────────────────────────────── */}
       {addWorkerModalOpen && (
         <div
+          className="rp-admin-modal-overlay"
           onClick={() => setAddWorkerModalOpen(false)}
           style={{
             position: 'fixed', inset: 0, zIndex: 1100,
@@ -8367,6 +8706,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
           }}
         >
           <div
+            className="rp-admin-modal-card rp-sleek-scroll"
             onClick={e => e.stopPropagation()}
             style={{
               background: 'linear-gradient(145deg, #0B2416 0%, #061A0F 100%)',
@@ -8610,6 +8950,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
       {/* ─── EDIT STAFF MEMBER & RESET PASSWORD MODAL ───────────────────────── */}
       {editStaffModalOpen && editingStaffMember && (
         <div
+          className="rp-admin-modal-overlay"
           onClick={() => {
             setEditStaffModalOpen(false);
             setEditingStaffMember(null);
@@ -8622,6 +8963,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
           }}
         >
           <div
+            className="rp-admin-modal-card rp-sleek-scroll"
             onClick={e => e.stopPropagation()}
             style={{
               background: 'linear-gradient(145deg, #0B2416 0%, #061A0F 100%)',
@@ -8964,6 +9306,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
       {/* ─── APPOINT SQUAD LEAD MODAL ────────────────────────────────────────── */}
       {appointSquadLeadModalOpen && (
         <div
+          className="rp-admin-modal-overlay"
           onClick={() => setAppointSquadLeadModalOpen(false)}
           style={{
             position: 'fixed', inset: 0, zIndex: 1100,
@@ -8974,6 +9317,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
           }}
         >
           <div
+            className="rp-admin-modal-card rp-sleek-scroll"
             onClick={e => e.stopPropagation()}
             style={{
               background: 'linear-gradient(145deg, #0D281A 0%, #061A0F 100%)',
@@ -9255,6 +9599,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
       {/* ─── SELECTED MEMBER FULL PROFILE MODAL ──────────────────────────────── */}
       {memberModalOpen && selectedMember && (
         <div
+          className="rp-admin-modal-overlay"
           onClick={() => setMemberModalOpen(false)}
           style={{
             position: 'fixed', inset: 0, zIndex: 1000,
@@ -9266,7 +9611,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
         >
           <div
             onClick={e => e.stopPropagation()}
-            className="rp-sleek-scroll"
+            className="rp-admin-modal-card rp-sleek-scroll"
             style={{
               maxWidth: 860, width: '100%',
               maxHeight: isMobile ? 'calc(100dvh - 28px - env(safe-area-inset-bottom, 16px))' : '90vh',
@@ -9921,6 +10266,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
       {/* ─── SUSPEND MEMBER CONFIRMATION MODAL ──────────────────────────────── */}
       {suspendModalMember && (
         <div
+          className="rp-admin-modal-overlay"
           onClick={() => setSuspendModalMember(null)}
           style={{
             position: 'fixed', inset: 0, zIndex: 1100,
@@ -9931,7 +10277,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
         >
           <div
             onClick={e => e.stopPropagation()}
-            className="rp-sleek-scroll"
+            className="rp-admin-modal-card rp-sleek-scroll"
             style={{
               maxWidth: 540, width: '100%',
               maxHeight: isMobile ? 'calc(100dvh - 28px - env(safe-area-inset-bottom, 16px))' : '90vh',
@@ -10051,6 +10397,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
       {/* ─── ISSUE CERTIFICATE MODAL ────────────────────────────────────── */}
       {issueCertModalOpen && (
         <div
+          className="rp-admin-modal-overlay"
           onClick={() => setIssueCertModalOpen(false)}
           style={{
             position: 'fixed', inset: 0, zIndex: 1100,
@@ -10061,7 +10408,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
         >
           <div
             onClick={e => e.stopPropagation()}
-            className="rp-sleek-scroll"
+            className="rp-admin-modal-card rp-sleek-scroll"
             style={{
               maxWidth: 580, width: '100%',
               maxHeight: isMobile ? 'calc(100dvh - 28px - env(safe-area-inset-bottom, 16px))' : '90vh',
@@ -10228,6 +10575,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
       {/* ─── ANNOUNCE NEW SQUAD TASK / BOUNTY MODAL ───────────────────────── */}
       {newTaskModalOpen && (
         <div
+          className="rp-admin-modal-overlay"
           onClick={() => setNewTaskModalOpen(false)}
           style={{
             position: 'fixed',
@@ -10245,7 +10593,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({ onNavigate }) 
         >
           <div
             onClick={e => e.stopPropagation()}
-            className="rp-sleek-scroll"
+            className="rp-admin-modal-card rp-sleek-scroll"
             style={{
               maxWidth: 720,
               width: '100%',

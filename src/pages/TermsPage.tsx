@@ -15,7 +15,7 @@ interface TermsPageProps {
 
 export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
   return (
-    <div style={{ minHeight: '100vh', background: '#FFFFFF', color: '#1E293B', paddingTop: 72 }}>
+    <div className="rp-terms-page" style={{ minHeight: '100vh', background: 'var(--rp-bg-page)', color: 'var(--rp-text-main)', paddingTop: 72 }}>
       {/* Header Banner */}
       <section style={{
         background: `linear-gradient(135deg, ${RF_DEEP_GREEN} 0%, ${RF_FOREST_DARK} 100%)`,

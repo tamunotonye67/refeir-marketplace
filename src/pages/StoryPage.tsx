@@ -44,7 +44,7 @@ export const StoryPage: React.FC<StoryPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div id="top" style={{ minHeight: '100vh', background: '#05120B', color: '#F8FAFC', paddingTop: 72 }}>
+    <div id="top" className="rp-story-page" style={{ minHeight: '100vh', background: 'var(--rp-bg-page)', color: 'var(--rp-text-main)', paddingTop: 72 }}>
       {/* Hero Section */}
       <section style={{
         background: `linear-gradient(145deg, ${RF_DEEP_GREEN} 0%, #07180F 40%, ${RF_FOREST_DARK} 100%)`,

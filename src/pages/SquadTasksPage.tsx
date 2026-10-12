@@ -136,10 +136,10 @@ export const SquadTasksPage: React.FC<SquadTasksPageProps> = ({ onNavigate, onOp
   // ─── GATE: UN-AUTHENTICATED USERS CANNOT ACCESS TASKS & BOUNTIES ───────────
   if (!contributor) {
     return (
-      <div style={{
-        background: RF_DEEP_GREEN,
+      <div className="rp-squadtasks-page" style={{
+        background: 'var(--rp-bg-page)',
         minHeight: '100vh',
-        color: '#FFFFFF',
+        color: 'var(--rp-text-main)',
         paddingTop: isMobile ? 40 : 90,
         paddingBottom: isMobile ? 60 : 100,
         display: 'flex',
@@ -478,7 +478,7 @@ export const SquadTasksPage: React.FC<SquadTasksPageProps> = ({ onNavigate, onOp
   }
 
   return (
-    <div style={{ background: RF_DEEP_GREEN, minHeight: '100vh', color: '#FFFFFF', paddingTop: isMobile ? 40 : 90, paddingBottom: isMobile ? 60 : 100 }}>
+    <div className="rp-squadtasks-page" style={{ background: 'var(--rp-bg-page)', minHeight: '100vh', color: 'var(--rp-text-main)', paddingTop: isMobile ? 40 : 90, paddingBottom: isMobile ? 60 : 100 }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', padding: isMobile ? '0 14px' : '0 24px' }}>
 
         {/* Hero Section */}

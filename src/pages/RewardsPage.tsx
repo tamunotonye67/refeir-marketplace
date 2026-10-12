@@ -187,7 +187,7 @@ export const RewardsPage: React.FC<RewardsPageProps> = ({ onNavigate, onOpenStat
   const selectedTier = CONTRIBUTOR_LEVELS.find(l => l.level === activeLevel) || CONTRIBUTOR_LEVELS[1];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#05120B', color: '#FFFFFF', paddingTop: isMobile ? 56 : 72 }}>
+    <div className="rp-rewards-page" style={{ minHeight: '100vh', background: 'var(--rp-bg-page)', color: 'var(--rp-text-main)', paddingTop: isMobile ? 56 : 72 }}>
       {/* Hero Header */}
       <section style={{
         background: `linear-gradient(180deg, #07180F 0%, #0B2417 50%, #05120B 100%)`,
