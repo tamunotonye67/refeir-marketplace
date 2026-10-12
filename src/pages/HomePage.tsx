@@ -3508,18 +3508,36 @@ export const HomePage: React.FC<HomePageProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: '0.75rem'
+                  padding: '1rem'
                 }}
               >
+                {/* Glowy Lemon Gradient Aura Underneath the Diagram */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '12%',
+                    left: '5%',
+                    width: '90%',
+                    height: '80%',
+                    borderRadius: '50%',
+                    background: 'radial-gradient(ellipse at center, rgba(212, 249, 51, 0.35) 0%, rgba(163, 230, 53, 0.24) 40%, rgba(102, 187, 42, 0.12) 65%, transparent 78%)',
+                    filter: 'blur(36px)',
+                    pointerEvents: 'none',
+                    zIndex: 1
+                  }}
+                />
+
                 <img
                   src="/business_deal_closed.svg"
                   alt="Refeir for Business - Modern 2D Flat Business Deal and Strategic Negotiation"
                   style={{
+                    position: 'relative',
+                    zIndex: 2,
                     width: '100%',
                     maxWidth: '460px',
                     height: 'auto',
                     display: 'block',
-                    filter: 'drop-shadow(0 16px 36px rgba(0, 0, 0, 0.35))',
+                    filter: 'drop-shadow(0 16px 36px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 24px rgba(212, 249, 51, 0.22))',
                     transition: 'transform 0.3s ease'
                   }}
                 />
