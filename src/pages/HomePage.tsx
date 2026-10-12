@@ -3481,11 +3481,10 @@ export const HomePage: React.FC<HomePageProps> = ({
         style={{
           width: '100%',
           background: 'linear-gradient(135deg, #091D12 0%, #06150D 60%, #081910 100%)',
-          borderTop: '1px solid rgba(102, 187, 42, 0.22)',
           borderBottom: '1px solid rgba(102, 187, 42, 0.22)',
           padding: 'clamp(4rem, 7vw, 6rem) 0',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'visible'
         }}
       >
         <div className="rf-container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2.5rem)' }}>
@@ -3499,9 +3498,15 @@ export const HomePage: React.FC<HomePageProps> = ({
               padding: 0
             }}
           >
-            {/* LEFT: Business & Global Teams Visual */}
-            <div className="rf-business-visual-wrap" style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <GlobalBusinessTeamsVisual />
+            {/* LEFT: Enterprise Skyscrapers Skyline Visual (Overlaps top border into white section above) */}
+            <div className="rf-business-visual-wrap">
+              <div className="rf-business-skyscraper-wrap">
+                <img
+                  src="/skyscrapers_skyline.png"
+                  alt="Refeir for Business & Global Teams - Enterprise Hub"
+                  className="rf-business-skyscraper-img"
+                />
+              </div>
             </div>
 
             {/* RIGHT: Refeir for Business Info & Action Buttons */}
@@ -3730,35 +3735,26 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 9. BOTTOM CALL TO ACTION — MODERN CORPORATE SKYSCRAPERS CITY OVERLAP */}
+      {/* 9. BOTTOM CALL TO ACTION — MINIMALISTIC, MODERN REFER & EARN BANNER */}
       <section
         className="rf-refer-earn-cta-section"
         style={{
           position: 'relative',
-          overflow: 'visible',
+          overflow: 'hidden',
           textAlign: 'center',
-          padding: 'clamp(4.25rem, 7vw, 6.5rem) 1.25rem 1.5rem',
+          padding: 'clamp(3.5rem, 6vw, 5rem) 1.25rem 1.5rem',
           backgroundColor: '#0A170F',
           marginBottom: 0
         }}
       >
-        {/* Realistic High-Rise Skyscrapers PNG - Overlapping the top boundary into the white section */}
-        <div className="rf-skyline-overlap-wrap">
-          <img
-            src="/skyscrapers_skyline.png"
-            alt="Refeir Pan-African & Global Business Skylines"
-            className="rf-skyline-overlap-img"
-          />
-        </div>
-
-        {/* Ambient Dark Gradient Wash for High Text Contrast */}
+        {/* Subtle Dark Radial Gradient */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(180deg, rgba(10, 23, 15, 0.42) 0%, rgba(10, 23, 15, 0.88) 48%, #0A170F 92%)',
-            zIndex: 2,
+              'radial-gradient(ellipse at center, rgba(16, 42, 26, 0.6) 0%, rgba(10, 23, 15, 0.95) 75%, #0A170F 100%)',
+            zIndex: 1,
             pointerEvents: 'none'
           }}
         />
@@ -3772,8 +3768,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               fontWeight: 500,
               color: '#FFFFFF',
               marginBottom: '0.85rem',
-              letterSpacing: '-0.02em',
-              textShadow: '0 2px 14px rgba(0, 0, 0, 0.55)'
+              letterSpacing: '-0.02em'
             }}
           >
             Find Opportunities

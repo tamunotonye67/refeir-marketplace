@@ -8372,36 +8372,31 @@
 }
 
 /* ==========================================================================
-   BOTTOM CTA: SKYSCRAPERS SKYLINE SECTION OVERLAP
+   REFEIR FOR BUSINESS: SKYSCRAPER SKYLINE VISUAL OVERLAP
    ========================================================================== */
-.rf-skyline-overlap-wrap {
-  position: absolute;
-  top: clamp(-75px, -5.5vw, -105px);
-  left: 0;
-  right: 0;
+.rf-business-skyscraper-wrap {
+  position: relative;
+  width: 100%;
   display: flex;
+  align-items: flex-end;
   justifyContent: center;
-  pointer-events: none;
-  z-index: 1;
+  margin-top: clamp(-85px, -7vw, -125px);
+  z-index: 10;
 }
 
-.rf-skyline-overlap-img {
+.rf-business-skyscraper-img {
   width: 100%;
-  max-width: 1440px;
+  max-width: 560px;
   height: auto;
-  max-height: 320px;
   object-fit: contain;
   object-position: bottom center;
-  filter: drop-shadow(0 -4px 14px rgba(0, 0, 0, 0.12));
+  filter: drop-shadow(0 -8px 24px rgba(0, 0, 0, 0.16)) drop-shadow(0 16px 36px rgba(0, 0, 0, 0.45));
 }
 
-@media (max-width: 768px) {
-  .rf-skyline-overlap-wrap {
-    top: -45px;
-  }
-  .rf-skyline-overlap-img {
-    min-width: 100%;
-    max-height: 180px;
+@media (max-width: 960px) {
+  .rf-business-skyscraper-wrap {
+    margin-top: -50px;
+    margin-bottom: 1rem;
   }
 }
 
