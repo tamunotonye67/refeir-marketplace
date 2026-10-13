@@ -1,0 +1,1158 @@
+/* ==========================================================================
+   REFEIR SCOUT ENROLLMENT & REFER-AND-EARN PROGRAM STYLESHEET
+   Zero Sparkles Rule Strictly Observed
+   ========================================================================== */
+
+:root {
+  --scout-green: #66BB2A;
+  --scout-green-hover: #57a622;
+  --scout-ink: #041209;
+  --scout-glow: rgba(102, 187, 42, 0.28);
+  --scout-soft: rgba(102, 187, 42, 0.12);
+  --scout-border: rgba(102, 187, 42, 0.22);
+  --scout-radius-sm: 10px;
+  --scout-radius-md: 18px;
+  --scout-radius-lg: 28px;
+  --scout-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rf-scout-page {
+  position: relative;
+  background-color: var(--rf-bg-page, #06150D);
+  color: var(--rf-cream, #F4F6F4);
+  overflow-x: hidden;
+  font-family: var(--rf-font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+.rf-scout-container {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3.5vw, 2.5rem);
+}
+
+/* Ambient Subtle Forest Mesh */
+.rf-scout-ambient {
+  position: absolute;
+  top: -80px;
+  right: -5%;
+  width: 75vw;
+  max-width: 900px;
+  aspect-ratio: 1;
+  background: radial-gradient(circle at center, rgba(102, 187, 42, 0.14) 0%, rgba(16, 185, 129, 0.05) 38%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Section Header Typography */
+.rf-scout-sec-head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+}
+
+.rf-scout-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: 9999px;
+  background: var(--scout-soft);
+  border: 1px solid var(--scout-border);
+  color: var(--scout-green);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+}
+
+.rf-scout-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--scout-green);
+  box-shadow: 0 0 10px var(--scout-green);
+}
+
+.rf-scout-title {
+  font-family: var(--rf-font-display, inherit);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+  color: var(--rf-cream);
+}
+
+.rf-scout-sub {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--rf-slate-300, #94A3B8);
+  margin: 0;
+}
+
+.rf-scout-accent {
+  color: var(--scout-green);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.rf-scout-hero {
+  position: relative;
+  padding: calc(var(--rf-header-height, 72px) + clamp(2rem, 5vw, 4rem)) 0 clamp(3rem, 6vw, 5rem);
+  z-index: 1;
+}
+
+.rf-scout-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.rf-scout-hero-h1 {
+  font-family: var(--rf-font-display, inherit);
+  font-size: clamp(2.4rem, 4.8vw, 3.85rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--rf-cream);
+  margin: 0 0 1.25rem;
+}
+
+.rf-scout-hero-p {
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.65;
+  color: var(--rf-slate-300, #94A3B8);
+  margin: 0 0 2rem;
+  max-width: 600px;
+}
+
+/* Proof Bar */
+.rf-scout-proof-bar {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  padding: 1.15rem 1.5rem;
+  background: var(--rf-bg-surface, rgba(11, 30, 19, 0.7));
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.1));
+  border-radius: var(--scout-radius-md);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.rf-scout-proof-col {
+  flex: 1;
+}
+
+.rf-scout-proof-val {
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 800;
+  color: var(--rf-cream);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.rf-scout-proof-lbl {
+  font-size: 0.76rem;
+  color: var(--rf-slate-400, #64748B);
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.rf-scout-proof-div {
+  width: 1px;
+  height: 36px;
+  background: var(--rf-bg-card-border, rgba(255, 255, 255, 0.1));
+}
+
+/* Buttons */
+.rf-scout-btn-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.rf-scout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 52px;
+  padding: 0 1.75rem;
+  border-radius: 9999px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.22s var(--scout-ease), box-shadow 0.22s var(--scout-ease), background 0.2s ease;
+  white-space: nowrap;
+}
+
+.rf-scout-btn-primary {
+  background: var(--scout-green);
+  color: var(--scout-ink);
+  box-shadow: 0 10px 30px -8px var(--scout-green);
+}
+
+.rf-scout-btn-primary:hover {
+  background: var(--scout-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -8px var(--scout-green);
+}
+
+.rf-scout-btn-secondary {
+  background: var(--rf-bg-surface, rgba(13, 35, 22, 0.7));
+  color: var(--rf-cream);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.14));
+}
+
+.rf-scout-btn-secondary:hover {
+  background: var(--scout-soft);
+  border-color: var(--scout-green);
+  transform: translateY(-2px);
+}
+
+.rf-scout-hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--rf-slate-400, #94A3B8);
+  font-size: 0.82rem;
+}
+
+/* ==========================================================================
+   HERO RIGHT: LIVE SCOUT REVENUE CONSOLE CARD
+   ========================================================================== */
+.rf-scout-wallet-card {
+  position: relative;
+  background: var(--rf-bg-surface, #0A1E13);
+  border: 1px solid var(--rf-bg-card-border, rgba(102, 187, 42, 0.22));
+  border-radius: var(--scout-radius-lg);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.rf-scout-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.rf-scout-card-tag {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--scout-green);
+  margin-bottom: 0.25rem;
+}
+
+.rf-scout-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+  margin: 0;
+}
+
+.rf-scout-badge-fixed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--scout-soft);
+  border: 1px solid var(--scout-border);
+  border-radius: 9999px;
+  color: var(--scout-green);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.rf-scout-big-display {
+  padding: 1.25rem 0 1.5rem;
+  border-bottom: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.08));
+  margin-bottom: 1.5rem;
+}
+
+.rf-scout-big-amount {
+  font-family: var(--rf-font-display, inherit);
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--rf-cream);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.rf-scout-big-sub {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--rf-slate-400, #94A3B8);
+  margin-top: 0.5rem;
+}
+
+/* Sliders */
+.rf-scout-sliders-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.rf-scout-slider-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  color: var(--rf-slate-300, #CBD5E1);
+  margin-bottom: 0.5rem;
+}
+
+.rf-scout-slider-head strong {
+  color: var(--scout-green);
+  font-weight: 700;
+}
+
+.rf-scout-range {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.rf-scout-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--scout-green);
+  box-shadow: 0 0 12px var(--scout-green);
+  cursor: pointer;
+  border: 2px solid #06150D;
+  transition: transform 0.18s ease;
+}
+
+.rf-scout-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.rf-scout-payout-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--scout-radius-md);
+  margin-bottom: 1.5rem;
+  font-size: 0.78rem;
+}
+
+.rf-scout-payout-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--scout-green);
+  font-weight: 700;
+}
+
+.rf-scout-payout-channels {
+  color: var(--rf-slate-400, #94A3B8);
+}
+
+.rf-scout-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.95rem;
+  border-radius: 9999px;
+  border: none;
+  background: var(--scout-green);
+  color: var(--scout-ink);
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rf-scout-card-cta:hover {
+  background: var(--scout-green-hover);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   THE 3-STEP SCOUTING ENGINE
+   ========================================================================== */
+.rf-scout-steps-sec {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.rf-scout-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.rf-scout-step-card {
+  position: relative;
+  background: var(--rf-bg-surface, #0A1E13);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.08));
+  border-radius: var(--scout-radius-lg);
+  padding: clamp(2rem, 3.5vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s var(--scout-ease), border-color 0.25s ease;
+}
+
+.rf-scout-step-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--scout-border);
+}
+
+.rf-scout-step-num {
+  position: absolute;
+  top: 1.75rem;
+  right: 2rem;
+  font-family: var(--rf-font-display, inherit);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.1);
+  line-height: 1;
+}
+
+.rf-scout-step-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--scout-radius-md);
+  background: var(--scout-soft);
+  border: 1px solid var(--scout-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.rf-scout-step-h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+  margin: 0 0 0.85rem;
+}
+
+.rf-scout-step-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--rf-slate-300, #94A3B8);
+  margin: 0 0 1.5rem;
+}
+
+.rf-scout-step-list {
+  list-style: none;
+  padding: 0;
+  margin: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.rf-scout-step-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.84rem;
+  color: var(--rf-slate-300, #CBD5E1);
+}
+
+/* ==========================================================================
+   WHO EXCELS AS A SCOUT? (ARCHETYPES)
+   ========================================================================== */
+.rf-scout-who-sec {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.rf-scout-who-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.rf-scout-who-card {
+  background: var(--rf-bg-surface, #0A1E13);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.08));
+  border-radius: var(--scout-radius-md);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.rf-scout-who-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--scout-border);
+}
+
+.rf-scout-who-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--scout-soft);
+  color: var(--scout-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.15rem;
+}
+
+.rf-scout-who-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+  margin: 0 0 0.5rem;
+}
+
+.rf-scout-who-desc {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--rf-slate-300, #94A3B8);
+  margin: 0;
+}
+
+/* ==========================================================================
+   MILESTONE BENCHMARKS
+   ========================================================================== */
+.rf-scout-bench-sec {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.rf-scout-bench-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.rf-scout-bench-card {
+  background: var(--rf-bg-surface, #0A1E13);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.08));
+  border-radius: var(--scout-radius-md);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.rf-scout-bench-card:hover {
+  border-color: var(--scout-green);
+  transform: translateY(-3px);
+}
+
+.rf-scout-bench-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--scout-green);
+  margin-bottom: 0.35rem;
+}
+
+.rf-scout-bench-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+  margin: 0 0 0.75rem;
+}
+
+.rf-scout-bench-budget {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--rf-cream);
+  margin-bottom: 0.5rem;
+}
+
+.rf-scout-bench-reward-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  background: var(--scout-soft);
+  border: 1px solid var(--scout-border);
+  border-radius: var(--scout-radius-sm);
+  margin-bottom: 1rem;
+}
+
+.rf-scout-bench-reward-badge span {
+  font-size: 0.75rem;
+  color: var(--rf-slate-300, #CBD5E1);
+}
+
+.rf-scout-bench-reward-badge strong {
+  font-size: 1rem;
+  color: var(--scout-green);
+}
+
+.rf-scout-bench-desc {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--rf-slate-400, #94A3B8);
+  margin: 0;
+}
+
+/* ==========================================================================
+   PROGRESSIVE SCOUT TIERS LADDER
+   ========================================================================== */
+.rf-scout-ladder-sec {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.rf-scout-ladder-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.rf-scout-ladder-card {
+  background: var(--rf-bg-surface, #0A1E13);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.08));
+  border-radius: var(--scout-radius-md);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.rf-scout-ladder-tier {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--scout-green);
+  margin-bottom: 0.25rem;
+}
+
+.rf-scout-ladder-cut {
+  font-family: var(--rf-font-display, inherit);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--rf-cream);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.rf-scout-ladder-sub {
+  font-size: 0.82rem;
+  color: var(--rf-slate-400, #94A3B8);
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rf-scout-ladder-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.rf-scout-ladder-perks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--rf-slate-300, #CBD5E1);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   TRUST VAULT GUARANTEE BANNER
+   ========================================================================== */
+.rf-scout-vault-sec {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.rf-scout-vault-card {
+  background: radial-gradient(circle at 100% 0%, rgba(102, 187, 42, 0.15) 0%, rgba(7, 22, 13, 0.95) 60%), #0A1E13;
+  border: 1px solid var(--scout-border);
+  border-radius: var(--scout-radius-lg);
+  padding: clamp(2.5rem, 5vw, 4rem);
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.5);
+}
+
+.rf-scout-vault-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.rf-scout-vault-h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  color: var(--rf-cream);
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.rf-scout-vault-lead {
+  font-size: 1.05rem;
+  color: var(--rf-slate-300, #94A3B8);
+  line-height: 1.65;
+  margin: 0 0 2rem;
+}
+
+.rf-scout-vp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.rf-scout-vp-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.rf-scout-vp-item strong {
+  display: block;
+  font-size: 0.98rem;
+  color: var(--rf-cream);
+  margin-bottom: 0.2rem;
+}
+
+.rf-scout-vp-item p {
+  font-size: 0.85rem;
+  color: var(--rf-slate-400, #94A3B8);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.rf-scout-shield-box {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.12));
+  border-radius: var(--scout-radius-md);
+  padding: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rf-scout-sb-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--rf-cream);
+  margin: 1.25rem 0 0.5rem;
+}
+
+.rf-scout-sb-desc {
+  font-size: 0.88rem;
+  color: var(--rf-slate-300, #94A3B8);
+  line-height: 1.55;
+  margin: 0 0 1.5rem;
+}
+
+.rf-scout-sb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  background: var(--scout-soft);
+  border: 1px solid var(--scout-border);
+  color: var(--scout-green);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   FAQS
+   ========================================================================== */
+.rf-scout-faq-sec {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.rf-scout-faq-container {
+  max-width: 820px;
+}
+
+.rf-scout-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.rf-scout-faq-card {
+  background: var(--rf-bg-surface, #0A1E13);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.08));
+  border-radius: var(--scout-radius-md);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.rf-scout-faq-card.is-open {
+  border-color: var(--scout-border);
+}
+
+.rf-scout-faq-btn {
+  width: 100%;
+  padding: 1.35rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--rf-cream);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rf-scout-faq-arrow {
+  color: var(--scout-green);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.rf-scout-faq-ans {
+  padding: 0 1.5rem 1.35rem;
+  color: var(--rf-slate-300, #94A3B8);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.rf-scout-faq-ans p {
+  margin: 0;
+}
+
+/* ==========================================================================
+   ENROLLMENT REGISTRATION TERMINAL (ACTION STATION)
+   ========================================================================== */
+.rf-scout-enroll-sec {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0 0;
+}
+
+.rf-scout-enroll-box {
+  background: radial-gradient(circle at 0% 0%, rgba(102, 187, 42, 0.18) 0%, rgba(7, 22, 13, 0.98) 55%), #0A1E13;
+  border: 1px solid var(--scout-border);
+  border-radius: var(--scout-radius-lg);
+  padding: clamp(2.25rem, 5vw, 4rem);
+  box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.65);
+}
+
+.rf-scout-enroll-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: flex-start;
+}
+
+.rf-scout-enroll-h2 {
+  font-size: clamp(2rem, 3.5vw, 2.85rem);
+  font-weight: 700;
+  color: var(--rf-cream);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+}
+
+.rf-scout-enroll-lead {
+  font-size: 1.05rem;
+  color: var(--rf-slate-300, #94A3B8);
+  line-height: 1.6;
+  margin: 0 0 1.75rem;
+}
+
+.rf-scout-enroll-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.rf-scout-input-grp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.rf-scout-input-lbl {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+}
+
+.rf-scout-input-fld,
+.rf-scout-select-fld {
+  width: 100%;
+  height: 48px;
+  padding: 0 1rem;
+  border-radius: var(--scout-radius-sm);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.14));
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.rf-scout-input-fld:focus,
+.rf-scout-select-fld:focus {
+  border-color: var(--scout-green);
+}
+
+.rf-scout-submit-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  height: 52px;
+  border-radius: 9999px;
+  border: none;
+  background: var(--scout-green);
+  color: var(--scout-ink);
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 10px 30px -8px var(--scout-green);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.rf-scout-submit-cta:hover {
+  background: var(--scout-green-hover);
+  transform: translateY(-2px);
+}
+
+.rf-scout-enroll-trust {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.8rem;
+  color: var(--rf-slate-400, #94A3B8);
+}
+
+/* Right Summary Panel */
+.rf-scout-summary-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--rf-bg-card-border, rgba(255, 255, 255, 0.12));
+  border-radius: var(--scout-radius-md);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.rf-scout-summary-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1.25rem;
+}
+
+.rf-scout-status-chip {
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background: var(--scout-soft);
+  color: var(--scout-green);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.rf-scout-summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  font-size: 0.88rem;
+}
+
+.rf-scout-summary-line span {
+  color: var(--rf-slate-400, #94A3B8);
+}
+
+.rf-scout-summary-line strong {
+  color: var(--rf-cream);
+}
+
+.rf-scout-community-proof {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--rf-slate-300, #CBD5E1);
+}
+
+.rf-scout-avatars-row {
+  display: flex;
+}
+
+.rf-scout-avatars-row img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #06150D;
+  margin-left: -8px;
+  object-fit: cover;
+}
+
+.rf-scout-avatars-row img:first-child {
+  margin-left: 0;
+}
+
+/* ==========================================================================
+   LIGHT MODE SUPPORT
+   ========================================================================== */
+body:not(.dark) .rf-scout-page {
+  background-color: #F8FAF8;
+  color: #0F172A;
+}
+
+body:not(.dark) .rf-scout-ambient {
+  background: radial-gradient(circle at center, rgba(102, 187, 42, 0.18) 0%, rgba(16, 185, 129, 0.07) 45%, transparent 70%);
+}
+
+body:not(.dark) .rf-scout-hero-h1,
+body:not(.dark) .rf-scout-title,
+body:not(.dark) .rf-scout-step-h3,
+body:not(.dark) .rf-scout-who-title,
+body:not(.dark) .rf-scout-bench-name,
+body:not(.dark) .rf-scout-ladder-cut,
+body:not(.dark) .rf-scout-enroll-h2 {
+  color: #0F172A;
+}
+
+body:not(.dark) .rf-scout-hero-p,
+body:not(.dark) .rf-scout-sub,
+body:not(.dark) .rf-scout-step-desc,
+body:not(.dark) .rf-scout-who-desc,
+body:not(.dark) .rf-scout-enroll-lead {
+  color: #475569;
+}
+
+body:not(.dark) .rf-scout-proof-bar,
+body:not(.dark) .rf-scout-wallet-card,
+body:not(.dark) .rf-scout-step-card,
+body:not(.dark) .rf-scout-who-card,
+body:not(.dark) .rf-scout-bench-card,
+body:not(.dark) .rf-scout-ladder-card,
+body:not(.dark) .rf-scout-faq-card,
+body:not(.dark) .rf-scout-enroll-box {
+  background: #FFFFFF;
+  border-color: rgba(18, 43, 26, 0.1);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06);
+}
+
+body:not(.dark) .rf-scout-big-amount,
+body:not(.dark) .rf-scout-bench-budget,
+body:not(.dark) .rf-scout-proof-val,
+body:not(.dark) .rf-scout-summary-line strong {
+  color: #0F172A;
+}
+
+body:not(.dark) .rf-scout-summary-box,
+body:not(.dark) .rf-scout-payout-box {
+  background: #F1F5F2;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+body:not(.dark) .rf-scout-input-fld,
+body:not(.dark) .rf-scout-select-fld {
+  background: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #0F172A;
+}
+
+body:not(.dark) .rf-scout-avatars-row img {
+  border-color: #FFFFFF;
+}
+
+body:not(.dark) .rf-scout-btn-secondary {
+  background: #FFFFFF;
+  color: #0F172A;
+  border-color: rgba(0, 0, 0, 0.14);
+}
+
+body:not(.dark) .rf-scout-step-num {
+  color: rgba(0, 0, 0, 0.06);
+}
+
+body:not(.dark) .rf-scout-vault-card {
+  background: radial-gradient(circle at 100% 0%, rgba(102, 187, 42, 0.12) 0%, #FFFFFF 60%), #FFFFFF;
+  border-color: rgba(102, 187, 42, 0.3);
+}
+
+body:not(.dark) .rf-scout-vault-h2,
+body:not(.dark) .rf-scout-vp-item strong,
+body:not(.dark) .rf-scout-sb-title {
+  color: #0F172A;
+}
+
+body:not(.dark) .rf-scout-shield-box {
+  background: #F1F5F2;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .rf-scout-hero-grid,
+  .rf-scout-vault-grid,
+  .rf-scout-enroll-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .rf-scout-steps-grid,
+  .rf-scout-who-grid,
+  .rf-scout-bench-grid,
+  .rf-scout-ladder-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .rf-scout-steps-grid,
+  .rf-scout-who-grid,
+  .rf-scout-bench-grid,
+  .rf-scout-ladder-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rf-scout-proof-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .rf-scout-proof-div {
+    display: none;
+  }
+
+  .rf-scout-btn {
+    width: 100%;
+  }
+}

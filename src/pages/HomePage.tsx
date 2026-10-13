@@ -3201,7 +3201,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </p>
 
               <button
-                onClick={() => onNavigate('/scout-sourcing')}
+                onClick={() => onNavigate('/scouts')}
                 className="rf-scout-cta-btn"
               >
                 <span>Start Referring & Earn →</span>

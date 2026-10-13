@@ -554,6 +554,8 @@ export const App: React.FC = () => {
       case '/affiliates':
         return <AffiliatePage onNavigate={navigate} />;
       case '/scouts':
+      case '/refer-and-earn':
+      case '/become-a-scout':
         return <ScoutsPage onNavigate={navigate} />;
       case '/scout-sourcing':
       case '/scouting':
