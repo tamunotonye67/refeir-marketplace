@@ -508,7 +508,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
         {/* Input Container — Expanded Tall Card with Next button at bottom right */}
         <form onSubmit={handleSubmit} style={{ maxWidth: '580px', width: '100%' }}>
           <div className="rf-ai-pricing-search-box">
-            <div className="rf-ai-pricing-input-wrap" style={{ flex: 1, width: '100%' }}>
+            <div className="rf-ai-pricing-input-wrap" style={{ flex: 1, width: '100%', border: 'none', outline: 'none' }}>
               <textarea
                 ref={textareaRef}
                 value={prompt}

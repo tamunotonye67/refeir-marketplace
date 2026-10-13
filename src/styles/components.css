@@ -8719,13 +8719,26 @@
   width: 100% !important;
 }
 
-.rf-ai-pricing-input {
+.rf-ai-pricing-input,
+textarea.rf-ai-pricing-input,
+.rf-ai-pricing-search-box textarea,
+.rf-ai-pricing-search-box .rf-ai-pricing-input,
+.rf-ai-pricing-input-wrap textarea,
+[data-theme="light"] .rf-ai-pricing-input,
+[data-theme="light"] textarea.rf-ai-pricing-input,
+[data-theme="dark"] .rf-ai-pricing-input,
+[data-theme="dark"] textarea.rf-ai-pricing-input {
   width: 100% !important;
   border: 0 none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
   outline: none !important;
+  outline-width: 0 !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
   background: transparent !important;
+  background-color: transparent !important;
   color: #0F172A !important;
   font-family: inherit !important;
   font-size: clamp(0.92rem, 1.1vw, 1.02rem) !important;
@@ -8742,9 +8755,21 @@
 .rf-ai-pricing-input:focus,
 .rf-ai-pricing-input:focus-visible,
 .rf-ai-pricing-input:active,
-.rf-ai-pricing-input:hover {
+.rf-ai-pricing-input:hover,
+textarea.rf-ai-pricing-input:focus,
+textarea.rf-ai-pricing-input:focus-visible,
+textarea.rf-ai-pricing-input:active,
+textarea.rf-ai-pricing-input:hover,
+.rf-ai-pricing-search-box textarea:focus,
+.rf-ai-pricing-search-box textarea:focus-visible,
+[data-theme="light"] textarea.rf-ai-pricing-input:focus,
+[data-theme="dark"] textarea.rf-ai-pricing-input:focus {
   border: 0 none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
   outline: none !important;
+  outline-width: 0 !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
 }

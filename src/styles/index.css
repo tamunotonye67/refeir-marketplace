@@ -528,15 +528,15 @@ code::-webkit-scrollbar-thumb:hover,
 /* Inputs on dark backgrounds */
 [data-theme="dark"] .rf-input,
 [data-theme="dark"] .rf-select,
-[data-theme="dark"] .rf-textarea,
+[data-theme="dark"] .rf-textarea:not(.rf-ai-pricing-input),
 .rf-dark-surface input:not([type="checkbox"]):not([type="radio"]),
-.rf-dark-surface textarea,
+.rf-dark-surface textarea:not(.rf-ai-pricing-input),
 .rf-dark-surface select,
 .rf-card-dark input:not([type="checkbox"]):not([type="radio"]),
-.rf-card-dark textarea,
+.rf-card-dark textarea:not(.rf-ai-pricing-input),
 .rf-card-dark select,
 .rf-dark-container input:not([type="checkbox"]):not([type="radio"]),
-.rf-dark-container textarea,
+.rf-dark-container textarea:not(.rf-ai-pricing-input),
 .rf-dark-container select {
   color: #FFFFFF !important;
   background-color: rgba(7, 22, 13, 0.92) !important;
@@ -659,14 +659,14 @@ code::-webkit-scrollbar-thumb:hover,
 }
 
 /* Inputs on light surfaces */
-:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) input:not([type="checkbox"]):not([type="radio"]),
-:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) textarea,
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) input:not([type="checkbox"]):not([type="radio"]):not(.rf-ai-pricing-input),
+:root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) textarea:not(.rf-ai-pricing-input),
 :root:not([data-theme="dark"]) .rf-card:not(.rf-dark-surface) select,
-:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) input:not([type="checkbox"]):not([type="radio"]),
-:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) textarea,
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) input:not([type="checkbox"]):not([type="radio"]):not(.rf-ai-pricing-input),
+:root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) textarea:not(.rf-ai-pricing-input),
 :root:not([data-theme="dark"]) .rf-modal-content:not(.rf-dark-surface) select,
-[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not(.rf-hero-search-input):not(.rf-hero-expanded-input-wrap input),
-[data-theme="light"] textarea,
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not(.rf-hero-search-input):not(.rf-hero-expanded-input-wrap input):not(.rf-ai-pricing-input),
+[data-theme="light"] textarea:not(.rf-ai-pricing-input),
 [data-theme="light"] select {
   background-color: #FFFFFF !important;
   color: #0F172A !important;
