@@ -1050,10 +1050,7 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                       <span>Estimated Payout</span>
                       <strong>{currentCalc.scoutEarn} – $3,500+</strong>
                     </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Withdrawal Channels</span>
-                      <strong>USD, NGN, KES, GHS, ZAR, M-Pesa</strong>
-                    </div>
+
                     <div className="rf-ss-brief-row">
                       <span>Payout Rails</span>
                       <strong style={{ color: 'var(--ss-accent)' }}>Instant Multi-Currency Escrow</strong>
