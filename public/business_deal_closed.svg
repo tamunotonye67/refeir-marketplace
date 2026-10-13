@@ -37,45 +37,7 @@
       <stop offset="0%" stopColor="#A3E635" />
       <stop offset="100%" stopColor="#2E7D32" />
     </linearGradient>
-
-    <!-- Lemon Glow & Radiant Ambient Backdrop Gradients -->
-    <radialGradient id="lemonAuraCenter" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stopColor="#D4F933" stopOpacity="0.48" />
-      <stop offset="30%" stopColor="#BEF264" stopOpacity="0.35" />
-      <stop offset="60%" stopColor="#84CC16" stopOpacity="0.18" />
-      <stop offset="85%" stopColor="#65A30D" stopOpacity="0.06" />
-      <stop offset="100%" stopColor="#4D7C0F" stopOpacity="0" />
-    </radialGradient>
-
-    <radialGradient id="lemonCoreGlow" cx="50%" cy="48%" r="42%">
-      <stop offset="0%" stopColor="#ECFCCB" stopOpacity="0.65" />
-      <stop offset="25%" stopColor="#D4F933" stopOpacity="0.45" />
-      <stop offset="65%" stopColor="#A3E635" stopOpacity="0.20" />
-      <stop offset="100%" stopColor="#66BB2A" stopOpacity="0" />
-    </radialGradient>
-
-    <linearGradient id="lemonHorizonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stopColor="#D4F933" stopOpacity="0" />
-      <stop offset="25%" stopColor="#D4F933" stopOpacity="0.25" />
-      <stop offset="50%" stopColor="#FEF08A" stopOpacity="0.45" />
-      <stop offset="75%" stopColor="#D4F933" stopOpacity="0.25" />
-      <stop offset="100%" stopColor="#D4F933" stopOpacity="0" />
-    </linearGradient>
   </defs>
-
-  <!-- ========================================== -->
-  <!-- LUMINOUS LEMON GRADIENT AMBIENT BACKDROP -->
-  <!-- ========================================== -->
-  <g id="lemon-backdrop-glow">
-    <!-- Broad Ambient Lemon Aura Envelope -->
-    <ellipse cx="230" cy="140" rx="215" ry="118" fill="url(#lemonAuraCenter)" />
-    
-    <!-- Intense Inner Lemon Spotlight Core -->
-    <ellipse cx="230" cy="135" rx="145" ry="85" fill="url(#lemonCoreGlow)" />
-    
-    <!-- Luminous Lemon Horizon Light Strip behind table -->
-    <ellipse cx="230" cy="160" rx="170" ry="20" fill="url(#lemonHorizonGrad)" />
-  </g>
 
   <!-- Ground subtle base shadow -->
   <ellipse cx="230" cy="256" rx="180" ry="8" fill="rgba(18, 43, 26, 0.25)" />
