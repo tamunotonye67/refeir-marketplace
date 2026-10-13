@@ -27,7 +27,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
         current: (state.current + 1) % 3,
         prev: state.current
       }));
-    }, 4500);
+    }, 3200);
     return () => clearInterval(timer);
   }, []);
 
@@ -35,7 +35,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
     if (stageState.prev !== null) {
       const exitTimer = setTimeout(() => {
         setStageState(s => ({ ...s, prev: null }));
-      }, 650);
+      }, 340);
       return () => clearTimeout(exitTimer);
     }
   }, [stageState.prev, stageState.current]);
