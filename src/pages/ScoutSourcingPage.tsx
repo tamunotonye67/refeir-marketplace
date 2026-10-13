@@ -556,17 +556,7 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                     {/* Skills pills */}
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.25rem' }}>
                       {s.specialties.map(spec => (
-                        <span
-                          key={spec}
-                          style={{
-                            fontSize: '0.74rem',
-                            fontWeight: 600,
-                            padding: '0.25rem 0.65rem',
-                            borderRadius: '9999px',
-                            background: 'rgba(255, 255, 255, 0.06)',
-                            color: 'var(--rf-slate-300)'
-                          }}
-                        >
+                        <span key={spec} className="rf-ss-skill-pill">
                           {spec}
                         </span>
                       ))}
