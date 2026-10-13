@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { Shield, Lock, ArrowRight, UserCheck, Briefcase, Users, LogIn, UserPlus } from 'lucide-react';
@@ -28,6 +28,16 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
   const { login, signup } = useAuth();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+
+  const wizardIntent = useMemo(() => {
+    try {
+      const saved = sessionStorage.getItem('rf_ai_wizard_intent');
+      if (saved) return JSON.parse(saved);
+    } catch {
+      return null;
+    }
+    return null;
+  }, []);
 
   const [activeTab, setActiveTab] = useState<'LOGIN' | 'SIGNUP'>(initialTab);
   const [email, setEmail] = useState('');
@@ -167,6 +177,53 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
               </div>
               <div style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#64748B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {talentToHire.headline}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Saved AI Wizard Project Brief Banner */}
+        {wizardIntent && !talentToHire && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              backgroundColor: isDark ? 'rgba(102, 187, 42, 0.12)' : '#F0FDF4',
+              border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(22, 163, 74, 0.25)',
+              borderRadius: '18px',
+              padding: '1rem 1.35rem',
+              maxWidth: '540px',
+              margin: '0 auto 2rem',
+              boxShadow: isDark ? '0 8px 24px rgba(0, 0, 0, 0.3)' : '0 6px 18px rgba(22, 163, 74, 0.08)'
+            }}
+          >
+            <div
+              style={{
+                width: '42px',
+                height: '42px',
+                borderRadius: '12px',
+                backgroundColor: '#66BB2A',
+                color: '#0F1E13',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 800,
+                fontSize: '1.15rem',
+                flexShrink: 0
+              }}
+            >
+              ✓
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: isDark ? '#A3E635' : '#15803D', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Project Brief Saved
+              </div>
+              <div style={{ fontSize: '1rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', lineHeight: 1.3 }}>
+                {wizardIntent.discipline} · {wizardIntent.package}
+              </div>
+              <div style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#64748B', marginTop: '0.2rem' }}>
+                Est. Budget: {wizardIntent.budget} · Timeline: {wizardIntent.timeline} · Milestone Escrow
               </div>
             </div>
           </div>

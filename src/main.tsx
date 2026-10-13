@@ -12,6 +12,7 @@ import './styles/index.css';
 import './styles/components.css';
 import './styles/layouts.css';
 import './styles/utilities.css';
+import './styles/ai-wizards.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

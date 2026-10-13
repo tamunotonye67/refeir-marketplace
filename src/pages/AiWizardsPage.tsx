@@ -1,6 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useTheme } from '../context/ThemeContext';
-import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  ArrowRight,
+  ChevronDown,
+  Check,
+  Clock,
+  Star,
+  ShieldCheck,
+  Lock,
+  Wallet,
+  Plus,
+  Briefcase,
+  Award,
+  Compass,
+  BadgeCheck,
+  FileCheck,
+  Users,
+  Video,
+  Bot,
+  Layers
+} from 'lucide-react';
+import '../styles/ai-wizards.css';
 
 interface AiWizardsPageProps {
   onNavigate: (path: string) => void;
@@ -8,842 +27,821 @@ interface AiWizardsPageProps {
 }
 
 type PillarType = 'creative' | 'agents' | 'visuals';
+type RoleType = 'client' | 'talent';
+type ChapterId = 'meet' | 'process' | 'invest' | 'protect' | 'start';
+
+interface Wizard {
+  name: string;
+  country: string;
+  role: string;
+  rating: string;
+  projects: number;
+  rate: string;
+  image: string;
+}
+
+interface Tier {
+  name: string;
+  price: string;
+  time: string;
+  desc: string;
+}
+
+interface PillarConfig {
+  label: string;
+  short: string;
+  icon: React.ReactNode;
+  accent: string;
+  accentSoft: string;
+  accentInk: string;
+  eyebrow: string;
+  title: string;
+  highlight: string;
+  lead: string;
+  ctaVerb: string;
+  wizards: Wizard[];
+  tools: string[];
+  process: { name: string; desc: string; time: string }[];
+  outcomes: string[];
+  compare: {
+    oldLabel: string;
+    newLabel: string;
+    oldCost: string;
+    newCost: string;
+    oldCostMax: number;
+    newCostMax: number;
+    oldTime: string;
+    newTime: string;
+    oldDays: number;
+    newDays: number;
+    saving: string;
+  };
+  tiers: Tier[];
+}
+
+const img = (id: string, w = 600) =>
+  `https://images.unsplash.com/photo-${id}?w=${w}&auto=format&fit=crop&q=80`;
+
+const PILLARS: Record<PillarType, PillarConfig> = {
+  creative: {
+    label: 'AI Creative Production',
+    short: 'AI Video',
+    icon: <Video size={15} />,
+    accent: '#66BB2A',
+    accentSoft: 'rgba(102, 187, 42, 0.14)',
+    accentInk: '#0F1E13',
+    eyebrow: 'AI Creative Production',
+    title: 'Borrow a wand.',
+    highlight: 'Ship a campaign in days.',
+    lead:
+      'Work with Africa’s most sought-after AI video directors. They turn your idea into scroll-stopping, broadcast-ready films without a studio, a crew, or a six-week wait.',
+    ctaVerb: 'Borrow a Wand',
+    wizards: [
+      { name: 'Tariq Al-Mansoor', country: '🇪🇬', role: 'Generative AI Film Director & VFX Lead', rating: '4.9', projects: 84, rate: '$55/hr', image: img('1507152832244-10d45c7eda57') },
+      { name: 'Nia Mwangi', country: '🇰🇪', role: 'AI Storyteller & Brand Film Producer', rating: '5.0', projects: 61, rate: '$48/hr', image: img('1531746020798-e6953c6e8e04') },
+      { name: 'Amara Okafor', country: '🇳🇬', role: 'Motion Designer & Neural Colourist', rating: '4.9', projects: 72, rate: '$42/hr', image: img('1573496359142-b8d87734a5a2') }
+    ],
+    tools: ['Runway Gen-3', 'OpenAI Sora', 'Midjourney v6', 'ComfyUI', 'Stable Video Diffusion', 'DaVinci Resolve'],
+    process: [
+      { name: 'Brief, storyboard & style lock', desc: 'Your director shapes the narrative, builds character sheets and locks a visual style that matches your brand.', time: 'Day 1' },
+      { name: 'Consistent AI generation', desc: 'Scenes are generated with locked seeds and custom models so faces, wardrobe and products stay identical in every shot.', time: 'Days 2–4' },
+      { name: 'Sound, upscale & master', desc: 'Native 4K upscaling, voice and Foley, colour grading, and cutdowns for every platform you publish on.', time: 'Days 5–7' }
+    ],
+    outcomes: [
+      '4K master film plus 16:9, 9:16 and 1:1 cutdowns',
+      'Voiceover, score and sound design included',
+      'Full commercial rights and source project files',
+      'Revision rounds built into every milestone'
+    ],
+    compare: {
+      oldLabel: 'Traditional production',
+      newLabel: 'Refeir AI studio',
+      oldCost: '$20k – $75k',
+      newCost: '$1.2k – $6.5k',
+      oldCostMax: 75000,
+      newCostMax: 6500,
+      oldTime: '6 – 10 weeks',
+      newTime: '3 – 7 days',
+      oldDays: 70,
+      newDays: 7,
+      saving: 'up to 90%'
+    },
+    tiers: [
+      { name: 'Viral Social Asset', price: '$800 – $1.5k', time: '3 days', desc: 'A 15–30s hook video built for TikTok, Reels and paid social.' },
+      { name: 'Brand Hero Film', price: '$2.5k – $4.5k', time: '5 days', desc: 'A 60s cinematic brand story with custom voiceover and score.' },
+      { name: 'Full Campaign Suite', price: '$5k – $8.5k', time: '10 days', desc: 'Three hero variations, eight cutdowns, statics and source files.' }
+    ]
+  },
+  agents: {
+    label: 'Autonomous Engineering',
+    short: 'AI Agents',
+    icon: <Bot size={15} />,
+    accent: '#F6B21A',
+    accentSoft: 'rgba(246, 178, 26, 0.15)',
+    accentInk: '#1B1400',
+    eyebrow: 'Autonomous Engineering',
+    title: 'Deploy an agent.',
+    highlight: 'Give your team superpowers.',
+    lead:
+      'Elite African AI engineers build custom agents, RAG pipelines and workflow automations that plug into your data and quietly do the work, around the clock.',
+    ctaVerb: 'Deploy an Agent',
+    wizards: [
+      { name: 'Chidinma Eze', country: '🇳🇬', role: 'Principal LLM & RAG Systems Architect', rating: '5.0', projects: 47, rate: '$70/hr', image: img('1573497019940-1c28c88b4f3e') },
+      { name: 'Jean-Paul Habimana', country: '🇷🇼', role: 'Multi-Agent Workflow Engineer', rating: '4.9', projects: 39, rate: '$62/hr', image: img('1506794778202-cad84cf45f1d') },
+      { name: 'Kofi Mensah', country: '🇬🇭', role: 'MLOps & Secure Deployment Lead', rating: '4.8', projects: 53, rate: '$58/hr', image: img('1531384441138-2736e62e0919') }
+    ],
+    tools: ['LangChain', 'LlamaIndex', 'CrewAI', 'Pinecone', 'pgvector', 'vLLM & Ollama'],
+    process: [
+      { name: 'Map the workflow & ingest data', desc: 'Your engineer maps the job to automate, then indexes your docs, databases and tools into a private vector store.', time: 'Week 1' },
+      { name: 'Build tools & reasoning loops', desc: 'The agent learns to query systems, send emails, process files and check its own work before acting.', time: 'Week 2' },
+      { name: 'Guardrail, test & deploy', desc: 'Prompt-injection guardrails, automated evals for accuracy, then deployment to your own cloud.', time: 'Week 3' }
+    ],
+    outcomes: [
+      'Production-ready, containerised agent codebase',
+      'Private RAG over your own company knowledge',
+      'API and webhook integration with your stack',
+      'Evaluation reports on accuracy and latency'
+    ],
+    compare: {
+      oldLabel: 'Traditional automation',
+      newLabel: 'Refeir agent squad',
+      oldCost: '$40k – $120k',
+      newCost: '$2.8k – $9.5k',
+      oldCostMax: 120000,
+      newCostMax: 9500,
+      oldTime: '3 – 6 months',
+      newTime: '1 – 3 weeks',
+      oldDays: 180,
+      newDays: 21,
+      saving: 'up to 92%'
+    },
+    tiers: [
+      { name: 'Knowledge Assistant', price: '$1.8k – $3.2k', time: '5 days', desc: 'Private document search with cited answers and team access.' },
+      { name: 'Workflow Agent', price: '$3.5k – $6.5k', time: '12 days', desc: 'A multi-tool agent for lead qualification, reporting or support.' },
+      { name: 'Multi-Agent System', price: '$7k – $14k', time: '21 days', desc: 'A coordinated squad of agents running an end-to-end process.' }
+    ]
+  },
+  visuals: {
+    label: 'Generative Visuals & 3D',
+    short: '3D & Visuals',
+    icon: <Layers size={15} />,
+    accent: '#F47C20',
+    accentSoft: 'rgba(244, 124, 32, 0.15)',
+    accentInk: '#2A1203',
+    eyebrow: 'Generative Visuals & 3D',
+    title: 'Commission visuals.',
+    highlight: 'Skip the photo shoot.',
+    lead:
+      'Top 3D artists and spatial designers turn sketches, CAD files or product ideas into photoreal renders, 3D web models and brand worlds, often within 48 hours.',
+    ctaVerb: 'Commission Visuals',
+    wizards: [
+      { name: 'Liam Van Der Merwe', country: '🇿🇦', role: 'Generative 3D & Spatial Designer', rating: '4.9', projects: 66, rate: '$50/hr', image: img('1522529599102-193c0d76b5b6') },
+      { name: 'Fatima Zahra', country: '🇲🇦', role: 'Product CGI & Lighting Artist', rating: '5.0', projects: 58, rate: '$46/hr', image: img('1589156280159-27698a70f29e') },
+      { name: 'Zainab Bello', country: '🇳🇬', role: 'Brand Worlds & Interactive 3D Lead', rating: '4.9', projects: 44, rate: '$52/hr', image: img('1531123897727-8f129e1688ce') }
+    ],
+    tools: ['Blender', 'Unreal Engine 5', 'Stable Diffusion XL', 'ControlNet', 'Spline', 'Octane'],
+    process: [
+      { name: 'Model from CAD or concept', desc: 'Your artist builds clean, high-detail 3D geometry from your CAD files, photos or a simple sketch.', time: 'Day 1' },
+      { name: 'Materials & studio lighting', desc: 'Realistic glass, metal and fabric shaders, lit like a high-end studio shoot and tuned to your brand.', time: 'Days 2–3' },
+      { name: 'Render & export everywhere', desc: 'Ultra-high-res stills, turntables and interactive 3D models ready for web, retail and print.', time: 'Days 4–5' }
+    ],
+    outcomes: [
+      '8K photoreal renders for print and e-commerce',
+      'Interactive GLTF / USDZ models for the web',
+      'Turntable animations and lighting variations',
+      'Layered source files with full IP transfer'
+    ],
+    compare: {
+      oldLabel: 'Traditional photography',
+      newLabel: 'Refeir 3D studio',
+      oldCost: '$15k – $40k',
+      newCost: '$900 – $4.2k',
+      oldCostMax: 40000,
+      newCostMax: 4200,
+      oldTime: '4 – 8 weeks',
+      newTime: '1 – 5 days',
+      oldDays: 56,
+      newDays: 5,
+      saving: 'up to 89%'
+    },
+    tiers: [
+      { name: 'Product Packshots', price: '$600 – $1.2k', time: '48 hours', desc: 'Five studio-grade product shots on clean and lifestyle backgrounds.' },
+      { name: 'Interactive 3D', price: '$1.8k – $3.2k', time: '5 days', desc: 'A 360° turntable video plus a web-ready interactive 3D model.' },
+      { name: 'Virtual Brand World', price: '$4k – $7.5k', time: '10 days', desc: 'A full 3D environment, 12 render scenes and a short reel.' }
+    ]
+  }
+};
+
+const CHAPTERS: { id: ChapterId; label: string }[] = [
+  { id: 'meet', label: 'Meet the talent' },
+  { id: 'process', label: 'How it works' },
+  { id: 'invest', label: 'Investment' },
+  { id: 'protect', label: 'Protection' },
+  { id: 'start', label: 'Get started' }
+];
+
+const FAQS = [
+  {
+    q: 'Do I own everything that gets created?',
+    a: 'Yes. When you approve a milestone and funds are released from escrow, 100% of the commercial rights, code and source files transfer to your business.'
+  },
+  {
+    q: 'What if the work doesn’t match my brief?',
+    a: 'You review drafts, previews or staging builds before approving anything. Request revisions, and if you still can’t agree, Refeir mediation steps in. Your money stays protected until then.'
+  },
+  {
+    q: 'Is signing up free?',
+    a: 'Creating a client account is completely free. You only fund a milestone when you’ve chosen a specialist and agreed on the scope.'
+  },
+  {
+    q: 'Can I get help choosing the right specialist?',
+    a: 'Absolutely. After signing up, a Refeir Scout can review your brief and introduce you to the best-matched, verified specialists at no extra cost.'
+  }
+];
 
 export const AiWizardsPage: React.FC<AiWizardsPageProps> = ({ onNavigate, initialPillar }) => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const [pillar, setPillar] = useState<PillarType>(initialPillar || 'creative');
+  const [tierIndex, setTierIndex] = useState<number>(1);
+  const [role, setRole] = useState<RoleType>('client');
+  const [activeChapter, setActiveChapter] = useState<ChapterId | null>(null);
+  const [barsIn, setBarsIn] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const compareRef = useRef<HTMLDivElement>(null);
 
-  const [activePillar, setActivePillar] = useState<PillarType>(() => {
-    if (initialPillar) return initialPillar;
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const p = params.get('pillar');
-      if (p === 'agents') return 'agents';
-      if (p === 'visuals') return 'visuals';
-      if (p === 'creative') return 'creative';
-      const hash = window.location.hash.toLowerCase();
-      if (hash.includes('agent')) return 'agents';
-      if (hash.includes('visual') || hash.includes('3d')) return 'visuals';
-      if (hash.includes('creative') || hash.includes('video') || hash.includes('wizard')) return 'creative';
-    }
-    return 'creative';
-  });
+  const config = PILLARS[pillar];
+  const tier = config.tiers[tierIndex];
 
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
+  // Sync with route changes (e.g. clicking a different homepage CTA)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const p = params.get('pillar');
-      if (p === 'agents' || p === 'visuals' || p === 'creative') {
-        setActivePillar(p as PillarType);
-      }
-    }
+    if (initialPillar) setPillar(initialPillar);
+  }, [initialPillar]);
+
+  // Reset package choice to the most popular tier when switching discipline
+  useEffect(() => {
+    setTierIndex(1);
+  }, [pillar]);
+
+  // Track the chapter currently in view for the progress rail
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActiveChapter(entry.target.id.replace('aw-', '') as ChapterId);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    CHAPTERS.forEach(c => {
+      const el = document.getElementById(`aw-${c.id}`);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
-  const toggleFaq = (index: number) => {
-    setOpenFaq(openFaq === index ? null : index);
+  // Soft reveal-on-scroll for content blocks (re-run when discipline swaps content)
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    root.querySelectorAll('.rf-aw-reveal:not(.is-in)').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [pillar]);
+
+  // Animate comparison bars once they enter the viewport
+  useEffect(() => {
+    const el = compareRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setBarsIn(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollTo = (id: ChapterId) => {
+    document.getElementById(`aw-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const PILLARS_CONFIG = {
-    creative: {
-      id: 'creative',
-      badge: 'AI CREATIVE PRODUCTION',
-      badgeColor: '#66BB2A',
-      title: 'The AI Wizard era has arrived',
-      subtitle: 'From ideation to final frame, work with renowned AI Video Wizards to create scroll-stopping content and campaigns that drive real impact.',
-      ctaButtonText: 'Commission AI Video Talent',
-      ctaSearchQuery: '/marketplace?q=AI%20Video',
-      summary:
-        'AI Creative Production replaces slow, multi-month physical film crews with agile neural video directors. Using state-of-the-art diffusion models, our talent directs cinematic commercial spots, narrative visual storytelling, and high-converting marketing campaigns in days instead of weeks.',
-      buttonExplained:
-        'When you see "Borrow a Wand" on Refeir, it means booking a vetted Generative AI Film Director or VFX lead who orchestrates complex multi-pass neural pipelines to bring your concept to life.',
-      tools: ['Runway Gen-3 Alpha', 'OpenAI Sora', 'Midjourney v6', 'ComfyUI Workflows', 'Stable Video Diffusion', 'DaVinci Neural Colorist'],
-      deliverables: [
-        'High-resolution 4K master commercials and promo videos',
-        'Multi-aspect ratio cutdowns (16:9 widescreen, 9:16 reels/TikTok, 1:1 square)',
-        'Synthesized audio scoring, voice synthesis, and Foley sound design',
-        'Complete commercial copyright ownership and source project files'
-      ],
-      process: [
-        {
-          step: '01',
-          name: 'Concept & Narrative Prompt Scripting',
-          desc: 'Your AI Director develops narrative storyboards, character style sheets, and prompt architectures aligned with your brand identity.'
-        },
-        {
-          step: '02',
-          name: 'Consistency-Locked Video Generation',
-          desc: 'Using motion brushes, character seeds, and custom LoRA models to guarantee facial and wardrobe consistency across every camera angle.'
-        },
-        {
-          step: '03',
-          name: 'Upscaling, Sound Design & DaVinci Mastering',
-          desc: 'Neural video upscaling to native 4K, synchronized voice cloning, Foley audio mastering, and broadcast-ready color correction.'
-        }
-      ],
-      comparison: {
-        traditional: {
-          label: 'Traditional Video Production',
-          cost: '$20,000 – $75,000',
-          timeline: '6 to 10 weeks',
-          details: 'Physical film crews, studio rental, actors, travel, lighting rigs, and painful reshoots.'
-        },
-        refeir: {
-          label: 'Refeir AI Creative Studio',
-          cost: '$1,200 – $6,500',
-          timeline: '3 to 7 days',
-          details: 'Zero physical production overhead, limitless virtual locations, infinite revisions, and 4K masters.'
-        }
-      },
-      tiers: [
-        { name: 'Viral Social Asset', price: '$800 – $1,500', time: '3 days', desc: '15-30s high-impact AI hook video optimized for TikTok and Instagram ads.' },
-        { name: 'Brand Hero Commercial', price: '$2,500 – $4,500', time: '5 days', desc: '60s full cinematic brand narrative with custom voiceover and sound design.' },
-        { name: 'Full Campaign Suite', price: '$5,000 – $8,500', time: '10 days', desc: '3 hero variations, 8 aspect-ratio cutdowns, static banners, and source workflows.' }
-      ]
-    },
-    agents: {
-      id: 'agents',
-      badge: 'AUTONOMOUS ENGINEERING',
-      badgeColor: '#F6B21A',
-      title: 'Architect Autonomous AI Agents',
-      subtitle: 'Supercharge your operations with elite African AI engineers building bespoke RAG pipelines, fine-tuned LLMs, and custom workflow automations.',
-      ctaButtonText: 'Deploy Autonomous Agent Engineers',
-      ctaSearchQuery: '/marketplace?q=AI%20Agents',
-      summary:
-        'Autonomous Engineering transforms rigid software into cognitive, self-correcting agentic workflows. Our engineers build custom LLM architectures and Retrieval-Augmented Generation (RAG) systems that interact with your company data, automate complex business workflows, and act as tireless digital team members.',
-      buttonExplained:
-        'When you see "Deploy an Agent" on Refeir, it means commissioning an AI Systems Architect to build custom, secure autonomous pipelines that connect directly to your databases, APIs, and business operations.',
-      tools: ['LangChain', 'LlamaIndex', 'Pinecone & Qdrant', 'CrewAI & AutoGen', 'vLLM & Ollama', 'pgvector & Weaviate'],
-      deliverables: [
-        'Production-ready autonomous agent codebase containerized with Docker',
-        'Secure RAG pipeline indexing proprietary company documentation and vector embeddings',
-        'Custom API endpoints and webhooks integrated into your CRM or internal dashboard',
-        'Comprehensive evaluation suites measuring latency, accuracy, and hallucination rates'
-      ],
-      process: [
-        {
-          step: '01',
-          name: 'Knowledge Ingestion & Vector Indexing',
-          desc: 'Extracting, chunking, and embedding your unstructured business data (PDFs, Notion, databases) into private, low-latency vector databases.'
-        },
-        {
-          step: '02',
-          name: 'Tooling, APIs & Reasoning Loops',
-          desc: 'Empowering the agent with tool calling—querying SQL, sending transactional emails, processing documents, and multi-agent peer reviews.'
-        },
-        {
-          step: '03',
-          name: 'Guardrailing, Benchmarks & Cloud Deployment',
-          desc: 'Implementing strict security guardrails against prompt injection, testing with automated evals, and deploying to your cloud infrastructure.'
-        }
-      ],
-      comparison: {
-        traditional: {
-          label: 'Traditional Software Automation',
-          cost: '$40,000 – $120,000',
-          timeline: '3 to 6 months',
-          details: 'Rigid rule engines, fragile regex patterns, endless manual edge cases, and high maintenance overhead.'
-        },
-        refeir: {
-          label: 'Refeir Autonomous Agent Squad',
-          cost: '$2,800 – $9,500',
-          timeline: '1 to 3 weeks',
-          details: 'Adaptive cognitive architectures, natural language interfaces, self-correcting loops, and secure private hosting.'
-        }
-      },
-      tiers: [
-        { name: 'Internal Knowledge RAG', price: '$1,800 – $3,200', time: '5 days', desc: 'Private document search assistant with semantic citation and team access controls.' },
-        { name: 'Autonomous Workflow Agent', price: '$3,500 – $6,500', time: '12 days', desc: 'Multi-tool agent automating lead qualification, report generation, or customer support.' },
-        { name: 'Enterprise Multi-Agent System', price: '$7,000 – $14,000', time: '21 days', desc: 'Orchestrated squad of specialized agents collaborating on end-to-end operational processes.' }
-      ]
-    },
-    visuals: {
-      id: 'visuals',
-      badge: 'GENERATIVE VISUALS & 3D',
-      badgeColor: '#F47C20',
-      title: 'Hyper-Real 3D & Brand Generation',
-      subtitle: 'Transform product concepts into stunning visual assets, photo-realistic CGI renders, and generative brand collateral crafted by top digital artists.',
-      ctaButtonText: 'Commission 3D & Visual Artists',
-      ctaSearchQuery: '/marketplace?q=Generative%20Design',
-      summary:
-        'Generative Visuals & 3D merges computational 3D modeling with generative diffusion models to deliver hyper-realistic product imagery, spatial graphics, and interactive brand collateral without physical prototyping delays.',
-      buttonExplained:
-        'When you see "Commission Visuals" on Refeir, it means hiring specialized 3D artists and spatial designers who turn sketches, CAD files, or product concepts into photorealistic billboard-ready renders and e-commerce assets.',
-      tools: ['Blender 3D', 'Unreal Engine 5', 'Stable Diffusion XL', 'ControlNet & LoRA', 'Spline 3D', 'Octane / Cycles Raytracing'],
-      deliverables: [
-        'Photorealistic 8K render images suitable for print packaging, billboards, and e-commerce',
-        'Interactive 3D web models (GLTF, USDZ) for online product configurators',
-        'Multi-angle turntable product animations and lighting variations',
-        'Layered source project files (.blend, .c4d, .psd) with full commercial IP transfer'
-      ],
-      process: [
-        {
-          step: '01',
-          name: 'CAD Ingestion & Mesh Optimization',
-          desc: 'Importing physical product specifications, CAD models, or converting 2D concept art into clean, high-density 3D geometry.'
-        },
-        {
-          step: '02',
-          name: 'Physics-Based Texturing & Studio Lighting',
-          desc: 'Simulating realistic material shaders (glass refraction, brushed metal, woven fabric) combined with ControlNet guided texture detailing.'
-        },
-        {
-          step: '03',
-          name: 'Raytraced Rendering & Interactive Exports',
-          desc: 'Generating sub-24h multi-angle renders, interactive 3D web viewer exports, and multi-channel compositing passes.'
-        }
-      ],
-      comparison: {
-        traditional: {
-          label: 'Traditional Product Photography',
-          cost: '$15,000 – $40,000',
-          timeline: '4 to 8 weeks',
-          details: 'Physical prototype manufacturing, international freight shipping, studio staging, and destructive re-renders.'
-        },
-        refeir: {
-          label: 'Refeir Generative 3D Studio',
-          cost: '$900 – $4,200',
-          timeline: '24 hours to 5 days',
-          details: 'Instant geometry tweaks, zero physical manufacturing required, unlimited digital angles, and sub-24h options.'
-        }
-      },
-      tiers: [
-        { name: 'Product Packshot Suite', price: '$600 – $1,200', time: '48 hours', desc: '5 photorealistic studio-grade product shots with transparent and lifestyle backgrounds.' },
-        { name: 'Interactive 3D & Turntable', price: '$1,800 – $3,200', time: '5 days', desc: '360° animated turntable video plus web-ready GLTF/USDZ interactive model.' },
-        { name: 'Complete Virtual Brand World', price: '$4,000 – $7,500', time: '10 days', desc: 'Full architectural environment, 12 render scenes, interactive web model, and video reel.' }
-      ]
+  const activeIndex = activeChapter ? CHAPTERS.findIndex(c => c.id === activeChapter) : -1;
+
+  const pct = (part: number, whole: number) => `${Math.max(6, Math.round((part / whole) * 100))}%`;
+
+  const handleRegister = () => {
+    try {
+      sessionStorage.setItem(
+        'rf_ai_wizard_intent',
+        JSON.stringify({ discipline: config.label, package: tier.name, budget: tier.price, timeline: tier.time, role })
+      );
+    } catch {
+      /* storage unavailable — continue to signup */
     }
+    onNavigate(`/register?role=${role}`);
   };
 
-  const currentConfig = PILLARS_CONFIG[activePillar];
+  const rootStyle = useMemo(
+    () =>
+      ({
+        '--aw-accent': config.accent,
+        '--aw-accent-soft': config.accentSoft,
+        '--aw-accent-ink': config.accentInk
+      }) as React.CSSProperties,
+    [config]
+  );
 
-  const FAQS = [
-    {
-      q: 'What do the three snapshots on the homepage represent?',
-      a: 'The snapshots represent Refeir’s three specialized AI innovation disciplines: AI Creative Production (filmmaking and high-impact video), Autonomous Engineering (self-executing AI agents and enterprise RAG systems), and Generative Visuals & 3D (photorealistic product renders and interactive CGI assets). Instead of generic freelancing, these represent curated, production-grade AI pipelines.'
-    },
-    {
-      q: 'Do I own 100% of the intellectual property (IP) created?',
-      a: 'Yes. Upon milestone approval and payment release through Refeir Trust Vault escrow, 100% of the commercial rights, copyrights, codebases, and source asset files are legally and exclusively transferred to your business.'
-    },
-    {
-      q: 'How does milestone escrow protect my project?',
-      a: 'Your project funds remain securely locked in Refeir Trust Vault escrow until deliverables are delivered and inspected. You review watermarked drafts, staged code repositories, or preview renders before approving milestone releases.'
-    },
-    {
-      q: 'What if I need help deciding between these disciplines?',
-      a: 'You can consult with a Refeir Scout or post a project scope on our marketplace. Refeir Scouts are domain experts who evaluate your technical or creative requirements and introduce you to the ideal verified specialist without any upfront matchmaking fees.'
-    },
-    {
-      q: 'Can African AI engineers integrate with our existing stack?',
-      a: 'Yes. Our autonomous engineering talent works routinely with global engineering stacks including AWS, Google Cloud, Azure, Supabase, Postgres, Docker, Kubernetes, LangChain, and enterprise REST/GraphQL APIs.'
-    }
-  ];
+  const NextButton: React.FC<{ to: ChapterId; label: string }> = ({ to, label }) => (
+    <div className="rf-aw-next">
+      <button type="button" className="rf-aw-next-btn" onClick={() => scrollTo(to)}>
+        {label}
+        <span className="rf-aw-next-arrow">
+          <ChevronDown size={18} />
+        </span>
+      </button>
+    </div>
+  );
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', minHeight: '85vh', backgroundColor: 'var(--rf-bg-base)' }}>
-      {/* 1. HERO HEADER */}
-      <section
-        style={{
-          padding: 'clamp(4rem, 8vw, 6.5rem) 1.5rem clamp(3.5rem, 6vw, 4.5rem)',
-          textAlign: 'center',
-          background: isDark
-            ? 'radial-gradient(ellipse 70% 50% at 50% -10%, rgba(102, 187, 42, 0.16), transparent 70%), var(--rf-bg-base)'
-            : 'radial-gradient(ellipse 70% 50% at 50% -10%, rgba(102, 187, 42, 0.10), transparent 70%), var(--rf-bg-base)',
-          borderBottom: '1px solid var(--rf-bg-card-border)',
-          position: 'relative'
-        }}
-      >
-        <div className="rf-container" style={{ maxWidth: '920px', margin: '0 auto' }}>
-          {/* Eyebrow Pill */}
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              background: 'rgba(102, 187, 42, 0.12)',
-              border: '1px solid rgba(102, 187, 42, 0.3)',
-              borderRadius: '9999px',
-              padding: '0.35rem 1rem',
-              marginBottom: '1.5rem'
-            }}
-          >
-            <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#66BB2A', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-              Refeir AI Innovation & Creative Studios
-            </span>
-          </div>
-
-          <h1
-            style={{
-              fontFamily: 'var(--rf-font-display)',
-              fontSize: 'clamp(2.3rem, 5.2vw, 3.85rem)',
-              fontWeight: 600,
-              color: 'var(--rf-cream)',
-              lineHeight: 1.15,
-              letterSpacing: '-0.03em',
-              marginBottom: '1.35rem'
-            }}
-          >
-            Everything you need to know about Refeir’s AI Disciplines
-          </h1>
-
-          <p
-            style={{
-              fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
-              color: 'var(--rf-slate-300)',
-              lineHeight: 1.6,
-              maxWidth: '720px',
-              margin: '0 auto 2.5rem'
-            }}
-          >
-            A deep-dive breakdown of the technologies, workflows, deliverables, and commercial protections behind each of the three featured disciplines on Refeir.
-          </p>
-
-          {/* Interactive Discipline Switcher */}
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              background: 'var(--rf-bg-surface)',
-              padding: '0.35rem',
-              borderRadius: '16px',
-              border: '1px solid var(--rf-bg-card-border)',
-              maxWidth: '100%',
-              overflowX: 'auto',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
-              gap: '0.35rem'
-            }}
-          >
-            <button
-              onClick={() => setActivePillar('creative')}
-              style={{
-                padding: '0.65rem 1.25rem',
-                borderRadius: '12px',
-                border: 'none',
-                background: activePillar === 'creative' ? '#66BB2A' : 'transparent',
-                color: activePillar === 'creative' ? '#0F1E13' : 'var(--rf-slate-300)',
-                fontWeight: activePillar === 'creative' ? 800 : 600,
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              AI Creative Production
-            </button>
-
-            <button
-              onClick={() => setActivePillar('agents')}
-              style={{
-                padding: '0.65rem 1.25rem',
-                borderRadius: '12px',
-                border: 'none',
-                background: activePillar === 'agents' ? '#F6B21A' : 'transparent',
-                color: activePillar === 'agents' ? '#1B1400' : 'var(--rf-slate-300)',
-                fontWeight: activePillar === 'agents' ? 800 : 600,
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              Autonomous Engineering
-            </button>
-
-            <button
-              onClick={() => setActivePillar('visuals')}
-              style={{
-                padding: '0.65rem 1.25rem',
-                borderRadius: '12px',
-                border: 'none',
-                background: activePillar === 'visuals' ? '#F47C20' : 'transparent',
-                color: activePillar === 'visuals' ? '#FFFFFF' : 'var(--rf-slate-300)',
-                fontWeight: activePillar === 'visuals' ? 800 : 600,
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              Generative Visuals & 3D
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. ACTIVE PILLAR COMPREHENSIVE BREAKDOWN */}
-      <section style={{ padding: 'clamp(3.5rem, 6vw, 5rem) 1.5rem', backgroundColor: 'var(--rf-bg-surface)' }}>
-        <div className="rf-container" style={{ maxWidth: '1080px', margin: '0 auto' }}>
-          {/* Snapshot Header Card */}
-          <div
-            style={{
-              padding: 'clamp(2rem, 4vw, 3rem)',
-              borderRadius: '24px',
-              backgroundColor: 'var(--rf-bg-base)',
-              border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}`,
-              marginBottom: '3rem',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.1)'
-            }}
-          >
-            <div style={{ display: 'inline-block', marginBottom: '1rem' }}>
-              <span
-                style={{
-                  fontSize: '0.8rem',
-                  fontWeight: 800,
-                  color: currentConfig.badgeColor,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em'
-                }}
-              >
-                {currentConfig.badge}
+    <div className="rf-aw" ref={rootRef} style={rootStyle}>
+      {/* ============ HERO ============ */}
+      <section className="rf-aw-hero">
+        <div className="rf-aw-hero-glow" />
+        <div className="rf-aw-wrap">
+          <div className="rf-aw-hero-grid">
+            <div key={`hero-copy-${pillar}`} className="rf-aw-swap">
+              <span className="rf-aw-eyebrow">
+                <span className="rf-aw-eyebrow-dot" />
+                {config.eyebrow}
               </span>
-            </div>
+              <h1 className="rf-aw-h1">
+                {config.title}
+                <br />
+                <span className="rf-aw-accent-text">{config.highlight}</span>
+              </h1>
+              <p className="rf-aw-lead">{config.lead}</p>
 
-            <h2
-              style={{
-                fontFamily: 'var(--rf-font-sans)',
-                fontSize: 'clamp(2rem, 3.8vw, 2.75rem)',
-                fontWeight: 600,
-                color: 'var(--rf-cream)',
-                lineHeight: 1.2,
-                marginBottom: '1rem'
-              }}
-            >
-              {currentConfig.title}
-            </h2>
-
-            <p style={{ fontSize: '1.15rem', color: 'var(--rf-slate-300)', lineHeight: 1.6, marginBottom: '2rem', maxWidth: '780px' }}>
-              {currentConfig.subtitle}
-            </p>
-
-            {/* Explanation of the Homepage Snapshot */}
-            <div
-              style={{
-                padding: '1.25rem 1.5rem',
-                borderRadius: '16px',
-                backgroundColor: 'rgba(102, 187, 42, 0.07)',
-                border: '1px solid rgba(102, 187, 42, 0.22)',
-                marginBottom: '2rem'
-              }}
-            >
-              <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
-                Snapshot Context & Meaning
-              </div>
-              <p style={{ fontSize: '0.98rem', color: 'var(--rf-slate-200)', lineHeight: 1.55, margin: 0 }}>
-                {currentConfig.buttonExplained}
-              </p>
-            </div>
-
-            {/* Tech Stack Pills */}
-            <div style={{ marginBottom: '2rem' }}>
-              <div style={{ fontSize: '0.825rem', fontWeight: 700, color: 'var(--rf-slate-400)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
-                Core Tools & Neural Engines
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                {currentConfig.tools.map((tool, i) => (
-                  <span
-                    key={i}
-                    style={{
-                      fontSize: '0.825rem',
-                      fontWeight: 600,
-                      padding: '0.4rem 0.85rem',
-                      borderRadius: '8px',
-                      backgroundColor: 'var(--rf-bg-surface)',
-                      border: '1px solid var(--rf-bg-card-border)',
-                      color: 'var(--rf-cream)'
-                    }}
+              <div className="rf-aw-pillars" role="tablist" aria-label="Choose a discipline">
+                {(Object.keys(PILLARS) as PillarType[]).map(key => (
+                  <button
+                    key={key}
+                    type="button"
+                    role="tab"
+                    aria-selected={pillar === key}
+                    className={`rf-aw-pillar${pillar === key ? ' is-active' : ''}`}
+                    onClick={() => setPillar(key)}
                   >
-                    {tool}
-                  </span>
+                    <span className="rf-aw-pillar-icon">{PILLARS[key].icon}</span>
+                    {PILLARS[key].short}
+                  </button>
                 ))}
               </div>
-            </div>
 
-            {/* Direct Commission CTA */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
-              <button
-                onClick={() => onNavigate(currentConfig.ctaSearchQuery)}
-                className="rf-btn rf-btn-primary rf-btn-lg"
-                style={{
-                  fontWeight: 700,
-                  padding: '0.9rem 2rem',
-                  fontSize: '1rem',
-                  boxShadow: '0 4px 20px rgba(102, 187, 42, 0.45)'
-                }}
-              >
-                <span>{currentConfig.ctaButtonText}</span>
-              </button>
-
-              <button
-                onClick={() => onNavigate('/scout-sourcing')}
-                className="rf-btn rf-btn-secondary rf-btn-lg"
-                style={{ fontWeight: 600, padding: '0.9rem 1.75rem', fontSize: '1rem' }}
-              >
-                <span>Consult with an AI Scout</span>
-              </button>
-            </div>
-          </div>
-
-          {/* 3-STEP PRODUCTION PIPELINE */}
-          <div style={{ marginBottom: '3.5rem' }}>
-            <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Methodology
-              </span>
-              <h3 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', fontWeight: 600, color: 'var(--rf-cream)', marginTop: '0.5rem' }}>
-                How a project runs on Refeir
-              </h3>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-              {currentConfig.process.map((stepItem, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    padding: '2rem',
-                    borderRadius: '20px',
-                    backgroundColor: 'var(--rf-bg-base)',
-                    border: '1px solid var(--rf-bg-card-border)'
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: '1.25rem',
-                      fontWeight: 900,
-                      color: currentConfig.badgeColor,
-                      fontFamily: 'monospace',
-                      marginBottom: '1rem'
-                    }}
-                  >
-                    {stepItem.step}
-                  </div>
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--rf-cream)', marginBottom: '0.75rem', lineHeight: 1.3 }}>
-                    {stepItem.name}
-                  </h4>
-                  <p style={{ fontSize: '0.925rem', color: 'var(--rf-slate-400)', lineHeight: 1.6, margin: 0 }}>
-                    {stepItem.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* TRADITIONAL VS REFEIR COMPARISON */}
-          <div style={{ marginBottom: '3.5rem' }}>
-            <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Cost & Efficiency
-              </span>
-              <h3 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', fontWeight: 600, color: 'var(--rf-cream)', marginTop: '0.5rem' }}>
-                The Old Method vs. The Refeir AI Way
-              </h3>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
-              {/* Traditional */}
-              <div
-                style={{
-                  padding: '2rem',
-                  borderRadius: '20px',
-                  backgroundColor: 'var(--rf-bg-base)',
-                  border: '1px solid var(--rf-bg-card-border)',
-                  opacity: 0.85
-                }}
-              >
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#EF4444', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
-                  Traditional Workflow
-                </div>
-                <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--rf-cream)', marginBottom: '1.25rem' }}>
-                  {currentConfig.comparison.traditional.label}
-                </h4>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.25rem' }}>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Typical Cost: </span>
-                    <strong style={{ fontSize: '1.05rem', color: 'var(--rf-cream)' }}>{currentConfig.comparison.traditional.cost}</strong>
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Turnaround: </span>
-                    <strong style={{ fontSize: '1.05rem', color: 'var(--rf-cream)' }}>{currentConfig.comparison.traditional.timeline}</strong>
-                  </div>
-                </div>
-
-                <p style={{ fontSize: '0.9rem', color: 'var(--rf-slate-400)', lineHeight: 1.6, margin: 0 }}>
-                  {currentConfig.comparison.traditional.details}
-                </p>
+              <div className="rf-aw-hero-actions">
+                <button type="button" className="rf-aw-btn rf-aw-btn-primary" onClick={() => scrollTo('meet')}>
+                  Show me how it works
+                  <ArrowRight size={18} />
+                </button>
+                <button type="button" className="rf-aw-btn rf-aw-btn-ghost" onClick={() => scrollTo('start')}>
+                  I’m ready to start
+                </button>
               </div>
 
-              {/* Refeir AI */}
-              <div
-                style={{
-                  padding: '2rem',
-                  borderRadius: '20px',
-                  backgroundColor: 'var(--rf-bg-base)',
-                  border: '2px solid #66BB2A',
-                  boxShadow: '0 8px 32px rgba(102, 187, 42, 0.12)'
-                }}
-              >
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
-                  Recommended Refeir Pipeline
-                </div>
-                <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--rf-cream)', marginBottom: '1.25rem' }}>
-                  {currentConfig.comparison.refeir.label}
-                </h4>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.25rem' }}>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Typical Cost: </span>
-                    <strong style={{ fontSize: '1.05rem', color: '#66BB2A' }}>{currentConfig.comparison.refeir.cost}</strong>
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase' }}>Turnaround: </span>
-                    <strong style={{ fontSize: '1.05rem', color: 'var(--rf-cream)' }}>{currentConfig.comparison.refeir.timeline}</strong>
-                  </div>
-                </div>
-
-                <p style={{ fontSize: '0.9rem', color: 'var(--rf-slate-300)', lineHeight: 1.6, margin: 0 }}>
-                  {currentConfig.comparison.refeir.details}
-                </p>
+              <div className="rf-aw-trust-row">
+                <span><ShieldCheck size={16} /> Escrow-protected</span>
+                <span><BadgeCheck size={16} /> Vetted specialists</span>
+                <span><Award size={16} /> 100% IP ownership</span>
               </div>
             </div>
-          </div>
 
-          {/* DELIVERABLES & GUARANTEES */}
-          <div
-            style={{
-              padding: 'clamp(2rem, 4vw, 2.5rem)',
-              borderRadius: '20px',
-              backgroundColor: 'var(--rf-bg-base)',
-              border: '1px solid var(--rf-bg-card-border)',
-              marginBottom: '3.5rem'
-            }}
-          >
-            <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--rf-cream)', marginBottom: '1.25rem' }}>
-              Standard Deliverables & Guarantees Included
-            </h4>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-              {currentConfig.deliverables.map((item, i) => (
-                <div
-                  key={i}
-                  style={{
-                    padding: '1rem 1.25rem',
-                    borderRadius: '12px',
-                    backgroundColor: 'var(--rf-bg-surface)',
-                    border: '1px solid var(--rf-bg-card-border)',
-                    fontSize: '0.925rem',
-                    color: 'var(--rf-slate-200)',
-                    lineHeight: 1.5
-                  }}
-                >
-                  {item}
+            <div className="rf-aw-visual" key={`hero-visual-${pillar}`}>
+              <div className="rf-aw-blob" />
+              <div className="rf-aw-blob-ring" />
+
+              <div className="rf-aw-portrait rf-aw-portrait-left rf-aw-swap">
+                <img src={config.wizards[1].image} alt={config.wizards[1].name} loading="lazy" />
+              </div>
+              <div className="rf-aw-portrait rf-aw-portrait-right rf-aw-swap">
+                <img src={config.wizards[2].image} alt={config.wizards[2].name} loading="lazy" />
+              </div>
+              <div className="rf-aw-portrait rf-aw-portrait-main rf-aw-swap">
+                <img src={config.wizards[0].image} alt={config.wizards[0].name} />
+                <div className="rf-aw-portrait-tag">
+                  <strong>
+                    {config.wizards[0].name} {config.wizards[0].country}
+                  </strong>
+                  <span>{config.wizards[0].role}</span>
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
 
-          {/* TYPICAL TIERS & PRICING */}
-          <div style={{ marginBottom: '3.5rem' }}>
-            <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Pricing Guidance
-              </span>
-              <h3 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', fontWeight: 600, color: 'var(--rf-cream)', marginTop: '0.5rem' }}>
-                Typical Scope & Investment Estimates
-              </h3>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-              {currentConfig.tiers.map((tier, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    padding: '2rem',
-                    borderRadius: '20px',
-                    backgroundColor: 'var(--rf-bg-base)',
-                    border: '1px solid var(--rf-bg-card-border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between'
-                  }}
-                >
-                  <div>
-                    <h5 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
-                      {tier.name}
-                    </h5>
-                    <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#66BB2A', marginBottom: '0.35rem' }}>
-                      {tier.price}
-                    </div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--rf-slate-400)', marginBottom: '1rem' }}>
-                      Delivered in {tier.time}
-                    </div>
-                    <p style={{ fontSize: '0.9rem', color: 'var(--rf-slate-300)', lineHeight: 1.55, margin: 0 }}>
-                      {tier.desc}
-                    </p>
-                  </div>
-
-                  <div style={{ marginTop: '1.75rem' }}>
-                    <button
-                      onClick={() => onNavigate(currentConfig.ctaSearchQuery)}
-                      className="rf-btn rf-btn-primary rf-btn-sm"
-                      style={{ width: '100%', fontWeight: 700, justifyContent: 'center' }}
-                    >
-                      <span>Explore Talent in this Tier</span>
-                    </button>
-                  </div>
-                </div>
-              ))}
+              <div className="rf-aw-chip rf-aw-chip-a">
+                <Star size={15} /> 4.9 average rating
+              </div>
+              <div className="rf-aw-chip rf-aw-chip-b">
+                <Lock size={15} /> Funds held in escrow
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. PLATFORM ESCROW & IP ASSIGNMENT */}
-      <section style={{ padding: 'clamp(3.5rem, 6vw, 5rem) 1.5rem', backgroundColor: 'var(--rf-bg-base)' }}>
-        <div className="rf-container" style={{ maxWidth: '960px', margin: '0 auto', textAlign: 'center' }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            Security & Compliance
-          </span>
-          <h3 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)', fontWeight: 600, color: 'var(--rf-cream)', margin: '0.5rem 0 1rem' }}>
-            Built on Trust Vault Escrow & Legal IP Assignment
-          </h3>
-          <p style={{ fontSize: '1.05rem', color: 'var(--rf-slate-300)', maxWidth: '640px', margin: '0 auto 2.5rem', lineHeight: 1.6 }}>
-            Every AI contract on Refeir is backed by our strict financial and intellectual property standards.
-          </p>
+      {/* ============ STICKY JOURNEY RAIL ============ */}
+      <div className="rf-aw-rail-holder">
+        <nav className="rf-aw-rail" aria-label="Journey progress">
+          {CHAPTERS.map((c, i) => (
+            <button
+              key={c.id}
+              type="button"
+              className={`rf-aw-rail-btn${activeChapter === c.id ? ' is-active' : ''}${i < activeIndex ? ' is-done' : ''}`}
+              onClick={() => scrollTo(c.id)}
+            >
+              <span className="rf-aw-rail-num">{i < activeIndex ? <Check size={12} /> : i + 1}</span>
+              <span className="rf-aw-rail-text">{c.label}</span>
+            </button>
+          ))}
+        </nav>
+      </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', textAlign: 'left' }}>
-            <div style={{ padding: '1.75rem', borderRadius: '16px', backgroundColor: 'var(--rf-bg-surface)', border: '1px solid var(--rf-bg-card-border)' }}>
-              <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
-                100% Commercial IP Transfer
-              </div>
-              <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', lineHeight: 1.6, margin: 0 }}>
-                Upon milestone approval, full exclusive copyright, patents, and commercial publication rights are permanently assigned to you.
-              </p>
-            </div>
-
-            <div style={{ padding: '1.75rem', borderRadius: '16px', backgroundColor: 'var(--rf-bg-surface)', border: '1px solid var(--rf-bg-card-border)' }}>
-              <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
-                Milestone Inspection Prior to Release
-              </div>
-              <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', lineHeight: 1.6, margin: 0 }}>
-                Talent posts deliverables to your contract workspace. You only approve and release milestone funds when deliverables match scope.
-              </p>
-            </div>
-
-            <div style={{ padding: '1.75rem', borderRadius: '16px', backgroundColor: 'var(--rf-bg-surface)', border: '1px solid var(--rf-bg-card-border)' }}>
-              <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
-                Strict Confidentiality & Privacy
-              </div>
-              <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', lineHeight: 1.6, margin: 0 }}>
-                Proprietary company data, prompt architectures, and confidential training materials are protected by binding platform NDAs.
+      {/* ============ 1. MEET THE TALENT ============ */}
+      <section id="aw-meet" className="rf-aw-chapter">
+        <div className="rf-aw-wrap">
+          <div className="rf-aw-chapter-head rf-aw-reveal">
+            <div>
+              <span className="rf-aw-step-label">Step 1 of 5</span>
+              <h2 className="rf-aw-h2">The people behind the magic</h2>
+              <p className="rf-aw-lead">
+                Every specialist is identity-verified and portfolio-reviewed. Here are a few who are taking on {config.label.toLowerCase()} projects right now.
               </p>
             </div>
           </div>
+
+          <div className="rf-aw-wizards" key={`wizards-${pillar}`}>
+            {config.wizards.map((w, i) => (
+              <article key={w.name} className={`rf-aw-wizard rf-aw-reveal rf-aw-d${i + 1}`}>
+                <div className="rf-aw-wizard-photo">
+                  <img src={w.image} alt={w.name} loading="lazy" />
+                  <span className="rf-aw-wizard-rating">
+                    <Star size={13} /> {w.rating}
+                  </span>
+                </div>
+                <div className="rf-aw-wizard-body">
+                  <h3 className="rf-aw-wizard-name">
+                    {w.name} {w.country}
+                  </h3>
+                  <p className="rf-aw-wizard-role">{w.role}</p>
+                  <div className="rf-aw-wizard-meta">
+                    <span>{w.projects} projects delivered</span>
+                    <strong>{w.rate}</strong>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="rf-aw-tools rf-aw-reveal" key={`tools-${pillar}`}>
+            {config.tools.map(t => (
+              <span key={t} className="rf-aw-tool">
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <NextButton to="process" label="See how a project runs" />
         </div>
       </section>
 
-      {/* 4. EXPANDABLE FAQ SECTION */}
-      <section style={{ padding: 'clamp(3.5rem, 6vw, 5rem) 1.5rem', backgroundColor: 'var(--rf-bg-surface)' }}>
-        <div className="rf-container" style={{ maxWidth: '820px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-              Common Questions
-            </span>
-            <h3 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)', fontWeight: 600, color: 'var(--rf-cream)', marginTop: '0.5rem' }}>
-              Frequently Asked Questions
-            </h3>
+      {/* ============ 2. HOW IT WORKS ============ */}
+      <section id="aw-process" className="rf-aw-chapter" style={{ paddingTop: 0 }}>
+        <div className="rf-aw-wrap">
+          <div className="rf-aw-chapter-head rf-aw-reveal">
+            <div>
+              <span className="rf-aw-step-label">Step 2 of 5</span>
+              <h2 className="rf-aw-h2">From idea to delivery in three moves</h2>
+              <p className="rf-aw-lead">No agency back-and-forth. You stay in the loop at every milestone, and nothing is final until you approve it.</p>
+            </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            {FAQS.map((faq, idx) => {
-              const isOpen = openFaq === idx;
+          <div className="rf-aw-process" key={`process-${pillar}`}>
+            <div className="rf-aw-process-line" />
+            {config.process.map((s, i) => (
+              <div key={s.name} className={`rf-aw-step rf-aw-reveal rf-aw-d${i + 1}`}>
+                <div className="rf-aw-step-num">{`0${i + 1}`}</div>
+                <div className="rf-aw-step-card">
+                  <span className="rf-aw-step-time">
+                    <Clock size={13} /> {s.time}
+                  </span>
+                  <h3>{s.name}</h3>
+                  <p>{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="rf-aw-outcomes rf-aw-reveal" key={`outcomes-${pillar}`}>
+            <h4>What lands in your inbox</h4>
+            <ul className="rf-aw-outcome-list">
+              {config.outcomes.map(o => (
+                <li key={o}>
+                  <Check size={17} /> {o}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <NextButton to="invest" label="What will it cost?" />
+        </div>
+      </section>
+
+      {/* ============ 3. INVESTMENT ============ */}
+      <section id="aw-invest" className="rf-aw-chapter" style={{ paddingTop: 0 }}>
+        <div className="rf-aw-wrap">
+          <div className="rf-aw-chapter-head rf-aw-reveal">
+            <div>
+              <span className="rf-aw-step-label">Step 3 of 5</span>
+              <h2 className="rf-aw-h2">A fraction of the cost. A fraction of the wait.</h2>
+              <p className="rf-aw-lead">Pick the package closest to what you need. We’ll carry your choice through to your brief.</p>
+            </div>
+          </div>
+
+          <div className="rf-aw-compare rf-aw-reveal" ref={compareRef}>
+            <div className="rf-aw-compare-row">
+              <div className="rf-aw-compare-label">
+                <strong>Budget</strong>
+                {config.compare.oldLabel}
+              </div>
+              <div className="rf-aw-bar-track">
+                <div className="rf-aw-bar rf-aw-bar-old" style={{ width: barsIn ? '100%' : '0%' }}>
+                  {config.compare.oldCost}
+                </div>
+              </div>
+            </div>
+            <div className="rf-aw-compare-row">
+              <div className="rf-aw-compare-label">
+                <strong>&nbsp;</strong>
+                {config.compare.newLabel}
+              </div>
+              <div className="rf-aw-bar-track">
+                <div
+                  className="rf-aw-bar rf-aw-bar-new"
+                  style={{ width: barsIn ? pct(config.compare.newCostMax, config.compare.oldCostMax) : '0%' }}
+                >
+                  {config.compare.newCost}
+                </div>
+              </div>
+            </div>
+            <div className="rf-aw-compare-row" style={{ marginTop: '1.6rem' }}>
+              <div className="rf-aw-compare-label">
+                <strong>Timeline</strong>
+                {config.compare.oldLabel}
+              </div>
+              <div className="rf-aw-bar-track">
+                <div className="rf-aw-bar rf-aw-bar-old" style={{ width: barsIn ? '100%' : '0%' }}>
+                  {config.compare.oldTime}
+                </div>
+              </div>
+            </div>
+            <div className="rf-aw-compare-row">
+              <div className="rf-aw-compare-label">
+                <strong>&nbsp;</strong>
+                {config.compare.newLabel}
+              </div>
+              <div className="rf-aw-bar-track">
+                <div
+                  className="rf-aw-bar rf-aw-bar-new"
+                  style={{ width: barsIn ? pct(config.compare.newDays, config.compare.oldDays) : '0%' }}
+                >
+                  {config.compare.newTime}
+                </div>
+              </div>
+            </div>
+            <div className="rf-aw-compare-foot">
+              <span>
+                Typical saving: <strong>{config.compare.saving}</strong>
+              </span>
+              <span>No studio, travel or crew overheads</span>
+              <span>Pay per milestone, never upfront</span>
+            </div>
+          </div>
+
+          <div className="rf-aw-tiers" key={`tiers-${pillar}`}>
+            {config.tiers.map((t, i) => (
+              <button
+                key={t.name}
+                type="button"
+                className={`rf-aw-tier rf-aw-reveal rf-aw-d${i + 1}${tierIndex === i ? ' is-selected' : ''}`}
+                onClick={() => setTierIndex(i)}
+                aria-pressed={tierIndex === i}
+              >
+                <span className="rf-aw-tier-check">
+                  <Check size={14} />
+                </span>
+                {i === 1 && <span className="rf-aw-tier-pop">Most popular</span>}
+                <p className="rf-aw-tier-name">{t.name}</p>
+                <div className="rf-aw-tier-price">{t.price}</div>
+                <div className="rf-aw-tier-time">
+                  <Clock size={13} /> Delivered in {t.time}
+                </div>
+                <p className="rf-aw-tier-desc">{t.desc}</p>
+              </button>
+            ))}
+          </div>
+
+          <NextButton to="protect" label="How am I protected?" />
+        </div>
+      </section>
+
+      {/* ============ 4. PROTECTION ============ */}
+      <section id="aw-protect" className="rf-aw-chapter" style={{ paddingTop: 0 }}>
+        <div className="rf-aw-wrap">
+          <div className="rf-aw-chapter-head rf-aw-reveal">
+            <div>
+              <span className="rf-aw-step-label">Step 4 of 5</span>
+              <h2 className="rf-aw-h2">Your money moves only when you say so</h2>
+              <p className="rf-aw-lead">Refeir Trust Vault holds every payment in escrow, so you and your specialist can focus on great work.</p>
+            </div>
+          </div>
+
+          <div className="rf-aw-escrow rf-aw-reveal">
+            <div className="rf-aw-escrow-step">
+              <div className="rf-aw-escrow-icon">
+                <Wallet size={24} />
+              </div>
+              <h3>You fund a milestone</h3>
+              <p>Money goes into the Trust Vault, not to the specialist. They can see it’s secured and start work with confidence.</p>
+              <span className="rf-aw-escrow-arrow">
+                <ArrowRight size={14} />
+              </span>
+            </div>
+            <div className="rf-aw-escrow-step">
+              <div className="rf-aw-escrow-icon">
+                <FileCheck size={24} />
+              </div>
+              <h3>You review the work</h3>
+              <p>Drafts, previews and staging builds land in your workspace. Ask for changes until it matches your brief.</p>
+              <span className="rf-aw-escrow-arrow">
+                <ArrowRight size={14} />
+              </span>
+            </div>
+            <div className="rf-aw-escrow-step">
+              <div className="rf-aw-escrow-icon">
+                <ShieldCheck size={24} />
+              </div>
+              <h3>You approve and own it</h3>
+              <p>Only then is payment released, and full commercial rights and source files transfer to you.</p>
+            </div>
+          </div>
+
+          <div className="rf-aw-faq">
+            {FAQS.map((f, i) => {
+              const isOpen = openFaq === i;
               return (
-                <div
-                  key={idx}
-                  style={{
-                    backgroundColor: 'var(--rf-bg-base)',
-                    borderRadius: '16px',
-                    border: '1px solid var(--rf-bg-card-border)',
-                    overflow: 'hidden',
-                    transition: 'border-color 0.15s ease'
-                  }}
-                >
-                  <button
-                    onClick={() => toggleFaq(idx)}
-                    style={{
-                      width: '100%',
-                      padding: '1.25rem 1.5rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      background: 'none',
-                      border: 'none',
-                      textAlign: 'left',
-                      cursor: 'pointer',
-                      gap: '1rem'
-                    }}
-                  >
-                    <span style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--rf-cream)', lineHeight: 1.4 }}>
-                      {faq.q}
-                    </span>
-                    <span style={{ color: 'var(--rf-slate-400)', flexShrink: 0 }}>
-                      {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                    </span>
+                <div key={f.q} className={`rf-aw-faq-item rf-aw-reveal${isOpen ? ' is-open' : ''}`}>
+                  <button type="button" className="rf-aw-faq-q" onClick={() => setOpenFaq(isOpen ? null : i)} aria-expanded={isOpen}>
+                    {f.q}
+                    <Plus size={18} />
                   </button>
-
-                  {isOpen && (
-                    <div
-                      style={{
-                        padding: '0 1.5rem 1.25rem',
-                        fontSize: '0.95rem',
-                        color: 'var(--rf-slate-300)',
-                        lineHeight: 1.65,
-                        borderTop: '1px solid var(--rf-bg-card-border)',
-                        paddingTop: '1rem'
-                      }}
-                    >
-                      {faq.a}
+                  <div className="rf-aw-faq-a">
+                    <div>
+                      <p>{f.a}</p>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}
           </div>
+
+          <NextButton to="start" label="I’m ready. Let’s go" />
         </div>
       </section>
 
-      {/* 5. BOTTOM FINAL CTA BANNER */}
-      <section
-        style={{
-          padding: 'clamp(3.5rem, 6vw, 5rem) 1.5rem',
-          backgroundColor: 'var(--rf-bg-base)',
-          textAlign: 'center',
-          borderTop: '1px solid var(--rf-bg-card-border)'
-        }}
-      >
-        <div className="rf-container" style={{ maxWidth: '780px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: 'clamp(2rem, 3.8vw, 2.75rem)', fontWeight: 600, color: 'var(--rf-cream)', lineHeight: 1.2, marginBottom: '1rem' }}>
-            Ready to build with Africa’s premier AI specialists?
-          </h2>
-          <p style={{ fontSize: '1.05rem', color: 'var(--rf-slate-300)', lineHeight: 1.6, marginBottom: '2rem' }}>
-            Deploy autonomous agents, commission cinematic generative video, or create photorealistic 3D brand assets backed by Refeir escrow.
-          </p>
+      {/* ============ 5. GET STARTED ============ */}
+      <section id="aw-start" className="rf-aw-chapter" style={{ paddingTop: 0 }}>
+        <div className="rf-aw-wrap">
+          <div className="rf-aw-start rf-aw-reveal">
+            <div className="rf-aw-start-blob" />
+            <div className="rf-aw-start-grid">
+              <div>
+                <span className="rf-aw-step-label">Step 5 of 5</span>
+                <h2 className="rf-aw-h2">Your project is one step away</h2>
+                <p className="rf-aw-lead">
+                  Create your free account and we’ll match you with verified {config.short.toLowerCase()} specialists within hours.
+                </p>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => onNavigate(currentConfig.ctaSearchQuery)}
-              className="rf-btn rf-btn-primary rf-btn-lg"
-              style={{ fontWeight: 700, padding: '0.9rem 2.25rem', fontSize: '1rem', boxShadow: '0 4px 20px rgba(102, 187, 42, 0.45)' }}
-            >
-              <span>Explore Verified Talent</span>
-            </button>
+                <div className="rf-aw-roles" role="radiogroup" aria-label="I am joining as">
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={role === 'client'}
+                    className={`rf-aw-role${role === 'client' ? ' is-selected' : ''}`}
+                    onClick={() => setRole('client')}
+                  >
+                    <span className="rf-aw-role-icon">
+                      <Briefcase size={18} />
+                    </span>
+                    <strong>I want to hire</strong>
+                    <span>Brief a specialist and get proposals</span>
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={role === 'talent'}
+                    className={`rf-aw-role${role === 'talent' ? ' is-selected' : ''}`}
+                    onClick={() => setRole('talent')}
+                  >
+                    <span className="rf-aw-role-icon">
+                      <Compass size={18} />
+                    </span>
+                    <strong>I’m a specialist</strong>
+                    <span>Get discovered by global brands</span>
+                  </button>
+                </div>
 
-            <button
-              onClick={() => onNavigate('/scout-sourcing')}
-              className="rf-btn rf-btn-secondary rf-btn-lg"
-              style={{ fontWeight: 600, padding: '0.9rem 2rem', fontSize: '1rem' }}
-            >
-              <span>Learn About Scout Sourcing</span>
-            </button>
+                <button type="button" className="rf-aw-btn rf-aw-btn-primary" onClick={handleRegister}>
+                  {role === 'client' ? `${config.ctaVerb}: create free account` : 'Join as a specialist'}
+                  <ArrowRight size={18} />
+                </button>
+                <p className="rf-aw-fineprint">
+                  <ShieldCheck size={14} /> Free to join · No card required · Pay only per approved milestone
+                </p>
+              </div>
+
+              <div className="rf-aw-brief" key={`brief-${pillar}-${role}`}>
+                <div className="rf-aw-brief-head">
+                  <span>{role === 'client' ? 'Your project brief' : 'Your specialist profile'}</span>
+                  <span className="rf-aw-brief-live">Ready to submit</span>
+                </div>
+
+                {role === 'client' ? (
+                  <>
+                    <div className="rf-aw-brief-row">
+                      <span>Discipline</span>
+                      <strong>{config.label}</strong>
+                    </div>
+                    <div className="rf-aw-brief-row">
+                      <span>Package</span>
+                      <strong>{tier.name}</strong>
+                    </div>
+                    <div className="rf-aw-brief-row">
+                      <span>Estimated budget</span>
+                      <strong>{tier.price}</strong>
+                    </div>
+                    <div className="rf-aw-brief-row">
+                      <span>Delivery</span>
+                      <strong>{tier.time}</strong>
+                    </div>
+                    <div className="rf-aw-brief-row">
+                      <span>Payment</span>
+                      <strong>Milestone escrow</strong>
+                    </div>
+                    <div className="rf-aw-brief-team">
+                      <div className="rf-aw-avatars">
+                        {config.wizards.map(w => (
+                          <img key={w.name} src={w.image} alt={w.name} loading="lazy" />
+                        ))}
+                      </div>
+                      <span>{config.wizards.length} specialists available for this package</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="rf-aw-brief-row">
+                      <span>Discipline</span>
+                      <strong>{config.label}</strong>
+                    </div>
+                    <div className="rf-aw-brief-row">
+                      <span>Typical project value</span>
+                      <strong>{config.tiers[0].price.split(' – ')[0]} – {config.tiers[2].price.split(' – ')[1]}</strong>
+                    </div>
+                    <div className="rf-aw-brief-row">
+                      <span>Payouts</span>
+                      <strong>Guaranteed via escrow</strong>
+                    </div>
+                    <div className="rf-aw-brief-row">
+                      <span>Verification</span>
+                      <strong>ID + portfolio review</strong>
+                    </div>
+                    <div className="rf-aw-brief-team">
+                      <Users size={18} style={{ color: 'var(--aw-accent)', flexShrink: 0 }} />
+                      <span>Join {config.wizards[0].name.split(' ')[0]}, {config.wizards[1].name.split(' ')[0]} and other top specialists</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </section>
