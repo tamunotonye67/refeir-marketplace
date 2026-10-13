@@ -486,10 +486,10 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
               <span>90-Second Overview</span>
             </div>
             <h2 className="rf-ss-h2">
-              See how scouts match you with vetted African talent
+              How Scout Sourcing Works
             </h2>
             <p className="rf-ss-lead" style={{ margin: '0 auto' }}>
-              Watch how our network of senior engineering leads and domain curators scout our marketplace, deliver tailored candidate dossiers, and protect every milestone in platform escrow.
+              See how scouts match you with vetted African talent
             </p>
           </div>
 
