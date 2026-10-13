@@ -636,12 +636,12 @@ export const AiWizardsPage: React.FC<AiWizardsPageProps> = ({ onNavigate, initia
             </div>
           </div>
 
-          <div className="rf-aw-tiers" key={`tiers-${pillar}`}>
+          <div className="rf-aw-tiers rf-aw-reveal" key={`tiers-${pillar}`}>
             {config.tiers.map((t, i) => (
               <button
                 key={t.name}
                 type="button"
-                className={`rf-aw-tier rf-aw-reveal rf-aw-d${i + 1}${tierIndex === i ? ' is-selected' : ''}`}
+                className={`rf-aw-tier rf-aw-d${i + 1}${tierIndex === i ? ' is-selected' : ''}`}
                 onClick={() => setTierIndex(i)}
                 aria-pressed={tierIndex === i}
               >
@@ -704,11 +704,11 @@ export const AiWizardsPage: React.FC<AiWizardsPageProps> = ({ onNavigate, initia
             </div>
           </div>
 
-          <div className="rf-aw-faq">
+          <div className="rf-aw-faq rf-aw-reveal">
             {FAQS.map((f, i) => {
               const isOpen = openFaq === i;
               return (
-                <div key={f.q} className={`rf-aw-faq-item rf-aw-reveal${isOpen ? ' is-open' : ''}`}>
+                <div key={f.q} className={`rf-aw-faq-item${isOpen ? ' is-open' : ''}`}>
                   <button type="button" className="rf-aw-faq-q" onClick={() => setOpenFaq(isOpen ? null : i)} aria-expanded={isOpen}>
                     {f.q}
                     <Plus size={18} />
