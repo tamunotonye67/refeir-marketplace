@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNotification } from '../context/NotificationContext';
+import { useTheme } from '../context/ThemeContext';
 import {
   BookOpen,
   ArrowRight,
@@ -46,6 +47,8 @@ interface BlogPost {
 
 export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => {
   const { showToast } = useNotification();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState('ALL');
@@ -251,26 +254,38 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
   });
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--rf-dark-green)', padding: '2.5rem 1rem 6rem' }}>
+    <div style={{ minHeight: '100vh', background: isDark ? 'var(--rf-bg-base)' : '#F8FAF8', color: isDark ? '#FFFFFF' : '#122B1A', padding: '2.5rem 1rem 6rem' }}>
       <div className="rf-container" style={{ maxWidth: '1140px', margin: '0 auto' }}>
         {/* Header */}
         <div style={{ marginBottom: '2.5rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
             <BookOpen size={16} />
             <span>INSIGHTS & STORIES</span>
           </div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--rf-cream)', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-            Refeir <span style={{ color: 'var(--rf-leaf-green)' }}>Editorial Blog</span>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: isDark ? 'var(--rf-cream)' : '#122B1A', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+            Refeir <span style={{ color: isDark ? 'var(--rf-leaf-green)' : '#16A34A' }}>Editorial Blog</span>
           </h1>
-          <p style={{ color: 'var(--rf-slate-300)', fontSize: '1rem', maxWidth: '640px', marginTop: '0.5rem', lineHeight: 1.6 }}>
+          <p style={{ color: isDark ? 'var(--rf-slate-300)' : '#475569', fontSize: '1rem', maxWidth: '640px', marginTop: '0.5rem', lineHeight: 1.6 }}>
             Scout referral playbooks, engineering deep-dives, African talent market insights, and blueprints for building high-velocity cross-border teams.
           </p>
         </div>
 
         {/* Search & Tag Filter Bar */}
-        <div className="rf-card" style={{ padding: '1rem 1.25rem', marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div
+          className="rf-card"
+          style={{
+            padding: '1rem 1.25rem',
+            marginBottom: '2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+            background: isDark ? 'var(--rf-bg-surface)' : '#FFFFFF',
+            border: isDark ? '1px solid var(--rf-navy-border)' : '1px solid rgba(18, 43, 26, 0.12)',
+            boxShadow: isDark ? 'none' : '0 4px 20px rgba(0, 0, 0, 0.04)'
+          }}
+        >
           <div style={{ position: 'relative' }}>
-            <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--rf-slate-400)' }} />
+            <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: isDark ? 'var(--rf-slate-400)' : '#64748B' }} />
             <input
               type="text"
               placeholder="Search articles by title, scout tactics, tech stacks, or author..."
@@ -280,9 +295,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
                 width: '100%',
                 padding: '0.75rem 1rem 0.75rem 2.75rem',
                 borderRadius: 'var(--rf-radius-md)',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid var(--rf-navy-border)',
-                color: 'var(--rf-cream)',
+                background: isDark ? 'rgba(255, 255, 255, 0.05)' : '#F8FAF9',
+                border: isDark ? '1px solid var(--rf-navy-border)' : '1px solid rgba(18, 43, 26, 0.15)',
+                color: isDark ? 'var(--rf-cream)' : '#122B1A',
                 fontSize: '0.875rem'
               }}
             />
@@ -299,9 +314,19 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
                   style={{
                     padding: '0.45rem 0.85rem',
                     borderRadius: '20px',
-                    background: isActive ? 'var(--rf-leaf-green)' : 'rgba(255, 255, 255, 0.04)',
-                    color: isActive ? 'var(--rf-dark-green)' : 'var(--rf-slate-300)',
-                    border: isActive ? '1px solid var(--rf-leaf-green)' : '1px solid var(--rf-navy-border)',
+                    background: isActive
+                      ? 'var(--rf-leaf-green)'
+                      : isDark
+                      ? 'rgba(255, 255, 255, 0.04)'
+                      : '#EDF2EE',
+                    color: isActive
+                      ? (isDark ? 'var(--rf-dark-green)' : '#FFFFFF')
+                      : (isDark ? 'var(--rf-slate-300)' : '#334155'),
+                    border: isActive
+                      ? '1px solid var(--rf-leaf-green)'
+                      : isDark
+                      ? '1px solid var(--rf-navy-border)'
+                      : '1px solid rgba(18, 43, 26, 0.1)',
                     fontWeight: isActive ? 800 : 600,
                     fontSize: '0.8125rem',
                     cursor: 'pointer',
@@ -329,23 +354,27 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
               gap: '2rem',
               alignItems: 'center',
               cursor: 'pointer',
-              border: '1.5px solid rgba(102, 187, 42, 0.35)',
-              background: 'linear-gradient(135deg, rgba(102, 187, 42, 0.08) 0%, rgba(7, 23, 14, 0.95) 100%)'
+              border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(46, 125, 50, 0.2)',
+              background: isDark
+                ? 'linear-gradient(135deg, rgba(102, 187, 42, 0.08) 0%, rgba(7, 23, 14, 0.95) 100%)'
+                : '#FFFFFF',
+              boxShadow: isDark ? 'none' : '0 10px 30px -10px rgba(0, 0, 0, 0.06)'
             }}
           >
             <div>
-              <span style={{ display: 'inline-block', background: 'rgba(102,187,42,0.15)', color: 'var(--rf-leaf-green)', fontSize: '0.75rem', fontWeight: 800, padding: '0.25rem 0.75rem', borderRadius: '100px', marginBottom: '0.85rem', textTransform: 'uppercase' }}>
-                ⭐ Featured Story
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: isDark ? 'rgba(102,187,42,0.15)' : 'rgba(22, 163, 74, 0.1)', color: isDark ? 'var(--rf-leaf-green)' : '#15803D', fontSize: '0.75rem', fontWeight: 800, padding: '0.25rem 0.75rem', borderRadius: '100px', marginBottom: '0.85rem', textTransform: 'uppercase' }}>
+                <Zap size={13} />
+                <span>Featured Story</span>
               </span>
-              <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--rf-cream)', lineHeight: 1.25, marginBottom: '0.85rem' }}>
+              <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: isDark ? 'var(--rf-cream)' : '#122B1A', lineHeight: 1.25, marginBottom: '0.85rem' }}>
                 {filteredPosts[0].title}
               </h2>
-              <p style={{ color: 'var(--rf-slate-300)', lineHeight: 1.6, marginBottom: '1.25rem', fontSize: '0.9375rem' }}>
+              <p style={{ color: isDark ? 'var(--rf-slate-300)' : '#475569', lineHeight: 1.6, marginBottom: '1.25rem', fontSize: '0.9375rem' }}>
                 {filteredPosts[0].excerpt}
               </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginBottom: '1.5rem' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><User size={14} color="var(--rf-leaf-green)" /> {filteredPosts[0].author}</span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><Clock size={14} color="var(--rf-leaf-green)" /> {filteredPosts[0].readTime}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.8125rem', color: isDark ? 'var(--rf-slate-400)' : '#64748B', marginBottom: '1.5rem' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><User size={14} color={isDark ? 'var(--rf-leaf-green)' : '#16A34A'} /> {filteredPosts[0].author}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}><Clock size={14} color={isDark ? 'var(--rf-leaf-green)' : '#16A34A'} /> {filteredPosts[0].readTime}</span>
               </div>
               <button className="rf-btn rf-btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.25rem' }}>
                 <span>Read Full Article</span>
@@ -369,41 +398,43 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
                 overflow: 'hidden',
                 padding: 0,
                 cursor: 'pointer',
-                border: '1px solid var(--rf-navy-border)',
+                border: isDark ? '1px solid var(--rf-navy-border)' : '1px solid rgba(18, 43, 26, 0.12)',
+                background: isDark ? 'var(--rf-bg-surface)' : '#FFFFFF',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                transition: 'transform 0.2s ease, border-color 0.2s ease'
+                transition: 'transform 0.2s ease, border-color 0.2s ease',
+                boxShadow: isDark ? 'none' : '0 4px 16px rgba(0, 0, 0, 0.04)'
               }}
             >
               <div>
                 <img src={post.image} alt={post.title} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
                 <div style={{ padding: '1.25rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', color: post.color, background: 'rgba(255,255,255,0.05)', padding: '0.2rem 0.6rem', borderRadius: '100px' }}>
+                    <span style={{ fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', color: isDark ? post.color : '#16A34A', background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(22,163,74,0.08)', padding: '0.2rem 0.6rem', borderRadius: '100px' }}>
                       {post.tag}
                     </span>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>{post.readTime}</span>
+                    <span style={{ fontSize: '0.75rem', color: isDark ? 'var(--rf-slate-400)' : '#64748B' }}>{post.readTime}</span>
                   </div>
-                  <h3 style={{ fontSize: '1.0625rem', fontWeight: 800, color: 'var(--rf-cream)', lineHeight: 1.35, marginBottom: '0.5rem' }}>
+                  <h3 style={{ fontSize: '1.0625rem', fontWeight: 800, color: isDark ? 'var(--rf-cream)' : '#122B1A', lineHeight: 1.35, marginBottom: '0.5rem' }}>
                     {post.title}
                   </h3>
-                  <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', lineHeight: 1.5, margin: 0 }}>
+                  <p style={{ fontSize: '0.8125rem', color: isDark ? 'var(--rf-slate-300)' : '#475569', lineHeight: 1.5, margin: 0 }}>
                     {post.excerpt}
                   </p>
                 </div>
               </div>
 
-              <div style={{ padding: '1rem 1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0, 0, 0, 0.2)' }}>
+              <div style={{ padding: '1rem 1.25rem', borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid rgba(18, 43, 26, 0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: isDark ? 'rgba(0, 0, 0, 0.2)' : '#F8FAF9' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <img src={post.authorAvatar} alt={post.author} style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }} />
-                  <span style={{ fontSize: '0.75rem', color: 'var(--rf-slate-300)', fontWeight: 600 }}>{post.author}</span>
+                  <span style={{ fontSize: '0.75rem', color: isDark ? 'var(--rf-slate-300)' : '#334155', fontWeight: 600 }}>{post.author}</span>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <button
                     onClick={(e) => handleLike(post.id, e)}
-                    style={{ background: 'none', border: 'none', color: post.isLiked ? 'var(--rf-leaf-green)' : 'var(--rf-slate-400)', display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer', fontSize: '0.75rem' }}
+                    style={{ background: 'none', border: 'none', color: post.isLiked ? (isDark ? 'var(--rf-leaf-green)' : '#16A34A') : (isDark ? 'var(--rf-slate-400)' : '#64748B'), display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer', fontSize: '0.75rem' }}
                   >
                     <ThumbsUp size={13} />
                     <span>{post.likes}</span>
@@ -411,7 +442,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
 
                   <button
                     onClick={(e) => handleBookmark(post.id, e)}
-                    style={{ background: 'none', border: 'none', color: post.isBookmarked ? 'var(--rf-leaf-green)' : 'var(--rf-slate-400)', cursor: 'pointer' }}
+                    style={{ background: 'none', border: 'none', color: post.isBookmarked ? (isDark ? 'var(--rf-leaf-green)' : '#16A34A') : (isDark ? 'var(--rf-slate-400)' : '#64748B'), cursor: 'pointer' }}
                     title="Bookmark Article"
                   >
                     <Bookmark size={14} />
@@ -427,8 +458,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
           className="rf-card"
           style={{
             padding: '2.5rem',
-            background: 'linear-gradient(135deg, rgba(102, 187, 42, 0.1) 0%, rgba(7, 23, 14, 0.95) 100%)',
-            border: '1.5px solid rgba(102, 187, 42, 0.3)',
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(102, 187, 42, 0.1) 0%, rgba(7, 23, 14, 0.95) 100%)'
+              : '#FFFFFF',
+            border: isDark ? '1.5px solid rgba(102, 187, 42, 0.3)' : '1.5px solid rgba(46, 125, 50, 0.2)',
+            boxShadow: isDark ? 'none' : '0 10px 30px -10px rgba(0, 0, 0, 0.06)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -438,12 +472,12 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
         >
           <div style={{ maxWidth: '520px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-              <Mail size={20} color="var(--rf-leaf-green)" />
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
+              <Mail size={20} color={isDark ? 'var(--rf-leaf-green)' : '#16A34A'} />
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: isDark ? 'var(--rf-cream)' : '#122B1A', margin: 0 }}>
                 Get Pan-African Tech & Scout Insights
               </h3>
             </div>
-            <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-300)', lineHeight: 1.5, margin: 0 }}>
+            <p style={{ fontSize: '0.875rem', color: isDark ? 'var(--rf-slate-300)' : '#475569', lineHeight: 1.5, margin: 0 }}>
               Join 12,000+ African founders, senior engineers, and referral scouts receiving our weekly dispatch on cross-border hiring and escrow innovations.
             </p>
           </div>
@@ -459,9 +493,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
                 flex: 1,
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--rf-radius-md)',
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid var(--rf-navy-border)',
-                color: 'var(--rf-cream)',
+                background: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F8FAF9',
+                border: isDark ? '1px solid var(--rf-navy-border)' : '1px solid rgba(18, 43, 26, 0.15)',
+                color: isDark ? 'var(--rf-cream)' : '#122B1A',
                 fontSize: '0.875rem'
               }}
             />
@@ -483,7 +517,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0, 0, 0, 0.88)',
+            background: isDark ? 'rgba(0, 0, 0, 0.88)' : 'rgba(0, 0, 0, 0.65)',
             backdropFilter: 'blur(10px)',
             display: 'flex',
             alignItems: 'center',
@@ -501,8 +535,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
               maxHeight: '90vh',
               overflowY: 'auto',
               padding: '2rem',
-              background: '#07160D',
-              border: '1.5px solid rgba(102, 187, 42, 0.4)',
+              background: isDark ? '#07160D' : '#FFFFFF',
+              border: isDark ? '1.5px solid rgba(102, 187, 42, 0.4)' : '1.5px solid rgba(46, 125, 50, 0.25)',
+              boxShadow: isDark ? 'none' : '0 20px 40px rgba(0, 0, 0, 0.15)',
               borderRadius: 'var(--rf-radius-xl)',
               animation: 'fadeIn 0.2s ease'
             }}
@@ -510,27 +545,27 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
               <div>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: selectedArticle.color, background: 'rgba(255,255,255,0.05)', padding: '0.2rem 0.65rem', borderRadius: '100px', display: 'inline-block', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: isDark ? selectedArticle.color : '#16A34A', background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(22,163,74,0.08)', padding: '0.2rem 0.65rem', borderRadius: '100px', display: 'inline-block', marginBottom: '0.5rem' }}>
                   {selectedArticle.tag}
                 </span>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--rf-cream)', lineHeight: 1.3, margin: 0 }}>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: isDark ? 'var(--rf-cream)' : '#122B1A', lineHeight: 1.3, margin: 0 }}>
                   {selectedArticle.title}
                 </h2>
               </div>
               <button
                 onClick={() => setSelectedArticle(null)}
-                style={{ background: 'none', border: 'none', color: 'var(--rf-slate-400)', cursor: 'pointer', fontSize: '1.5rem', padding: '0.25rem' }}
+                style={{ background: 'none', border: 'none', color: isDark ? 'var(--rf-slate-400)' : '#64748B', cursor: 'pointer', fontSize: '1.5rem', padding: '0.25rem' }}
               >
                 ✕
               </button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <img src={selectedArticle.authorAvatar} alt={selectedArticle.author} style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid var(--rf-leaf-green)' }} />
                 <div>
-                  <div style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--rf-cream)' }}>{selectedArticle.author}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)' }}>{selectedArticle.authorRole} • {selectedArticle.date}</div>
+                  <div style={{ fontSize: '0.875rem', fontWeight: 800, color: isDark ? 'var(--rf-cream)' : '#122B1A' }}>{selectedArticle.author}</div>
+                  <div style={{ fontSize: '0.75rem', color: isDark ? 'var(--rf-slate-400)' : '#64748B' }}>{selectedArticle.authorRole} • {selectedArticle.date}</div>
                 </div>
               </div>
 
@@ -541,9 +576,13 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.35rem',
-                    background: selectedArticle.isLiked ? 'rgba(102, 187, 42, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(102, 187, 42, 0.3)',
-                    color: selectedArticle.isLiked ? 'var(--rf-leaf-green)' : 'var(--rf-cream)',
+                    background: selectedArticle.isLiked
+                      ? (isDark ? 'rgba(102, 187, 42, 0.15)' : 'rgba(22, 163, 74, 0.12)')
+                      : (isDark ? 'rgba(255, 255, 255, 0.05)' : '#F1F5F2'),
+                    border: isDark ? '1px solid rgba(102, 187, 42, 0.3)' : '1px solid rgba(22, 163, 74, 0.2)',
+                    color: selectedArticle.isLiked
+                      ? (isDark ? 'var(--rf-leaf-green)' : '#15803D')
+                      : (isDark ? 'var(--rf-cream)' : '#122B1A'),
                     padding: '0.4rem 0.85rem',
                     borderRadius: 'var(--rf-radius-md)',
                     cursor: 'pointer',
@@ -564,9 +603,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.35rem',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: 'var(--rf-slate-300)',
+                    background: isDark ? 'rgba(255, 255, 255, 0.05)' : '#F1F5F2',
+                    border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(18, 43, 26, 0.1)',
+                    color: isDark ? 'var(--rf-slate-300)' : '#334155',
                     padding: '0.4rem 0.85rem',
                     borderRadius: 'var(--rf-radius-md)',
                     cursor: 'pointer',
@@ -586,12 +625,12 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
             />
 
             {/* Key Takeaways Box */}
-            <div style={{ padding: '1.25rem', background: 'rgba(102, 187, 42, 0.08)', borderRadius: 'var(--rf-radius-md)', borderLeft: '4px solid var(--rf-leaf-green)', marginBottom: '1.5rem' }}>
-              <div style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <CheckCircle2 size={16} />
+            <div style={{ padding: '1.25rem', background: isDark ? 'rgba(102, 187, 42, 0.08)' : '#F0FDF4', borderRadius: 'var(--rf-radius-md)', border: isDark ? 'none' : '1px solid rgba(22, 163, 74, 0.15)', borderLeft: isDark ? '4px solid var(--rf-leaf-green)' : '4px solid #16A34A', marginBottom: '1.5rem' }}>
+              <div style={{ fontSize: '0.875rem', fontWeight: 800, color: isDark ? 'var(--rf-leaf-green)' : '#15803D', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <CheckCircle2 size={16} color={isDark ? 'var(--rf-leaf-green)' : '#16A34A'} />
                 <span>Key Takeaways</span>
               </div>
-              <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8125rem', color: 'var(--rf-slate-200)' }}>
+              <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8125rem', color: isDark ? 'var(--rf-slate-200)' : '#334155' }}>
                 {selectedArticle.keyTakeaways.map((item, idx) => (
                   <li key={idx}>{item}</li>
                 ))}
@@ -599,13 +638,13 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
             </div>
 
             {/* Content Paragraphs */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '0.9375rem', color: 'var(--rf-slate-200)', lineHeight: 1.7 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '0.9375rem', color: isDark ? 'var(--rf-slate-200)' : '#334155', lineHeight: 1.7 }}>
               {selectedArticle.content.map((p, idx) => (
                 <p key={idx} style={{ margin: 0 }}>{p}</p>
               ))}
             </div>
 
-            <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)', display: 'flex', justifyContent: 'flex-end' }}>
               <button
                 onClick={() => setSelectedArticle(null)}
                 className="rf-btn rf-btn-primary"
