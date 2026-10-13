@@ -8615,21 +8615,45 @@
   }
 }
 
-@keyframes rfFadeSceneSmooth {
+@keyframes rfMotionSlideIn {
   0% {
     opacity: 0;
-    transform: scale(0.96) translateY(6px);
-    filter: blur(4px);
+    transform: translateY(22px) scale(0.92);
+    filter: blur(10px);
+  }
+  35% {
+    opacity: 0.7;
+    filter: blur(3px);
   }
   100% {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0) scale(1);
     filter: blur(0px);
   }
 }
 
+@keyframes rfMotionSlideOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-22px) scale(1.06);
+    filter: blur(10px);
+  }
+}
+
 .rf-ai-scene-enter {
-  animation: rfFadeSceneSmooth 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rfMotionSlideIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+.rf-ai-scene-exit {
+  animation: rfMotionSlideOut 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
 }
 
 .rf-ai-mirror-btn {
