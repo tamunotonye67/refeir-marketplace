@@ -1007,8 +1007,16 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                       <strong>{currentScout.name} ({currentScout.country})</strong>
                     </div>
                     <div className="rf-ss-brief-row">
+                      <span>Target Milestone Scope</span>
+                      <strong>{currentCalc.name}</strong>
+                    </div>
+                    <div className="rf-ss-brief-row">
                       <span>Vetted Shortlist</span>
                       <strong>3 Specialists in &lt;24h</strong>
+                    </div>
+                    <div className="rf-ss-brief-row">
+                      <span>Talent Guarantee</span>
+                      <strong>14-Day Free Replacement</strong>
                     </div>
                     <div className="rf-ss-brief-row">
                       <span>Escrow Security</span>
@@ -1031,6 +1039,10 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                       <strong>{currentTrack.label}</strong>
                     </div>
                     <div className="rf-ss-brief-row">
+                      <span>Target Milestone Scope</span>
+                      <strong>{currentCalc.name} ({currentCalc.budget})</strong>
+                    </div>
+                    <div className="rf-ss-brief-row">
                       <span>Guaranteed Commission</span>
                       <strong style={{ color: 'var(--ss-accent)' }}>10% of Milestone Value</strong>
                     </div>
@@ -1039,8 +1051,12 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                       <strong>{currentCalc.scoutEarn} – $3,500+</strong>
                     </div>
                     <div className="rf-ss-brief-row">
+                      <span>Withdrawal Channels</span>
+                      <strong>USD, NGN, KES, GHS, ZAR, M-Pesa</strong>
+                    </div>
+                    <div className="rf-ss-brief-row">
                       <span>Payout Rails</span>
-                      <strong>Instant Multi-Currency Escrow</strong>
+                      <strong style={{ color: 'var(--ss-accent)' }}>Instant Multi-Currency Escrow</strong>
                     </div>
 
                     <div className="rf-ss-brief-team">
