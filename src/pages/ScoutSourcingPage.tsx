@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   ShieldCheck,
   Compass,
-  Users,
   Check,
   Clock,
   ArrowRight,
-  ChevronRight,
-  Plus,
+  ChevronDown,
   Zap,
-  DollarSign,
   CheckCircle2,
   Wallet,
   Star,
@@ -19,28 +16,17 @@ import {
   Play,
   Pause,
   Volume2,
-  VolumeX
+  VolumeX,
+  TrendingUp,
+  Globe,
+  Lock,
+  BadgeCheck
 } from 'lucide-react';
 import '../styles/scout-sourcing.css';
 
 interface ScoutSourcingPageProps {
   onNavigate: (path: string) => void;
 }
-
-type ChapterId = 'scouts' | 'protocol' | 'compare' | 'protect' | 'start';
-
-interface Chapter {
-  id: ChapterId;
-  label: string;
-}
-
-const CHAPTERS: Chapter[] = [
-  { id: 'scouts', label: 'Scouts' },
-  { id: 'protocol', label: 'Protocol' },
-  { id: 'compare', label: 'Benchmarks' },
-  { id: 'protect', label: 'Trust Vault' },
-  { id: 'start', label: 'Get Started' }
-];
 
 interface ScoutItem {
   id: string;
@@ -71,67 +57,67 @@ const TRACKS: TrackConfig[] = [
     id: 'engineering',
     label: 'Engineering & Cloud',
     short: 'Engineering',
-    icon: Zap,
-    description: 'Principal full-stack, distributed backend, DevOps, and mobile engineers with verified shipping track records.',
+    icon: Compass,
+    description: 'Senior distributed systems leads, cloud architects, and full-stack engineering leaders.',
     scouts: [
       {
         id: 'amara-okafor',
         name: 'Amara Okafor',
         country: 'Nigeria',
         flag: 'NG',
-        tier: 'Top 1% Scout',
-        headline: 'Senior Pan-African Tech Scout & Ex-Andela Staff Connector',
-        rating: 4.98,
+        tier: 'Principal Scout',
+        headline: 'Staff Infrastructure Lead & Former Andela Engineering Director',
+        rating: 4.99,
         hires: 340,
-        avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
         turnaround: '24h dossier turnaround',
-        dossierSnippet: 'Shortlisted 3 Principal Engineers (Go, Rust & React) with Trust Vault milestone escrow protection.',
-        specialties: ['Distributed Systems', 'Go / Rust', 'React Native', 'Fintech Infrastructure']
+        dossierSnippet: 'Vetted 3 senior Go/Kubernetes engineers for a Series-B fintech within 18 hours. Milestone locked in platform escrow.',
+        specialties: ['Distributed Go', 'AWS / Terraform', 'High-Throughput APIs', 'Fintech Infrastructure']
       },
       {
-        id: 'kofi-boateng',
-        name: 'Kofi Boateng',
-        country: 'Ghana',
-        flag: 'GH',
-        tier: 'Elite Scout',
-        headline: 'Software Engineering Director & West Africa Talent Matchmaker',
-        rating: 4.94,
-        hires: 280,
-        avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
+        id: 'chidi-eze',
+        name: 'Chidi Eze',
+        country: 'Nigeria',
+        flag: 'NG',
+        tier: 'Senior Scout',
+        headline: 'DevOps & Cloud Architect · AWS Certified Community Builder',
+        rating: 4.96,
+        hires: 185,
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
         turnaround: '24h dossier turnaround',
-        dossierSnippet: 'Deployed high-performance Node & AWS cloud squads for cross-border African banking platforms.',
-        specialties: ['Cloud Architecture', 'AWS / Kubernetes', 'Node.js', 'System Scalability']
+        dossierSnippet: 'Recommended 2 senior DevOps leads who reduced deployment latency by 68% for a pan-African logistics carrier.',
+        specialties: ['Kubernetes', 'CI/CD Pipelines', 'GCP', 'PostgreSQL Tuning']
       }
     ]
   },
   {
     id: 'ai-data',
     label: 'AI & Data Intelligence',
-    short: 'AI & ML',
-    icon: Compass,
-    description: 'Specialists in custom LLM fine-tuning, computer vision, data pipelines, and production MLOps.',
+    short: 'AI & Data',
+    icon: Zap,
+    description: 'RAG engineers, LLM fine-tuners, and predictive data scientists across Africa.',
     scouts: [
       {
-        id: 'tariq-benali',
-        name: 'Tariq Benali',
-        country: 'Morocco & Kenya',
-        flag: 'MA',
-        tier: 'Top 1% Scout',
-        headline: 'Applied AI Researcher & North-East Africa ML Scout',
+        id: 'tariq-mansoor',
+        name: 'Tariq Mansoor',
+        country: 'Egypt',
+        flag: 'EG',
+        tier: 'Lead AI Curator',
+        headline: 'Lead Machine Learning Scientist · Cairo AI Research Group',
         rating: 4.97,
-        hires: 195,
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+        hires: 210,
+        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
         turnaround: '24h dossier turnaround',
-        dossierSnippet: 'Curated 2 PhD-level Computer Vision & Speech AI engineers for agricultural IoT startup.',
-        specialties: ['PyTorch', 'LLM Fine-tuning', 'Computer Vision', 'Edge Inference']
+        dossierSnippet: 'Hand-picked 3 computer vision and Arabic NLP specialists for a venture-backed health-tech platform.',
+        specialties: ['LLM Fine-Tuning', 'PyTorch', 'Vector Databases', 'Multilingual NLP']
       },
       {
-        id: 'dr-amina-diallo',
-        name: 'Dr. Amina Diallo',
-        country: 'Senegal & Rwanda',
-        flag: 'SN',
-        tier: 'Elite Scout',
-        headline: 'Data Systems Strategist & Autonomous Intelligence Scout',
+        id: 'farida-el-sayed',
+        name: 'Farida El-Sayed',
+        country: 'Egypt',
+        flag: 'EG',
+        tier: 'Senior Scout',
+        headline: 'VP of Data Analytics · North Africa Talent Lead',
         rating: 4.99,
         hires: 155,
         avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
@@ -163,55 +149,55 @@ const TRACKS: TrackConfig[] = [
         specialties: ['Design Systems', 'Figma Tokens', 'Mobile UX', 'Fintech Flows']
       },
       {
-        id: 'esi-mensah',
-        name: 'Esi Mensah',
-        country: 'Ghana & UK',
+        id: 'kofi-darko',
+        name: 'Kofi Darko',
+        country: 'Ghana',
         flag: 'GH',
-        tier: 'Top 1% Scout',
-        headline: 'Creative Director & Multi-Platform Brand Experience Scout',
+        tier: 'Senior Scout',
+        headline: 'Design Director & Brand Strategist · Accra Tech Guild',
         rating: 4.95,
-        hires: 145,
-        avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80',
+        hires: 140,
+        avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80',
         turnaround: '24h dossier turnaround',
-        dossierSnippet: 'Provided 3 vetted brand identity and motion designers for global consumer launch.',
-        specialties: ['Brand Identity', 'Motion Graphics', '3D Interactive', 'Art Direction']
+        dossierSnippet: 'Sourced 3 senior visual identity designers for a UK-backed clean tech marketplace.',
+        specialties: ['Brand Identity', '3D Motion', 'Micro-Interactions', 'Webflow']
       }
     ]
   },
   {
-    id: 'growth',
-    label: 'Fintech & Growth Strategy',
-    short: 'Growth & Strategy',
-    icon: Award,
-    description: 'Ecosystem growth architects, regulatory payment specialists, and performance advisors.',
+    id: 'fintech-mobile',
+    label: 'Fintech & Mobile Systems',
+    short: 'Fintech & Mobile',
+    icon: Wallet,
+    description: 'Specialists in high-throughput ledger banking, payment gateways, Flutter, and native iOS/Android.',
     scouts: [
       {
-        id: 'sarah-adeyemi',
-        name: 'Sarah Adeyemi',
-        country: 'Nigeria',
-        flag: 'NG',
-        tier: 'Elite Scout',
-        headline: 'Tech Ecosystem Connector & Venture Talent Scout',
-        rating: 4.96,
-        hires: 310,
-        avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80',
+        id: 'kwame-mensah',
+        name: 'Kwame Mensah',
+        country: 'Ghana',
+        flag: 'GH',
+        tier: 'Fintech Scout Lead',
+        headline: 'Former Head of Mobile Engineering · Pan-African Payments Pioneer',
+        rating: 4.99,
+        hires: 290,
+        avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
         turnaround: '24h dossier turnaround',
-        dossierSnippet: 'Connected US enterprise with cross-border payment integration and African compliance leads.',
-        specialties: ['Payment Gateways', 'Regulatory Compliance', 'B2B Growth', 'Ecosystem Partnerships']
+        dossierSnippet: 'Introduced 3 veteran mobile engineers who shipped PCI-DSS compliant cross-border remittance apps in 6 weeks.',
+        specialties: ['Payment Rail Integration', 'Flutter & iOS Native', 'ISO 8583 Banking', 'Offline Sync']
       },
       {
-        id: 'thabo-nkosi',
-        name: 'Thabo Nkosi',
-        country: 'South Africa',
-        flag: 'ZA',
-        tier: 'Verified Scout',
-        headline: 'Product Growth Advisor & Mobile Specialist Scout',
-        rating: 4.93,
-        hires: 185,
-        avatar: 'https://images.unsplash.com/photo-1507152832244-10d45c7eda57?auto=format&fit=crop&w=400&q=80',
+        id: 'zainab-bello',
+        name: 'Zainab Bello',
+        country: 'Nigeria',
+        flag: 'NG',
+        tier: 'Senior Scout',
+        headline: 'Fintech Protocol Architect · Lagos Tech Circle Organizer',
+        rating: 4.97,
+        hires: 175,
+        avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80',
         turnaround: '24h dossier turnaround',
-        dossierSnippet: 'Shortlisted performance and user acquisition specialists who scaled apps across SADC.',
-        specialties: ['Funnel Optimization', 'App Retention', 'Attribution Modeling', 'Paid Growth']
+        dossierSnippet: 'Curated 2 backend payment architects for a cross-border FX routing engine.',
+        specialties: ['Card Schemes', 'Mobile Money APIs', 'USSD Integrations', 'Fraud Prevention']
       }
     ]
   }
@@ -230,40 +216,54 @@ const FAQS = [
     a: 'A Scout is an experienced industry practitioner, engineering lead, or ecosystem connector who understands actual craft. Rather than relying on algorithmic keyword matching, scouts actively reconnoiter talent networks, evaluate GitHub commits, portfolios, and communication skills, and deliver a hand-curated dossier of 3 verified matches.'
   },
   {
-    q: 'Does hiring through a scout cost the client anything extra?',
-    a: 'No. There is zero client surcharge. The 10% scout reward is completely absorbed within Refeir’s standard platform commission. You pay standard market rates for the talent, while benefiting from free peer vetting and curated shortlists.'
+    q: 'How and when do Scouts receive their 10% milestone reward?',
+    a: 'Every time a client deposits project milestone funds, Refeir locks the agreed sum in the Trust Vault. The instant the client marks the milestone approved, your 10% cash reward is automatically deposited into your Refeir multi-currency wallet with zero deductions.'
   },
   {
-    q: 'How does Refeir Trust Vault escrow protect my funds?',
-    a: 'Every agreed milestone deposit is locked securely in platform escrow before work begins. Funds only move when you review and explicitly click "Approve Deliverable". If any dispute arises, our impartial mediation team audits the deliverable against agreed milestones.'
+    q: 'Does hiring through a scout cost the client anything extra?',
+    a: 'No. There is zero client surcharge. The 10% scout reward is completely platform-absorbed within Refeir’s standard marketplace commission. Clients pay fair market rates while enjoying expert curation and guaranteed escrow safety.'
+  },
+  {
+    q: 'What payout methods and currencies are supported for Scouts?',
+    a: 'Scouts can withdraw funds directly into USD bank accounts, local African bank accounts (NGN, KES, GHS, ZAR, EGP), or regional mobile money wallets (M-Pesa, MTN MoMo, Airtel Money, Orange Money) with zero cross-border friction.'
   },
   {
     q: 'What happens if a recommended freelancer is not the right fit?',
-    a: 'We offer an unconditional 14-day Free Replacement Guarantee. If the talent does not match your expectations within the first 14 days, your scout will immediately curate and deploy a replacement at no extra charge.'
+    a: 'Refeir provides an unconditional 14-day Free Replacement Guarantee. If the talent does not match your milestones within the first 14 days, your assigned scout will immediately curate and deploy a vetted replacement at no extra charge.'
   },
   {
-    q: 'How do I become a Scout, and how are my 10% rewards paid?',
-    a: 'Anyone with a verified professional network—tech leads, agency founders, community curators, or veteran freelancers—can apply as a Scout. When your referred talent or introduced client completes milestones, your 10% cash reward is automatically credited to your multi-currency wallet for instant withdrawal in USD or local African currency (M-Pesa, MTN Mobile Money, NGN, KES, GHS, ZAR).'
-  },
-  {
-    q: 'Can I both hire talent via scouts and scout for others?',
-    a: 'Yes. Refeir supports dual roles. Many founders and engineering leads use scouts to recruit specialist talent for their company, while also monetizing their own professional network by recommending colleagues into enterprise opportunities.'
+    q: 'Can I both earn as a Scout and hire talent as a Founder?',
+    a: 'Yes! Refeir supports dual roles. Many tech leads use scouts to recruit specialist talent for their company, while also monetizing their own professional network by recommending colleagues into enterprise opportunities.'
   }
 ];
 
 export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate }) => {
-  const [activeChapter, setActiveChapter] = useState<ChapterId>('scouts');
+  const [role, setRole] = useState<'scout' | 'client'>('scout');
   const [trackId, setTrackId] = useState<string>('engineering');
   const [selectedScoutIndex, setSelectedScoutIndex] = useState<number>(0);
   const [calcTierIndex, setCalcTierIndex] = useState<number>(1);
-  const [role, setRole] = useState<'client' | 'scout'>('client');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [barsIn, setBarsIn] = useState(false);
 
-  const compareRef = useRef<HTMLDivElement | null>(null);
+  // Live calculator state for interactive earnings simulator
+  const [simHiresPerMonth, setSimHiresPerMonth] = useState<number>(3);
+  const [simAvgProjectValue, setSimAvgProjectValue] = useState<number>(3500);
+
+  // Video state
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
+
+  // Quick Registration Form State
+  const [regName, setRegName] = useState<string>('');
+  const [regEmail, setRegEmail] = useState<string>('');
+  const [regCountry, setRegCountry] = useState<string>('Nigeria');
+
+  const currentTrack = TRACKS.find(t => t.id === trackId) || TRACKS[0];
+  const currentScout = currentTrack.scouts[selectedScoutIndex] || currentTrack.scouts[0];
+  const currentCalc = CALC_TIERS[calcTierIndex];
+
+  // Estimated scout monthly income from simulator
+  const estimatedMonthlyIncome = Math.round(simHiresPerMonth * simAvgProjectValue * 0.1);
 
   const toggleVideoPlay = () => {
     if (!videoRef.current) return;
@@ -286,209 +286,270 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
     setIsMuted(videoRef.current.muted);
   };
 
-  const currentTrack = TRACKS.find(t => t.id === trackId) || TRACKS[0];
-  const currentScout = currentTrack.scouts[selectedScoutIndex] || currentTrack.scouts[0];
-  const currentCalc = CALC_TIERS[calcTierIndex];
-
-  // Track active chapter for sticky rail
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveChapter(entry.target.id.replace('ss-', '') as ChapterId);
-          }
-        });
-      },
-      { rootMargin: '-45% 0px -50% 0px' }
-    );
-
-    CHAPTERS.forEach(c => {
-      const el = document.getElementById(`ss-${c.id}`);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Trigger comparison bars animation when in viewport
-  useEffect(() => {
-    const el = compareRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          setBarsIn(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollTo = (id: ChapterId) => {
-    document.getElementById(`ss-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const handleRegister = () => {
-    if (role === 'client') {
-      onNavigate(`/register?role=client&scout=${currentScout.id}&track=${currentTrack.id}`);
-    } else {
-      onNavigate('/register?role=scout');
+  const scrollToId = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  const NextButton: React.FC<{ to: ChapterId; label: string }> = ({ to, label }) => (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'clamp(2.5rem, 5vw, 3.5rem)' }}>
-      <button
-        type="button"
-        className="rf-ss-btn rf-ss-btn-ghost"
-        onClick={() => scrollTo(to)}
-      >
-        <span>Next: {label}</span>
-        <ChevronRight size={18} />
-      </button>
-    </div>
-  );
+  const handleRegisterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (role === 'client') {
+      onNavigate(`/signup?role=CLIENT&track=${currentTrack.id}`);
+    } else {
+      onNavigate('/signup?role=SCOUT');
+    }
+  };
 
   return (
-    <div className="rf-ss">
+    <div className="rf-ss-page">
+      {/* ============ ORGANIC AMBIENT GLOW ============ */}
+      <div className="rf-ss-ambient-mesh" aria-hidden="true" />
+
       {/* ============ HERO SECTION ============ */}
-      <section className="rf-ss-hero">
-        <div className="rf-ss-hero-glow" />
-        <div className="rf-ss-wrap">
+      <section className="rf-ss-hero-section">
+        <div className="rf-ss-container">
+          {/* Top Persona Toggle */}
+          <div className="rf-ss-persona-pill-wrap">
+            <div className="rf-ss-persona-pill" role="tablist" aria-label="Select your objective">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={role === 'scout'}
+                className={`rf-ss-persona-tab ${role === 'scout' ? 'is-active' : ''}`}
+                onClick={() => setRole('scout')}
+              >
+                <Compass size={15} />
+                <span>Earn as a Scout (10% Locked)</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={role === 'client'}
+                className={`rf-ss-persona-tab ${role === 'client' ? 'is-active' : ''}`}
+                onClick={() => setRole('client')}
+              >
+                <Briefcase size={15} />
+                <span>Hire Talent via Scouts ($0 Fee)</span>
+              </button>
+            </div>
+          </div>
+
           <div className="rf-ss-hero-grid">
-            {/* Left Content */}
-            <div>
-              <div className="rf-ss-eyebrow">
-                <span className="rf-ss-eyebrow-dot" />
-                <span>Scout Sourcing Ecosystem</span>
+            {/* Left Hero Content */}
+            <div className="rf-ss-hero-left">
+              <div className="rf-ss-badge-pill">
+                <span className="rf-ss-badge-dot" />
+                <span>
+                  {role === 'scout'
+                    ? 'Africa’s Premier Talent Matchmaking Network'
+                    : 'Curated by Senior Tech Leads & Curators'}
+                </span>
               </div>
 
-              <h1 className="rf-ss-h1">
-                Let scouts find the right freelancer for you
+              <h1 className="rf-ss-hero-title">
+                {role === 'scout' ? (
+                  <>
+                    Turn your network into <span className="rf-ss-accent-gradient">locked 10%</span> milestone revenue.
+                  </>
+                ) : (
+                  <>
+                    Let scouts match you with <span className="rf-ss-accent-gradient">vetted African</span> talent.
+                  </>
+                )}
               </h1>
 
-              <div className="rf-ss-hero-bullets">
-                <div className="rf-ss-bullet">
-                  <div className="rf-ss-bullet-icon">
-                    <Check size={14} strokeWidth={3} />
-                  </div>
-                  <span>Work with scouts who reconnoiter our marketplace, source, and recommend talents for you</span>
-                </div>
+              <p className="rf-ss-hero-sub">
+                {role === 'scout'
+                  ? 'Connect global founders with Africa’s top engineers, designers, and AI specialists. Every time a milestone completes in platform escrow, 10% is locked and paid straight to your wallet.'
+                  : 'Skip algorithm spam and recruitment agencies. Senior engineering leads scout our verified talent pool, evaluate code quality, and deliver 3 bespoke candidate dossiers in under 24 hours.'}
+              </p>
 
-                <div className="rf-ss-bullet">
-                  <div className="rf-ss-bullet-icon">
-                    <Check size={14} strokeWidth={3} />
-                  </div>
-                  <span>Get a report with clear recommendations</span>
+              {/* High-Impact Proof Metrics */}
+              <div className="rf-ss-proof-bar">
+                <div className="rf-ss-proof-stat">
+                  <div className="rf-ss-proof-value">$1.4M+</div>
+                  <div className="rf-ss-proof-label">Escrow Rewards Paid</div>
                 </div>
-
-                <div className="rf-ss-bullet">
-                  <div className="rf-ss-bullet-icon">
-                    <Check size={14} strokeWidth={3} />
-                  </div>
-                  <span>Recruit recommended freelance talent with confidence</span>
+                <div className="rf-ss-proof-divider" />
+                <div className="rf-ss-proof-stat">
+                  <div className="rf-ss-proof-value">850+</div>
+                  <div className="rf-ss-proof-label">Active Senior Scouts</div>
+                </div>
+                <div className="rf-ss-proof-divider" />
+                <div className="rf-ss-proof-stat">
+                  <div className="rf-ss-proof-value">54</div>
+                  <div className="rf-ss-proof-label">African Nations Vetted</div>
                 </div>
               </div>
 
-              <div className="rf-ss-hero-actions">
+              {/* Action Buttons */}
+              <div className="rf-ss-hero-cta-group">
                 <button
                   type="button"
-                  className="rf-ss-btn rf-ss-btn-primary"
-                  onClick={() => scrollTo('scouts')}
+                  className="rf-ss-cta-btn rf-ss-cta-primary"
+                  onClick={() => scrollToId('registration-station')}
                 >
-                  <span>Explore scout sourcing</span>
-                  <ArrowRight size={18} />
+                  <span>{role === 'scout' ? 'Apply as a Scout (Free)' : 'Deploy Sourcing Brief'}</span>
+                  <ArrowRight size={17} />
                 </button>
 
-                <div className="rf-ss-guarantee">
-                  <div className="rf-ss-guarantee-icon">
-                    <ShieldCheck size={18} />
-                  </div>
-                  <span>100% money back guarantee</span>
-                </div>
+                <button
+                  type="button"
+                  className="rf-ss-cta-btn rf-ss-cta-secondary"
+                  onClick={() => scrollToId('explainer-video')}
+                >
+                  <Play size={15} fill="currentColor" />
+                  <span>Watch How It Works</span>
+                </button>
+              </div>
+
+              <div className="rf-ss-hero-guarantee">
+                <ShieldCheck size={16} color="var(--ss-accent)" />
+                <span>100% Platform Escrow Protection · Zero Client Surcharge · Free Instant Wallet</span>
               </div>
             </div>
 
-            {/* Right Interactive 3D Card Stack (Featured Dossier) */}
-            <div className="rf-ss-hero-visual">
-              <div className="rf-ss-visual-ambient" />
-              <div className="rf-ss-card-stack">
-                <div className="rf-ss-back-card" />
-                <div className="rf-ss-front-card">
-                  <div className="rf-ss-card-top">
-                    <div className="rf-ss-scout-avatar-wrap">
+            {/* Right Hero Visual: Organic Interactive Card */}
+            <div className="rf-ss-hero-right">
+              {role === 'scout' ? (
+                /* Scout Earnings Forecast Card */
+                <div className="rf-ss-forecast-card">
+                  <div className="rf-ss-forecast-head">
+                    <div>
+                      <span className="rf-ss-forecast-tag">LIVE SCOUT SIMULATOR</span>
+                      <h3 className="rf-ss-forecast-title">Your Monthly Reward Potential</h3>
+                    </div>
+                    <div className="rf-ss-forecast-badge">
+                      <TrendingUp size={16} />
+                      <span>10% Fixed Cut</span>
+                    </div>
+                  </div>
+
+                  <div className="rf-ss-forecast-num-wrap">
+                    <div className="rf-ss-forecast-big">${estimatedMonthlyIncome.toLocaleString()}</div>
+                    <span className="rf-ss-forecast-period">USD / month estimated</span>
+                  </div>
+
+                  {/* Interactive Sliders inside card */}
+                  <div className="rf-ss-sim-controls">
+                    <div className="rf-ss-sim-group">
+                      <div className="rf-ss-sim-header">
+                        <span>Successful Hires / Month</span>
+                        <strong>{simHiresPerMonth} {simHiresPerMonth === 1 ? 'Talent' : 'Talents'}</strong>
+                      </div>
+                      <input
+                        type="range"
+                        min="1"
+                        max="10"
+                        value={simHiresPerMonth}
+                        onChange={e => setSimHiresPerMonth(Number(e.target.value))}
+                        className="rf-ss-slider"
+                      />
+                    </div>
+
+                    <div className="rf-ss-sim-group">
+                      <div className="rf-ss-sim-header">
+                        <span>Average Project Milestone Value</span>
+                        <strong>${simAvgProjectValue.toLocaleString()} USD</strong>
+                      </div>
+                      <input
+                        type="range"
+                        min="1000"
+                        max="10000"
+                        step="500"
+                        value={simAvgProjectValue}
+                        onChange={e => setSimAvgProjectValue(Number(e.target.value))}
+                        className="rf-ss-slider"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="rf-ss-forecast-payout-row">
+                    <div className="rf-ss-payout-pill">
+                      <Globe size={13} />
+                      <span>Instant Multi-Currency Payout</span>
+                    </div>
+                    <span className="rf-ss-payout-methods">USD · NGN · KES · GHS · ZAR · M-Pesa</span>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="rf-ss-card-action-btn"
+                    onClick={() => scrollToId('registration-station')}
+                  >
+                    <span>Claim Your Scout Link & Wallet</span>
+                    <ArrowRight size={16} />
+                  </button>
+                </div>
+              ) : (
+                /* Client Vetted Dossier Showcase Card */
+                <div className="rf-ss-dossier-card">
+                  <div className="rf-ss-dossier-head">
+                    <div className="rf-ss-scout-mini-avatar">
                       <img src={currentScout.avatar} alt={currentScout.name} />
-                      <span className="rf-ss-scout-verified-dot">
+                      <span className="rf-ss-scout-verified-mark">
                         <Check size={11} strokeWidth={3} />
                       </span>
                     </div>
-                    <div className="rf-ss-card-meta">
-                      <div className="rf-ss-scout-name-row">
-                        <h4 className="rf-ss-scout-name">{currentScout.name} {currentScout.flag}</h4>
-                        <span className="rf-ss-badge-tier">{currentScout.tier}</span>
-                      </div>
-                      <p className="rf-ss-scout-sub">{currentScout.headline}</p>
-                      <div className="rf-ss-scout-stats-row">
-                        <span className="rf-ss-rating-pill">
-                          <Star size={13} fill="#d97706" color="#d97706" />
-                          <strong>{currentScout.rating}</strong> Rating
-                        </span>
-                        <span>•</span>
-                        <span><strong>{currentScout.hires}+</strong> Hires Recommended</span>
-                      </div>
+                    <div>
+                      <div className="rf-ss-scout-name">{currentScout.name}</div>
+                      <div className="rf-ss-scout-title">{currentScout.headline}</div>
+                    </div>
+                    <div className="rf-ss-scout-rating">
+                      <Star size={13} fill="var(--ss-accent)" color="var(--ss-accent)" />
+                      <span>{currentScout.rating}</span>
                     </div>
                   </div>
 
-                  {/* Dossier Preview Box */}
-                  <div className="rf-ss-dossier-box">
-                    <div className="rf-ss-dossier-label-row">
-                      <span className="rf-ss-dossier-tag">Active Sourcing Dossier</span>
-                      <span className="rf-ss-dossier-eta">{currentScout.turnaround}</span>
+                  <div className="rf-ss-dossier-body">
+                    <div className="rf-ss-dossier-label">SAMPLE DOSSIER SNIPPET</div>
+                    <p className="rf-ss-dossier-snippet">"{currentScout.dossierSnippet}"</p>
+
+                    <div className="rf-ss-specialties-wrap">
+                      {currentScout.specialties.map(tag => (
+                        <span key={tag} className="rf-ss-spec-tag">{tag}</span>
+                      ))}
                     </div>
-                    <p className="rf-ss-dossier-quote">
-                      "{currentScout.dossierSnippet}"
-                    </p>
                   </div>
 
-                  <div className="rf-ss-card-foot">
-                    <div className="rf-ss-card-reward">
-                      Reward: <strong>10% Guaranteed</strong>
+                  <div className="rf-ss-dossier-footer">
+                    <div className="rf-ss-guarantee-stat">
+                      <Clock size={14} color="var(--ss-accent)" />
+                      <span>Under 24h Turnaround</span>
                     </div>
-                    <button
-                      type="button"
-                      className="rf-ss-hire-btn"
-                      onClick={() => {
-                        setSelectedScoutIndex(0);
-                        scrollTo('start');
-                      }}
-                    >
-                      <span className="rf-ss-hire-dot" />
-                      <span>Hire via Scout {currentScout.name.split(' ')[0]}</span>
-                    </button>
+                    <div className="rf-ss-guarantee-stat">
+                      <ShieldCheck size={14} color="var(--ss-accent)" />
+                      <span>14-Day Free Replacement</span>
+                    </div>
                   </div>
+
+                  <button
+                    type="button"
+                    className="rf-ss-card-action-btn"
+                    onClick={() => scrollToId('registration-station')}
+                  >
+                    <span>Connect with Scout {currentScout.name.split(' ')[0]}</span>
+                    <ArrowRight size={16} />
+                  </button>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
       {/* ============ EXPLAINER VIDEO SECTION ============ */}
-      <section className="rf-ss-video-section">
-        <div className="rf-ss-wrap">
-          <div className="rf-ss-video-head">
-            <div className="rf-ss-eyebrow">
-              <span className="rf-ss-eyebrow-dot" />
-              <span>90-Second Overview</span>
+      <section id="explainer-video" className="rf-ss-video-section">
+        <div className="rf-ss-container">
+          <div className="rf-ss-section-header">
+            <div className="rf-ss-section-eyebrow">
+              <span className="rf-ss-badge-dot" />
+              <span>90-Second Walkthrough</span>
             </div>
-            <h2 className="rf-ss-h2">
-              How Scout Sourcing Works
-            </h2>
-            <p className="rf-ss-lead" style={{ margin: '0 auto' }}>
+            <h2 className="rf-ss-section-title">How Scout Sourcing Works</h2>
+            <p className="rf-ss-section-sub">
               See how scouts match you with vetted African talent
             </p>
           </div>
@@ -510,7 +571,7 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                 <source src="/hero-video.mp4" type="video/mp4" />
               </video>
 
-              {/* Vertical Right-Side Video Controls (0 Transparency) */}
+              {/* Glassy Bottom-Right Video Controls */}
               <div className="rf-ss-video-side-ctrls" onClick={(e) => e.stopPropagation()}>
                 <button
                   type="button"
@@ -547,525 +608,556 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
         </div>
       </section>
 
-      {/* ============ STICKY JOURNEY RAIL ============ */}
-      <div className="rf-ss-rail-holder" aria-label="Journey progress navigation">
-        <nav className="rf-ss-rail">
-          {CHAPTERS.map((c, i) => {
-            const activeIdx = CHAPTERS.findIndex(x => x.id === activeChapter);
-            const isDone = i < activeIdx;
-            const isActive = c.id === activeChapter;
-            return (
-              <button
-                key={c.id}
-                type="button"
-                className={`rf-ss-rail-btn${isActive ? ' is-active' : ''}${isDone ? ' is-done' : ''}`}
-                onClick={() => scrollTo(c.id)}
-              >
-                <span className="rf-ss-rail-num">{i + 1}</span>
-                <span className="rf-ss-rail-text">{c.label}</span>
-              </button>
-            );
-          })}
-        </nav>
-      </div>
-
-      {/* ============ 1. MEET THE SCOUTS ============ */}
-      <section id="ss-scouts" className="rf-ss-chapter">
-        <div className="rf-ss-wrap">
-          <div className="rf-ss-chapter-head">
-            <div>
-              <span className="rf-ss-step-label">Step 1 of 5</span>
-              <h2 className="rf-ss-h2">Curated by senior domain practitioners</h2>
-              <p className="rf-ss-lead">
-                Refeir scouts are active engineers, curators, and agency leaders across 54 African countries who personally evaluate capability before recommending talent.
-              </p>
+      {/* ============ THE ORGANIC 3-STEP SCOUTING ENGINE ============ */}
+      <section className="rf-ss-engine-section">
+        <div className="rf-ss-container">
+          <div className="rf-ss-section-header">
+            <div className="rf-ss-section-eyebrow">
+              <span className="rf-ss-badge-dot" />
+              <span>Transparent Protocol</span>
             </div>
+            <h2 className="rf-ss-section-title">The Three Pillars of Peer Sourcing</h2>
+            <p className="rf-ss-section-sub">
+              Designed from the ground up to protect both scouts and founders with programmatic escrow certainty.
+            </p>
           </div>
 
-          {/* Track Tabs */}
-          <div className="rf-ss-tracks" role="tablist">
+          <div className="rf-ss-engine-grid">
+            {/* Step 1 */}
+            <div className="rf-ss-engine-card">
+              <div className="rf-ss-engine-number">01</div>
+              <div className="rf-ss-engine-icon-wrap">
+                <Compass size={24} color="var(--ss-accent)" />
+              </div>
+              <h3 className="rf-ss-engine-card-title">Curate or Share Link</h3>
+              <p className="rf-ss-engine-card-desc">
+                Share your personalized Refeir Scout link with colleagues and clients, or submit candidate dossiers directly to active marketplace milestone briefs.
+              </p>
+              <ul className="rf-ss-engine-list">
+                <li><Check size={14} color="var(--ss-accent)" /> 30 to 180-day cookie attribution window</li>
+                <li><Check size={14} color="var(--ss-accent)" /> Direct client-talent private introductions</li>
+                <li><Check size={14} color="var(--ss-accent)" /> Live referral analytics & click telemetry</li>
+              </ul>
+            </div>
+
+            {/* Step 2 */}
+            <div className="rf-ss-engine-card">
+              <div className="rf-ss-engine-number">02</div>
+              <div className="rf-ss-engine-icon-wrap">
+                <Lock size={24} color="var(--ss-accent)" />
+              </div>
+              <h3 className="rf-ss-engine-card-title">Refeir Trust Vault Escrow</h3>
+              <p className="rf-ss-engine-card-desc">
+                When work begins, 100% of the project milestone budget is locked in Refeir's smart escrow vault. Scouts never need to invoice or chase clients for payment.
+              </p>
+              <ul className="rf-ss-engine-list">
+                <li><Check size={14} color="var(--ss-accent)" /> Upfront milestone deposit protection</li>
+                <li><Check size={14} color="var(--ss-accent)" /> Programmatic lock prevents non-payment</li>
+                <li><Check size={14} color="var(--ss-accent)" /> Zero fee deduction from talent payouts</li>
+              </ul>
+            </div>
+
+            {/* Step 3 */}
+            <div className="rf-ss-engine-card">
+              <div className="rf-ss-engine-number">03</div>
+              <div className="rf-ss-engine-icon-wrap">
+                <Wallet size={24} color="var(--ss-accent)" />
+              </div>
+              <h3 className="rf-ss-engine-card-title">Instant 10% Cash Disbursement</h3>
+              <p className="rf-ss-engine-card-desc">
+                The exact moment a client approves a completed deliverable, your 10% cash reward is released automatically into your multi-currency wallet for immediate cashout.
+              </p>
+              <ul className="rf-ss-engine-list">
+                <li><Check size={14} color="var(--ss-accent)" /> Instant withdrawal in USD or Local Currencies</li>
+                <li><Check size={14} color="var(--ss-accent)" /> Direct integration with M-Pesa & Mobile Money</li>
+                <li><Check size={14} color="var(--ss-accent)" /> Full tax receipts & transparent audit logs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ LIVE MILESTONE & EARNINGS BENCHMARKS ============ */}
+      <section className="rf-ss-matrix-section">
+        <div className="rf-ss-container">
+          <div className="rf-ss-section-header">
+            <div className="rf-ss-section-eyebrow">
+              <span className="rf-ss-badge-dot" />
+              <span>Milestone Economics</span>
+            </div>
+            <h2 className="rf-ss-section-title">Transparent Project Rewards</h2>
+            <p className="rf-ss-section-sub">
+              Explore how project tiers translate into locked 10% cash rewards for scouts and guaranteed deliverables for clients.
+            </p>
+          </div>
+
+          {/* Interactive Tier Switcher Tabs */}
+          <div className="rf-ss-matrix-tabs">
+            {CALC_TIERS.map((tier, idx) => (
+              <button
+                key={tier.name}
+                type="button"
+                className={`rf-ss-matrix-tab ${calcTierIndex === idx ? 'is-active' : ''}`}
+                onClick={() => setCalcTierIndex(idx)}
+              >
+                <span>{tier.name}</span>
+                <strong>{tier.budget}</strong>
+              </button>
+            ))}
+          </div>
+
+          {/* Tier Detail Showcase Box */}
+          <div className="rf-ss-matrix-box">
+            <div className="rf-ss-matrix-grid">
+              <div className="rf-ss-matrix-left">
+                <span className="rf-ss-matrix-kicker">SELECTED MILESTONE TIER</span>
+                <h3 className="rf-ss-matrix-h3">{currentCalc.name}</h3>
+                <p className="rf-ss-matrix-desc">{currentCalc.desc}</p>
+
+                <div className="rf-ss-matrix-specs">
+                  <div className="rf-ss-spec-item">
+                    <Clock size={16} color="var(--ss-accent)" />
+                    <span>Turnaround: <strong>{currentCalc.time} to Vetted Dossier</strong></span>
+                  </div>
+                  <div className="rf-ss-spec-item">
+                    <ShieldCheck size={16} color="var(--ss-accent)" />
+                    <span>Escrow Status: <strong>100% Platform Protected</strong></span>
+                  </div>
+                  <div className="rf-ss-spec-item">
+                    <Award size={16} color="var(--ss-accent)" />
+                    <span>Curated Candidates: <strong>3 Peer-Vetted Leads</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rf-ss-matrix-right">
+                <div className="rf-ss-reward-breakdown-card">
+                  <div className="rf-ss-rb-row">
+                    <span>Total Client Project Budget</span>
+                    <strong>{currentCalc.budget} USD</strong>
+                  </div>
+                  <div className="rf-ss-rb-row">
+                    <span>Talent Milestone Net Payout</span>
+                    <strong>${(currentCalc.num * 0.9).toLocaleString()} USD</strong>
+                  </div>
+                  <div className="rf-ss-rb-divider" />
+                  <div className="rf-ss-rb-highlight">
+                    <div>
+                      <span className="rf-ss-rb-tag">SCOUT LOCKED COMMISSION</span>
+                      <div className="rf-ss-rb-val">{currentCalc.scoutEarn} USD</div>
+                    </div>
+                    <div className="rf-ss-rb-rate">10% Cash</div>
+                  </div>
+                  <p className="rf-ss-rb-note">
+                    Paid directly to the scout upon deliverable acceptance. $0 client surcharge fee.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ MEET AFRICA'S TOP SCOUTS ============ */}
+      <section className="rf-ss-scouts-section">
+        <div className="rf-ss-container">
+          <div className="rf-ss-section-header">
+            <div className="rf-ss-section-eyebrow">
+              <span className="rf-ss-badge-dot" />
+              <span>Elite Talent Curators</span>
+            </div>
+            <h2 className="rf-ss-section-title">Curated by Senior Domain Practitioners</h2>
+            <p className="rf-ss-section-sub">
+              Refeir scouts are active engineers, curators, and agency leaders across 54 African countries who personally evaluate capability before recommending talent.
+            </p>
+          </div>
+
+          {/* Track Switcher */}
+          <div className="rf-ss-track-pills">
             {TRACKS.map(t => {
-              const Icon = t.icon;
-              const isActive = t.id === trackId;
+              const IconComp = t.icon;
               return (
                 <button
                   key={t.id}
                   type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  className={`rf-ss-track-btn${isActive ? ' is-active' : ''}`}
+                  className={`rf-ss-track-btn ${trackId === t.id ? 'is-active' : ''}`}
                   onClick={() => {
                     setTrackId(t.id);
                     setSelectedScoutIndex(0);
                   }}
                 >
-                  <span className="rf-ss-track-icon">
-                    <Icon size={16} />
-                  </span>
+                  <IconComp size={16} />
                   <span>{t.label}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Scouts Grid for Selected Track */}
+          {/* Scouts Grid */}
           <div className="rf-ss-scouts-grid">
-            {currentTrack.scouts.map((s, idx) => {
-              const isSelected = selectedScoutIndex === idx;
-              return (
-                <article
-                  key={s.id}
-                  className={`rf-ss-scout-card${isSelected ? ' is-selected' : ''}`}
-                >
+            {currentTrack.scouts.map((scout, idx) => (
+              <div
+                key={scout.id}
+                className={`rf-ss-scout-card ${selectedScoutIndex === idx ? 'is-selected' : ''}`}
+                onClick={() => setSelectedScoutIndex(idx)}
+              >
+                <div className="rf-ss-scout-card-head">
+                  <div className="rf-ss-scout-avatar-wrap">
+                    <img src={scout.avatar} alt={scout.name} className="rf-ss-scout-avatar-img" />
+                    <span className="rf-ss-scout-flag">{scout.flag}</span>
+                  </div>
+                  <div className="rf-ss-scout-meta">
+                    <div className="rf-ss-scout-card-name">{scout.name}</div>
+                    <div className="rf-ss-scout-tier-badge">{scout.tier}</div>
+                    <div className="rf-ss-scout-country">{scout.country}</div>
+                  </div>
+                  <div className="rf-ss-scout-rating-badge">
+                    <Star size={12} fill="var(--ss-accent)" color="var(--ss-accent)" />
+                    <span>{scout.rating}</span>
+                  </div>
+                </div>
+
+                <p className="rf-ss-scout-headline">{scout.headline}</p>
+
+                <div className="rf-ss-scout-stats-row">
                   <div>
-                    <div className="rf-ss-scout-header">
-                      <div className="rf-ss-scout-pic">
-                        <img src={s.avatar} alt={s.name} />
-                      </div>
-                      <div className="rf-ss-scout-info">
-                        <div className="rf-ss-scout-name-title">
-                          <h3>{s.name}</h3>
-                          <span className="rf-ss-scout-country-pill">{s.country}</span>
-                          <span className="rf-ss-badge-tier">{s.tier}</span>
-                        </div>
-                        <p className="rf-ss-scout-headline">{s.headline}</p>
-                        <div className="rf-ss-scout-stat-tags">
-                          <span>
-                            <Star size={13} fill="#d97706" color="#d97706" style={{ display: 'inline', marginRight: 3, verticalAlign: -1 }} />
-                            <strong>{s.rating}</strong> (50+ client reviews)
-                          </span>
-                          <span>•</span>
-                          <span><strong>{s.hires}+</strong> Successful Hires</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Sample Dossier Excerpt */}
-                    <div className="rf-ss-card-dossier-sample">
-                      <div className="rf-ss-sample-head">
-                        <span>Verified Sourcing Track Record</span>
-                        <span style={{ color: 'var(--rf-slate-300)', fontSize: '0.72rem' }}>{s.turnaround}</span>
-                      </div>
-                      <p className="rf-ss-sample-body">
-                        "{s.dossierSnippet}"
-                      </p>
-                    </div>
-
-                    {/* Skills pills */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.25rem' }}>
-                      {s.specialties.map(spec => (
-                        <span key={spec} className="rf-ss-skill-pill">
-                          {spec}
-                        </span>
-                      ))}
-                    </div>
+                    <strong>{scout.hires}+</strong>
+                    <span>Vetted Matches</span>
                   </div>
-
-                  <div className="rf-ss-scout-action-row">
-                    <span className="rf-ss-match-badge">
-                      <CheckCircle2 size={16} /> 100% Escrow Backed
-                    </span>
-                    <button
-                      type="button"
-                      className="rf-ss-btn rf-ss-btn-primary"
-                      style={{ minHeight: '40px', padding: '0 1.25rem', fontSize: '0.86rem' }}
-                      onClick={() => {
-                        setSelectedScoutIndex(idx);
-                        scrollTo('start');
-                      }}
-                    >
-                      <span>Choose Scout & Brief</span>
-                      <ArrowRight size={14} />
-                    </button>
+                  <div className="rf-ss-stat-sep" />
+                  <div>
+                    <strong>{scout.turnaround}</strong>
+                    <span>Dossier Speed</span>
                   </div>
-                </article>
-              );
-            })}
-          </div>
-
-          <NextButton to="protocol" label="How the sourcing protocol works" />
-        </div>
-      </section>
-
-      {/* ============ 2. SOURCING PROTOCOL ============ */}
-      <section id="ss-protocol" className="rf-ss-chapter" style={{ paddingTop: 0 }}>
-        <div className="rf-ss-wrap">
-          <div className="rf-ss-chapter-head">
-            <div>
-              <span className="rf-ss-step-label">Step 2 of 5</span>
-              <h2 className="rf-ss-h2">The 3-way high-trust sourcing loop</h2>
-              <p className="rf-ss-lead">
-                Built to eliminate the uncertainty of cold marketplace hiring while protecting both parties with Refeir Trust Vault escrow.
-              </p>
-            </div>
-          </div>
-
-          <div className="rf-ss-process">
-            <div className="rf-ss-process-line" />
-
-            <div className="rf-ss-step">
-              <div className="rf-ss-step-num">01</div>
-              <div className="rf-ss-step-card">
-                <span className="rf-ss-step-time">
-                  <Clock size={12} /> Under 5 minutes
-                </span>
-                <h3>Client Submits Scope</h3>
-                <p>Define your project milestones, required stack, and estimated budget. There is zero upfront recruitment fee.</p>
-              </div>
-            </div>
-
-            <div className="rf-ss-step">
-              <div className="rf-ss-step-num">02</div>
-              <div className="rf-ss-step-card">
-                <span className="rf-ss-step-time">
-                  <Clock size={12} /> Within 24 Hours
-                </span>
-                <h3>Scout Curates 3 Vetted Talents</h3>
-                <p>Your scout evaluates portfolio code, GitHub commits, and previous platform client reviews to deliver a verified 3-talent dossier.</p>
-              </div>
-            </div>
-
-            <div className="rf-ss-step">
-              <div className="rf-ss-step-num">03</div>
-              <div className="rf-ss-step-card">
-                <span className="rf-ss-step-time">
-                  <Clock size={12} /> Instant Kickoff
-                </span>
-                <h3>Deposit into Trust Vault</h3>
-                <p>Select your favorite candidate and fund the first milestone. Money is locked securely in escrow before any work begins.</p>
-              </div>
-            </div>
-
-            <div className="rf-ss-step">
-              <div className="rf-ss-step-num">04</div>
-              <div className="rf-ss-step-card">
-                <span className="rf-ss-step-time">
-                  <Clock size={12} /> Deliver & Approve
-                </span>
-                <h3>Release & Automated 10%</h3>
-                <p>When deliverables are approved, funds release to talent. The scout’s 10% reward is paid automatically from platform commission.</p>
-              </div>
-            </div>
-          </div>
-
-          <NextButton to="compare" label="Speed & cost benchmarks" />
-        </div>
-      </section>
-
-      {/* ============ 3. COMPARISON & BENCHMARKS ============ */}
-      <section id="ss-compare" className="rf-ss-chapter" style={{ paddingTop: 0 }}>
-        <div className="rf-ss-wrap">
-          <div className="rf-ss-chapter-head">
-            <div>
-              <span className="rf-ss-step-label">Step 3 of 5</span>
-              <h2 className="rf-ss-h2">10x faster than agencies, zero extra fee</h2>
-              <p className="rf-ss-lead">
-                Traditional headhunters charge 20–30% placement markups and take weeks. Refeir scouts deliver peer-vetted dossiers in 24 hours at 0% client surcharge.
-              </p>
-            </div>
-          </div>
-
-          {/* Benchmark comparison visual */}
-          <div className="rf-ss-compare" ref={compareRef}>
-            <div className="rf-ss-compare-header">
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '0 0 0.5rem', color: 'var(--rf-cream)' }}>
-                Average Turnaround to Vetted Shortlist
-              </h3>
-              <p style={{ fontSize: '0.9rem', color: 'var(--rf-slate-300)', margin: 0 }}>
-                Comparing traditional recruitment agency timelines against Refeir peer scout curation.
-              </p>
-            </div>
-
-            <div className="rf-ss-compare-row">
-              <div className="rf-ss-compare-label">
-                Traditional Agency
-                <strong>21 Business Days</strong>
-              </div>
-              <div className="rf-ss-bar-track">
-                <div
-                  className="rf-ss-bar rf-ss-bar-old"
-                  style={{ width: barsIn ? '100%' : '0%' }}
-                >
-                  3–4 weeks vetting & contract negotiation
                 </div>
-              </div>
-            </div>
 
-            <div className="rf-ss-compare-row">
-              <div className="rf-ss-compare-label">
-                Refeir Scout Sourcing
-                <strong>24 Hours Average</strong>
-              </div>
-              <div className="rf-ss-bar-track">
-                <div
-                  className="rf-ss-bar rf-ss-bar-scout"
-                  style={{ width: barsIn ? '22%' : '0%' }}
-                >
-                  Curated 3-talent dossier ready in 24h
+                <div className="rf-ss-scout-snippet-box">
+                  <p>"{scout.dossierSnippet}"</p>
                 </div>
-              </div>
-            </div>
 
-            <div className="rf-ss-compare-foot">
-              <span>Client Surcharge: <strong>$0 (0% added fee)</strong></span>
-              <span>Placement Markup: <strong>Zero</strong> (Absorbed by platform)</span>
-              <span>Escrow Security: <strong>100% Guaranteed</strong></span>
-            </div>
-          </div>
+                <div className="rf-ss-scout-tags">
+                  {scout.specialties.map(spec => (
+                    <span key={spec} className="rf-ss-scout-tag">{spec}</span>
+                  ))}
+                </div>
 
-          {/* Milestone Escrow & Scout Reward Calculator */}
-          <div className="rf-ss-calc">
-            <div className="rf-ss-calc-head">
-              <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0 0 0.35rem', color: 'var(--rf-cream)' }}>
-                  Interactive Project Tier Calculator
-                </h3>
-                <p style={{ fontSize: '0.88rem', color: 'var(--rf-slate-300)', margin: 0 }}>
-                  Select a typical project scope to view the escrow protection budget and scout commission breakdown.
-                </p>
-              </div>
-              <span className="rf-ss-badge-tier" style={{ fontSize: '0.8rem', padding: '0.35rem 0.85rem' }}>
-                100% Escrow Backed
-              </span>
-            </div>
-
-            <div className="rf-ss-calc-tiers">
-              {CALC_TIERS.map((tier, i) => (
                 <button
-                  key={tier.name}
                   type="button"
-                  className={`rf-ss-calc-tier${calcTierIndex === i ? ' is-selected' : ''}`}
-                  onClick={() => setCalcTierIndex(i)}
+                  className="rf-ss-scout-select-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedScoutIndex(idx);
+                    scrollToId('registration-station');
+                  }}
                 >
-                  <p className="rf-ss-tier-title">{tier.name}</p>
-                  <div className="rf-ss-tier-budget">{tier.budget}</div>
-                  <div className="rf-ss-tier-reward">
-                    Scout Earns: {tier.scoutEarn} (10%)
-                  </div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--rf-slate-300)', marginTop: '0.5rem', lineHeight: 1.4 }}>
-                    {tier.desc}
-                  </p>
+                  <span>Select Scout {scout.name.split(' ')[0]} for Brief</span>
+                  <ArrowRight size={14} />
                 </button>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-
-          <NextButton to="protect" label="Trust Vault Escrow protection" />
         </div>
       </section>
 
-      {/* ============ 4. PROTECTION & FAQS ============ */}
-      <section id="ss-protect" className="rf-ss-chapter" style={{ paddingTop: 0 }}>
-        <div className="rf-ss-wrap">
-          <div className="rf-ss-chapter-head">
-            <div>
-              <span className="rf-ss-step-label">Step 4 of 5</span>
-              <h2 className="rf-ss-h2">100% protection for both client and scout</h2>
-              <p className="rf-ss-lead">
-                Refeir Trust Vault escrow holds all project milestone payments securely. Money only moves when work is verified and approved.
-              </p>
+      {/* ============ TRUST VAULT ESCROW INTEGRITY ============ */}
+      <section className="rf-ss-vault-section">
+        <div className="rf-ss-container">
+          <div className="rf-ss-vault-banner">
+            <div className="rf-ss-vault-grid">
+              <div>
+                <div className="rf-ss-vault-badge">
+                  <Lock size={15} color="var(--ss-accent)" />
+                  <span>Refeir Trust Vault Guarantee</span>
+                </div>
+                <h2 className="rf-ss-vault-h2">
+                  Dual Protection for Scouts and Founders
+                </h2>
+                <p className="rf-ss-vault-lead">
+                  We eliminated the friction of freelance outsourcing. Funds remain locked in sovereign escrow until work is delivered and verified, with full protection for both parties.
+                </p>
+
+                <div className="rf-ss-vault-pillars">
+                  <div className="rf-ss-vp-item">
+                    <CheckCircle2 size={18} color="var(--ss-accent)" />
+                    <div>
+                      <strong>100% Upfront Milestone Lock</strong>
+                      <p>Clients deposit funds before kickoff. Scouts and talent know payments are guaranteed.</p>
+                    </div>
+                  </div>
+
+                  <div className="rf-ss-vp-item">
+                    <CheckCircle2 size={18} color="var(--ss-accent)" />
+                    <div>
+                      <strong>$0 Fee Platform Surcharge</strong>
+                      <p>The 10% scout reward is absorbed within Refeir's platform fee. Zero surcharge for clients.</p>
+                    </div>
+                  </div>
+
+                  <div className="rf-ss-vp-item">
+                    <CheckCircle2 size={18} color="var(--ss-accent)" />
+                    <div>
+                      <strong>14-Day Free Replacement Guarantee</strong>
+                      <p>If talent doesn't align with expectations within 14 days, your scout deploys an immediate replacement.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rf-ss-vault-card-side">
+                <div className="rf-ss-vault-shield-box">
+                  <ShieldCheck size={56} color="var(--ss-accent)" />
+                  <div className="rf-ss-vs-title">100% Guaranteed Escrow</div>
+                  <p className="rf-ss-vs-desc">
+                    Every milestone is programmatically locked and automatically audited against agreed deliverables.
+                  </p>
+                  <div className="rf-ss-vs-pill">
+                    <BadgeCheck size={14} />
+                    <span>Verified Multi-Currency Escrow</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* 3 Protection pillars */}
-          <div className="rf-ss-escrow">
-            <div className="rf-ss-escrow-step">
-              <div className="rf-ss-escrow-icon">
-                <Wallet size={24} />
-              </div>
-              <h3>1. Milestone Lock in Vault</h3>
-              <p>Client funds are safeguarded in multi-currency escrow. The freelancer starts work knowing funds are reserved and guaranteed.</p>
+      {/* ============ FAQS ============ */}
+      <section className="rf-ss-faq-section">
+        <div className="rf-ss-container rf-ss-faq-container">
+          <div className="rf-ss-section-header">
+            <div className="rf-ss-section-eyebrow">
+              <span className="rf-ss-badge-dot" />
+              <span>Questions Answered</span>
             </div>
-
-            <div className="rf-ss-escrow-step">
-              <div className="rf-ss-escrow-icon">
-                <Compass size={24} />
-              </div>
-              <h3>2. 14-Day Free Replacement</h3>
-              <p>If a recommended freelancer doesn't fit your team chemistry in the first 14 days, your scout curates a priority replacement at no cost.</p>
-            </div>
-
-            <div className="rf-ss-escrow-step">
-              <div className="rf-ss-escrow-icon">
-                <ShieldCheck size={24} />
-              </div>
-              <h3>3. Impartial Deliverable Audit</h3>
-              <p>In case of any deliverable scope disagreement, Refeir Vault Mediation audits the code and deliverables against the brief before release.</p>
-            </div>
+            <h2 className="rf-ss-section-title">Frequently Asked Questions</h2>
+            <p className="rf-ss-section-sub">
+              Everything you need to know about scouting, earning rewards, and hiring vetted African engineers.
+            </p>
           </div>
 
-          {/* FAQs Accordion */}
-          <div className="rf-ss-faq">
-            {FAQS.map((f, i) => {
-              const isOpen = openFaq === i;
+          <div className="rf-ss-faq-list">
+            {FAQS.map((faq, index) => {
+              const isOpen = openFaq === index;
               return (
-                <div key={f.q} className={`rf-ss-faq-item${isOpen ? ' is-open' : ''}`}>
+                <div
+                  key={faq.q}
+                  className={`rf-ss-faq-item ${isOpen ? 'is-open' : ''}`}
+                >
                   <button
                     type="button"
-                    className="rf-ss-faq-q"
-                    onClick={() => setOpenFaq(isOpen ? null : i)}
+                    className="rf-ss-faq-trigger"
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
-                    <span>{f.q}</span>
-                    <Plus size={18} />
+                    <span>{faq.q}</span>
+                    <ChevronDown
+                      size={18}
+                      className="rf-ss-faq-arrow"
+                      style={{
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.25s ease'
+                      }}
+                    />
                   </button>
-                  <div className="rf-ss-faq-a">
-                    <div>
-                      <p>{f.a}</p>
+                  {isOpen && (
+                    <div className="rf-ss-faq-answer">
+                      <p>{faq.a}</p>
                     </div>
-                  </div>
+                  )}
                 </div>
               );
             })}
           </div>
-
-          <NextButton to="start" label="Take action & deploy brief" />
         </div>
       </section>
 
-      {/* ============ 5. GET STARTED (ACTION STATION) ============ */}
-      <section id="ss-start" className="rf-ss-chapter" style={{ paddingTop: 0 }}>
-        <div className="rf-ss-wrap">
-          <div className="rf-ss-start">
-            <div className="rf-ss-start-blob" />
-            <div className="rf-ss-start-grid">
-              {/* Left Action Configurator */}
-              <div>
-                <span className="rf-ss-step-label">Step 5 of 5</span>
-                <h2 className="rf-ss-h2">
-                  {role === 'client' ? 'Deploy your sourcing brief' : 'Earn from 10% upward'}
+      {/* ============ ACTION STATION / EMBEDDED REGISTRATION STATION ============ */}
+      <section id="registration-station" className="rf-ss-register-section">
+        <div className="rf-ss-container">
+          <div className="rf-ss-register-box">
+            <div className="rf-ss-register-grid">
+              {/* Left: Registration Form Terminal */}
+              <div className="rf-ss-reg-left">
+                <div className="rf-ss-reg-badge">
+                  <span className="rf-ss-badge-dot" />
+                  <span>Fast 60-Second Onboarding</span>
+                </div>
+
+                <h2 className="rf-ss-reg-title">
+                  {role === 'scout'
+                    ? 'Start Earning 10% on Every Referral'
+                    : 'Deploy Your Vetted Milestone Brief'}
                 </h2>
-                <p className="rf-ss-lead">
-                  {role === 'client'
-                    ? `Create your free account to connect with ${currentScout.name} and receive your curated talent dossier within 24 hours.`
-                    : 'Connect founders with world-class engineers and earn locked 10% milestone rewards on every referral'}
+
+                <p className="rf-ss-reg-sub">
+                  {role === 'scout'
+                    ? 'Connect founders with world-class engineers and earn locked 10% milestone rewards on every referral.'
+                    : `Create your free account to connect with ${currentScout.name} and receive your curated talent dossier within 24 hours.`}
                 </p>
 
-                {/* Role Switcher */}
-                <div className="rf-ss-roles" role="radiogroup" aria-label="I am joining as">
+                {/* Role Switcher inside registration */}
+                <div className="rf-ss-reg-roles">
                   <button
                     type="button"
-                    role="radio"
-                    aria-checked={role === 'client'}
-                    className={`rf-ss-role${role === 'client' ? ' is-selected' : ''}`}
-                    onClick={() => setRole('client')}
-                  >
-                    <div className="rf-ss-role-icon">
-                      <Briefcase size={18} />
-                    </div>
-                    <strong>I want to hire talent</strong>
-                    <span>Get curated talent recommendations from verified scouts</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={role === 'scout'}
-                    className={`rf-ss-role${role === 'scout' ? ' is-selected' : ''}`}
+                    className={`rf-ss-reg-role-btn ${role === 'scout' ? 'is-active' : ''}`}
                     onClick={() => setRole('scout')}
                   >
-                    <div className="rf-ss-role-icon">
-                      <Compass size={18} />
-                    </div>
-                    <strong>I want to become a scout</strong>
-                    <span>Monetize your network with guaranteed 10% escrow rewards</span>
+                    <Compass size={16} />
+                    <span>I want to be a Scout</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`rf-ss-reg-role-btn ${role === 'client' ? 'is-active' : ''}`}
+                    onClick={() => setRole('client')}
+                  >
+                    <Briefcase size={16} />
+                    <span>I want to hire talent</span>
                   </button>
                 </div>
 
-                <button
-                  type="button"
-                  className="rf-ss-btn rf-ss-btn-primary"
-                  onClick={handleRegister}
-                  style={{ width: '100%', maxWidth: '380px' }}
-                >
-                  <span>
-                    {role === 'client' ? `Deploy brief with Scout ${currentScout.name.split(' ')[0]}` : 'Apply as a Scout (Free)'}
-                  </span>
-                  <ArrowRight size={18} />
-                </button>
+                <form onSubmit={handleRegisterSubmit} className="rf-ss-reg-form">
+                  <div className="rf-ss-input-group">
+                    <label className="rf-ss-input-label">Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. David Adeleke"
+                      value={regName}
+                      onChange={e => setRegName(e.target.value)}
+                      className="rf-ss-text-input"
+                    />
+                  </div>
 
-                <p className="rf-ss-fineprint">
-                  <ShieldCheck size={16} /> Free to join · No card required · 100% Milestone Escrow Guarantee
-                </p>
+                  <div className="rf-ss-input-group">
+                    <label className="rf-ss-input-label">Work Email</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="david@company.com"
+                      value={regEmail}
+                      onChange={e => setRegEmail(e.target.value)}
+                      className="rf-ss-text-input"
+                    />
+                  </div>
+
+                  <div className="rf-ss-input-group">
+                    <label className="rf-ss-input-label">Primary Country</label>
+                    <select
+                      value={regCountry}
+                      onChange={e => setRegCountry(e.target.value)}
+                      className="rf-ss-select-input"
+                    >
+                      <option value="Nigeria">Nigeria</option>
+                      <option value="Kenya">Kenya</option>
+                      <option value="Ghana">Ghana</option>
+                      <option value="Egypt">Egypt</option>
+                      <option value="South Africa">South Africa</option>
+                      <option value="Rwanda">Rwanda</option>
+                      <option value="Uganda">Uganda</option>
+                      <option value="United States">United States</option>
+                      <option value="United Kingdom">United Kingdom</option>
+                      <option value="Other">Other International</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="rf-ss-submit-btn"
+                  >
+                    <span>
+                      {role === 'scout'
+                        ? 'Complete Free Scout Registration'
+                        : `Deploy Brief with Scout ${currentScout.name.split(' ')[0]}`}
+                    </span>
+                    <ArrowRight size={18} />
+                  </button>
+                </form>
+
+                <div className="rf-ss-reg-guarantee-row">
+                  <ShieldCheck size={16} color="var(--ss-accent)" />
+                  <span>Free to join · No card required · Instant multi-currency wallet creation</span>
+                </div>
               </div>
 
-              {/* Right Live Brief Summary */}
-              <div className="rf-ss-brief">
-                <div className="rf-ss-brief-head">
-                  <span>{role === 'client' ? 'Active Sourcing Brief' : 'Scout Profile Summary'}</span>
-                  <span className="rf-ss-brief-live">Ready to deploy</span>
+              {/* Right: Live Summary Brief Card */}
+              <div className="rf-ss-reg-right">
+                <div className="rf-ss-summary-card">
+                  <div className="rf-ss-summary-head">
+                    <span>{role === 'scout' ? 'Scout Profile Summary' : 'Active Sourcing Brief'}</span>
+                    <span className="rf-ss-summary-status">Ready to deploy</span>
+                  </div>
+
+                  {role === 'scout' ? (
+                    <>
+                      <div className="rf-ss-summary-row">
+                        <span>Network Track</span>
+                        <strong>{currentTrack.label}</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Target Milestone Scope</span>
+                        <strong>{currentCalc.name} ({currentCalc.budget})</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Guaranteed Commission</span>
+                        <strong style={{ color: 'var(--ss-accent)' }}>10% of Milestone Value</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Estimated Payout</span>
+                        <strong>{currentCalc.scoutEarn} – $3,500+</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Payout Rails</span>
+                        <strong style={{ color: 'var(--ss-accent)' }}>Instant Multi-Currency Escrow</strong>
+                      </div>
+
+                      <div className="rf-ss-summary-team">
+                        <div className="rf-ss-summary-avatars">
+                          {TRACKS.flatMap(t => t.scouts.slice(0, 1)).map(s => (
+                            <img key={s.id} src={s.avatar} alt={s.name} />
+                          ))}
+                        </div>
+                        <span>Join 850+ active African tech matchmakers</span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="rf-ss-summary-row">
+                        <span>Track & Budget</span>
+                        <strong>{currentTrack.label} · {currentCalc.budget}</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Assigned Scout</span>
+                        <strong>{currentScout.name} ({currentScout.country})</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Target Milestone Scope</span>
+                        <strong>{currentCalc.name}</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Vetted Shortlist</span>
+                        <strong>3 Specialists in &lt;24h</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Talent Guarantee</span>
+                        <strong>14-Day Free Replacement</strong>
+                      </div>
+                      <div className="rf-ss-summary-row">
+                        <span>Escrow Security</span>
+                        <strong style={{ color: 'var(--ss-accent)' }}>100% Guaranteed ($0 Fee)</strong>
+                      </div>
+
+                      <div className="rf-ss-summary-team">
+                        <div className="rf-ss-summary-avatars">
+                          {currentTrack.scouts.map(s => (
+                            <img key={s.id} src={s.avatar} alt={s.name} />
+                          ))}
+                        </div>
+                        <span>{currentTrack.scouts.length} verified scouts available in {currentTrack.short}</span>
+                      </div>
+                    </>
+                  )}
                 </div>
-
-                {role === 'client' ? (
-                  <>
-                    <div className="rf-ss-brief-row">
-                      <span>Track & Budget</span>
-                      <strong>{currentTrack.label} · {currentCalc.budget}</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Assigned Scout</span>
-                      <strong>{currentScout.name} ({currentScout.country})</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Target Milestone Scope</span>
-                      <strong>{currentCalc.name}</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Vetted Shortlist</span>
-                      <strong>3 Specialists in &lt;24h</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Talent Guarantee</span>
-                      <strong>14-Day Free Replacement</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Escrow Security</span>
-                      <strong style={{ color: 'var(--ss-accent)' }}>100% Guaranteed ($0 Fee)</strong>
-                    </div>
-
-                    <div className="rf-ss-brief-team">
-                      <div className="rf-ss-avatars">
-                        {currentTrack.scouts.map(s => (
-                          <img key={s.id} src={s.avatar} alt={s.name} />
-                        ))}
-                      </div>
-                      <span>{currentTrack.scouts.length} verified scouts available in {currentTrack.short}</span>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="rf-ss-brief-row">
-                      <span>Network Track</span>
-                      <strong>{currentTrack.label}</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Target Milestone Scope</span>
-                      <strong>{currentCalc.name} ({currentCalc.budget})</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Guaranteed Commission</span>
-                      <strong style={{ color: 'var(--ss-accent)' }}>10% of Milestone Value</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Estimated Payout</span>
-                      <strong>{currentCalc.scoutEarn} – $3,500+</strong>
-                    </div>
-
-                    <div className="rf-ss-brief-row">
-                      <span>Payout Rails</span>
-                      <strong style={{ color: 'var(--ss-accent)' }}>Instant Multi-Currency Escrow</strong>
-                    </div>
-
-                    <div className="rf-ss-brief-team">
-                      <div className="rf-ss-avatars">
-                        {TRACKS.flatMap(t => t.scouts.slice(0, 1)).map(s => (
-                          <img key={s.id} src={s.avatar} alt={s.name} />
-                        ))}
-                      </div>
-                      <span>Join 850+ active African tech matchmakers</span>
-                    </div>
-                  </>
-                )}
               </div>
             </div>
           </div>
