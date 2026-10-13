@@ -765,7 +765,7 @@ export const AiWizardsPage: React.FC<AiWizardsPageProps> = ({ onNavigate, initia
                       <Compass size={18} />
                     </span>
                     <strong>I’m a specialist</strong>
-                    <span>Get discovered by global brands</span>
+                    <span>Get discovered immediately by global brands</span>
                   </button>
                 </div>
 
