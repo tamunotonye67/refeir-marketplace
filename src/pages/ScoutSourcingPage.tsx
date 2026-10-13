@@ -15,7 +15,11 @@ import {
   Star,
   Briefcase,
   Layers,
-  Award
+  Award,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import '../styles/scout-sourcing.css';
 
@@ -257,6 +261,30 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
   const [barsIn, setBarsIn] = useState(false);
 
   const compareRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+
+  const toggleVideoPlay = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play().then(() => {
+        setIsVideoPlaying(true);
+      }).catch(err => {
+        console.warn('Video playback interrupted', err);
+      });
+    } else {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    videoRef.current.muted = !videoRef.current.muted;
+    setIsMuted(videoRef.current.muted);
+  };
 
   const currentTrack = TRACKS.find(t => t.id === trackId) || TRACKS[0];
   const currentScout = currentTrack.scouts[selectedScoutIndex] || currentTrack.scouts[0];
@@ -444,6 +472,114 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ EXPLAINER VIDEO SECTION ============ */}
+      <section className="rf-ss-video-section">
+        <div className="rf-ss-wrap">
+          <div className="rf-ss-video-head">
+            <div className="rf-ss-eyebrow">
+              <span className="rf-ss-eyebrow-dot" />
+              <span>90-Second Overview</span>
+            </div>
+            <h2 className="rf-ss-h2">
+              See how scouts match you with vetted African talent
+            </h2>
+            <p className="rf-ss-lead" style={{ margin: '0 auto' }}>
+              Watch how our network of senior engineering leads and domain curators scout our marketplace, deliver tailored candidate dossiers, and protect every milestone in platform escrow.
+            </p>
+          </div>
+
+          <div className="rf-ss-video-wrapper">
+            <div className="rf-ss-video-player" onClick={toggleVideoPlay}>
+              <video
+                ref={videoRef}
+                src="/launching_demo.mp4"
+                poster="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80"
+                playsInline
+                preload="metadata"
+                className="rf-ss-video-elem"
+                onPlay={() => setIsVideoPlaying(true)}
+                onPause={() => setIsVideoPlaying(false)}
+                onEnded={() => setIsVideoPlaying(false)}
+              >
+                <source src="/launching_demo.mp4" type="video/mp4" />
+                <source src="/hero-video.mp4" type="video/mp4" />
+              </video>
+
+              {/* Play Overlay Button */}
+              <div className={`rf-ss-video-overlay${isVideoPlaying ? ' is-hidden' : ''}`}>
+                <button
+                  type="button"
+                  className="rf-ss-play-btn-circle"
+                  onClick={toggleVideoPlay}
+                  aria-label={isVideoPlaying ? 'Pause explainer video' : 'Play explainer video'}
+                >
+                  <Play size={28} fill="currentColor" color="currentColor" style={{ marginLeft: '4px' }} />
+                </button>
+                <div className="rf-ss-video-badge-pill">
+                  <Clock size={13} />
+                  <span>1:30 min · How Scout Sourcing Works</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Video Controls & Info Bar */}
+            <div className="rf-ss-video-ctrls-bar">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <button
+                  type="button"
+                  className="rf-ss-ctrl-btn"
+                  onClick={toggleVideoPlay}
+                  aria-label={isVideoPlaying ? 'Pause video' : 'Play video'}
+                >
+                  {isVideoPlaying ? (
+                    <>
+                      <Pause size={14} fill="currentColor" color="currentColor" />
+                      <span>Pause</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play size={14} fill="currentColor" color="currentColor" />
+                      <span>Play Video</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  className="rf-ss-ctrl-btn"
+                  onClick={toggleMute}
+                  aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
+                >
+                  {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+                  <span>{isMuted ? 'Unmute' : 'Mute'}</span>
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--rf-slate-300)', fontSize: '0.82rem' }}>
+                <ShieldCheck size={16} color="var(--ss-accent)" />
+                <span>100% Milestone Escrow Protection Guaranteed</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Timestamp Highlights */}
+          <div className="rf-ss-video-timestamps">
+            <div className="rf-ss-timestamp-chip">
+              <strong>00:15</strong>
+              <span>Submitting your milestone brief</span>
+            </div>
+            <div className="rf-ss-timestamp-chip">
+              <strong>00:45</strong>
+              <span>Scout candidate vetting & 24h dossier</span>
+            </div>
+            <div className="rf-ss-timestamp-chip">
+              <strong>01:15</strong>
+              <span>Refeir Trust Vault escrow & 10% reward</span>
             </div>
           </div>
         </div>
