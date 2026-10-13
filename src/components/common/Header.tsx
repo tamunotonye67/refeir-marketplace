@@ -72,6 +72,7 @@ import {
 interface HeaderProps {
   currentPath: string;
   onNavigate: (path: string) => void;
+  isTransparent?: boolean;
 }
 
 type ActiveDropdown =
@@ -93,10 +94,20 @@ type ActiveDropdown =
   | 'hiring-analytics'
   | null;
 
-export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
+export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTransparent = false }) => {
   const { theme, toggleTheme } = useTheme();
   const { currentUser, login, signup, logout, switchRole } = useAuth();
   const { language, setLanguage, languages, currentLangInfo } = useI18n();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const {
     notifications,
     unreadCount,
@@ -402,9 +413,37 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
     </div>
   );
 
+  const showTransparentNav = isTransparent && !isScrolled;
+
+  const headerDynamicStyle: React.CSSProperties = {
+    borderBottom: 'none',
+    boxShadow: 'none',
+    transition: 'background 0.35s ease, backdrop-filter 0.35s ease, -webkit-backdrop-filter 0.35s ease, border-color 0.35s ease',
+    ...(showTransparentNav
+      ? {
+          background: 'transparent',
+          backdropFilter: 'none',
+          WebkitBackdropFilter: 'none',
+          borderBottom: 'none',
+          boxShadow: 'none'
+        }
+      : isTransparent && isScrolled
+      ? {
+          background: isDark ? 'rgba(10, 23, 15, 0.78)' : 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid rgba(0, 0, 0, 0.06)'
+        }
+      : {})
+  };
+
   return (
     <>
-      <header className="rf-header" ref={headerRef} style={{ borderBottom: 'none', boxShadow: 'none' }}>
+      <header
+        className={`rf-header ${isTransparent ? (isScrolled ? 'rf-header--scrolled' : 'rf-header--transparent') : ''}`}
+        ref={headerRef}
+        style={headerDynamicStyle}
+      >
         {currentPath === '/help' || currentPath.startsWith('/help') ? (
           /* =========================================================================
              DEDICATED HELP & SUPPORT NAVBAR

@@ -128,12 +128,12 @@
 /* ---------- HERO ---------- */
 .rf-aw-hero {
   position: relative;
-  padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+  padding: calc(var(--rf-header-height, 72px) + clamp(2rem, 5vw, 4rem)) 0 clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .rf-aw-hero-glow {
   position: absolute;
-  inset: -20% -10% auto auto;
+  inset: -100px -10% auto auto;
   width: 70vw;
   max-width: 900px;
   aspect-ratio: 1;
