@@ -510,76 +510,38 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                 <source src="/hero-video.mp4" type="video/mp4" />
               </video>
 
-              {/* Play Overlay Button */}
-              <div className={`rf-ss-video-overlay${isVideoPlaying ? ' is-hidden' : ''}`}>
+              {/* Vertical Right-Side Video Controls (0 Transparency) */}
+              <div className="rf-ss-video-side-ctrls" onClick={(e) => e.stopPropagation()}>
                 <button
                   type="button"
-                  className="rf-ss-play-btn-circle"
-                  onClick={toggleVideoPlay}
-                  aria-label={isVideoPlaying ? 'Pause explainer video' : 'Play explainer video'}
-                >
-                  <Play size={28} fill="currentColor" color="currentColor" style={{ marginLeft: '4px' }} />
-                </button>
-                <div className="rf-ss-video-badge-pill">
-                  <Clock size={13} />
-                  <span>1:30 min · How Scout Sourcing Works</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Video Controls & Info Bar */}
-            <div className="rf-ss-video-ctrls-bar">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <button
-                  type="button"
-                  className="rf-ss-ctrl-btn"
-                  onClick={toggleVideoPlay}
+                  className="rf-ss-side-ctrl-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleVideoPlay();
+                  }}
                   aria-label={isVideoPlaying ? 'Pause video' : 'Play video'}
+                  title={isVideoPlaying ? 'Pause video' : 'Play video'}
                 >
                   {isVideoPlaying ? (
-                    <>
-                      <Pause size={14} fill="currentColor" color="currentColor" />
-                      <span>Pause</span>
-                    </>
+                    <Pause size={18} fill="currentColor" color="currentColor" strokeWidth={0} />
                   ) : (
-                    <>
-                      <Play size={14} fill="currentColor" color="currentColor" />
-                      <span>Play Video</span>
-                    </>
+                    <Play size={18} fill="currentColor" color="currentColor" strokeWidth={0} style={{ marginLeft: '2px' }} />
                   )}
                 </button>
 
                 <button
                   type="button"
-                  className="rf-ss-ctrl-btn"
-                  onClick={toggleMute}
+                  className="rf-ss-side-ctrl-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleMute();
+                  }}
                   aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
+                  title={isMuted ? 'Unmute sound' : 'Mute sound'}
                 >
-                  {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                  <span>{isMuted ? 'Unmute' : 'Mute'}</span>
+                  {isMuted ? <VolumeX size={18} strokeWidth={2.2} /> : <Volume2 size={18} strokeWidth={2.2} />}
                 </button>
               </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--rf-slate-300)', fontSize: '0.82rem' }}>
-                <ShieldCheck size={16} color="var(--ss-accent)" />
-                <span>100% Milestone Escrow Protection Guaranteed</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Timestamp Highlights */}
-          <div className="rf-ss-video-timestamps">
-            <div className="rf-ss-timestamp-chip">
-              <strong>00:15</strong>
-              <span>Submitting your milestone brief</span>
-            </div>
-            <div className="rf-ss-timestamp-chip">
-              <strong>00:45</strong>
-              <span>Scout candidate vetting & 24h dossier</span>
-            </div>
-            <div className="rf-ss-timestamp-chip">
-              <strong>01:15</strong>
-              <span>Refeir Trust Vault escrow & 10% reward</span>
             </div>
           </div>
         </div>
