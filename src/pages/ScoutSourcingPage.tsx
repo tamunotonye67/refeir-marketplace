@@ -523,9 +523,9 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                   title={isVideoPlaying ? 'Pause video' : 'Play video'}
                 >
                   {isVideoPlaying ? (
-                    <Pause size={18} fill="currentColor" color="currentColor" strokeWidth={0} />
+                    <Pause size={14} fill="currentColor" color="currentColor" strokeWidth={0} />
                   ) : (
-                    <Play size={18} fill="currentColor" color="currentColor" strokeWidth={0} style={{ marginLeft: '2px' }} />
+                    <Play size={14} fill="currentColor" color="currentColor" strokeWidth={0} style={{ marginLeft: '1.5px' }} />
                   )}
                 </button>
 
@@ -539,7 +539,7 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                   aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
                   title={isMuted ? 'Unmute sound' : 'Mute sound'}
                 >
-                  {isMuted ? <VolumeX size={18} strokeWidth={2.2} /> : <Volume2 size={18} strokeWidth={2.2} />}
+                  {isMuted ? <VolumeX size={14} strokeWidth={2.2} /> : <Volume2 size={14} strokeWidth={2.2} />}
                 </button>
               </div>
             </div>
