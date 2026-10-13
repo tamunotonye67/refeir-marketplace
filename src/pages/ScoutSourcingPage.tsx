@@ -57,7 +57,7 @@ interface TrackConfig {
   id: string;
   label: string;
   short: string;
-  icon: React.ComponentType<{ size?: number; className?: string }>;
+  icon: React.ComponentType<any>;
   description: string;
   scouts: ScoutItem[];
 }
