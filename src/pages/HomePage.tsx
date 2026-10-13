@@ -3515,12 +3515,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <div
                   style={{
                     position: 'absolute',
-                    top: '12%',
-                    left: '5%',
-                    width: '90%',
-                    height: '80%',
+                    top: '8%',
+                    left: '2%',
+                    width: '96%',
+                    height: '84%',
                     borderRadius: '50%',
-                    background: 'radial-gradient(ellipse at center, rgba(212, 249, 51, 0.35) 0%, rgba(163, 230, 53, 0.24) 40%, rgba(102, 187, 42, 0.12) 65%, transparent 78%)',
+                    background:
+                      'radial-gradient(ellipse at center, rgba(212, 249, 51, 0.45) 0%, rgba(190, 242, 100, 0.3) 35%, rgba(163, 230, 53, 0.16) 60%, transparent 78%)',
                     filter: 'blur(36px)',
                     pointerEvents: 'none',
                     zIndex: 1
