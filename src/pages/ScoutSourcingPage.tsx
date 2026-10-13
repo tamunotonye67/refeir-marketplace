@@ -971,12 +971,12 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
               <div>
                 <span className="rf-ss-step-label">Step 5 of 5</span>
                 <h2 className="rf-ss-h2">
-                  {role === 'client' ? 'Deploy your sourcing brief' : 'Start earning 10% on every referral'}
+                  {role === 'client' ? 'Deploy your sourcing brief' : 'Earn from 10% on every referral'}
                 </h2>
                 <p className="rf-ss-lead">
                   {role === 'client'
                     ? `Create your free account to connect with ${currentScout.name} and receive your curated talent dossier within 24 hours.`
-                    : 'Join Africa’s top talent scouts. Connect founders with world-class engineers and earn locked 10% milestone rewards directly into your wallet.'}
+                    : 'Connect founders with world-class engineers and earn locked 10% milestone rewards directly into your wallet.'}
                 </p>
 
                 {/* Role Switcher */}
