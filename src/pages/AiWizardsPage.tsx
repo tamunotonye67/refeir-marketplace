@@ -636,12 +636,12 @@ export const AiWizardsPage: React.FC<AiWizardsPageProps> = ({ onNavigate, initia
             </div>
           </div>
 
-          <div className="rf-aw-tiers rf-aw-reveal" key={`tiers-${pillar}`}>
+          <div className="rf-aw-tiers" key={`tiers-${pillar}`}>
             {config.tiers.map((t, i) => (
               <button
                 key={t.name}
                 type="button"
-                className={`rf-aw-tier rf-aw-d${i + 1}${tierIndex === i ? ' is-selected' : ''}`}
+                className={`rf-aw-tier${tierIndex === i ? ' is-selected' : ''}`}
                 onClick={() => setTierIndex(i)}
                 aria-pressed={tierIndex === i}
               >
@@ -704,7 +704,7 @@ export const AiWizardsPage: React.FC<AiWizardsPageProps> = ({ onNavigate, initia
             </div>
           </div>
 
-          <div className="rf-aw-faq rf-aw-reveal">
+          <div className="rf-aw-faq">
             {FAQS.map((f, i) => {
               const isOpen = openFaq === i;
               return (
@@ -730,7 +730,7 @@ export const AiWizardsPage: React.FC<AiWizardsPageProps> = ({ onNavigate, initia
       {/* ============ 5. GET STARTED ============ */}
       <section id="aw-start" className="rf-aw-chapter" style={{ paddingTop: 0 }}>
         <div className="rf-aw-wrap">
-          <div className="rf-aw-start rf-aw-reveal">
+          <div className="rf-aw-start">
             <div className="rf-aw-start-blob" />
             <div className="rf-aw-start-grid">
               <div>

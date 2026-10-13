@@ -1257,6 +1257,19 @@
 .rf-aw-d2 { transition-delay: 0.16s; }
 .rf-aw-d3 { transition-delay: 0.24s; }
 
+/* Ensure interactive containers and cards never get hidden by scroll reveal */
+.rf-aw-tiers,
+.rf-aw-tier,
+.rf-aw-faq,
+.rf-aw-faq-item,
+.rf-aw-start,
+.rf-aw-roles,
+.rf-aw-role,
+.rf-aw-brief {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .rf-aw-hero-grid,
