@@ -1418,16 +1418,23 @@
 }
 
 .rf-ss-avatars {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .rf-ss-avatars img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--rf-bg-base);
+  flex-shrink: 0;
+  border: 2px solid var(--rf-bg-surface);
   margin-left: -10px;
+  display: block;
 }
 
 .rf-ss-avatars img:first-child { margin-left: 0; }

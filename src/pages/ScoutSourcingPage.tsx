@@ -1037,32 +1037,20 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                 {role === 'client' ? (
                   <>
                     <div className="rf-ss-brief-row">
-                      <span>Sourcing Track</span>
-                      <strong>{currentTrack.label}</strong>
+                      <span>Track & Budget</span>
+                      <strong>{currentTrack.label} · {currentCalc.budget}</strong>
                     </div>
                     <div className="rf-ss-brief-row">
                       <span>Assigned Scout</span>
                       <strong>{currentScout.name} ({currentScout.country})</strong>
                     </div>
                     <div className="rf-ss-brief-row">
-                      <span>Target Milestone Scope</span>
-                      <strong>{currentCalc.name} ({currentCalc.budget})</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Candidate Shortlist</span>
-                      <strong>3 Peer-Vetted Specialists</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Dossier Turnaround</span>
-                      <strong>Under 24 Hours</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Client Surcharge Fee</span>
-                      <strong style={{ color: 'var(--ss-accent)' }}>$0 (Platform Absorbed)</strong>
+                      <span>Vetted Shortlist</span>
+                      <strong>3 Specialists in &lt;24h</strong>
                     </div>
                     <div className="rf-ss-brief-row">
                       <span>Escrow Security</span>
-                      <strong>Refeir Trust Vault</strong>
+                      <strong style={{ color: 'var(--ss-accent)' }}>100% Guaranteed ($0 Fee)</strong>
                     </div>
 
                     <div className="rf-ss-brief-team">
@@ -1071,13 +1059,13 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                           <img key={s.id} src={s.avatar} alt={s.name} />
                         ))}
                       </div>
-                      <span>{currentTrack.scouts.length} verified scouts active in {currentTrack.short}</span>
+                      <span>{currentTrack.scouts.length} verified scouts available in {currentTrack.short}</span>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="rf-ss-brief-row">
-                      <span>Primary Network Track</span>
+                      <span>Network Track</span>
                       <strong>{currentTrack.label}</strong>
                     </div>
                     <div className="rf-ss-brief-row">
@@ -1085,16 +1073,12 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                       <strong style={{ color: 'var(--ss-accent)' }}>10% of Milestone Value</strong>
                     </div>
                     <div className="rf-ss-brief-row">
-                      <span>Typical Payout per Referral</span>
+                      <span>Estimated Payout</span>
                       <strong>{currentCalc.scoutEarn} – $3,500+</strong>
                     </div>
                     <div className="rf-ss-brief-row">
-                      <span>Withdrawal Options</span>
-                      <strong>USD, NGN, KES, GHS, ZAR, M-Pesa</strong>
-                    </div>
-                    <div className="rf-ss-brief-row">
-                      <span>Invoicing Effort</span>
-                      <strong>Zero (Automated Escrow Disbursement)</strong>
+                      <span>Payout Rails</span>
+                      <strong>Instant Multi-Currency Escrow</strong>
                     </div>
 
                     <div className="rf-ss-brief-team">
