@@ -938,7 +938,7 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
                 <p className="rf-ss-lead">
                   {role === 'client'
                     ? `Create your free account to connect with ${currentScout.name} and receive your curated talent dossier within 24 hours.`
-                    : 'Connect founders with world-class engineers and earn locked 10% milestone rewards directly into your wallet.'}
+                    : 'Connect founders with world-class engineers and earn locked 10% milestone rewards on every referral'}
                 </p>
 
                 {/* Role Switcher */}
