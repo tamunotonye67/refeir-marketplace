@@ -650,14 +650,17 @@ export const App: React.FC = () => {
     basePath === '/affiliates' ||
     basePath === '/scouts';
 
-  // AI Wizards landing flow pages that showcase an ambient luminous hero gradient
-  const isAiWizardsPage =
+  // Landing flow pages that showcase an ambient luminous hero gradient
+  const isTransparentLandingPage =
     basePath === '/ai-wizards' ||
     basePath === '/ai-studios' ||
     basePath === '/ai-innovation' ||
     basePath === '/ai-creative' ||
     basePath === '/ai-agents' ||
-    basePath === '/ai-3d';
+    basePath === '/ai-3d' ||
+    basePath === '/scout-sourcing' ||
+    basePath === '/scouting' ||
+    basePath === '/how-scouting-works';
 
   // Any non-excluded functional/product page uses the minimal 1-line utility footer
   const isCompactFooter = !isFullFooterPage;
@@ -669,7 +672,7 @@ export const App: React.FC = () => {
         <Header
           onNavigate={navigate}
           currentPath={currentPath}
-          isTransparent={isAiWizardsPage}
+          isTransparent={isTransparentLandingPage}
         />
       )}
 
@@ -677,7 +680,7 @@ export const App: React.FC = () => {
       <main
         style={{
           flex: 1,
-          paddingTop: isChromelessPage || isAiWizardsPage ? 0 : 'var(--rf-header-height, 72px)',
+          paddingTop: isChromelessPage || isTransparentLandingPage ? 0 : 'var(--rf-header-height, 72px)',
           paddingBottom: 0,
           marginBottom: 0
         }}
