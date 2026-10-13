@@ -933,7 +933,7 @@ export const ScoutSourcingPage: React.FC<ScoutSourcingPageProps> = ({ onNavigate
               <div>
                 <span className="rf-ss-step-label">Step 5 of 5</span>
                 <h2 className="rf-ss-h2">
-                  {role === 'client' ? 'Deploy your sourcing brief' : 'Earn from 10% on every referral'}
+                  {role === 'client' ? 'Deploy your sourcing brief' : 'Earn from 10% upward'}
                 </h2>
                 <p className="rf-ss-lead">
                   {role === 'client'
