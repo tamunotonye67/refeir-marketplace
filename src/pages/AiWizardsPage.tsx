@@ -389,8 +389,7 @@ export const AiWizardsPage: React.FC<AiWizardsPageProps> = ({ onNavigate, initia
                 {config.eyebrow}
               </span>
               <h1 className="rf-aw-h1">
-                {config.title}
-                <br />
+                {config.title}{' '}
                 <span className="rf-aw-accent-text">{config.highlight}</span>
               </h1>
               <p className="rf-aw-lead">{config.lead}</p>
