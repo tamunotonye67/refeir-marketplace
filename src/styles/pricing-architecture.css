@@ -1,0 +1,390 @@
+/* ==========================================================================
+   REFEIR PRICING & TRANSACTIONAL ARCHITECTURE STYLESHEET
+   Modern, Organic Pan-African Fintech Design Language
+   High-Trust Clean Design Strictly Observed
+   ========================================================================== */
+
+:root {
+  --rf-pricing-green: #66BB2A;
+  --rf-pricing-green-hover: #56A322;
+  --rf-pricing-green-deep: #16A34A;
+  --rf-pricing-dark: #06150D;
+  --rf-pricing-card-dark: #0D2316;
+  --rf-pricing-border-dark: rgba(102, 187, 42, 0.22);
+  --rf-pricing-glow-dark: rgba(102, 187, 42, 0.15);
+  
+  --rf-pricing-light-bg: #F8FAF8;
+  --rf-pricing-card-light: #FFFFFF;
+  --rf-pricing-border-light: rgba(18, 43, 26, 0.12);
+  --rf-pricing-text-light: #122B1A;
+  --rf-pricing-muted-light: #475569;
+}
+
+/* Ambient Organic Hero Mesh */
+.rf-pricing-hero-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3.5rem, 6vw, 5.5rem) 1.5rem clamp(2.5rem, 4vw, 3.5rem);
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.rf-pricing-ambient-glow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  max-width: 1000px;
+  height: 480px;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+/* Eyebrow Pill */
+.rf-pricing-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease;
+}
+
+.rf-pricing-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.rf-pricing-pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  animation: rfPricingPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes rfPricingPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Hero Typography */
+.rf-pricing-title {
+  font-family: var(--rf-font-display, inherit);
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin: 0 auto 1.15rem;
+  max-width: 900px;
+  position: relative;
+  z-index: 1;
+}
+
+.rf-pricing-title-accent {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.rf-pricing-sub {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  line-height: 1.65;
+  max-width: 680px;
+  margin: 0 auto clamp(1.75rem, 3vw, 2.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* Telemetry Pills Bar */
+.rf-pricing-telemetry-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.rf-pricing-telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.rf-pricing-telemetry-pill:hover {
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   INTERACTIVE TRANSACTIONAL ARCHITECTURE SIMULATOR
+   ========================================================================== */
+
+.rf-simulator-wrap {
+  border-radius: 28px;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  margin-bottom: 3.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.rf-simulator-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(102, 187, 42, 0.15);
+}
+
+.rf-channel-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.rf-channel-pill.active {
+  background: #66BB2A;
+  color: #06150D;
+  border-color: #66BB2A;
+  box-shadow: 0 4px 16px rgba(102, 187, 42, 0.3);
+}
+
+.rf-amount-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.rf-amount-chip {
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* Simulator Flow Grid */
+.rf-flow-nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 900px) {
+  .rf-flow-nodes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .rf-flow-nodes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rf-flow-node-card {
+  padding: 1.5rem 1.25rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justifyContent: space-between;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rf-flow-node-card:hover {
+  transform: translateY(-3px);
+}
+
+.rf-flow-node-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  width: fit-content;
+  margin-bottom: 0.85rem;
+}
+
+.rf-flow-node-val {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.rf-flow-node-sub {
+  font-size: 0.775rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Interactive Slider */
+.rf-pricing-slider-wrap {
+  margin: 1.5rem 0 1.75rem;
+}
+
+.rf-pricing-range-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(102, 187, 42, 0.2);
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.rf-pricing-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #66BB2A;
+  cursor: pointer;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 12px rgba(102, 187, 42, 0.6);
+  transition: transform 0.15s ease;
+}
+
+.rf-pricing-range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* ==========================================================================
+   3-SIDED ARCHITECTURE CARDS
+   ========================================================================== */
+
+.rf-arch-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .rf-arch-cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+}
+
+.rf-arch-card {
+  padding: 2.5rem 2rem;
+  border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.rf-arch-card:hover {
+  transform: translateY(-4px);
+}
+
+.rf-arch-card-popular {
+  border-width: 2px !important;
+}
+
+.rf-arch-card-badge {
+  position: absolute;
+  top: -13px;
+  right: 24px;
+  background: linear-gradient(135deg, #16A34A 0%, #66BB2A 100%);
+  color: #06150D;
+  font-size: 0.725rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.95rem;
+  border-radius: 100px;
+  box-shadow: 0 4px 14px rgba(102, 187, 42, 0.4);
+}
+
+.rf-arch-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rf-arch-stat-num {
+  font-size: 3.25rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.rf-arch-feature-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.rf-arch-cta-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 14px;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: none;
+}

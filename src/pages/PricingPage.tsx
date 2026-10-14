@@ -1,7 +1,23 @@
 import React, { useState } from 'react';
-import { ShieldCheck, CheckCircle2, Lock, ArrowRight, DollarSign, HelpCircle, Users, Briefcase, Zap, Ticket, Award, Headphones, Star, Check } from 'lucide-react';
+import {
+  ShieldCheck,
+  CheckCircle2,
+  Lock,
+  ArrowRight,
+  DollarSign,
+  Users,
+  Briefcase,
+  Zap,
+  Ticket,
+  Award,
+  Headphones,
+  Layers,
+  Sliders,
+  Globe
+} from 'lucide-react';
 import { RefeirProModal } from '../components/common/RefeirProModal';
 import { useTheme } from '../context/ThemeContext';
+import '../styles/pricing-architecture.css';
 
 interface PricingPageProps {
   onNavigate: (path: string) => void;
@@ -11,6 +27,11 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
   const [showProModal, setShowProModal] = useState(false);
   const [proRole, setProRole] = useState<'SCOUT' | 'TALENT' | 'CLIENT'>('SCOUT');
   
+  // Interactive Escrow Simulator State
+  const [milestoneAmount, setMilestoneAmount] = useState<number>(1000);
+  const [channel, setChannel] = useState<'SCOUT' | 'DIRECT' | 'PROPOSAL'>('SCOUT');
+  const [currency, setCurrency] = useState<'USD' | 'NGN' | 'KES' | 'GHS'>('USD');
+
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -19,6 +40,50 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
     setShowProModal(true);
   };
 
+  // Currency Converter
+  const currencyConfig: Record<string, { symbol: string; rate: number; label: string }> = {
+    USD: { symbol: '$', rate: 1, label: 'USD ($)' },
+    NGN: { symbol: '₦', rate: 1550, label: 'NGN (₦)' },
+    KES: { symbol: 'KSh ', rate: 130, label: 'KES (KSh)' },
+    GHS: { symbol: 'GH₵ ', rate: 15, label: 'GHS (GH₵)' }
+  };
+
+  const formatCur = (valUsd: number) => {
+    const cfg = currencyConfig[currency];
+    const conv = Math.round(valUsd * cfg.rate);
+    return `${cfg.symbol}${conv.toLocaleString()}`;
+  };
+
+  // Dynamic calculations based on Refeir transactional architecture
+  const clientTotal = Math.round(milestoneAmount * 1.05);
+  const vaultAmount = milestoneAmount;
+  
+  let scoutPercent = 10;
+  let scoutAmount = Math.round(milestoneAmount * 0.10);
+  let talentPercent = 90;
+  let talentAmount = Math.round(milestoneAmount * 0.90);
+  let platformTotal = Math.round(milestoneAmount * 0.05);
+
+  if (channel === 'SCOUT') {
+    scoutPercent = 10;
+    scoutAmount = Math.round(milestoneAmount * 0.10);
+    talentPercent = 90;
+    talentAmount = Math.round(milestoneAmount * 0.90);
+    platformTotal = Math.round(milestoneAmount * 0.05);
+  } else if (channel === 'DIRECT') {
+    scoutPercent = 0;
+    scoutAmount = 0;
+    talentPercent = 90;
+    talentAmount = Math.round(milestoneAmount * 0.90);
+    platformTotal = Math.round(milestoneAmount * 0.15); // 5% client + 10% direct reachout fee
+  } else if (channel === 'PROPOSAL') {
+    scoutPercent = 0;
+    scoutAmount = 0;
+    talentPercent = 95;
+    talentAmount = Math.round(milestoneAmount * 0.95);
+    platformTotal = Math.round(milestoneAmount * 0.10); // 5% client + 5% talent split
+  }
+
   return (
     <div
       style={{
@@ -26,274 +91,632 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
         flexDirection: 'column',
         width: '100%',
         minHeight: '80vh',
-        backgroundColor: isDark ? 'var(--rf-bg-base)' : '#FFFFFF',
+        backgroundColor: isDark ? 'var(--rf-bg-base)' : '#F8FAF8',
         color: isDark ? '#FFFFFF' : '#122B1A'
       }}
     >
-      {/* Header */}
+      {/* =========================================================================
+          ATMOSPHERIC ORGANIC HERO SECTION
+          ========================================================================= */}
       <section
+        className="rf-pricing-hero-wrap"
         style={{
-          padding: '4.5rem 1.5rem 3.5rem',
-          textAlign: 'center',
           background: isDark
-            ? 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(102, 187, 42, 0.2), transparent 70%), var(--rf-bg-base)'
-            : '#FFFFFF',
-          borderBottom: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid rgba(18, 43, 26, 0.08)'
+            ? 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(102, 187, 42, 0.18), transparent 75%), linear-gradient(180deg, #06150D 0%, #0A1F13 100%)'
+            : 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(34, 197, 94, 0.14), transparent 75%), linear-gradient(180deg, #F0FDF4 0%, #FAFCFA 100%)',
+          borderBottom: isDark ? '1px solid rgba(102, 187, 42, 0.18)' : '1px solid rgba(18, 43, 26, 0.08)'
         }}
       >
-        <div className="rf-container" style={{ maxWidth: '840px' }}>
+        <div
+          className="rf-pricing-ambient-glow"
+          style={{
+            background: isDark
+              ? 'radial-gradient(circle, rgba(102, 187, 42, 0.2) 0%, rgba(16, 185, 129, 0.06) 45%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(34, 197, 94, 0.16) 0%, rgba(46, 125, 50, 0.04) 45%, transparent 70%)'
+          }}
+        />
+
+        <div className="rf-container" style={{ maxWidth: '920px', position: 'relative', zIndex: 1 }}>
+          {/* Eyebrow */}
           <div
+            className="rf-pricing-eyebrow"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              background: isDark ? 'rgba(102, 187, 42, 0.12)' : 'rgba(46, 125, 50, 0.08)',
-              border: isDark ? '1px solid rgba(102, 187, 42, 0.3)' : '1px solid rgba(46, 125, 50, 0.25)',
-              borderRadius: 'var(--rf-radius-full)',
-              padding: '0.375rem 1rem',
-              marginBottom: '1.25rem'
+              background: isDark ? 'rgba(102, 187, 42, 0.12)' : 'rgba(22, 163, 74, 0.1)',
+              border: isDark ? '1px solid rgba(102, 187, 42, 0.3)' : '1px solid rgba(22, 163, 74, 0.25)',
+              color: isDark ? 'var(--rf-leaf-green)' : '#15803D'
             }}
           >
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: isDark ? 'var(--rf-leaf-green)' : '#2E7D32' }} className="rf-pulse" />
-            <span style={{ fontSize: '0.8125rem', fontWeight: 800, color: isDark ? 'var(--rf-leaf-green)' : '#1B5E20' }}>
-              TRANSPARENT PAN-AFRICAN ECONOMICS
-            </span>
+            <span
+              className="rf-pricing-pulse-dot"
+              style={{ backgroundColor: isDark ? 'var(--rf-leaf-green)' : '#16A34A' }}
+            />
+            <span>TRANSPARENT PAN-AFRICAN ECONOMICS</span>
           </div>
 
-          <h1 style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', lineHeight: 1.15, marginBottom: '1rem' }}>
-            Fair Pricing. Zero Surprises. Guaranteed Payouts.
+          <h1 className="rf-pricing-title" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+            Fair Pricing. Zero Surprises.{' '}
+            <span className="rf-pricing-title-accent">Guaranteed Payouts.</span>
           </h1>
-          <p style={{ fontSize: '1.125rem', color: isDark ? '#CBD5E1' : '#334155', lineHeight: 1.6, maxWidth: '640px', margin: '0 auto' }}>
+
+          <p className="rf-pricing-sub" style={{ color: isDark ? '#CBD5E1' : '#475569' }}>
             No transaction traps. No hidden markups. Transparent platform fees charged only when real milestone work is approved.
           </p>
-        </div>
-      </section>
 
-      {/* 3-Sided Base Fee Architecture Cards */}
-      <section className="rf-section" style={{ backgroundColor: isDark ? 'var(--rf-bg-base)' : '#FFFFFF' }}>
-        <div className="rf-container">
-          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <span className="rf-badge rf-badge-mint" style={{ marginBottom: '0.5rem' }}>
-              TRANSACTIONAL ARCHITECTURE
-            </span>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A' }}>
-              Standard Platform Economics
-            </h2>
-            <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
-              Our baseline 0%–5% transaction framework accessible to every registered member.
-            </p>
-          </div>
-
-          <div className="rf-grid-3" style={{ alignItems: 'stretch' }}>
-            {/* 1. Recruiter / Client */}
+          {/* Telemetry Pills Bar */}
+          <div className="rf-pricing-telemetry-bar">
             <div
-              className="rf-card"
+              className="rf-pricing-telemetry-pill"
               style={{
-                padding: '2.5rem 2rem',
-                display: 'flex',
-                flexDirection: 'column',
-                backgroundColor: isDark ? '#123321' : '#FFFFFF',
-                border: isDark ? '1px solid rgba(102, 187, 42, 0.18)' : '1px solid rgba(18, 43, 26, 0.12)',
-                boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.04)',
-                borderRadius: 'var(--rf-radius-xl)'
+                background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(18, 43, 26, 0.1)',
+                boxShadow: isDark ? 'none' : '0 2px 10px rgba(0,0,0,0.03)',
+                color: isDark ? '#F1F5F9' : '#1E293B'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                <div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: isDark ? 'var(--rf-leaf-green)' : '#2E7D32', letterSpacing: '0.05em' }}>
-                    FOR RECRUITERS & CLIENTS
-                  </span>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', marginTop: '0.25rem' }}>
-                    Hire & Protect
-                  </h3>
-                </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: isDark ? 'var(--rf-mint-light)' : 'rgba(46, 125, 50, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Briefcase size={20} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} />
-                </div>
-              </div>
-
-              <div style={{ marginBottom: '1.75rem', paddingBottom: '1.75rem', borderBottom: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid rgba(18, 43, 26, 0.08)' }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '3rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', lineHeight: 1 }}>5%</span>
-                  <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontSize: '0.9375rem' }}>per funded milestone</span>
-                </div>
-                <p style={{ fontSize: '0.875rem', color: isDark ? '#CBD5E1' : '#475569', marginTop: '0.75rem' }}>
-                  Covers 100% Trust Vault custody, dispute mediation, and multi-currency cross-border settlement.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '2rem', flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Free</strong> job posting & talent search</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>100% money-back Trust Vault protection</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>Cross-border VAT & compliance receipts</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>Encrypted in-app messaging & workspace collaboration</span>
-                </div>
-              </div>
-
-              <button onClick={() => onNavigate('/marketplace')} className="rf-btn rf-btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                Browse African Talent →
-              </button>
+              <ShieldCheck size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} />
+              <span>100% Escrow Vault Custody</span>
             </div>
-
-            {/* 2. Scouter / Referrer (Highlighted) */}
             <div
-              className="rf-card rf-card-mint-border"
+              className="rf-pricing-telemetry-pill"
               style={{
-                padding: '2.5rem 2rem',
-                display: 'flex',
-                flexDirection: 'column',
-                position: 'relative',
-                backgroundColor: isDark ? '#123321' : '#FFFFFF',
-                border: isDark ? '2px solid var(--rf-leaf-green)' : '2px solid #2E7D32',
-                boxShadow: isDark ? '0 0 24px rgba(102, 187, 42, 0.2)' : '0 8px 30px rgba(46, 125, 50, 0.12)',
-                borderRadius: 'var(--rf-radius-xl)'
+                background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(18, 43, 26, 0.1)',
+                boxShadow: isDark ? 'none' : '0 2px 10px rgba(0,0,0,0.03)',
+                color: isDark ? '#F1F5F9' : '#1E293B'
               }}
             >
-              <div style={{ position: 'absolute', top: '-12px', right: '20px', background: 'linear-gradient(135deg, var(--rf-vibrant-orange), var(--rf-golden-yellow))', color: '#FFFFFF', padding: '0.25rem 0.875rem', borderRadius: 'var(--rf-radius-full)', fontSize: '0.75rem', fontWeight: 800 }}>
-                POPULAR
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                <div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: isDark ? 'var(--rf-leaf-green)' : '#2E7D32', letterSpacing: '0.05em' }}>
-                    FOR SCOUTERS & REFERRERS
-                  </span>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', marginTop: '0.25rem' }}>
-                    Refer & Earn
-                  </h3>
-                </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: isDark ? 'rgba(102, 187, 42, 0.2)' : 'rgba(46, 125, 50, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Zap size={20} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} />
-                </div>
-              </div>
-
-              <div style={{ marginBottom: '1.75rem', paddingBottom: '1.75rem', borderBottom: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid rgba(18, 43, 26, 0.08)' }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '3rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', lineHeight: 1 }}>0%</span>
-                  <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontSize: '0.9375rem' }}>Fee forever (on &le;10% talent rates)</span>
-                </div>
-                <p style={{ fontSize: '0.875rem', color: isDark ? '#CBD5E1' : '#475569', marginTop: '0.75rem' }}>
-                  Keep <strong>100% of your proceeds forever</strong> on talent offer rates of 10% and below.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '2rem', flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>0% platform fee forever</strong> on &le;10% referral rates</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>2% Airfee only on &gt;10% rates</strong> (waived with Airfee Token)</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Exclusive Client Onboarding Links:</strong> Earn free monthly Airfee Tokens</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>Automatic instant wallet split on milestone approval</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>M-Pesa, MoMo, Bank & Stablecoin withdrawal</span>
-                </div>
-              </div>
-
-              <button onClick={() => onNavigate('/dashboard/scout')} className="rf-btn rf-btn-mint" style={{ width: '100%', justifyContent: 'center' }}>
-                Start Earning as Scout →
-              </button>
+              <Zap size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} />
+              <span>0% Scout Fee Baseline (≤10% Rates)</span>
             </div>
-
-            {/* 3. Talent */}
             <div
-              className="rf-card"
+              className="rf-pricing-telemetry-pill"
               style={{
-                padding: '2.5rem 2rem',
-                display: 'flex',
-                flexDirection: 'column',
-                backgroundColor: isDark ? '#123321' : '#FFFFFF',
-                border: isDark ? '1px solid rgba(102, 187, 42, 0.18)' : '1px solid rgba(18, 43, 26, 0.12)',
-                boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.04)',
-                borderRadius: 'var(--rf-radius-xl)'
+                background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(18, 43, 26, 0.1)',
+                boxShadow: isDark ? 'none' : '0 2px 10px rgba(0,0,0,0.03)',
+                color: isDark ? '#F1F5F9' : '#1E293B'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                <div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: isDark ? 'var(--rf-leaf-green)' : '#2E7D32', letterSpacing: '0.05em' }}>
-                    FOR FREELANCERS & TALENT
-                  </span>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', marginTop: '0.25rem' }}>
-                    Deliver & Grow
-                  </h3>
-                </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: isDark ? 'var(--rf-mint-light)' : 'rgba(46, 125, 50, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Users size={20} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} />
-                </div>
-              </div>
-
-              <div style={{ marginBottom: '1.75rem', paddingBottom: '1.75rem', borderBottom: isDark ? '1px solid var(--rf-bg-card-border)' : '1px solid rgba(18, 43, 26, 0.08)' }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '3rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', lineHeight: 1 }}>10%</span>
-                  <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontSize: '0.9375rem' }}>Scout referral commission</span>
-                </div>
-                <p style={{ fontSize: '0.875rem', color: isDark ? '#CBD5E1' : '#475569', marginTop: '0.75rem' }}>
-                  Paid to the scout who brought you the client. Deducted only upon successful project payout.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '2rem', flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span><strong>Zero subscription</strong> or bidding tokens</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>Guaranteed payment once deliverables approved</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>Multi-currency payout directly to local bank / MoMo</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: isDark ? '#FFFFFF' : '#122B1A' }}>
-                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#2E7D32"} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>Verified pan-African reputation badge</span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => onNavigate('/dashboard/talent')}
-                className="rf-btn rf-btn-secondary"
-                style={{
-                  width: '100%',
-                  justifyContent: 'center',
-                  border: isDark ? '1px solid rgba(255,255,255,0.15)' : '1.5px solid #122B1A',
-                  color: isDark ? '#FFFFFF' : '#122B1A',
-                  backgroundColor: isDark ? 'transparent' : '#FFFFFF',
-                  fontWeight: 700
-                }}
-              >
-                Create Service Package →
-              </button>
+              <Users size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} />
+              <span>0% Talent Subscription or Bids</span>
+            </div>
+            <div
+              className="rf-pricing-telemetry-pill"
+              style={{
+                background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(18, 43, 26, 0.1)',
+                boxShadow: isDark ? 'none' : '0 2px 10px rgba(0,0,0,0.03)',
+                color: isDark ? '#F1F5F9' : '#1E293B'
+              }}
+            >
+              <Lock size={15} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} />
+              <span>Multi-Currency Local Settlement (MoMo/Bank/USDC)</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          REFEIR PRO SUPERPOWERS SUBSCRIPTION TIERS
+          TRANSACTIONAL ARCHITECTURE & LIVE ESCROW SIMULATOR
           ========================================================================= */}
+      <section className="rf-section" style={{ backgroundColor: isDark ? 'var(--rf-bg-base)' : '#F8FAF8', padding: 'clamp(3rem, 5vw, 5rem) 1.5rem' }}>
+        <div className="rf-container" style={{ maxWidth: '1220px' }}>
+          {/* Section Header */}
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                background: isDark ? 'rgba(102, 187, 42, 0.12)' : 'rgba(22, 163, 74, 0.1)',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.28)' : '1px solid rgba(22, 163, 74, 0.2)',
+                color: isDark ? 'var(--rf-leaf-green)' : '#15803D',
+                padding: '0.3rem 0.85rem',
+                borderRadius: '100px',
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                marginBottom: '0.75rem'
+              }}
+            >
+              <Layers size={14} />
+              <span>TRANSACTIONAL ARCHITECTURE</span>
+            </div>
+            <h2 style={{ fontSize: 'clamp(1.85rem, 3.5vw, 2.75rem)', fontWeight: 900, color: isDark ? '#FFFFFF' : '#122B1A', letterSpacing: '-0.02em', margin: '0 0 0.5rem' }}>
+              Standard Platform Economics
+            </h2>
+            <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '1rem', maxWidth: '640px', margin: '0 auto', lineHeight: 1.6 }}>
+              Our baseline 0%–5% transaction framework accessible to every registered member.
+            </p>
+          </div>
+
+          {/* ================= LIVE ESCROW ARCHITECTURE SIMULATOR ================= */}
+          <div
+            className="rf-simulator-wrap"
+            style={{
+              background: isDark
+                ? 'linear-gradient(135deg, rgba(13, 35, 22, 0.95) 0%, rgba(6, 21, 13, 0.98) 100%)'
+                : '#FFFFFF',
+              border: isDark
+                ? '1.5px solid rgba(102, 187, 42, 0.35)'
+                : '1.5px solid rgba(22, 163, 74, 0.25)',
+              boxShadow: isDark
+                ? '0 12px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(102, 187, 42, 0.12)'
+                : '0 10px 35px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02)'
+            }}
+          >
+            {/* Simulator Header & Controls */}
+            <div className="rf-simulator-head" style={{ borderBottomColor: isDark ? 'rgba(102, 187, 42, 0.2)' : 'rgba(18, 43, 26, 0.1)' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+                  <Sliders size={18} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} />
+                  <span style={{ fontSize: '1.15rem', fontWeight: 900, color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                    Interactive Milestone Simulator
+                  </span>
+                </div>
+                <p style={{ margin: 0, fontSize: '0.85rem', color: isDark ? '#94A3B8' : '#64748B' }}>
+                  Simulate a funded milestone to see how Refeir's multi-party smart custody engine distributes value in real time.
+                </p>
+              </div>
+
+              {/* Currency Selector Chips */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Globe size={15} color={isDark ? "#94A3B8" : "#64748B"} />
+                {Object.keys(currencyConfig).map(cur => (
+                  <button
+                    key={cur}
+                    onClick={() => setCurrency(cur as any)}
+                    style={{
+                      padding: '0.35rem 0.75rem',
+                      borderRadius: '8px',
+                      fontSize: '0.75rem',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      border: currency === cur ? 'none' : isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(18,43,26,0.15)',
+                      background: currency === cur ? 'var(--rf-leaf-green)' : isDark ? 'rgba(255,255,255,0.05)' : '#F1F5F9',
+                      color: currency === cur ? '#06150D' : isDark ? '#CBD5E1' : '#334155',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    {cur}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Channel Switcher */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.65rem', marginBottom: '1.5rem', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: isDark ? '#94A3B8' : '#64748B', marginRight: '0.25rem' }}>
+                Engagement Channel:
+              </span>
+              <button
+                onClick={() => setChannel('SCOUT')}
+                className={`rf-channel-pill ${channel === 'SCOUT' ? 'active' : ''}`}
+                style={{
+                  background: channel === 'SCOUT' ? 'var(--rf-leaf-green)' : isDark ? 'rgba(255,255,255,0.05)' : '#F1F5F9',
+                  color: channel === 'SCOUT' ? '#06150D' : isDark ? '#CBD5E1' : '#334155',
+                  border: channel === 'SCOUT' ? '1px solid var(--rf-leaf-green)' : isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(18,43,26,0.1)'
+                }}
+              >
+                ⚡ 1. Scout-Referred Hire (Standard 10% Attribution)
+              </button>
+              <button
+                onClick={() => setChannel('DIRECT')}
+                className={`rf-channel-pill ${channel === 'DIRECT' ? 'active' : ''}`}
+                style={{
+                  background: channel === 'DIRECT' ? 'var(--rf-leaf-green)' : isDark ? 'rgba(255,255,255,0.05)' : '#F1F5F9',
+                  color: channel === 'DIRECT' ? '#06150D' : isDark ? '#CBD5E1' : '#334155',
+                  border: channel === 'DIRECT' ? '1px solid var(--rf-leaf-green)' : isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(18,43,26,0.1)'
+                }}
+              >
+                2. Direct Client Hire (No Scout)
+              </button>
+              <button
+                onClick={() => setChannel('PROPOSAL')}
+                className={`rf-channel-pill ${channel === 'PROPOSAL' ? 'active' : ''}`}
+                style={{
+                  background: channel === 'PROPOSAL' ? 'var(--rf-leaf-green)' : isDark ? 'rgba(255,255,255,0.05)' : '#F1F5F9',
+                  color: channel === 'PROPOSAL' ? '#06150D' : isDark ? '#CBD5E1' : '#334155',
+                  border: channel === 'PROPOSAL' ? '1px solid var(--rf-leaf-green)' : isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(18,43,26,0.1)'
+                }}
+              >
+                3. Open Job Board Proposal Split (5% / 5%)
+              </button>
+            </div>
+
+            {/* Slider & Presets Controls */}
+            <div className="rf-pricing-slider-wrap">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+                <span style={{ fontSize: '0.875rem', fontWeight: 700, color: isDark ? '#E2E8F0' : '#1E293B' }}>
+                  Base Contract Milestone: <span style={{ color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', fontSize: '1.2rem', fontWeight: 900 }}>{formatCur(milestoneAmount)}</span>
+                </span>
+                
+                <div className="rf-amount-chips">
+                  {[500, 1000, 2500, 5000, 10000].map(amt => (
+                    <button
+                      key={amt}
+                      onClick={() => setMilestoneAmount(amt)}
+                      className="rf-amount-chip"
+                      style={{
+                        background: milestoneAmount === amt ? (isDark ? 'rgba(102,187,42,0.2)' : 'rgba(22,163,74,0.12)') : isDark ? 'rgba(255,255,255,0.05)' : '#F1F5F9',
+                        color: milestoneAmount === amt ? (isDark ? 'var(--rf-leaf-green)' : '#15803D') : isDark ? '#CBD5E1' : '#475569',
+                        border: milestoneAmount === amt ? '1px solid var(--rf-leaf-green)' : isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(18,43,26,0.1)'
+                      }}
+                    >
+                      {formatCur(amt)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <input
+                type="range"
+                min="200"
+                max="10000"
+                step="50"
+                value={milestoneAmount}
+                onChange={e => setMilestoneAmount(Number(e.target.value))}
+                className="rf-pricing-range-slider"
+              />
+            </div>
+
+            {/* Flow Nodes 4-Column Grid */}
+            <div className="rf-flow-nodes-grid">
+              {/* Node 1: Client Escrow Inflow */}
+              <div
+                className="rf-flow-node-card"
+                style={{
+                  background: isDark ? 'rgba(255, 255, 255, 0.03)' : '#F8FAF9',
+                  border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.1)'
+                }}
+              >
+                <div>
+                  <div
+                    className="rf-flow-node-badge"
+                    style={{
+                      background: isDark ? 'rgba(125, 162, 255, 0.15)' : '#EFF6FF',
+                      color: isDark ? '#93C5FD' : '#1D4ED8'
+                    }}
+                  >
+                    <Briefcase size={12} />
+                    <span>Client Escrow Inflow</span>
+                  </div>
+                  <div className="rf-flow-node-val" style={{ color: isDark ? '#FFFFFF' : '#0F172A' }}>
+                    {formatCur(clientTotal)}
+                  </div>
+                </div>
+                <p className="rf-flow-node-sub" style={{ color: isDark ? '#94A3B8' : '#64748B' }}>
+                  {formatCur(milestoneAmount)} milestone + {formatCur(Math.round(milestoneAmount * 0.05))} (5% Client Custody & Protection Fee)
+                </p>
+              </div>
+
+              {/* Node 2: Refeir Trust Vault */}
+              <div
+                className="rf-flow-node-card"
+                style={{
+                  background: isDark ? 'rgba(102, 187, 42, 0.08)' : '#F0FDF4',
+                  border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(22, 163, 74, 0.3)'
+                }}
+              >
+                <div>
+                  <div
+                    className="rf-flow-node-badge"
+                    style={{
+                      background: isDark ? 'rgba(102, 187, 42, 0.2)' : '#DCFCE7',
+                      color: isDark ? 'var(--rf-leaf-green)' : '#15803D'
+                    }}
+                  >
+                    <ShieldCheck size={12} />
+                    <span>Trust Vault Custody</span>
+                  </div>
+                  <div className="rf-flow-node-val" style={{ color: isDark ? 'var(--rf-leaf-green)' : '#15803D' }}>
+                    {formatCur(vaultAmount)}
+                  </div>
+                </div>
+                <p className="rf-flow-node-sub" style={{ color: isDark ? '#94A3B8' : '#475569' }}>
+                  100% Locked in smart custody until deliverables are reviewed and verified
+                </p>
+              </div>
+
+              {/* Node 3: Scout Referral Commission */}
+              <div
+                className="rf-flow-node-card"
+                style={{
+                  background: isDark ? 'rgba(244, 185, 66, 0.08)' : '#FFFBEB',
+                  border: isDark ? '1px solid rgba(244, 185, 66, 0.3)' : '1px solid rgba(217, 119, 6, 0.25)'
+                }}
+              >
+                <div>
+                  <div
+                    className="rf-flow-node-badge"
+                    style={{
+                      background: isDark ? 'rgba(244, 185, 66, 0.2)' : '#FEF3C7',
+                      color: isDark ? '#F4B942' : '#B45309'
+                    }}
+                  >
+                    <Zap size={12} />
+                    <span>Scout Referral Reward</span>
+                  </div>
+                  <div className="rf-flow-node-val" style={{ color: isDark ? '#F4B942' : '#B45309' }}>
+                    {formatCur(scoutAmount)}
+                  </div>
+                </div>
+                <p className="rf-flow-node-sub" style={{ color: isDark ? '#94A3B8' : '#475569' }}>
+                  {channel === 'SCOUT'
+                    ? `100% of ${scoutPercent}% attribution ($0 Refeir fee deducted)`
+                    : 'N/A (Direct channel without referral scout)'}
+                </p>
+              </div>
+
+              {/* Node 4: Talent Net Payout */}
+              <div
+                className="rf-flow-node-card"
+                style={{
+                  background: isDark ? 'rgba(102, 187, 42, 0.12)' : '#F0FDF4',
+                  border: isDark ? '1.5px solid var(--rf-leaf-green)' : '1.5px solid #16A34A'
+                }}
+              >
+                <div>
+                  <div
+                    className="rf-flow-node-badge"
+                    style={{
+                      background: isDark ? 'var(--rf-leaf-green)' : '#16A34A',
+                      color: '#06150D'
+                    }}
+                  >
+                    <Users size={12} />
+                    <span>Talent Net Payout</span>
+                  </div>
+                  <div className="rf-flow-node-val" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                    {formatCur(talentAmount)}
+                  </div>
+                </div>
+                <p className="rf-flow-node-sub" style={{ color: isDark ? '#94A3B8' : '#475569' }}>
+                  {talentPercent}% milestone released instantly to local bank, MoMo, or crypto wallet
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom Platform Architecture Audit Row */}
+            <div
+              style={{
+                marginTop: '1.5rem',
+                paddingTop: '1rem',
+                borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid rgba(18, 43, 26, 0.08)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '0.75rem',
+                fontSize: '0.8125rem'
+              }}
+            >
+              <div style={{ color: isDark ? '#94A3B8' : '#64748B' }}>
+                <strong style={{ color: isDark ? '#F1F5F9' : '#1E293B' }}>Refeir Architecture Retention:</strong>{' '}
+                {formatCur(platformTotal)}{' '}
+                ({channel === 'SCOUT' ? '5% Client Custody Fee' : channel === 'DIRECT' ? '5% Client + 10% Direct Reachout Fee' : '5% Client + 5% Talent Success Fee'})
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', fontWeight: 700 }}>
+                <CheckCircle2 size={15} />
+                <span>Zero Hidden Conversion Spreads • 100% Verifiable Escrow</span>
+              </div>
+            </div>
+          </div>
+
+          {/* ================= 3-SIDED ARCHITECTURE CARDS ================= */}
+          <div className="rf-arch-cards-grid">
+            {/* 1. Recruiter / Client Card */}
+            <div
+              className="rf-arch-card"
+              style={{
+                backgroundColor: isDark ? '#0D2316' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.22)' : '1px solid rgba(18, 43, 26, 0.12)',
+                boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.04)'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', letterSpacing: '0.05em' }}>
+                    FOR RECRUITERS & CLIENTS
+                  </span>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, color: isDark ? '#FFFFFF' : '#122B1A', marginTop: '0.25rem' }}>
+                    Hire & Protect
+                  </h3>
+                </div>
+                <div className="rf-arch-card-icon" style={{ background: isDark ? 'rgba(102, 187, 42, 0.15)' : 'rgba(22, 163, 74, 0.1)', color: isDark ? "var(--rf-leaf-green)" : "#16A34A" }}>
+                  <Briefcase size={22} />
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '1.75rem', paddingBottom: '1.75rem', borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                  <span className="rf-arch-stat-num" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>5%</span>
+                  <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontSize: '0.9375rem', fontWeight: 600 }}>per funded milestone</span>
+                </div>
+                <p style={{ fontSize: '0.875rem', color: isDark ? '#CBD5E1' : '#475569', marginTop: '0.75rem', lineHeight: 1.55 }}>
+                  Covers 100% Trust Vault custody, dispute mediation, and multi-currency cross-border settlement.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '2rem', flex: 1 }}>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span><strong>Free</strong> job posting & talent search</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>100% money-back Trust Vault protection</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>Cross-border VAT & compliance receipts</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>Encrypted in-app workspace collaboration</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => onNavigate('/marketplace')}
+                className="rf-arch-cta-btn"
+                style={{
+                  background: isDark ? 'rgba(255,255,255,0.08)' : '#F1F5F9',
+                  color: isDark ? '#FFFFFF' : '#122B1A',
+                  border: isDark ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(18, 43, 26, 0.15)'
+                }}
+              >
+                <span>Browse African Talent</span>
+                <ArrowRight size={16} />
+              </button>
+            </div>
+
+            {/* 2. Scouter / Referrer (Highlight Card) */}
+            <div
+              className="rf-arch-card rf-arch-card-popular"
+              style={{
+                backgroundColor: isDark ? '#0D2919' : '#FFFFFF',
+                border: isDark ? '2px solid var(--rf-leaf-green)' : '2px solid #16A34A',
+                boxShadow: isDark
+                  ? '0 0 30px rgba(102, 187, 42, 0.25), 0 12px 30px rgba(0,0,0,0.5)'
+                  : '0 10px 35px rgba(22, 163, 74, 0.15), 0 2px 8px rgba(0,0,0,0.04)'
+              }}
+            >
+              <div className="rf-arch-card-badge">
+                POPULAR ARCHITECTURE
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', letterSpacing: '0.05em' }}>
+                    FOR SCOUTERS & REFERRERS
+                  </span>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, color: isDark ? '#FFFFFF' : '#122B1A', marginTop: '0.25rem' }}>
+                    Refer & Earn
+                  </h3>
+                </div>
+                <div className="rf-arch-card-icon" style={{ background: isDark ? 'rgba(102, 187, 42, 0.25)' : 'rgba(22, 163, 74, 0.15)', color: isDark ? "var(--rf-leaf-green)" : "#16A34A" }}>
+                  <Zap size={22} />
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '1.75rem', paddingBottom: '1.75rem', borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                  <span className="rf-arch-stat-num" style={{ color: isDark ? 'var(--rf-leaf-green)' : '#15803D' }}>0%</span>
+                  <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontSize: '0.9375rem', fontWeight: 600 }}>Fee forever (on &le;10% talent rates)</span>
+                </div>
+                <p style={{ fontSize: '0.875rem', color: isDark ? '#CBD5E1' : '#475569', marginTop: '0.75rem', lineHeight: 1.55 }}>
+                  Keep <strong>100% of your proceeds forever</strong> on talent referral rates of 10% and below.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '2rem', flex: 1 }}>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span><strong>0% platform fee forever</strong> on &le;10% referral rates</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span><strong>2% Airfee only on &gt;10% rates</strong> (waived with Airfee Token)</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span><strong>Exclusive Client Onboarding Links:</strong> Earn free Airfee Tokens</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>Automatic instant wallet split on milestone approval</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>M-Pesa, MoMo, Local Bank & Stablecoin withdrawal</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => onNavigate('/dashboard/scout')}
+                className="rf-arch-cta-btn"
+                style={{
+                  background: 'var(--rf-leaf-green)',
+                  color: '#06150D',
+                  boxShadow: '0 4px 18px rgba(102, 187, 42, 0.45)'
+                }}
+              >
+                <span>Start Earning as Scout</span>
+                <ArrowRight size={16} />
+              </button>
+            </div>
+
+            {/* 3. Talent Card */}
+            <div
+              className="rf-arch-card"
+              style={{
+                backgroundColor: isDark ? '#0D2316' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.22)' : '1px solid rgba(18, 43, 26, 0.12)',
+                boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.04)'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                <div>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: isDark ? 'var(--rf-leaf-green)' : '#16A34A', letterSpacing: '0.05em' }}>
+                    FOR FREELANCERS & TALENT
+                  </span>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, color: isDark ? '#FFFFFF' : '#122B1A', marginTop: '0.25rem' }}>
+                    Deliver & Grow
+                  </h3>
+                </div>
+                <div className="rf-arch-card-icon" style={{ background: isDark ? 'rgba(102, 187, 42, 0.15)' : 'rgba(22, 163, 74, 0.1)', color: isDark ? "var(--rf-leaf-green)" : "#16A34A" }}>
+                  <Users size={22} />
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '1.75rem', paddingBottom: '1.75rem', borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                  <span className="rf-arch-stat-num" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>10%</span>
+                  <span style={{ color: isDark ? '#94A3B8' : '#64748B', fontSize: '0.9375rem', fontWeight: 600 }}>Scout referral commission</span>
+                </div>
+                <p style={{ fontSize: '0.875rem', color: isDark ? '#CBD5E1' : '#475569', marginTop: '0.75rem', lineHeight: 1.55 }}>
+                  Paid to the scout who brought you the client. Deducted only upon successful project payout.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '2rem', flex: 1 }}>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span><strong>Zero subscription</strong> or bidding tokens</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>Guaranteed payment once deliverables approved</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>Multi-currency payout directly to local bank / MoMo</span>
+                </div>
+                <div className="rf-arch-feature-row" style={{ color: isDark ? '#FFFFFF' : '#122B1A' }}>
+                  <CheckCircle2 size={16} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <span>Verified pan-African reputation badge</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => onNavigate('/dashboard/talent')}
+                className="rf-arch-cta-btn"
+                style={{
+                  background: isDark ? 'rgba(255,255,255,0.08)' : '#F1F5F9',
+                  color: isDark ? '#FFFFFF' : '#122B1A',
+                  border: isDark ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(18, 43, 26, 0.15)'
+                }}
+              >
+                <span>Create Service Package</span>
+                <ArrowRight size={16} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* =========================================================================
           REFEIR PRO SUPERPOWERS SUBSCRIPTION TIERS
           ========================================================================= */}
