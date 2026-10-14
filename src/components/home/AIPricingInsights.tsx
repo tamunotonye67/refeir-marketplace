@@ -60,7 +60,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            minHeight: '230px'
+            minHeight: '260px'
           }}
         >
           {/* Geometric Vector Harmonic Resonance SVG Background */}
@@ -192,12 +192,12 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            minHeight: '230px'
+            minHeight: '260px'
           }}
         >
           {/* Animated Live Moving Market Curve Graphic */}
-          <div style={{ position: 'relative', width: '100%', maxWidth: '420px', height: '170px' }}>
-            <svg viewBox="-5 0 435 160" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style={{ overflow: 'hidden' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '440px', height: '240px' }}>
+            <svg viewBox="-5 0 435 230" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style={{ overflow: 'hidden' }}>
               <defs>
                 <linearGradient id="rfCurveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stopColor="#A3E635" stopOpacity="0.45" />
@@ -212,39 +212,40 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
               </defs>
 
               {/* Level Grid Reference Lines */}
-              <line x1="20" y1="30" x2="400" y2="30" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="4 4" />
-              <line x1="20" y1="70" x2="400" y2="70" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="4 4" />
-              <line x1="20" y1="110" x2="400" y2="110" stroke="rgba(255, 255, 255, 0.16)" strokeWidth="1" />
+              <line x1="20" y1="38" x2="400" y2="38" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="4 4" />
+              <line x1="20" y1="84" x2="400" y2="84" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="4 4" />
+              <line x1="20" y1="130" x2="400" y2="130" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="4 4" />
+              <line x1="20" y1="176" x2="400" y2="176" stroke="rgba(255, 255, 255, 0.18)" strokeWidth="1" />
 
               {/* Vertical Column Alignment Guidelines */}
-              <line x1="80" y1="30" x2="80" y2="110" stroke="rgba(255, 255, 255, 0.06)" strokeDasharray="2 3" />
-              <line x1="210" y1="30" x2="210" y2="110" stroke="rgba(163, 230, 53, 0.2)" strokeDasharray="2 3" />
-              <line x1="340" y1="30" x2="340" y2="110" stroke="rgba(255, 255, 255, 0.06)" strokeDasharray="2 3" />
+              <line x1="80" y1="38" x2="80" y2="176" stroke="rgba(255, 255, 255, 0.06)" strokeDasharray="2 3" />
+              <line x1="210" y1="38" x2="210" y2="176" stroke="rgba(163, 230, 53, 0.2)" strokeDasharray="2 3" />
+              <line x1="340" y1="38" x2="340" y2="176" stroke="rgba(255, 255, 255, 0.06)" strokeDasharray="2 3" />
 
               {/* Level Global Agency Ceiling Benchmark (Animated Dashed Reference Line) */}
               <line
                 x1="20"
-                y1="30"
+                y1="38"
                 x2="400"
-                y2="30"
+                y2="38"
                 stroke="rgba(255, 255, 255, 0.35)"
                 strokeWidth="1.5"
                 className="rf-agency-dash"
               />
-              <text x="400" y="21" textAnchor="end" fill="rgba(255, 255, 255, 0.65)" fontSize="10" fontWeight="600">
+              <text x="400" y="26" textAnchor="end" fill="rgba(255, 255, 255, 0.65)" fontSize="10.5" fontWeight="600">
                 Global Agencies: $75/hr+
               </text>
 
               {/* Animated Area Gradient Fill Under Curve */}
               <path
-                d="M 30 110 L 30 90 C 105 88, 160 66, 210 60 C 260 54, 315 48, 390 44 L 390 110 Z"
+                d="M 30 176 L 30 154 C 100 150, 155 116, 210 104 C 265 92, 315 78, 390 66 L 390 176 Z"
                 fill="url(#rfCurveGrad)"
                 className="rf-graph-area-glow"
               />
 
               {/* Base Smooth Green Curve */}
               <path
-                d="M 30 90 C 105 88, 160 66, 210 60 C 260 54, 315 48, 390 44"
+                d="M 30 154 C 100 150, 155 116, 210 104 C 265 92, 315 78, 390 66"
                 fill="none"
                 stroke="rgba(163, 230, 53, 0.45)"
                 strokeWidth="3"
@@ -253,7 +254,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
 
               {/* Animated Flowing Laser Pulse Curve Line */}
               <path
-                d="M 30 90 C 105 88, 160 66, 210 60 C 260 54, 315 48, 390 44"
+                d="M 30 154 C 100 150, 155 116, 210 104 C 265 92, 315 78, 390 66"
                 fill="none"
                 stroke="#D4F933"
                 strokeWidth="3"
@@ -263,42 +264,42 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
 
               {/* Sweeping Scanner Vertical Beam */}
               <g className="rf-graph-scanner-beam">
-                <line x1="0" y1="20" x2="0" y2="110" stroke="url(#rfScanBeamGrad)" strokeWidth="2.5" />
+                <line x1="0" y1="26" x2="0" y2="176" stroke="url(#rfScanBeamGrad)" strokeWidth="2.5" />
               </g>
 
               {/* Data Points (Junior, Senior, Principal) */}
-              <circle cx="80" cy="84" r="4.5" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="2" />
-              <circle cx="340" cy="48" r="4.5" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="2" />
+              <circle cx="80" cy="146" r="4.5" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="2" />
+              <circle cx="340" cy="72" r="4.5" fill="#66BB2A" stroke="#FFFFFF" strokeWidth="2" />
 
               {/* Active Center Node Radar Ping Rings */}
-              <circle cx="210" cy="60" r="6" fill="none" stroke="#D4F933" className="rf-node-ping-ring" />
-              <circle cx="210" cy="60" r="6" fill="none" stroke="#A3E635" className="rf-node-ping-ring-delayed" />
-              <circle cx="210" cy="60" r="6.5" fill="#D4F933" stroke="#FFFFFF" strokeWidth="2.5" />
+              <circle cx="210" cy="104" r="6" fill="none" stroke="#D4F933" className="rf-node-ping-ring" />
+              <circle cx="210" cy="104" r="6" fill="none" stroke="#A3E635" className="rf-node-ping-ring-delayed" />
+              <circle cx="210" cy="104" r="6.5" fill="#D4F933" stroke="#FFFFFF" strokeWidth="2.5" />
 
               {/* Prominent Live Rate Badge Above Center Node */}
               <rect
                 x="150"
-                y="24"
+                y="58"
                 width="120"
-                height="26"
-                rx="13"
+                height="28"
+                rx="14"
                 fill="#0E2316"
                 stroke="#66BB2A"
                 strokeWidth="1.5"
               />
-              <circle cx="165" cy="37" r="3" fill="#A3E635" />
-              <text x="215" y="41" textAnchor="middle" fill="#FFFFFF" fontSize="12" fontWeight="800" letterSpacing="0.02em">
+              <circle cx="165" cy="72" r="3" fill="#A3E635" />
+              <text x="215" y="76" textAnchor="middle" fill="#FFFFFF" fontSize="12" fontWeight="800" letterSpacing="0.02em">
                 Refeir $32/hr
               </text>
 
               {/* Symmetrically Centered Tier Labels */}
-              <text x="80" y="136" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="11" fontWeight="500">
+              <text x="80" y="206" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="11" fontWeight="500">
                 Junior Talent
               </text>
-              <text x="210" y="136" textAnchor="middle" fill="#A3E635" fontSize="12" fontWeight="700">
+              <text x="210" y="206" textAnchor="middle" fill="#A3E635" fontSize="12" fontWeight="700">
                 Senior & Lead Tier
               </text>
-              <text x="340" y="136" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="11" fontWeight="500">
+              <text x="340" y="206" textAnchor="middle" fill="rgba(255, 255, 255, 0.6)" fontSize="11" fontWeight="500">
                 Principal Specialist
               </text>
             </svg>
@@ -317,7 +318,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            minHeight: '230px'
+            minHeight: '260px'
           }}
         >
           {/* Prominent Large Animated Vector Padlock Graphic */}
@@ -588,7 +589,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '320px',
+          minHeight: '330px',
           width: '100%',
           paddingLeft: 'clamp(1.5rem, 3vw, 2.75rem)'
         }}
@@ -598,7 +599,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             position: 'relative',
             width: '100%',
             maxWidth: '440px',
-            minHeight: '260px',
+            minHeight: '270px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

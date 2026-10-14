@@ -8516,7 +8516,7 @@
 
   .rf-ai-pricing-right-col {
     padding-left: 0 !important;
-    min-height: 220px !important;
+    min-height: 250px !important;
     width: 100% !important;
     overflow: hidden !important;
   }
@@ -8557,7 +8557,7 @@
   }
 
   .rf-ai-pricing-right-col {
-    min-height: 190px !important;
+    min-height: 230px !important;
     padding-left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -8896,12 +8896,12 @@ textarea.rf-ai-pricing-input:hover,
 
 .rf-node-ping-ring {
   animation: rfNodeRadarPulse 2.2s ease-out infinite;
-  transform-origin: 210px 60px;
+  transform-origin: 210px 104px;
 }
 
 .rf-node-ping-ring-delayed {
   animation: rfNodeRadarPulse 2.2s ease-out 1.1s infinite;
-  transform-origin: 210px 60px;
+  transform-origin: 210px 104px;
 }
 
 .rf-graph-scanner-beam {
