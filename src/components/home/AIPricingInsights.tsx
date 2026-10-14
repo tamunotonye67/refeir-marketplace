@@ -24,7 +24,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
   useEffect(() => {
     const timer = setInterval(() => {
       setStageState(state => ({
-        current: (state.current + 1) % 3,
+        current: (state.current + 1) % 4,
         prev: state.current
       }));
     }, 3200);
@@ -195,6 +195,296 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             minHeight: '260px'
           }}
         >
+          {/* Animated Budget Vault Bag with Coins and Fluttering Paper Bills */}
+          <div style={{ position: 'relative', width: '100%', maxWidth: '360px', height: '220px' }}>
+            <svg
+              viewBox="0 0 360 220"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="xMidYMid meet"
+              style={{ overflow: 'visible' }}
+            >
+              <defs>
+                <radialGradient id="rfBagBodyGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#1E5230" />
+                  <stop offset="60%" stopColor="#11331D" />
+                  <stop offset="100%" stopColor="#08180E" />
+                </radialGradient>
+                <linearGradient id="rfCoinGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FEF08A" />
+                  <stop offset="45%" stopColor="#F59E0B" />
+                  <stop offset="100%" stopColor="#D97706" />
+                </linearGradient>
+                <linearGradient id="rfCoinEmeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#D4F933" />
+                  <stop offset="50%" stopColor="#A3E635" />
+                  <stop offset="100%" stopColor="#15803D" />
+                </linearGradient>
+                <linearGradient id="rfBillGradGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#18462B" />
+                  <stop offset="50%" stopColor="#1F5D38" />
+                  <stop offset="100%" stopColor="#10321F" />
+                </linearGradient>
+                <linearGradient id="rfBillGradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#3B2E0A" />
+                  <stop offset="50%" stopColor="#5E4912" />
+                  <stop offset="100%" stopColor="#2A1F06" />
+                </linearGradient>
+              </defs>
+
+              {/* Concentric Telemetry Background Orbits */}
+              <circle
+                cx="180"
+                cy="145"
+                r="88"
+                fill="none"
+                stroke="rgba(102, 187, 42, 0.16)"
+                strokeWidth="1"
+                strokeDasharray="6 6"
+                className="rf-budget-radar-ring"
+              />
+              <circle
+                cx="180"
+                cy="145"
+                r="64"
+                fill="none"
+                stroke="rgba(163, 230, 53, 0.14)"
+                strokeWidth="1"
+                strokeDasharray="4 4"
+                className="rf-budget-radar-ring-rev"
+              />
+
+              {/* Upper Floating Target Budget Pill */}
+              <g transform="translate(180, 24)">
+                <rect
+                  x="-96"
+                  y="-14"
+                  width="192"
+                  height="28"
+                  rx="14"
+                  fill="#0D2316"
+                  stroke="rgba(163, 230, 53, 0.45)"
+                  strokeWidth="1.2"
+                />
+                <circle cx="-76" cy="0" r="3.5" fill="#A3E635" className="rf-budget-dot-pulse" />
+                <text
+                  x="-62"
+                  y="4.5"
+                  fill="#FFFFFF"
+                  fontSize="11"
+                  fontWeight="700"
+                  letterSpacing="0.02em"
+                >
+                  Target Budget: $1,200 – $4,500
+                </text>
+              </g>
+
+              {/* Animated Fluttering Paper Bill 1 (Green Note) */}
+              <g className="rf-bill-flutter-1">
+                <rect
+                  x="-23"
+                  y="-12"
+                  width="46"
+                  height="24"
+                  rx="3.5"
+                  fill="url(#rfBillGradGreen)"
+                  stroke="#A3E635"
+                  strokeWidth="1.2"
+                />
+                <rect
+                  x="-19.5"
+                  y="-9.5"
+                  width="39"
+                  height="19"
+                  rx="2"
+                  fill="none"
+                  stroke="rgba(163, 230, 53, 0.45)"
+                  strokeWidth="0.8"
+                  strokeDasharray="3 2"
+                />
+                <circle cx="0" cy="0" r="6" fill="rgba(163, 230, 53, 0.2)" stroke="#A3E635" strokeWidth="0.8" />
+                <text x="0" y="3" textAnchor="middle" fill="#FFFFFF" fontSize="8" fontWeight="800">
+                  100
+                </text>
+              </g>
+
+              {/* Animated Fluttering Paper Bill 2 (Gold Accent Note) */}
+              <g className="rf-bill-flutter-2">
+                <rect
+                  x="-21"
+                  y="-11"
+                  width="42"
+                  height="22"
+                  rx="3.5"
+                  fill="url(#rfBillGradGold)"
+                  stroke="#F59E0B"
+                  strokeWidth="1.2"
+                />
+                <rect
+                  x="-18"
+                  y="-8.5"
+                  width="36"
+                  height="17"
+                  rx="2"
+                  fill="none"
+                  stroke="rgba(245, 158, 11, 0.45)"
+                  strokeWidth="0.8"
+                  strokeDasharray="3 2"
+                />
+                <circle cx="0" cy="0" r="5.5" fill="rgba(245, 158, 11, 0.2)" stroke="#F59E0B" strokeWidth="0.8" />
+                <text x="0" y="3" textAnchor="middle" fill="#FEF08A" fontSize="7.5" fontWeight="800">
+                  50
+                </text>
+              </g>
+
+              {/* Animated Coins Falling into the Bag Mouth */}
+              {/* Coin 1: Gold Dollar Coin */}
+              <g className="rf-coin-falling-1">
+                <circle cx="0" cy="0" r="10.5" fill="url(#rfCoinGoldGrad)" stroke="#FEF08A" strokeWidth="1.2" />
+                <circle cx="0" cy="0" r="8" fill="none" stroke="rgba(180, 83, 9, 0.45)" strokeWidth="0.8" />
+                <text x="0" y="3.8" textAnchor="middle" fill="#78350F" fontSize="9.5" fontWeight="900">
+                  $
+                </text>
+              </g>
+
+              {/* Coin 2: Emerald Naira Coin */}
+              <g className="rf-coin-falling-2">
+                <circle cx="0" cy="0" r="9.5" fill="url(#rfCoinEmeraldGrad)" stroke="#D4F933" strokeWidth="1.2" />
+                <circle cx="0" cy="0" r="7.2" fill="none" stroke="rgba(20, 83, 45, 0.55)" strokeWidth="0.8" />
+                <text x="0" y="3.5" textAnchor="middle" fill="#14532D" fontSize="9" fontWeight="900">
+                  ₦
+                </text>
+              </g>
+
+              {/* Coin 3: Gold Cedi / Franc Coin */}
+              <g className="rf-coin-falling-3">
+                <circle cx="0" cy="0" r="8.8" fill="url(#rfCoinGoldGrad)" stroke="#FEF08A" strokeWidth="1.2" />
+                <circle cx="0" cy="0" r="6.8" fill="none" stroke="rgba(180, 83, 9, 0.45)" strokeWidth="0.8" />
+                <text x="0" y="3.2" textAnchor="middle" fill="#78350F" fontSize="8.2" fontWeight="900">
+                  ₵
+                </text>
+              </g>
+
+              {/* Bag Mouth Glowing Entry Ripple */}
+              <ellipse
+                cx="180"
+                cy="116"
+                rx="22"
+                ry="7"
+                fill="none"
+                stroke="#D4F933"
+                strokeWidth="1.8"
+                className="rf-budget-entry-ripple"
+              />
+
+              {/* The Money Bag Group with Elastic Bounce / Breathing Pulse */}
+              <g className="rf-budget-bag-group">
+                {/* Ruffled Fabric Top Opening */}
+                <path
+                  d="M 158 98 Q 164 91 170 97 Q 175 90 180 97 Q 185 90 190 97 Q 196 91 202 98 L 197 114 Q 180 117 163 114 Z"
+                  fill="#1E5230"
+                  stroke="rgba(163, 230, 53, 0.85)"
+                  strokeWidth="1.4"
+                />
+
+                {/* Main Curved Pouch Body */}
+                <path
+                  d="M 163 114 C 143 118, 122 138, 126 166 C 128 187, 149 198, 180 198 C 211 198, 232 187, 234 166 C 238 138, 217 118, 197 114 Z"
+                  fill="url(#rfBagBodyGrad)"
+                  stroke="rgba(102, 187, 42, 0.9)"
+                  strokeWidth="2"
+                />
+
+                {/* Bag Interior Curvature Highlight */}
+                <path
+                  d="M 142 144 C 137 162, 147 182, 170 190"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.22)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+
+                {/* Gold/Lime Cinching Cord at Neck */}
+                <rect x="160" y="111" width="40" height="5.5" rx="2.75" fill="#D4F933" />
+
+                {/* Tied Cord Knot and Tassels */}
+                <path
+                  d="M 177 116 Q 173 126 169 133"
+                  fill="none"
+                  stroke="#D4F933"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 183 116 Q 187 127 191 135"
+                  fill="none"
+                  stroke="#D4F933"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                />
+                <circle cx="169" cy="134" r="2.8" fill="#F59E0B" />
+                <circle cx="191" cy="136" r="2.8" fill="#F59E0B" />
+
+                {/* Center Fintech Medallion on Bag */}
+                <circle
+                  cx="180"
+                  cy="158"
+                  r="17"
+                  fill="#0A1C11"
+                  stroke="#D4F933"
+                  strokeWidth="1.8"
+                />
+                <circle
+                  cx="180"
+                  cy="158"
+                  r="13.5"
+                  fill="none"
+                  stroke="rgba(163, 230, 53, 0.4)"
+                  strokeWidth="0.8"
+                />
+                <text
+                  x="180"
+                  y="164.5"
+                  textAnchor="middle"
+                  fill="#D4F933"
+                  fontSize="18"
+                  fontWeight="900"
+                  letterSpacing="-0.02em"
+                >
+                  $
+                </text>
+              </g>
+            </svg>
+          </div>
+
+          <span
+            style={{
+              marginTop: '0.65rem',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              color: 'rgba(235, 245, 238, 0.95)',
+              letterSpacing: '0.02em'
+            }}
+          >
+            Dynamic Budget Sizing & Milestone Allocation
+          </span>
+        </div>
+      );
+    }
+
+    if (stage === 2) {
+      return (
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '260px'
+          }}
+        >
           {/* Animated Live Moving Market Curve Graphic */}
           <div style={{ position: 'relative', width: '100%', maxWidth: '440px', height: '240px' }}>
             <svg viewBox="-5 0 435 230" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style={{ overflow: 'hidden' }}>
@@ -308,7 +598,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
       );
     }
 
-    if (stage === 2) {
+    if (stage === 3) {
       return (
         <div
           style={{
