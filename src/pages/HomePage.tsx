@@ -2224,7 +2224,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               margin: 0
             }}
           >
-            TRUSTED BY TOP TEAMS ACROSS AFRICA
+            TRUSTED BY TOP TEAMS
           </p>
         </div>
 
