@@ -599,19 +599,30 @@ export const HomePage: React.FC<HomePageProps> = ({
       )
     },
     {
-      name: 'OPay',
+      name: 'BarterBay',
       logo: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="8.5" stroke="#FFFFFF" strokeWidth="3" />
-          <circle cx="12" cy="12" r="3.5" fill="#FFFFFF" />
+          <path d="M5.5 4H13C16.8 4 19.5 6.5 19.5 10C19.5 11 19.2 11.8 18.5 12.5H12L9.5 8L5.5 4Z" fill="#FFFFFF" />
+          <path d="M5.5 20H13.5C17.2 20 20 17.5 20 14C20 13 19.6 12.2 18.8 11.5H12.5L9.5 16L5.5 20Z" fill="#FFFFFF" fillOpacity="0.5" />
+          <path d="M3 10.5H15M15 10.5L12 8" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M15 13.5H3M3 13.5L6 16" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )
     },
     {
-      name: 'Kuda Bank',
+      name: 'Betamind',
       logo: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M6 4V20M6 12L16 4M10 12L17 20" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          <defs>
+            <mask id="rf-betamind-mask">
+              <rect width="24" height="24" fill="white" />
+              <path d="M4 14.5C8 12.5 16 11.5 20 9.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" />
+            </mask>
+          </defs>
+          <g transform="rotate(-30 12 12)" mask="url(#rf-betamind-mask)">
+            <circle cx="8.5" cy="12" r="5.5" fill="#FFFFFF" />
+            <circle cx="15.5" cy="12" r="5.5" fill="#FFFFFF" fillOpacity="0.8" />
+          </g>
         </svg>
       )
     },
