@@ -263,23 +263,24 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
               {/* Top Target Budget Pill */}
               <g transform="translate(160, 24)">
                 <rect
-                  x="-92"
-                  y="-14"
-                  width="184"
-                  height="28"
-                  rx="14"
+                  x="-122"
+                  y="-15"
+                  width="244"
+                  height="30"
+                  rx="15"
                   fill="#0D2316"
                   stroke="rgba(102, 187, 42, 0.45)"
                   strokeWidth="1.2"
                 />
-                <circle cx="-72" cy="0" r="3.5" fill="#A3E635" className="rf-budget-dot-pulse" />
+                <circle cx="-96" cy="0" r="3.5" fill="#A3E635" className="rf-budget-dot-pulse" />
                 <text
-                  x="-58"
-                  y="4.5"
+                  x="-82"
+                  y="0.5"
+                  dominantBaseline="central"
                   fill="#FFFFFF"
-                  fontSize="11"
+                  fontSize="10.5"
                   fontWeight="700"
-                  letterSpacing="0.02em"
+                  letterSpacing="0.01em"
                 >
                   Target Budget: $1,200 – $4,500
                 </text>
