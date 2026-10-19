@@ -1776,14 +1776,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                   : '1px solid rgba(102, 187, 42, 0.25)',
               borderBottom: '1px solid rgba(18, 43, 26, 0.12)',
               borderRadius: isMobile ? '0' : '16px',
-              padding: isMobile ? (isScrolled ? '0.45rem 0.85rem' : '0.75rem 1rem') : '1rem 1.75rem',
+              padding: isMobile ? '0.45rem 0.85rem' : '1rem 1.75rem',
               marginBottom: isMobile ? '0' : '1rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              gap: isMobile && isScrolled ? '0.5rem' : '1.25rem',
-              boxShadow: isMobile ? '0 4px 16px rgba(0, 0, 0, 0.06)' : '0 4px 20px rgba(18, 43, 26, 0.05)',
-              flexWrap: isMobile && isScrolled ? 'nowrap' : 'wrap',
+              gap: isMobile ? '0.5rem' : '1.25rem',
+              boxShadow: isMobile ? '0 4px 16px rgba(0, 0, 0, 0.08)' : '0 4px 20px rgba(18, 43, 26, 0.05)',
+              flexWrap: isMobile ? 'nowrap' : 'wrap',
               width: '100%',
               boxSizing: 'border-box'
             }}
@@ -1794,22 +1794,26 @@ export const HomePage: React.FC<HomePageProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.625rem',
-                flex: 1,
-                minWidth: isMobile && isScrolled ? 0 : '280px'
+                flex: isMobile ? '1 1 auto' : 1,
+                minWidth: 0,
+                overflow: 'hidden'
               }}
             >
               <span
                 className="rf-hero-announcement-text"
                 style={{
                   fontFamily: 'var(--rf-font-display)',
-                  fontSize: 'clamp(0.85rem, 1.1vw, 0.95rem)',
+                  fontSize: isMobile ? 'clamp(0.70rem, 2.7vw, 0.82rem)' : 'clamp(0.85rem, 1.1vw, 0.95rem)',
                   fontWeight: 600,
                   color: '#122B1A',
                   letterSpacing: '-0.01em',
-                  lineHeight: 1.35
+                  lineHeight: 1.2,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis'
                 }}
               >
-                Get from <span style={{ fontWeight: 700 }}>10%</span> just by Referring Talents.
+                Get from <span style={{ fontWeight: 700, color: 'inherit' }}>10%</span> just by Referring Talents.
               </span>
             </div>
 
@@ -1826,10 +1830,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                 borderBottom: '2px solid #66BB2A',
                 padding: '0.25rem 0',
                 paddingBottom: '2px',
-                fontSize: '0.85rem',
+                fontSize: isMobile ? 'clamp(0.70rem, 2.5vw, 0.80rem)' : '0.85rem',
                 fontWeight: 600,
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
+                flexShrink: 0,
                 transition: 'all 0.15s ease'
               }}
               onMouseEnter={e => {
@@ -1845,6 +1850,15 @@ export const HomePage: React.FC<HomePageProps> = ({
               <ArrowRight size={14} color="#66BB2A" />
             </button>
           </div>
+
+          {/* Spacer on mobile so video card starts right below the fixed announcement bar */}
+          {isMobile && (
+            <div
+              className="rf-hero-announcement-spacer"
+              style={{ height: '34px', width: '100%', flexShrink: 0 }}
+              aria-hidden="true"
+            />
+          )}
 
           <div
             className="rf-hero-video-card"
