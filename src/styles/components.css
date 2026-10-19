@@ -8924,34 +8924,28 @@ textarea.rf-ai-pricing-input:hover,
   0%, 100% {
     transform: scale(1);
   }
-  24% {
-    transform: scale(1.025, 0.975);
-  }
-  48% {
-    transform: scale(0.985, 1.015);
-  }
-  72% {
-    transform: scale(1.015, 0.99);
+  50% {
+    transform: scale(1.025);
   }
 }
 
 @keyframes rfBudgetBagGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(102, 187, 42, 0.35));
+    filter: drop-shadow(0 0 4px rgba(102, 187, 42, 0.3));
   }
   50% {
-    filter: drop-shadow(0 0 16px rgba(163, 230, 53, 0.65));
+    filter: drop-shadow(0 0 14px rgba(163, 230, 53, 0.7));
   }
 }
 
 @keyframes rfEntryRipplePulse {
   0% {
     transform: scale(0.7);
-    opacity: 0.8;
+    opacity: 0.9;
   }
   50% {
     transform: scale(1.25);
-    opacity: 0.35;
+    opacity: 0.4;
   }
   100% {
     transform: scale(1.6);
@@ -8961,116 +8955,116 @@ textarea.rf-ai-pricing-input:hover,
 
 @keyframes rfCoinArc1 {
   0% {
-    transform: translate(105px, 25px) rotate(0deg) scale(0.65);
+    transform: translate(72px, 24px) rotate(0deg) scale(0.65);
     opacity: 0;
   }
-  12% {
+  14% {
     opacity: 1;
-    transform: translate(118px, 42px) rotate(45deg) scale(0.95);
+    transform: translate(92px, 36px) rotate(45deg) scale(0.95);
   }
-  45% {
+  48% {
     opacity: 1;
-    transform: translate(150px, 80px) rotate(180deg) scale(0.85);
+    transform: translate(122px, 54px) rotate(180deg) scale(0.85);
   }
-  72% {
+  75% {
     opacity: 0.9;
-    transform: translate(175px, 114px) rotate(340deg) scale(0.45);
+    transform: translate(154px, 74px) rotate(340deg) scale(0.45);
   }
-  88%, 100% {
+  90%, 100% {
     opacity: 0;
-    transform: translate(178px, 122px) rotate(360deg) scale(0.15);
+    transform: translate(157px, 78px) rotate(360deg) scale(0.15);
   }
 }
 
 @keyframes rfCoinArc2 {
   0% {
-    transform: translate(255px, 22px) rotate(0deg) scale(0.65);
+    transform: translate(248px, 24px) rotate(0deg) scale(0.65);
     opacity: 0;
   }
   14% {
     opacity: 1;
-    transform: translate(240px, 40px) rotate(-40deg) scale(0.95);
+    transform: translate(228px, 36px) rotate(-45deg) scale(0.95);
   }
   48% {
     opacity: 1;
-    transform: translate(210px, 78px) rotate(-170deg) scale(0.85);
+    transform: translate(198px, 54px) rotate(-180deg) scale(0.85);
   }
-  74% {
+  75% {
     opacity: 0.9;
-    transform: translate(185px, 114px) rotate(-320deg) scale(0.45);
+    transform: translate(166px, 74px) rotate(-340deg) scale(0.45);
   }
   90%, 100% {
     opacity: 0;
-    transform: translate(182px, 122px) rotate(-360deg) scale(0.15);
+    transform: translate(163px, 78px) rotate(-360deg) scale(0.15);
   }
 }
 
 @keyframes rfCoinArc3 {
   0% {
-    transform: translate(180px, 10px) rotate(0deg) scale(0.6);
+    transform: translate(160px, 15px) rotate(0deg) scale(0.6);
     opacity: 0;
   }
-  15% {
+  16% {
     opacity: 1;
-    transform: translate(180px, 35px) rotate(30deg) scale(0.95);
+    transform: translate(160px, 32px) rotate(25deg) scale(0.95);
   }
   50% {
     opacity: 1;
-    transform: translate(180px, 75px) rotate(120deg) scale(0.8);
+    transform: translate(160px, 52px) rotate(90deg) scale(0.8);
   }
-  75% {
+  76% {
     opacity: 0.9;
-    transform: translate(180px, 112px) rotate(200deg) scale(0.4);
+    transform: translate(160px, 72px) rotate(160deg) scale(0.4);
   }
   90%, 100% {
     opacity: 0;
-    transform: translate(180px, 120px) rotate(240deg) scale(0.15);
+    transform: translate(160px, 76px) rotate(180deg) scale(0.15);
   }
 }
 
 @keyframes rfBillDrift1 {
   0% {
-    transform: translate(55px, 45px) rotate(-22deg) scale(0.75);
+    transform: translate(45px, 36px) rotate(-18deg) scale(0.75);
     opacity: 0;
   }
   16% {
     opacity: 0.95;
-    transform: translate(85px, 62px) rotate(-8deg) scale(1);
+    transform: translate(75px, 48px) rotate(-6deg) scale(1);
   }
   48% {
     opacity: 0.95;
-    transform: translate(130px, 86px) rotate(-24deg) scale(0.9);
+    transform: translate(115px, 60px) rotate(-16deg) scale(0.85);
   }
   76% {
     opacity: 0.8;
-    transform: translate(168px, 112px) rotate(-6deg) scale(0.45);
+    transform: translate(148px, 73px) rotate(-4deg) scale(0.45);
   }
   90%, 100% {
     opacity: 0;
-    transform: translate(175px, 120px) rotate(0deg) scale(0.15);
+    transform: translate(154px, 76px) rotate(0deg) scale(0.15);
   }
 }
 
 @keyframes rfBillDrift2 {
   0% {
-    transform: translate(305px, 42px) rotate(24deg) scale(0.75);
+    transform: translate(275px, 36px) rotate(18deg) scale(0.75);
     opacity: 0;
   }
   16% {
     opacity: 0.95;
-    transform: translate(275px, 60px) rotate(10deg) scale(1);
+    transform: translate(245px, 48px) rotate(6deg) scale(1);
   }
-  50% {
+  48% {
     opacity: 0.95;
-    transform: translate(230px, 85px) rotate(26deg) scale(0.9);
+    transform: translate(205px, 60px) rotate(16deg) scale(0.85);
   }
   76% {
     opacity: 0.8;
-    transform: translate(192px, 112px) rotate(8deg) scale(0.45);
+    transform: translate(172px, 73px) rotate(4deg) scale(0.45);
   }
   90%, 100% {
     opacity: 0;
-    transform: translate(185px, 120px) rotate(0deg) scale(0.15);
+    transform: translate(166px, 76px) rotate(0deg) scale(0.15);
   }
 }
 
@@ -9105,13 +9099,13 @@ textarea.rf-ai-pricing-input:hover,
 }
 
 .rf-budget-bag-group {
-  animation: rfBudgetBagPulse 2.8s ease-in-out infinite, rfBudgetBagGlow 2.8s ease-in-out infinite;
-  transform-origin: 180px 155px;
+  animation: rfBudgetBagPulse 3.8s ease-in-out infinite, rfBudgetBagGlow 3.8s ease-in-out infinite;
+  transform-origin: 160px 122px;
 }
 
 .rf-budget-entry-ripple {
   animation: rfEntryRipplePulse 1.4s ease-out infinite;
-  transform-origin: 180px 115px;
+  transform-origin: 160px 76px;
 }
 
 .rf-coin-falling-1 {
@@ -9141,18 +9135,19 @@ textarea.rf-ai-pricing-input:hover,
 
 .rf-budget-radar-ring {
   animation: rfBudgetRadarSpin 24s linear infinite;
-  transform-origin: 180px 145px;
+  transform-origin: 160px 115px;
 }
 
 .rf-budget-radar-ring-rev {
   animation: rfBudgetRadarSpinRev 18s linear infinite;
-  transform-origin: 180px 145px;
+  transform-origin: 160px 115px;
 }
 
 .rf-budget-dot-pulse {
   animation: rfBudgetDotPulse 1.8s ease-in-out infinite;
   transform-origin: center center;
 }
+
 
 /* ==========================================================================
    AI PRICING INSIGHTS: ANIMATED ESCROW PADLOCK (STAGE 3)

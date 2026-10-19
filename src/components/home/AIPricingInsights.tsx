@@ -195,80 +195,86 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
             minHeight: '260px'
           }}
         >
-          {/* Animated Budget Vault Bag with Coins and Fluttering Paper Bills */}
-          <div style={{ position: 'relative', width: '100%', maxWidth: '360px', height: '220px' }}>
+          {/* Symmetrical Animated Fintech Budget Bag with Green Coins & Notes */}
+          <div style={{ position: 'relative', width: '100%', maxWidth: '340px', height: '220px' }}>
             <svg
-              viewBox="0 0 360 220"
+              viewBox="0 0 320 200"
               width="100%"
               height="100%"
               preserveAspectRatio="xMidYMid meet"
               style={{ overflow: 'visible' }}
             >
               <defs>
-                <radialGradient id="rfBagBodyGrad" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#1E5230" />
-                  <stop offset="60%" stopColor="#11331D" />
-                  <stop offset="100%" stopColor="#08180E" />
-                </radialGradient>
-                <linearGradient id="rfCoinGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#FEF08A" />
-                  <stop offset="45%" stopColor="#F59E0B" />
-                  <stop offset="100%" stopColor="#D97706" />
+                <linearGradient id="rfBudgetBagBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#18462B" />
+                  <stop offset="100%" stopColor="#0B1F13" />
+                </linearGradient>
+                <linearGradient id="rfBudgetBagShackleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#D4F933" />
+                  <stop offset="60%" stopColor="#A3E635" />
+                  <stop offset="100%" stopColor="#66BB2A" />
                 </linearGradient>
                 <linearGradient id="rfCoinEmeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#D4F933" />
+                  <stop offset="60%" stopColor="#A3E635" />
+                  <stop offset="100%" stopColor="#16A34A" />
+                </linearGradient>
+                <linearGradient id="rfCoinMintGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#ECFCCB" />
                   <stop offset="50%" stopColor="#A3E635" />
                   <stop offset="100%" stopColor="#15803D" />
                 </linearGradient>
-                <linearGradient id="rfBillGradGreen" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#18462B" />
-                  <stop offset="50%" stopColor="#1F5D38" />
-                  <stop offset="100%" stopColor="#10321F" />
+                <linearGradient id="rfBillGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#1B4D2E" />
+                  <stop offset="100%" stopColor="#0B1F13" />
                 </linearGradient>
-                <linearGradient id="rfBillGradGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#3B2E0A" />
-                  <stop offset="50%" stopColor="#5E4912" />
-                  <stop offset="100%" stopColor="#2A1F06" />
+                <linearGradient id="rfBillGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#143A23" />
+                  <stop offset="100%" stopColor="#08180E" />
                 </linearGradient>
               </defs>
 
-              {/* Concentric Telemetry Background Orbits */}
+              {/* Concentric Rotating Telemetry Rings (Matching Padlock Style) */}
               <circle
-                cx="180"
-                cy="145"
-                r="88"
+                cx="160"
+                cy="115"
+                r="70"
                 fill="none"
-                stroke="rgba(102, 187, 42, 0.16)"
-                strokeWidth="1"
+                stroke="rgba(102, 187, 42, 0.18)"
+                strokeWidth="1.2"
                 strokeDasharray="6 6"
                 className="rf-budget-radar-ring"
               />
               <circle
-                cx="180"
-                cy="145"
-                r="64"
+                cx="160"
+                cy="115"
+                r="50"
                 fill="none"
-                stroke="rgba(163, 230, 53, 0.14)"
+                stroke="rgba(163, 230, 53, 0.15)"
                 strokeWidth="1"
                 strokeDasharray="4 4"
                 className="rf-budget-radar-ring-rev"
               />
 
-              {/* Upper Floating Target Budget Pill */}
-              <g transform="translate(180, 24)">
+              {/* Security Grid Reference Lines */}
+              <line x1="20" y1="115" x2="300" y2="115" stroke="rgba(102, 187, 42, 0.14)" strokeWidth="1" strokeDasharray="3 3" />
+              <line x1="160" y1="20" x2="160" y2="185" stroke="rgba(102, 187, 42, 0.14)" strokeWidth="1" strokeDasharray="3 3" />
+
+              {/* Top Target Budget Pill */}
+              <g transform="translate(160, 24)">
                 <rect
-                  x="-96"
+                  x="-92"
                   y="-14"
-                  width="192"
+                  width="184"
                   height="28"
                   rx="14"
                   fill="#0D2316"
-                  stroke="rgba(163, 230, 53, 0.45)"
+                  stroke="rgba(102, 187, 42, 0.45)"
                   strokeWidth="1.2"
                 />
-                <circle cx="-76" cy="0" r="3.5" fill="#A3E635" className="rf-budget-dot-pulse" />
+                <circle cx="-72" cy="0" r="3.5" fill="#A3E635" className="rf-budget-dot-pulse" />
                 <text
-                  x="-62"
+                  x="-58"
                   y="4.5"
                   fill="#FFFFFF"
                   fontSize="11"
@@ -279,45 +285,16 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                 </text>
               </g>
 
-              {/* Animated Fluttering Paper Bill 1 (Green Note) */}
+              {/* Animated Fluttering Paper Bill 1 (Left - Emerald) */}
               <g className="rf-bill-flutter-1">
-                <rect
-                  x="-23"
-                  y="-12"
-                  width="46"
-                  height="24"
-                  rx="3.5"
-                  fill="url(#rfBillGradGreen)"
-                  stroke="#A3E635"
-                  strokeWidth="1.2"
-                />
-                <rect
-                  x="-19.5"
-                  y="-9.5"
-                  width="39"
-                  height="19"
-                  rx="2"
-                  fill="none"
-                  stroke="rgba(163, 230, 53, 0.45)"
-                  strokeWidth="0.8"
-                  strokeDasharray="3 2"
-                />
-                <circle cx="0" cy="0" r="6" fill="rgba(163, 230, 53, 0.2)" stroke="#A3E635" strokeWidth="0.8" />
-                <text x="0" y="3" textAnchor="middle" fill="#FFFFFF" fontSize="8" fontWeight="800">
-                  100
-                </text>
-              </g>
-
-              {/* Animated Fluttering Paper Bill 2 (Gold Accent Note) */}
-              <g className="rf-bill-flutter-2">
                 <rect
                   x="-21"
                   y="-11"
                   width="42"
                   height="22"
-                  rx="3.5"
-                  fill="url(#rfBillGradGold)"
-                  stroke="#F59E0B"
+                  rx="3"
+                  fill="url(#rfBillGrad1)"
+                  stroke="#A3E635"
                   strokeWidth="1.2"
                 />
                 <rect
@@ -325,134 +302,179 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
                   y="-8.5"
                   width="36"
                   height="17"
-                  rx="2"
+                  rx="1.5"
                   fill="none"
-                  stroke="rgba(245, 158, 11, 0.45)"
+                  stroke="rgba(163, 230, 53, 0.4)"
                   strokeWidth="0.8"
                   strokeDasharray="3 2"
                 />
-                <circle cx="0" cy="0" r="5.5" fill="rgba(245, 158, 11, 0.2)" stroke="#F59E0B" strokeWidth="0.8" />
-                <text x="0" y="3" textAnchor="middle" fill="#FEF08A" fontSize="7.5" fontWeight="800">
+                <circle cx="0" cy="0" r="5.5" fill="rgba(163, 230, 53, 0.15)" stroke="#A3E635" strokeWidth="0.8" />
+                <text x="0" y="2.8" textAnchor="middle" fill="#D4F933" fontSize="7.5" fontWeight="800">
+                  100
+                </text>
+              </g>
+
+              {/* Animated Fluttering Paper Bill 2 (Right - Mint) */}
+              <g className="rf-bill-flutter-2">
+                <rect
+                  x="-21"
+                  y="-11"
+                  width="42"
+                  height="22"
+                  rx="3"
+                  fill="url(#rfBillGrad2)"
+                  stroke="#66BB2A"
+                  strokeWidth="1.2"
+                />
+                <rect
+                  x="-18"
+                  y="-8.5"
+                  width="36"
+                  height="17"
+                  rx="1.5"
+                  fill="none"
+                  stroke="rgba(102, 187, 42, 0.4)"
+                  strokeWidth="0.8"
+                  strokeDasharray="3 2"
+                />
+                <circle cx="0" cy="0" r="5.5" fill="rgba(102, 187, 42, 0.15)" stroke="#66BB2A" strokeWidth="0.8" />
+                <text x="0" y="2.8" textAnchor="middle" fill="#A3E635" fontSize="7.5" fontWeight="800">
                   50
                 </text>
               </g>
 
               {/* Animated Coins Falling into the Bag Mouth */}
-              {/* Coin 1: Gold Dollar Coin */}
+              {/* Coin 1: Left Arc Dollar Coin */}
               <g className="rf-coin-falling-1">
-                <circle cx="0" cy="0" r="10.5" fill="url(#rfCoinGoldGrad)" stroke="#FEF08A" strokeWidth="1.2" />
-                <circle cx="0" cy="0" r="8" fill="none" stroke="rgba(180, 83, 9, 0.45)" strokeWidth="0.8" />
-                <text x="0" y="3.8" textAnchor="middle" fill="#78350F" fontSize="9.5" fontWeight="900">
+                <circle cx="0" cy="0" r="10" fill="url(#rfCoinEmeraldGrad)" stroke="#D4F933" strokeWidth="1.2" />
+                <circle cx="0" cy="0" r="7.5" fill="#0D2316" stroke="rgba(212, 249, 51, 0.4)" strokeWidth="0.8" />
+                <text x="0" y="3.5" textAnchor="middle" fill="#D4F933" fontSize="9" fontWeight="900">
                   $
                 </text>
               </g>
 
-              {/* Coin 2: Emerald Naira Coin */}
+              {/* Coin 2: Right Arc Naira Coin */}
               <g className="rf-coin-falling-2">
-                <circle cx="0" cy="0" r="9.5" fill="url(#rfCoinEmeraldGrad)" stroke="#D4F933" strokeWidth="1.2" />
-                <circle cx="0" cy="0" r="7.2" fill="none" stroke="rgba(20, 83, 45, 0.55)" strokeWidth="0.8" />
-                <text x="0" y="3.5" textAnchor="middle" fill="#14532D" fontSize="9" fontWeight="900">
+                <circle cx="0" cy="0" r="10" fill="url(#rfCoinMintGrad)" stroke="#A3E635" strokeWidth="1.2" />
+                <circle cx="0" cy="0" r="7.5" fill="#0D2316" stroke="rgba(163, 230, 53, 0.4)" strokeWidth="0.8" />
+                <text x="0" y="3.5" textAnchor="middle" fill="#A3E635" fontSize="9" fontWeight="900">
                   ₦
                 </text>
               </g>
 
-              {/* Coin 3: Gold Cedi / Franc Coin */}
+              {/* Coin 3: Center Drop Cedi Coin */}
               <g className="rf-coin-falling-3">
-                <circle cx="0" cy="0" r="8.8" fill="url(#rfCoinGoldGrad)" stroke="#FEF08A" strokeWidth="1.2" />
-                <circle cx="0" cy="0" r="6.8" fill="none" stroke="rgba(180, 83, 9, 0.45)" strokeWidth="0.8" />
-                <text x="0" y="3.2" textAnchor="middle" fill="#78350F" fontSize="8.2" fontWeight="900">
+                <circle cx="0" cy="0" r="9" fill="url(#rfCoinEmeraldGrad)" stroke="#D4F933" strokeWidth="1.2" />
+                <circle cx="0" cy="0" r="6.8" fill="#0D2316" stroke="rgba(212, 249, 51, 0.4)" strokeWidth="0.8" />
+                <text x="0" y="3.2" textAnchor="middle" fill="#D4F933" fontSize="8.5" fontWeight="900">
                   ₵
                 </text>
               </g>
 
               {/* Bag Mouth Glowing Entry Ripple */}
               <ellipse
-                cx="180"
-                cy="116"
-                rx="22"
-                ry="7"
+                cx="160"
+                cy="76"
+                rx="20"
+                ry="6"
                 fill="none"
                 stroke="#D4F933"
                 strokeWidth="1.8"
                 className="rf-budget-entry-ripple"
               />
 
-              {/* The Money Bag Group with Elastic Bounce / Breathing Pulse */}
+              {/* Symmetrical Clean Fintech Bag Group (Matching Padlock Simplicity) */}
               <g className="rf-budget-bag-group">
-                {/* Ruffled Fabric Top Opening */}
+                {/* Symmetrical Flared Top Collar Ruffle */}
                 <path
-                  d="M 158 98 Q 164 91 170 97 Q 175 90 180 97 Q 185 90 190 97 Q 196 91 202 98 L 197 114 Q 180 117 163 114 Z"
-                  fill="#1E5230"
+                  d="M 144 75 C 138 68, 136 60, 144 60 C 151 60, 154 68, 160 68 C 166 68, 169 60, 176 60 C 184 60, 182 68, 176 75 Z"
+                  fill="#1B4D2E"
                   stroke="rgba(163, 230, 53, 0.85)"
-                  strokeWidth="1.4"
+                  strokeWidth="1.5"
                 />
 
-                {/* Main Curved Pouch Body */}
+                {/* Symmetrical Clean Bag Body */}
                 <path
-                  d="M 163 114 C 143 118, 122 138, 126 166 C 128 187, 149 198, 180 198 C 211 198, 232 187, 234 166 C 238 138, 217 118, 197 114 Z"
-                  fill="url(#rfBagBodyGrad)"
-                  stroke="rgba(102, 187, 42, 0.9)"
+                  d="M 143 82 C 132 88, 110 108, 110 132 C 110 152, 128 162, 160 162 C 192 162, 210 152, 210 132 C 210 108, 188 88, 177 82 Z"
+                  fill="url(#rfBudgetBagBodyGrad)"
+                  stroke="rgba(102, 187, 42, 0.85)"
                   strokeWidth="2"
                 />
 
-                {/* Bag Interior Curvature Highlight */}
+                {/* Interior Curvature Accent Line */}
                 <path
-                  d="M 142 144 C 137 162, 147 182, 170 190"
+                  d="M 125 132 C 125 146, 138 155, 160 155 C 182 155, 195 146, 195 132"
                   fill="none"
-                  stroke="rgba(255, 255, 255, 0.22)"
+                  stroke="rgba(255, 255, 255, 0.12)"
+                  strokeWidth="1.2"
+                  strokeDasharray="4 3"
+                />
+
+                {/* Symmetrical Cinched Collar Band */}
+                <rect
+                  x="140"
+                  y="75"
+                  width="40"
+                  height="7"
+                  rx="3.5"
+                  fill="#18462B"
+                  stroke="url(#rfBudgetBagShackleGrad)"
+                  strokeWidth="1.5"
+                />
+
+                {/* Symmetrical Tassels */}
+                <path
+                  d="M 155 82 Q 150 92 146 100"
+                  fill="none"
+                  stroke="#D4F933"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
-
-                {/* Gold/Lime Cinching Cord at Neck */}
-                <rect x="160" y="111" width="40" height="5.5" rx="2.75" fill="#D4F933" />
-
-                {/* Tied Cord Knot and Tassels */}
                 <path
-                  d="M 177 116 Q 173 126 169 133"
+                  d="M 165 82 Q 170 92 174 100"
                   fill="none"
                   stroke="#D4F933"
-                  strokeWidth="2.2"
+                  strokeWidth="2"
                   strokeLinecap="round"
                 />
-                <path
-                  d="M 183 116 Q 187 127 191 135"
-                  fill="none"
-                  stroke="#D4F933"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                />
-                <circle cx="169" cy="134" r="2.8" fill="#F59E0B" />
-                <circle cx="191" cy="136" r="2.8" fill="#F59E0B" />
+                <circle cx="146" cy="101" r="2.6" fill="#A3E635" />
+                <circle cx="174" cy="101" r="2.6" fill="#A3E635" />
 
-                {/* Center Fintech Medallion on Bag */}
+                {/* Center Core Currency Medallion */}
                 <circle
-                  cx="180"
-                  cy="158"
-                  r="17"
+                  cx="160"
+                  cy="124"
+                  r="16"
                   fill="#0A1C11"
-                  stroke="#D4F933"
+                  stroke="#A3E635"
                   strokeWidth="1.8"
                 />
                 <circle
-                  cx="180"
-                  cy="158"
-                  r="13.5"
+                  cx="160"
+                  cy="124"
+                  r="13"
                   fill="none"
                   stroke="rgba(163, 230, 53, 0.4)"
                   strokeWidth="0.8"
+                  strokeDasharray="3 2"
                 />
                 <text
-                  x="180"
-                  y="164.5"
+                  x="160"
+                  y="130.5"
                   textAnchor="middle"
                   fill="#D4F933"
-                  fontSize="18"
+                  fontSize="17"
                   fontWeight="900"
                   letterSpacing="-0.02em"
                 >
                   $
                 </text>
+
+                {/* Symmetrical Rivet Accents (Matching Padlock Rivets) */}
+                <circle cx="132" cy="114" r="2" fill="#66BB2A" opacity="0.75" />
+                <circle cx="188" cy="114" r="2" fill="#66BB2A" opacity="0.75" />
+                <circle cx="138" cy="144" r="2" fill="#66BB2A" opacity="0.6" />
+                <circle cx="182" cy="144" r="2" fill="#66BB2A" opacity="0.6" />
               </g>
             </svg>
           </div>
