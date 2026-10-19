@@ -513,6 +513,7 @@ export const App: React.FC = () => {
       case '/pricing':
         return <PricingPage onNavigate={navigate} />;
       case '/business':
+      case '/enterprise':
         return <BusinessPage onNavigate={navigate} />;
       case '/why-refeir':
         return <WhyRefeirPage onNavigate={navigate} />;

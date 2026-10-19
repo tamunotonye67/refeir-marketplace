@@ -1,0 +1,245 @@
+/* ==========================================================================
+   REFEIR FOR BUSINESS & ENTERPRISE STYLESHEET
+   Modern, Organic Pan-African Fintech & Enterprise Talent Architecture
+   High-Trust Clean Design — Strictly Zero Sparkles
+   ========================================================================== */
+
+:root {
+  --rf-ent-green: #66BB2A;
+  --rf-ent-green-hover: #56A322;
+  --rf-ent-green-deep: #16A34A;
+  --rf-ent-gold: #F6B21A;
+  --rf-ent-dark: #07160D;
+  --rf-ent-card-dark: #0D2316;
+  --rf-ent-border-dark: rgba(102, 187, 42, 0.22);
+  --rf-ent-glow-dark: rgba(102, 187, 42, 0.15);
+  
+  --rf-ent-light-bg: #F8FAF8;
+  --rf-ent-card-light: #FFFFFF;
+  --rf-ent-border-light: rgba(18, 43, 26, 0.12);
+  --rf-ent-text-light: #122B1A;
+  --rf-ent-muted-light: #475569;
+}
+
+/* Ambient Organic Hero Mesh */
+.rf-ent-hero-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4rem, 7vw, 6rem) 1.5rem clamp(3rem, 5vw, 4.5rem);
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.rf-ent-ambient-glow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  max-width: 1100px;
+  height: 520px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+/* Eyebrow Pill */
+.rf-ent-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Headline & Subtitle */
+.rf-ent-hero-title {
+  font-family: var(--rf-font-display);
+  font-size: clamp(2.35rem, 5.2vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  max-width: 960px;
+  margin: 0 auto 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.rf-ent-hero-subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  line-height: 1.65;
+  max-width: 760px;
+  margin: 0 auto 2.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Key Metrics Strip */
+.rf-ent-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 1080px;
+  margin: 2.5rem auto 0;
+  position: relative;
+  z-index: 1;
+}
+
+.rf-ent-stat-card {
+  padding: 1.5rem 1.25rem;
+  border-radius: 16px;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.rf-ent-stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.rf-ent-stat-val {
+  font-family: var(--rf-font-display);
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+.rf-ent-stat-label {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Interactive Pod / Solution Sizer */
+.rf-ent-pod-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.rf-ent-pod-tab {
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  border: 1.5px solid transparent;
+  transition: all 0.2s ease;
+  background: transparent;
+  width: 100%;
+}
+
+.rf-ent-pod-detail-box {
+  border-radius: 20px;
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+/* Comparison Matrix */
+.rf-ent-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.rf-ent-compare-col {
+  padding: 2.25rem 2rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Action Intake Card */
+.rf-ent-intake-card {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3rem);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.rf-ent-input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rf-ent-input-field:focus {
+  border-color: var(--rf-ent-green);
+  box-shadow: 0 0 0 3px rgba(102, 187, 42, 0.2);
+}
+
+/* FAQ Accordion */
+.rf-ent-faq-item {
+  border-radius: 14px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.rf-ent-faq-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.35rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--rf-font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  transition: color 0.15s ease;
+}
+
+.rf-ent-faq-body {
+  padding: 0 1.35rem 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+  .rf-ent-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rf-ent-compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .rf-ent-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .rf-ent-pod-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .rf-ent-intake-card {
+    padding: 1.5rem 1.25rem;
+  }
+}
