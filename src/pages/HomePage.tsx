@@ -1809,7 +1809,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   lineHeight: 1.35
                 }}
               >
-                Get from <span style={{ color: '#2E7D32', fontWeight: 700, textDecoration: 'underline', textDecorationColor: '#66BB2A' }}>10%</span> just by Referring Talents.
+                Get from <span style={{ fontWeight: 700 }}>10%</span> just by Referring Talents.
               </span>
             </div>
 
