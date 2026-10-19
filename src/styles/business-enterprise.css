@@ -25,8 +25,7 @@
 .rf-ent-hero-wrap {
   position: relative;
   overflow: hidden;
-  padding: clamp(4rem, 7vw, 6rem) 1.5rem clamp(3rem, 5vw, 4.5rem);
-  text-align: center;
+  padding: clamp(3.5rem, 6vw, 5.5rem) 1.5rem clamp(3rem, 5vw, 4.5rem);
   transition: background 0.3s ease;
 }
 
@@ -61,26 +60,92 @@
   z-index: 1;
 }
 
-/* Headline & Subtitle */
-.rf-ent-hero-title {
-  font-family: var(--rf-font-display);
-  font-size: clamp(2.35rem, 5.2vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.12;
-  max-width: 960px;
-  margin: 0 auto 1.25rem;
+/* Hero Split Layout */
+.rf-ent-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
   position: relative;
   z-index: 1;
 }
 
+.rf-ent-hero-title {
+  font-family: var(--rf-font-display);
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  margin-bottom: 1.25rem;
+}
+
 .rf-ent-hero-subtitle {
-  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
   line-height: 1.65;
-  max-width: 760px;
-  margin: 0 auto 2.25rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+/* Hero Visual Collage */
+.rf-ent-hero-collage {
   position: relative;
-  z-index: 1;
+  width: 100%;
+}
+
+.rf-ent-main-photo-frame {
+  position: relative;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(102, 187, 42, 0.25);
+  aspect-ratio: 4 / 3;
+}
+
+.rf-ent-main-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Floating Live Dossier Card */
+.rf-ent-floating-dossier {
+  position: absolute;
+  bottom: -24px;
+  left: -20px;
+  padding: 1rem 1.25rem;
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  max-width: 320px;
+  z-index: 2;
+  transition: transform 0.25s ease;
+}
+
+.rf-ent-floating-dossier:hover {
+  transform: translateY(-4px);
+}
+
+/* Floating Escrow Trust Pill */
+.rf-ent-floating-badge {
+  position: absolute;
+  top: -18px;
+  right: -15px;
+  padding: 0.75rem 1.15rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
+  transition: transform 0.25s ease;
+}
+
+.rf-ent-floating-badge:hover {
+  transform: translateY(-3px);
 }
 
 /* Key Metrics Strip */
@@ -88,15 +153,15 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  max-width: 1080px;
-  margin: 2.5rem auto 0;
+  max-width: 1120px;
+  margin: 3.5rem auto 0;
   position: relative;
   z-index: 1;
 }
 
 .rf-ent-stat-card {
   padding: 1.5rem 1.25rem;
-  border-radius: 16px;
+  border-radius: 18px;
   text-align: center;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
@@ -107,7 +172,7 @@
 
 .rf-ent-stat-val {
   font-family: var(--rf-font-display);
-  font-size: 1.85rem;
+  font-size: 2rem;
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 0.35rem;
@@ -122,14 +187,14 @@
 /* Interactive Pod / Solution Sizer */
 .rf-ent-pod-selector {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 0.75rem;
   margin-bottom: 2rem;
 }
 
 .rf-ent-pod-tab {
-  padding: 1rem 1.15rem;
-  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  border-radius: 16px;
   cursor: pointer;
   text-align: left;
   border: 1.5px solid transparent;
@@ -139,11 +204,105 @@
 }
 
 .rf-ent-pod-detail-box {
-  border-radius: 20px;
+  border-radius: 24px;
   padding: clamp(1.75rem, 3.5vw, 2.75rem);
   position: relative;
   overflow: hidden;
   transition: all 0.25s ease;
+}
+
+/* Talent Visual Cards in Pod */
+.rf-ent-talent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.rf-ent-talent-card {
+  border-radius: 16px;
+  padding: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.rf-ent-talent-card:hover {
+  transform: translateY(-2px);
+}
+
+.rf-ent-talent-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--rf-ent-green);
+}
+
+/* Visual Bento Grid: Innovation & Sprints */
+.rf-ent-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.rf-ent-bento-card {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.rf-ent-bento-card:hover {
+  transform: translateY(-4px);
+}
+
+.rf-ent-bento-img-wrap {
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rf-ent-bento-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.rf-ent-bento-card:hover .rf-ent-bento-img-wrap img {
+  transform: scale(1.05);
+}
+
+.rf-ent-bento-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Case Studies Carousel / Grid */
+.rf-ent-stories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.rf-ent-story-card {
+  border-radius: 22px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Comparison Matrix */
@@ -151,23 +310,23 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
 }
 
 .rf-ent-compare-col {
   padding: 2.25rem 2rem;
-  border-radius: 20px;
+  border-radius: 22px;
   display: flex;
   flex-direction: column;
 }
 
 /* Action Intake Card */
 .rf-ent-intake-card {
-  max-width: 820px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: clamp(2rem, 4vw, 3rem);
-  border-radius: 24px;
+  padding: clamp(2rem, 4vw, 3.25rem);
+  border-radius: 26px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
   position: relative;
   overflow: hidden;
@@ -175,9 +334,9 @@
 
 .rf-ent-input-field {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  font-size: 0.92rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
   font-family: inherit;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -190,8 +349,8 @@
 
 /* FAQ Accordion */
 .rf-ent-faq-item {
-  border-radius: 14px;
-  margin-bottom: 0.75rem;
+  border-radius: 16px;
+  margin-bottom: 0.85rem;
   overflow: hidden;
   transition: border-color 0.15s ease;
 }
@@ -201,7 +360,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.15rem 1.35rem;
+  padding: 1.25rem 1.5rem;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -213,15 +372,61 @@
 }
 
 .rf-ent-faq-body {
-  padding: 0 1.35rem 1.25rem;
-  font-size: 0.92rem;
-  line-height: 1.6;
+  padding: 0 1.5rem 1.35rem;
+  font-size: 0.94rem;
+  line-height: 1.65;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 900px) {
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 1024px) {
+  .rf-ent-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .rf-ent-hero-subtitle {
+    margin: 0 auto 2rem;
+  }
+
+  .rf-ent-hero-collage {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .rf-ent-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rf-ent-stories-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
   .rf-ent-stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    margin-top: 2.5rem;
+  }
+
+  .rf-ent-floating-dossier {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 1rem;
+    max-width: 100%;
+  }
+
+  .rf-ent-floating-badge {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-bottom: 1rem;
+    display: inline-flex;
+  }
+
+  .rf-ent-bento-grid {
+    grid-template-columns: 1fr;
   }
 
   .rf-ent-compare-grid {
@@ -229,10 +434,9 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .rf-ent-stats-grid {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
   }
 
   .rf-ent-pod-selector {

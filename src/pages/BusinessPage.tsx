@@ -18,7 +18,8 @@ import {
   ChevronDown,
   Calendar,
   DollarSign,
-  Check
+  Check,
+  Star
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import '../styles/business-enterprise.css';
@@ -62,7 +63,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
   const totalUsSpend = avgUsSalaryMonthly * teamSize * durationMonths;
   const savingsPercent = Math.round(((totalUsSpend - totalRefeirSpend) / totalUsSpend) * 100);
 
-  // Pod configurations
+  // Pod configurations with verified sample talent profiles
   const POD_DATA: Record<PodType, {
     title: string;
     tagline: string;
@@ -71,6 +72,16 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
     techStack: string[];
     sla: string;
     rateRange: string;
+    sampleTalent: {
+      name: string;
+      role: string;
+      country: string;
+      flag: string;
+      avatar: string;
+      topSkills: string[];
+      rating: number;
+      endorsement: string;
+    }[];
   }> = {
     fullstack: {
       title: 'Fullstack & Cloud Engineering Pod',
@@ -83,7 +94,39 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       ],
       techStack: ['Next.js', 'TypeScript', 'Go', 'Python', 'PostgreSQL', 'AWS', 'Docker', 'Kubernetes'],
       sla: 'Candidate shortlist delivered in 48 hours',
-      rateRange: '$3,800 – $6,200 / engineer / month'
+      rateRange: '$3,800 – $6,200 / engineer / month',
+      sampleTalent: [
+        {
+          name: 'Kwame Mensah',
+          role: 'Senior Staff Cloud Architect',
+          country: 'Ghana',
+          flag: '🇬🇭',
+          avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Go', 'Kubernetes', 'AWS', 'Next.js'],
+          rating: 4.98,
+          endorsement: 'Ex-Google Africa Staff Architect'
+        },
+        {
+          name: 'Amara Diallo',
+          role: 'Lead Distributed Systems Eng',
+          country: 'Senegal',
+          flag: '🇸🇳',
+          avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['TypeScript', 'Node.js', 'PostgreSQL'],
+          rating: 4.95,
+          endorsement: 'Built high-throughput payment pipelines'
+        },
+        {
+          name: 'Babatunde Adeleke',
+          role: 'DevOps & Reliability Lead',
+          country: 'Nigeria',
+          flag: '🇳🇬',
+          avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Docker', 'Terraform', 'CI/CD', 'Python'],
+          rating: 4.96,
+          endorsement: 'SOC2 & Zero-Trust Cloud Specialist'
+        }
+      ]
     },
     ai: {
       title: 'AI Studios & Autonomous Agents Pod',
@@ -97,7 +140,39 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       ],
       techStack: ['PyTorch', 'Hugging Face', 'LangChain', 'Llama 3', 'Pinecone', 'Whisper', 'Python', 'FastAPI'],
       sla: 'Candidate shortlist delivered in 48 hours',
-      rateRange: '$4,500 – $7,500 / engineer / month'
+      rateRange: '$4,500 – $7,500 / engineer / month',
+      sampleTalent: [
+        {
+          name: 'Zola Dlamini',
+          role: 'Principal AI & RAG Architect',
+          country: 'South Africa',
+          flag: '🇿🇦',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['PyTorch', 'LangChain', 'Vector DBs'],
+          rating: 4.99,
+          endorsement: 'PhD AI / Machine Learning at UCT'
+        },
+        {
+          name: 'Tariq Mansour',
+          role: 'Senior LLM Fine-Tuning Engineer',
+          country: 'Egypt',
+          flag: '🇪🇬',
+          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Hugging Face', 'Python', 'Llama 3'],
+          rating: 4.94,
+          endorsement: 'Autonomous Multi-Agent Specialist'
+        },
+        {
+          name: 'Fatoumata Bamba',
+          role: 'Data Scientist & Vision Specialist',
+          country: 'Ivory Coast',
+          flag: '🇨🇮',
+          avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Computer Vision', 'PyTorch', 'FastAPI'],
+          rating: 4.97,
+          endorsement: 'Computer Vision Lead on AU Satellites'
+        }
+      ]
     },
     fintech: {
       title: 'Pan-African FinTech & Mobile Money Pod',
@@ -110,7 +185,39 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       ],
       techStack: ['Flutter', 'Node.js', 'Go', 'Paystack/Flutterwave APIs', 'Mobile Money Rails', 'PCI-DSS', 'Solidity'],
       sla: 'Candidate shortlist delivered in 48 hours',
-      rateRange: '$3,600 – $5,800 / engineer / month'
+      rateRange: '$3,600 – $5,800 / engineer / month',
+      sampleTalent: [
+        {
+          name: 'Babatunde Adeleke',
+          role: 'Lead FinTech Systems Architect',
+          country: 'Nigeria',
+          flag: '🇳🇬',
+          avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Paystack API', 'Flutter', 'Go Ledgers'],
+          rating: 4.98,
+          endorsement: 'Architected high-volume escrow rails'
+        },
+        {
+          name: 'Wanjiku Kamau',
+          role: 'Mobile Money Rails Specialist',
+          country: 'Kenya',
+          flag: '🇰🇪',
+          avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['M-Pesa Core', 'Node.js', 'PCI-DSS'],
+          rating: 4.96,
+          endorsement: '10+ yrs Pan-African Banking Rails'
+        },
+        {
+          name: 'Kofi Mensah',
+          role: 'Smart Contract & Security Auditor',
+          country: 'Ghana',
+          flag: '🇬🇭',
+          avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Solidity', 'Penetration Testing', 'Rust'],
+          rating: 4.97,
+          endorsement: 'Audited $40M+ in cross-border volume'
+        }
+      ]
     },
     design: {
       title: 'Product Design & Design Systems Studio',
@@ -123,7 +230,39 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       ],
       techStack: ['Figma', 'Design Tokens', 'Spline 3D', 'Adobe Suite', 'User Testing', 'Responsive Design'],
       sla: 'Candidate shortlist delivered in 24 hours',
-      rateRange: '$3,200 – $5,200 / designer / month'
+      rateRange: '$3,200 – $5,200 / designer / month',
+      sampleTalent: [
+        {
+          name: 'Amaka Nwosu',
+          role: 'Principal Design Systems Lead',
+          country: 'Nigeria',
+          flag: '🇳🇬',
+          avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Figma Systems', 'FinTech UX', 'Tokens'],
+          rating: 4.98,
+          endorsement: 'Ex-Paystack Design Lead'
+        },
+        {
+          name: 'Kwame Mensah',
+          role: '3D & Motion Brand Specialist',
+          country: 'Ghana',
+          flag: '🇬🇭',
+          avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Spline 3D', 'Framer', 'Brand Strategy'],
+          rating: 4.95,
+          endorsement: 'Interactive 3D Web Award Winner'
+        },
+        {
+          name: 'Zola Dlamini',
+          role: 'Lead UX Researcher & Architect',
+          country: 'South Africa',
+          flag: '🇿🇦',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['User Testing', 'Design Ops', 'Prototyping'],
+          rating: 4.96,
+          endorsement: 'Led Pan-African Mobile Banking Redesign'
+        }
+      ]
     },
     custom: {
       title: 'Custom Enterprise Deployment',
@@ -136,7 +275,39 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       ],
       techStack: ['Bespoke to your tech stack and internal workflow'],
       sla: 'Custom discovery call within 24 hours',
-      rateRange: 'Bespoke milestone contracts'
+      rateRange: 'Bespoke milestone contracts',
+      sampleTalent: [
+        {
+          name: 'Kwame Mensah',
+          role: 'Enterprise Solutions Architect',
+          country: 'Ghana',
+          flag: '🇬🇭',
+          avatar: 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Architecture Review', 'Cloud Migration'],
+          rating: 4.99,
+          endorsement: 'Senior Refeir Scout Lead'
+        },
+        {
+          name: 'Amaka Nwosu',
+          role: 'Design & Product Lead',
+          country: 'Nigeria',
+          flag: '🇳🇬',
+          avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['Product Strategy', 'Fintech UI'],
+          rating: 4.98,
+          endorsement: 'Design Council Advisor'
+        },
+        {
+          name: 'Zola Dlamini',
+          role: 'AI & Data Engineering Lead',
+          country: 'South Africa',
+          flag: '🇿🇦',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+          topSkills: ['LLM Orchestration', 'MLOps'],
+          rating: 4.97,
+          endorsement: 'Pan-African AI Fellow'
+        }
+      ]
     }
   };
 
@@ -195,7 +366,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       }}
     >
       {/* =========================================================================
-          1. ATMOSPHERIC ORGANIC HERO SECTION
+          1. HERO SECTION: VISUAL SPLIT WITH LIVE CANDIDATE DOSSIER COLLAGE
           ========================================================================= */}
       <section
         className="rf-ent-hero-wrap"
@@ -215,60 +386,162 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
           }}
         />
 
-        <div className="rf-container" style={{ position: 'relative', zIndex: 1, maxWidth: '1120px' }}>
-          {/* Eyebrow */}
-          <div
-            className="rf-ent-eyebrow"
-            style={{
-              background: isDark ? 'rgba(102, 187, 42, 0.12)' : 'rgba(102, 187, 42, 0.1)',
-              border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(102, 187, 42, 0.25)',
-              color: isDark ? '#85D33A' : '#1E6B27'
-            }}
-          >
-            <Building2 size={15} />
-            <span>Refeir for Business & Global Teams</span>
+        <div className="rf-container" style={{ position: 'relative', zIndex: 1, maxWidth: '1180px' }}>
+          <div className="rf-ent-hero-grid">
+            {/* Left Column: Headline, Copy, Action CTAs */}
+            <div>
+              {/* Eyebrow */}
+              <div
+                className="rf-ent-eyebrow"
+                style={{
+                  background: isDark ? 'rgba(102, 187, 42, 0.14)' : 'rgba(102, 187, 42, 0.1)',
+                  border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(102, 187, 42, 0.25)',
+                  color: isDark ? '#85D33A' : '#1E6B27'
+                }}
+              >
+                <Building2 size={15} />
+                <span>Refeir for Business & Global Teams</span>
+              </div>
+
+              {/* Headline */}
+              <h1 className="rf-ent-hero-title" style={{ color: isDark ? '#FFFFFF' : '#07160D' }}>
+                Scale Distributed Engineering & AI Teams Across Africa
+              </h1>
+
+              {/* Subtitle */}
+              <p
+                className="rf-ent-hero-subtitle"
+                style={{ color: isDark ? 'rgba(235, 245, 238, 0.88)' : '#334D3D' }}
+              >
+                Access the continent's top 1% verified engineers and tech leads. Pre-vetted by senior industry scouts, protected by 100% milestone Trust Vault escrow, with unified cross-border tax compliance across 54 jurisdictions.
+              </p>
+
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('enterprise-pod-builder');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="rf-btn rf-btn-primary rf-btn-lg"
+                  style={{ gap: '0.5rem', padding: '0.85rem 1.85rem', fontSize: '1rem', fontWeight: 800 }}
+                >
+                  <span>Explore Enterprise Pods</span>
+                  <ArrowRight size={18} />
+                </button>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('enterprise-intake-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="rf-btn rf-btn-secondary rf-btn-lg"
+                  style={{ gap: '0.5rem', padding: '0.85rem 1.75rem', fontSize: '1rem', fontWeight: 600 }}
+                >
+                  <Calendar size={17} />
+                  <span>Book Intake Session</span>
+                </button>
+              </div>
+
+              {/* Institutional Endorsement Bar */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#F6B21A' }}>
+                  <Star size={14} fill="#F6B21A" />
+                  <Star size={14} fill="#F6B21A" />
+                  <Star size={14} fill="#F6B21A" />
+                  <Star size={14} fill="#F6B21A" />
+                  <Star size={14} fill="#F6B21A" />
+                </div>
+                <span style={{ fontSize: '0.8125rem', color: isDark ? '#94A3B8' : '#527560', fontWeight: 600 }}>
+                  Trusted by scale-up founders backed by Y Combinator, Techstars & Ventures Platform
+                </span>
+              </div>
+            </div>
+
+            {/* Right Column: Modern Organic Photo Collage with Floating Cards */}
+            <div className="rf-ent-hero-collage">
+              {/* Main Photo Frame */}
+              <div className="rf-ent-main-photo-frame">
+                <img
+                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80"
+                  alt="African engineering team collaborating on high-impact technology in modern workspace"
+                />
+              </div>
+
+              {/* Floating Escrow Vault Pill */}
+              <div
+                className="rf-ent-floating-badge"
+                style={{
+                  background: isDark ? 'rgba(7, 22, 13, 0.92)' : 'rgba(255, 255, 255, 0.95)',
+                  border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(102, 187, 42, 0.3)'
+                }}
+              >
+                <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(102, 187, 42, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Lock size={15} color="#66BB2A" />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase' }}>
+                    TRUST VAULT ESCROW
+                  </div>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: isDark ? '#FFFFFF' : '#07160D' }}>
+                    $18,500 Locked • Multi-Currency
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Live Candidate Dossier */}
+              <div
+                className="rf-ent-floating-dossier"
+                style={{
+                  background: isDark ? 'rgba(13, 35, 22, 0.92)' : 'rgba(255, 255, 255, 0.95)',
+                  border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(102, 187, 42, 0.25)'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                  <div style={{ position: 'relative' }}>
+                    <img
+                      src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=200&q=80"
+                      alt="Kwame Mensah"
+                      style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #66BB2A' }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 0, right: 0, width: '12px', height: '12px', borderRadius: '50%', background: '#66BB2A', border: '2px solid #FFFFFF' }} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D' }}>
+                      Kwame Mensah 🇬🇭
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#66BB2A', fontWeight: 700 }}>
+                      Senior Staff Cloud Architect • Top 1%
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.45rem' }}>
+                  {['Go', 'Kubernetes', 'AWS', 'Next.js'].map(sk => (
+                    <span
+                      key={sk}
+                      style={{
+                        padding: '0.15rem 0.45rem',
+                        borderRadius: '4px',
+                        fontSize: '0.7rem',
+                        fontWeight: 600,
+                        background: isDark ? 'rgba(255, 255, 255, 0.06)' : '#F0FDF4',
+                        color: isDark ? '#CBD5E1' : '#14532D'
+                      }}
+                    >
+                      {sk}
+                    </span>
+                  ))}
+                </div>
+
+                <div style={{ fontSize: '0.72rem', color: isDark ? '#94A3B8' : '#64748B', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <Award size={13} color="#F6B21A" />
+                  <span>Endorsed by Babatunde K. (Ex-Google Africa)</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="rf-ent-hero-title" style={{ color: isDark ? '#FFFFFF' : '#07160D' }}>
-            Scale Distributed Engineering & AI Teams Across Africa
-          </h1>
-
-          {/* Subtitle */}
-          <p
-            className="rf-ent-hero-subtitle"
-            style={{ color: isDark ? 'rgba(235, 245, 238, 0.85)' : '#334D3D' }}
-          >
-            Access the top 1% vetted tech and creative talent through localized scout networks. Consolidated multi-currency invoicing, cross-border compliance across 54 jurisdictions, and 100% milestone Trust Vault escrow.
-          </p>
-
-          {/* Dual Action Buttons */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', position: 'relative', zIndex: 2 }}>
-            <button
-              onClick={() => {
-                const el = document.getElementById('enterprise-pod-builder');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="rf-btn rf-btn-primary rf-btn-lg"
-              style={{ gap: '0.5rem', padding: '0.85rem 1.75rem', fontSize: '1rem', fontWeight: 700 }}
-            >
-              <span>Explore Enterprise Pods</span>
-              <ArrowRight size={18} />
-            </button>
-            <button
-              onClick={() => {
-                const el = document.getElementById('enterprise-calculator-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="rf-btn rf-btn-secondary rf-btn-lg"
-              style={{ gap: '0.5rem', padding: '0.85rem 1.75rem', fontSize: '1rem', fontWeight: 600 }}
-            >
-              <Calculator size={17} />
-              <span>Calculate Savings</span>
-            </button>
-          </div>
-
-          {/* Live Key Metrics */}
+          {/* Key Metrics Strip */}
           <div className="rf-ent-stats-grid">
             <div
               className="rf-ent-stat-card"
@@ -280,7 +553,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
             >
               <div className="rf-ent-stat-val" style={{ color: '#66BB2A' }}>48 Hours</div>
               <div className="rf-ent-stat-label" style={{ color: isDark ? '#94A3B8' : '#475569' }}>
-                Average match time to 3 scout-vetted candidates
+                Average match speed to 3 scout-vetted candidate dossiers
               </div>
             </div>
 
@@ -294,7 +567,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
             >
               <div className="rf-ent-stat-val" style={{ color: '#F6B21A' }}>54 Nations</div>
               <div className="rf-ent-stat-label" style={{ color: isDark ? '#94A3B8' : '#475569' }}>
-                Compliant contractor rails & local currency payouts
+                Compliant contractor rails & localized currency payouts
               </div>
             </div>
 
@@ -308,7 +581,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
             >
               <div className="rf-ent-stat-val" style={{ color: '#66BB2A' }}>$0 Upfront</div>
               <div className="rf-ent-stat-label" style={{ color: isDark ? '#94A3B8' : '#475569' }}>
-                Zero headhunter fees; funds release only on milestone approval
+                Zero headhunter fees; funds release only on approved milestones
               </div>
             </div>
 
@@ -322,7 +595,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
             >
               <div className="rf-ent-stat-val" style={{ color: '#F6B21A' }}>100% Escrow</div>
               <div className="rf-ent-stat-label" style={{ color: isDark ? '#94A3B8' : '#475569' }}>
-                Milestone Trust Vault protection with full IP assignment
+                Milestone Trust Vault protection with bulletproof IP assignment
               </div>
             </div>
           </div>
@@ -330,10 +603,10 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* =========================================================================
-          2. INTERACTIVE ENTERPRISE POD & SOLUTION SIZER
+          2. TURNKEY ENTERPRISE PODS WITH VISUAL TALENT CARDS
           ========================================================================= */}
       <section id="enterprise-pod-builder" className="rf-section" style={{ position: 'relative' }}>
-        <div className="rf-container" style={{ maxWidth: '1120px' }}>
+        <div className="rf-container" style={{ maxWidth: '1180px' }}>
           <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 2.75rem' }}>
             <span
               style={{
@@ -348,11 +621,11 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
             >
               TURNKEY TALENT PODS
             </span>
-            <h2 style={{ fontSize: 'clamp(1.85rem, 3.5vw, 2.75rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
+            <h2 style={{ fontSize: 'clamp(1.95rem, 3.8vw, 2.85rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
               Choose a Pre-Engineered Pod or Build Your Custom Squad
             </h2>
             <p style={{ color: isDark ? '#94A3B8' : '#475569', marginTop: '0.75rem', fontSize: '1rem', lineHeight: 1.6 }}>
-              Select a specialized team architecture below to review roster breakdown, verified tech stacks, and deployment timeline.
+              Select a specialized team architecture below to review verified tech stacks, turnaround SLAs, and sample senior leads ready for matching.
             </p>
           </div>
 
@@ -367,17 +640,17 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                   className="rf-ent-pod-tab"
                   style={{
                     background: isSelected
-                      ? isDark ? 'rgba(102, 187, 42, 0.15)' : 'rgba(102, 187, 42, 0.1)'
+                      ? isDark ? 'rgba(102, 187, 42, 0.16)' : 'rgba(102, 187, 42, 0.12)'
                       : isDark ? 'rgba(13, 35, 22, 0.6)' : '#FFFFFF',
                     borderColor: isSelected
                       ? '#66BB2A'
                       : isDark ? 'rgba(102, 187, 42, 0.2)' : 'rgba(18, 43, 26, 0.12)',
                     boxShadow: isSelected
-                      ? '0 4px 16px rgba(102, 187, 42, 0.15)'
+                      ? '0 6px 20px rgba(102, 187, 42, 0.16)'
                       : isDark ? 'none' : '0 2px 8px rgba(0,0,0,0.03)'
                   }}
                 >
-                  <div style={{ fontSize: '0.95rem', fontWeight: 700, color: isSelected ? '#66BB2A' : (isDark ? '#FFFFFF' : '#07160D'), marginBottom: '0.2rem' }}>
+                  <div style={{ fontSize: '0.98rem', fontWeight: 800, color: isSelected ? '#66BB2A' : (isDark ? '#FFFFFF' : '#07160D'), marginBottom: '0.2rem' }}>
                     {podKey === 'fullstack' && 'Fullstack Pod'}
                     {podKey === 'ai' && 'AI & LLM Pod'}
                     {podKey === 'fintech' && 'FinTech Pod'}
@@ -396,13 +669,13 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
             })}
           </div>
 
-          {/* Pod Details Box */}
+          {/* Pod Details Box with Visual Sample Talent */}
           <div
             className="rf-ent-pod-detail-box"
             style={{
-              background: isDark ? 'rgba(13, 35, 22, 0.85)' : '#FFFFFF',
+              background: isDark ? 'rgba(13, 35, 22, 0.88)' : '#FFFFFF',
               border: isDark ? '1.5px solid rgba(102, 187, 42, 0.3)' : '1.5px solid rgba(102, 187, 42, 0.25)',
-              boxShadow: isDark ? '0 12px 40px rgba(0,0,0,0.3)' : '0 12px 36px rgba(18, 43, 26, 0.06)'
+              boxShadow: isDark ? '0 16px 48px rgba(0,0,0,0.35)' : '0 16px 40px rgba(18, 43, 26, 0.07)'
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.25rem', marginBottom: '1.75rem' }}>
@@ -410,10 +683,10 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                 <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#F6B21A', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                   FEATURED DEPLOYMENT PROFILE
                 </span>
-                <h3 style={{ fontSize: '1.65rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', marginTop: '0.25rem' }}>
+                <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', marginTop: '0.25rem' }}>
                   {currentPod.title}
                 </h3>
-                <p style={{ color: isDark ? '#94A3B8' : '#475569', fontSize: '0.95rem', marginTop: '0.25rem' }}>
+                <p style={{ color: isDark ? '#94A3B8' : '#475569', fontSize: '0.98rem', marginTop: '0.25rem' }}>
                   {currentPod.tagline}
                 </p>
               </div>
@@ -421,20 +694,20 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
               <button
                 onClick={() => handleSelectPodForIntake(selectedPod)}
                 className="rf-btn rf-btn-primary"
-                style={{ padding: '0.65rem 1.4rem', fontWeight: 700, gap: '0.45rem' }}
+                style={{ padding: '0.75rem 1.6rem', fontWeight: 800, gap: '0.45rem' }}
               >
                 <span>Request This Pod</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={17} />
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.75rem' }}>
-              {/* Left Column: Team Roster */}
+            {/* Pod Info Summary */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.75rem', marginBottom: '2rem' }}>
               <div>
                 <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
-                  Recommended Roster Breakdown
+                  Roster Composition
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
                   {currentPod.teamRoster.map((member, mIdx) => (
                     <div
                       key={mIdx}
@@ -457,10 +730,9 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                 </div>
               </div>
 
-              {/* Right Column: Stack & Guarantees */}
               <div>
                 <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
-                  Verified Stack & SLAs
+                  Verified Stack & Cost Guidance
                 </div>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '1.25rem' }}>
@@ -468,9 +740,9 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                     <span
                       key={tIdx}
                       style={{
-                        padding: '0.3rem 0.75rem',
+                        padding: '0.35rem 0.8rem',
                         borderRadius: '9999px',
-                        fontSize: '0.8rem',
+                        fontSize: '0.82rem',
                         fontWeight: 600,
                         background: isDark ? 'rgba(102, 187, 42, 0.12)' : 'rgba(102, 187, 42, 0.1)',
                         color: isDark ? '#85D33A' : '#1B5E20',
@@ -484,8 +756,8 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
 
                 <div
                   style={{
-                    padding: '0.85rem 1rem',
-                    borderRadius: '12px',
+                    padding: '0.95rem 1.15rem',
+                    borderRadius: '14px',
                     background: isDark ? 'rgba(246, 178, 26, 0.08)' : 'rgba(246, 178, 26, 0.08)',
                     border: '1px solid rgba(246, 178, 26, 0.25)',
                     display: 'flex',
@@ -493,14 +765,59 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                     gap: '0.35rem'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.84rem', fontWeight: 700, color: '#F6B21A' }}>
-                    <Clock size={15} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.88rem', fontWeight: 700, color: '#F6B21A' }}>
+                    <Clock size={16} />
                     <span>{currentPod.sla}</span>
                   </div>
-                  <div style={{ fontSize: '0.82rem', color: isDark ? '#CBD5E1' : '#475569' }}>
-                    Typical cost tier: <span style={{ fontWeight: 700, color: isDark ? '#FFFFFF' : '#07160D' }}>{currentPod.rateRange}</span>
+                  <div style={{ fontSize: '0.84rem', color: isDark ? '#CBD5E1' : '#475569' }}>
+                    Typical cost tier: <span style={{ fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D' }}>{currentPod.rateRange}</span>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Visual Talent Profiles Grid */}
+            <div>
+              <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#F6B21A', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.75rem' }}>
+                Sample Vetted Leads in This Architecture
+              </div>
+
+              <div className="rf-ent-talent-grid">
+                {currentPod.sampleTalent.map((talent, tIdx) => (
+                  <div
+                    key={tIdx}
+                    className="rf-ent-talent-card"
+                    style={{
+                      background: isDark ? 'rgba(7, 22, 13, 0.7)' : '#F8FAF8',
+                      border: isDark ? '1px solid rgba(102, 187, 42, 0.2)' : '1px solid rgba(18, 43, 26, 0.1)'
+                    }}
+                  >
+                    <img
+                      src={talent.avatar}
+                      alt={talent.name}
+                      className="rf-ent-talent-avatar"
+                    />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.35rem' }}>
+                        <span style={{ fontSize: '0.92rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {talent.name} {talent.flag}
+                        </span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.75rem', fontWeight: 700, color: '#F6B21A' }}>
+                          <Star size={11} fill="#F6B21A" />
+                          <span>{talent.rating}</span>
+                        </div>
+                      </div>
+
+                      <div style={{ fontSize: '0.78rem', color: '#66BB2A', fontWeight: 600, marginTop: '0.1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {talent.role}
+                      </div>
+
+                      <div style={{ fontSize: '0.7rem', color: isDark ? '#94A3B8' : '#64748B', marginTop: '0.25rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {talent.endorsement}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -508,125 +825,228 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* =========================================================================
-          3. COMPARISON: REFEIR FOR BUSINESS VS TRADITIONAL PLATFORMS
+          3. PAN-AFRICAN TECH INNOVATION & ENTERPRISE VELOCITY (VISUAL BENTO GRID)
           ========================================================================= */}
       <section
         className="rf-section"
         style={{
-          background: isDark ? 'rgba(10, 23, 15, 0.6)' : '#F0F7F2',
+          background: isDark ? 'rgba(10, 23, 15, 0.65)' : '#F0F7F2',
           borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid rgba(18, 43, 26, 0.08)',
           borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid rgba(18, 43, 26, 0.08)'
         }}
       >
-        <div className="rf-container" style={{ maxWidth: '1120px' }}>
+        <div className="rf-container" style={{ maxWidth: '1180px' }}>
           <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 3rem' }}>
             <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', color: '#66BB2A', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
-              THE REFEIR ARCHITECTURE
+              HOW REFEIR DELIVERS
             </span>
-            <h2 style={{ fontSize: 'clamp(1.85rem, 3.5vw, 2.75rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
-              Why Modern Enterprises Build on Refeir
+            <h2 style={{ fontSize: 'clamp(1.95rem, 3.8vw, 2.85rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
+              Built for Fast-Moving Global Engineering Teams
             </h2>
             <p style={{ color: isDark ? '#94A3B8' : '#475569', marginTop: '0.75rem', fontSize: '1rem', lineHeight: 1.6 }}>
-              Compare how Refeir eliminates cross-border friction, contractor tax liabilities, and ghosting compared to traditional marketplaces.
+              A modern operational model built specifically for African sovereign talent and international scale-ups.
             </p>
           </div>
 
-          <div className="rf-ent-compare-grid">
-            {/* Traditional Marketplaces */}
+          <div className="rf-ent-bento-grid">
+            {/* Bento Card 1: Scout Endorsement */}
             <div
-              className="rf-ent-compare-col"
+              className="rf-ent-bento-card"
               style={{
-                background: isDark ? 'rgba(239, 68, 68, 0.04)' : '#FFFFFF',
-                border: isDark ? '1px solid rgba(239, 68, 68, 0.18)' : '1px solid rgba(239, 68, 68, 0.15)',
-                boxShadow: isDark ? 'none' : '0 4px 20px rgba(0,0,0,0.03)'
+                background: isDark ? 'rgba(13, 35, 22, 0.85)' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.22)' : '1px solid rgba(18, 43, 26, 0.1)',
+                boxShadow: isDark ? 'none' : '0 8px 24px rgba(0,0,0,0.04)'
               }}
             >
-              <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#EF4444', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem' }}>
-                TRADITIONAL FREELANCE PLATFORMS
+              <div className="rf-ent-bento-img-wrap">
+                <img
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+                  alt="Senior Tech Scouts vetting code in engineering hub"
+                />
               </div>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '1.25rem' }}>
-                High Friction & Unverified Noise
-              </h3>
+              <div className="rf-ent-bento-content">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.45rem' }}>
+                  <Award size={18} color="#66BB2A" />
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase' }}>
+                    SCOUT-VETTED MATCHING
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '0.5rem' }}>
+                  Zero Resume Spam
+                </h3>
+                <p style={{ fontSize: '0.88rem', color: isDark ? '#CBD5E1' : '#475569', lineHeight: 1.6 }}>
+                  Our Scouts are active CTOs and engineering directors in Lagos, Nairobi, Cape Town, and Kigali who stake their reputation on every candidate they introduce.
+                </p>
+              </div>
+            </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
-                  <span style={{ color: '#EF4444', fontWeight: 800, fontSize: '1.1rem' }}>✕</span>
-                  <div style={{ fontSize: '0.9rem', color: isDark ? '#CBD5E1' : '#475569' }}>
-                    <strong>150+ unvetted proposals</strong> to sift through, wasting 3-4 engineering weeks on screening.
+            {/* Bento Card 2: Contractor Shield & Compliance */}
+            <div
+              className="rf-ent-bento-card"
+              style={{
+                background: isDark ? 'rgba(13, 35, 22, 0.85)' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.22)' : '1px solid rgba(18, 43, 26, 0.1)',
+                boxShadow: isDark ? 'none' : '0 8px 24px rgba(0,0,0,0.04)'
+              }}
+            >
+              <div className="rf-ent-bento-img-wrap">
+                <img
+                  src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80"
+                  alt="Enterprise legal contract shield and compliance"
+                />
+              </div>
+              <div className="rf-ent-bento-content">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.45rem' }}>
+                  <ShieldCheck size={18} color="#F6B21A" />
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#F6B21A', textTransform: 'uppercase' }}>
+                    CONTRACTOR SHIELD
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '0.5rem' }}>
+                  Bulletproof IP & 54 Nations
+                </h3>
+                <p style={{ fontSize: '0.88rem', color: isDark ? '#CBD5E1' : '#475569', lineHeight: 1.6 }}>
+                  Comprehensive IP transfer agreements and W-8BEN compliance signed before work starts. Complete legal protection with zero foreign entity setup required.
+                </p>
+              </div>
+            </div>
+
+            {/* Bento Card 3: Time-Zone Alignment */}
+            <div
+              className="rf-ent-bento-card"
+              style={{
+                background: isDark ? 'rgba(13, 35, 22, 0.85)' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(102, 187, 42, 0.22)' : '1px solid rgba(18, 43, 26, 0.1)',
+                boxShadow: isDark ? 'none' : '0 8px 24px rgba(0,0,0,0.04)'
+              }}
+            >
+              <div className="rf-ent-bento-img-wrap">
+                <img
+                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+                  alt="Real-time collaborative sprint planning"
+                />
+              </div>
+              <div className="rf-ent-bento-content">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.45rem' }}>
+                  <Globe2 size={18} color="#66BB2A" />
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase' }}>
+                    TIME-ZONE SYNERGY
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '0.5rem' }}>
+                  5–8 Hours Real-Time Overlap
+                </h3>
+                <p style={{ fontSize: '0.88rem', color: isDark ? '#CBD5E1' : '#475569', lineHeight: 1.6 }}>
+                  Operating in GMT to GMT+3, African engineers overlap all day with London, Berlin, Amsterdam, and Paris, plus morning hours with US East Coast.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          4. SCALE-UP PROOF POINTS & EXECUTIVE TESTIMONIALS WITH PICTURES
+          ========================================================================= */}
+      <section className="rf-section">
+        <div className="rf-container" style={{ maxWidth: '1180px' }}>
+          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 3rem' }}>
+            <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', color: '#F6B21A', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
+              VERIFIED ENTERPRISE RESULTS
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.95rem, 3.8vw, 2.85rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
+              Proven by High-Growth Scale-Ups
+            </h2>
+            <p style={{ color: isDark ? '#94A3B8' : '#475569', marginTop: '0.75rem', fontSize: '1rem', lineHeight: 1.6 }}>
+              See how international engineering leaders scale core roadmaps with Refeir pods.
+            </p>
+          </div>
+
+          <div className="rf-ent-stories-grid">
+            {/* Story 1 */}
+            <div
+              className="rf-ent-story-card"
+              style={{
+                background: isDark ? 'rgba(13, 35, 22, 0.75)' : '#FFFFFF',
+                border: isDark ? '1.5px solid rgba(102, 187, 42, 0.25)' : '1.5px solid rgba(102, 187, 42, 0.2)',
+                boxShadow: isDark ? 'none' : '0 10px 30px rgba(0,0,0,0.04)'
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase' }}>
+                    FinTech Infrastructure Scale-Up
+                  </span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#F6B21A', background: isDark ? 'rgba(246, 178, 26, 0.12)' : '#FEF3C7', padding: '0.2rem 0.6rem', borderRadius: '9999px' }}>
+                    London, UK 🇬🇧
+                  </span>
+                </div>
+
+                <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: isDark ? '#E2E8F0' : '#1E293B', fontStyle: 'italic', marginBottom: '1.75rem' }}>
+                  "Refeir matched us with 3 senior Go engineers in Lagos within 48 hours. We shipped our cross-border payment gateway 2 months ahead of schedule while extending our engineering runway by 65%."
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
+                    alt="Marcus Vance, VP of Engineering"
+                    style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #66BB2A' }}
+                  />
+                  <div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D' }}>Marcus Vance</div>
+                    <div style={{ fontSize: '0.78rem', color: isDark ? '#94A3B8' : '#64748B' }}>VP of Engineering, RemitPoint</div>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
-                  <span style={{ color: '#EF4444', fontWeight: 800, fontSize: '1.1rem' }}>✕</span>
-                  <div style={{ fontSize: '0.9rem', color: isDark ? '#CBD5E1' : '#475569' }}>
-                    <strong>Direct tax exposure</strong>: Your legal department must handle W-8BENs, withholding taxes, and misclassification audits across foreign jurisdictions.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
-                  <span style={{ color: '#EF4444', fontWeight: 800, fontSize: '1.1rem' }}>✕</span>
-                  <div style={{ fontSize: '0.9rem', color: isDark ? '#CBD5E1' : '#475569' }}>
-                    <strong>Fragmented invoicing</strong> with unpredictable credit card fees, high wire surcharges, and fluctuating FX rates.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
-                  <span style={{ color: '#EF4444', fontWeight: 800, fontSize: '1.1rem' }}>✕</span>
-                  <div style={{ fontSize: '0.9rem', color: isDark ? '#CBD5E1' : '#475569' }}>
-                    <strong>No sprint accountability</strong>: If a freelancer ghosts or submits substandard code, you absorb the sunk sprint costs.
-                  </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#66BB2A' }}>$180k+ Saved</div>
+                  <div style={{ fontSize: '0.72rem', color: isDark ? '#94A3B8' : '#64748B' }}>48h Deployment</div>
                 </div>
               </div>
             </div>
 
-            {/* Refeir for Business */}
+            {/* Story 2 */}
             <div
-              className="rf-ent-compare-col"
+              className="rf-ent-story-card"
               style={{
-                background: isDark ? 'rgba(102, 187, 42, 0.08)' : '#FFFFFF',
-                border: '1.5px solid #66BB2A',
-                boxShadow: isDark ? '0 8px 30px rgba(102, 187, 42, 0.12)' : '0 8px 30px rgba(18, 43, 26, 0.06)'
+                background: isDark ? 'rgba(13, 35, 22, 0.75)' : '#FFFFFF',
+                border: isDark ? '1.5px solid rgba(102, 187, 42, 0.25)' : '1.5px solid rgba(102, 187, 42, 0.2)',
+                boxShadow: isDark ? 'none' : '0 10px 30px rgba(0,0,0,0.04)'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                  REFEIR FOR BUSINESS
-                </span>
-                <span style={{ fontSize: '0.7rem', fontWeight: 800, background: '#66BB2A', color: '#07160D', padding: '0.15rem 0.5rem', borderRadius: '9999px' }}>
-                  RECOMMENDED
-                </span>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase' }}>
+                    HealthTech AI Scale-Up
+                  </span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#F6B21A', background: isDark ? 'rgba(246, 178, 26, 0.12)' : '#FEF3C7', padding: '0.2rem 0.6rem', borderRadius: '9999px' }}>
+                    Berlin, Germany 🇩🇪
+                  </span>
+                </div>
+
+                <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: isDark ? '#E2E8F0' : '#1E293B', fontStyle: 'italic', marginBottom: '1.75rem' }}>
+                  "The milestone Trust Vault gave our board complete confidence. We reviewed every pull request and computer vision model release before escrow funds unlocked. The talent quality in Cape Town is exceptional."
+                </p>
               </div>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '1.25rem' }}>
-                Scout-Vetted & Milestone-Protected
-              </h3>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
-                  <CheckCircle2 size={18} color="#66BB2A" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ fontSize: '0.9rem', color: isDark ? '#FFFFFF' : '#07160D' }}>
-                    <strong>Scout Endorsed in 48h</strong>: Senior African tech leads present 3 pre-vetted engineers matched to your exact architecture.
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+                    alt="Dr. Elena Richter, CTO"
+                    style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #66BB2A' }}
+                  />
+                  <div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D' }}>Dr. Elena Richter</div>
+                    <div style={{ fontSize: '0.78rem', color: isDark ? '#94A3B8' : '#64748B' }}>Co-founder & CTO, Kora AI</div>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
-                  <CheckCircle2 size={18} color="#66BB2A" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ fontSize: '0.9rem', color: isDark ? '#FFFFFF' : '#07160D' }}>
-                    <strong>Refeir Contractor Shield</strong>: Full IP assignment, localized contract enforcement, and complete tax indemnity in 54 nations.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
-                  <CheckCircle2 size={18} color="#66BB2A" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ fontSize: '0.9rem', color: isDark ? '#FFFFFF' : '#07160D' }}>
-                    <strong>Single Consolidated Invoice</strong>: Pay once per cycle in USD, EUR, or GBP via wire or corporate card; Refeir manages multi-currency FX.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
-                  <CheckCircle2 size={18} color="#66BB2A" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ fontSize: '0.9rem', color: isDark ? '#FFFFFF' : '#07160D' }}>
-                    <strong>100% Trust Vault Escrow</strong>: Payouts release strictly upon your PR approval. 14-day replacement guarantee included.
-                  </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#66BB2A' }}>4 AI Leads</div>
+                  <div style={{ fontSize: '0.72rem', color: isDark ? '#94A3B8' : '#64748B' }}>100% Escrow Release</div>
                 </div>
               </div>
             </div>
@@ -635,15 +1055,15 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* =========================================================================
-          4. INTERACTIVE COST & SAVINGS CALCULATOR
+          5. INTERACTIVE COST & SAVINGS CALCULATOR
           ========================================================================= */}
-      <section id="enterprise-calculator-section" className="rf-section">
+      <section id="enterprise-calculator-section" className="rf-section" style={{ background: isDark ? 'rgba(7, 22, 13, 0.5)' : '#F0F7F2' }}>
         <div className="rf-container" style={{ maxWidth: '1080px' }}>
           <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 3rem' }}>
             <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', color: '#F6B21A', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
               BUDGET OPTIMIZATION CALCULATOR
             </span>
-            <h2 style={{ fontSize: 'clamp(1.85rem, 3.5vw, 2.75rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
+            <h2 style={{ fontSize: 'clamp(1.95rem, 3.8vw, 2.85rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
               Simulate Your Enterprise Runway Extension
             </h2>
             <p style={{ color: isDark ? '#94A3B8' : '#475569', marginTop: '0.75rem', fontSize: '1rem', lineHeight: 1.6 }}>
@@ -653,8 +1073,8 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
 
           <div
             style={{
-              background: isDark ? 'rgba(13, 35, 22, 0.75)' : '#FFFFFF',
-              border: isDark ? '1px solid rgba(102, 187, 42, 0.22)' : '1px solid rgba(18, 43, 26, 0.12)',
+              background: isDark ? 'rgba(13, 35, 22, 0.85)' : '#FFFFFF',
+              border: isDark ? '1px solid rgba(102, 187, 42, 0.25)' : '1px solid rgba(18, 43, 26, 0.12)',
               borderRadius: '24px',
               padding: 'clamp(1.75rem, 4vw, 3rem)',
               boxShadow: isDark ? 'none' : '0 12px 35px rgba(0,0,0,0.05)'
@@ -700,8 +1120,8 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                         key={months}
                         onClick={() => setDurationMonths(months)}
                         style={{
-                          padding: '0.65rem',
-                          borderRadius: '10px',
+                          padding: '0.75rem',
+                          borderRadius: '12px',
                           border: durationMonths === months
                             ? '1.5px solid #66BB2A'
                             : isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(18, 43, 26, 0.12)',
@@ -712,7 +1132,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                             ? '#66BB2A'
                             : isDark ? '#FFFFFF' : '#07160D',
                           fontWeight: durationMonths === months ? 800 : 600,
-                          fontSize: '0.88rem',
+                          fontSize: '0.9rem',
                           cursor: 'pointer',
                           transition: 'all 0.15s ease'
                         }}
@@ -727,24 +1147,24 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
               {/* Live Metric Card */}
               <div
                 style={{
-                  background: isDark ? 'rgba(7, 22, 13, 0.9)' : '#F4FBF0',
-                  border: isDark ? '1.5px solid rgba(102, 187, 42, 0.3)' : '1.5px solid rgba(102, 187, 42, 0.25)',
-                  borderRadius: '20px',
-                  padding: '2rem',
+                  background: isDark ? 'rgba(7, 22, 13, 0.95)' : '#F4FBF0',
+                  border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(102, 187, 42, 0.25)',
+                  borderRadius: '22px',
+                  padding: '2.25rem',
                   textAlign: 'center'
                 }}
               >
                 <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#F6B21A', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem' }}>
                   ESTIMATED CAPITAL PRESERVED
                 </div>
-                <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#66BB2A', lineHeight: 1.1, marginBottom: '0.5rem' }}>
+                <div style={{ fontSize: 'clamp(2.6rem, 5.5vw, 3.8rem)', fontWeight: 800, color: '#66BB2A', lineHeight: 1.1, marginBottom: '0.5rem' }}>
                   ${totalSavings.toLocaleString()}
                 </div>
-                <div style={{ fontSize: '0.95rem', fontWeight: 700, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '1.25rem' }}>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '1.25rem' }}>
                   ~{savingsPercent}% Lower Total Cost of Ownership
                 </div>
 
-                <div style={{ borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)', paddingTop: '1rem', display: 'flex', justifyContent: 'space-around', fontSize: '0.85rem' }}>
+                <div style={{ borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)', paddingTop: '1.25rem', display: 'flex', justifyContent: 'space-around', fontSize: '0.88rem' }}>
                   <div>
                     <div style={{ color: isDark ? '#64748B' : '#94A3B8' }}>US / UK Equivalent</div>
                     <div style={{ fontWeight: 700, color: isDark ? '#CBD5E1' : '#475569', marginTop: '0.2rem' }}>${totalUsSpend.toLocaleString()}</div>
@@ -761,10 +1181,10 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }}
                   className="rf-btn rf-btn-primary"
-                  style={{ width: '100%', marginTop: '1.5rem', justifyContent: 'center', fontWeight: 700 }}
+                  style={{ width: '100%', marginTop: '1.75rem', justifyContent: 'center', fontWeight: 800, padding: '0.85rem' }}
                 >
-                  <span>Lock In This Capacity</span>
-                  <ArrowRight size={16} />
+                  <span>Deploy {teamSize} Engineers Now</span>
+                  <ArrowRight size={17} />
                 </button>
               </div>
             </div>
@@ -773,7 +1193,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* =========================================================================
-          5. THE ACTION POINT: ENTERPRISE SCOPING & INTAKE
+          6. THE ACTION POINT: ENTERPRISE SCOPING & INTAKE
           ========================================================================= */}
       <section
         id="enterprise-intake-section"
@@ -785,7 +1205,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
           position: 'relative'
         }}
       >
-        <div className="rf-container" style={{ maxWidth: '920px' }}>
+        <div className="rf-container" style={{ maxWidth: '940px' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', color: '#66BB2A', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
               TAKE ACTION TODAY
@@ -809,8 +1229,8 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
               <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
                 <div
                   style={{
-                    width: '64px',
-                    height: '64px',
+                    width: '68px',
+                    height: '68px',
                     borderRadius: '50%',
                     background: 'rgba(102, 187, 42, 0.15)',
                     border: '2px solid #66BB2A',
@@ -820,13 +1240,13 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                     margin: '0 auto 1.5rem'
                   }}
                 >
-                  <Check size={32} color="#66BB2A" />
+                  <Check size={34} color="#66BB2A" />
                 </div>
 
                 <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#F6B21A', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>
                   INTAKE DOSSIER REGISTERED
                 </div>
-                <h3 style={{ fontSize: '1.85rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '0.75rem' }}>
+                <h3 style={{ fontSize: '1.95rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', marginBottom: '0.75rem' }}>
                   Thank you, {contactName || 'Partner'}!
                 </h3>
                 <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '1rem', lineHeight: 1.6, maxWidth: '580px', margin: '0 auto 1.5rem' }}>
@@ -842,20 +1262,20 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                     textAlign: 'left',
                     background: isDark ? 'rgba(255, 255, 255, 0.03)' : '#F4FBF0',
                     border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(18, 43, 26, 0.08)',
-                    borderRadius: '12px',
-                    padding: '1.25rem 1.75rem',
+                    borderRadius: '14px',
+                    padding: '1.35rem 1.85rem',
                     marginBottom: '2rem'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.88rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
                     <CheckCircle2 size={16} color="#66BB2A" />
                     <span>Selected Objective: <strong>{intakeObjective}</strong></span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.88rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
                     <CheckCircle2 size={16} color="#66BB2A" />
                     <span>Confirmation sent to: <strong>{workEmail}</strong></span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.88rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
                     <CheckCircle2 size={16} color="#66BB2A" />
                     <span>Candidate Dossiers SLA: <strong>Within 48 hours</strong></span>
                   </div>
@@ -865,7 +1285,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                   <button
                     onClick={() => onNavigate('/marketplace')}
                     className="rf-btn rf-btn-primary"
-                    style={{ fontWeight: 700 }}
+                    style={{ fontWeight: 800, padding: '0.75rem 1.6rem' }}
                   >
                     <span>Browse Current Verified Talent</span>
                     <ArrowRight size={16} />
@@ -877,6 +1297,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                       setWorkEmail('');
                     }}
                     className="rf-btn rf-btn-secondary"
+                    style={{ padding: '0.75rem 1.4rem' }}
                   >
                     Submit Another Requirement
                   </button>
@@ -889,7 +1310,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                   <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
                     Step 1: Select Your Primary Hiring Objective
                   </label>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.65rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '0.65rem' }}>
                     {[
                       'Deploy Full Engineering Pod',
                       'Hire Specialized Senior Engineer',
@@ -901,10 +1322,10 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                         key={obj}
                         onClick={() => setIntakeObjective(obj)}
                         style={{
-                          padding: '0.75rem 0.85rem',
-                          borderRadius: '10px',
+                          padding: '0.85rem 0.95rem',
+                          borderRadius: '12px',
                           textAlign: 'left',
-                          fontSize: '0.85rem',
+                          fontSize: '0.88rem',
                           fontWeight: intakeObjective === obj ? 800 : 500,
                           cursor: 'pointer',
                           border: intakeObjective === obj
@@ -928,13 +1349,13 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                 {/* Step 2: Company & Contact Information */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
+                    <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
                       Company or Scale-Up Name *
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Flutterwave, Paystack, Stripe"
+                      placeholder="e.g. Flutterwave, Monzo, Stripe"
                       value={companyName}
                       onChange={e => setCompanyName(e.target.value)}
                       className="rf-ent-input-field"
@@ -947,7 +1368,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
+                    <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
                       Corporate Work Email *
                     </label>
                     <input
@@ -968,7 +1389,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
+                    <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
                       Your Full Name & Role
                     </label>
                     <input
@@ -986,7 +1407,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
+                    <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
                       Target Start Timeline
                     </label>
                     <select
@@ -1009,7 +1430,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
 
                 {/* Step 3: Stack Scope */}
                 <div style={{ marginBottom: '2rem' }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
+                  <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, marginBottom: '0.45rem', color: isDark ? '#CBD5E1' : '#1E293B' }}>
                     Key Technology Stack & Project Scope (Optional)
                   </label>
                   <textarea
@@ -1029,7 +1450,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
 
                 {/* Submit Action */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: isDark ? '#94A3B8' : '#64748B' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.84rem', color: isDark ? '#94A3B8' : '#64748B' }}>
                     <ShieldCheck size={18} color="#66BB2A" />
                     <span>Protected by Refeir Enterprise NDA & Trust Vault</span>
                   </div>
@@ -1037,7 +1458,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                   <button
                     type="submit"
                     className="rf-btn rf-btn-primary rf-btn-lg"
-                    style={{ padding: '0.85rem 2.25rem', fontSize: '1rem', fontWeight: 800, gap: '0.5rem' }}
+                    style={{ padding: '0.9rem 2.5rem', fontSize: '1rem', fontWeight: 800, gap: '0.5rem' }}
                   >
                     <span>Request Candidate Shortlist</span>
                     <ArrowRight size={18} />
@@ -1050,15 +1471,15 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* =========================================================================
-          6. FREQUENTLY ASKED ENTERPRISE QUESTIONS
+          7. FREQUENTLY ASKED ENTERPRISE QUESTIONS
           ========================================================================= */}
       <section className="rf-section" style={{ borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.06)' : '1px solid rgba(18, 43, 26, 0.08)' }}>
-        <div className="rf-container" style={{ maxWidth: '820px' }}>
+        <div className="rf-container" style={{ maxWidth: '840px' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', color: '#66BB2A', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
               EXECUTIVE & LEGAL FAQ
             </span>
-            <h2 style={{ fontSize: 'clamp(1.75rem, 3.2vw, 2.5rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
+            <h2 style={{ fontSize: 'clamp(1.85rem, 3.5vw, 2.65rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#07160D', lineHeight: 1.2 }}>
               Everything You Need to Know
             </h2>
           </div>
