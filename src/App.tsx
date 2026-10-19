@@ -644,8 +644,6 @@ export const App: React.FC = () => {
     basePath === '/' ||
     basePath === '/why-refeir' ||
     basePath === '/about' ||
-    basePath === '/business' ||
-    basePath === '/enterprise' ||
     basePath === '/blog' ||
     basePath === '/impact' ||
     basePath === '/partnerships' ||
