@@ -125,6 +125,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
   const [, setPrevDropdown] = useState<ActiveDropdown>(null);
   const [switchDirection, setSwitchDirection] = useState<'left' | 'right' | null>(null);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
+  const [mobileExpandedSection, setMobileExpandedSection] = useState<string | null>(null);
+
+  const toggleMobileSection = (section: string) => {
+    setMobileExpandedSection(prev => prev === section ? null : section);
+  };
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -2909,16 +2914,16 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 </div>
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem', marginBottom: '1.25rem' }}>
                 <button
                   onClick={() => {
                     setShowMobileDrawer(false);
                     setShowLoginModal(true);
                   }}
                   className="rf-btn rf-btn-secondary rf-btn-sm"
-                  style={{ width: '100%', padding: '0.55rem' }}
+                  style={{ width: '100%', padding: '0.65rem', justifyContent: 'center', fontWeight: 700 }}
                 >
-                  <LogIn size={14} /> Log In
+                  Log In
                 </button>
                 <button
                   onClick={() => {
@@ -2926,100 +2931,667 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                     setShowSignupModal(true);
                   }}
                   className="rf-btn rf-btn-primary rf-btn-sm"
-                  style={{ width: '100%', padding: '0.55rem' }}
+                  style={{ width: '100%', padding: '0.65rem', justifyContent: 'center', fontWeight: 700 }}
                 >
-                  <UserPlus size={14} /> Sign Up
+                  Sign Up
                 </button>
               </div>
             )}
 
-            {/* Navigation Category Groups */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
-              <div>
-                <div style={{ fontSize: '0.6875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
-                  Marketplace & Discovery
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/talents'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Users size={15} color="var(--rf-leaf-green)" /> <span>Browse Proven Talents</span>
-                  </button>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/services'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Package size={15} color="var(--rf-leaf-green)" /> <span>Fixed Service Packages</span>
-                  </button>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/jobs'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Briefcase size={15} color="var(--rf-leaf-green)" /> <span>Browse Jobs & Projects</span>
-                  </button>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/map'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Globe2 size={15} color="var(--rf-leaf-green)" /> <span>Africa 3D Explorer</span>
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <div style={{ fontSize: '0.6875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
-                  Scout Program & Escrow
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/become-scout'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Award size={15} color="var(--rf-leaf-green)" /> <span>Become a Scout (10% Earn)</span>
-                  </button>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/scouts'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Users size={15} color="var(--rf-leaf-green)" /> <span>Verified Scouts Directory</span>
-                  </button>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/scout-calculator'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Calculator size={15} color="var(--rf-leaf-green)" /> <span>Earnings Calculator</span>
-                  </button>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/trust-vault'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <Lock size={15} color="var(--rf-leaf-green)" /> <span>Trust Vault Escrow</span>
-                  </button>
-                  <button onClick={() => { setShowMobileDrawer(false); onNavigate('/how-it-works'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                    <CheckCircle2 size={15} color="var(--rf-leaf-green)" /> <span>How Refeir Works</span>
-                  </button>
-                </div>
-              </div>
-
-              {currentUser && (
-                <div>
-                  <div style={{ fontSize: '0.6875rem', fontWeight: 800, color: 'var(--rf-leaf-green)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
-                    Workspace & Settings
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                    <button onClick={() => { setShowMobileDrawer(false); onNavigate(getRoleDashboardPath()); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                      <LayoutDashboard size={15} color="var(--rf-leaf-green)" /> <span>My Active Dashboard</span>
-                    </button>
-                    <button onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                      <Wallet size={15} color="var(--rf-leaf-green)" /> <span>Multi-Currency Wallet</span>
-                    </button>
-                    <button onClick={() => { setShowMobileDrawer(false); onNavigate('/verification'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                      <ShieldCheck size={15} color="var(--rf-leaf-green)" /> <span>Biometric Verification</span>
-                    </button>
-                    <button onClick={() => { setShowMobileDrawer(false); onNavigate('/settings'); }} className="rf-sidebar-link" style={{ background: 'none', padding: '0.5rem 0.65rem' }}>
-                      <Settings size={15} color="var(--rf-leaf-green)" /> <span>Account Settings</span>
-                    </button>
+            {/* Modern Clean Navigation List without icons (Matches desktop navbar options) */}
+            <nav className="rf-mobile-nav-list" aria-label="Mobile Menu Navigation">
+              {!currentUser ? (
+                /* Public Guest Navigation */
+                <>
+                  {/* 1. Recruit */}
+                  <div className="rf-mobile-nav-section">
                     <button
-                      onClick={async () => {
-                        setShowMobileDrawer(false);
-                        await logout();
-                        onNavigate('/');
-                      }}
-                      className="rf-sidebar-link"
-                      style={{ background: 'none', color: '#EF4444', padding: '0.5rem 0.65rem' }}
+                      className="rf-mobile-nav-trigger"
+                      onClick={() => toggleMobileSection('recruit')}
+                      aria-expanded={mobileExpandedSection === 'recruit'}
                     >
-                      <LogOut size={15} /> <span>Sign Out</span>
+                      <span>Recruit</span>
+                      <ChevronDown
+                        size={16}
+                        style={{
+                          transform: mobileExpandedSection === 'recruit' ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s ease',
+                          color: navTextMuted
+                        }}
+                      />
+                    </button>
+                    {mobileExpandedSection === 'recruit' && (
+                      <div className="rf-mobile-nav-subitems">
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace?category=Engineering'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Software & Mobile Engineering
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/ai-wizards'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          AI Studios & Data Science
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace?category=Design+%26+Creative'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Design & UI/UX
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace?category=Growth+%26+Marketing'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Growth & Marketing
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace?category=Legal+%26+Operations'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Legal & FinTech Operations
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/jobs'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Post a Job Requirement
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Browse All 54 Nations
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 2. Scout */}
+                  <div className="rf-mobile-nav-section">
+                    <button
+                      className="rf-mobile-nav-trigger"
+                      onClick={() => toggleMobileSection('scout')}
+                      aria-expanded={mobileExpandedSection === 'scout'}
+                    >
+                      <span>Scout</span>
+                      <ChevronDown
+                        size={16}
+                        style={{
+                          transform: mobileExpandedSection === 'scout' ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s ease',
+                          color: navTextMuted
+                        }}
+                      />
+                    </button>
+                    {mobileExpandedSection === 'scout' && (
+                      <div className="rf-mobile-nav-subitems">
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/scout'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Scout Dashboard
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Refer a Talent to Clients
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/scout-sourcing'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          How Scouting Works
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Trust Vault Payouts & Multi-Currency
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 3. Talent */}
+                  <div className="rf-mobile-nav-section">
+                    <button
+                      className="rf-mobile-nav-trigger"
+                      onClick={() => toggleMobileSection('talent')}
+                      aria-expanded={mobileExpandedSection === 'talent'}
+                    >
+                      <span>Talent</span>
+                      <ChevronDown
+                        size={16}
+                        style={{
+                          transform: mobileExpandedSection === 'talent' ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s ease',
+                          color: navTextMuted
+                        }}
+                      />
+                    </button>
+                    {mobileExpandedSection === 'talent' && (
+                      <div className="rf-mobile-nav-subitems">
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/jobs'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Browse Open Jobs
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/talent'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Talent Workspace
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/verification'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Get Verified
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/disputes'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Payment & Milestone Protection
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4. Pricing (Direct link) */}
+                  <div className="rf-mobile-nav-section">
+                    <button
+                      className="rf-mobile-nav-trigger"
+                      onClick={() => { setShowMobileDrawer(false); onNavigate('/pricing'); }}
+                    >
+                      <span>Pricing</span>
                     </button>
                   </div>
-                </div>
+
+                  {/* 5. Business (Direct link) */}
+                  <div className="rf-mobile-nav-section">
+                    <button
+                      className="rf-mobile-nav-trigger"
+                      onClick={() => { setShowMobileDrawer(false); onNavigate('/business'); }}
+                    >
+                      <span>Business</span>
+                    </button>
+                  </div>
+
+                  {/* 6. Resources */}
+                  <div className="rf-mobile-nav-section">
+                    <button
+                      className="rf-mobile-nav-trigger"
+                      onClick={() => toggleMobileSection('resources')}
+                      aria-expanded={mobileExpandedSection === 'resources'}
+                    >
+                      <span>Resources</span>
+                      <ChevronDown
+                        size={16}
+                        style={{
+                          transform: mobileExpandedSection === 'resources' ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s ease',
+                          color: navTextMuted
+                        }}
+                      />
+                    </button>
+                    {mobileExpandedSection === 'resources' && (
+                      <div className="rf-mobile-nav-subitems">
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/countries'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          54 African Countries Hub
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/demo-tour'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Cross-Border Demo Tour
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/why-refeir'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Why Refeir & Our Vision
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/success-stories'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Success Stories
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/reviews'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Refeir Reviews (4.9/5.0)
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/tools'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Free Business Tools
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/blog'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Refeir Blog & Guides
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/help'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Help & Support Center
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                /* Logged-In User Role Navigation */
+                currentUser.active_role === 'TALENT' ? (
+                  <>
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/talent'); }}
+                      >
+                        <span>Dashboard</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => toggleMobileSection('journey')}
+                        aria-expanded={mobileExpandedSection === 'journey'}
+                      >
+                        <span>My Journey</span>
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transform: mobileExpandedSection === 'journey' ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            color: navTextMuted
+                          }}
+                        />
+                      </button>
+                      {mobileExpandedSection === 'journey' && (
+                        <div className="rf-mobile-nav-subitems">
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/talent'); }} className="rf-mobile-nav-sublink">Orders</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/talent'); }} className="rf-mobile-nav-sublink">Gigs</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/profile'); }} className="rf-mobile-nav-sublink">Profile</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }} className="rf-mobile-nav-sublink">Earnings</button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => toggleMobileSection('scale')}
+                        aria-expanded={mobileExpandedSection === 'scale'}
+                      >
+                        <span>Scale Metrics</span>
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transform: mobileExpandedSection === 'scale' ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            color: navTextMuted
+                          }}
+                        />
+                      </button>
+                      {mobileExpandedSection === 'scale' && (
+                        <div className="rf-mobile-nav-subitems">
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/verification'); }} className="rf-mobile-nav-sublink">Level Overview</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/talent'); }} className="rf-mobile-nav-sublink">Endorsements</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/messages'); }} className="rf-mobile-nav-sublink">Contacts</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/pricing'); }} className="rf-mobile-nav-sublink">Program Benefits</button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => toggleMobileSection('analytics')}
+                        aria-expanded={mobileExpandedSection === 'analytics'}
+                      >
+                        <span>Analytics</span>
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transform: mobileExpandedSection === 'analytics' ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            color: navTextMuted
+                          }}
+                        />
+                      </button>
+                      {mobileExpandedSection === 'analytics' && (
+                        <div className="rf-mobile-nav-subitems">
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/talent'); }} className="rf-mobile-nav-sublink">Overview</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/talent'); }} className="rf-mobile-nav-sublink">Repeat Service</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace'); }} className="rf-mobile-nav-sublink">Keyword Research</button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/messages'); }}
+                      >
+                        <span>Messages</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }}
+                      >
+                        <span>Wallet</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/verification'); }}
+                      >
+                        <span>Verification</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/settings'); }}
+                      >
+                        <span>Settings</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section" style={{ borderBottom: 'none', paddingTop: '0.5rem' }}>
+                      <button
+                        onClick={async () => {
+                          setShowMobileDrawer(false);
+                          await logout();
+                          onNavigate('/');
+                        }}
+                        className="rf-mobile-nav-trigger"
+                        style={{ color: '#EF4444' }}
+                      >
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </>
+                ) : currentUser.active_role === 'SCOUT' ? (
+                  <>
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/scout'); }}
+                      >
+                        <span>Dashboard</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => toggleMobileSection('network')}
+                        aria-expanded={mobileExpandedSection === 'network'}
+                      >
+                        <span>My Network</span>
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transform: mobileExpandedSection === 'network' ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            color: navTextMuted
+                          }}
+                        />
+                      </button>
+                      {mobileExpandedSection === 'network' && (
+                        <div className="rf-mobile-nav-subitems">
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/introductions'); }} className="rf-mobile-nav-sublink">Active Introductions</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/scout-links'); }} className="rf-mobile-nav-sublink">Scout Links & QR</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/profile'); }} className="rf-mobile-nav-sublink">Profile</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }} className="rf-mobile-nav-sublink">Earnings</button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => toggleMobileSection('pipeline')}
+                        aria-expanded={mobileExpandedSection === 'pipeline'}
+                      >
+                        <span>Pipeline Metrics</span>
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transform: mobileExpandedSection === 'pipeline' ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            color: navTextMuted
+                          }}
+                        />
+                      </button>
+                      {mobileExpandedSection === 'pipeline' && (
+                        <div className="rf-mobile-nav-subitems">
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/conversions'); }} className="rf-mobile-nav-sublink">Conversion Rates</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/telemetry'); }} className="rf-mobile-nav-sublink">Telemetry Logs</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/verification'); }} className="rf-mobile-nav-sublink">Reputation Rank</button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/telemetry'); }}
+                      >
+                        <span>Scout Telemetry</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/messages'); }}
+                      >
+                        <span>Messages</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }}
+                      >
+                        <span>Wallet</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/verification'); }}
+                      >
+                        <span>Verification</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/settings'); }}
+                      >
+                        <span>Settings</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section" style={{ borderBottom: 'none', paddingTop: '0.5rem' }}>
+                      <button
+                        onClick={async () => {
+                          setShowMobileDrawer(false);
+                          await logout();
+                          onNavigate('/');
+                        }}
+                        className="rf-mobile-nav-trigger"
+                        style={{ color: '#EF4444' }}
+                      >
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  /* Client Role */
+                  <>
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/client'); }}
+                      >
+                        <span>Dashboard</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => toggleMobileSection('talent-escrow')}
+                        aria-expanded={mobileExpandedSection === 'talent-escrow'}
+                      >
+                        <span>Talent & Escrow</span>
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transform: mobileExpandedSection === 'talent-escrow' ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            color: navTextMuted
+                          }}
+                        />
+                      </button>
+                      {mobileExpandedSection === 'talent-escrow' && (
+                        <div className="rf-mobile-nav-subitems">
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace'); }} className="rf-mobile-nav-sublink">Browse Marketplace</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/client'); }} className="rf-mobile-nav-sublink">Active Milestones</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace'); }} className="rf-mobile-nav-sublink">Saved Shortlists</button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => toggleMobileSection('pulse')}
+                        aria-expanded={mobileExpandedSection === 'pulse'}
+                      >
+                        <span>Project Pulse</span>
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transform: mobileExpandedSection === 'pulse' ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            color: navTextMuted
+                          }}
+                        />
+                      </button>
+                      {mobileExpandedSection === 'pulse' && (
+                        <div className="rf-mobile-nav-subitems">
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/client'); }} className="rf-mobile-nav-sublink">Milestone Approvals</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/client'); }} className="rf-mobile-nav-sublink">Delivery Tracker</button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => toggleMobileSection('financials')}
+                        aria-expanded={mobileExpandedSection === 'financials'}
+                      >
+                        <span>Financials</span>
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transform: mobileExpandedSection === 'financials' ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            color: navTextMuted
+                          }}
+                        />
+                      </button>
+                      {mobileExpandedSection === 'financials' && (
+                        <div className="rf-mobile-nav-subitems">
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }} className="rf-mobile-nav-sublink">Trust Vault Escrow</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/dashboard/client'); }} className="rf-mobile-nav-sublink">Invoices & Receipts</button>
+                          <button onClick={() => { setShowMobileDrawer(false); onNavigate('/settings'); }} className="rf-mobile-nav-sublink">Billing Methods</button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/messages'); }}
+                      >
+                        <span>Messages</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/wallet'); }}
+                      >
+                        <span>Wallet</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section">
+                      <button
+                        className="rf-mobile-nav-trigger"
+                        onClick={() => { setShowMobileDrawer(false); onNavigate('/settings'); }}
+                      >
+                        <span>Settings</span>
+                      </button>
+                    </div>
+
+                    <div className="rf-mobile-nav-section" style={{ borderBottom: 'none', paddingTop: '0.5rem' }}>
+                      <button
+                        onClick={async () => {
+                          setShowMobileDrawer(false);
+                          await logout();
+                          onNavigate('/');
+                        }}
+                        className="rf-mobile-nav-trigger"
+                        style={{ color: '#EF4444' }}
+                      >
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </>
+                )
               )}
-            </div>
+            </nav>
 
             {/* Drawer Footer Controls */}
             <div style={{ marginTop: 'auto', paddingTop: '1.25rem', borderTop: `1px solid ${navBorderDivider}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <button
                 onClick={toggleTheme}
                 className="rf-btn rf-btn-secondary rf-btn-sm"
-                style={{ padding: '0.45rem 0.75rem', fontSize: '0.75rem' }}
+                style={{ padding: '0.45rem 0.85rem', fontSize: '0.78rem', fontWeight: 600 }}
               >
-                {theme === 'dark' ? <Sun size={14} color="#F6B21A" /> : <Moon size={14} color="#122B1A" />}
                 <span>{theme === 'dark' ? 'Light Theme' : 'Dark Theme'}</span>
               </button>
 
