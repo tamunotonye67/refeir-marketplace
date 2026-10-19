@@ -90,7 +90,7 @@ export class GhanaPaymentProvider extends MockPaymentProvider {
 }
 
 export class KenyaPaymentProvider extends MockPaymentProvider {
-  override provider_name = 'Kenya Payment Provider (Safaricom M-Pesa & Card Rail)';
+  override provider_name = 'Kenya Payment Provider (M-Pesa & Card Rail)';
   override supported_countries = ['KE'];
 }
 

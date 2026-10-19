@@ -45,13 +45,13 @@ const BANK_PRESETS: Record<string, string[]> = {
 };
 
 const MOMO_PRESETS: Record<string, string[]> = {
-  Kenya: ['M-Pesa (Safaricom)', 'Airtel Money Kenya'],
+  Kenya: ['M-Pesa', 'Airtel Money Kenya'],
   Ghana: ['MTN Mobile Money', 'Telecel (Vodafone) Cash', 'AirtelTigo Money'],
   Nigeria: ['OPay Wallet', 'PalmPay', 'MoMo PSB (MTN)', 'Kuda PSB'],
   Rwanda: ['MTN Mobile Money Rwanda', 'Airtel Money Rwanda'],
   Uganda: ['MTN Mobile Money Uganda', 'Airtel Money Uganda'],
   Tanzania: ['M-Pesa Tanzania (Vodacom)', 'Tigo Pesa', 'Airtel Money Tanzania'],
-  'Ivory Coast': ['Orange Money', 'MTN Mobile Money CI', 'Moov Money CI', 'Wave Côte d’Ivoire']
+  'Ivory Coast': ['Orange Money', 'MTN Mobile Money CI', 'Moov Money CI']
 };
 
 export const AddPayoutMethodModal: React.FC<AddPayoutMethodModalProps> = ({

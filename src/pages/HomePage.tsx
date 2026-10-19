@@ -625,59 +625,6 @@ export const HomePage: React.FC<HomePageProps> = ({
           </g>
         </svg>
       )
-    },
-    {
-      name: 'M-Pesa / Safaricom',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M4 14C7 8 17 8 20 14" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M7 18C9.5 14 14.5 14 17 18" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-          <circle cx="12" cy="6" r="2.5" fill="#FFFFFF" />
-        </svg>
-      )
-    },
-    {
-      name: 'Piggyvest',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FFFFFF" strokeWidth="2" />
-          <path d="M12 6V12L16 14" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-        </svg>
-      )
-    },
-    {
-      name: 'Wave Money',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M3 9C6 6 9 6 12 9C15 12 18 12 21 9" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M3 15C6 12 9 12 12 15C15 18 18 18 21 15" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
-        </svg>
-      )
-    },
-    {
-      name: 'Bolt Africa',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M13 2L4 14H12L11 22L20 10H12L13 2Z" fill="#FFFFFF" />
-        </svg>
-      )
-    },
-    {
-      name: 'Jumia',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#FFFFFF" />
-        </svg>
-      )
-    },
-    {
-      name: 'Yoco',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="4" y="4" width="16" height="16" rx="4" stroke="#FFFFFF" strokeWidth="2.5" />
-          <circle cx="12" cy="12" r="3.5" fill="#FFFFFF" />
-        </svg>
-      )
     }
   ];
 
@@ -1238,7 +1185,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         },
         {
           title: 'Growth & Funnels',
-          skills: ['E-commerce CRO & Landing Pages', 'Klaviyo Email & SMS Automations', 'Amazon & Jumia Storefront Mgmt', 'Product Photography Integration', 'Subscription & Loyalty Apps', 'Cart Abandonment Recovery']
+          skills: ['E-commerce CRO & Landing Pages', 'Klaviyo Email & SMS Automations', 'Amazon & Multi-Channel Storefront Mgmt', 'Product Photography Integration', 'Subscription & Loyalty Apps', 'Cart Abandonment Recovery']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Cape Town 🇿🇦', 'Casablanca 🇲🇦', 'Accra 🇬🇭'],
