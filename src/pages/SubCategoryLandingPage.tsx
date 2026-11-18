@@ -186,9 +186,55 @@ function toSingular(pluralName: string): string {
   return trimmed;
 }
 
-/** Ensures any skill label turns into a natural plural role title for "Hire the Best [Title]". */
+/** Ensures any skill label turns into a concise 2-4 word plural role title so "Hire the Best [Title]" never exceeds 2 lines. */
 function normalizeRolePlural(rawLabel: string): string {
-  const cleaned = rawLabel.trim();
+  // 1. Strip any parenthetical notes like "(Blender/C4D)" or "(FP&A)"
+  let cleaned = rawLabel.replace(/\s*\([^)]*\)/g, '').trim();
+
+  // 2. If a compound phrase with "&" or "/" is long, keep the primary phrase
+  if (cleaned.length > 22 && /\s+(?:&|\/)\s+/.test(cleaned)) {
+    const parts = cleaned.split(/\s+(?:&|\/)\s+/);
+    cleaned = parts[0].trim();
+  }
+
+  // 3. Natural action-to-role conversions to avoid adding an extra "Specialists" word
+  const suffixReplacements: Array<[RegExp, string]> = [
+    [/\bDesign$/i, 'Designers'],
+    [/\bDevelopment$/i, 'Developers'],
+    [/\bEngineering$/i, 'Engineers'],
+    [/\bWriting$/i, 'Writers'],
+    [/\bCopywriting$/i, 'Copywriters'],
+    [/\bEditing$/i, 'Editors'],
+    [/\bConsulting$/i, 'Consultants'],
+    [/\bAdvisory$/i, 'Advisors'],
+    [/\bManagement$/i, 'Managers'],
+    [/\bAdministration$/i, 'Admins'],
+    [/\bArchitecture$/i, 'Architects'],
+    [/\bProduction$/i, 'Producers'],
+    [/\bAnimation$/i, 'Animators'],
+    [/\bIllustration$/i, 'Illustrators'],
+    [/\bVisualization$/i, 'Visualizers'],
+    [/\bVisualizations$/i, 'Visualizers'],
+    [/\bPhotography$/i, 'Photographers'],
+    [/\bRetouching$/i, 'Retouchers'],
+    [/\bTranslation$/i, 'Translators'],
+    [/\bStrategy$/i, 'Strategists'],
+    [/\bAnalytics$/i, 'Analysts'],
+    [/\bAnalysis$/i, 'Analysts'],
+    [/\bModeling$/i, 'Modelers'],
+    [/\bAuditing$/i, 'Auditors'],
+    [/\bAudits$/i, 'Auditors'],
+    [/\bTesting$/i, 'Testers'],
+    [/\bMarketing$/i, 'Marketers'],
+    [/\bRecruiting$/i, 'Recruiters'],
+  ];
+
+  for (const [pattern, replacement] of suffixReplacements) {
+    if (pattern.test(cleaned)) {
+      return cleaned.replace(pattern, replacement);
+    }
+  }
+
   const roleEndings = [
     'Engineers',
     'Developers',
@@ -222,11 +268,21 @@ function normalizeRolePlural(rawLabel: string): string {
     'Admins',
     'Practitioners',
     'Experts',
+    'Visualizers',
+    'Illustrators',
+    'Modelers',
+    'Auditors',
+    'Testers',
+    'Musicians',
   ];
   if (roleEndings.some(ending => cleaned.toLowerCase().endsWith(ending.toLowerCase()))) {
     return cleaned;
   }
-  return `${cleaned} Specialists`;
+
+  // Cap at 3 words before appending "Experts" so total heading stays <= 6 words
+  const words = cleaned.split(/\s+/);
+  const compactBase = words.length > 3 ? words.slice(0, 3).join(' ') : cleaned;
+  return `${compactBase} Experts`;
 }
 
 function extractKeywordsFromTitle(title: string, parentCategory: string): string[] {

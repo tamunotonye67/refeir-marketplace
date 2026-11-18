@@ -11964,15 +11964,19 @@ textarea.rf-ai-pricing-input:hover,
 }
 
 .rf-sj-hero-title {
-  max-width: 760px;
+  max-width: 900px;
   margin: 0 auto 1.1rem;
-  padding: 0 clamp(0.75rem, 3vw, 2.5rem);
+  padding: 0 clamp(0.75rem, 2.5vw, 2rem);
   font-family: var(--rf-font-display);
-  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.55rem);
   font-weight: 600;
   letter-spacing: -0.025em;
-  line-height: 1.2;
+  line-height: 1.22;
   text-wrap: balance;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   color: var(--rf-cream);
 }
 

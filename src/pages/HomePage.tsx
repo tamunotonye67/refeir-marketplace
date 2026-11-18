@@ -833,15 +833,15 @@ export const HomePage: React.FC<HomePageProps> = ({
       columns: [
         {
           title: 'Generative AI & LLMs',
-          skills: ['LLM Fine-Tuning & Custom Models', 'RAG Pipeline Architecture', 'LangChain & LlamaIndex', 'Prompt Engineering', 'Vector Databases (Pinecone/Chroma)', 'Autonomous AI Agents']
+          skills: ['LLM Fine-Tuning', 'RAG Architecture', 'LangChain Development', 'Prompt Engineering', 'Vector Databases', 'Autonomous AI Agents']
         },
         {
-          title: 'AI Applications & Automation',
-          skills: ['AI Chatbot Development', 'AI Audio & Voice Cloning', 'Computer Vision (YOLO / OpenCV)', 'AI Image & Video Generation', 'Custom AI Workflow Automation', 'AI SaaS MVP Development']
+          title: 'AI Applications',
+          skills: ['AI Chatbots', 'AI Voice Cloning', 'Computer Vision', 'AI Video Generation', 'AI Workflow Automation', 'AI SaaS MVPs']
         },
         {
-          title: 'MLOps & Model Training',
-          skills: ['PyTorch & TensorFlow Models', 'HuggingFace Deployment', 'Model Optimization & Quantization', 'AWS SageMaker & GCP Vertex', 'Data Labeling & Fine-tuning Datasets', 'Edge AI Optimization']
+          title: 'MLOps & Training',
+          skills: ['PyTorch & TensorFlow', 'HuggingFace Deployment', 'Model Optimization', 'Cloud MLOps', 'Dataset Curation', 'Edge AI Systems']
         }
       ],
       topHubs: ['Nairobi 🇰🇪', 'Lagos 🇳🇬', 'Johannesburg 🇿🇦', 'Tunis 🇹🇳', 'Accra 🇬🇭', 'Cairo 🇪🇬'],
@@ -856,15 +856,15 @@ export const HomePage: React.FC<HomePageProps> = ({
       columns: [
         {
           title: 'Brand Identity & Logos',
-          skills: ['Custom Logo Design & Guidelines', 'Brand Books & Typography', 'Business Cards & Stationery', 'Corporate Brand Refresh', 'Vector Mascot & Monogram Design', 'Brand Style Guides']
+          skills: ['Logo Design', 'Brand Guidelines', 'Business Stationery', 'Brand Refresh', 'Mascot & Icon Design', 'Style Guides']
         },
         {
-          title: 'Marketing & Social Creatives',
-          skills: ['Social Media Graphics (Canva/PS)', 'Ad Banners & Billboard Creatives', 'Infographics & Slide Pitch Decks', 'Brochures, Flyers & Posters', 'Email Template & Banner Design', 'Event Branding & Roll-up Banners']
+          title: 'Marketing Creatives',
+          skills: ['Social Media Graphics', 'Ad & Display Banners', 'Pitch Deck Design', 'Flyers & Posters', 'Email Templates', 'Event Branding']
         },
         {
-          title: 'Packaging & Digital Art',
-          skills: ['Product Packaging & Label Design', 'Digital Illustration & Concept Art', 'Merchandise & T-Shirt Design', 'Book & Album Cover Artwork', 'Vector Art & Icon Design', 'Print Production & Pre-Press QA']
+          title: 'Packaging & Art',
+          skills: ['Packaging Design', 'Digital Illustration', 'Merchandise Design', 'Book & Album Covers', 'Vector Illustration', 'Print Production']
         }
       ],
       topHubs: ['Cape Town 🇿🇦', 'Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Dakar 🇸🇳', 'Accra 🇬🇭', 'Casablanca 🇲🇦'],
@@ -879,15 +879,15 @@ export const HomePage: React.FC<HomePageProps> = ({
       columns: [
         {
           title: 'Content & Copywriting',
-          skills: ['Website Copy & Landing Pages', 'SEO Articles & Blog Posts', 'B2B Whitepapers & E-books', 'Ad Copy & Social Content', 'Brand Storytelling & Scripts', 'Email Newsletters & Sequences']
+          skills: ['Website Copywriting', 'SEO Blog Writing', 'B2B Whitepapers', 'Ad & Social Copy', 'Brand Storytelling', 'Email Copywriting']
         },
         {
-          title: 'Technical & Business Writing',
-          skills: ['API Documentation & Tech Specs', 'Investor Pitch Decks & Grants', 'Business Plans & Feasibility Studies', 'Legal & Policy Drafting', 'Grant Writing & RFPs', 'Resume & Executive Bios']
+          title: 'Technical Writing',
+          skills: ['API Documentation', 'Pitch Deck Writing', 'Business Plans', 'Policy Drafting', 'Grant Writing', 'Executive Bios']
         },
         {
-          title: 'African & Global Translation',
-          skills: ['French & English Localization', 'Arabic & Swahili Translation', 'Yoruba, Igbo & Hausa Translators', 'Portuguese (Angola/Mozambique)', 'Document Certification & Subtitles', 'Audio Transcription & Voiceover']
+          title: 'Translation Services',
+          skills: ['French Localization', 'Arabic & Swahili', 'African Languages', 'Portuguese Translation', 'Subtitling & Captions', 'Audio Transcription']
         }
       ],
       topHubs: ['Dakar 🇸🇳', 'Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Cairo 🇪🇬', 'Kigali 🇷🇼', 'Casablanca 🇲🇦'],
@@ -901,16 +901,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Motion designers, video editors, 3D animators, and commercial video producers across Africa',
       columns: [
         {
-          title: 'Video Editing & Post-Production',
-          skills: ['YouTube & Podcast Video Editing', 'Commercials & Promo Ads', 'Color Grading (DaVinci Resolve)', 'TikTok, Reels & Shorts Editing', 'Sound Design & Audio Mastering', 'Documentary & Event Editing']
+          title: 'Video Post-Production',
+          skills: ['YouTube Video Editing', 'Commercial Video Ads', 'Color Grading', 'Short-Form Video', 'Audio Mastering', 'Documentary Editing']
         },
         {
-          title: 'Motion Graphics & 2D Animation',
-          skills: ['After Effects Motion Graphics', 'Explainer Videos & SaaS Demos', 'Logo Animations & Intros', 'Character Animation (2D)', 'Typography & Kinetic Title Cards', 'Infographic & UI Animations']
+          title: 'Motion Graphics',
+          skills: ['Motion Graphics', 'Explainer Videos', 'Logo Animation', '2D Character Animation', 'Kinetic Typography', 'UI Animation']
         },
         {
           title: '3D Animation & VFX',
-          skills: ['3D Product Visualizations (Blender/C4D)', 'Architectural 3D Walkthroughs', 'VFX & CGI Compositing', '3D Character Rigging & Animation', 'Unreal Engine 5 Environments', 'Game Asset Animation']
+          skills: ['3D Product Visualization', '3D Walkthroughs', 'VFX Compositing', '3D Character Rigging', 'Unreal Environments', 'Game Animation']
         }
       ],
       topHubs: ['Cape Town 🇿🇦', 'Lagos 🇳🇬', 'Johannesburg 🇿🇦', 'Nairobi 🇰🇪', 'Casablanca 🇲🇦'],
@@ -924,16 +924,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Performance marketers, paid media specialists, SEO leaders, and social growth strategists',
       columns: [
         {
-          title: 'Paid Ads & Acquisition',
-          skills: ['Meta & Instagram Ads (Africa-Wide)', 'Google Search & Performance Max', 'TikTok Ads & Influencer Campaigns', 'YouTube & Display Advertising', 'LinkedIn B2B Lead Gen', 'App Install Campaigns (iOS/Android)']
+          title: 'Paid Acquisition',
+          skills: ['Meta & Instagram Ads', 'Google Search Ads', 'TikTok Ad Campaigns', 'YouTube Advertising', 'LinkedIn Lead Gen', 'App Install Ads']
         },
         {
-          title: 'SEO & Organic Visibility',
-          skills: ['Comprehensive Technical SEO', 'Pan-African Keyword Strategy', 'Local SEO & Google Business', 'Link Building & Digital PR', 'E-Commerce SEO (Shopify/Woo)', 'Programmatic SEO Scaling']
+          title: 'SEO & Organic Growth',
+          skills: ['Technical SEO', 'Keyword Strategy', 'Local SEO', 'Link Building & PR', 'E-Commerce SEO', 'Programmatic SEO']
         },
         {
-          title: 'Social Media & Growth',
-          skills: ['Social Media Management', 'Community Building (Twitter/X & Discord)', 'Influencer Outreach & Management', 'Email Marketing & Retention (Klaviyo)', 'Conversion Rate Optimization (CRO)', 'Viral Referral Loops']
+          title: 'Social & Retention',
+          skills: ['Social Media Management', 'Community Management', 'Influencer Marketing', 'Email Automation', 'Conversion Optimization', 'Referral Growth']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Johannesburg 🇿🇦', 'Accra 🇬🇭', 'Cairo 🇪🇬'],
@@ -947,16 +947,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Management consultants, African market-entry advisors, legal compliance, and strategy experts',
       columns: [
         {
-          title: 'Business & Market Strategy',
-          skills: ['African Market Entry Strategy', 'Go-To-Market (GTM) Planning', 'Competitive Intelligence & Research', 'Fundraising & Investor Pitch Prep', 'Pricing Strategy & Unit Economics', 'Startup Advisory & Board Advisory']
+          title: 'Business Strategy',
+          skills: ['Market Entry Strategy', 'Go-To-Market Strategy', 'Market Research', 'Fundraising Advisory', 'Pricing Strategy', 'Startup Advisory']
         },
         {
-          title: 'Operations & Transformation',
-          skills: ['Supply Chain & Logistics Strategy', 'Digital Transformation Audits', 'Process Optimization & SOPs', 'Product Management Consulting', 'Change Management & OKRs', 'Cross-Border Expansion Advisory']
+          title: 'Operations Consulting',
+          skills: ['Supply Chain Strategy', 'Digital Transformation', 'Process Optimization', 'Product Consulting', 'Change Management', 'Cross-Border Expansion']
         },
         {
-          title: 'Legal, Governance & HR',
-          skills: ['African Cross-Border Entity Setup', 'Contract & IP Law Advisory', 'AfCFTA Trade Compliance', 'Executive Talent Sourcing & HR', 'ESG & Sustainability Frameworks', 'Regulatory & Licensing Advisory']
+          title: 'Governance & HR',
+          skills: ['Entity Incorporation', 'Contract Advisory', 'Trade Compliance', 'Executive Recruiting', 'ESG Consulting', 'Regulatory Licensing']
         }
       ],
       topHubs: ['Nairobi 🇰🇪', 'Lagos 🇳🇬', 'Johannesburg 🇿🇦', 'Kigali 🇷🇼', 'Abidjan 🇨🇮'],
@@ -970,16 +970,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Data engineers, BI dashboard builders, data scientists, and quantitative research analysts',
       columns: [
         {
-          title: 'Data Engineering & Pipelines',
-          skills: ['SQL Optimization & Data Modeling', 'dbt (Data Build Tool) Pipelines', 'Snowflake & BigQuery Warehousing', 'Apache Airflow & ETL Orchestration', 'Data Lakehouse Architecture', 'Real-time Streaming (Kafka)']
+          title: 'Data Engineering',
+          skills: ['SQL & Data Modeling', 'dbt Data Pipelines', 'Cloud Data Warehousing', 'ETL Orchestration', 'Data Lakehouse', 'Real-Time Streaming']
         },
         {
-          title: 'Business Intelligence & Analytics',
-          skills: ['Power BI Executive Dashboards', 'Tableau & Looker Studio Reports', 'Metabase & Custom BI Solutions', 'Cohort Retention & Funnel Analysis', 'Financial & KPI Metric Tracking', 'Automated Executive Reporting']
+          title: 'BI & Analytics',
+          skills: ['Power BI Dashboards', 'Tableau & Looker', 'Metabase Analytics', 'Retention Analytics', 'KPI Reporting', 'Executive Dashboards']
         },
         {
-          title: 'Data Science & Predictive ML',
-          skills: ['Statistical Analysis & Python (Pandas)', 'Customer Lifetime Value (LTV) Models', 'Churn Prediction Algorithms', 'Time-Series Forecasting', 'A/B Test Design & Significance', 'Data Cleaning & Wrangling']
+          title: 'Data Science',
+          skills: ['Statistical Analysis', 'Customer LTV Modeling', 'Churn Prediction', 'Demand Forecasting', 'A/B Experimentation', 'Data Wrangling']
         }
       ],
       topHubs: ['Johannesburg 🇿🇦', 'Nairobi 🇰🇪', 'Lagos 🇳🇬', 'Cairo 🇪🇬', 'Casablanca 🇲🇦'],
@@ -993,16 +993,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Financial modelers, CFO advisors, accountants, fintech architects, and tax compliance specialists',
       columns: [
         {
-          title: 'Corporate Finance & Modeling',
-          skills: ['3-Statement Financial Models', 'Startup Valuation & Cap Table Modeling', 'Discounted Cash Flow (DCF) Analysis', 'Scenario & Sensitivity Analysis', 'Budgeting, Forecasting & FP&A', 'Due Diligence Reports']
+          title: 'Corporate Finance',
+          skills: ['Financial Modeling', 'Valuation & Cap Tables', 'DCF Valuation', 'Scenario Modeling', 'FP&A Forecasting', 'Due Diligence']
         },
         {
-          title: 'Accounting & Tax Compliance',
-          skills: ['Bookkeeping (QuickBooks/Xero)', 'Pan-African Multi-Country Tax Filing', 'Auditing & Financial Statements', 'Payroll Administration (Africa-wide)', 'VAT, WHT & Statutory Filings', 'IFRS Financial Reporting']
+          title: 'Accounting & Tax',
+          skills: ['Cloud Bookkeeping', 'Cross-Border Tax', 'Financial Auditing', 'Payroll Management', 'Tax & VAT Filings', 'IFRS Reporting']
         },
         {
           title: 'Fintech & Treasury',
-          skills: ['African Payment Rails Integration', 'Cross-Border FX & Treasury Mgmt', 'Mobile Money Settlement Architectures', 'Credit Scoring & Risk Modeling', 'DeFi & Stablecoin Settlement Rails', 'Banking API Integrations']
+          skills: ['Payment Rails', 'Treasury Management', 'Mobile Money Systems', 'Credit Risk Modeling', 'Stablecoin Settlement', 'Banking Integrations']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Johannesburg 🇿🇦', 'Nairobi 🇰🇪', 'Cape Town 🇿🇦', 'Casablanca 🇲🇦'],
@@ -1016,16 +1016,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Commercial photographers, e-commerce product shooters, portrait artists & photo retouchers across Africa',
       columns: [
         {
-          title: 'Commercial & Product Photography',
-          skills: ['E-Commerce Product Photography', 'Amazon & Shopify White-Background Stills', 'Fashion & Lookbook Shoots', 'Food & Restaurant Photography', 'High-End Jewelry & Macro Shots', 'Packaging & Lifestyle Visuals']
+          title: 'Product Photography',
+          skills: ['E-Commerce Photography', 'Studio Product Stills', 'Fashion Lookbooks', 'Food Photography', 'Macro & Jewelry', 'Lifestyle Photography']
         },
         {
-          title: 'Portrait, Events & Aerial',
-          skills: ['Corporate Headshots & Team Portraits', 'Editorial & Magazine Photography', 'Conferences & Corporate Events', 'Documentary & Storytelling Shoots', 'Architectural & Interior Stills', 'Drone & Aerial Photography']
+          title: 'Portrait & Aerial',
+          skills: ['Corporate Headshots', 'Editorial Photography', 'Event Photography', 'Documentary Stills', 'Architectural Photos', 'Drone Photography']
         },
         {
-          title: 'Photo Retouching & Post-Production',
-          skills: ['High-End Beauty & Skin Retouching', 'Color Grading & RAW Processing', 'Background Removal & Clipping Paths', 'Ghost Mannequin & Composite Edits', 'Lightroom Batch Color Correction', 'AI-Assisted Photo Upscaling']
+          title: 'Photo Retouching',
+          skills: ['Beauty Retouching', 'RAW Color Grading', 'Background Removal', 'Composite Editing', 'Batch Color Grading', 'Photo Restoration']
         }
       ],
       topHubs: ['Cape Town 🇿🇦', 'Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Accra 🇬🇭', 'Marrakech 🇲🇦', 'Dakar 🇸🇳'],
@@ -1039,16 +1039,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Vetted frontend, backend, and fullstack architects across modern frameworks',
       columns: [
         {
-          title: 'Frontend & Frameworks',
-          skills: ['React.js & Next.js', 'Vue.js & Nuxt', 'TypeScript', 'Angular', 'TailwindCSS & Design Systems', 'WebAssembly']
+          title: 'Frontend Development',
+          skills: ['React & Next.js', 'Vue & Nuxt', 'TypeScript', 'Angular', 'Tailwind Design Systems', 'WebAssembly']
         },
         {
           title: 'Backend & APIs',
-          skills: ['Node.js & Express', 'Python (Django / FastAPI)', 'Go (Golang)', 'Java & Spring Boot', 'PHP (Laravel)', 'Ruby on Rails']
+          skills: ['Node.js & Express', 'Python & FastAPI', 'Go Engineering', 'Java & Spring Boot', 'PHP & Laravel', 'Ruby on Rails']
         },
         {
-          title: 'Databases & Architecture',
-          skills: ['PostgreSQL & MySQL', 'MongoDB', 'Redis Caching', 'GraphQL & REST APIs', 'Microservices', 'Serverless Functions']
+          title: 'Systems & Databases',
+          skills: ['PostgreSQL & MySQL', 'MongoDB', 'Redis Caching', 'GraphQL & REST APIs', 'Microservices', 'Serverless Architecture']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Cape Town 🇿🇦', 'Cairo 🇪🇬', 'Kigali 🇷🇼'],
@@ -1062,16 +1062,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Cross-platform and native iOS/Android engineers building scalable consumer apps',
       columns: [
         {
-          title: 'Cross-Platform Mobile',
-          skills: ['Flutter & Dart', 'React Native', 'Kotlin Multiplatform', 'Expo Ecosystem', 'Capacitor / Ionic', 'Offline-First Data Sync']
+          title: 'Cross-Platform Apps',
+          skills: ['Flutter Development', 'React Native', 'Kotlin Multiplatform', 'Expo Development', 'Ionic & Capacitor', 'Offline-First Apps']
         },
         {
-          title: 'Native iOS & macOS',
-          skills: ['Swift & SwiftUI', 'Xcode & Instruments', 'Combine & CoreData', 'iOS Push Services', 'Apple Pay Integration', 'TestFlight & App Store']
+          title: 'Native iOS',
+          skills: ['Swift & SwiftUI', 'iOS Performance', 'CoreData & Combine', 'Push Notifications', 'Apple Pay Systems', 'App Store Publishing']
         },
         {
           title: 'Native Android',
-          skills: ['Kotlin & Jetpack Compose', 'Coroutines & Flow', 'Android NDK', 'Google Play Billing', 'Biometric Authentication', 'Material You UI']
+          skills: ['Kotlin & Compose', 'Android Architecture', 'Android NDK', 'Play Store Billing', 'Biometric Security', 'Material UI']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Cairo 🇪🇬', 'Accra 🇬🇭', 'Kampala 🇺🇬'],
@@ -1086,15 +1086,15 @@ export const HomePage: React.FC<HomePageProps> = ({
       columns: [
         {
           title: 'Product & UI Design',
-          skills: ['Figma Design Systems', 'Interactive Prototyping', 'Responsive Web Design', 'Mobile App UI', 'Micro-Animations', 'Accessibility (a11y)']
+          skills: ['Figma Design Systems', 'Interactive Prototyping', 'Web UI Design', 'Mobile App UI', 'Micro-Interactions', 'Accessibility Design']
         },
         {
-          title: 'UX Research & Strategy',
-          skills: ['User Journey Mapping', 'Usability Testing', 'Information Architecture', 'User Personas', 'Wireframing & Sitemaps', 'Design Sprints']
+          title: 'UX Research',
+          skills: ['User Journey Mapping', 'Usability Testing', 'Information Architecture', 'User Personas', 'Wireframing', 'Design Sprints']
         },
         {
-          title: 'Brand & Visual Creative',
-          skills: ['Brand Identity & Guidelines', '3D Modeling (Blender)', 'Motion Graphics', 'Custom Iconography', 'Design Audits', 'Marketing Collateral']
+          title: 'Visual Creative',
+          skills: ['Brand Identity', '3D Visual Design', 'Motion Design', 'Custom Iconography', 'UX Design Audits', 'Marketing Creative']
         }
       ],
       topHubs: ['Cape Town 🇿🇦', 'Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Casablanca 🇲🇦', 'Dakar 🇸🇳'],
@@ -1109,15 +1109,15 @@ export const HomePage: React.FC<HomePageProps> = ({
       columns: [
         {
           title: 'Cloud Infrastructure',
-          skills: ['AWS (Certified Solutions)', 'Google Cloud Platform (GCP)', 'Microsoft Azure', 'Terraform (IaC)', 'Ansible & Pulumi', 'Multi-Region Architecture']
+          skills: ['AWS Architecture', 'Google Cloud', 'Microsoft Azure', 'Terraform IaC', 'Ansible Automation', 'Multi-Region Cloud']
         },
         {
-          title: 'Containers & Orchestration',
-          skills: ['Kubernetes (K8s)', 'Docker & Containerd', 'Helm Charts', 'Service Mesh (Istio)', 'Serverless (Lambda/Cloud Run)', 'Linux Systems Administration']
+          title: 'Containers & Runtime',
+          skills: ['Kubernetes', 'Docker Containers', 'Helm Charts', 'Service Mesh', 'Serverless Compute', 'Linux Administration']
         },
         {
-          title: 'CI/CD & Observability',
-          skills: ['GitHub Actions', 'GitLab CI/CD', 'Prometheus & Grafana', 'Datadog & New Relic', 'ELK Stack / Loki', 'Zero-Downtime Deployments']
+          title: 'CI/CD & Monitoring',
+          skills: ['GitHub Actions', 'GitLab CI/CD', 'Prometheus & Grafana', 'Datadog Monitoring', 'Log Management', 'Release Automation']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Johannesburg 🇿🇦', 'Cairo 🇪🇬', 'Kigali 🇷🇼'],
@@ -1131,16 +1131,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Smart contract architects, DeFi developers, Solidity/Rust engineers & tokenomics strategists',
       columns: [
         {
-          title: 'Smart Contracts & Protocols',
-          skills: ['Solidity & EVM Contracts', 'Rust & Solana Programs', 'DeFi Liquidity Protocols', 'ERC-20 & ERC-721 Tokenomics', 'Cross-Chain Bridges', 'Smart Contract Security Audits']
+          title: 'Smart Contracts',
+          skills: ['Solidity Contracts', 'Rust & Solana', 'DeFi Protocols', 'Tokenomics Design', 'Cross-Chain Bridges', 'Smart Contract Audits']
         },
         {
-          title: 'Web3 dApps & Frontends',
-          skills: ['Ethers.js & Viem / Wagmi', 'Web3Auth & WalletConnect', 'IPFS & Decentralized Storage', 'The Graph & Subgraphs', 'NFT Marketplaces & Minting', 'DAO Governance Platforms']
+          title: 'Web3 dApps',
+          skills: ['Web3 Frontend', 'Wallet Integration', 'Decentralized Storage', 'Subgraph Indexing', 'NFT Platforms', 'DAO Governance']
         },
         {
-          title: 'Payments & Stablecoins',
-          skills: ['USDT/USDC Settlement Rails', 'African P2P & Crypto On-Ramps', 'L2 Rollups (Arbitrum/Optimism)', 'Zero-Knowledge (zk-SNARKs)', 'Fintech Crypto Gateway APIs', 'Custody & Multi-Sig Vaults']
+          title: 'Web3 Payments',
+          skills: ['Stablecoin Rails', 'Crypto On-Ramps', 'Layer-2 Rollups', 'Zero-Knowledge Proofs', 'Crypto Payment APIs', 'Multi-Sig Custody']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Cape Town 🇿🇦', 'Accra 🇬🇭', 'Kigali 🇷🇼'],
@@ -1154,16 +1154,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Ethical hackers, SOC analysts, penetration testers, and enterprise compliance consultants',
       columns: [
         {
-          title: 'Offensive Security & Pen-Testing',
-          skills: ['Web & API Penetration Testing', 'Mobile App Vulnerability Audits', 'Network Infrastructure Testing', 'Red Teaming & Social Engineering', 'Bug Bounty & CVE Remediation', 'Cloud Security Posture (CSPM)']
+          title: 'Offensive Security',
+          skills: ['Penetration Testing', 'Mobile App Security', 'Network Audits', 'Red Team Operations', 'Vulnerability Management', 'Cloud Security']
         },
         {
-          title: 'Defensive Security & SOC',
-          skills: ['SIEM & Log Analysis (Splunk/Wazuh)', 'Incident Response & Forensics', 'Threat Hunting & Intelligence', 'Firewall & Zero-Trust Architecture', 'DDoS Mitigation & WAF Tuning', 'Identity & Access Mgmt (IAM)']
+          title: 'Defensive Security',
+          skills: ['SIEM & Log Analysis', 'Incident Response', 'Threat Intelligence', 'Zero-Trust Security', 'DDoS Protection', 'Identity Management']
         },
         {
-          title: 'Compliance & Data Privacy',
-          skills: ['ISO 27001 & SOC 2 Readiness', 'PCI-DSS Fintech Certification', 'NDPR & GDPR Compliance Audits', 'HIPAA & Health Data Privacy', 'Disaster Recovery & BCP Plans', 'Security Awareness Training']
+          title: 'Security Compliance',
+          skills: ['ISO & SOC 2 Audits', 'PCI-DSS Compliance', 'Data Privacy Audits', 'Healthcare Security', 'Disaster Recovery', 'Security Training']
         }
       ],
       topHubs: ['Johannesburg 🇿🇦', 'Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Cairo 🇪🇬', 'Casablanca 🇲🇦'],
@@ -1177,16 +1177,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Shopify Plus architects, WooCommerce builders, marketplace managers & funnel optimizers',
       columns: [
         {
-          title: 'Storefronts & Platforms',
-          skills: ['Shopify Plus & Liquid Coding', 'WooCommerce & WordPress Store', 'Headless Commerce (Medusa/Next)', 'Magento / Adobe Commerce', 'Custom Checkout & Cart Customization', 'Omnichannel Inventory Sync']
+          title: 'Storefront Platforms',
+          skills: ['Shopify Development', 'WooCommerce Stores', 'Headless Commerce', 'Adobe Commerce', 'Custom Checkouts', 'Inventory Sync']
         },
         {
-          title: 'Payments & Logistics',
-          skills: ['African Gateways (Paystack/Flutterwave)', 'M-Pesa & Mobile Money Checkouts', 'Multi-Currency Geolocation Pricing', 'DHL & Local Courier API Integrations', 'Cross-Border Customs & VAT Setup', 'ERP & Warehousing Connections']
+          title: 'Commerce Payments',
+          skills: ['African Payment Gateways', 'Mobile Money Checkout', 'Multi-Currency Pricing', 'Courier Integrations', 'Cross-Border Customs', 'ERP Integrations']
         },
         {
-          title: 'Growth & Funnels',
-          skills: ['E-commerce CRO & Landing Pages', 'Klaviyo Email & SMS Automations', 'Amazon & Multi-Channel Storefront Mgmt', 'Product Photography Integration', 'Subscription & Loyalty Apps', 'Cart Abandonment Recovery']
+          title: 'Commerce Growth',
+          skills: ['Storefront CRO', 'Retention Automation', 'Marketplace Management', 'Catalog Optimization', 'Subscription Systems', 'Cart Recovery']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Cape Town 🇿🇦', 'Casablanca 🇲🇦', 'Accra 🇬🇭'],
@@ -1200,16 +1200,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Unity & Unreal Engine programmers, 3D asset modelers, game designers & AR/VR creators',
       columns: [
         {
-          title: 'Game Engines & Coding',
-          skills: ['Unity (C# Game Logic)', 'Unreal Engine 5 (C++ & Blueprints)', 'Godot Engine (2D/3D)', 'Mobile Game Optimization (iOS/Android)', 'Multiplayer & Networking (Photon/Mirror)', 'Custom Shaders & HLSL Lighting']
+          title: 'Game Engineering',
+          skills: ['Unity Development', 'Unreal Engine', 'Godot Development', 'Mobile Game Dev', 'Multiplayer Systems', 'Shader Programming']
         },
         {
-          title: '3D Art & World-Building',
-          skills: ['3D Character Modeling & Sculpting', 'Environment Art & Level Design', 'Texturing & PBR Materials (Substance)', 'Rigging & Skeletal Animation', 'VFX Particle Systems (Niagara)', 'African Mythological Lore & Narrative']
+          title: '3D Game Art',
+          skills: ['3D Character Modeling', 'Environment Art', '3D Texturing', 'Character Rigging', 'VFX Particle Art', 'Game Narrative Design']
         },
         {
-          title: 'AR, VR & Interactive Tech',
-          skills: ['Meta Quest VR Development', 'Apple Vision Pro (visionOS)', 'ARKit & ARCore Mobile Apps', 'Virtual Production (Unreal)', 'Gamified Web Experiences (Three.js)', 'Game UI/UX & HUD Design']
+          title: 'XR & Interactive',
+          skills: ['VR Development', 'Spatial Computing', 'Mobile AR Apps', 'Virtual Production', 'WebGL & Three.js', 'Game UI Design']
         }
       ],
       topHubs: ['Cape Town 🇿🇦', 'Lagos 🇳🇬', 'Nairobi 🇰🇪', 'Johannesburg 🇿🇦', 'Tunis 🇹🇳'],
@@ -1223,16 +1223,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Pan-African legal counsels, intellectual property lawyers, AfCFTA trade specialists & corporate secretaries',
       columns: [
         {
-          title: 'Corporate & Cross-Border Law',
-          skills: ['Pan-African Corporate Formation', 'AfCFTA Trade & Tariff Compliance', 'Commercial Contracts & Master MSAs', 'Shareholders & Safe Agreements', 'M&A & Joint Venture Structuring', 'Cross-Border Employment Law']
+          title: 'Corporate Law',
+          skills: ['Company Formation', 'AfCFTA Trade Law', 'Commercial Contracts', 'Venture Financing Law', 'M&A Structuring', 'Employment Law']
         },
         {
-          title: 'Tech, IP & Licensing',
-          skills: ['African Trademark & Patent Filing', 'Software Licensing & SaaS Terms', 'IP Assignment & Non-Competes', 'Data Privacy Terms & Cookie Policies', 'Fintech Regulatory Sandboxes', 'Crypto & Digital Asset Licensing']
+          title: 'Tech & IP Law',
+          skills: ['Trademark & Patents', 'Software Licensing', 'IP Protection', 'Data Privacy Law', 'Fintech Regulation', 'Digital Asset Law']
         },
         {
-          title: 'Dispute Mediation & Governance',
-          skills: ['Commercial Arbitration & Mediation', 'Board Governance & ESG Policies', 'Anti-Bribery & FCPA Compliance', 'Immigration & Expat Work Permits', 'Tax Structuring & Transfer Pricing', 'Due Diligence Reports']
+          title: 'Governance & Disputes',
+          skills: ['Commercial Arbitration', 'Board Governance', 'Regulatory Compliance', 'Corporate Immigration', 'Tax Structuring', 'Legal Due Diligence']
         }
       ],
       topHubs: ['Nairobi 🇰🇪', 'Lagos 🇳🇬', 'Johannesburg 🇿🇦', 'Accra 🇬🇭', 'Kigali 🇷🇼'],
@@ -1246,16 +1246,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Afrobeats & Amapiano producers, sound engineers, voice actors, mixing specialists & podcast creators',
       columns: [
         {
-          title: 'Music Production & Beats',
-          skills: ['Afrobeats & Afro-Fusion Production', 'Amapiano & Deep House Beats', 'Hip-Hop & R&B Beatmaking', 'Film Scoring & Cinematic Soundtracks', 'Custom Commercial Jingles', 'Session Musicians (Guitar/Percussion)']
+          title: 'Music Production',
+          skills: ['Afrobeats Production', 'Amapiano Production', 'Hip-Hop Beatmaking', 'Film Scoring', 'Commercial Jingles', 'Session Musicians']
         },
         {
-          title: 'Audio Post & Mastering',
-          skills: ['Mixing & Mastering (Pro Tools/Logic)', 'Vocal Tuning & Melodyne Processing', 'Podcast Editing & Noise Reduction', 'Audiobook Production (ACX Standards)', 'Dolby Atmos & Spatial Audio', 'Sound Effects (SFX) Design']
+          title: 'Audio Engineering',
+          skills: ['Mixing & Mastering', 'Vocal Engineering', 'Podcast Production', 'Audiobook Mastering', 'Spatial Audio', 'Sound Design']
         },
         {
-          title: 'Voiceover & Localization',
-          skills: ['African Accent English Voiceovers', 'French & Arabic Commercial VO', 'Pidgin, Yoruba, Swahili & Hausa VO', 'E-Learning & Corporate Narration', 'Character & Animation Voice Acting', 'IVR & Phone Menu Prompt Recording']
+          title: 'Voiceover Artists',
+          skills: ['English Voiceover', 'French & Arabic VO', 'African Language VO', 'Corporate Narration', 'Character Voice Acting', 'IVR Voice Prompts']
         }
       ],
       topHubs: ['Lagos 🇳🇬', 'Johannesburg 🇿🇦', 'Nairobi 🇰🇪', 'Accra 🇬🇭', 'Dakar 🇸🇳'],
@@ -1269,16 +1269,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Multilingual customer support representatives, Zendesk admins, live chat reps & customer success leaders',
       columns: [
         {
-          title: 'Omnichannel Customer Support',
-          skills: ['24/7 Live Chat & Helpdesk Agents', 'Email Support & Ticket Resolution', 'Phone & Inbound Call Center Reps', 'Social Media Direct Message Support', 'VIP Customer Success Managers', 'Tech Support & Tier-2 Escalations']
+          title: 'Customer Support',
+          skills: ['Live Chat Support', 'Email Helpdesk', 'Inbound Call Support', 'Social Media Support', 'Customer Success', 'Technical Support']
         },
         {
-          title: 'Helpdesk Tools & Automations',
-          skills: ['Zendesk Suite Implementation', 'Intercom & Custom Bot Workflows', 'Freshdesk & Zoho Desk Admins', 'Help Center Knowledge Base Articles', 'Macro Writing & Response Templates', 'CRM Integration (HubSpot/Salesforce)']
+          title: 'CX Systems',
+          skills: ['Zendesk Administration', 'Intercom Automation', 'Helpdesk Setup', 'Knowledge Base Writing', 'Support Workflows', 'CRM Administration']
         },
         {
-          title: 'Multilingual BPO Support',
-          skills: ['English & French Bilingual Support', 'Arabic & Swahili Support Reps', 'Portuguese Customer Care', 'E-Commerce Order Tracking Agents', 'Chargeback & Dispute Handling', 'CSAT & NPS Score Optimization']
+          title: 'Multilingual CX',
+          skills: ['Bilingual Support', 'Arabic & Swahili CX', 'Portuguese Support', 'Order Operations', 'Dispute Resolution', 'CX Analytics']
         }
       ],
       topHubs: ['Cairo 🇪🇬', 'Cape Town 🇿🇦', 'Nairobi 🇰🇪', 'Lagos 🇳🇬', 'Casablanca 🇲🇦', 'Dakar 🇸🇳'],
@@ -1292,16 +1292,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       tagline: 'Embedded systems engineers, IoT architect, firmware developers, PCB designers & robotics innovators',
       columns: [
         {
-          title: 'Embedded Systems & Firmware',
-          skills: ['Embedded C / C++ & Rust', 'ARM Cortex & STM32 Development', 'ESP32 & ESP8266 IoT Modules', 'RTOS (FreeRTOS / Zephyr)', 'Arduino & Raspberry Pi Prototyping', 'Microcontroller Optimization']
+          title: 'Embedded Firmware',
+          skills: ['Embedded C & Rust', 'ARM Microcontrollers', 'ESP32 Firmware', 'RTOS Development', 'Hardware Prototyping', 'Firmware Optimization']
         },
         {
-          title: 'PCB Design & Prototyping',
-          skills: ['KiCad & Altium PCB Layout', 'Schematic Design & Component Sourcing', 'High-Speed Signal Integrity', 'SMD Soldering & Hardware Assembly', '3D Enclosure Design (CAD/Fusion360)', 'Hardware Testing & QA Benchmarks']
+          title: 'PCB & Hardware',
+          skills: ['PCB Layout Design', 'Schematic Capture', 'Signal Integrity', 'Hardware Assembly', '3D Enclosure CAD', 'Hardware QA Testing']
         },
         {
-          title: 'IoT Networks & Telematics',
-          skills: ['LoRaWAN & NB-IoT Connectivity', 'MQTT & CoAP Protocol Pipelines', 'Solar & Smart Energy Telematics', 'Agricultural IoT & Smart Meters', 'Fleet Management & GPS Trackers', 'Edge Computing & Hardware AI']
+          title: 'IoT & Telematics',
+          skills: ['LoRaWAN Networks', 'MQTT Telemetry', 'Smart Energy IoT', 'AgriTech Sensors', 'Fleet Telematics', 'Edge Hardware AI']
         }
       ],
       topHubs: ['Nairobi 🇰🇪', 'Lagos 🇳🇬', 'Kigali 🇷🇼', 'Cape Town 🇿🇦', 'Tunis 🇹🇳'],
