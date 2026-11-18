@@ -190,6 +190,19 @@ export const App: React.FC = () => {
         ? basePath.replace('/talent/', '') 
         : basePath.replace('/profile/', '');
       const talent = talentList.find(t => t.id === talentId) || SEED_TALENT.find(t => t.id === talentId) || selectedTalent || SEED_TALENT[0];
+      if (!currentUser) {
+        return (
+          <AuthGateWall
+            pageName={`Hire ${talent.full_name}`}
+            roleRequired="Client"
+            initialTab="SIGNUP"
+            initialRole="CLIENT"
+            talentToHire={talent}
+            onNavigate={navigate}
+            onSuccess={() => navigate(`/talent/${talent.id}`)}
+          />
+        );
+      }
       return (
         <TalentProfilePage
           talent={talent}
@@ -615,7 +628,14 @@ export const App: React.FC = () => {
   };
 
   // Pages that render full-screen without consumer header/footer chrome
+  const isTalentContactGate =
+    !currentUser &&
+    (basePath.startsWith('/talent/') ||
+      (basePath.startsWith('/profile/') && basePath.length > 9) ||
+      ((basePath === '/register' || basePath === '/signup') && Boolean(getQueryParam(currentPath, 'talentId'))));
+
   const isChromelessPage = 
+    isTalentContactGate ||
     currentPath === '/admin' || 
     currentPath === '/admin-portal' || 
     currentPath === '/admin-login' || 

@@ -5,6 +5,7 @@ import {
   Lock,
   ArrowRight,
   ArrowLeft,
+  ChevronLeft,
   Briefcase,
   Users,
   Compass,
@@ -18,8 +19,12 @@ import {
   Phone,
   CheckCircle2,
   Award,
+  MapPin,
+  Star,
+  X,
 } from 'lucide-react';
 import { GLOBAL_COUNTRIES, getCountryByName } from '../../data/countries';
+import { formatMoney } from '../../data/currencies';
 import { TalentProfile } from '../../types';
 import { RefeirLogo } from './RefeirLogo';
 import { SocialAuthButtons } from '../auth/SocialAuthButtons';
@@ -32,6 +37,7 @@ interface AuthGateWallProps {
   talentToHire?: TalentProfile | null;
   onNavigate: (path: string) => void;
   onSuccess?: () => void;
+  onClose?: () => void;
 }
 
 const ROLE_OPTIONS: Array<{
@@ -64,6 +70,12 @@ const ROLE_OPTIONS: Array<{
   },
 ];
 
+function formatShortName(fullName: string): string {
+  const parts = fullName.trim().split(/\s+/);
+  if (parts.length <= 1) return fullName;
+  return `${parts[0]} ${parts[parts.length - 1].charAt(0)}.`;
+}
+
 export const AuthGateWall: React.FC<AuthGateWallProps> = ({
   pageName,
   initialTab = 'LOGIN',
@@ -71,6 +83,7 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
   talentToHire,
   onNavigate,
   onSuccess,
+  onClose,
 }) => {
   const { login, signup, loginWithSocial } = useAuth();
 
@@ -84,7 +97,10 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
     return null;
   }, []);
 
-  const [activeTab, setActiveTab] = useState<'LOGIN' | 'SIGNUP'>(initialTab);
+  const [activeTab, setActiveTab] = useState<'LOGIN' | 'SIGNUP'>(
+    talentToHire ? 'SIGNUP' : initialTab
+  );
+  const [showEmailForm, setShowEmailForm] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -104,10 +120,26 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
       onSuccess();
       return;
     }
+    if (talentToHire) {
+      onNavigate(`/talent/${talentToHire.id}`);
+      return;
+    }
     if (isStandaloneAuthPage) {
       if (selectedRole === 'TALENT') onNavigate('/dashboard/talent');
       else if (selectedRole === 'SCOUT') onNavigate('/dashboard/scout');
       else onNavigate('/dashboard/client');
+    }
+  };
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+      return;
+    }
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      onNavigate('/');
     }
   };
 
@@ -150,12 +182,349 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
     }
   };
 
+  // ===========================================================================
+  // DEDICATED SPLIT-SCREEN "SIGN UP TO CONTACT [TALENT]" GATE
+  // Triggered when a guest clicks "See profile" or "Hire" on a talent card
+  // ===========================================================================
+  if (talentToHire) {
+    const shortName = formatShortName(talentToHire.full_name);
+    const firstName = talentToHire.full_name.trim().split(/\s+/)[0] || shortName;
+    const isVerified =
+      talentToHire.verification_status === 'IDENTITY_VERIFIED' ||
+      talentToHire.verification_status === 'PROFESSION_VERIFIED';
+
+    return (
+      <section className="rf-contact-gate">
+        {/* LEFT COLUMN — Clean White / Surface Onboarding Flow */}
+        <div className="rf-contact-gate-left">
+          <div className="rf-contact-gate-logo">
+            <div
+              onClick={() => onNavigate('/')}
+              style={{ cursor: 'pointer', display: 'inline-flex' }}
+            >
+              <RefeirLogo size="md" showTagline={false} />
+            </div>
+          </div>
+
+          <div className="rf-contact-gate-body">
+            {/* Back arrow + "Sign up to contact [Avatar Name]" */}
+            <div className="rf-contact-gate-title-row">
+              <button
+                type="button"
+                className="rf-contact-gate-back"
+                onClick={() => {
+                  if (showEmailForm) {
+                    setShowEmailForm(false);
+                  } else {
+                    handleClose();
+                  }
+                }}
+                aria-label="Go back"
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              <h1 className="rf-contact-gate-heading">
+                <span>{activeTab === 'LOGIN' ? 'Sign in to contact' : 'Sign up to contact'}</span>
+                <span className="rf-contact-talent-chip">
+                  <img src={talentToHire.avatar_url} alt={talentToHire.full_name} />
+                  <span>{shortName}</span>
+                </span>
+              </h1>
+            </div>
+
+            {/* 3-Step Progress Stepper */}
+            <div className="rf-contact-stepper" aria-label="Onboarding steps">
+              <div className="rf-contact-step is-active">
+                <span className="rf-contact-step-badge is-done">
+                  <CheckCircle2 size={14} />
+                </span>
+                <span>{activeTab === 'LOGIN' ? 'Sign in' : 'Sign up'}</span>
+              </div>
+              <span className="rf-contact-step-line" />
+              <div className="rf-contact-step">
+                <span className="rf-contact-step-badge">2</span>
+                <span>Set up your profile</span>
+              </div>
+              <span className="rf-contact-step-line" />
+              <div className="rf-contact-step">
+                <span className="rf-contact-step-badge">3</span>
+                <span>Contact {firstName}</span>
+              </div>
+            </div>
+
+            {/* Social Sign-In + "Continue with email" */}
+            {!showEmailForm ? (
+              <div className="rf-contact-actions">
+                <SocialAuthButtons
+                  mode={activeTab}
+                  onSelectProvider={handleSocialSelect}
+                  dividerText="OR"
+                />
+
+                <button
+                  type="button"
+                  className="rf-contact-email-cta"
+                  onClick={() => setShowEmailForm(true)}
+                >
+                  Continue with email
+                </button>
+              </div>
+            ) : activeTab === 'LOGIN' ? (
+              <form onSubmit={handleLoginSubmit} className="rf-auth-form rf-contact-email-form">
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-contact-login-email">
+                    Work or Personal Email
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <Mail size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-contact-login-email"
+                      type="email"
+                      className="rf-auth-input"
+                      placeholder="name@company.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      autoComplete="email"
+                      required
+                      autoFocus
+                    />
+                  </div>
+                </div>
+
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-contact-login-password">
+                    Password
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <Lock size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-contact-login-password"
+                      type={showPassword ? 'text' : 'password'}
+                      className="rf-auth-input has-trailing"
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      autoComplete="current-password"
+                    />
+                    <button
+                      type="button"
+                      className="rf-auth-eye-btn"
+                      onClick={() => setShowPassword(p => !p)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="rf-contact-email-cta"
+                >
+                  {submitting ? 'Signing in...' : `Sign in & view ${firstName}'s profile`}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleSignupSubmit} className="rf-auth-form rf-contact-email-form">
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-contact-signup-name">
+                    Full Name
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <UserIcon size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-contact-signup-name"
+                      type="text"
+                      className="rf-auth-input"
+                      placeholder="Amara Okafor"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                      autoComplete="name"
+                      required
+                      autoFocus
+                    />
+                  </div>
+                </div>
+
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-contact-signup-email">
+                    Work or Personal Email
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <Mail size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-contact-signup-email"
+                      type="email"
+                      className="rf-auth-input"
+                      placeholder="amara@company.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      autoComplete="email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-contact-signup-password">
+                    Password
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <Lock size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-contact-signup-password"
+                      type={showPassword ? 'text' : 'password'}
+                      className="rf-auth-input has-trailing"
+                      placeholder="Create a password (min. 8 chars)"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      autoComplete="new-password"
+                    />
+                    <button
+                      type="button"
+                      className="rf-auth-eye-btn"
+                      onClick={() => setShowPassword(p => !p)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="rf-contact-email-cta"
+                >
+                  {submitting ? 'Creating account...' : `Continue to ${firstName}'s profile`}
+                </button>
+              </form>
+            )}
+
+            {/* Bottom links: Already have an account? Log in / Looking for work? */}
+            <div className="rf-contact-gate-links">
+              <div>
+                {activeTab === 'SIGNUP' ? (
+                  <>
+                    Already have an account?{' '}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveTab('LOGIN');
+                      }}
+                    >
+                      Log in
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    Don&apos;t have an account?{' '}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveTab('SIGNUP');
+                      }}
+                    >
+                      Sign up
+                    </button>
+                  </>
+                )}
+              </div>
+              <div>
+                Looking for work?{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setRole('TALENT');
+                    onNavigate('/signup?role=TALENT');
+                  }}
+                >
+                  Apply as a talent
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN — Soft Refeir Green Canvas + Floating Talent Showcase Card */}
+        <div className="rf-contact-gate-right">
+          <button
+            type="button"
+            className="rf-contact-gate-close"
+            onClick={handleClose}
+            aria-label="Close"
+          >
+            <X size={20} />
+          </button>
+
+          {/* Decorative organic Refeir green ribbons */}
+          <div className="rf-contact-ribbon rf-contact-ribbon-top" aria-hidden="true" />
+          <div className="rf-contact-ribbon rf-contact-ribbon-bottom" aria-hidden="true" />
+
+          {/* Centered Floating White Talent Card */}
+          <div className="rf-contact-profile-card">
+            <div className="rf-contact-profile-avatar-ring">
+              <img
+                src={talentToHire.avatar_url}
+                alt={talentToHire.full_name}
+                className="rf-contact-profile-avatar"
+              />
+            </div>
+
+            <div className="rf-contact-profile-name">
+              <span>{shortName}</span>
+              {isVerified && (
+                <ShieldCheck
+                  size={17}
+                  className="rf-contact-profile-verified"
+                  aria-label="Verified Talent"
+                />
+              )}
+            </div>
+
+            <p className="rf-contact-profile-headline">{talentToHire.headline}</p>
+
+            <div className="rf-contact-profile-location">
+              <MapPin size={13} />
+              <span>
+                {talentToHire.city}, {talentToHire.country_name}
+              </span>
+            </div>
+
+            <div className="rf-contact-profile-metrics">
+              <div>
+                <strong>{formatMoney(talentToHire.starting_price)}</strong>
+                <span>Starting Rate</span>
+              </div>
+              <div>
+                <strong>{talentToHire.completed_projects}</strong>
+                <span>Jobs done</span>
+              </div>
+            </div>
+
+            <div
+              className="rf-contact-profile-stars"
+              aria-label={`Rated ${talentToHire.rating.toFixed(1)} out of 5`}
+            >
+              {[0, 1, 2, 3, 4].map(i => (
+                <Star key={i} size={20} className="rf-contact-star-icon" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ===========================================================================
+  // STANDARD SPLIT AUTH SHOWCASE (for /login, /signup, and protected routes)
+  // ===========================================================================
   return (
     <section className="rf-auth-shell">
       <div className="rf-auth-grid">
-        {/* =================================================================
-            LEFT COLUMN — Brand & High-Trust Value Showcase
-           ================================================================= */}
+        {/* LEFT COLUMN — Brand & High-Trust Value Showcase */}
         <aside className="rf-auth-showcase">
           <div className="rf-auth-showcase-top">
             <div
@@ -168,46 +537,25 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
             <div className="rf-auth-pill">
               <ShieldCheck size={14} />
               <span>
-                {talentToHire
-                  ? 'ESCROW-PROTECTED CLIENT ONBOARDING'
-                  : isStandaloneAuthPage
+                {isStandaloneAuthPage
                   ? 'PAN-AFRICAN TALENT & FINTECH NETWORK'
                   : `PROTECTED WORKSPACE · ${pageName.toUpperCase()}`}
               </span>
             </div>
 
             <h1 className="rf-auth-showcase-title">
-              {talentToHire
-                ? `Hire ${talentToHire.full_name} with milestone escrow protection.`
-                : activeTab === 'SIGNUP'
+              {activeTab === 'SIGNUP'
                 ? 'Build, hire, and earn across Africa and the world.'
                 : 'Welcome back to your Refeir workspace.'}
             </h1>
 
             <p className="rf-auth-showcase-sub">
-              {talentToHire
-                ? `Create your client account in seconds to fund milestones, review deliverables, and collaborate directly with ${talentToHire.full_name.split(' ')[0]}.`
-                : 'Connect with verified engineers, designers, and operators — backed by multi-currency escrow custody and 10% lifetime scout rewards.'}
+              Connect with verified engineers, designers, and operators — backed by
+              multi-currency escrow custody and 10% lifetime scout rewards.
             </p>
 
-            {/* Context Card: Selected Talent to Hire */}
-            {talentToHire && (
-              <div className="rf-auth-context-card">
-                <img
-                  src={talentToHire.avatar_url}
-                  alt={talentToHire.full_name}
-                  className="rf-auth-context-avatar"
-                />
-                <div style={{ minWidth: 0, flex: 1 }}>
-                  <div className="rf-auth-context-eyebrow">Selected Talent</div>
-                  <div className="rf-auth-context-name">{talentToHire.full_name}</div>
-                  <div className="rf-auth-context-meta">{talentToHire.headline}</div>
-                </div>
-              </div>
-            )}
-
             {/* Context Card: Saved AI Wizard Brief */}
-            {wizardIntent && !talentToHire && (
+            {wizardIntent && (
               <div className="rf-auth-context-card">
                 <div className="rf-auth-context-check">
                   <CheckCircle2 size={20} />
@@ -241,7 +589,7 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
                 </span>
                 <div>
                   <strong>Top 2% Vetted Specialists</strong>
-                  <span>Identity-verified talent across 54 African countries & diaspora.</span>
+                  <span>Identity-verified talent across 54 African countries &amp; diaspora.</span>
                 </div>
               </li>
               <li>
@@ -274,11 +622,8 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
           </div>
         </aside>
 
-        {/* =================================================================
-            RIGHT COLUMN — Modern Sign In / Sign Up Card
-           ================================================================= */}
+        {/* RIGHT COLUMN — Modern Sign In / Sign Up Card */}
         <div className="rf-auth-card">
-          {/* Top Header */}
           <div className="rf-auth-card-head">
             <div className="rf-auth-tabs" role="tablist" aria-label="Authentication mode">
               <button
@@ -308,8 +653,6 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
                 ? isStandaloneAuthPage
                   ? 'Sign in to your account'
                   : `Sign in to access ${pageName}`
-                : talentToHire
-                ? `Create client account to hire ${talentToHire.full_name.split(' ')[0]}`
                 : 'Create your verified Refeir account'}
             </h2>
             <p className="rf-auth-card-sub">
@@ -319,7 +662,6 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
             </p>
           </div>
 
-          {/* Role Selector (shown on Sign Up so social or email signup picks the right role) */}
           {activeTab === 'SIGNUP' && (
             <div className="rf-auth-role-section">
               <label className="rf-auth-field-label">I am joining primarily as</label>
@@ -350,7 +692,6 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
             </div>
           )}
 
-          {/* Social Auth: Google, GitHub, LinkedIn, Facebook, Pinterest */}
           <SocialAuthButtons
             mode={activeTab}
             onSelectProvider={handleSocialSelect}
@@ -359,7 +700,6 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
             }
           />
 
-          {/* Email Form */}
           {activeTab === 'LOGIN' ? (
             <form onSubmit={handleLoginSubmit} className="rf-auth-form">
               <div className="rf-auth-field">
@@ -547,7 +887,7 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
 
               <div className="rf-auth-field">
                 <label className="rf-auth-field-label" htmlFor="rf-auth-signup-phone">
-                  Phone Number (for Escrow & Payout Alerts)
+                  Phone Number (for Escrow &amp; Payout Alerts)
                 </label>
                 <div className="rf-auth-phone-row">
                   <select
@@ -611,7 +951,6 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
             </form>
           )}
 
-          {/* Footer Switch + Back Link */}
           <div className="rf-auth-card-footer">
             <div>
               {activeTab === 'LOGIN' ? (

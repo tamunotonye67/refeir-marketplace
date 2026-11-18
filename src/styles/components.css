@@ -11512,3 +11512,414 @@ textarea.rf-ai-pricing-input:hover,
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* ============================================================================
+   Split-Screen "Sign up to contact [Talent]" Gate (See Profile / Hire Gate)
+   ============================================================================ */
+.rf-contact-gate {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(380px, 1fr) minmax(380px, 1fr);
+  background: var(--rf-bg-surface);
+  color: var(--rf-cream);
+}
+
+.rf-contact-gate-left {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3.5vw, 2.75rem) clamp(1.75rem, 5vw, 4.5rem);
+  background: var(--rf-bg-surface);
+}
+
+.rf-contact-gate-logo {
+  margin-bottom: clamp(2rem, 5vh, 4rem);
+}
+
+.rf-contact-gate-body {
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.rf-contact-gate-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.rf-contact-gate-back {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--rf-cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.rf-contact-gate-back:hover {
+  background: var(--rf-mint-light);
+}
+
+.rf-contact-gate-heading {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+  font-family: var(--rf-font-display);
+  font-size: clamp(1.35rem, 2.3vw, 1.7rem);
+  font-weight: 700;
+  color: var(--rf-cream);
+  letter-spacing: -0.02em;
+}
+
+.rf-contact-talent-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.22rem 0.75rem 0.22rem 0.25rem;
+  border-radius: 999px;
+  background: var(--rf-bg-card);
+  border: 1px solid var(--rf-bg-card-border);
+  font-family: var(--rf-font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+}
+
+.rf-contact-talent-chip img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* 3-Step Progress Bar */
+.rf-contact-stepper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-bottom: 2.25rem;
+  font-size: 0.78rem;
+  color: var(--rf-slate-400);
+}
+
+.rf-contact-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.rf-contact-step.is-active {
+  color: var(--rf-cream);
+  font-weight: 700;
+}
+
+.rf-contact-step-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--rf-bg-card-border);
+  background: var(--rf-bg-card);
+  color: var(--rf-slate-400);
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf-contact-step-badge.is-done {
+  background: var(--rf-cream);
+  border-color: var(--rf-cream);
+  color: var(--rf-bg-surface);
+}
+
+.rf-contact-step-line {
+  width: 26px;
+  height: 1px;
+  background: var(--rf-bg-card-border);
+}
+
+/* Social + Email Actions */
+.rf-contact-actions {
+  width: 100%;
+  max-width: 380px;
+}
+
+.rf-contact-email-form {
+  width: 100%;
+  max-width: 380px;
+  text-align: left;
+}
+
+.rf-contact-email-cta {
+  width: 100%;
+  padding: 0.82rem 1.25rem;
+  border: none;
+  border-radius: 999px;
+  background: #168A1E;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(22, 138, 30, 0.25);
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.rf-contact-email-cta:hover:not(:disabled) {
+  background: #127319;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(22, 138, 30, 0.32);
+}
+
+.rf-contact-email-cta:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.rf-contact-gate-links {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.84rem;
+  color: var(--rf-slate-400);
+}
+
+.rf-contact-gate-links button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--rf-cream);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.rf-contact-gate-links button:hover {
+  color: var(--rf-green);
+}
+
+/* RIGHT COLUMN — Soft Refeir Green Canvas + Floating Talent Card */
+.rf-contact-gate-right {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 4rem);
+  background:
+    radial-gradient(circle at 82% 16%, rgba(141, 244, 58, 0.38) 0%, transparent 45%),
+    radial-gradient(circle at 18% 88%, rgba(102, 187, 42, 0.34) 0%, transparent 48%),
+    linear-gradient(145deg, #F3F8F3 0%, #EAF4EC 52%, #E3F0E5 100%);
+}
+
+[data-theme="dark"] .rf-contact-gate-right {
+  background:
+    radial-gradient(circle at 82% 16%, rgba(141, 244, 58, 0.22) 0%, transparent 48%),
+    radial-gradient(circle at 18% 88%, rgba(46, 125, 50, 0.28) 0%, transparent 50%),
+    linear-gradient(145deg, #091E12 0%, #0D2A19 52%, #07170E 100%);
+}
+
+.rf-contact-ribbon {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(163, 247, 75, 0.85) 0%, rgba(46, 175, 52, 0.85) 100%);
+  filter: blur(1px);
+  box-shadow: inset 0 8px 24px rgba(255, 255, 255, 0.45);
+}
+
+.rf-contact-ribbon-top {
+  width: 460px;
+  height: 110px;
+  top: -30px;
+  right: -110px;
+  transform: rotate(38deg);
+}
+
+.rf-contact-ribbon-bottom {
+  width: 520px;
+  height: 120px;
+  bottom: -48px;
+  left: -120px;
+  transform: rotate(22deg);
+}
+
+.rf-contact-gate-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(15, 46, 30, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(8px);
+  color: #0F2E1E;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.rf-contact-gate-close:hover {
+  transform: scale(1.05);
+  background: #FFFFFF;
+}
+
+/* Floating Talent Showcase Card */
+.rf-contact-profile-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 340px;
+  padding: 2.35rem 2rem 2.15rem;
+  border-radius: 26px;
+  background: #FFFFFF;
+  color: #0F172A;
+  text-align: center;
+  box-shadow: 0 28px 64px rgba(15, 46, 30, 0.12), 0 4px 16px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+[data-theme="dark"] .rf-contact-profile-card {
+  background: #0D2417;
+  color: #FFFFFF;
+  border: 1px solid rgba(102, 187, 42, 0.28);
+  box-shadow: 0 28px 68px rgba(0, 0, 0, 0.55);
+}
+
+.rf-contact-profile-avatar-ring {
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #66BB2A 0%, #2E7D32 50%, #0EA5E9 100%);
+  margin-bottom: 1rem;
+}
+
+.rf-contact-profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 3px solid #FFFFFF;
+}
+
+[data-theme="dark"] .rf-contact-profile-avatar {
+  border-color: #0D2417;
+}
+
+.rf-contact-profile-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.45rem;
+}
+
+.rf-contact-profile-verified {
+  color: var(--rf-green);
+}
+
+.rf-contact-profile-headline {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: inherit;
+  opacity: 0.88;
+}
+
+.rf-contact-profile-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  color: #64748B;
+  margin-bottom: 1.35rem;
+}
+
+[data-theme="dark"] .rf-contact-profile-location {
+  color: #94A3B8;
+}
+
+.rf-contact-profile-metrics {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 0.85rem 0.5rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  margin-bottom: 0.9rem;
+}
+
+[data-theme="dark"] .rf-contact-profile-metrics {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.rf-contact-profile-metrics strong {
+  display: block;
+  font-size: 1.18rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.rf-contact-profile-metrics span {
+  font-size: 0.72rem;
+  color: #64748B;
+}
+
+[data-theme="dark"] .rf-contact-profile-metrics span {
+  color: #94A3B8;
+}
+
+.rf-contact-profile-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.rf-contact-star-icon {
+  color: #FACC15;
+  fill: #FACC15;
+}
+
+@media (max-width: 900px) {
+  .rf-contact-gate {
+    grid-template-columns: 1fr;
+  }
+  .rf-contact-gate-right {
+    order: -1;
+    padding: 2.5rem 1.25rem;
+  }
+  .rf-contact-stepper {
+    flex-wrap: wrap;
+  }
+}
