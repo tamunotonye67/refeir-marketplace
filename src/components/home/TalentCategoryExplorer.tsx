@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, ChevronDown, MapPin, Star, Briefcase, ShieldCheck, Compass } from 'lucide-react';
+import { ArrowRight, ChevronDown, MapPin, Star, Briefcase, ShieldCheck, Compass, Share2 } from 'lucide-react';
 import { TalentProfile } from '../../types';
 import { formatMoney } from '../../data/currencies';
 import { TALENT_SUB_CATEGORIES, TalentSubCategory } from '../../data/subCategories';
@@ -148,16 +148,32 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
               <div className="rf-cat-explorer-eyebrow">
                 <Compass size={13} /> Specialties in {activeCategory}
               </div>
-              <h3 className="rf-cat-explorer-title">Pick a specialty to meet vetted talent</h3>
+              <h3 className="rf-cat-explorer-title">Pick a specialty to hire, refer (10%), or join as talent</h3>
             </div>
             {categoryMeta && (
-              <button
-                type="button"
-                className="rf-cat-explorer-link"
-                onClick={() => onNavigate(`/subcategories/${activeSub.id}`)}
-              >
-                Explore {activeSub.name} <ArrowRight size={14} />
-              </button>
+              <div className="rf-cat-explorer-actions">
+                <button
+                  type="button"
+                  className="rf-cat-explorer-mode-btn"
+                  onClick={() => onNavigate(`/subcategories/${activeSub.id}?mode=scout`)}
+                >
+                  <Share2 size={13} /> Scout & Earn 10%
+                </button>
+                <button
+                  type="button"
+                  className="rf-cat-explorer-mode-btn"
+                  onClick={() => onNavigate(`/subcategories/${activeSub.id}?mode=talent`)}
+                >
+                  <Briefcase size={13} /> Open Bounties
+                </button>
+                <button
+                  type="button"
+                  className="rf-cat-explorer-link"
+                  onClick={() => onNavigate(`/subcategories/${activeSub.id}`)}
+                >
+                  Explore {activeSub.name} <ArrowRight size={14} />
+                </button>
+              </div>
             )}
           </div>
 
@@ -198,43 +214,63 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
 
           {/* Talent profiles */}
           <div key={activeSub.id} className="rf-subcat-talent-grid">
-            {talents.map(t => (
-              <div key={t.id} className="rf-subcat-talent-card">
-                <div className="rf-subcat-talent-top">
-                  <img className="rf-subcat-talent-avatar" src={t.avatar_url} alt={t.full_name} loading="lazy" />
-                  <div style={{ minWidth: 0 }}>
-                    <div className="rf-subcat-talent-name">
-                      {t.full_name}
-                      {(t.verification_status === 'IDENTITY_VERIFIED' || t.verification_status === 'PROFESSION_VERIFIED') && (
-                        <ShieldCheck size={14} className="rf-subcat-verified" aria-label="Verified" />
-                      )}
-                    </div>
-                    <div className="rf-subcat-talent-loc">
-                      <MapPin size={12} /> {t.city}, {t.country_name}
+            {talents.map(t => {
+              const scoutReward = {
+                amount_minor: Math.max(2500, Math.round(t.starting_price.amount_minor * 0.1)),
+                currency: t.starting_price.currency,
+              };
+              return (
+                <div key={t.id} className="rf-subcat-talent-card">
+                  <div className="rf-subcat-talent-top">
+                    <img className="rf-subcat-talent-avatar" src={t.avatar_url} alt={t.full_name} loading="lazy" />
+                    <div style={{ minWidth: 0 }}>
+                      <div className="rf-subcat-talent-name">
+                        {t.full_name}
+                        {(t.verification_status === 'IDENTITY_VERIFIED' || t.verification_status === 'PROFESSION_VERIFIED') && (
+                          <ShieldCheck size={14} className="rf-subcat-verified" aria-label="Verified" />
+                        )}
+                      </div>
+                      <div className="rf-subcat-talent-loc">
+                        <MapPin size={12} /> {t.city}, {t.country_name}
+                      </div>
                     </div>
                   </div>
+
+                  <div className="rf-subcat-talent-stats">
+                    <span className="rf-subcat-rate">From {formatMoney(t.starting_price)}</span>
+                    <span><Star size={12} className="rf-subcat-star" /> {t.rating.toFixed(1)}</span>
+                    <span><Briefcase size={12} /> {t.completed_projects} jobs</span>
+                  </div>
+
+                  <div className="rf-subcat-scout-tag">
+                    <Share2 size={11} /> Scout 10% reward: {formatMoney(scoutReward)}+/milestone
+                  </div>
+
+                  <p className="rf-subcat-talent-bio">{t.headline}. {t.bio}</p>
+
+                  <div className="rf-subcat-skills">
+                    {t.skills.slice(0, 3).map(s => (
+                      <span key={s} className="rf-subcat-skill">{s}</span>
+                    ))}
+                    {t.skills.length > 3 && <span className="rf-subcat-skill">+{t.skills.length - 3}</span>}
+                  </div>
+
+                  <div className="rf-subcat-btn-row">
+                    <button type="button" className="rf-subcat-profile-btn" onClick={() => onSelectTalent(t)}>
+                      See profile
+                    </button>
+                    <button
+                      type="button"
+                      className="rf-subcat-refer-btn"
+                      onClick={() => onNavigate(`/talent/${t.id}?intent=scout`)}
+                      title="Refer this specialist and earn 10% commission"
+                    >
+                      <Share2 size={12} /> Refer (10%)
+                    </button>
+                  </div>
                 </div>
-
-                <div className="rf-subcat-talent-stats">
-                  <span className="rf-subcat-rate">From {formatMoney(t.starting_price)}</span>
-                  <span><Star size={12} className="rf-subcat-star" /> {t.rating.toFixed(1)}</span>
-                  <span><Briefcase size={12} /> {t.completed_projects} jobs</span>
-                </div>
-
-                <p className="rf-subcat-talent-bio">{t.headline}. {t.bio}</p>
-
-                <div className="rf-subcat-skills">
-                  {t.skills.slice(0, 3).map(s => (
-                    <span key={s} className="rf-subcat-skill">{s}</span>
-                  ))}
-                  {t.skills.length > 3 && <span className="rf-subcat-skill">+{t.skills.length - 3}</span>}
-                </div>
-
-                <button type="button" className="rf-subcat-profile-btn" onClick={() => onSelectTalent(t)}>
-                  See profile
-                </button>
-              </div>
-            ))}
+              );
+            })}
 
             {/* Blurred explore placeholder */}
             <div className="rf-subcat-talent-card rf-subcat-explore-card">
@@ -259,6 +295,21 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
                 >
                   Explore {activeSub.name} <ArrowRight size={14} />
                 </button>
+                <div className="rf-subcat-explore-sublinks">
+                  <button
+                    type="button"
+                    onClick={() => onNavigate(`/subcategories/${activeSub.id}?mode=scout`)}
+                  >
+                    Scout & Earn 10%
+                  </button>
+                  <span>•</span>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate(`/subcategories/${activeSub.id}?mode=talent`)}
+                  >
+                    Work as Talent
+                  </button>
+                </div>
               </div>
             </div>
           </div>

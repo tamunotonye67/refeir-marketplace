@@ -12737,3 +12737,463 @@ textarea.rf-ai-pricing-input:hover,
     text-align: center;
   }
 }
+
+/* ==========================================================================
+   Role-Aware Journey Extensions (Hire / Scout 10% / Work as Talent)
+   ========================================================================== */
+
+/* Split-Screen Gate Role Switcher */
+.rf-contact-role-pills {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.3rem;
+  margin-bottom: 1.1rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.05);
+  border: 1px solid var(--rf-bg-card-border);
+}
+
+[data-theme="dark"] .rf-contact-role-pills {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.rf-contact-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--rf-slate-400);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.rf-contact-role-pill:hover {
+  color: var(--rf-cream);
+}
+
+.rf-contact-role-pill.is-active {
+  background: #168A1E;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(22, 138, 30, 0.25);
+}
+
+.rf-contact-scout-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.95rem;
+  padding: 0.48rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(22, 138, 30, 0.1);
+  border: 1px solid rgba(22, 138, 30, 0.28);
+  color: #168A1E;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .rf-contact-scout-pill {
+  background: rgba(102, 187, 42, 0.14);
+  border-color: rgba(102, 187, 42, 0.35);
+  color: var(--rf-leaf-green);
+}
+
+/* Sub-Category Hero Mode Switcher */
+.rf-sj-mode-switcher {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.32rem;
+  margin-bottom: 1.15rem;
+  border-radius: 999px;
+  background: var(--rf-bg-card);
+  border: 1px solid var(--rf-bg-card-border);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+}
+
+.rf-sj-mode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.48rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--rf-slate-400);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.rf-sj-mode-pill:hover {
+  color: var(--rf-cream);
+}
+
+.rf-sj-mode-pill.is-active {
+  background: #168A1E;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(22, 138, 30, 0.25);
+}
+
+.rf-sj-hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.rf-sj-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.78rem 1.45rem;
+  border-radius: 12px;
+  border: 1px solid var(--rf-bg-card-border);
+  background: var(--rf-bg-card);
+  color: var(--rf-cream);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.rf-sj-secondary-btn:hover {
+  border-color: #168A1E;
+  color: #168A1E;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .rf-sj-secondary-btn:hover {
+  border-color: var(--rf-leaf-green);
+  color: var(--rf-leaf-green);
+}
+
+/* Sub-Category Talent Card Scout / CTA Additions */
+.rf-sj-scout-bonus-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  align-self: flex-start;
+  margin-bottom: 0.75rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(22, 138, 30, 0.09);
+  border: 1px solid rgba(22, 138, 30, 0.24);
+  color: #168A1E;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .rf-sj-scout-bonus-pill {
+  background: rgba(102, 187, 42, 0.14);
+  border-color: rgba(102, 187, 42, 0.32);
+  color: var(--rf-leaf-green);
+}
+
+.rf-sj-card-cta-col {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.rf-sj-refer-inline-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.38rem;
+  padding: 0.48rem 0.85rem;
+  border-radius: 10px;
+  border: 1px dashed rgba(22, 138, 30, 0.35);
+  background: rgba(22, 138, 30, 0.06);
+  color: #168A1E;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.rf-sj-refer-inline-btn:hover {
+  background: rgba(22, 138, 30, 0.14);
+  border-style: solid;
+}
+
+[data-theme="dark"] .rf-sj-refer-inline-btn {
+  border-color: rgba(102, 187, 42, 0.38);
+  background: rgba(102, 187, 42, 0.08);
+  color: var(--rf-leaf-green);
+}
+
+[data-theme="dark"] .rf-sj-refer-inline-btn:hover {
+  background: rgba(102, 187, 42, 0.18);
+}
+
+/* Open Specialty Client Bounties (Talent Mode) */
+.rf-sj-bounties-wrap {
+  margin-bottom: 2.25rem;
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: var(--rf-bg-card);
+  border: 1px solid var(--rf-bg-card-border);
+}
+
+.rf-sj-bounties-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.rf-sj-bounties-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #168A1E;
+  margin-bottom: 0.3rem;
+}
+
+[data-theme="dark"] .rf-sj-bounties-eyebrow {
+  color: var(--rf-leaf-green);
+}
+
+.rf-sj-bounties-title {
+  margin: 0;
+  font-family: var(--rf-font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--rf-cream);
+}
+
+.rf-sj-job-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.rf-sj-job-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+
+.rf-sj-job-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(22, 138, 30, 0.1);
+  color: #168A1E;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .rf-sj-job-badge {
+  background: rgba(102, 187, 42, 0.15);
+  color: var(--rf-leaf-green);
+}
+
+.rf-sj-job-title {
+  margin: 0 0 0.25rem;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+  line-height: 1.35;
+}
+
+.rf-sj-job-company {
+  font-size: 0.78rem;
+  color: var(--rf-slate-400);
+  margin-bottom: 0.7rem;
+}
+
+.rf-sj-job-budget {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid var(--rf-bg-card-border);
+  font-size: 0.85rem;
+  color: var(--rf-cream);
+}
+
+[data-theme="dark"] .rf-sj-job-budget {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.rf-sj-job-budget span {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #168A1E;
+}
+
+[data-theme="dark"] .rf-sj-job-budget span {
+  color: var(--rf-leaf-green);
+}
+
+.rf-sj-job-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.rf-sj-peers-heading {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+}
+
+/* Homepage TalentCategoryExplorer Scout & Talent Enhancements */
+.rf-cat-explorer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.rf-cat-explorer-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--rf-bg-card-border);
+  background: var(--rf-bg-card);
+  color: var(--rf-cream);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.rf-cat-explorer-mode-btn:hover {
+  border-color: #168A1E;
+  color: #168A1E;
+}
+
+[data-theme="dark"] .rf-cat-explorer-mode-btn:hover {
+  border-color: var(--rf-leaf-green);
+  color: var(--rf-leaf-green);
+}
+
+.rf-subcat-scout-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  align-self: flex-start;
+  margin-bottom: 0.55rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(22, 138, 30, 0.09);
+  border: 1px solid rgba(22, 138, 30, 0.22);
+  color: #168A1E;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .rf-subcat-scout-tag {
+  background: rgba(102, 187, 42, 0.13);
+  border-color: rgba(102, 187, 42, 0.3);
+  color: var(--rf-leaf-green);
+}
+
+.rf-subcat-btn-row {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.rf-subcat-btn-row .rf-subcat-profile-btn {
+  margin-top: 0;
+}
+
+.rf-subcat-refer-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 138, 30, 0.32);
+  background: rgba(22, 138, 30, 0.08);
+  color: #168A1E;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.16s ease;
+}
+
+.rf-subcat-refer-btn:hover {
+  background: #168A1E;
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .rf-subcat-refer-btn {
+  border-color: rgba(102, 187, 42, 0.35);
+  background: rgba(102, 187, 42, 0.12);
+  color: var(--rf-leaf-green);
+}
+
+[data-theme="dark"] .rf-subcat-refer-btn:hover {
+  background: var(--rf-leaf-green);
+  color: #0B1911;
+}
+
+.rf-subcat-explore-sublinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+  font-size: 0.74rem;
+  color: var(--rf-slate-400);
+}
+
+.rf-subcat-explore-sublinks button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.rf-subcat-explore-sublinks button:hover {
+  color: #168A1E;
+}
+
