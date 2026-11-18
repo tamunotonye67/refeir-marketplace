@@ -80,6 +80,7 @@ type ActiveDropdown =
   | 'recruit'
   | 'scout'
   | 'talent'
+  | 'why-refeir'
   | 'resources'
   // Talent flyouts
   | 'journey'
@@ -94,6 +95,254 @@ type ActiveDropdown =
   | 'talent-pipeline'
   | 'hiring-analytics'
   | null;
+
+interface WhyRefeirMenuItem {
+  title: string;
+  desc: string;
+  path: string;
+}
+
+interface WhyRefeirMenuCategory {
+  id: string;
+  label: string;
+  heading: string;
+  items: WhyRefeirMenuItem[];
+}
+
+const WHY_REFEIR_MENU_CATEGORIES: WhyRefeirMenuCategory[] = [
+  {
+    id: 'trust-escrow',
+    label: 'Trust & Escrow',
+    heading: 'TRUST & ESCROW',
+    items: [
+      {
+        title: 'Why Refeir & Our Vision',
+        desc: 'Pan-African escrow model & 10% referral guarantee',
+        path: '/why-refeir',
+      },
+      {
+        title: 'Milestone Pay Protection',
+        desc: '100% escrow security for every project deliverable',
+        path: '/protection',
+      },
+      {
+        title: 'Trust & Safety Governance',
+        desc: 'Identity & portfolio verification across 54 nations',
+        path: '/trust',
+      },
+      {
+        title: '10% Lifetime Scout Lock',
+        desc: 'Permanent referral attribution on every milestone',
+        path: '/scout-sourcing',
+      },
+      {
+        title: 'Dispute & Arbitration Center',
+        desc: '24/7 neutral mediation & milestone resolution',
+        path: '/disputes',
+      },
+      {
+        title: 'Multi-Currency Settlement',
+        desc: 'Instant payouts in USD, NGN, KES, GHS & Mobile Money',
+        path: '/wallet',
+      },
+    ],
+  },
+  {
+    id: 'success-reviews',
+    label: 'Success & Reviews',
+    heading: 'SUCCESS & REVIEWS',
+    items: [
+      {
+        title: 'Success Stories',
+        desc: 'Real earnings & case studies from Scouts and Talent',
+        path: '/success-stories',
+      },
+      {
+        title: 'Refeir Reviews (4.9/5.0)',
+        desc: 'Over 2,400+ verified ratings across the continent',
+        path: '/reviews',
+      },
+      {
+        title: 'Client Case Studies',
+        desc: 'How global teams scale engineering & AI with Refeir',
+        path: '/success-stories',
+      },
+      {
+        title: 'Scout Earner Spotlights',
+        desc: 'Connectors earning 10% recurring milestone commissions',
+        path: '/scouts',
+      },
+      {
+        title: 'Verified Talent Outcomes',
+        desc: '90% take-home earnings & 4x faster placement rates',
+        path: '/reviews',
+      },
+      {
+        title: 'Economic & Social Impact',
+        desc: 'Cross-border job creation across 54 sovereign nations',
+        path: '/impact',
+      },
+    ],
+  },
+  {
+    id: 'how-it-works',
+    label: 'How Refeir Works',
+    heading: 'HOW REFEIR WORKS',
+    items: [
+      {
+        title: 'Cross-Border Demo Tour',
+        desc: 'Interactive live walkthrough of a Refeir project lifecycle',
+        path: '/demo-tour',
+      },
+      {
+        title: 'How to Hire Talent',
+        desc: 'Post a brief, fund milestone escrow & hire vetted experts',
+        path: '/subcategories/fullstack?mode=hire',
+      },
+      {
+        title: 'How Scouting Works (10%)',
+        desc: 'Refer specialists in your network and earn 10% for life',
+        path: '/how-scouting-works',
+      },
+      {
+        title: 'How to Work as Talent',
+        desc: 'Get verified, get referred by Scouts & keep 90%',
+        path: '/subcategories/fullstack?mode=talent',
+      },
+      {
+        title: 'Project Catalog',
+        desc: 'Book pre-scoped deliverables with transparent pricing',
+        path: '/catalog',
+      },
+      {
+        title: 'Hire a Verified Agency',
+        desc: 'Partner with multi-disciplinary African digital studios',
+        path: '/agencies',
+      },
+    ],
+  },
+  {
+    id: 'ai-automation',
+    label: 'AI & Automation',
+    heading: 'AI & AUTOMATION',
+    items: [
+      {
+        title: 'Artificial Intelligence',
+        desc: 'Work on cutting-edge AI & autonomous agent projects',
+        path: '/subcategories/ai-agents',
+      },
+      {
+        title: 'AI Generated Video',
+        desc: 'Create AI-powered cinematic video & motion content',
+        path: '/subcategories/ai-video',
+      },
+      {
+        title: 'AI Model Training',
+        desc: 'Label, train and fine-tune custom LLM & ML models',
+        path: '/subcategories/ml-ops',
+      },
+      {
+        title: 'Prompt Engineering',
+        desc: 'Craft production prompts for better AI outputs',
+        path: '/subcategories/prompt-eng',
+      },
+      {
+        title: 'AI Content Creation',
+        desc: 'Write and edit high-converting AI-assisted content',
+        path: '/subcategories/copywriting',
+      },
+      {
+        title: 'Generative AI Studios',
+        desc: 'Build with Refeir generative AI tools & workflows',
+        path: '/ai-wizards',
+      },
+      {
+        title: 'Workflow Automation',
+        desc: 'Automated pipelines that cut manual operational work',
+        path: '/subcategories/workflow-auto',
+      },
+      {
+        title: 'Chatbots & OpenAI',
+        desc: 'Deploy conversational bots using ChatGPT and Claude',
+        path: '/subcategories/ai-agents?mode=hire',
+      },
+    ],
+  },
+  {
+    id: 'pan-african-reach',
+    label: 'Pan-African Reach',
+    heading: 'PAN-AFRICAN REACH',
+    items: [
+      {
+        title: '54 African Countries Hub',
+        desc: 'Browse sovereign talent pools & local currencies',
+        path: '/countries',
+      },
+      {
+        title: 'West Africa Tech Corridor',
+        desc: 'Lagos, Accra, Dakar & Abidjan engineering hubs',
+        path: '/countries/nigeria',
+      },
+      {
+        title: 'East Africa FinTech Hub',
+        desc: 'Nairobi, Kigali, Kampala & Dar es Salaam specialists',
+        path: '/countries/kenya',
+      },
+      {
+        title: 'Southern Africa Innovation',
+        desc: 'Cape Town, Johannesburg & Lusaka enterprise talent',
+        path: '/countries/south-africa',
+      },
+      {
+        title: 'North Africa & Diaspora',
+        desc: 'Cairo, Casablanca, Tunis & global African diaspora',
+        path: '/countries/egypt',
+      },
+      {
+        title: 'Enterprise & Global Teams',
+        desc: 'Dedicated compliance & consolidated multi-team billing',
+        path: '/business',
+      },
+    ],
+  },
+  {
+    id: 'company-vision',
+    label: 'Company & Vision',
+    heading: 'COMPANY & VISION',
+    items: [
+      {
+        title: 'About Refeir & Leadership',
+        desc: 'Meet the team building pan-African infrastructure',
+        path: '/about',
+      },
+      {
+        title: 'Sponsorship & Partnerships',
+        desc: "Collaborate with Africa's fastest-growing talent network",
+        path: '/partnerships',
+      },
+      {
+        title: 'Investor Relations',
+        desc: 'Backing the future of Pan-African fintech & work',
+        path: '/investors',
+      },
+      {
+        title: 'Refeir Pioneers Program',
+        desc: 'Early access for founding Scouts, Clients & Specialists',
+        path: '/pioneers',
+      },
+      {
+        title: 'Affiliate & Ambassador Hub',
+        desc: 'Grow the Refeir ecosystem and earn referral rewards',
+        path: '/affiliates',
+      },
+      {
+        title: 'Contact & Global Offices',
+        desc: 'Connect with our regional trust & enterprise teams',
+        path: '/contact',
+      },
+    ],
+  },
+];
 
 export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTransparent = false }) => {
   const { theme, toggleTheme } = useTheme();
@@ -123,6 +372,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
   } = useNotification();
 
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>(null);
+  const [activeWhyCategory, setActiveWhyCategory] = useState<string>(WHY_REFEIR_MENU_CATEGORIES[0].id);
   const [, setPrevDropdown] = useState<ActiveDropdown>(null);
   const [switchDirection, setSwitchDirection] = useState<'left' | 'right' | null>(null);
   const [showMobileDrawer, setShowMobileDrawer] = useState(false);
@@ -1450,7 +1700,107 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 )}
               </div>
 
-              {/* 4. PRICING (Direct link) */}
+              {/* 4. WHY REFEIR DROPDOWN (Two-Pane Category Explorer Mega-Menu) */}
+              <div
+                className="rf-nav-dropdown-wrapper"
+                onMouseEnter={() => handleMouseEnter('why-refeir')}
+                onMouseLeave={handleMouseLeave}
+              >
+                <button
+                  className={`rf-nav-dropdown-trigger ${activeDropdown === 'why-refeir' || currentPath === '/why-refeir' ? 'active' : ''}`}
+                  onClick={() => handleDropdownClick('why-refeir')}
+                  aria-expanded={activeDropdown === 'why-refeir'}
+                >
+                  <span>Why Refeir</span>
+                  <ChevronDown size={13} className="chevron" />
+                </button>
+
+                {activeDropdown === 'why-refeir' && (() => {
+                  const activeCat =
+                    WHY_REFEIR_MENU_CATEGORIES.find(c => c.id === activeWhyCategory) ||
+                    WHY_REFEIR_MENU_CATEGORIES[0];
+                  return (
+                    <div
+                      className={`rf-mega-menu rf-mega-menu-center rf-why-mega-menu ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
+                      onMouseEnter={() => handleMouseEnter('why-refeir')}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <div className="rf-why-mega-body">
+                        {/* Left Column: Categories / Pillars with '>' chevrons */}
+                        <div className="rf-why-mega-sidebar">
+                          <div className="rf-why-mega-eyebrow">CATEGORIES</div>
+                          <div className="rf-why-mega-cat-list">
+                            {WHY_REFEIR_MENU_CATEGORIES.map(cat => {
+                              const isSelected = cat.id === activeCat.id;
+                              return (
+                                <button
+                                  key={cat.id}
+                                  type="button"
+                                  className={`rf-why-mega-cat-btn${isSelected ? ' is-active' : ''}`}
+                                  onMouseEnter={() => setActiveWhyCategory(cat.id)}
+                                  onFocus={() => setActiveWhyCategory(cat.id)}
+                                  onClick={() => setActiveWhyCategory(cat.id)}
+                                >
+                                  <span>{cat.label}</span>
+                                  <ChevronRight size={15} className="rf-why-mega-cat-chevron" />
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Right Column: 2-Column Details Grid */}
+                        <div className="rf-why-mega-content">
+                          <div className="rf-why-mega-eyebrow">{activeCat.heading}</div>
+                          <div className="rf-why-mega-grid">
+                            {activeCat.items.map(item => (
+                              <button
+                                key={item.title}
+                                type="button"
+                                className="rf-why-mega-item"
+                                onClick={() => handleLinkClick(item.path)}
+                              >
+                                <div className="rf-why-mega-item-title">{item.title}</div>
+                                <div className="rf-why-mega-item-desc">{item.desc}</div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Bottom Green Links Bar */}
+                      <div className="rf-why-mega-footer">
+                        <button
+                          type="button"
+                          className="rf-why-mega-footer-link"
+                          onClick={() => handleLinkClick('/why-refeir')}
+                        >
+                          <span>See Why Refeir</span>
+                          <ChevronRight size={14} />
+                        </button>
+                        <button
+                          type="button"
+                          className="rf-why-mega-footer-link"
+                          onClick={() => handleLinkClick('/demo-tour')}
+                        >
+                          <span>Interactive Demo Tour</span>
+                          <ChevronRight size={14} />
+                        </button>
+                        <button
+                          type="button"
+                          className="rf-why-mega-footer-link"
+                          onClick={() => handleLinkClick('/scouts')}
+                        >
+                          <span>Ways to earn (90% Talent / 10% Scout)</span>
+                          <ChevronRight size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              {/* 5. PRICING (Direct link) */}
               <button
                 className={`rf-nav-dropdown-trigger ${currentPath === '/pricing' ? 'active' : ''}`}
                 onClick={() => handleLinkClick('/pricing')}
@@ -1458,7 +1808,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 <span>Pricing</span>
               </button>
 
-              {/* 5. BUSINESS (Direct link) */}
+              {/* 6. BUSINESS (Direct link) */}
               <button
                 className={`rf-nav-dropdown-trigger ${currentPath === '/business' ? 'active' : ''}`}
                 onClick={() => handleLinkClick('/business')}
@@ -1466,7 +1816,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 <span>Business</span>
               </button>
 
-              {/* 6. RESOURCES & DISCOVER DROPDOWN */}
+              {/* 7. RESOURCES DROPDOWN (Tools, Learning & Support) */}
               <div
                 className="rf-nav-dropdown-wrapper"
                 onMouseEnter={() => handleMouseEnter('resources')}
@@ -1484,64 +1834,15 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 {activeDropdown === 'resources' && (
                   <div
                     className={`rf-mega-menu rf-mega-menu-center ${switchDirection === 'right' ? 'is-switch-right' : switchDirection === 'left' ? 'is-switch-left' : ''}`}
-                    style={{ minWidth: '840px', maxWidth: 'calc(100vw - 2rem)' }}
+                    style={{ minWidth: '780px', maxWidth: 'calc(100vw - 2rem)' }}
                     onMouseEnter={() => handleMouseEnter('resources')}
                     onMouseLeave={handleMouseLeave}
                   >
                     <div className="rf-mega-menu-grid" style={{ gridTemplateColumns: '1.15fr 1.15fr 1fr', gap: '1.5rem' }}>
-                      {/* Left: Ecosystem & Knowledge */}
+                      {/* Left: Tools & Playbooks */}
                       <div>
                         <div className="rf-mega-menu-col-title">
-                          <span>Ecosystem & Discovery</span>
-                        </div>
-
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                          <div
-                            className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/countries')}
-                          >
-                            <div className="rf-mega-menu-item-title">54 African Countries Hub</div>
-                            <div className="rf-mega-menu-item-desc">Browse sovereign talent pools & local currencies</div>
-                          </div>
-
-                          <div
-                            className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/demo-tour')}
-                          >
-                            <div className="rf-mega-menu-item-title">Cross-Border Demo Tour</div>
-                            <div className="rf-mega-menu-item-desc">Interactive live walkthrough of a Refeir project lifecycle</div>
-                          </div>
-
-                          <div
-                            className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/why-refeir')}
-                          >
-                            <div className="rf-mega-menu-item-title">Why Refeir & Our Vision</div>
-                            <div className="rf-mega-menu-item-desc">Pan-African escrow model & 10% referral guarantee</div>
-                          </div>
-
-                          <div
-                            className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/success-stories')}
-                          >
-                            <div className="rf-mega-menu-item-title">Success Stories</div>
-                            <div className="rf-mega-menu-item-desc">Real earnings & case studies from verified Scouts and Talent</div>
-                          </div>
-
-                          <div
-                            className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/reviews')}
-                          >
-                            <div className="rf-mega-menu-item-title">Refeir Reviews (4.9/5.0)</div>
-                            <div className="rf-mega-menu-item-desc">Over 2,400+ verified ratings across the continent</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Middle: Tools & Support */}
-                      <div>
-                        <div className="rf-mega-menu-col-title">
-                          <span>Tools & Knowledge</span>
+                          <span>Tools & Calculators</span>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1555,10 +1856,51 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
+                            onClick={() => handleLinkClick('/catalog')}
+                          >
+                            <div className="rf-mega-menu-item-title">Project Catalog</div>
+                            <div className="rf-mega-menu-item-desc">Browse fixed-price service packages & scopes</div>
+                          </div>
+
+                          <div
+                            className="rf-mega-menu-item"
+                            onClick={() => handleLinkClick('/ai-wizards')}
+                          >
+                            <div className="rf-mega-menu-item-title">AI Studios & Wizards</div>
+                            <div className="rf-mega-menu-item-desc">Interactive AI scoping & workflow estimators</div>
+                          </div>
+
+                          <div
+                            className="rf-mega-menu-item"
+                            onClick={() => handleLinkClick('/release-notes')}
+                          >
+                            <div className="rf-mega-menu-item-title">Platform Release Notes</div>
+                            <div className="rf-mega-menu-item-desc">Latest Refeir product updates & escrow features</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Middle: Knowledge & Community */}
+                      <div>
+                        <div className="rf-mega-menu-col-title">
+                          <span>Knowledge & Support</span>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                          <div
+                            className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/blog')}
                           >
                             <div className="rf-mega-menu-item-title">Refeir Blog & Guides</div>
                             <div className="rf-mega-menu-item-desc">Scout tips, African tech trends & hiring strategies</div>
+                          </div>
+
+                          <div
+                            className="rf-mega-menu-item"
+                            onClick={() => handleLinkClick('/community')}
+                          >
+                            <div className="rf-mega-menu-item-title">Community Hub</div>
+                            <div className="rf-mega-menu-item-desc">Peer discussions, events & regional meetups</div>
                           </div>
 
                           <div
@@ -1571,18 +1913,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/partnerships')}
+                            onClick={() => handleLinkClick('/affiliates')}
                           >
-                            <div className="rf-mega-menu-item-title">Sponsorship & Partnerships</div>
-                            <div className="rf-mega-menu-item-desc">Collaborate with Africa's fastest-growing talent network</div>
-                          </div>
-
-                          <div
-                            className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/about')}
-                          >
-                            <div className="rf-mega-menu-item-title">About Refeir & Leadership</div>
-                            <div className="rf-mega-menu-item-desc">Meet the team building pan-African infrastructure</div>
+                            <div className="rf-mega-menu-item-title">Affiliate & Referral Resources</div>
+                            <div className="rf-mega-menu-item-desc">Shareable kits & templates for Refeir Scouts</div>
                           </div>
                         </div>
                       </div>
@@ -1591,23 +1925,23 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                       <div className="rf-mega-menu-sidebar">
                         <div>
                           <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-leaf-green)', marginBottom: '0.5rem' }}>
-                            TRUST & GOVERNANCE
+                            24/7 ASSISTANCE
                           </div>
                           <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem', lineHeight: 1.3 }}>
-                            100% Escrow Protected
+                            Tools & Support Hub
                           </h4>
                           <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', lineHeight: 1.5, marginBottom: '1rem' }}>
-                            Every contract is safeguarded by licensed payment rails with guaranteed milestone protection.
+                            Estimate cross-border rates, browse guides, or connect with our dedicated support team.
                           </p>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                           <button
-                            onClick={() => handleLinkClick('/protection')}
+                            onClick={() => handleLinkClick('/help')}
                             className="rf-btn rf-btn-primary rf-btn-sm"
                             style={{ width: '100%', justifyContent: 'space-between' }}
                           >
-                            <span>Pay Protection Notice</span>
+                            <span>Open Help Center</span>
                             <ArrowRight size={14} />
                           </button>
                           <button
@@ -3123,7 +3457,72 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                     )}
                   </div>
 
-                  {/* 4. Pricing (Direct link) */}
+                  {/* 4. Why Refeir */}
+                  <div className="rf-mobile-nav-section">
+                    <button
+                      className="rf-mobile-nav-trigger"
+                      onClick={() => toggleMobileSection('why-refeir')}
+                      aria-expanded={mobileExpandedSection === 'why-refeir'}
+                    >
+                      <span>Why Refeir</span>
+                      <ChevronDown
+                        size={16}
+                        style={{
+                          transform: mobileExpandedSection === 'why-refeir' ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s ease',
+                          color: navTextMuted
+                        }}
+                      />
+                    </button>
+                    {mobileExpandedSection === 'why-refeir' && (
+                      <div className="rf-mobile-nav-subitems">
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/why-refeir'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Why Refeir &amp; Our Vision
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/protection'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Milestone Pay Protection
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/success-stories'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Success Stories
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/reviews'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Refeir Reviews (4.9/5.0)
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/demo-tour'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Cross-Border Demo Tour
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/countries'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          54 African Countries Hub
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/about'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          About Refeir &amp; Leadership
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 5. Pricing (Direct link) */}
                   <div className="rf-mobile-nav-section">
                     <button
                       className="rf-mobile-nav-trigger"
@@ -3133,7 +3532,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                     </button>
                   </div>
 
-                  {/* 5. Business (Direct link) */}
+                  {/* 6. Business (Direct link) */}
                   <div className="rf-mobile-nav-section">
                     <button
                       className="rf-mobile-nav-trigger"
@@ -3143,7 +3542,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                     </button>
                   </div>
 
-                  {/* 6. Resources */}
+                  {/* 7. Resources */}
                   <div className="rf-mobile-nav-section">
                     <button
                       className="rf-mobile-nav-trigger"
@@ -3163,52 +3562,40 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                     {mobileExpandedSection === 'resources' && (
                       <div className="rf-mobile-nav-subitems">
                         <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/countries'); }}
-                          className="rf-mobile-nav-sublink"
-                        >
-                          54 African Countries Hub
-                        </button>
-                        <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/demo-tour'); }}
-                          className="rf-mobile-nav-sublink"
-                        >
-                          Cross-Border Demo Tour
-                        </button>
-                        <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/why-refeir'); }}
-                          className="rf-mobile-nav-sublink"
-                        >
-                          Why Refeir & Our Vision
-                        </button>
-                        <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/success-stories'); }}
-                          className="rf-mobile-nav-sublink"
-                        >
-                          Success Stories
-                        </button>
-                        <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/reviews'); }}
-                          className="rf-mobile-nav-sublink"
-                        >
-                          Refeir Reviews (4.9/5.0)
-                        </button>
-                        <button
                           onClick={() => { setShowMobileDrawer(false); onNavigate('/tools'); }}
                           className="rf-mobile-nav-sublink"
                         >
                           Free Business Tools
                         </button>
                         <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/catalog'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Project Catalog
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/ai-wizards'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          AI Studios &amp; Wizards
+                        </button>
+                        <button
                           onClick={() => { setShowMobileDrawer(false); onNavigate('/blog'); }}
                           className="rf-mobile-nav-sublink"
                         >
-                          Refeir Blog & Guides
+                          Refeir Blog &amp; Guides
+                        </button>
+                        <button
+                          onClick={() => { setShowMobileDrawer(false); onNavigate('/community'); }}
+                          className="rf-mobile-nav-sublink"
+                        >
+                          Community Hub
                         </button>
                         <button
                           onClick={() => { setShowMobileDrawer(false); onNavigate('/help'); }}
                           className="rf-mobile-nav-sublink"
                         >
-                          Help & Support Center
+                          Help &amp; Support Center
                         </button>
                       </div>
                     )}
