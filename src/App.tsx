@@ -675,6 +675,8 @@ export const App: React.FC = () => {
   // Institutional & marketing landing pages that retain the full directory footer
   const isFullFooterPage =
     basePath === '/' ||
+    basePath === '/subcategories' ||
+    basePath.startsWith('/subcategories/') ||
     basePath === '/why-refeir' ||
     basePath === '/about' ||
     basePath === '/blog' ||
