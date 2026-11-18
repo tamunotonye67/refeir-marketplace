@@ -4855,7 +4855,7 @@
     left: auto !important;
     width: 100% !important;
     display: flex !important;
-    justifyContent: flex-start !important;
+    justify-content: flex-start !important;
     padding: 0.5rem 0.25rem 0.75rem 0.25rem !important;
     margin-bottom: 0.25rem !important;
     z-index: 10 !important;
@@ -8766,7 +8766,7 @@ textarea.rf-ai-pricing-input:hover,
   .rf-ai-pricing-search-box {
     flex-direction: column !important;
     align-items: stretch !important;
-    justifyContent: flex-start !important;
+    justify-content: flex-start !important;
     min-height: unset !important;
     max-height: none !important;
     padding: 1rem 1.15rem 0.85rem 1.15rem !important;

@@ -619,8 +619,6 @@ export const App: React.FC = () => {
       case '/agencies':
       case '/hire-agency':
         return <AgenciesPage onNavigate={navigate} />;
-      case '/enterprise':
-        return <BusinessPage onNavigate={navigate} />;
       case '/impact':
         return <ImpactPage onNavigate={navigate} />;
       case '/pioneers':

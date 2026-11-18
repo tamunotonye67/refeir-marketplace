@@ -228,7 +228,7 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  justifyContent: space-between;
+  justify-content: space-between;
   position: relative;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
