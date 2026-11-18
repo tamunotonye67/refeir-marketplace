@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Project, Money } from '../../types';
 import { useMarketplace } from '../../context/MarketplaceContext';
+import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import { formatMoney, convertCurrency, SUPPORTED_CURRENCIES } from '../../data/currencies';
 import {
@@ -18,7 +19,10 @@ import {
   QrCode,
   Copy,
   Info,
-  Check
+  Check,
+  ExternalLink,
+  RefreshCw,
+  AlertTriangle
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -28,7 +32,7 @@ interface PaymentProtectionModalProps {
   onSuccess: () => void;
 }
 
-export type PaymentMethodCategory = 'GLOBAL_CARD' | 'INTERNATIONAL_WIRE' | 'CRYPTO_STABLECOIN' | 'AFRICAN_RAILS';
+export type PaymentMethodCategory = 'BACHS_CHECKOUT' | 'GLOBAL_CARD' | 'INTERNATIONAL_WIRE' | 'CRYPTO_STABLECOIN' | 'AFRICAN_RAILS';
 
 export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
   project,
@@ -36,15 +40,23 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
   onSuccess
 }) => {
   const { fundProject } = useMarketplace();
+  const { currentUser } = useAuth();
   const { showToast } = useNotification();
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodCategory>('GLOBAL_CARD');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodCategory>('BACHS_CHECKOUT');
   const [selectedCurrency, setSelectedCurrency] = useState<string>(project.client_total_amount.currency || 'USD');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  // Card form state
+  // Bachs Checkout session state
+  const [bachsCheckoutId, setBachsCheckoutId] = useState<string | null>(null);
+  const [bachsCheckoutUrl, setBachsCheckoutUrl] = useState<string | null>(null);
+  const [bachsStatus, setBachsStatus] = useState<'IDLE' | 'PENDING' | 'PAID' | 'FAILED' | 'EXPIRED'>('IDLE');
+  const [bachsError, setBachsError] = useState<string | null>(null);
+  const pollTimerRef = useRef<number | null>(null);
+
+  // Card form state (simulated demo rail)
   const [cardNumber, setCardNumber] = useState('');
   const [cardExpiry, setCardExpiry] = useState('');
   const [cardCvc, setCardCvc] = useState('');
@@ -58,6 +70,14 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
   const convertedBase = convertCurrency(project.project_amount, selectedCurrency);
   const convertedFee = convertCurrency(project.platform_fee_amount, selectedCurrency);
 
+  useEffect(() => {
+    return () => {
+      if (pollTimerRef.current) {
+        window.clearInterval(pollTimerRef.current);
+      }
+    };
+  }, []);
+
   const handleCopy = (text: string, fieldKey: string) => {
     navigator.clipboard?.writeText(text);
     setCopiedField(fieldKey);
@@ -65,7 +85,101 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
     setTimeout(() => setCopiedField(null), 2000);
   };
 
+  const checkBachsStatus = async (checkoutId: string) => {
+    try {
+      const res = await fetch(`/api/bachs/checkout-status?checkout_id=${encodeURIComponent(checkoutId)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.status === 'PAID') {
+        if (pollTimerRef.current) {
+          window.clearInterval(pollTimerRef.current);
+          pollTimerRef.current = null;
+        }
+        setBachsStatus('PAID');
+        const success = await fundProject(project.id);
+        if (success) {
+          setIsCompleted(true);
+          try {
+            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+          } catch {}
+          showToast(
+            'Bachs Payment Confirmed!',
+            `${convertedTotal.converted.formatted} verified via Bachs webhook and locked in project protection.`,
+            'SUCCESS'
+          );
+        }
+      } else if (data.status === 'FAILED' || data.status === 'EXPIRED') {
+        if (pollTimerRef.current) {
+          window.clearInterval(pollTimerRef.current);
+          pollTimerRef.current = null;
+        }
+        setBachsStatus(data.status);
+        setBachsError(`Checkout ${data.status.toLowerCase()}. Please start a new payment session.`);
+      }
+    } catch {
+      // Keep polling silently on transient network error
+    }
+  };
+
+  const handleBachsCheckout = async () => {
+    setIsProcessing(true);
+    setBachsError(null);
+
+    try {
+      const res = await fetch('/api/bachs/checkout-sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          projectId: project.id,
+          projectTitle: project.title,
+          amountMinor: convertedTotal.converted.amount_minor,
+          currency: selectedCurrency,
+          customerEmail: currentUser?.email || '',
+          customerName: currentUser ? `${currentUser.first_name} ${currentUser.last_name}`.trim() : project.client_name,
+          originUrl: window.location.origin
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setIsProcessing(false);
+        setBachsError(data.message || 'Unable to start Bachs checkout session.');
+        showToast('Bachs Checkout Error', data.message || 'Unable to start checkout.', 'ERROR');
+        return;
+      }
+
+      setIsProcessing(false);
+      setBachsCheckoutId(data.checkout_id);
+      setBachsCheckoutUrl(data.checkout_url);
+      setBachsStatus('PENDING');
+
+      if (!data.is_local_no_redirect) {
+        window.location.href = data.checkout_url;
+        return;
+      }
+
+      // Localhost mode: open hosted checkout in a new tab and poll for webhook confirmation
+      window.open(data.checkout_url, '_blank', 'noopener,noreferrer');
+      if (pollTimerRef.current) {
+        window.clearInterval(pollTimerRef.current);
+      }
+      pollTimerRef.current = window.setInterval(() => {
+        void checkBachsStatus(data.checkout_id);
+      }, 3000);
+    } catch (err) {
+      setIsProcessing(false);
+      const msg = err instanceof Error ? err.message : 'Network error creating checkout session.';
+      setBachsError(msg);
+      showToast('Checkout Error', msg, 'ERROR');
+    }
+  };
+
   const handlePay = async () => {
+    if (paymentMethod === 'BACHS_CHECKOUT') {
+      await handleBachsCheckout();
+      return;
+    }
+
     setIsProcessing(true);
     setTimeout(async () => {
       const success = await fundProject(project.id);
@@ -232,9 +346,10 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
                 Select Global or African Payment Rail
               </label>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(115px, 1fr))', gap: '0.5rem' }}>
                 {[
-                  { id: 'GLOBAL_CARD', label: 'Global Cards', icon: CreditCard, subtitle: 'Visa / MC / Amex / Apple Pay' },
+                  { id: 'BACHS_CHECKOUT', label: 'Bachs Checkout', icon: ShieldCheck, subtitle: 'Cards / Bank / MoMo' },
+                  { id: 'GLOBAL_CARD', label: 'Demo Card', icon: CreditCard, subtitle: 'Simulated UI' },
                   { id: 'INTERNATIONAL_WIRE', label: 'Bank Wire / ACH', icon: Building, subtitle: 'Fedwire / SEPA / BACS' },
                   { id: 'CRYPTO_STABLECOIN', label: 'USDC / USDT', icon: Coins, subtitle: 'Instant 0% Slippage' },
                   { id: 'AFRICAN_RAILS', label: 'African Rails', icon: Smartphone, subtitle: 'M-Pesa / MoMo / Direct' }
@@ -269,6 +384,63 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
                 })}
               </div>
             </div>
+
+            {/* TAB 0: Bachs Hosted Checkout (Sandbox / Live) */}
+            {paymentMethod === 'BACHS_CHECKOUT' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '1.5rem', padding: '1rem', background: 'rgba(102, 187, 42, 0.05)', borderRadius: 'var(--rf-radius-md)', border: '1px solid rgba(102, 187, 42, 0.25)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--rf-cream)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <ShieldCheck size={16} color="var(--rf-leaf-green)" />
+                    Bachs Hosted Checkout
+                  </span>
+                  <span className="rf-badge rf-badge-mint" style={{ fontSize: '0.6875rem' }}>
+                    Sandbox / Live Ready
+                  </span>
+                </div>
+                <p style={{ fontSize: '0.8rem', color: 'var(--rf-slate-300)', margin: 0, lineHeight: 1.5 }}>
+                  You will be directed to Bachs&apos;s secure hosted checkout to pay <strong>{convertedTotal.converted.formatted}</strong>. Project funding is confirmed strictly upon verified Bachs webhook delivery.
+                </p>
+
+                {bachsError && (
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', padding: '0.65rem 0.75rem', borderRadius: 'var(--rf-radius-sm)', background: 'rgba(244, 124, 32, 0.12)', border: '1px solid rgba(244, 124, 32, 0.3)', color: '#F47C20', fontSize: '0.78rem' }}>
+                    <AlertTriangle size={16} style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <span>{bachsError}</span>
+                  </div>
+                )}
+
+                {bachsCheckoutId && bachsStatus === 'PENDING' && (
+                  <div style={{ padding: '0.85rem', borderRadius: 'var(--rf-radius-sm)', background: 'var(--rf-navy-surface)', border: '1px solid var(--rf-navy-border)', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem' }}>
+                      <span style={{ fontWeight: 800, color: 'var(--rf-cream)' }}>Waiting for Bachs Webhook Confirmation...</span>
+                      <span style={{ fontFamily: 'var(--rf-font-mono)', fontSize: '0.7rem', color: 'var(--rf-slate-400)' }}>{bachsCheckoutId}</span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      {bachsCheckoutUrl && (
+                        <a
+                          href={bachsCheckoutUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rf-btn rf-btn-outline rf-btn-sm"
+                          style={{ gap: '0.35rem', fontSize: '0.75rem' }}
+                        >
+                          <span>Open Bachs Checkout</span>
+                          <ExternalLink size={13} />
+                        </a>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => void checkBachsStatus(bachsCheckoutId)}
+                        className="rf-btn rf-btn-outline rf-btn-sm"
+                        style={{ gap: '0.35rem', fontSize: '0.75rem' }}
+                      >
+                        <RefreshCw size={13} />
+                        <span>Check Payment Status</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* TAB 1: Global Credit / Debit Cards (Stripe / Amex / Apple Pay) */}
             {paymentMethod === 'GLOBAL_CARD' && (
@@ -441,7 +613,13 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
             >
               <Lock size={18} />
               <span>
-                {isProcessing ? 'Locking in Sovereign Escrow Custody...' : `Authorize & Lock ${convertedTotal.converted.formatted} in Escrow`}
+                {isProcessing
+                  ? paymentMethod === 'BACHS_CHECKOUT'
+                    ? 'Creating Bachs Checkout Session...'
+                    : 'Locking in Sovereign Escrow Custody...'
+                  : paymentMethod === 'BACHS_CHECKOUT'
+                  ? `Pay ${convertedTotal.converted.formatted} via Bachs Checkout`
+                  : `Authorize & Lock ${convertedTotal.converted.formatted} in Escrow`}
               </span>
             </button>
           </div>

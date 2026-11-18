@@ -5,6 +5,7 @@ import { useMarketplace } from '../context/MarketplaceContext';
 import { TalentCard } from '../components/marketplace/TalentCard';
 import { FeaturedTalentCard } from '../components/home/FeaturedTalentCard';
 import { PopularServiceCategoryCard, ServiceCategoryItem } from '../components/home/PopularServiceCategoryCard';
+import { TalentCategoryExplorer } from '../components/home/TalentCategoryExplorer';
 import { ServiceCard } from '../components/marketplace/ServiceCard';
 import { AfricaMapExplorer } from '../components/marketplace/AfricaMapExplorer';
 import { AIPricingInsights } from '../components/home/AIPricingInsights';

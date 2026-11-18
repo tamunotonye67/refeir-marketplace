@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Project, Milestone, Deliverable } from '../types';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { useAuth } from '../context/AuthContext';
@@ -48,6 +48,7 @@ export const ProjectWorkspace: React.FC<ProjectWorkspaceProps> = ({
   const { currentUser } = useAuth();
   const {
     projectsList,
+    fundProject,
     submitProjectDeliverable,
     approveMilestone,
     requestMilestoneRevision,
@@ -58,6 +59,7 @@ export const ProjectWorkspace: React.FC<ProjectWorkspaceProps> = ({
 
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedMilestoneForSubmit, setSelectedMilestoneForSubmit] = useState<string | null>(null);
+  const [bachsReturnBanner, setBachsReturnBanner] = useState<string | null>(null);
   
   // Deliverable form fields
   const [delivTitle, setDelivTitle] = useState('');
@@ -303,6 +305,32 @@ export const ProjectWorkspace: React.FC<ProjectWorkspaceProps> = ({
           </span>
         </div>
       </div>
+
+      {bachsReturnBanner && (
+        <div
+          className="rf-card"
+          style={{
+            padding: '0.9rem 1.25rem',
+            marginBottom: '1.25rem',
+            borderColor: 'rgba(102, 187, 42, 0.35)',
+            background: 'rgba(102, 187, 42, 0.08)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem'
+          }}
+        >
+          <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--rf-cream)' }}>{bachsReturnBanner}</span>
+          <button
+            type="button"
+            onClick={() => setBachsReturnBanner(null)}
+            className="rf-btn rf-btn-ghost rf-btn-sm"
+            style={{ fontSize: '0.75rem' }}
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
 
       {/* Top Workspace Header */}
       <div
