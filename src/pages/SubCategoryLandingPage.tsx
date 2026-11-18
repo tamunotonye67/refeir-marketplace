@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import {
   Home,
   Star,
@@ -15,7 +15,6 @@ import {
   CreditCard,
   CheckCircle2,
   Cpu,
-  Globe2,
 } from 'lucide-react';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { TalentProfile } from '../types';
@@ -48,6 +47,138 @@ const CATEGORY_QUERY_MAP: Record<string, string> = {
   'Photography & Media': 'Photography',
 };
 
+const PILL_CATEGORY_DEFAULTS: Record<
+  string,
+  { categoryName: string; name: string; count: string; keywords: string[] }
+> = {
+  'ai-services': {
+    categoryName: 'AI & Data Science',
+    name: 'AI Services Specialists',
+    count: '780+',
+    keywords: ['machine learning', 'llm', 'langchain', 'openai', 'python', 'nlp'],
+  },
+  'graphic-design': {
+    categoryName: 'Product & UI/UX Design',
+    name: 'Graphic Designers',
+    count: '1,150+',
+    keywords: ['brand identity', 'art direction', 'typography', 'packaging', 'figma'],
+  },
+  'writing-translation': {
+    categoryName: 'Writing & Translation',
+    name: 'Writing & Translation Specialists',
+    count: '640+',
+    keywords: ['content strategy', 'copywriting', 'translation', 'multilingual', 'user stories'],
+  },
+  'video-animation': {
+    categoryName: 'Video & Animation',
+    name: 'Video & Animation Creators',
+    count: '590+',
+    keywords: ['motion graphics', 'video', 'art direction', 'brand identity'],
+  },
+  'digital-marketing': {
+    categoryName: 'Growth & Marketing',
+    name: 'Digital Marketers',
+    count: '820+',
+    keywords: ['growth marketing', 'seo', 'paid social', 'e-commerce', 'content strategy'],
+  },
+  consulting: {
+    categoryName: 'Legal & FinTech IP',
+    name: 'Management & Strategy Consultants',
+    count: '430+',
+    keywords: ['product management', 'corporate law', 'venture', 'roadmapping', 'agile'],
+  },
+  data: {
+    categoryName: 'AI & Data Science',
+    name: 'Data Engineers & Analysts',
+    count: '560+',
+    keywords: ['data analytics', 'python', 'postgresql', 'machine learning'],
+  },
+  finance: {
+    categoryName: 'Finance & Accounting',
+    name: 'Finance & Accounting Experts',
+    count: '410+',
+    keywords: ['fraud prevention', 'data analytics', 'venture', 'contracts'],
+  },
+  photography: {
+    categoryName: 'Photography & Media',
+    name: 'Commercial Photographers',
+    count: '370+',
+    keywords: ['packaging', 'art direction', 'brand identity', 'motion graphics'],
+  },
+  fullstack: {
+    categoryName: 'Software & Mobile',
+    name: 'Full-Stack & Web Developers',
+    count: '1,420+',
+    keywords: ['full stack', 'react', 'next.js', 'node.js', 'typescript', 'postgresql'],
+  },
+  mobile: {
+    categoryName: 'Software & Mobile',
+    name: 'Mobile App Developers',
+    count: '950+',
+    keywords: ['flutter', 'ios', 'swift', 'react native', 'mobile'],
+  },
+  design: {
+    categoryName: 'Product & UI/UX Design',
+    name: 'UI/UX & Product Designers',
+    count: '890+',
+    keywords: ['product design', 'ui/ux', 'design systems', 'figma', 'user research'],
+  },
+  'cloud-devops': {
+    categoryName: 'DevSecOps & Cloud',
+    name: 'DevSecOps & Cloud Architects',
+    count: '510+',
+    keywords: ['devops', 'kubernetes', 'terraform', 'aws', 'docker', 'ci/cd'],
+  },
+  'blockchain-web3': {
+    categoryName: 'Software & Mobile',
+    name: 'Blockchain & Web3 Developers',
+    count: '480+',
+    keywords: ['solidity', 'rust', 'web3', 'smart contracts', 'defi'],
+  },
+  cybersecurity: {
+    categoryName: 'DevSecOps & Cloud',
+    name: 'Cybersecurity Specialists',
+    count: '390+',
+    keywords: ['cybersecurity', 'penetration testing', 'devsecops', 'compliance', 'aws security'],
+  },
+  ecommerce: {
+    categoryName: 'Growth & Marketing',
+    name: 'E-Commerce Specialists',
+    count: '720+',
+    keywords: ['e-commerce', 'growth marketing', 'paid social', 'seo', 'react'],
+  },
+  'game-dev': {
+    categoryName: 'Software & Mobile',
+    name: 'Game & 3D Developers',
+    count: '340+',
+    keywords: ['mobile', 'flutter', 'motion graphics', 'rust', 'react'],
+  },
+  'legal-compliance': {
+    categoryName: 'Legal & FinTech IP',
+    name: 'Legal & Regulatory Advisors',
+    count: '290+',
+    keywords: ['corporate law', 'ip protection', 'ndpr', 'gdpr', 'contracts', 'compliance'],
+  },
+  'audio-music': {
+    categoryName: 'Video & Animation',
+    name: 'Music & Audio Producers',
+    count: '460+',
+    keywords: ['voice ai', 'motion graphics', 'art direction', 'multilingual'],
+  },
+  'customer-support': {
+    categoryName: 'AI & Data Science',
+    name: 'Customer Support & CX Specialists',
+    count: '890+',
+    keywords: ['customer support ai', 'conversational ux', 'crm bots', 'zendesk', 'hubspot'],
+  },
+  'hardware-iot': {
+    categoryName: 'Software & Mobile',
+    name: 'Hardware & IoT Engineers',
+    count: '310+',
+    keywords: ['rust', 'go', 'cloud architecture', 'mobile', 'python'],
+  },
+};
+
 function toSingular(pluralName: string): string {
   const trimmed = pluralName.trim();
   if (trimmed.endsWith('ies')) return `${trimmed.slice(0, -3)}y`;
@@ -55,14 +186,78 @@ function toSingular(pluralName: string): string {
   return trimmed;
 }
 
+/** Ensures any skill label turns into a natural plural role title for "Hire the Best [Title]". */
+function normalizeRolePlural(rawLabel: string): string {
+  const cleaned = rawLabel.trim();
+  const roleEndings = [
+    'Engineers',
+    'Developers',
+    'Designers',
+    'Specialists',
+    'Analysts',
+    'Architects',
+    'Marketers',
+    'Strategists',
+    'Lawyers',
+    'Counsel',
+    'Consultants',
+    'Advisors',
+    'Accountants',
+    'Bookkeepers',
+    'CFOs',
+    'Editors',
+    'Artists',
+    'Animators',
+    'Directors',
+    'Writers',
+    'Translators',
+    'Photographers',
+    'Retouchers',
+    'Storytellers',
+    'Creators',
+    'Producers',
+    'Agents',
+    'Reps',
+    'Managers',
+    'Admins',
+    'Practitioners',
+    'Experts',
+  ];
+  if (roleEndings.some(ending => cleaned.toLowerCase().endsWith(ending.toLowerCase()))) {
+    return cleaned;
+  }
+  return `${cleaned} Specialists`;
+}
+
+function extractKeywordsFromTitle(title: string, parentCategory: string): string[] {
+  const tokens = title
+    .toLowerCase()
+    .replace(/[()]/g, ' ')
+    .split(/[\s,&/+-]+/)
+    .map(t => t.trim())
+    .filter(t => t.length >= 2 && !['and', 'the', 'for', 'with'].includes(t));
+  const parentSubs = TALENT_SUB_CATEGORIES[parentCategory] || [];
+  const parentKws = parentSubs.flatMap(s => s.keywords);
+  return Array.from(new Set([...tokens, ...parentKws])).slice(0, 8);
+}
+
 function resolveSubCategory(subId: string): SubCategoryResolved {
-  const cleanId = decodeURIComponent(subId || '').trim().toLowerCase();
+  const rawSearch = typeof window !== 'undefined' ? window.location.search : '';
+  const searchParams = new URLSearchParams(rawSearch);
+  const customTitle = searchParams.get('title')?.trim();
+  const customCat = searchParams.get('cat')?.trim();
+
+  const decoded = decodeURIComponent(subId || '').trim();
+  const cleanId = decoded.toLowerCase();
+
+  // 1. Exact or slug match in TALENT_SUB_CATEGORIES
   for (const [catName, subs] of Object.entries(TALENT_SUB_CATEGORIES)) {
     for (const sub of subs) {
+      const subSlug = sub.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       if (
         sub.id.toLowerCase() === cleanId ||
         sub.name.toLowerCase() === cleanId ||
-        sub.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === cleanId
+        subSlug === cleanId
       ) {
         return {
           categoryName: catName,
@@ -74,13 +269,51 @@ function resolveSubCategory(subId: string): SubCategoryResolved {
     }
   }
 
-  const fallbackCat = 'Software & Mobile';
-  const fallbackSub = TALENT_SUB_CATEGORIES[fallbackCat][0];
+  // 2. Match top sticky-bar pill category IDs (e.g., 'ai-services', 'graphic-design', etc.)
+  if (PILL_CATEGORY_DEFAULTS[cleanId] && !customTitle) {
+    const preset = PILL_CATEGORY_DEFAULTS[cleanId];
+    const sub: TalentSubCategory = {
+      id: cleanId,
+      name: preset.name,
+      count: preset.count,
+      keywords: preset.keywords,
+    };
+    return {
+      categoryName: preset.categoryName,
+      categoryQuery: CATEGORY_QUERY_MAP[preset.categoryName] || preset.categoryName,
+      sub,
+      singularRole: toSingular(sub.name),
+    };
+  }
+
+  // 3. Dynamic skill / sub-category from the sticky flyout menu or custom title
+  const baseLabel =
+    customTitle ||
+    decoded
+      .replace(/[-_]+/g, ' ')
+      .replace(/\b\w/g, ch => ch.toUpperCase());
+
+  const resolvedCatName =
+    (customCat &&
+      (Object.keys(TALENT_SUB_CATEGORIES).find(
+        k => k.toLowerCase() === customCat.toLowerCase()
+      ) ||
+        PILL_CATEGORY_DEFAULTS[customCat.toLowerCase()]?.categoryName)) ||
+    'Software & Mobile';
+
+  const pluralRoleName = normalizeRolePlural(baseLabel);
+  const dynamicSub: TalentSubCategory = {
+    id: cleanId || 'custom-skill',
+    name: pluralRoleName,
+    count: '240+',
+    keywords: extractKeywordsFromTitle(baseLabel, resolvedCatName),
+  };
+
   return {
-    categoryName: fallbackCat,
-    categoryQuery: 'Engineering',
-    sub: fallbackSub,
-    singularRole: toSingular(fallbackSub.name),
+    categoryName: resolvedCatName,
+    categoryQuery: CATEGORY_QUERY_MAP[resolvedCatName] || resolvedCatName,
+    sub: dynamicSub,
+    singularRole: toSingular(pluralRoleName),
   };
 }
 
@@ -165,6 +398,12 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
   const resolved = useMemo(() => resolveSubCategory(subCategoryId), [subCategoryId]);
   const { categoryName, categoryQuery, sub, singularRole } = resolved;
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setVisibleCount(4);
+    setExpandedFaqs({});
+  }, [subCategoryId]);
+
   const categorySubs = TALENT_SUB_CATEGORIES[categoryName] || [];
   const categoryKeywords = useMemo(
     () => categorySubs.flatMap(s => s.keywords),
@@ -196,11 +435,11 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
 
   // Deterministic review count & rating per sub-category
   const reviewStats = useMemo(() => {
-    const hash = sub.id.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+    const hash = sub.name.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
     const reviews = 4800 + (hash % 19) * 840 + (hash % 97);
     const rating = (4.8 + ((hash % 3) * 0.05)).toFixed(1);
     return { reviews: reviews.toLocaleString(), rating };
-  }, [sub.id]);
+  }, [sub.name]);
 
   // Dynamic Hiring Guide responsibilities & cost tiers tailored to the specialty
   const primaryKeyword = sub.keywords[0] || sub.name;
@@ -297,11 +536,9 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
   const similarSkills = useMemo(() => {
     const allSubs = Object.values(TALENT_SUB_CATEGORIES).flat();
     const list: TalentSubCategory[] = [];
-    // First add sibling sub-categories from the same category
     for (const s of categorySubs) {
       if (s.id !== sub.id) list.push(s);
     }
-    // Then fill up to 16 from other categories
     for (const s of allSubs) {
       if (list.length >= 16) break;
       if (s.id !== sub.id && !list.some(item => item.id === s.id)) {
@@ -322,9 +559,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
 
   return (
     <div className="rf-subcat-journey-page">
-      {/* =====================================================================
-          1. HERO HEADER + RATING + PRIMARY CTA
-         ===================================================================== */}
+      {/* 1. HERO HEADER + RATING + PRIMARY CTA */}
       <section className="rf-sj-hero">
         <div className="rf-sj-container">
           <h1 className="rf-sj-hero-title">Hire the Best {sub.name}</h1>
@@ -351,9 +586,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          2. BREADCRUMB + 2-COLUMN TALENT SHOWCASE GRID
-         ===================================================================== */}
+      {/* 2. BREADCRUMB + 2-COLUMN TALENT SHOWCASE GRID */}
       <section className="rf-sj-section">
         <div className="rf-sj-container">
           <nav className="rf-sj-breadcrumbs" aria-label="Breadcrumb">
@@ -489,9 +722,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          3. HOW IT WORKS (4-COLUMN STEP ROW)
-         ===================================================================== */}
+      {/* 3. HOW IT WORKS (4-COLUMN STEP ROW) */}
       <section className="rf-sj-section">
         <div className="rf-sj-container">
           <h2 className="rf-sj-section-title">How it works</h2>
@@ -544,9 +775,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          4. CLIENT TESTIMONIALS CAROUSEL ("Don't just take our word for it")
-         ===================================================================== */}
+      {/* 4. CLIENT TESTIMONIALS CAROUSEL */}
       <section className="rf-sj-section rf-sj-section-tinted">
         <div className="rf-sj-container">
           <div className="rf-sj-Band-head">
@@ -593,18 +822,13 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          5. RESOURCES TO HELP YOU HIRE (3 PHOTO CARDS)
-         ===================================================================== */}
+      {/* 5. RESOURCES TO HELP YOU HIRE */}
       <section className="rf-sj-section">
         <div className="rf-sj-container">
           <h2 className="rf-sj-section-title">Resources to help you hire</h2>
 
           <div className="rf-sj-resources-grid">
-            <a
-              href="#cost-guide"
-              className="rf-sj-resource-card"
-            >
+            <a href="#cost-guide" className="rf-sj-resource-card">
               <div className="rf-sj-resource-img-wrap">
                 <img
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
@@ -619,10 +843,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
               </p>
             </a>
 
-            <a
-              href="#hiring-steps"
-              className="rf-sj-resource-card"
-            >
+            <a href="#hiring-steps" className="rf-sj-resource-card">
               <div className="rf-sj-resource-img-wrap">
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
@@ -636,10 +857,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
               </p>
             </a>
 
-            <a
-              href="#interview-step"
-              className="rf-sj-resource-card"
-            >
+            <a href="#interview-step" className="rf-sj-resource-card">
               <div className="rf-sj-resource-img-wrap">
                 <img
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
@@ -656,9 +874,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          6. EDITORIAL HIRING GUIDE + 4-STEP PLAYBOOK
-         ===================================================================== */}
+      {/* 6. EDITORIAL HIRING GUIDE + 4-STEP PLAYBOOK */}
       <section className="rf-sj-section">
         <div className="rf-sj-container rf-sj-editorial">
           <h2 className="rf-sj-guide-h2">{singularRole} hiring guide</h2>
@@ -806,9 +1022,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          7. COST BREAKDOWN TABLE ("How much does hiring a [Role] cost?")
-         ===================================================================== */}
+      {/* 7. COST BREAKDOWN TABLE */}
       <section id="cost-guide" className="rf-sj-section">
         <div className="rf-sj-container rf-sj-editorial">
           <h2 className="rf-sj-guide-h2">
@@ -848,9 +1062,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          8. FREQUENTLY ASKED QUESTIONS (2-COLUMN CARD)
-         ===================================================================== */}
+      {/* 8. FREQUENTLY ASKED QUESTIONS */}
       <section className="rf-sj-section">
         <div className="rf-sj-container">
           <div className="rf-sj-faq-box">
@@ -892,9 +1104,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          9. FIND MORE SPECIALISTS (SIMILAR SKILLS + TOP COUNTRIES)
-         ===================================================================== */}
+      {/* 9. FIND MORE SPECIALISTS */}
       <section className="rf-sj-section">
         <div className="rf-sj-container">
           <h2 className="rf-sj-section-title">Find more specialists</h2>
@@ -940,9 +1150,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* =====================================================================
-          10. BOTTOM DARK BANNER ("Hire anyone, anywhere.")
-         ===================================================================== */}
+      {/* 10. BOTTOM DARK BANNER ("Hire anyone, anywhere.") */}
       <section className="rf-sj-section" style={{ paddingBottom: '4.5rem' }}>
         <div className="rf-sj-container">
           <div className="rf-sj-globe-banner">
@@ -961,13 +1169,10 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
               </button>
             </div>
 
-            {/* Clean Modern Refeir Globe Graphic */}
             <div className="rf-sj-globe-art" aria-hidden="true">
               <svg width="210" height="210" viewBox="0 0 220 220" fill="none">
-                {/* Clouds */}
                 <rect x="20" y="106" width="38" height="10" rx="5" fill="#F8FAFC" opacity="0.92" />
                 <rect x="166" y="74" width="40" height="10" rx="5" fill="#F8FAFC" opacity="0.92" />
-                {/* Globe Sphere */}
                 <circle cx="112" cy="98" r="56" fill="#16A34A" />
                 <path
                   d="M92 52C104 62 108 76 100 90C92 104 98 122 114 134C126 142 142 138 152 126C162 112 168 92 158 72C146 50 112 42 92 52Z"
@@ -975,14 +1180,12 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                   opacity="0.55"
                 />
                 <circle cx="96" cy="82" r="24" fill="#34D399" opacity="0.45" />
-                {/* Tilted Meridian Arc */}
                 <path
                   d="M74 36 A72 72 0 1 0 150 160"
                   stroke="#CBD5E1"
                   strokeWidth="8"
                   strokeLinecap="round"
                 />
-                {/* Axis ticks */}
                 <line
                   x1="70"
                   y1="26"
@@ -992,7 +1195,6 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                   strokeWidth="6"
                   strokeLinecap="round"
                 />
-                {/* Pedestal */}
                 <rect x="106" y="166" width="12" height="20" fill="#94A3B8" />
                 <path d="M82 184H142L148 198H76L82 184Z" fill="#B45309" />
                 <rect x="64" y="198" width="96" height="4" rx="2" fill="#64748B" />

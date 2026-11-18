@@ -1637,7 +1637,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                   >
                     <selectedFlyoutGroup.icon size={20} />
                   </div>
-                  <div>
+                  <div
+                    onClick={() => {
+                      setActiveSkillFlyout(null);
+                      onNavigate(`/subcategories/${selectedFlyoutGroup.id}`);
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F2E1E', margin: 0, lineHeight: 1.25 }}>
                       {selectedFlyoutGroup.label}
                     </h3>
@@ -1654,12 +1660,12 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <button
                     onClick={() => {
                       setActiveSkillFlyout(null);
-                      onNavigate(`/marketplace?category=${encodeURIComponent(selectedFlyoutGroup.category)}`);
+                      onNavigate(`/subcategories/${selectedFlyoutGroup.id}`);
                     }}
                     className="rf-btn rf-btn-primary rf-btn-sm"
                     style={{ gap: '0.4rem', fontWeight: 700, fontSize: '0.8125rem' }}
                   >
-                    <span>View All in {selectedFlyoutGroup.label}</span>
+                    <span>Explore {selectedFlyoutGroup.label}</span>
                     <ArrowRight size={14} />
                   </button>
                   <button
@@ -1674,51 +1680,75 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* 3-Column Grid of subskills */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
-                {selectedFlyoutGroup.columns.map((col, idx) => (
-                  <div key={idx} style={{ background: '#F8FAFC', padding: '1.25rem', borderRadius: '12px', border: '1px solid rgba(18, 43, 26, 0.06)' }}>
-                    <div style={{ fontSize: '0.8125rem', fontWeight: 800, textTransform: 'uppercase', color: '#66BB2A', letterSpacing: '0.04em', marginBottom: '0.875rem' }}>
-                      {col.title}
+                {selectedFlyoutGroup.columns.map((col, idx) => {
+                  const colSlug = col.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                  return (
+                    <div key={idx} style={{ background: '#F8FAFC', padding: '1.25rem', borderRadius: '12px', border: '1px solid rgba(18, 43, 26, 0.06)' }}>
+                      <div
+                        onClick={() => {
+                          setActiveSkillFlyout(null);
+                          onNavigate(`/subcategories/${colSlug}?title=${encodeURIComponent(col.title)}&cat=${encodeURIComponent(selectedFlyoutGroup.id)}`);
+                        }}
+                        style={{
+                          fontSize: '0.8125rem',
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                          color: '#66BB2A',
+                          letterSpacing: '0.04em',
+                          marginBottom: '0.875rem',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.3rem'
+                        }}
+                      >
+                        <span>{col.title}</span>
+                        <ArrowRight size={12} />
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                        {col.skills.map((s, sIdx) => {
+                          const skillSlug = s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                          return (
+                            <div
+                              key={sIdx}
+                              onClick={() => {
+                                setActiveSkillFlyout(null);
+                                onNavigate(`/subcategories/${skillSlug}?title=${encodeURIComponent(s)}&cat=${encodeURIComponent(selectedFlyoutGroup.id)}`);
+                              }}
+                              style={{
+                                padding: '0.45rem 0.65rem',
+                                borderRadius: '8px',
+                                fontSize: '0.84rem',
+                                fontWeight: 500,
+                                color: '#1E293B',
+                                cursor: 'pointer',
+                                transition: 'all 0.15s ease',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                              }}
+                              onMouseEnter={e => {
+                                e.currentTarget.style.background = '#FFFFFF';
+                                e.currentTarget.style.color = '#66BB2A';
+                                e.currentTarget.style.transform = 'translateX(3px)';
+                                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                              }}
+                              onMouseLeave={e => {
+                                e.currentTarget.style.background = 'transparent';
+                                e.currentTarget.style.color = '#1E293B';
+                                e.currentTarget.style.transform = 'translateX(0)';
+                                e.currentTarget.style.boxShadow = 'none';
+                              }}
+                            >
+                              <span>{s}</span>
+                              <ChevronRight size={13} color="#94A3B8" />
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                      {col.skills.map((s, sIdx) => (
-                        <div
-                          key={sIdx}
-                          onClick={() => {
-                            setActiveSkillFlyout(null);
-                            onNavigate(`/marketplace?q=${encodeURIComponent(s)}`);
-                          }}
-                          style={{
-                            padding: '0.45rem 0.65rem',
-                            borderRadius: '8px',
-                            fontSize: '0.84rem',
-                            fontWeight: 500,
-                            color: '#1E293B',
-                            cursor: 'pointer',
-                            transition: 'all 0.15s ease',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between'
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.background = '#FFFFFF';
-                            e.currentTarget.style.color = '#66BB2A';
-                            e.currentTarget.style.transform = 'translateX(3px)';
-                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.background = 'transparent';
-                            e.currentTarget.style.color = '#1E293B';
-                            e.currentTarget.style.transform = 'translateX(0)';
-                            e.currentTarget.style.boxShadow = 'none';
-                          }}
-                        >
-                          <span>{s}</span>
-                          <ChevronRight size={13} color="#94A3B8" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Bottom footer with Top African Hubs */}

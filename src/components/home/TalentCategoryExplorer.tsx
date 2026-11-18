@@ -154,9 +154,9 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
               <button
                 type="button"
                 className="rf-cat-explorer-link"
-                onClick={() => onNavigate(`/marketplace?type=talent&category=${encodeURIComponent(categoryMeta.query)}`)}
+                onClick={() => onNavigate(`/subcategories/${activeSub.id}`)}
               >
-                View all {categoryMeta.count.split(' ')[1] || 'talent'} <ArrowRight size={14} />
+                Explore {activeSub.name} <ArrowRight size={14} />
               </button>
             )}
           </div>
@@ -172,7 +172,13 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
                   type="button"
                   className={`rf-subcat-card${selected ? ' is-selected' : ''}`}
                   aria-pressed={selected}
-                  onClick={() => setActiveSubId(sub.id)}
+                  onClick={() => {
+                    if (selected) {
+                      onNavigate(`/subcategories/${sub.id}`);
+                    } else {
+                      setActiveSubId(sub.id);
+                    }
+                  }}
                 >
                   <span className="rf-subcat-name">{sub.name}</span>
                   <span className="rf-subcat-meta">
