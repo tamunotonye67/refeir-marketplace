@@ -139,15 +139,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
             <div style={{ marginBottom: '1.25rem' }}>
               <RefeirLogo size="sm" showTagline={false} />
             </div>
-            <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', lineHeight: 1.6, maxWidth: '380px', marginBottom: '1.25rem' }}>
+            <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.825rem', lineHeight: 1.55, maxWidth: '360px', marginBottom: '1.25rem' }}>
               Africa's referral-powered professional marketplace. Connecting clients with verified professionals while scouts earn guaranteed rewards from successful connections.
             </p>
 
             {/* Flat 2D Illustration: Professional at desk with tree & leaves representing growth */}
             <div
               style={{
-                marginTop: '1.75rem',
-                maxWidth: '440px',
+                marginTop: '1.5rem',
+                maxWidth: '400px',
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
@@ -159,7 +159,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
                 alt="Professional career growth and talent workspace"
                 style={{
                   width: '100%',
-                  maxWidth: '420px',
+                  maxWidth: '380px',
                   height: 'auto',
                   display: 'block',
                   opacity: 0.72,
@@ -181,7 +181,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
               >
                 <h4 className="rf-footer-heading">African Regions</h4>
                 <div className={`rf-footer-chevron ${openMobileSections.regions ? 'open' : ''}`}>
-                  <ChevronDown size={18} />
+                  <ChevronDown size={16} />
                 </div>
               </button>
               <div className={`rf-footer-content ${openMobileSections.regions ? 'open' : ''}`}>
@@ -189,7 +189,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
                   <button
                     key={reg}
                     onClick={() => onNavigate(`/africa/${reg.toLowerCase().replace(' ', '-')}`)}
-                    style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)', transition: 'color 0.15s' }}
+                    style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)', transition: 'color 0.15s' }}
                     className="rf-btn-ghost"
                   >
                     {reg}
@@ -199,7 +199,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
             </div>
 
             {/* Resources Accordion */}
-            <div className="rf-footer-accordion-item rf-footer-res-wrapper" style={{ marginTop: '2.25rem' }}>
+            <div className="rf-footer-accordion-item rf-footer-res-wrapper" style={{ marginTop: '2rem' }}>
               <button
                 type="button"
                 className="rf-footer-section-header"
@@ -208,38 +208,38 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
               >
                 <h4 className="rf-footer-heading">Resources</h4>
                 <div className={`rf-footer-chevron ${openMobileSections.resources ? 'open' : ''}`}>
-                  <ChevronDown size={18} />
+                  <ChevronDown size={16} />
                 </div>
               </button>
               <div className={`rf-footer-content ${openMobileSections.resources ? 'open' : ''}`}>
-                <button onClick={() => onNavigate('/help')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/help')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Help and Support
                 </button>
-                <button onClick={() => onNavigate('/community')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/community')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Community Hub
                 </button>
-                <button onClick={() => onNavigate('/success-stories')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/success-stories')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Success stories
                 </button>
-                <button onClick={() => onNavigate('/reviews')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/reviews')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Refeir reviews
                 </button>
-                <button onClick={() => onNavigate('/tools')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/tools')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Resources
                 </button>
-                <button onClick={() => onNavigate('/blog')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/blog')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Blog
                 </button>
-                <button onClick={() => onNavigate('/affiliates')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/affiliates')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Affiliate programs
                 </button>
-                <button onClick={() => onNavigate('/scout-sourcing')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/scout-sourcing')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Refer a client
                 </button>
-                <button onClick={() => onNavigate('/tools')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/tools')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Free Business tools
                 </button>
-                <button onClick={() => onNavigate('/release-notes')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+                <button onClick={() => onNavigate('/release-notes')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                   Release notes
                 </button>
               </div>
@@ -256,48 +256,48 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
             >
               <h4 className="rf-footer-heading">Discovery</h4>
               <div className={`rf-footer-chevron ${openMobileSections.discovery ? 'open' : ''}`}>
-                <ChevronDown size={18} />
+                <ChevronDown size={16} />
               </div>
             </button>
             <div className={`rf-footer-content ${openMobileSections.discovery ? 'open' : ''}`}>
-              <button onClick={() => onNavigate('/marketplace')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/marketplace')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Talent Marketplace
               </button>
-              <button onClick={() => onNavigate('/catalog')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/catalog')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Project Catalog
               </button>
-              <button onClick={() => onNavigate('/ai-wizards')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/ai-wizards')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 AI Innovation Studios
               </button>
-              <button onClick={() => onNavigate('/agencies')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/agencies')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Hire an agency
               </button>
-              <button onClick={() => onNavigate('/countries')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/countries')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Hire continentally
               </button>
-              <button onClick={() => onNavigate('/countries/nigeria')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/countries/nigeria')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Hire in Nigeria
               </button>
-              <button onClick={() => onNavigate('/about')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/about')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Leadership
               </button>
-              <button onClick={() => onNavigate('/why-refeir')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/why-refeir')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Our vision
               </button>
-              <button onClick={() => onNavigate('/impact')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/impact')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Our impact
               </button>
-              <button onClick={() => onNavigate('/investors')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/investors')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Investor relations
               </button>
-              <button onClick={() => onNavigate('/contact')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/contact')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Contact us
               </button>
               <button
                 onClick={() => setShowProModal(true)}
                 style={{
                   textAlign: 'left',
-                  fontSize: '0.875rem',
+                  fontSize: '0.78rem',
                   color: '#F4B942',
                   fontWeight: 700
                 }}
@@ -305,19 +305,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
               >
                 Refeir Pro
               </button>
-              <button onClick={() => onNavigate('/enterprise')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/enterprise')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Direct contracts
               </button>
-              <button onClick={() => onNavigate('/scout-sourcing')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/scout-sourcing')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Scout Network
               </button>
-              <button onClick={() => onNavigate('/scout-sourcing#benefits')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/scout-sourcing#benefits')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Scout benefits
               </button>
-              <button onClick={() => onNavigate('/jobs')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/jobs')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Client Job Board
               </button>
-              <button onClick={() => onNavigate('/demo-tour')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-mint)', fontWeight: 600 }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/demo-tour')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-mint)', fontWeight: 600 }} className="rf-btn-ghost">
                 Cross-Border Demo Tour
               </button>
             </div>
@@ -333,20 +333,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
             >
               <h4 className="rf-footer-heading">Trust & Legal</h4>
               <div className={`rf-footer-chevron ${openMobileSections.trust ? 'open' : ''}`}>
-                <ChevronDown size={18} />
+                <ChevronDown size={16} />
               </div>
             </button>
             <div className={`rf-footer-content ${openMobileSections.trust ? 'open' : ''}`}>
-              <button onClick={() => onNavigate('/trust')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/trust')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Trust & Security
               </button>
-              <button onClick={() => onNavigate('/verification')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/verification')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Identity & KYC Verification
               </button>
-              <button onClick={() => onNavigate('/partnerships')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/partnerships')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Sponsorship & Partnership
               </button>
-              <button onClick={() => onNavigate('/protection')} style={{ textAlign: 'left', fontSize: '0.875rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
+              <button onClick={() => onNavigate('/protection')} style={{ textAlign: 'left', fontSize: '0.78rem', color: 'var(--rf-slate-400)' }} className="rf-btn-ghost">
                 Pay Protection Notice
               </button>
             </div>
@@ -368,7 +368,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
         >
           {/* Left: Follow us */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--rf-slate-400)' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--rf-slate-400)' }}>
               Follow us
             </span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', flexWrap: 'wrap' }}>
@@ -454,7 +454,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
 
           {/* Right: Mobile app */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--rf-slate-400)' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--rf-slate-400)' }}>
               Mobile app
             </span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
@@ -491,11 +491,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, compact = false }) =
         <div
           style={{
             borderTop: '1px solid var(--rf-navy-border)',
-            paddingTop: '2rem',
-            paddingBottom: '2.5rem',
-            fontSize: '0.8125rem',
+            paddingTop: '1.75rem',
+            paddingBottom: '2.25rem',
+            fontSize: '0.75rem',
             color: 'var(--rf-slate-500)',
-            lineHeight: 1.6,
+            lineHeight: 1.55,
             position: 'relative',
             zIndex: 2
           }}
