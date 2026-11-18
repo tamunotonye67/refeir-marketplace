@@ -2290,32 +2290,13 @@ export const HomePage: React.FC<HomePageProps> = ({
             </h2>
           </div>
 
-          <div className="rf-grid-5 rf-talent-categories-slider" style={{ gap: '1rem' }}>
-            {recruiterCategories.map(cat => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.name}
-                  onClick={() => onNavigate(`/marketplace?cat=${encodeURIComponent(cat.query)}`)}
-                  className="rf-talent-cat-card"
-                >
-                  <div className="rf-cat-icon-box">
-                    <Icon size={19} className="rf-cat-icon" />
-                  </div>
-                  <h3 className="rf-cat-title">
-                    {cat.name}
-                  </h3>
-                  <div className="rf-cat-count">
-                    {cat.count}
-                  </div>
-                  <div className="rf-cat-action">
-                    <span>Browse available</span>
-                    <ArrowRight size={12} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {/* Selecting a category reveals its specialties + matched talent profiles */}
+          <TalentCategoryExplorer
+            categories={recruiterCategories}
+            talentList={talentList}
+            onNavigate={onNavigate}
+            onSelectTalent={onSelectTalent}
+          />
         </div>
       </section>
 

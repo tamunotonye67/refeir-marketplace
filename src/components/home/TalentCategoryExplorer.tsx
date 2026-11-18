@@ -6,7 +6,7 @@ import { TALENT_SUB_CATEGORIES, TalentSubCategory } from '../../data/subCategori
 
 export interface RecruiterCategory {
   name: string;
-  icon: React.ComponentType<{ size?: number; className?: string }>;
+  icon: React.ComponentType<{ size?: number | string; className?: string }>;
   count: string;
   query: string;
 }

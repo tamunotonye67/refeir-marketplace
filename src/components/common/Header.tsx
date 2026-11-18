@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth, SocialAuthProvider } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import { useI18n } from '../../context/I18nContext';
 import { RefeirLogo } from './RefeirLogo';
+import { SocialAuthButtons } from '../auth/SocialAuthButtons';
 import { GLOBAL_COUNTRIES, getCountryByName } from '../../data/countries';
 import {
   ChevronDown,
@@ -96,7 +97,7 @@ type ActiveDropdown =
 
 export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTransparent = false }) => {
   const { theme, toggleTheme } = useTheme();
-  const { currentUser, login, signup, logout, switchRole } = useAuth();
+  const { currentUser, login, loginWithSocial, signup, logout, switchRole } = useAuth();
   const { language, setLanguage, languages, currentLangInfo } = useI18n();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -3692,295 +3693,317 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
       )}
 
       {/* =========================================================================
-          INTERACTIVE LOGIN MODAL
+          UNIFIED MODERN SIGN IN / SIGN UP MODAL
           ========================================================================= */}
-      {showLoginModal && (
-        <div className="rf-modal-backdrop" onClick={() => setShowLoginModal(false)}>
+      {(showLoginModal || showSignupModal) && (
+        <div
+          className="rf-modal-backdrop"
+          onClick={() => {
+            setShowLoginModal(false);
+            setShowSignupModal(false);
+          }}
+        >
           <div
-            className="rf-modal-content"
-            style={{ maxWidth: '440px', padding: '2rem' }}
+            className="rf-modal-content rf-auth-modal"
             onClick={e => e.stopPropagation()}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--rf-mint-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--rf-leaf-green)' }}>
-                  <LogIn size={18} />
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)' }}>Welcome to Refeir</h3>
-              </div>
-              <button
-                onClick={() => setShowLoginModal(false)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--rf-slate-400)', padding: '0.25rem' }}
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', marginBottom: '1.25rem', lineHeight: 1.5 }}>
-              Access your pan-African referral workspace, projects, and multi-currency payouts.
-            </p>
-
-            {/* Email and Password form */}
-            <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '1.5rem' }}>
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <label className="rf-label">Email Address</label>
-                <input
-                  type="email"
-                  className="rf-input"
-                  placeholder="name@company.com"
-                  value={loginEmail}
-                  onChange={e => setLoginEmail(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
-                  <label className="rf-label" style={{ margin: 0 }}>Password</label>
-                  <a
-                    href="#forgot"
-                    onClick={e => {
-                      e.preventDefault();
-                      alert('A password reset link has been dispatched to your email address.');
-                    }}
-                    style={{ fontSize: '0.75rem', color: 'var(--rf-leaf-green)', textDecoration: 'none', fontWeight: 600 }}
-                  >
-                    Forgot Password?
-                  </a>
-                </div>
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type={showLoginPassword ? 'text' : 'password'}
-                    className="rf-input"
-                    placeholder="Enter your password"
-                    value={loginPassword}
-                    onChange={e => setLoginPassword(e.target.value)}
-                    required
-                    style={{ paddingRight: '2.5rem' }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowLoginPassword(!showLoginPassword)}
-                    style={{
-                      position: 'absolute',
-                      right: '0.75rem',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      color: 'var(--rf-slate-400)',
-                      padding: 0,
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}
-                    aria-label={showLoginPassword ? 'Hide password' : 'Show password'}
-                  >
-                    {showLoginPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                  </button>
+            {/* Modal Top Bar */}
+            <div className="rf-auth-modal-top">
+              <div className="rf-auth-modal-brand">
+                <span className="rf-auth-modal-badge">
+                  <ShieldCheck size={15} />
+                </span>
+                <div>
+                  <div className="rf-auth-modal-eyebrow">Refeir Identity</div>
+                  <h3 className="rf-auth-modal-title">
+                    {showLoginModal ? 'Welcome back to Refeir' : 'Join Refeir Africa'}
+                  </h3>
                 </div>
               </div>
-
               <button
-                type="submit"
-                className="rf-btn rf-btn-primary"
-                style={{ width: '100%', padding: '0.75rem', fontSize: '0.9375rem', fontWeight: 800 }}
-              >
-                Log In & Continue
-              </button>
-            </form>
-
-            <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.8125rem', color: 'var(--rf-slate-400)' }}>
-              Don't have an account?{' '}
-              <button
+                type="button"
+                className="rf-auth-modal-close"
                 onClick={() => {
                   setShowLoginModal(false);
-                  setShowSignupModal(true);
+                  setShowSignupModal(false);
                 }}
-                style={{ color: 'var(--rf-leaf-green)', fontWeight: 700, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                aria-label="Close modal"
               >
-                Sign up free
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* =========================================================================
-          INTERACTIVE SIGN UP MODAL
-          ========================================================================= */}
-      {showSignupModal && (
-        <div className="rf-modal-backdrop" onClick={() => setShowSignupModal(false)}>
-          <div
-            className="rf-modal-content"
-            style={{ maxWidth: '460px', padding: '2rem' }}
-            onClick={e => e.stopPropagation()}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--rf-mint-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--rf-leaf-green)' }}>
-                  <UserPlus size={18} />
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)' }}>Join Refeir Africa</h3>
-              </div>
-              <button
-                onClick={() => setShowSignupModal(false)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--rf-slate-400)', padding: '0.25rem' }}
-              >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
 
-            <form onSubmit={handleSignupSubmit}>
-              <div className="rf-form-group">
-                <label className="rf-label">Full Name</label>
-                <input
-                  type="text"
-                  className="rf-input"
-                  placeholder="e.g. Kwame Mensah"
-                  value={signupForm.name}
-                  onChange={e => setSignupForm({ ...signupForm, name: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="rf-form-group">
-                <label className="rf-label">Email Address</label>
-                <input
-                  type="email"
-                  className="rf-input"
-                  placeholder="kwame@example.com"
-                  value={signupForm.email}
-                  onChange={e => setSignupForm({ ...signupForm, email: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="rf-form-group">
-                <label className="rf-label">I want to primarily join as:</label>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem', marginTop: '0.25rem' }}>
-                  {[
-                    { role: 'SCOUT', label: 'Scout', desc: 'Refer & Earn 10%' },
-                    { role: 'TALENT', label: 'Talent', desc: 'Find Work' },
-                    { role: 'CLIENT', label: 'Recruiter', desc: 'Hire Talent' }
-                  ].map(r => (
-                    <button
-                      type="button"
-                      key={r.role}
-                      onClick={() => setSignupForm({ ...signupForm, role: r.role as any })}
-                      style={{
-                        padding: '0.625rem 0.5rem',
-                        borderRadius: 'var(--rf-radius-md)',
-                        border: `1.5px solid ${signupForm.role === r.role ? 'var(--rf-leaf-green)' : 'var(--rf-bg-card-border)'}`,
-                        background: signupForm.role === r.role ? 'var(--rf-mint-light)' : 'var(--rf-bg-surface)',
-                        cursor: 'pointer',
-                        textAlign: 'center',
-                        transition: 'all 0.15s ease'
-                      }}
-                    >
-                      <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: signupForm.role === r.role ? 'var(--rf-leaf-green)' : 'var(--rf-cream)' }}>
-                        {r.label}
-                      </div>
-                      <div style={{ fontSize: '0.6875rem', color: 'var(--rf-slate-400)', marginTop: '0.125rem' }}>
-                        {r.desc}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Global Location Selection */}
-              <div className="rf-form-group">
-                <label className="rf-label">Global Location / Country</label>
-                <select
-                  className="rf-select"
-                  value={signupForm.country}
-                  onChange={e => {
-                    const selectedName = e.target.value;
-                    const matchedCountry = getCountryByName(selectedName);
-                    setSignupForm({
-                      ...signupForm,
-                      country: selectedName,
-                      dialCode: matchedCountry ? matchedCountry.dialCode : signupForm.dialCode
-                    });
-                  }}
-                  style={{ width: '100%' }}
-                >
-                  <optgroup label="Global Enterprise & Client Markets">
-                    {GLOBAL_COUNTRIES.filter(c => c.region === 'GLOBAL').map(c => (
-                      <option key={c.code} value={c.name}>
-                        {c.flag} {c.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Pan-African Sovereign Nations">
-                    {GLOBAL_COUNTRIES.filter(c => c.region === 'AFRICA').map(c => (
-                      <option key={c.code} value={c.name}>
-                        {c.flag} {c.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </div>
-
-              {/* Phone Number & Country Calling Code Menu */}
-              <div className="rf-form-group">
-                <label className="rf-label">Phone Number & Country Code</label>
-                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                  <select
-                    className="rf-select"
-                    style={{ width: '135px', flexShrink: 0, padding: '0.65rem 0.5rem', fontSize: '0.8125rem' }}
-                    value={signupForm.dialCode}
-                    onChange={e => setSignupForm({ ...signupForm, dialCode: e.target.value })}
-                  >
-                    <optgroup label="Global Calling Codes">
-                      {GLOBAL_COUNTRIES.filter(c => c.region === 'GLOBAL').map(c => (
-                        <option key={c.code} value={c.dialCode}>
-                          {c.flag} {c.code} ({c.dialCode})
-                        </option>
-                      ))}
-                    </optgroup>
-                    <optgroup label="Pan-African Calling Codes">
-                      {GLOBAL_COUNTRIES.filter(c => c.region === 'AFRICA').map(c => (
-                        <option key={c.code} value={c.dialCode}>
-                          {c.flag} {c.code} ({c.dialCode})
-                        </option>
-                      ))}
-                    </optgroup>
-                  </select>
-
-                  <input
-                    type="tel"
-                    className="rf-input"
-                    placeholder="e.g. 801 234 5678"
-                    value={signupForm.phone}
-                    onChange={e => setSignupForm({ ...signupForm, phone: e.target.value })}
-                    style={{ flex: 1 }}
-                    required
-                  />
-                </div>
-              </div>
-
+            {/* Mode Switcher */}
+            <div className="rf-auth-tabs" style={{ marginBottom: '1.15rem' }}>
               <button
-                type="submit"
-                className="rf-btn rf-btn-primary"
-                style={{ width: '100%', padding: '0.75rem', fontSize: '0.9375rem', fontWeight: 800, marginTop: '0.5rem' }}
-              >
-                Create Free Account
-              </button>
-            </form>
-
-            <div style={{ marginTop: '1.25rem', textAlign: 'center', fontSize: '0.8125rem', color: 'var(--rf-slate-400)' }}>
-              Already registered?{' '}
-              <button
+                type="button"
+                className={`rf-auth-tab${showLoginModal ? ' is-active' : ''}`}
                 onClick={() => {
                   setShowSignupModal(false);
                   setShowLoginModal(true);
                 }}
-                style={{ color: 'var(--rf-leaf-green)', fontWeight: 700, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
               >
-                Log In
+                <LogIn size={14} />
+                <span>Sign In</span>
               </button>
+              <button
+                type="button"
+                className={`rf-auth-tab${showSignupModal ? ' is-active' : ''}`}
+                onClick={() => {
+                  setShowLoginModal(false);
+                  setShowSignupModal(true);
+                }}
+              >
+                <UserPlus size={14} />
+                <span>Create Account</span>
+              </button>
+            </div>
+
+            {/* Role Selection on Sign Up (applies to both Social and Email signup) */}
+            {showSignupModal && (
+              <div className="rf-auth-field" style={{ marginBottom: '1rem' }}>
+                <label className="rf-auth-field-label">I am joining primarily as</label>
+                <div className="rf-auth-modal-role-grid">
+                  {[
+                    { role: 'CLIENT', label: 'Client', desc: 'Hire Talent', icon: Briefcase },
+                    { role: 'TALENT', label: 'Talent', desc: 'Find Work', icon: Award },
+                    { role: 'SCOUT', label: 'Scout', desc: 'Earn 10%', icon: Compass },
+                  ].map(r => {
+                    const Icon = r.icon;
+                    const active = signupForm.role === r.role;
+                    return (
+                      <button
+                        type="button"
+                        key={r.role}
+                        onClick={() => setSignupForm({ ...signupForm, role: r.role as any })}
+                        className={`rf-auth-modal-role-btn${active ? ' is-selected' : ''}`}
+                      >
+                        <Icon size={14} />
+                        <strong>{r.label}</strong>
+                        <span>{r.desc}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Social Sign In / Sign Up: Google, GitHub, LinkedIn, Facebook, Pinterest */}
+            <SocialAuthButtons
+              mode={showLoginModal ? 'LOGIN' : 'SIGNUP'}
+              compact
+              dividerText={
+                showLoginModal ? 'or sign in with email' : 'or sign up with email'
+              }
+              onSelectProvider={async (provider: SocialAuthProvider) => {
+                const targetRole = showSignupModal ? signupForm.role : 'CLIENT';
+                await loginWithSocial(provider, targetRole);
+                setShowLoginModal(false);
+                setShowSignupModal(false);
+                onNavigate(getRoleDashboardPath(targetRole));
+              }}
+            />
+
+            {showLoginModal ? (
+              <form onSubmit={handleLoginSubmit} className="rf-auth-form">
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label">Email Address</label>
+                  <div className="rf-auth-input-wrap">
+                    <Mail size={16} className="rf-auth-input-icon" />
+                    <input
+                      type="email"
+                      className="rf-auth-input"
+                      placeholder="name@company.com"
+                      value={loginEmail}
+                      onChange={e => setLoginEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="rf-auth-field">
+                  <div className="rf-auth-label-row">
+                    <label className="rf-auth-field-label">Password</label>
+                    <button
+                      type="button"
+                      className="rf-auth-inline-link"
+                      onClick={() =>
+                        alert('A password reset link has been dispatched to your email address.')
+                      }
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                  <div className="rf-auth-input-wrap">
+                    <Lock size={16} className="rf-auth-input-icon" />
+                    <input
+                      type={showLoginPassword ? 'text' : 'password'}
+                      className="rf-auth-input has-trailing"
+                      placeholder="Enter your password"
+                      value={loginPassword}
+                      onChange={e => setLoginPassword(e.target.value)}
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="rf-auth-eye-btn"
+                      onClick={() => setShowLoginPassword(!showLoginPassword)}
+                      aria-label={showLoginPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showLoginPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <button type="submit" className="rf-auth-submit-btn">
+                  <span>Sign In &amp; Continue</span>
+                  <ArrowRight size={16} />
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleSignupSubmit} className="rf-auth-form">
+                <div className="rf-auth-field-row">
+                  <div className="rf-auth-field">
+                    <label className="rf-auth-field-label">Full Name</label>
+                    <div className="rf-auth-input-wrap">
+                      <User size={16} className="rf-auth-input-icon" />
+                      <input
+                        type="text"
+                        className="rf-auth-input"
+                        placeholder="Kwame Mensah"
+                        value={signupForm.name}
+                        onChange={e => setSignupForm({ ...signupForm, name: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="rf-auth-field">
+                    <label className="rf-auth-field-label">Email Address</label>
+                    <div className="rf-auth-input-wrap">
+                      <Mail size={16} className="rf-auth-input-icon" />
+                      <input
+                        type="email"
+                        className="rf-auth-input"
+                        placeholder="kwame@company.com"
+                        value={signupForm.email}
+                        onChange={e => setSignupForm({ ...signupForm, email: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label">Country / Market</label>
+                  <div className="rf-auth-input-wrap">
+                    <Globe2 size={16} className="rf-auth-input-icon" />
+                    <select
+                      className="rf-auth-input rf-auth-select"
+                      value={signupForm.country}
+                      onChange={e => {
+                        const selectedName = e.target.value;
+                        const matchedCountry = getCountryByName(selectedName);
+                        setSignupForm({
+                          ...signupForm,
+                          country: selectedName,
+                          dialCode: matchedCountry ? matchedCountry.dialCode : signupForm.dialCode,
+                        });
+                      }}
+                    >
+                      <optgroup label="Global Enterprise & Client Markets">
+                        {GLOBAL_COUNTRIES.filter(c => c.region === 'GLOBAL').map(c => (
+                          <option key={c.code} value={c.name}>
+                            {c.flag} {c.name}
+                          </option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="Pan-African Sovereign Nations">
+                        {GLOBAL_COUNTRIES.filter(c => c.region === 'AFRICA').map(c => (
+                          <option key={c.code} value={c.name}>
+                            {c.flag} {c.name}
+                          </option>
+                        ))}
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label">Phone Number &amp; Country Code</label>
+                  <div className="rf-auth-phone-row">
+                    <select
+                      className="rf-auth-input rf-auth-dial-select"
+                      value={signupForm.dialCode}
+                      onChange={e => setSignupForm({ ...signupForm, dialCode: e.target.value })}
+                    >
+                      <optgroup label="Global Calling Codes">
+                        {GLOBAL_COUNTRIES.filter(c => c.region === 'GLOBAL').map(c => (
+                          <option key={c.code} value={c.dialCode}>
+                            {c.flag} {c.code} ({c.dialCode})
+                          </option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="Pan-African Calling Codes">
+                        {GLOBAL_COUNTRIES.filter(c => c.region === 'AFRICA').map(c => (
+                          <option key={c.code} value={c.dialCode}>
+                            {c.flag} {c.code} ({c.dialCode})
+                          </option>
+                        ))}
+                      </optgroup>
+                    </select>
+
+                    <div className="rf-auth-input-wrap" style={{ flex: 1 }}>
+                      <input
+                        type="tel"
+                        className="rf-auth-input"
+                        style={{ paddingLeft: '0.85rem' }}
+                        placeholder="801 234 5678"
+                        value={signupForm.phone}
+                        onChange={e => setSignupForm({ ...signupForm, phone: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" className="rf-auth-submit-btn">
+                  <span>Create Free Account</span>
+                  <ArrowRight size={16} />
+                </button>
+              </form>
+            )}
+
+            <div className="rf-auth-modal-foot">
+              {showLoginModal ? (
+                <>
+                  Don&apos;t have an account?{' '}
+                  <button
+                    type="button"
+                    className="rf-auth-inline-link"
+                    onClick={() => {
+                      setShowLoginModal(false);
+                      setShowSignupModal(true);
+                    }}
+                  >
+                    Sign up free
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already registered?{' '}
+                  <button
+                    type="button"
+                    className="rf-auth-inline-link"
+                    onClick={() => {
+                      setShowSignupModal(false);
+                      setShowLoginModal(true);
+                    }}
+                  >
+                    Sign in
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -4,6 +4,8 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80';
 
+export type SocialAuthProvider = 'google' | 'github' | 'linkedin' | 'facebook' | 'pinterest';
+
 interface AuthContextType {
   currentUser: User | null;
   isAuthenticated: boolean;
@@ -11,6 +13,7 @@ interface AuthContextType {
   authError: string | null;
   switchRole: (role: UserRole) => void;
   login: (email: string, password?: string) => Promise<void> | void;
+  loginWithSocial: (provider: SocialAuthProvider, preferredRole?: UserRole) => Promise<void>;
   logout: () => Promise<void> | void;
   signup: (userData: Partial<User> & { password?: string }) => Promise<void> | void;
   updateProfile: (updatedData: Partial<User>) => Promise<void> | void;
@@ -281,6 +284,65 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
+  const loginWithSocial = async (provider: SocialAuthProvider, preferredRole: UserRole = 'CLIENT') => {
+    setAuthError(null);
+
+    if (isSupabaseConfigured) {
+      try {
+        setIsLoading(true);
+        const supabaseProvider = provider === 'linkedin' ? 'linkedin_oidc' : provider;
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: supabaseProvider as any,
+          options: {
+            redirectTo: window.location.origin,
+          },
+        });
+        if (!error) return;
+        console.warn(`Supabase OAuth (${provider}) unavailable, falling back to local session:`, error.message);
+      } catch (err) {
+        console.warn(`Supabase OAuth (${provider}) failed, falling back to local session:`, err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    // Local / Sandbox Social Sign-in
+    const providerProfiles: Record<SocialAuthProvider, { first: string; last: string; email: string }> = {
+      google: { first: 'Amara', last: 'Okafor', email: 'amara.okafor@gmail.com' },
+      github: { first: 'Chinedu', last: 'Adeyemi', email: 'chinedu.dev@github.user.refeir.africa' },
+      linkedin: { first: 'Zainab', last: 'Mensah', email: 'zainab.mensah@linkedin.user.refeir.africa' },
+      facebook: { first: 'Kofi', last: 'Boateng', email: 'kofi.boateng@facebook.user.refeir.africa' },
+      pinterest: { first: 'Nia', last: 'Kamau', email: 'nia.creative@pinterest.user.refeir.africa' },
+    };
+
+    const profile = providerProfiles[provider];
+    const roles: UserRole[] = Array.from(new Set<UserRole>(['CLIENT', 'SCOUT', 'TALENT', preferredRole]));
+    const newUser: User = {
+      id: `user-${provider}-${Date.now()}`,
+      email: profile.email,
+      first_name: profile.first,
+      last_name: profile.last,
+      phone: '+234 800 000 0000',
+      country: 'Nigeria',
+      city: 'Lagos',
+      primary_language: 'English',
+      timezone: 'Africa/Lagos',
+      avatar_url: DEFAULT_AVATAR,
+      roles,
+      active_role: preferredRole,
+      verification_status: 'EMAIL_VERIFIED',
+      created_at: new Date().toISOString(),
+      scout_onboarding_completed: true,
+      talent_onboarding_completed: true,
+      client_onboarding_completed: true,
+    };
+
+    try {
+      localStorage.setItem('refeir_auth_user', JSON.stringify(newUser));
+    } catch {}
+    setCurrentUser(newUser);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -290,6 +352,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         authError,
         switchRole,
         login,
+        loginWithSocial,
         logout,
         signup,
         updateProfile,

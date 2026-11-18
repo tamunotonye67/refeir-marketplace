@@ -1,10 +1,28 @@
 import React, { useState, useMemo } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
-import { Shield, Lock, ArrowRight, UserCheck, Briefcase, Users, LogIn, UserPlus } from 'lucide-react';
+import { useAuth, SocialAuthProvider } from '../../context/AuthContext';
+import {
+  ShieldCheck,
+  Lock,
+  ArrowRight,
+  ArrowLeft,
+  Briefcase,
+  Users,
+  Compass,
+  LogIn,
+  UserPlus,
+  Eye,
+  EyeOff,
+  Mail,
+  User as UserIcon,
+  Globe,
+  Phone,
+  CheckCircle2,
+  Award,
+} from 'lucide-react';
 import { GLOBAL_COUNTRIES, getCountryByName } from '../../data/countries';
-
 import { TalentProfile } from '../../types';
+import { RefeirLogo } from './RefeirLogo';
+import { SocialAuthButtons } from '../auth/SocialAuthButtons';
 
 interface AuthGateWallProps {
   pageName: string;
@@ -16,18 +34,45 @@ interface AuthGateWallProps {
   onSuccess?: () => void;
 }
 
+const ROLE_OPTIONS: Array<{
+  id: 'CLIENT' | 'TALENT' | 'SCOUT';
+  title: string;
+  subtitle: string;
+  badge: string;
+  icon: React.ComponentType<{ size?: number | string }>;
+}> = [
+  {
+    id: 'CLIENT',
+    title: 'Client / Company',
+    subtitle: 'Hire vetted engineers, designers & operators',
+    badge: 'Escrow protected',
+    icon: Briefcase,
+  },
+  {
+    id: 'TALENT',
+    title: 'Talent / Specialist',
+    subtitle: 'Work with global teams & get instant payouts',
+    badge: 'Multi-currency',
+    icon: Award,
+  },
+  {
+    id: 'SCOUT',
+    title: 'Talent Scout',
+    subtitle: 'Refer top talent & earn 10% lifetime rewards',
+    badge: '10% commission',
+    icon: Compass,
+  },
+];
+
 export const AuthGateWall: React.FC<AuthGateWallProps> = ({
   pageName,
-  roleRequired = 'Member',
   initialTab = 'LOGIN',
   initialRole = 'CLIENT',
   talentToHire,
   onNavigate,
-  onSuccess
+  onSuccess,
 }) => {
-  const { login, signup } = useAuth();
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const { login, signup, loginWithSocial } = useAuth();
 
   const wizardIntent = useMemo(() => {
     try {
@@ -42,401 +87,472 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
   const [activeTab, setActiveTab] = useState<'LOGIN' | 'SIGNUP'>(initialTab);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [dialCode, setDialCode] = useState('+1');
   const [role, setRole] = useState<'SCOUT' | 'TALENT' | 'CLIENT'>(initialRole);
   const [country, setCountry] = useState('United States');
+  const [rememberMe, setRememberMe] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+
+  const isStandaloneAuthPage =
+    pageName === 'Refeir Account' || pageName === 'Client Registration';
+
+  const completeNavigation = (selectedRole: 'SCOUT' | 'TALENT' | 'CLIENT' = role) => {
+    if (onSuccess) {
+      onSuccess();
+      return;
+    }
+    if (isStandaloneAuthPage) {
+      if (selectedRole === 'TALENT') onNavigate('/dashboard/talent');
+      else if (selectedRole === 'SCOUT') onNavigate('/dashboard/scout');
+      else onNavigate('/dashboard/client');
+    }
+  };
+
+  const handleSocialSelect = async (provider: SocialAuthProvider) => {
+    await loginWithSocial(provider, role);
+    completeNavigation(role);
+  };
 
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    await login(email, password || undefined);
-    if (onSuccess) {
-      onSuccess();
+    if (!email || submitting) return;
+    setSubmitting(true);
+    try {
+      await login(email, password || undefined);
+      completeNavigation(role);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    const parts = name.trim().split(' ');
-    await signup({
-      first_name: parts[0] || 'User',
-      last_name: parts.slice(1).join(' ') || 'Member',
-      email,
-      password: password || undefined,
-      phone: phone ? `${dialCode} ${phone}` : undefined,
-      roles: [role],
-      active_role: role,
-      country
-    });
-    if (onSuccess) {
-      onSuccess();
+    if (!email || submitting) return;
+    setSubmitting(true);
+    try {
+      const parts = name.trim().split(' ');
+      await signup({
+        first_name: parts[0] || 'User',
+        last_name: parts.slice(1).join(' ') || 'Member',
+        email,
+        password: password || undefined,
+        phone: phone ? `${dialCode} ${phone}` : undefined,
+        roles: [role],
+        active_role: role,
+        country,
+      });
+      completeNavigation(role);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <div className="rf-container" style={{ paddingTop: '4rem', paddingBottom: '6rem', maxWidth: '860px' }}>
-      <div
-        className="rf-card"
-        style={{
-          padding: 'clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 2.75rem)',
-          backgroundColor: isDark ? '#0A1E12' : '#FFFFFF',
-          backgroundImage: isDark ? 'linear-gradient(180deg, rgba(14, 38, 25, 0.98) 0%, rgba(7, 20, 13, 0.99) 100%)' : 'none',
-          border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1px solid rgba(18, 43, 26, 0.12)',
-          borderRadius: '24px',
-          boxShadow: isDark ? '0 24px 60px rgba(0, 0, 0, 0.65)' : '0 20px 48px rgba(18, 43, 26, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04)',
-          color: isDark ? '#FFFFFF' : '#0F172A',
-          transition: 'all 0.25s ease'
-        }}
-      >
-        {/* Lock Icon & Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <div
-            style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: '50%',
-              background: isDark ? 'rgba(102, 187, 42, 0.15)' : 'rgba(22, 163, 74, 0.12)',
-              border: isDark ? '1.5px solid rgba(102, 187, 42, 0.4)' : '1.5px solid rgba(22, 163, 74, 0.32)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 1.25rem',
-              color: isDark ? 'var(--rf-leaf-green)' : '#16A34A',
-              boxShadow: isDark ? '0 0 25px rgba(102, 187, 42, 0.25)' : '0 0 20px rgba(22, 163, 74, 0.15)'
-            }}
-          >
-            <Lock size={28} />
-          </div>
-
-          <span
-            style={{
-              fontSize: '0.75rem',
-              fontWeight: 800,
-              color: isDark ? 'var(--rf-leaf-green)' : '#15803D',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              background: isDark ? 'rgba(102, 187, 42, 0.1)' : 'rgba(22, 163, 74, 0.1)',
-              padding: '0.3rem 0.85rem',
-              borderRadius: '100px',
-              marginBottom: '0.75rem',
-              border: isDark ? 'none' : '1px solid rgba(22, 163, 74, 0.2)'
-            }}
-          >
-            <Shield size={13} /> {talentToHire ? 'CLIENT REGISTRATION' : 'AUTHENTICATION REQUIRED'}
-          </span>
-
-          <h1 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-            {talentToHire ? `Register as a Client to Hire ${talentToHire.full_name}` : `Sign In to Access ${pageName}`}
-          </h1>
-
-          <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '540px', margin: '0.75rem auto 0', lineHeight: 1.6 }}>
-            {talentToHire
-              ? `Create your client account to initiate escrow-protected milestones and collaborate directly with ${talentToHire.full_name.split(' ')[0]}.`
-              : `This workspace contains private financial custody, active contracts, and sensitive communications. Please log in or create your verified Refeir account.`}
-          </p>
-        </div>
-
-        {/* Talent Target Preview Card */}
-        {talentToHire && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              backgroundColor: isDark ? 'rgba(54, 224, 160, 0.08)' : '#F8FAF9',
-              border: isDark ? '1px solid rgba(54, 224, 160, 0.25)' : '1px solid rgba(22, 163, 74, 0.2)',
-              borderRadius: '16px',
-              padding: '1rem 1.25rem',
-              maxWidth: '480px',
-              margin: '0 auto 2rem'
-            }}
-          >
-            <img
-              src={talentToHire.avatar_url}
-              alt={talentToHire.full_name}
-              style={{
-                width: '56px',
-                height: '56px',
-                borderRadius: '50%',
-                objectFit: 'cover',
-                border: '2px solid var(--rf-mint)'
-              }}
-            />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--rf-mint)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                Selected Talent
-              </div>
-              <div style={{ fontSize: '1.0625rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {talentToHire.full_name}
-              </div>
-              <div style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#64748B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {talentToHire.headline}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Saved AI Wizard Project Brief Banner */}
-        {wizardIntent && !talentToHire && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              backgroundColor: isDark ? 'rgba(102, 187, 42, 0.12)' : '#F0FDF4',
-              border: isDark ? '1.5px solid rgba(102, 187, 42, 0.35)' : '1.5px solid rgba(22, 163, 74, 0.25)',
-              borderRadius: '18px',
-              padding: '1rem 1.35rem',
-              maxWidth: '540px',
-              margin: '0 auto 2rem',
-              boxShadow: isDark ? '0 8px 24px rgba(0, 0, 0, 0.3)' : '0 6px 18px rgba(22, 163, 74, 0.08)'
-            }}
-          >
+    <section className="rf-auth-shell">
+      <div className="rf-auth-grid">
+        {/* =================================================================
+            LEFT COLUMN — Brand & High-Trust Value Showcase
+           ================================================================= */}
+        <aside className="rf-auth-showcase">
+          <div className="rf-auth-showcase-top">
             <div
-              style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '12px',
-                backgroundColor: '#66BB2A',
-                color: '#0F1E13',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 800,
-                fontSize: '1.15rem',
-                flexShrink: 0
-              }}
+              onClick={() => onNavigate('/')}
+              style={{ cursor: 'pointer', display: 'inline-flex' }}
             >
-              ✓
+              <RefeirLogo size="md" isLight={true} showTagline={false} />
             </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: isDark ? '#A3E635' : '#15803D', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Project Brief Saved
+
+            <div className="rf-auth-pill">
+              <ShieldCheck size={14} />
+              <span>
+                {talentToHire
+                  ? 'ESCROW-PROTECTED CLIENT ONBOARDING'
+                  : isStandaloneAuthPage
+                  ? 'PAN-AFRICAN TALENT & FINTECH NETWORK'
+                  : `PROTECTED WORKSPACE · ${pageName.toUpperCase()}`}
+              </span>
+            </div>
+
+            <h1 className="rf-auth-showcase-title">
+              {talentToHire
+                ? `Hire ${talentToHire.full_name} with milestone escrow protection.`
+                : activeTab === 'SIGNUP'
+                ? 'Build, hire, and earn across Africa and the world.'
+                : 'Welcome back to your Refeir workspace.'}
+            </h1>
+
+            <p className="rf-auth-showcase-sub">
+              {talentToHire
+                ? `Create your client account in seconds to fund milestones, review deliverables, and collaborate directly with ${talentToHire.full_name.split(' ')[0]}.`
+                : 'Connect with verified engineers, designers, and operators — backed by multi-currency escrow custody and 10% lifetime scout rewards.'}
+            </p>
+
+            {/* Context Card: Selected Talent to Hire */}
+            {talentToHire && (
+              <div className="rf-auth-context-card">
+                <img
+                  src={talentToHire.avatar_url}
+                  alt={talentToHire.full_name}
+                  className="rf-auth-context-avatar"
+                />
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <div className="rf-auth-context-eyebrow">Selected Talent</div>
+                  <div className="rf-auth-context-name">{talentToHire.full_name}</div>
+                  <div className="rf-auth-context-meta">{talentToHire.headline}</div>
+                </div>
               </div>
-              <div style={{ fontSize: '1rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', lineHeight: 1.3 }}>
-                {wizardIntent.discipline} · {wizardIntent.package}
+            )}
+
+            {/* Context Card: Saved AI Wizard Brief */}
+            {wizardIntent && !talentToHire && (
+              <div className="rf-auth-context-card">
+                <div className="rf-auth-context-check">
+                  <CheckCircle2 size={20} />
+                </div>
+                <div style={{ minWidth: 0, flex: 1 }}>
+                  <div className="rf-auth-context-eyebrow">Project Brief Ready</div>
+                  <div className="rf-auth-context-name">
+                    {wizardIntent.discipline} · {wizardIntent.package}
+                  </div>
+                  <div className="rf-auth-context-meta">
+                    Est. {wizardIntent.budget} · {wizardIntent.timeline} · Milestone Escrow
+                  </div>
+                </div>
               </div>
-              <div style={{ fontSize: '0.8125rem', color: isDark ? '#CBD5E1' : '#64748B', marginTop: '0.2rem' }}>
-                Est. Budget: {wizardIntent.budget} · Timeline: {wizardIntent.timeline} · Milestone Escrow
+            )}
+
+            {/* Key Trust Pillars */}
+            <ul className="rf-auth-pillars">
+              <li>
+                <span className="rf-auth-pillar-icon">
+                  <ShieldCheck size={16} />
+                </span>
+                <div>
+                  <strong>Milestone Escrow Custody</strong>
+                  <span>Funds are released only when you approve completed work.</span>
+                </div>
+              </li>
+              <li>
+                <span className="rf-auth-pillar-icon">
+                  <Users size={16} />
+                </span>
+                <div>
+                  <strong>Top 2% Vetted Specialists</strong>
+                  <span>Identity-verified talent across 54 African countries & diaspora.</span>
+                </div>
+              </li>
+              <li>
+                <span className="rf-auth-pillar-icon">
+                  <Compass size={16} />
+                </span>
+                <div>
+                  <strong>One Account, Three Roles</strong>
+                  <span>Switch seamlessly between Client, Talent, and Scout anytime.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div className="rf-auth-showcase-footer">
+            <div className="rf-auth-trust-metrics">
+              <div>
+                <strong>$14.8M+</strong>
+                <span>Escrow volume</span>
+              </div>
+              <div>
+                <strong>54</strong>
+                <span>Countries covered</span>
+              </div>
+              <div>
+                <strong>99.4%</strong>
+                <span>Payout reliability</span>
               </div>
             </div>
           </div>
-        )}
+        </aside>
 
-        {/* Tab Switcher: Login vs Sign Up */}
-        <div style={{ maxWidth: '420px', margin: '0 auto 2rem' }}>
-          <div
-            style={{
-              display: 'flex',
-              background: isDark ? 'rgba(0, 0, 0, 0.45)' : '#F1F5F9',
-              padding: '4px',
-              borderRadius: 'var(--rf-radius-md)',
-              border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
-              marginBottom: '1.75rem'
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setActiveTab('LOGIN')}
-              style={{
-                flex: 1,
-                padding: '0.625rem',
-                borderRadius: 'var(--rf-radius-sm)',
-                border: 'none',
-                background: activeTab === 'LOGIN' ? (isDark ? 'var(--rf-leaf-green)' : '#16A34A') : 'transparent',
-                color: activeTab === 'LOGIN' ? (isDark ? '#081C10' : '#FFFFFF') : (isDark ? 'var(--rf-slate-400)' : '#64748B'),
-                fontWeight: 700,
-                fontSize: '0.875rem',
-                cursor: 'pointer',
-                boxShadow: activeTab === 'LOGIN' && !isDark ? '0 2px 6px rgba(22, 163, 74, 0.25)' : 'none',
-                transition: 'all 0.15s ease'
-              }}
-            >
-              Sign In
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('SIGNUP')}
-              style={{
-                flex: 1,
-                padding: '0.625rem',
-                borderRadius: 'var(--rf-radius-sm)',
-                border: 'none',
-                background: activeTab === 'SIGNUP' ? (isDark ? 'var(--rf-leaf-green)' : '#16A34A') : 'transparent',
-                color: activeTab === 'SIGNUP' ? (isDark ? '#081C10' : '#FFFFFF') : (isDark ? 'var(--rf-slate-400)' : '#64748B'),
-                fontWeight: 700,
-                fontSize: '0.875rem',
-                cursor: 'pointer',
-                boxShadow: activeTab === 'SIGNUP' && !isDark ? '0 2px 6px rgba(22, 163, 74, 0.25)' : 'none',
-                transition: 'all 0.15s ease'
-              }}
-            >
-              Create Account
-            </button>
+        {/* =================================================================
+            RIGHT COLUMN — Modern Sign In / Sign Up Card
+           ================================================================= */}
+        <div className="rf-auth-card">
+          {/* Top Header */}
+          <div className="rf-auth-card-head">
+            <div className="rf-auth-tabs" role="tablist" aria-label="Authentication mode">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === 'LOGIN'}
+                className={`rf-auth-tab${activeTab === 'LOGIN' ? ' is-active' : ''}`}
+                onClick={() => setActiveTab('LOGIN')}
+              >
+                <LogIn size={15} />
+                <span>Sign In</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === 'SIGNUP'}
+                className={`rf-auth-tab${activeTab === 'SIGNUP' ? ' is-active' : ''}`}
+                onClick={() => setActiveTab('SIGNUP')}
+              >
+                <UserPlus size={15} />
+                <span>Create Account</span>
+              </button>
+            </div>
+
+            <h2 className="rf-auth-card-title">
+              {activeTab === 'LOGIN'
+                ? isStandaloneAuthPage
+                  ? 'Sign in to your account'
+                  : `Sign in to access ${pageName}`
+                : talentToHire
+                ? `Create client account to hire ${talentToHire.full_name.split(' ')[0]}`
+                : 'Create your verified Refeir account'}
+            </h2>
+            <p className="rf-auth-card-sub">
+              {activeTab === 'LOGIN'
+                ? 'Choose a social account or enter your email credentials below.'
+                : 'Get started in under 60 seconds with your preferred social network or email.'}
+            </p>
           </div>
 
-          {/* Form */}
+          {/* Role Selector (shown on Sign Up so social or email signup picks the right role) */}
+          {activeTab === 'SIGNUP' && (
+            <div className="rf-auth-role-section">
+              <label className="rf-auth-field-label">I am joining primarily as</label>
+              <div className="rf-auth-role-grid">
+                {ROLE_OPTIONS.map(opt => {
+                  const Icon = opt.icon;
+                  const isSelected = role === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setRole(opt.id)}
+                      className={`rf-auth-role-card${isSelected ? ' is-selected' : ''}`}
+                      aria-pressed={isSelected}
+                    >
+                      <div className="rf-auth-role-top">
+                        <span className="rf-auth-role-icon">
+                          <Icon size={15} />
+                        </span>
+                        <span className="rf-auth-role-badge">{opt.badge}</span>
+                      </div>
+                      <div className="rf-auth-role-title">{opt.title}</div>
+                      <div className="rf-auth-role-desc">{opt.subtitle}</div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Social Auth: Google, GitHub, LinkedIn, Facebook, Pinterest */}
+          <SocialAuthButtons
+            mode={activeTab}
+            onSelectProvider={handleSocialSelect}
+            dividerText={
+              activeTab === 'LOGIN' ? 'or sign in with email' : 'or register with email'
+            }
+          />
+
+          {/* Email Form */}
           {activeTab === 'LOGIN' ? (
-            <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.125rem' }}>
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Email Address</label>
-                <input
-                  type="email"
-                  className="rf-input"
-                  placeholder="name@company.com"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  style={{
-                    backgroundColor: isDark ? 'rgba(7, 22, 13, 0.92)' : '#FFFFFF',
-                    color: isDark ? '#FFFFFF' : '#0F172A',
-                    border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
-                  }}
-                  required
-                />
+            <form onSubmit={handleLoginSubmit} className="rf-auth-form">
+              <div className="rf-auth-field">
+                <label className="rf-auth-field-label" htmlFor="rf-auth-login-email">
+                  Work or Personal Email
+                </label>
+                <div className="rf-auth-input-wrap">
+                  <Mail size={16} className="rf-auth-input-icon" />
+                  <input
+                    id="rf-auth-login-email"
+                    type="email"
+                    className="rf-auth-input"
+                    placeholder="name@company.com"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    autoComplete="email"
+                    required
+                  />
+                </div>
               </div>
 
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Password</label>
-                <input
-                  type="password"
-                  className="rf-input"
-                  placeholder="••••••••••••"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  style={{
-                    backgroundColor: isDark ? 'rgba(7, 22, 13, 0.92)' : '#FFFFFF',
-                    color: isDark ? '#FFFFFF' : '#0F172A',
-                    border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
-                  }}
-                />
+              <div className="rf-auth-field">
+                <div className="rf-auth-label-row">
+                  <label className="rf-auth-field-label" htmlFor="rf-auth-login-password">
+                    Password
+                  </label>
+                  <button
+                    type="button"
+                    className="rf-auth-inline-link"
+                    onClick={() =>
+                      alert('A password reset link has been dispatched to your email address.')
+                    }
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+                <div className="rf-auth-input-wrap">
+                  <Lock size={16} className="rf-auth-input-icon" />
+                  <input
+                    id="rf-auth-login-password"
+                    type={showPassword ? 'text' : 'password'}
+                    className="rf-auth-input has-trailing"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    className="rf-auth-eye-btn"
+                    onClick={() => setShowPassword(p => !p)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="rf-auth-meta-row">
+                <label className="rf-auth-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={e => setRememberMe(e.target.checked)}
+                  />
+                  <span>Keep me signed in for 30 days</span>
+                </label>
               </div>
 
               <button
                 type="submit"
-                className="rf-btn rf-btn-primary rf-btn-lg"
-                style={{
-                  width: '100%',
-                  marginTop: '0.5rem',
-                  fontWeight: 800,
-                  background: isDark ? 'var(--rf-leaf-green)' : 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
-                  color: isDark ? '#081C10' : '#FFFFFF',
-                  boxShadow: isDark ? '0 4px 16px rgba(102, 187, 42, 0.3)' : '0 4px 16px rgba(22, 163, 74, 0.3)'
-                }}
+                disabled={submitting}
+                className="rf-auth-submit-btn"
               >
-                <LogIn size={16} />
-                <span>Log In & Continue</span>
+                <span>{submitting ? 'Signing in...' : 'Sign In to Workspace'}</span>
+                <ArrowRight size={16} />
               </button>
             </form>
           ) : (
-            <form onSubmit={handleSignupSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.125rem' }}>
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Full Name</label>
-                <input
-                  type="text"
-                  className="rf-input"
-                  placeholder="Amara Okafor"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  style={{
-                    backgroundColor: isDark ? 'rgba(7, 22, 13, 0.92)' : '#FFFFFF',
-                    color: isDark ? '#FFFFFF' : '#0F172A',
-                    border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
-                  }}
-                  required
-                />
+            <form onSubmit={handleSignupSubmit} className="rf-auth-form">
+              <div className="rf-auth-field-row">
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-auth-signup-name">
+                    Full Name
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <UserIcon size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-auth-signup-name"
+                      type="text"
+                      className="rf-auth-input"
+                      placeholder="Amara Okafor"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                      autoComplete="name"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-auth-signup-email">
+                    Email Address
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <Mail size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-auth-signup-email"
+                      type="email"
+                      className="rf-auth-input"
+                      placeholder="amara@company.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      autoComplete="email"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Email Address</label>
-                <input
-                  type="email"
-                  className="rf-input"
-                  placeholder="amara@refeir.africa"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  style={{
-                    backgroundColor: isDark ? 'rgba(7, 22, 13, 0.92)' : '#FFFFFF',
-                    color: isDark ? '#FFFFFF' : '#0F172A',
-                    border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
-                  }}
-                  required
-                />
+              <div className="rf-auth-field-row">
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-auth-signup-country">
+                    Country / Market
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <Globe size={16} className="rf-auth-input-icon" />
+                    <select
+                      id="rf-auth-signup-country"
+                      className="rf-auth-input rf-auth-select"
+                      value={country}
+                      onChange={e => {
+                        const selectedName = e.target.value;
+                        const matchedCountry = getCountryByName(selectedName);
+                        setCountry(selectedName);
+                        if (matchedCountry) {
+                          setDialCode(matchedCountry.dialCode);
+                        }
+                      }}
+                    >
+                      <optgroup label="Global Enterprise & Client Markets">
+                        {GLOBAL_COUNTRIES.filter(c => c.region === 'GLOBAL').map(c => (
+                          <option key={c.code} value={c.name}>
+                            {c.flag} {c.name}
+                          </option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="Pan-African Sovereign Nations">
+                        {GLOBAL_COUNTRIES.filter(c => c.region === 'AFRICA').map(c => (
+                          <option key={c.code} value={c.name}>
+                            {c.flag} {c.name}
+                          </option>
+                        ))}
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="rf-auth-field">
+                  <label className="rf-auth-field-label" htmlFor="rf-auth-signup-password">
+                    Password
+                  </label>
+                  <div className="rf-auth-input-wrap">
+                    <Lock size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-auth-signup-password"
+                      type={showPassword ? 'text' : 'password'}
+                      className="rf-auth-input has-trailing"
+                      placeholder="Min. 8 characters"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      autoComplete="new-password"
+                    />
+                    <button
+                      type="button"
+                      className="rf-auth-eye-btn"
+                      onClick={() => setShowPassword(p => !p)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Primary Account Role</label>
-                <select
-                  className="rf-select"
-                  value={role}
-                  onChange={e => setRole(e.target.value as any)}
-                  style={{
-                    backgroundColor: isDark ? '#0F2E1E' : '#FFFFFF',
-                    color: isDark ? '#FFFFFF' : '#0F172A',
-                    border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
-                  }}
-                >
-                  <option value="SCOUT">Scout (Refer talent & earn 10% lifetime rewards)</option>
-                  <option value="TALENT">Talent (Offer services & work on projects)</option>
-                  <option value="CLIENT">Client (Hire talent & post jobs)</option>
-                </select>
-              </div>
-
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Global Location / Country</label>
-                <select
-                  className="rf-select"
-                  value={country}
-                  onChange={e => {
-                    const selectedName = e.target.value;
-                    const matchedCountry = getCountryByName(selectedName);
-                    setCountry(selectedName);
-                    if (matchedCountry) {
-                      setDialCode(matchedCountry.dialCode);
-                    }
-                  }}
-                  style={{
-                    backgroundColor: isDark ? '#0F2E1E' : '#FFFFFF',
-                    color: isDark ? '#FFFFFF' : '#0F172A',
-                    border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
-                  }}
-                >
-                  <optgroup label="Global Enterprise & Client Markets">
-                    {GLOBAL_COUNTRIES.filter(c => c.region === 'GLOBAL').map(c => (
-                      <option key={c.code} value={c.name}>
-                        {c.flag} {c.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Pan-African Sovereign Nations">
-                    {GLOBAL_COUNTRIES.filter(c => c.region === 'AFRICA').map(c => (
-                      <option key={c.code} value={c.name}>
-                        {c.flag} {c.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </div>
-
-              <div className="rf-form-group" style={{ marginBottom: 0 }}>
-                <label className="rf-label" style={{ color: isDark ? '#FFFFFF' : '#1E293B', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '0.375rem', display: 'block' }}>Phone Number & Country Code</label>
-                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <div className="rf-auth-field">
+                <label className="rf-auth-field-label" htmlFor="rf-auth-signup-phone">
+                  Phone Number (for Escrow & Payout Alerts)
+                </label>
+                <div className="rf-auth-phone-row">
                   <select
-                    className="rf-select"
-                    style={{
-                      width: '135px',
-                      flexShrink: 0,
-                      padding: '0.65rem 0.5rem',
-                      fontSize: '0.8125rem',
-                      backgroundColor: isDark ? '#0F2E1E' : '#FFFFFF',
-                      color: isDark ? '#FFFFFF' : '#0F172A',
-                      border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
-                    }}
+                    aria-label="Country calling code"
+                    className="rf-auth-input rf-auth-dial-select"
                     value={dialCode}
                     onChange={e => setDialCode(e.target.value)}
                   >
@@ -456,62 +572,84 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
                     </optgroup>
                   </select>
 
-                  <input
-                    type="tel"
-                    className="rf-input"
-                    placeholder="e.g. 801 234 5678"
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                    style={{
-                      flex: 1,
-                      backgroundColor: isDark ? 'rgba(7, 22, 13, 0.92)' : '#FFFFFF',
-                      color: isDark ? '#FFFFFF' : '#0F172A',
-                      border: isDark ? '1px solid rgba(102, 187, 42, 0.35)' : '1px solid #CBD5E1'
-                    }}
-                    required
-                  />
+                  <div className="rf-auth-input-wrap" style={{ flex: 1 }}>
+                    <Phone size={16} className="rf-auth-input-icon" />
+                    <input
+                      id="rf-auth-signup-phone"
+                      type="tel"
+                      className="rf-auth-input"
+                      placeholder="801 234 5678"
+                      value={phone}
+                      onChange={e => setPhone(e.target.value)}
+                      autoComplete="tel"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="rf-btn rf-btn-primary rf-btn-lg"
-                style={{
-                  width: '100%',
-                  marginTop: '0.5rem',
-                  fontWeight: 800,
-                  background: isDark ? 'var(--rf-leaf-green)' : 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
-                  color: isDark ? '#081C10' : '#FFFFFF',
-                  boxShadow: isDark ? '0 4px 16px rgba(102, 187, 42, 0.3)' : '0 4px 16px rgba(22, 163, 74, 0.3)'
-                }}
+                disabled={submitting}
+                className="rf-auth-submit-btn"
               >
-                <UserPlus size={16} />
-                <span>Create Verified Account</span>
+                <span>{submitting ? 'Creating account...' : 'Create Verified Account'}</span>
+                <ArrowRight size={16} />
               </button>
+
+              <p className="rf-auth-legal">
+                By creating an account, you agree to Refeir&apos;s{' '}
+                <button type="button" onClick={() => onNavigate('/terms')}>
+                  Terms of Service
+                </button>{' '}
+                and{' '}
+                <button type="button" onClick={() => onNavigate('/privacy')}>
+                  Escrow &amp; Privacy Policy
+                </button>
+                .
+              </p>
             </form>
           )}
-        </div>
 
-        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-          <button
-            type="button"
-            onClick={() => onNavigate('/marketplace')}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: isDark ? 'var(--rf-slate-400)' : '#64748B',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem'
-            }}
-          >
-            ← Back to Public Marketplace
-          </button>
+          {/* Footer Switch + Back Link */}
+          <div className="rf-auth-card-footer">
+            <div>
+              {activeTab === 'LOGIN' ? (
+                <>
+                  New to Refeir?{' '}
+                  <button
+                    type="button"
+                    className="rf-auth-inline-link"
+                    onClick={() => setActiveTab('SIGNUP')}
+                  >
+                    Create a free account
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have an account?{' '}
+                  <button
+                    type="button"
+                    className="rf-auth-inline-link"
+                    onClick={() => setActiveTab('LOGIN')}
+                  >
+                    Sign in instead
+                  </button>
+                </>
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => onNavigate('/marketplace')}
+              className="rf-auth-back-btn"
+            >
+              <ArrowLeft size={14} />
+              <span>Explore Marketplace</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
