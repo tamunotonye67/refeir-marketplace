@@ -1417,7 +1417,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/subcategories/fullstack?mode=hire')}
+                            onClick={() => handleLinkClick('/marketplace?category=Engineering')}
                           >
                             <div className="rf-mega-menu-item-title">Software & Mobile Engineering</div>
                             <div className="rf-mega-menu-item-desc">Fullstack, Mobile, DevOps, and Backend engineers</div>
@@ -1425,7 +1425,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/subcategories/ai-agents?mode=hire')}
+                            onClick={() => handleLinkClick('/ai-wizards')}
                           >
                             <div className="rf-mega-menu-item-title">AI Studios & Data Science</div>
                             <div className="rf-mega-menu-item-desc">Generative Video, Autonomous Agents & LLM Engineers</div>
@@ -1433,7 +1433,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/subcategories/product-ui-ux?mode=hire')}
+                            onClick={() => handleLinkClick('/marketplace?category=Design+%26+Creative')}
                           >
                             <div className="rf-mega-menu-item-title">Design & UI/UX</div>
                             <div className="rf-mega-menu-item-desc">Product designers, Design systems, Brand architects</div>
@@ -1441,7 +1441,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/subcategories/performance-ads?mode=hire')}
+                            onClick={() => handleLinkClick('/marketplace?category=Growth+%26+Marketing')}
                           >
                             <div className="rf-mega-menu-item-title">Growth & Marketing</div>
                             <div className="rf-mega-menu-item-desc">Pan-African GTM, Performance marketers & SEO</div>
@@ -1449,7 +1449,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/subcategories/fintech-compliance?mode=hire')}
+                            onClick={() => handleLinkClick('/marketplace?category=Legal+%26+Operations')}
                           >
                             <div className="rf-mega-menu-item-title">Legal & FinTech Operations</div>
                             <div className="rf-mega-menu-item-desc">Regulatory compliance, African FinTech advisory</div>
@@ -1527,18 +1527,18 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/subcategories/fullstack?mode=scout')}
-                          >
-                            <div className="rf-mega-menu-item-title">Refer Specialty Talent (Earn 10%)</div>
-                            <div className="rf-mega-menu-item-desc">Generate instant 10% referral links across 40+ vetted specialties</div>
-                          </div>
-
-                          <div
-                            className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/dashboard/scout')}
                           >
                             <div className="rf-mega-menu-item-title">Scout Dashboard</div>
                             <div className="rf-mega-menu-item-desc">Track active referrals, conversion rates & locked rewards</div>
+                          </div>
+
+                          <div
+                            className="rf-mega-menu-item"
+                            onClick={() => handleLinkClick('/marketplace')}
+                          >
+                            <div className="rf-mega-menu-item-title">Refer a Talent to Clients</div>
+                            <div className="rf-mega-menu-item-desc">Generate one-click referral links & endorse peers</div>
                           </div>
 
                           <div
@@ -1574,24 +1574,14 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                           </p>
                         </div>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                          <button
-                            onClick={() => handleLinkClick('/subcategories/fullstack?mode=scout')}
-                            className="rf-btn rf-btn-primary rf-btn-sm"
-                            style={{ width: '100%', justifyContent: 'space-between' }}
-                          >
-                            <span>Browse Specialties to Refer</span>
-                            <ArrowRight size={14} />
-                          </button>
-                          <button
-                            onClick={() => handleLinkClick('/dashboard/scout')}
-                            className="rf-btn rf-btn-secondary rf-btn-sm"
-                            style={{ width: '100%', justifyContent: 'space-between' }}
-                          >
-                            <span>Go to Scout Hub</span>
-                            <ArrowRight size={14} />
-                          </button>
-                        </div>
+                        <button
+                          onClick={() => handleLinkClick('/dashboard/scout')}
+                          className="rf-btn rf-btn-primary rf-btn-sm"
+                          style={{ width: '100%', justifyContent: 'space-between' }}
+                        >
+                          <span>Go to Scout Hub</span>
+                          <ArrowRight size={14} />
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -1630,17 +1620,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/subcategories/fullstack?mode=talent')}
-                          >
-                            <div className="rf-mega-menu-item-title">Explore Specialty Bounties & Peers</div>
-                            <div className="rf-mega-menu-item-desc">View live client bounties, 90% payout rates & specialty benchmarks</div>
-                          </div>
-
-                          <div
-                            className="rf-mega-menu-item"
                             onClick={() => handleLinkClick('/jobs')}
                           >
-                            <div className="rf-mega-menu-item-title">Browse All Open Jobs</div>
+                            <div className="rf-mega-menu-item-title">Browse Open Jobs</div>
                             <div className="rf-mega-menu-item-desc">Explore cross-border and remote opportunities</div>
                           </div>
 
@@ -1659,6 +1641,14 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                             <div className="rf-mega-menu-item-title">Get Verified</div>
                             <div className="rf-mega-menu-item-desc">Verify your identity and portfolio for 4x hire rate</div>
                           </div>
+
+                          <div
+                            className="rf-mega-menu-item"
+                            onClick={() => handleLinkClick('/disputes')}
+                          >
+                            <div className="rf-mega-menu-item-title">Payment & Milestone Protection</div>
+                            <div className="rf-mega-menu-item-desc">Trust Vault security ensures you always get paid for approved work</div>
+                          </div>
                         </div>
                       </div>
 
@@ -1666,34 +1656,24 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                       <div className="rf-mega-menu-sidebar">
                         <div>
                           <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-leaf-green)', marginBottom: '0.5rem' }}>
-                            GET REFERRED & HIRED
+                            GET REFERRED
                           </div>
                           <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem', lineHeight: 1.3 }}>
-                            Work Globally. Keep 90%.
+                            Work Globally. Earn Fairly.
                           </h4>
                           <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', lineHeight: 1.5, marginBottom: '1rem' }}>
-                            Join thousands of skilled engineers, designers, and creators connecting with verified international clients and Scouts.
+                            Join thousands of skilled engineers, designers, and creators connecting with verified international clients.
                           </p>
                         </div>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                          <button
-                            onClick={() => handleLinkClick('/subcategories/fullstack?mode=talent')}
-                            className="rf-btn rf-btn-primary rf-btn-sm"
-                            style={{ width: '100%', justifyContent: 'space-between' }}
-                          >
-                            <span>View Specialty Bounties</span>
-                            <ArrowRight size={14} />
-                          </button>
-                          <button
-                            onClick={() => handleLinkClick('/dashboard/talent')}
-                            className="rf-btn rf-btn-secondary rf-btn-sm"
-                            style={{ width: '100%', justifyContent: 'space-between' }}
-                          >
-                            <span>Enter Talent Portal</span>
-                            <ArrowRight size={14} />
-                          </button>
-                        </div>
+                        <button
+                          onClick={() => handleLinkClick('/dashboard/talent')}
+                          className="rf-btn rf-btn-primary rf-btn-sm"
+                          style={{ width: '100%', justifyContent: 'space-between' }}
+                        >
+                          <span>Enter Talent Portal</span>
+                          <ArrowRight size={14} />
+                        </button>
                       </div>
                     </div>
                   </div>

@@ -192,30 +192,6 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
     const isVerified =
       talentToHire.verification_status === 'IDENTITY_VERIFIED' ||
       talentToHire.verification_status === 'PROFESSION_VERIFIED';
-    const estScoutReward = {
-      amount_minor: Math.max(2500, Math.round(talentToHire.starting_price.amount_minor * 0.1)),
-      currency: talentToHire.starting_price.currency,
-    };
-
-    const gateVerb =
-      role === 'SCOUT'
-        ? activeTab === 'LOGIN'
-          ? 'Sign in to refer'
-          : 'Sign up to refer'
-        : role === 'TALENT'
-          ? activeTab === 'LOGIN'
-            ? 'Sign in to join'
-            : 'Join Refeir with'
-          : activeTab === 'LOGIN'
-            ? 'Sign in to contact'
-            : 'Sign up to contact';
-
-    const stepThreeLabel =
-      role === 'SCOUT'
-        ? `Refer ${firstName} & earn 10%`
-        : role === 'TALENT'
-          ? 'Get verified & hired'
-          : `Contact ${firstName}`;
 
     return (
       <section className="rf-contact-gate">
@@ -231,41 +207,7 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
           </div>
 
           <div className="rf-contact-gate-body">
-            {/* Compact 3-Role Switcher Pills (Client / Scout / Talent) */}
-            <div className="rf-contact-role-pills" role="tablist" aria-label="Choose your journey">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={role === 'CLIENT'}
-                className={`rf-contact-role-pill${role === 'CLIENT' ? ' is-active' : ''}`}
-                onClick={() => setRole('CLIENT')}
-              >
-                <Briefcase size={13} />
-                <span>Hire Talent</span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={role === 'SCOUT'}
-                className={`rf-contact-role-pill${role === 'SCOUT' ? ' is-active' : ''}`}
-                onClick={() => setRole('SCOUT')}
-              >
-                <Compass size={13} />
-                <span>Scout &amp; Earn 10%</span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={role === 'TALENT'}
-                className={`rf-contact-role-pill${role === 'TALENT' ? ' is-active' : ''}`}
-                onClick={() => setRole('TALENT')}
-              >
-                <Award size={13} />
-                <span>Work as Talent</span>
-              </button>
-            </div>
-
-            {/* Back arrow + "Sign up to contact/refer [Avatar Name]" */}
+            {/* Back arrow + "Sign up to contact [Avatar Name]" */}
             <div className="rf-contact-gate-title-row">
               <button
                 type="button"
@@ -283,7 +225,7 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
               </button>
 
               <h1 className="rf-contact-gate-heading">
-                <span>{gateVerb}</span>
+                <span>{activeTab === 'LOGIN' ? 'Sign in to contact' : 'Sign up to contact'}</span>
                 <span className="rf-contact-talent-chip">
                   <img src={talentToHire.avatar_url} alt={talentToHire.full_name} />
                   <span>{shortName}</span>
@@ -302,12 +244,12 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
               <span className="rf-contact-step-line" />
               <div className="rf-contact-step">
                 <span className="rf-contact-step-badge">2</span>
-                <span>{role === 'SCOUT' ? 'Get referral link' : 'Set up your profile'}</span>
+                <span>Set up your profile</span>
               </div>
               <span className="rf-contact-step-line" />
               <div className="rf-contact-step">
                 <span className="rf-contact-step-badge">3</span>
-                <span>{stepThreeLabel}</span>
+                <span>Contact {firstName}</span>
               </div>
             </div>
 
@@ -491,38 +433,16 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
                 )}
               </div>
               <div>
-                {role === 'SCOUT' ? (
-                  <>
-                    Looking to hire instead?{' '}
-                    <button type="button" onClick={() => setRole('CLIENT')}>
-                      Hire as a client
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    Want to refer &amp; earn 10%?{' '}
-                    <button type="button" onClick={() => setRole('SCOUT')}>
-                      Refer as a Scout
-                    </button>
-                  </>
-                )}
-              </div>
-              <div>
-                {role === 'TALENT' ? (
-                  <>
-                    Hiring for a project?{' '}
-                    <button type="button" onClick={() => setRole('CLIENT')}>
-                      Switch to Client
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    Looking for work?{' '}
-                    <button type="button" onClick={() => setRole('TALENT')}>
-                      Apply as a talent
-                    </button>
-                  </>
-                )}
+                Looking for work?{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setRole('TALENT');
+                    onNavigate('/signup?role=TALENT');
+                  }}
+                >
+                  Apply as a talent
+                </button>
               </div>
             </div>
           </div>
@@ -579,12 +499,8 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
                 <span>Starting Rate</span>
               </div>
               <div>
-                <strong>
-                  {role === 'SCOUT'
-                    ? `${formatMoney(estScoutReward)}+`
-                    : talentToHire.completed_projects}
-                </strong>
-                <span>{role === 'SCOUT' ? '10% Scout Reward' : 'Jobs done'}</span>
+                <strong>{talentToHire.completed_projects}</strong>
+                <span>Jobs done</span>
               </div>
             </div>
 
@@ -596,13 +512,6 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
                 <Star key={i} size={20} className="rf-contact-star-icon" />
               ))}
             </div>
-
-            {role === 'SCOUT' && (
-              <div className="rf-contact-scout-pill">
-                <Compass size={13} />
-                <span>Earn 10% lifetime commission on every milestone</span>
-              </div>
-            )}
           </div>
         </div>
       </section>

@@ -677,18 +677,6 @@ export const App: React.FC = () => {
     basePath === '/' ||
     basePath === '/subcategories' ||
     basePath.startsWith('/subcategories/') ||
-    basePath === '/marketplace' ||
-    basePath === '/jobs' ||
-    basePath === '/scout-sourcing' ||
-    basePath === '/scouting' ||
-    basePath === '/how-scouting-works' ||
-    basePath === '/ai-wizards' ||
-    basePath === '/pricing' ||
-    basePath === '/business' ||
-    basePath === '/agencies' ||
-    basePath === '/countries' ||
-    basePath.startsWith('/countries/') ||
-    basePath.startsWith('/africa/') ||
     basePath === '/why-refeir' ||
     basePath === '/about' ||
     basePath === '/blog' ||

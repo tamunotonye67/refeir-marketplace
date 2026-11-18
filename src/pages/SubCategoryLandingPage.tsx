@@ -15,13 +15,8 @@ import {
   CreditCard,
   CheckCircle2,
   Cpu,
-  Compass,
-  Award,
-  Share2,
 } from 'lucide-react';
 import { useMarketplace } from '../context/MarketplaceContext';
-import { useAuth } from '../context/AuthContext';
-import { ReferModal } from '../components/referral/ReferModal';
 import { TalentProfile } from '../types';
 import { formatMoney } from '../data/currencies';
 import { TALENT_SUB_CATEGORIES, TalentSubCategory } from '../data/subCategories';
@@ -452,25 +447,9 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
   onSelectTalent,
 }) => {
   const { talentList } = useMarketplace();
-  const { currentUser } = useAuth();
   const [visibleCount, setVisibleCount] = useState(4);
   const [expandedFaqs, setExpandedFaqs] = useState<Record<number, boolean>>({});
-  const [referTalent, setReferTalent] = useState<TalentProfile | null>(null);
   const testimonialTrackRef = useRef<HTMLDivElement>(null);
-
-  const getInitialMode = (): 'HIRE' | 'SCOUT' | 'TALENT' => {
-    if (typeof window !== 'undefined') {
-      const modeParam = new URLSearchParams(window.location.search).get('mode')?.toUpperCase();
-      if (modeParam === 'SCOUT') return 'SCOUT';
-      if (modeParam === 'TALENT') return 'TALENT';
-      if (modeParam === 'HIRE' || modeParam === 'CLIENT') return 'HIRE';
-    }
-    if (currentUser?.active_role === 'SCOUT') return 'SCOUT';
-    if (currentUser?.active_role === 'TALENT') return 'TALENT';
-    return 'HIRE';
-  };
-
-  const [journeyMode, setJourneyMode] = useState<'HIRE' | 'SCOUT' | 'TALENT'>(getInitialMode);
 
   const resolved = useMemo(() => resolveSubCategory(subCategoryId), [subCategoryId]);
   const { categoryName, categoryQuery, sub, singularRole } = resolved;
@@ -479,16 +458,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setVisibleCount(4);
     setExpandedFaqs({});
-    setJourneyMode(getInitialMode());
   }, [subCategoryId]);
-
-  const handleReferClick = (talent: TalentProfile) => {
-    if (currentUser) {
-      setReferTalent(talent);
-    } else {
-      onNavigate(`/talent/${talent.id}?intent=scout`);
-    }
-  };
 
   const categorySubs = TALENT_SUB_CATEGORIES[categoryName] || [];
   const categoryKeywords = useMemo(
@@ -532,78 +502,12 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
   const secondaryKeyword = sub.keywords[1] || categoryName;
   const tertiaryKeyword = sub.keywords[2] || 'scalable systems';
 
-  // Open specialty contracts shown in TALENT mode
-  const openSpecialtyJobs = useMemo(
-    () => [
-      {
-        id: `job-${sub.id}-1`,
-        title: `Senior ${singularRole} — Milestone Delivery`,
-        company: 'Emerald FinTech Labs (London / Lagos)',
-        budget: '$2,400–$4,800',
-        scoutBounty: '$240–$480 Scout Bonus',
-        duration: '4–6 weeks · Milestone Escrow',
-        skills: [primaryKeyword, secondaryKeyword, tertiaryKeyword].map(s =>
-          s.replace(/\b\w/g, c => c.toUpperCase())
-        ),
-        summary: `Seeking a verified ${singularRole.toLowerCase()} to lead our ${primaryKeyword} sprint with weekly milestone payouts via Trust Vault.`,
-      },
-      {
-        id: `job-${sub.id}-2`,
-        title: `${sub.name} Lead for Cross-Border Product`,
-        company: 'Kora Growth Ventures (Nairobi / Remote)',
-        budget: '$1,500–$3,200',
-        scoutBounty: '$150–$320 Scout Bonus',
-        duration: '3–4 weeks · Milestone Escrow',
-        skills: sub.keywords
-          .slice(0, 3)
-          .map(s => s.replace(/\b\w/g, c => c.toUpperCase())),
-        summary: `Collaborate with our product and engineering team to ship production-ready ${primaryKeyword} workflows and documentation.`,
-      },
-      {
-        id: `job-${sub.id}-3`,
-        title: `Contract ${singularRole} (Ongoing Retainer)`,
-        company: 'Sahara Cloud Systems (Cape Town / Remote)',
-        budget: '$1,200/mo',
-        scoutBounty: '$120/mo Recurring Scout Bonus',
-        duration: 'Ongoing monthly · Trust Vault',
-        skills: [secondaryKeyword, primaryKeyword, 'Quality Assurance'].map(s =>
-          s.replace(/\b\w/g, c => c.toUpperCase())
-        ),
-        summary: `Dedicated weekly retainer for a vetted ${singularRole.toLowerCase()} to optimize performance, ship iterations, and maintain high reliability.`,
-      },
-      {
-        id: `job-${sub.id}-4`,
-        title: `Rapid ${singularRole} Audit & Optimization`,
-        company: 'Paystack Ecosystem Partner (Accra / Remote)',
-        budget: '$650–$1,100',
-        scoutBounty: '$65–$110 Scout Bonus',
-        duration: '1–2 weeks · Instant Payout',
-        skills: [primaryKeyword, tertiaryKeyword, 'Audit'].map(s =>
-          s.replace(/\b\w/g, c => c.toUpperCase())
-        ),
-        summary: `Fast-turnaround audit and optimization engagement with pre-funded escrow milestone ready for immediate kickoff.`,
-      },
-    ],
-    [sub.id, sub.name, sub.keywords, singularRole, primaryKeyword, secondaryKeyword, tertiaryKeyword]
-  );
-
   const costTiers = useMemo(
     () => [
       {
         title: `Targeted ${singularRole.toLowerCase()} audit or sprint fix`,
         level: 'Entry to intermediate',
-        price:
-          journeyMode === 'SCOUT'
-            ? '$30–$110'
-            : journeyMode === 'TALENT'
-              ? '$270–$990'
-              : '$300–$1,100',
-        unit:
-          journeyMode === 'SCOUT'
-            ? '10% Scout reward'
-            : journeyMode === 'TALENT'
-              ? '90% net payout'
-              : '/project',
+        price: '$300–$1,100',
         bullets: [
           `Focused ${primaryKeyword} deliverable or module refinement`,
           'Bug fixes, optimization, and quality assurance review',
@@ -613,18 +517,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
       {
         title: `Core ${singularRole.toLowerCase()} project build`,
         level: 'Intermediate',
-        price:
-          journeyMode === 'SCOUT'
-            ? '$120–$450'
-            : journeyMode === 'TALENT'
-              ? '$1,080–$4,050'
-              : '$1,200–$4,500',
-        unit:
-          journeyMode === 'SCOUT'
-            ? '10% Scout reward'
-            : journeyMode === 'TALENT'
-              ? '90% net payout'
-              : '/project',
+        price: '$1,200–$4,500',
         bullets: [
           `End-to-end ${primaryKeyword} and ${secondaryKeyword} implementation`,
           'Structured architecture, documentation, and handoff',
@@ -634,18 +527,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
       {
         title: `Full-scale production delivery & integration`,
         level: 'Intermediate to expert',
-        price:
-          journeyMode === 'SCOUT'
-            ? '$200–$800'
-            : journeyMode === 'TALENT'
-              ? '$1,800–$7,200'
-              : '$2,000–$8,000',
-        unit:
-          journeyMode === 'SCOUT'
-            ? '10% Scout reward'
-            : journeyMode === 'TALENT'
-              ? '90% net payout'
-              : '/project',
+        price: '$2,000–$8,000',
         bullets: [
           `Complete production-grade ${sub.name.toLowerCase()} engagement`,
           `Integration with ${tertiaryKeyword}, APIs, and cross-functional workflows`,
@@ -655,18 +537,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
       {
         title: `Legacy modernization & performance overhaul`,
         level: 'Intermediate to expert',
-        price:
-          journeyMode === 'SCOUT'
-            ? '$160–$600'
-            : journeyMode === 'TALENT'
-              ? '$1,440–$5,400'
-              : '$1,600–$6,000',
-        unit:
-          journeyMode === 'SCOUT'
-            ? '10% Scout reward'
-            : journeyMode === 'TALENT'
-              ? '90% net payout'
-              : '/project',
+        price: '$1,600–$6,000',
         bullets: [
           `Migration and upgrade to modern ${primaryKeyword} best practices`,
           'Performance benchmarking and bottleneck elimination',
@@ -676,18 +547,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
       {
         title: `Ongoing retainer, maintenance & support`,
         level: 'Any level',
-        price:
-          journeyMode === 'SCOUT'
-            ? '$40–$150/mo'
-            : journeyMode === 'TALENT'
-              ? '$360–$1,350/mo'
-              : '$400–$1,500',
-        unit:
-          journeyMode === 'SCOUT'
-            ? 'recurring Scout reward'
-            : journeyMode === 'TALENT'
-              ? 'recurring payout'
-              : '/project',
+        price: '$400–$1,500',
         bullets: [
           'Continuous feature enhancements and iteration cycles',
           'Proactive monitoring, updates, and rapid incident response',
@@ -695,61 +555,11 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         ],
       },
     ],
-    [singularRole, sub.name, primaryKeyword, secondaryKeyword, tertiaryKeyword, journeyMode]
+    [singularRole, sub.name, primaryKeyword, secondaryKeyword, tertiaryKeyword]
   );
 
-  const faqs = useMemo(() => {
-    if (journeyMode === 'SCOUT') {
-      return [
-        {
-          q: `How do I earn 10% referring ${sub.name} on Refeir?`,
-          short: `Click "Refer & Earn 10%" on any ${singularRole.toLowerCase()} profile to generate your unique tracked referral link and share it with a client.`,
-          more: ` When the client hires that specialist, Refeir automatically locks 10% of every milestone payout to your Scout Trust Vault wallet for the lifetime of the contract.`,
-        },
-        {
-          q: `When are Scout commissions released?`,
-          short: `Your 10% Scout commission is released automatically the exact moment a client approves a milestone deliverable in Trust Vault.`,
-          more: ` There is no manual invoicing or chasing payments — funds appear immediately in your multi-currency wallet ready for withdrawal in USD, NGN, KES, GHS, ZAR, or Mobile Money.`,
-        },
-        {
-          q: `Can I refer ${sub.name} who aren't on Refeir yet?`,
-          short: `Yes! You can invite external specialists from your network using your Scout invite link and earn commissions on every contract they win.`,
-          more: ` Once your invited specialist completes verification and lands client milestones, your Scout attribution is permanently recorded on-chain in our ledger.`,
-        },
-        {
-          q: `Is there a cap on how much a Scout can earn?`,
-          short: `No — there is zero cap on Scout referral rewards. You earn 10% across initial sprints, follow-on milestones, and monthly retainers.`,
-          more: ` Top Refeir Scouts build recurring income streams by matching high-demand ${sub.name.toLowerCase()} with international startups and enterprise teams.`,
-        },
-      ];
-    }
-
-    if (journeyMode === 'TALENT') {
-      return [
-        {
-          q: `How do ${sub.name} get hired faster on Refeir?`,
-          short: `Complete your identity and portfolio verification, showcase your top ${primaryKeyword} case studies, and let Refeir Scouts actively pitch your profile to clients.`,
-          more: ` Because Scouts earn a 10% reward when you land a contract, hundreds of industry connectors across Africa and the diaspora are incentivized to bring you warm client leads.`,
-        },
-        {
-          q: `How are my milestone payments protected as a ${singularRole}?`,
-          short: `Every client must fund milestone escrow in the Refeir Trust Vault before you begin work, guaranteeing the money is locked and verified.`,
-          more: ` Once you submit your deliverable and the client approves the milestone, 90% is credited immediately to your wallet with zero payment delays.`,
-        },
-        {
-          q: `Which currencies can I withdraw my earnings in?`,
-          short: `You can hold and withdraw your earnings in USD, EUR, GBP, NGN, KES, GHS, ZAR, RWF, EGP, or local bank and Mobile Money rails.`,
-          more: ` Refeir handles cross-border FX settlement automatically so you can work with global clients and cash out locally in minutes.`,
-        },
-        {
-          q: `Can I also refer other specialists when my schedule is full?`,
-          short: `Yes! Every Talent account on Refeir can switch to Scout mode with one click to refer peers and earn a 10% commission on overflow projects.`,
-          more: ` Never let a good client lead go to waste — refer a trusted colleague in ${sub.name.toLowerCase()} and earn passive milestone rewards.`,
-        },
-      ];
-    }
-
-    return [
+  const faqs = useMemo(
+    () => [
       {
         q: `Is hiring a ${singularRole} on Refeir worth it?`,
         short: `Yes, hiring a vetted ${singularRole} on Refeir is worth it when your team needs reliable execution, domain expertise in ${primaryKeyword}, and milestone escrow protection.`,
@@ -775,8 +585,9 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         short: `All engagements on Refeir are backed by Milestone Payment Protection. You fund milestones upfront in your preferred currency, and funds are only released when you approve the work.`,
         more: ` If scope changes or questions arise, Refeir’s workspace audit logs and dispute mediation team ensure fair, transparent resolution for both clients and talent.`,
       },
-    ];
-  }, [singularRole, sub.name, sub.keywords, primaryKeyword, journeyMode]);
+    ],
+    [singularRole, sub.name, sub.keywords, primaryKeyword]
+  );
 
   const similarSkills = useMemo(() => {
     const allSubs = Object.values(TALENT_SUB_CATEGORIES).flat();
@@ -802,70 +613,15 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
     });
   };
 
-  const heroHeading =
-    journeyMode === 'SCOUT'
-      ? `Refer ${sub.name} & Earn 10%`
-      : journeyMode === 'TALENT'
-        ? `Find ${singularRole} Jobs & Contracts`
-        : `Hire the Best ${sub.name}`;
-
-  const heroRatingLabel =
-    journeyMode === 'SCOUT'
-      ? `Scouts rate ${sub.name} referral payouts`
-      : journeyMode === 'TALENT'
-        ? `${sub.name} rate Refeir Milestone Escrow`
-        : `Clients rate our ${sub.name}`;
-
-  const heroSubText =
-    journeyMode === 'SCOUT'
-      ? `Guaranteed 10% lifetime commission across ${reviewStats.reviews} completed milestones`
-      : journeyMode === 'TALENT'
-        ? `Keep 90% of every milestone · Instant payouts across 54 African nations`
-        : `Based on ${reviewStats.reviews} client reviews`;
-
   return (
     <div className="rf-subcat-journey-page">
-      {/* 1. HERO HEADER + ROLE JOURNEY SWITCHER + RATING + PRIMARY CTA */}
+      {/* 1. HERO HEADER + RATING + PRIMARY CTA */}
       <section className="rf-sj-hero">
         <div className="rf-sj-container">
-          {/* 3-Role Journey Switcher (Client / Scout / Talent) */}
-          <div className="rf-sj-mode-switcher" role="tablist" aria-label="Select your Refeir journey">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={journeyMode === 'HIRE'}
-              className={`rf-sj-mode-pill${journeyMode === 'HIRE' ? ' is-active' : ''}`}
-              onClick={() => setJourneyMode('HIRE')}
-            >
-              <Briefcase size={14} />
-              <span>Hire Talent</span>
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={journeyMode === 'SCOUT'}
-              className={`rf-sj-mode-pill${journeyMode === 'SCOUT' ? ' is-active' : ''}`}
-              onClick={() => setJourneyMode('SCOUT')}
-            >
-              <Compass size={14} />
-              <span>Scout &amp; Earn 10%</span>
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={journeyMode === 'TALENT'}
-              className={`rf-sj-mode-pill${journeyMode === 'TALENT' ? ' is-active' : ''}`}
-              onClick={() => setJourneyMode('TALENT')}
-            >
-              <Award size={14} />
-              <span>Work as Talent</span>
-            </button>
-          </div>
-
-          <h1 className="rf-sj-hero-title">{heroHeading}</h1>
+          <h1 className="rf-sj-hero-title">Hire the Best {sub.name}</h1>
 
           <div className="rf-sj-hero-rating">
-            <span className="rf-sj-rating-label">{heroRatingLabel}</span>
+            <span className="rf-sj-rating-label">Clients rate our {sub.name}</span>
             <span className="rf-sj-stars" aria-label={`${reviewStats.rating} out of 5 stars`}>
               {[0, 1, 2, 3, 4].map(i => (
                 <Star key={i} size={17} className="rf-sj-star" />
@@ -874,72 +630,19 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
             <strong className="rf-sj-rating-score">{reviewStats.rating}/5</strong>
           </div>
 
-          <p className="rf-sj-hero-sub">{heroSubText}</p>
+          <p className="rf-sj-hero-sub">Based on {reviewStats.reviews} client reviews</p>
 
-          <div className="rf-sj-hero-cta-row">
-            {journeyMode === 'SCOUT' ? (
-              <>
-                <button
-                  type="button"
-                  className="rf-sj-primary-btn"
-                  onClick={() =>
-                    onNavigate(currentUser ? '/dashboard/scout' : '/signup?role=SCOUT')
-                  }
-                >
-                  Start Scouting &amp; Earning 10%
-                </button>
-                <button
-                  type="button"
-                  className="rf-sj-secondary-btn"
-                  onClick={() => onNavigate('/scout-sourcing')}
-                >
-                  How Scouting Works
-                </button>
-              </>
-            ) : journeyMode === 'TALENT' ? (
-              <>
-                <button
-                  type="button"
-                  className="rf-sj-primary-btn"
-                  onClick={() =>
-                    onNavigate(currentUser ? '/jobs' : '/signup?role=TALENT')
-                  }
-                >
-                  Apply as a {singularRole}
-                </button>
-                <button
-                  type="button"
-                  className="rf-sj-secondary-btn"
-                  onClick={() => onNavigate('/jobs')}
-                >
-                  Browse All Open Jobs
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  className="rf-sj-primary-btn"
-                  onClick={() =>
-                    onNavigate(currentUser ? '/jobs' : '/signup?role=CLIENT')
-                  }
-                >
-                  Hire specialists
-                </button>
-                <button
-                  type="button"
-                  className="rf-sj-secondary-btn"
-                  onClick={() => setJourneyMode('SCOUT')}
-                >
-                  Refer a {singularRole} (Earn 10%)
-                </button>
-              </>
-            )}
-          </div>
+          <button
+            type="button"
+            className="rf-sj-primary-btn"
+            onClick={() => onNavigate(`/signup?role=CLIENT`)}
+          >
+            Hire specialists
+          </button>
         </div>
       </section>
 
-      {/* 2. BREADCRUMB + ROLE-AWARE SHOWCASE GRID */}
+      {/* 2. BREADCRUMB + 2-COLUMN TALENT SHOWCASE GRID */}
       <section className="rf-sj-section">
         <div className="rf-sj-container">
           <nav className="rf-sj-breadcrumbs" aria-label="Breadcrumb">
@@ -965,86 +668,6 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
             <span className="rf-sj-crumb-current">{sub.name}</span>
           </nav>
 
-          {/* TALENT MODE: Open Client Bounties & Contracts in this Specialty */}
-          {journeyMode === 'TALENT' && (
-            <div className="rf-sj-bounties-wrap">
-              <div className="rf-sj-bounties-head">
-                <div>
-                  <span className="rf-sj-bounties-eyebrow">LIVE ESCROW CONTRACTS</span>
-                  <h2 className="rf-sj-bounties-title">
-                    Open {sub.name} Jobs &amp; Client Bounties
-                  </h2>
-                </div>
-                <button
-                  type="button"
-                  className="rf-sj-outline-pill-btn"
-                  onClick={() => onNavigate('/jobs')}
-                >
-                  View all open jobs
-                </button>
-              </div>
-
-              <div className="rf-sj-talent-grid">
-                {openSpecialtyJobs.map(job => (
-                  <article key={job.id} className="rf-sj-talent-card rf-sj-job-card">
-                    <div className="rf-sj-job-top">
-                      <div>
-                        <span className="rf-sj-job-badge">
-                          <ShieldCheck size={13} /> Escrow Funded
-                        </span>
-                        <h3 className="rf-sj-job-title">{job.title}</h3>
-                        <p className="rf-sj-job-company">{job.company}</p>
-                      </div>
-                      <div className="rf-sj-job-budget">
-                        <strong>{job.budget}</strong>
-                        <span>{job.duration}</span>
-                      </div>
-                    </div>
-
-                    <p className="rf-sj-talent-bio">{job.summary}</p>
-
-                    <div className="rf-sj-skill-row">
-                      {job.skills.map(skill => (
-                        <span key={skill} className="rf-sj-skill-pill">
-                          {skill}
-                        </span>
-                      ))}
-                      <span className="rf-sj-scout-bonus-pill">
-                        <Compass size={12} /> {job.scoutBounty}
-                      </span>
-                    </div>
-
-                    <div className="rf-sj-job-actions">
-                      <button
-                        type="button"
-                        className="rf-sj-view-profile-btn"
-                        onClick={() =>
-                          onNavigate(currentUser ? '/jobs' : '/signup?role=TALENT')
-                        }
-                      >
-                        Apply for Role
-                      </button>
-                      <button
-                        type="button"
-                        className="rf-sj-refer-inline-btn"
-                        onClick={() =>
-                          onNavigate(currentUser ? '/dashboard/scout' : '/signup?role=SCOUT')
-                        }
-                      >
-                        <Share2 size={13} />
-                        <span>Refer a Peer (10%)</span>
-                      </button>
-                    </div>
-                  </article>
-                ))}
-              </div>
-
-              <h3 className="rf-sj-peers-heading">
-                Top Verified {sub.name} Earning on Refeir
-              </h3>
-            </div>
-          )}
-
           {/* 2-Column Talent Cards */}
           <div className="rf-sj-talent-grid">
             {displayedTalents.map(talent => {
@@ -1056,7 +679,6 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                 12,
                 Math.round((talent.completed_projects * talent.starting_price.amount_minor) / 100000) * 5
               );
-              const scoutReward = Math.max(25, Math.round(talent.starting_price.amount_minor / 1000));
 
               return (
                 <article key={talent.id} className="rf-sj-talent-card">
@@ -1086,45 +708,13 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="rf-sj-card-cta-col">
-                      {journeyMode === 'SCOUT' ? (
-                        <>
-                          <button
-                            type="button"
-                            className="rf-sj-view-profile-btn"
-                            onClick={() => handleReferClick(talent)}
-                          >
-                            Refer &amp; Earn 10%
-                          </button>
-                          <button
-                            type="button"
-                            className="rf-sj-refer-inline-btn"
-                            onClick={() => onSelectTalent(talent)}
-                          >
-                            View profile
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <button
-                            type="button"
-                            className="rf-sj-view-profile-btn"
-                            onClick={() => onSelectTalent(talent)}
-                          >
-                            View profile
-                          </button>
-                          <button
-                            type="button"
-                            className="rf-sj-refer-inline-btn"
-                            onClick={() => handleReferClick(talent)}
-                            title="Refer this specialist and earn 10% on every milestone"
-                          >
-                            <Compass size={12} />
-                            <span>Refer (10%)</span>
-                          </button>
-                        </>
-                      )}
-                    </div>
+                    <button
+                      type="button"
+                      className="rf-sj-view-profile-btn"
+                      onClick={() => onSelectTalent(talent)}
+                    >
+                      View profile
+                    </button>
                   </div>
 
                   {/* Stats Line */}
@@ -1141,10 +731,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                       {talent.completed_projects} jobs
                     </span>
                     <span className="rf-sj-metric-item">
-                      <Wallet size={13} />${totalEarnedK}K+ earned
-                    </span>
-                    <span className="rf-sj-scout-bonus-pill">
-                      <Compass size={12} /> Scout 10%: ${scoutReward}+/milestone
+                      <Wallet size={13} />${totalEarnedK}K+ total earnings
                     </span>
                   </div>
 
@@ -1191,156 +778,56 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* 3. HOW IT WORKS (4-COLUMN STEP ROW ADAPTED TO ACTIVE ROLE) */}
+      {/* 3. HOW IT WORKS (4-COLUMN STEP ROW) */}
       <section className="rf-sj-section">
         <div className="rf-sj-container">
-          <h2 className="rf-sj-section-title">
-            {journeyMode === 'SCOUT'
-              ? `How Scouting ${sub.name} Works`
-              : journeyMode === 'TALENT'
-                ? `How ${sub.name} Win Contracts on Refeir`
-                : 'How it works'}
-          </h2>
+          <h2 className="rf-sj-section-title">How it works</h2>
 
-          {journeyMode === 'SCOUT' ? (
-            <div className="rf-sj-how-grid">
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <Compass size={28} />
-                </div>
-                <h3>1. Pick a vetted specialist</h3>
-                <p>
-                  Browse verified {sub.name.toLowerCase()} above or invite a trusted specialist
-                  from your own professional network.
-                </p>
+          <div className="rf-sj-how-grid">
+            <div className="rf-sj-how-item">
+              <div className="rf-sj-how-illus">
+                <FileText size={28} />
               </div>
-
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <Share2 size={28} />
-                </div>
-                <h3>2. Share your referral link</h3>
-                <p>
-                  Generate a one-click tracked referral link and introduce the specialist to a
-                  founder, hiring manager, or client.
-                </p>
-              </div>
-
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <ShieldCheck size={28} />
-                </div>
-                <h3>3. Lock 10% attribution</h3>
-                <p>
-                  Refeir’s Trust Vault permanently locks your 10% Scout attribution across every
-                  milestone and retainer the client funds.
-                </p>
-              </div>
-
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <Wallet size={28} />
-                </div>
-                <h3>4. Instant multi-currency payouts</h3>
-                <p>
-                  Receive 10% automatically in your wallet the moment each milestone is approved —
-                  withdraw in USD, NGN, KES, GHS, or Mobile Money.
-                </p>
-              </div>
+              <h3>Post a job for free</h3>
+              <p>
+                Tell us what you need. Create your own project brief or generate one with our
+                AI Wizard, then filter vetted {sub.name.toLowerCase()} matches.
+              </p>
             </div>
-          ) : journeyMode === 'TALENT' ? (
-            <div className="rf-sj-how-grid">
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <UserCheck size={28} />
-                </div>
-                <h3>1. Complete verified profile</h3>
-                <p>
-                  Showcase your {primaryKeyword} portfolio, pass rapid identity &amp; skill
-                  verification, and set your milestone rates.
-                </p>
-              </div>
 
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <Compass size={28} />
-                </div>
-                <h3>2. Get endorsed by Scouts</h3>
-                <p>
-                  Industry Scouts across Africa and the diaspora pitch your profile directly to
-                  international clients looking for {sub.name.toLowerCase()}.
-                </p>
+            <div className="rf-sj-how-item">
+              <div className="rf-sj-how-illus">
+                <UserCheck size={28} />
               </div>
-
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <ShieldCheck size={28} />
-                </div>
-                <h3>3. Deliver in Trust Vault</h3>
-                <p>
-                  Never start work unpaid. Clients pre-fund every milestone in Refeir Escrow before
-                  you write a line of code or design.
-                </p>
-              </div>
-
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <CreditCard size={28} />
-                </div>
-                <h3>4. Keep 90% with instant payouts</h3>
-                <p>
-                  Withdraw your earnings immediately upon milestone approval in USD, GBP, EUR, NGN,
-                  KES, GHS, ZAR, or Mobile Money.
-                </p>
-              </div>
+              <h3>Hire top talent fast</h3>
+              <p>
+                Consult, interview, and hire quickly, so you can onboard the{' '}
+                {sub.name.toLowerCase()} you’re excited to build with.
+              </p>
             </div>
-          ) : (
-            <div className="rf-sj-how-grid">
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <FileText size={28} />
-                </div>
-                <h3>Post a job for free</h3>
-                <p>
-                  Tell us what you need. Create your own project brief or generate one with our
-                  AI Wizard, then filter vetted {sub.name.toLowerCase()} matches.
-                </p>
-              </div>
 
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <UserCheck size={28} />
-                </div>
-                <h3>Hire top talent fast</h3>
-                <p>
-                  Consult, interview, and hire quickly, so you can onboard the{' '}
-                  {sub.name.toLowerCase()} you’re excited to build with.
-                </p>
+            <div className="rf-sj-how-item">
+              <div className="rf-sj-how-illus">
+                <MessageSquare size={28} />
               </div>
-
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <MessageSquare size={28} />
-                </div>
-                <h3>Collaborate easily</h3>
-                <p>
-                  Use Refeir Workspace to chat, share deliverables, and track milestone progress
-                  in one encrypted place.
-                </p>
-              </div>
-
-              <div className="rf-sj-how-item">
-                <div className="rf-sj-how-illus">
-                  <CreditCard size={28} />
-                </div>
-                <h3>Payment simplified</h3>
-                <p>
-                  Manage multi-currency escrow in one place with flexible billing options. Only
-                  release funds for approved work.
-                </p>
-              </div>
+              <h3>Collaborate easily</h3>
+              <p>
+                Use Refeir Workspace to chat, share deliverables, and track milestone progress
+                in one encrypted place.
+              </p>
             </div>
-          )}
+
+            <div className="rf-sj-how-item">
+              <div className="rf-sj-how-illus">
+                <CreditCard size={28} />
+              </div>
+              <h3>Payment simplified</h3>
+              <p>
+                Manage multi-currency escrow in one place with flexible billing options. Only
+                release funds for approved work.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1391,16 +878,10 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* 5. RESOURCES TO HELP YOU HIRE / SCOUT / SUCCEED */}
+      {/* 5. RESOURCES TO HELP YOU HIRE */}
       <section className="rf-sj-section">
         <div className="rf-sj-container">
-          <h2 className="rf-sj-section-title">
-            {journeyMode === 'SCOUT'
-              ? `Resources for ${sub.name} Scouts`
-              : journeyMode === 'TALENT'
-                ? `Resources for ${sub.name}`
-                : 'Resources to help you hire'}
-          </h2>
+          <h2 className="rf-sj-section-title">Resources to help you hire</h2>
 
           <div className="rf-sj-resources-grid">
             <a href="#cost-guide" className="rf-sj-resource-card">
@@ -1411,19 +892,10 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                   loading="lazy"
                 />
               </div>
-              <h3>
-                {journeyMode === 'SCOUT'
-                  ? `10% Scout commission calculator for ${sub.name}`
-                  : journeyMode === 'TALENT'
-                    ? `${singularRole} milestone rate benchmarks`
-                    : `Cost to hire a ${singularRole}`}
-              </h3>
+              <h3>Cost to hire a {singularRole}</h3>
               <p>
-                {journeyMode === 'SCOUT'
-                  ? `See how much you earn in 10% referral rewards when matching ${sub.name.toLowerCase()}.`
-                  : journeyMode === 'TALENT'
-                    ? `Explore what top ${sub.name.toLowerCase()} charge per sprint and retainer on Refeir.`
-                    : `Explore typical ${singularRole} rates and what businesses invest to hire top specialists.`}
+                Explore typical {singularRole} rates and what businesses invest to hire top
+                specialists.
               </p>
             </a>
 
@@ -1435,19 +907,9 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                   loading="lazy"
                 />
               </div>
-              <h3>
-                {journeyMode === 'SCOUT'
-                  ? `How to pitch ${sub.name} to global founders`
-                  : journeyMode === 'TALENT'
-                    ? `Winning ${singularRole} portfolio playbook`
-                    : `${singularRole} job description template`}
-              </h3>
+              <h3>{singularRole} job description template</h3>
               <p>
-                {journeyMode === 'SCOUT'
-                  ? `Proven outreach templates to connect ${sub.name.toLowerCase()} with funded startups.`
-                  : journeyMode === 'TALENT'
-                    ? `Structure your case studies and skills so Scouts and clients shortlist you first.`
-                    : `Get practical steps to write a project brief that attracts qualified ${sub.name}.`}
+                Get practical steps to write a project brief that attracts qualified {sub.name}.
               </p>
             </a>
 
@@ -1459,19 +921,9 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                   loading="lazy"
                 />
               </div>
-              <h3>
-                {journeyMode === 'SCOUT'
-                  ? `Vetting checklist for ${sub.name}`
-                  : journeyMode === 'TALENT'
-                    ? `Acing your ${singularRole} discovery call`
-                    : `${singularRole} interview questions`}
-              </h3>
+              <h3>{singularRole} interview questions</h3>
               <p>
-                {journeyMode === 'SCOUT'
-                  ? `How to verify domain mastery before endorsing a ${singularRole.toLowerCase()}.`
-                  : journeyMode === 'TALENT'
-                    ? `Key technical and architecture questions clients ask ${sub.name.toLowerCase()}.`
-                    : `Top evaluation questions to help you hire the right ${sub.name}, faster.`}
+                Top evaluation questions to help you hire the right {sub.name}, faster.
               </p>
             </a>
           </div>
@@ -1626,43 +1078,17 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* 7. COST / COMMISSION / EARNINGS BREAKDOWN TABLE */}
+      {/* 7. COST BREAKDOWN TABLE */}
       <section id="cost-guide" className="rf-sj-section">
         <div className="rf-sj-container rf-sj-editorial">
           <h2 className="rf-sj-guide-h2">
-            {journeyMode === 'SCOUT'
-              ? `How much do Scouts earn referring a ${singularRole.toLowerCase()}?`
-              : journeyMode === 'TALENT'
-                ? `How much do ${sub.name.toLowerCase()} earn on Refeir?`
-                : `How much does hiring a ${singularRole.toLowerCase()} cost?`}
+            How much does hiring a {singularRole.toLowerCase()} cost?
           </h2>
           <p className="rf-sj-guide-lead">
-            {journeyMode === 'SCOUT' ? (
-              <>
-                Scouts earn a guaranteed{' '}
-                <strong style={{ textDecoration: 'underline' }}>
-                  10% lifetime commission
-                </strong>{' '}
-                on every milestone a referred {singularRole.toLowerCase()} completes. Here are
-                typical Scout rewards by project size:
-              </>
-            ) : journeyMode === 'TALENT' ? (
-              <>
-                Verified {sub.name.toLowerCase()} on Refeir keep{' '}
-                <strong style={{ textDecoration: 'underline' }}>
-                  90% of every milestone
-                </strong>{' '}
-                (typically $25–$65/hr) with instant multi-currency payouts. Here are typical net
-                project earnings:
-              </>
-            ) : (
-              <>
-                Hiring a {singularRole.toLowerCase()} on Refeir generally costs{' '}
-                <strong style={{ textDecoration: 'underline' }}>$25–$65 per hour</strong>,
-                depending on scope and seniority. Consider these typical project cost ranges when
-                planning your budget:
-              </>
-            )}
+            Hiring a {singularRole.toLowerCase()} on Refeir generally costs{' '}
+            <strong style={{ textDecoration: 'underline' }}>$25–$65 per hour</strong>, depending
+            on scope and seniority. Consider these typical project cost ranges when planning your
+            budget:
           </p>
 
           <div className="rf-sj-cost-table">
@@ -1671,7 +1097,7 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
                 <div className="rf-sj-cost-left">
                   <div className="rf-sj-cost-title">{tier.title}</div>
                   <div className="rf-sj-cost-price">
-                    <strong>{tier.price}</strong> <span>{tier.unit}</span>
+                    <strong>{tier.price}</strong> <span>/project</span>
                   </div>
                 </div>
 
@@ -1780,50 +1206,22 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
         </div>
       </section>
 
-      {/* 10. BOTTOM DARK BANNER (Role-Aware CTA) */}
+      {/* 10. BOTTOM DARK BANNER ("Hire anyone, anywhere.") */}
       <section className="rf-sj-section" style={{ paddingBottom: '4.5rem' }}>
         <div className="rf-sj-container">
           <div className="rf-sj-globe-banner">
             <div className="rf-sj-globe-copy">
               <h2>
-                {journeyMode === 'SCOUT' ? (
-                  <>
-                    Refer anyone,
-                    <br />
-                    earn 10% anywhere.
-                  </>
-                ) : journeyMode === 'TALENT' ? (
-                  <>
-                    Work globally,
-                    <br />
-                    get paid fairly.
-                  </>
-                ) : (
-                  <>
-                    Hire anyone,
-                    <br />
-                    anywhere.
-                  </>
-                )}
+                Hire anyone,
+                <br />
+                anywhere.
               </h2>
               <button
                 type="button"
                 className="rf-sj-globe-cta"
-                onClick={() =>
-                  onNavigate(
-                    journeyMode === 'SCOUT'
-                      ? '/signup?role=SCOUT'
-                      : journeyMode === 'TALENT'
-                        ? '/signup?role=TALENT'
-                        : '/signup?role=CLIENT'
-                  )
-                }
+                onClick={() => onNavigate('/signup?role=CLIENT')}
               >
-                {journeyMode === 'SCOUT'
-                  ? 'Join as a Scout for free'
-                  : journeyMode === 'TALENT'
-                    ? 'Join as Talent for free'
-                    : 'Sign up for free'}
+                Sign up for free
               </button>
             </div>
 
@@ -1861,15 +1259,6 @@ export const SubCategoryLandingPage: React.FC<SubCategoryLandingPageProps> = ({
           </div>
         </div>
       </section>
-
-      {/* Refer Modal for Logged-in Scouts/Users */}
-      {referTalent && (
-        <ReferModal
-          talent={referTalent}
-          onClose={() => setReferTalent(null)}
-          onNavigate={onNavigate}
-        />
-      )}
     </div>
   );
 };
