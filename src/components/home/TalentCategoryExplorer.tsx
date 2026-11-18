@@ -249,11 +249,7 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
                 <button
                   type="button"
                   className="rf-btn rf-btn-primary rf-btn-sm"
-                  onClick={() =>
-                    onNavigate(
-                      `/marketplace?type=talent&category=${encodeURIComponent(categoryMeta?.query || activeCategory)}`
-                    )
-                  }
+                  onClick={() => onNavigate(`/subcategories/${activeSub.id}`)}
                 >
                   Explore {activeSub.name} <ArrowRight size={14} />
                 </button>

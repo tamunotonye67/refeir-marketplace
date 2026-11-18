@@ -57,6 +57,7 @@ import { LinkTelemetryPage } from './pages/LinkTelemetryPage';
 import { ConversionRatesPage } from './pages/ConversionRatesPage';
 import { ActiveIntroductionsPage } from './pages/ActiveIntroductionsPage';
 import { ScoutLinksPage } from './pages/ScoutLinksPage';
+import { SubCategoryLandingPage } from './pages/SubCategoryLandingPage';
 import { AuthGateWall } from './components/common/AuthGateWall';
 import { RoleOnboardingGate } from './components/common/RoleOnboardingGate';
 import { ProfileSwitchGate } from './components/common/ProfileSwitchGate';
@@ -180,6 +181,18 @@ export const App: React.FC = () => {
           onNavigate={navigate}
           onSelectTalent={handleSelectTalent}
           onSelectService={handleSelectService}
+        />
+      );
+    }
+
+    // 3b. Sub-Category Journey Landing Page (/subcategories/:subId)
+    if (basePath.startsWith('/subcategories/')) {
+      const subId = basePath.replace('/subcategories/', '');
+      return (
+        <SubCategoryLandingPage
+          subCategoryId={subId}
+          onNavigate={navigate}
+          onSelectTalent={handleSelectTalent}
         />
       );
     }
