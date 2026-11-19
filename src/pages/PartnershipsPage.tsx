@@ -69,14 +69,7 @@ export const PartnershipsPage: React.FC<PartnershipsPageProps> = ({ onNavigate =
       </div>
 
       {/* Two-column layout: narrow cards left, wide form right */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '5fr 7fr',
-          gap: '2.5rem',
-          alignItems: 'start',
-        }}
-      >
+      <div className="rf-split-asymmetric">
         {/* LEFT: 4 partnership type cards stacked vertically — natural flow, no scroll */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {partnerTypes.map(p => (

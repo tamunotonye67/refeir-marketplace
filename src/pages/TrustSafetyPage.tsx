@@ -24,7 +24,7 @@ export const TrustSafetyPage: React.FC<TrustSafetyPageProps> = ({ onNavigate = (
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
         <div className="rf-card" style={{ padding: '2rem' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(102, 187, 42, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
             <Lock size={24} color="var(--rf-leaf-green)" />

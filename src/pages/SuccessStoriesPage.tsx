@@ -70,7 +70,7 @@ export const SuccessStoriesPage: React.FC<SuccessStoriesPageProps> = ({ onNaviga
       </div>
 
       {/* Stories Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: '2rem', marginBottom: '3.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))', gap: '2rem', marginBottom: '3.5rem' }}>
         {STORIES.map(story => (
           <div key={story.name} className="rf-card" style={{ padding: '2.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1.5rem' }}>

@@ -702,7 +702,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
             </div>
 
             {/* Pod Info Summary */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.75rem', marginBottom: '2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.75rem', marginBottom: '2rem' }}>
               <div>
                 <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#66BB2A', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
                   Roster Composition
@@ -1080,7 +1080,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
               boxShadow: isDark ? 'none' : '0 12px 35px rgba(0,0,0,0.05)'
             }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '2.5rem', alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 290px), 1fr))', gap: '2.5rem', alignItems: 'center' }}>
               {/* Controls */}
               <div>
                 {/* Team Size Slider */}

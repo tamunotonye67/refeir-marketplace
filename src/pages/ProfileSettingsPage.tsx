@@ -925,7 +925,7 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
                 </button>
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1rem' }}>
                 {wallet.payout_methods.map(pm => (
                   <div
                     key={pm.id}

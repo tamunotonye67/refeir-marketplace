@@ -305,7 +305,7 @@ export const CountriesPage: React.FC<CountriesPageProps> = ({
       </div>
 
       {/* 54 Country Cards Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))', gap: '1rem' }}>
         {filteredCountries.map(country => (
           <div
             key={country.id}

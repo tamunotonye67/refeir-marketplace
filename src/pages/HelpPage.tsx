@@ -1390,7 +1390,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate = () => {} }) => 
                 </button>
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1.25rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))', gap: '1.25rem' }}>
                 {filteredSearchResults.map((item, idx) => (
                   <div
                     key={idx}
@@ -1499,7 +1499,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate = () => {} }) => 
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
                     gap: '1.5rem'
                   }}
                 >
@@ -1668,7 +1668,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate = () => {} }) => 
             </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))', gap: '1.25rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 270px), 1fr))', gap: '1.25rem' }}>
             {(activeCategory === 'TALENT'
               ? [
                   {
@@ -2201,7 +2201,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate = () => {} }) => 
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
               gap: '1.5rem'
             }}
           >

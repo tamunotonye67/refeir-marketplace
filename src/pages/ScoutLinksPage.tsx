@@ -428,7 +428,7 @@ export const ScoutLinksPage: React.FC<ScoutLinksPageProps> = ({ onNavigate }) =>
             borderRadius: '20px'
           }}
         >
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '2.5rem', alignItems: 'center' }}>
             {/* Left: QR Display Card */}
             <div
               style={{

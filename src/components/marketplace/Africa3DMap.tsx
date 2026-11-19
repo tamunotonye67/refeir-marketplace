@@ -223,7 +223,7 @@ export const Africa3DMap: React.FC<Africa3DMapProps> = ({ onNavigate }) => {
         position: 'relative',
         overflow: 'hidden',
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
         gap: '3.5rem',
         alignItems: 'center'
       }}

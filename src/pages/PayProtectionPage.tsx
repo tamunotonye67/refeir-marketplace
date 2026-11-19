@@ -21,7 +21,7 @@ export const PayProtectionPage: React.FC<PayProtectionPageProps> = ({ onNavigate
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
         {[
           { icon: Lock, color: 'var(--rf-leaf-green)', title: '100% Escrow Protection', desc: 'Client funds are held in a regulated double-entry custody vault before any work begins. Talent is guaranteed payment upon milestone approval.' },
           { icon: Clock, color: '#F4B942', title: '3–7 Day Payout Holding', desc: 'To prevent fraud and chargebacks, all first-time milestone payouts pass through a 3–7 day review holding period before release to talent bank accounts.' },

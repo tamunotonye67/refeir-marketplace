@@ -27,7 +27,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate = () => {} 
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', alignItems: 'start' }}>
+      <div className="rf-split-asymmetric">
         {/* Contact Info */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           {[

@@ -60,7 +60,7 @@ export const TalentProfilePage: React.FC<TalentProfilePageProps> = ({
       </button>
 
       {/* Main Grid: Left Column (Profile, Portfolio, Reviews) & Right Column (Sticky Pricing, Referral Card) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '2.5rem', alignItems: 'start' }}>
+      <div className="rf-split-sidebar">
         {/* Left Column */}
         <div>
           {/* Profile Header Card */}
@@ -245,7 +245,7 @@ export const TalentProfilePage: React.FC<TalentProfilePageProps> = ({
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1rem' }}>
                 Featured Portfolio
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.25rem' }}>
                 {talent.portfolio.map((item: PortfolioItem) => (
                   <div key={item.id} className="rf-card" style={{ padding: 0, overflow: 'hidden' }}>
                     <img

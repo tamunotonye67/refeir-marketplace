@@ -2394,7 +2394,7 @@
 .rf-scout-sourcing-grid,
 .rf-ai-wizard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 3.5rem;
   align-items: center;
 }
@@ -12106,7 +12106,7 @@ textarea.rf-ai-pricing-input:hover,
 .rf-contact-gate {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: minmax(380px, 1fr) minmax(380px, 1fr);
+  grid-template-columns: minmax(min(100%, 380px), 1fr) minmax(min(100%, 380px), 1fr);
   background: var(--rf-bg-surface);
   color: var(--rf-cream);
 }
@@ -12918,7 +12918,7 @@ textarea.rf-ai-pricing-input:hover,
 .rf-sj-testimonial-track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(340px, 440px);
+  grid-auto-columns: minmax(min(84vw, 340px), 440px);
   gap: 1.25rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;

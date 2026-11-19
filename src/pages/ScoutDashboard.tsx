@@ -612,7 +612,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '0.85rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 290px), 1fr))', gap: '0.85rem' }}>
           <div
             onClick={() => onNavigate('/messages?thread=t2')}
             className="rf-card-inner-box"
@@ -765,7 +765,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
         {/* 3-Column Metrics Row */}
         <div
           className="rf-metrics-row-3"
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}
         >
           {/* Box 1: Token Balance */}
           <div
@@ -1186,7 +1186,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
             </button>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1rem' }}>
             {scoutWallet.payout_methods.map(pm => (
               <div
                 key={pm.id}

@@ -448,7 +448,7 @@ export const ProjectWorkspace: React.FC<ProjectWorkspaceProps> = ({
       </div>
 
       {/* Main Grid: Milestones & Deliverables vs Project Chat & Files */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem' }}>
+      <div className="rf-split-sidebar">
         {/* Left Column: Milestones & Deliverable Console */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Milestones Card */}

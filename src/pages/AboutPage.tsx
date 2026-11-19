@@ -33,7 +33,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate = () => {} }) =
 
       <div className="rf-container" style={{ maxWidth: '1100px' }}>
         {/* Mission */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', margin: '4rem 0' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem', margin: '4rem 0' }}>
           {[
             { icon: Shield, color: 'var(--rf-leaf-green)', title: 'Our Mission', desc: 'To build a pan-African talent marketplace where every professional introduction is rewarded, every project is protected, and every payment is guaranteed.' },
             { icon: TrendingUp, color: '#F4B942', title: 'Our Vision', desc: 'A future where African talent competes for and wins global contracts as equals — backed by world-class tooling, verified reputations, and guaranteed contracts.' },

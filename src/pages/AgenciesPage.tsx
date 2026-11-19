@@ -195,7 +195,7 @@ export const AgenciesPage: React.FC<AgenciesPageProps> = ({ onNavigate = () => {
         {/* Agency Cards */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '4rem' }}>
           {filteredAgencies.map(agency => (
-            <div key={agency.id} className="rf-card" style={{ padding: '2rem', display: 'grid', gridTemplateColumns: '1fr auto', gap: '2rem', alignItems: 'center' }}>
+            <div key={agency.id} className="rf-card" style={{ padding: 'clamp(1.25rem, 3vw, 2rem)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '1.5rem', alignItems: 'center' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.75rem' }}>
                   <img src={agency.logo} alt={agency.name} style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover', border: '1px solid var(--rf-navy-border)' }} />

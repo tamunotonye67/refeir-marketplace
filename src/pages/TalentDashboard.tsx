@@ -466,7 +466,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
         </div>
 
         {pendingMilestones.length > 0 ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.25rem' }}>
             {pendingMilestones.map(({ milestone, project }) => (
               <div
                 key={milestone.id}
@@ -658,7 +658,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
         <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1.5rem' }}>
           Your Active Marketplace Services
         </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '1.25rem' }}>
           {myServices.map(srv => (
             <div
               key={srv.id}
@@ -718,7 +718,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
 
         {/* Reviews Grid */}
         {myReviews.length > 0 ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.25rem' }}>
             {myReviews.map(rev => (
               <div
                 key={rev.id}
@@ -830,7 +830,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '0.85rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 290px), 1fr))', gap: '0.85rem' }}>
           <div
             onClick={() => onNavigate('/messages?thread=t1')}
             className="rf-card-inner-box"
@@ -1002,7 +1002,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
                 </button>
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '1rem' }}>
                 {payoutMethods.map(pm => (
                   <div
                     key={pm.id}
@@ -1143,7 +1143,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.25rem' }}>
           {jobsList.slice(0, 3).map(job => (
             <div
               key={job.id}

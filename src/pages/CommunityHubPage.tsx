@@ -1220,7 +1220,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1rem' }}>
               Explore the 8 Community Hub Pillars
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1rem' }}>
               {[
                 { tab: 'forum', title: 'Refeir Forum', desc: 'Pan-African technical discussions & peer negotiation boards', icon: MessageSquare },
                 { tab: 'content', title: 'Technical Content & Blueprints', desc: 'Case studies, architectural deep dives & scout guides', icon: BookOpen },
@@ -1740,7 +1740,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.5rem' }}>
             {filteredGuides.map(guide => (
               <div
                 key={guide.id}
@@ -1845,7 +1845,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
           </div>
 
           {/* Events Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '1.5rem' }}>
             {[
               {
                 id: 'ev-1',
@@ -2033,7 +2033,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '1.5rem' }}>
             {clubs.map(club => {
               const isJoined = joinedClubIds.includes(club.id);
               return (
@@ -2157,7 +2157,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             </button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem' }}>
             {[
               {
                 name: 'Kwame Mensah',
@@ -2226,7 +2226,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem' }}>
             {[
               {
                 id: 'alb-1',
@@ -2302,7 +2302,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.5rem' }}>
             <div className="rf-card" style={{ padding: '1.5rem', borderLeft: '4px solid var(--rf-vibrant-orange)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
                 <ShieldCheck size={20} color="var(--rf-vibrant-orange)" />
@@ -2711,7 +2711,7 @@ export const CommunityHubPage: React.FC<{ onNavigate?: (path: string) => void }>
 
               {/* SUB-TAB 2: MEMBERS DIRECTORY */}
               {activeClubTab === 'MEMBERS' && (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1rem' }}>
                   {selectedClub.memberList.map((m, idx) => (
                     <div key={idx} style={{ padding: '1rem', borderRadius: 'var(--rf-radius-md)', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid var(--rf-navy-border)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <img src={m.avatar} alt={m.name} style={{ width: '42px', height: '42px', borderRadius: '50%', objectFit: 'cover' }} />

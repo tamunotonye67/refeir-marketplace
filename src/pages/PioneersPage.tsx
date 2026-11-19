@@ -666,7 +666,7 @@ const HeroSection: React.FC = () => (
       padding: '40px 24px', width: '100%'
     }}>
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
         gap: 56, alignItems: 'center'
       }}>
         {/* Left Column: Core Message */}
@@ -884,7 +884,7 @@ const WhyRefeir: React.FC = () => (
   <section id="why-refeir" style={{ background: '#FFFFFF', padding: '100px 24px' }}>
     <div style={{
       maxWidth: 1240, margin: '0 auto',
-      display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+      display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
       gap: 64, alignItems: 'center'
     }}>
       <div>
@@ -1086,7 +1086,7 @@ const WhoWeAreLookingFor: React.FC = () => (
       </div>
 
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 24
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))', gap: 24
       }}>
         {DIVISIONS_DATA.map(({ Icon, title, roles, mission, image, color }) => (
           <div
@@ -1205,7 +1205,7 @@ const WhyBecomePioneer: React.FC = () => (
       </div>
 
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 24
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: 24
       }}>
         {BENEFITS_DATA.map(({ Icon, title, desc }) => (
           <div
@@ -1432,7 +1432,7 @@ const MoreThanCommunity: React.FC = () => (
   <section style={{ background: '#FFFFFF', padding: '100px 24px' }}>
     <div style={{
       maxWidth: 1240, margin: '0 auto',
-      display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+      display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
       gap: 64, alignItems: 'center'
     }}>
       <div>

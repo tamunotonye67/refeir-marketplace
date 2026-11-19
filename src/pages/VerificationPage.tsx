@@ -185,7 +185,7 @@ export const VerificationPage: React.FC = () => {
       </div>
 
       {/* Interactive Step Progress Tracker */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '2.5rem' }}>
+      <div className="rf-grid-4" style={{ gap: '0.75rem', marginBottom: '2.5rem' }}>
         {[
           { key: 'ID_DOCUMENT', label: '1. Government ID', desc: 'Name, DOB & NIN' },
           { key: 'FACE_CAPTURE', label: '2. Face Capture', desc: 'Face-Sensitive Scan' },
@@ -575,7 +575,7 @@ export const VerificationPage: React.FC = () => {
           </div>
 
           {/* Side-by-Side Comparison: ID Doc vs Face Capture */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.25rem', marginBottom: '2rem' }}>
             {/* ID Document Card */}
             <div style={{ background: 'var(--rf-bg-surface)', border: '1px solid var(--rf-bg-card-border)', borderRadius: 'var(--rf-radius-lg)', padding: '1.25rem' }}>
               <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--rf-slate-400)', marginBottom: '0.75rem' }}>

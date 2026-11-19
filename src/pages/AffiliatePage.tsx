@@ -92,7 +92,7 @@ export const AffiliatePage: React.FC<AffiliatePageProps> = ({ onNavigate = () =>
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem', marginTop: '1.25rem', fontSize: '0.8125rem', color: 'var(--rf-slate-300)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1rem', marginTop: '1.25rem', fontSize: '0.8125rem', color: 'var(--rf-slate-300)' }}>
           <div style={{ background: 'rgba(0,0,0,0.25)', padding: '1rem', borderRadius: 'var(--rf-radius-md)' }}>
             <strong style={{ color: 'var(--rf-cream)', display: 'block', marginBottom: '0.25rem' }}>1. Submit Exact Client Details</strong>
             Ensure the Hiring Manager Name and Company Name entered in your Scout Command Center match the client's registered account.

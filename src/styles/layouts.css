@@ -433,3 +433,76 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+/* --- Universal Responsive Safeguards & Split Helpers --- */
+.rf-grid-2 > *,
+.rf-grid-3 > *,
+.rf-grid-4 > *,
+.rf-grid-5 > *,
+.rf-grid-6 > *,
+.rf-grid-cards > *,
+.rf-split-sidebar > *,
+.rf-split-2 > *,
+.rf-split-asymmetric > * {
+  min-width: 0;
+}
+
+.rf-card {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+.rf-split-sidebar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.rf-split-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.rf-split-asymmetric {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.rf-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (max-width: 960px) {
+  .rf-split-sidebar {
+    grid-template-columns: 1fr;
+  }
+  .rf-grid-6 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .rf-split-asymmetric {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .rf-split-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .rf-grid-6 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+

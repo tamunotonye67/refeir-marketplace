@@ -51,7 +51,7 @@ export const InvestorsPage: React.FC<InvestorsPageProps> = ({ onNavigate = () =>
         {/* Why Invest */}
         <div style={{ marginBottom: '4rem' }}>
           <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1.5rem' }}>Why Refeir?</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '1.5rem' }}>
             {[
               { icon: Globe2, color: 'var(--rf-leaf-green)', title: 'Largest Untapped Market', desc: 'Africa has 1.4B people, 60% under 25, and the world\'s fastest-growing developer population. Yet no platform natively serves cross-border professional services at scale.' },
               { icon: DollarSign, color: '#F4B942', title: 'Multiple Revenue Streams', desc: '5% client protection fee, Scout subscription tiers, Enterprise direct contract buyouts, and Business+ SaaS subscriptions create diversified, recurring revenue.' },

@@ -56,9 +56,8 @@ export const CrossBorderDemoTour: React.FC<CrossBorderDemoTourProps> = ({ onNavi
 
       {/* Progress Steps Indicator */}
       <div
+        className="rf-grid-6"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(6, 1fr)',
           gap: '0.5rem',
           marginBottom: '2.5rem'
         }}

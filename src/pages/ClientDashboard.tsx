@@ -437,7 +437,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
         )}
 
         {/* Recommendations Cards Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.25rem' }}>
           {deskRecommendations.map(rec => (
             <div
               key={rec.id}
@@ -610,7 +610,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '0.85rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 290px), 1fr))', gap: '0.85rem' }}>
           <div
             onClick={() => onNavigate('/messages?thread=t1')}
             className="rf-card-inner-box"

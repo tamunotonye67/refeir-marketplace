@@ -365,7 +365,7 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
           Your Separate Currency Balances
         </h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))', gap: '1.25rem' }}>
           {balancesList.map(b => (
             <CurrencyBalanceCard
               key={b.currency}

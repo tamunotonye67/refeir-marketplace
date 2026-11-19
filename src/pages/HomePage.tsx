@@ -1679,7 +1679,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               {/* 3-Column Grid of subskills */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
                 {selectedFlyoutGroup.columns.map((col, idx) => {
                   const colSlug = col.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
                   return (
@@ -3093,7 +3093,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             style={{
               padding: '2.5rem 2rem',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
               gap: '2.5rem',
               alignItems: 'center'
             }}

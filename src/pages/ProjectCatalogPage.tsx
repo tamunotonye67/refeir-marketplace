@@ -95,7 +95,7 @@ export const ProjectCatalogPage: React.FC<ProjectCatalogPageProps> = ({
             ))}
           </div>
 
-          <div style={{ position: 'relative', width: '300px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
             <Search size={16} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--rf-slate-400)' }} />
             <input
               type="text"
@@ -109,7 +109,7 @@ export const ProjectCatalogPage: React.FC<ProjectCatalogPageProps> = ({
         </div>
 
         {/* Services Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '4rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))', gap: '1.5rem', marginBottom: '4rem' }}>
           {filteredServices.map(service => (
             <ServiceCard
               key={service.id}

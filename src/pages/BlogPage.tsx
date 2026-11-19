@@ -345,12 +345,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
         {filteredPosts.length > 0 && selectedTag === 'ALL' && !searchQuery && (
           <div
             onClick={() => setSelectedArticle(filteredPosts[0])}
-            className="rf-card"
+            className="rf-card rf-split-asymmetric"
             style={{
-              padding: '2rem',
+              padding: 'clamp(1.25rem, 3vw, 2rem)',
               marginBottom: '2.5rem',
-              display: 'grid',
-              gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 1fr)',
               gap: '2rem',
               alignItems: 'center',
               cursor: 'pointer',
@@ -388,7 +386,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate = () => {} }) => 
         )}
 
         {/* Articles Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
           {filteredPosts.map(post => (
             <div
               key={post.id}

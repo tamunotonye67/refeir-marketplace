@@ -493,7 +493,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
             </div>
 
             <form onSubmit={handleSavePersonal}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: 'var(--rf-cream)', marginBottom: '0.4rem' }}>
                     First Name *
@@ -656,7 +656,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '2rem' }}>
               {/* Password Change Form */}
               <form onSubmit={handleUpdatePassword} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <h3 style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--rf-cream)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -1034,7 +1034,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
             </div>
 
             <form onSubmit={handleSaveTax} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.25rem' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginBottom: '0.35rem', fontWeight: 700 }}>
                     Country of Permanent Tax Residency *
@@ -1208,7 +1208,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
                 </button>
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1rem' }}>
                 {wallet.payout_methods.map(pm => (
                   <div
                     key={pm.id}

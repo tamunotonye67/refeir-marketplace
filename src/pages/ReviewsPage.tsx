@@ -36,7 +36,7 @@ export const ReviewsPage: React.FC<ReviewsPageProps> = ({ onNavigate = () => {} 
       </div>
 
       {/* Reviews grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1.5rem', marginBottom: '3.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))', gap: '1.5rem', marginBottom: '3.5rem' }}>
         {REVIEWS.map(r => (
           <div key={r.name} className="rf-card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>

@@ -95,7 +95,7 @@ export const ImpactPage: React.FC<ImpactPageProps> = ({ onNavigate = () => {} })
             <p style={{ color: 'var(--rf-slate-400)', marginTop: '0.5rem', fontSize: '0.9375rem' }}>How our economic architecture creates enduring value across Africa.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1.5rem' }}>
             {pillars.map(p => {
               const IconComp = p.icon;
               return (
