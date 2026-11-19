@@ -115,8 +115,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   if (!isOpen) return null;
 
   const activeRoleMeta = ROLE_OPTIONS.find(r => r.role === selectedRole) || ROLE_OPTIONS[0];
-  const googleProvider = SOCIAL_AUTH_PROVIDERS.find(p => p.id === 'google')!;
-  const secondarySocialProviders = SOCIAL_AUTH_PROVIDERS.filter(p => p.id !== 'google');
 
   const switchMode = (nextMode: 'LOGIN' | 'SIGNUP') => {
     setMode(nextMode);
@@ -218,43 +216,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   };
 
   const renderSocialStack = () => (
-    <div className="rf-uw-social-stack">
-      <button
-        type="button"
-        className="rf-uw-social-btn is-google"
-        onClick={() => handleSocialAuth('google')}
-        disabled={Boolean(loadingSocial) || isSubmitting}
-      >
-        <span className="rf-uw-social-icon">
-          {loadingSocial === 'google' ? (
-            <Loader2 size={18} className="rf-spin" />
-          ) : (
-            googleProvider.icon
-          )}
-        </span>
-        <span>Continue with Google</span>
-      </button>
-
-      <div className="rf-uw-social-row">
-        {secondarySocialProviders.map(provider => {
-          const isBusy = loadingSocial === provider.id;
-          return (
-            <button
-              key={provider.id}
-              type="button"
-              className="rf-uw-social-btn is-icon-only"
-              onClick={() => handleSocialAuth(provider.id)}
-              disabled={Boolean(loadingSocial) || isSubmitting}
-              aria-label={provider.label}
-              title={provider.label}
-            >
-              <span className="rf-uw-social-icon">
-                {isBusy ? <Loader2 size={18} className="rf-spin" /> : provider.icon}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+    <div className="rf-uw-social-icons-bar" role="group" aria-label="Social sign in options">
+      {SOCIAL_AUTH_PROVIDERS.map(provider => {
+        const isBusy = loadingSocial === provider.id;
+        return (
+          <button
+            key={provider.id}
+            type="button"
+            className="rf-uw-social-logo-btn"
+            onClick={() => handleSocialAuth(provider.id)}
+            disabled={Boolean(loadingSocial) || isSubmitting}
+            aria-label={provider.label}
+            title={provider.label}
+          >
+            {isBusy ? <Loader2 size={20} className="rf-spin" /> : provider.icon}
+          </button>
+        );
+      })}
     </div>
   );
 

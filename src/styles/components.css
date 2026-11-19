@@ -11809,67 +11809,54 @@ textarea.rf-ai-pricing-input:hover,
   background: rgba(255, 255, 255, 0.12);
 }
 
-.rf-uw-social-stack {
+.rf-uw-social-icons-bar {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 0.25rem 0;
 }
 
-.rf-uw-social-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.6rem;
-}
-
-.rf-uw-social-btn.is-icon-only {
+.rf-uw-social-logo-btn {
+  width: 40px;
+  height: 40px;
   padding: 0;
-}
-
-.rf-uw-social-btn {
-  width: 100%;
-  height: 42px;
-  padding: 0 0.9rem;
-  border-radius: 10px;
-  border: 1.5px solid rgba(18, 43, 26, 0.16);
-  background: #ffffff;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
   color: #122b1a;
-  font-family: inherit;
-  font-size: 0.88rem;
-  font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.16s ease, background-color 0.16s ease, opacity 0.16s ease;
 }
 
-.rf-uw-social-btn:hover:not(:disabled) {
-  background: #f8faf9;
-  border-color: rgba(18, 43, 26, 0.3);
+.rf-uw-social-logo-btn svg {
+  width: 22px;
+  height: 22px;
 }
 
-.rf-uw-social-btn:disabled {
-  opacity: 0.6;
+.rf-uw-social-logo-btn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.08);
+  background: rgba(18, 43, 26, 0.06);
+}
+
+.rf-uw-social-logo-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.rf-uw-social-logo-btn:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-[data-theme="dark"] .rf-uw-social-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.14);
+[data-theme="dark"] .rf-uw-social-logo-btn {
   color: #f1f5f9;
 }
 
-[data-theme="dark"] .rf-uw-social-btn:hover:not(:disabled) {
+[data-theme="dark"] .rf-uw-social-logo-btn:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.28);
-}
-
-.rf-uw-social-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
 }
 
 /* Role Chooser Cards (Upwork-style Step 1) */
