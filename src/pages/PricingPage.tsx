@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { Check, ChevronDown, ShieldCheck, Lock, Globe } from 'lucide-react';
+import {
+  Check,
+  ChevronDown,
+  ShieldCheck,
+  Lock,
+  Globe,
+  Briefcase,
+  Compass,
+  Award,
+  TrendingUp,
+  Headphones,
+  ArrowRight,
+  type LucideIcon
+} from 'lucide-react';
 import { RefeirProModal } from '../components/common/RefeirProModal';
 import '../styles/pricing.css';
 
@@ -130,6 +143,9 @@ const FAQS = [
 
 const PRESETS = [500, 1000, 2500, 5000, 10000];
 
+const CORE_ICONS: Record<string, LucideIcon> = { client: Briefcase, scout: Compass, talent: Award };
+const PRO_ICONS: Record<Role, LucideIcon> = { SCOUT: TrendingUp, TALENT: Award, CLIENT: Headphones };
+
 export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
   const [showProModal, setShowProModal] = useState(false);
   const [proRole, setProRole] = useState<Role>('SCOUT');
@@ -172,41 +188,62 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
     <div className="rf-pr-page">
       {/* Hero */}
       <section className="rf-pr-hero">
-        <h1 className="rf-pr-title">Simple, transparent pricing</h1>
+        <div className="rf-pr-hero-bg" aria-hidden="true" />
+        <div className="rf-pr-eyebrow">
+          <ShieldCheck size={14} /> Pricing
+        </div>
+        <h1 className="rf-pr-title">
+          Simple, <span className="rf-pr-title-accent">transparent</span> pricing
+        </h1>
         <div className="rf-pr-subtitle">
           Join for free. Only pay when work gets done, with every milestone protected by escrow.
+        </div>
+        <div className="rf-pr-stats">
+          <div><strong>$0</strong><span>to join</span></div>
+          <div><strong>5%</strong><span>client fee</span></div>
+          <div><strong>100%</strong><span>escrow protected</span></div>
         </div>
       </section>
 
       {/* Core plans */}
-      <section className="rf-pr-section">
+      <section className="rf-pr-section rf-pr-section-core">
         <div className="rf-pr-grid">
-          {CORE_PLANS.map((plan) => (
-            <div key={plan.key} className={`rf-pr-card${plan.popular ? ' is-popular' : ''}`}>
-              {plan.popular && <div className="rf-pr-badge">Most popular</div>}
-              <h3 className="rf-pr-card-name">{plan.name}</h3>
-              <div className="rf-pr-card-desc">{plan.tagline}</div>
-              <div className="rf-pr-price">
-                <span className="rf-pr-price-value">{plan.price}</span>
-              </div>
-              <div className="rf-pr-price-unit">{plan.unit}</div>
-              <button
-                type="button"
-                className={`rf-pr-btn${plan.popular ? ' is-primary' : ''}`}
-                onClick={() => onNavigate(plan.path)}
+          {CORE_PLANS.map((plan, idx) => {
+            const Icon = CORE_ICONS[plan.key];
+            return (
+              <div
+                key={plan.key}
+                className={`rf-pr-card rf-pr-rise${plan.popular ? ' is-featured' : ''}`}
+                style={{ animationDelay: `${idx * 80}ms` }}
               >
-                {plan.cta}
-              </button>
-              <ul className="rf-pr-list">
-                {plan.features.map((f) => (
-                  <li key={f}>
-                    <Check size={16} strokeWidth={2.5} className="rf-pr-check" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                <div className="rf-pr-card-top">
+                  <div className="rf-pr-icon"><Icon size={20} /></div>
+                  {plan.popular && <div className="rf-pr-badge">Most popular</div>}
+                </div>
+                <h3 className="rf-pr-card-name">{plan.name}</h3>
+                <div className="rf-pr-card-desc">{plan.tagline}</div>
+                <div className="rf-pr-price">
+                  <span className="rf-pr-price-value">{plan.price}</span>
+                </div>
+                <div className="rf-pr-price-unit">{plan.unit}</div>
+                <button
+                  type="button"
+                  className={`rf-pr-btn${plan.popular ? ' is-primary' : ''}`}
+                  onClick={() => onNavigate(plan.path)}
+                >
+                  {plan.cta} <ArrowRight size={16} />
+                </button>
+                <ul className="rf-pr-list">
+                  {plan.features.map((f) => (
+                    <li key={f}>
+                      <span className="rf-pr-check"><Check size={12} strokeWidth={3} /></span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
 
         <div className="rf-pr-trust">
@@ -219,37 +256,48 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
       {/* Pro plans */}
       <section className="rf-pr-section">
         <div className="rf-pr-section-head">
-          <h2 className="rf-pr-h2">Upgrade to Pro</h2>
+          <div className="rf-pr-kicker">Refeir Pro</div>
+          <h2 className="rf-pr-h2">Upgrade when you're ready</h2>
           <div className="rf-pr-section-sub">Optional monthly plans for extra visibility and support.</div>
         </div>
         <div className="rf-pr-grid">
-          {PRO_PLANS.map((plan) => (
-            <div key={plan.role} className={`rf-pr-card${plan.popular ? ' is-popular' : ''}`}>
-              {plan.popular && <div className="rf-pr-badge">Most popular</div>}
-              <h3 className="rf-pr-card-name">{plan.name}</h3>
-              <div className="rf-pr-card-desc">{plan.desc}</div>
-              <div className="rf-pr-price">
-                <span className="rf-pr-price-value">${plan.usd}</span>
-                <span className="rf-pr-price-period">/month</span>
-              </div>
-              <div className="rf-pr-price-unit">or {plan.ngn}/month</div>
-              <button
-                type="button"
-                className={`rf-pr-btn${plan.popular ? ' is-primary' : ''}`}
-                onClick={() => openProModalForRole(plan.role)}
+          {PRO_PLANS.map((plan, idx) => {
+            const Icon = PRO_ICONS[plan.role];
+            return (
+              <div
+                key={plan.role}
+                className={`rf-pr-card rf-pr-rise${plan.popular ? ' is-popular' : ''}`}
+                style={{ animationDelay: `${idx * 80}ms` }}
               >
-                Get {plan.name}
-              </button>
-              <ul className="rf-pr-list">
-                {plan.features.map((f) => (
-                  <li key={f}>
-                    <Check size={16} strokeWidth={2.5} className="rf-pr-check" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                <div className="rf-pr-card-top">
+                  <div className="rf-pr-icon"><Icon size={20} /></div>
+                  {plan.popular && <div className="rf-pr-badge">Most popular</div>}
+                </div>
+                <h3 className="rf-pr-card-name">{plan.name}</h3>
+                <div className="rf-pr-card-desc">{plan.desc}</div>
+                <div className="rf-pr-price">
+                  <span className="rf-pr-price-value">${plan.usd}</span>
+                  <span className="rf-pr-price-period">/month</span>
+                </div>
+                <div className="rf-pr-price-unit">or {plan.ngn}/month</div>
+                <button
+                  type="button"
+                  className={`rf-pr-btn${plan.popular ? ' is-primary' : ''}`}
+                  onClick={() => openProModalForRole(plan.role)}
+                >
+                  Get {plan.name}
+                </button>
+                <ul className="rf-pr-list">
+                  {plan.features.map((f) => (
+                    <li key={f}>
+                      <span className="rf-pr-check"><Check size={12} strokeWidth={3} /></span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -317,24 +365,40 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="rf-pr-calc-result">
+            <div className="rf-pr-bar" aria-hidden="true">
+              <div
+                className="rf-pr-bar-talent"
+                style={{ width: `${(talentAmount / clientTotal) * 100}%` }}
+              />
+              {scoutAmount > 0 && (
+                <div
+                  className="rf-pr-bar-scout"
+                  style={{ width: `${(scoutAmount / clientTotal) * 100}%` }}
+                />
+              )}
+              <div
+                className="rf-pr-bar-fee"
+                style={{ width: `${(platformTotal / clientTotal) * 100}%` }}
+              />
+            </div>
             <div className="rf-pr-row">
-              <span>Client pays</span>
+              <span><i className="rf-pr-dot is-client" /> Client pays</span>
               <strong>{formatCur(clientTotal)}</strong>
             </div>
             <div className="rf-pr-row">
-              <span>Talent receives <em>({talentPercent}%)</em></span>
+              <span><i className="rf-pr-dot is-talent" /> Talent receives <em>({talentPercent}%)</em></span>
               <strong className="rf-pr-green">{formatCur(talentAmount)}</strong>
             </div>
             <div className="rf-pr-row">
-              <span>Scout earns {channel === 'SCOUT' && <em>(10%)</em>}</span>
+              <span><i className="rf-pr-dot is-scout" /> Scout earns {channel === 'SCOUT' && <em>(10%)</em>}</span>
               <strong>{scoutAmount > 0 ? formatCur(scoutAmount) : '—'}</strong>
             </div>
             <div className="rf-pr-row">
-              <span>Refeir fee <em>({platformNote})</em></span>
+              <span><i className="rf-pr-dot is-fee" /> Refeir fee <em>({platformNote})</em></span>
               <strong>{formatCur(platformTotal)}</strong>
             </div>
             <div className="rf-pr-note">
-              <ShieldCheck size={14} /> {formatCur(milestoneAmount)} held in escrow until approval
+              <ShieldCheck size={15} /> {formatCur(milestoneAmount)} held in escrow until approval
             </div>
           </div>
         </div>
@@ -343,6 +407,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
       {/* FAQ */}
       <section className="rf-pr-section rf-pr-faq-wrap">
         <div className="rf-pr-section-head">
+          <div className="rf-pr-kicker">FAQ</div>
           <h2 className="rf-pr-h2">Frequently asked questions</h2>
         </div>
         <div className="rf-pr-faq">
@@ -363,6 +428,24 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="rf-pr-section">
+        <div className="rf-pr-cta-banner">
+          <div>
+            <h3>Hiring a full team or enterprise pod?</h3>
+            <p>Get a dedicated shortlist of scout-vetted engineers in 48 hours with consolidated billing.</p>
+          </div>
+          <div className="rf-pr-cta-actions">
+            <button type="button" className="rf-pr-cta-primary" onClick={() => onNavigate('/business')}>
+              Explore Refeir Business <ArrowRight size={16} />
+            </button>
+            <button type="button" className="rf-pr-cta-ghost" onClick={() => onNavigate('/marketplace')}>
+              Browse marketplace
+            </button>
+          </div>
         </div>
       </section>
 
