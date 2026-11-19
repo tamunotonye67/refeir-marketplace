@@ -1,0 +1,527 @@
+/* =========================================================================
+   Refeir Pricing Page — clean, Upwork-standard layout (.rf-pr-*)
+   ========================================================================= */
+
+.rf-pr-page {
+  --pr-green: #2E7D32;
+  --pr-green-dark: #1B5E20;
+  --pr-text: #001E00;
+  --pr-muted: #5E6D55;
+  --pr-border: #E4EBE4;
+  --pr-surface: #FFFFFF;
+  --pr-bg: #FFFFFF;
+  --pr-soft: #F7FAF7;
+
+  width: 100%;
+  min-height: 80vh;
+  background: var(--pr-bg);
+  color: var(--pr-text);
+  padding: 0 20px 96px;
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] .rf-pr-page {
+  --pr-green: #66BB2A;
+  --pr-green-dark: #7ED13F;
+  --pr-text: #FFFFFF;
+  --pr-muted: #A7B5AC;
+  --pr-border: rgba(255, 255, 255, 0.1);
+  --pr-surface: #0F2418;
+  --pr-bg: var(--rf-bg-base, #0A1A10);
+  --pr-soft: rgba(255, 255, 255, 0.03);
+}
+
+/* Hero */
+.rf-pr-hero {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 72px 0 48px;
+  text-align: center;
+}
+
+.rf-pr-title {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  color: var(--pr-text);
+}
+
+.rf-pr-subtitle,
+.rf-pr-section-sub {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--pr-muted);
+}
+
+/* Sections */
+.rf-pr-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-top: 72px;
+}
+
+.rf-pr-hero + .rf-pr-section {
+  padding-top: 0;
+}
+
+.rf-pr-section-head {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.rf-pr-h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  color: var(--pr-text);
+}
+
+/* Cards */
+.rf-pr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.rf-pr-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--pr-surface);
+  border: 1px solid var(--pr-border);
+  border-radius: 16px;
+  padding: 32px 28px;
+  min-width: 0;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.rf-pr-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 30, 0, 0.08);
+}
+
+.rf-pr-card.is-popular {
+  border: 2px solid var(--pr-green);
+  padding: 31px 27px;
+}
+
+.rf-pr-badge {
+  position: absolute;
+  top: -13px;
+  left: 28px;
+  background: var(--pr-green);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+[data-theme="dark"] .rf-pr-badge {
+  color: #0A1A10;
+}
+
+.rf-pr-card-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--pr-text);
+}
+
+.rf-pr-card-desc {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--pr-muted);
+  min-height: 2.9em;
+}
+
+.rf-pr-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 24px;
+}
+
+.rf-pr-price-value {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--pr-text);
+}
+
+.rf-pr-price-period {
+  font-size: 1rem;
+  color: var(--pr-muted);
+}
+
+.rf-pr-price-unit {
+  font-size: 0.875rem;
+  color: var(--pr-muted);
+  margin-top: 6px;
+}
+
+.rf-pr-btn {
+  margin-top: 24px;
+  width: 100%;
+  height: 44px;
+  border-radius: 999px;
+  border: 1.5px solid var(--pr-green);
+  background: transparent;
+  color: var(--pr-green);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.rf-pr-btn:hover {
+  background: var(--pr-soft);
+}
+
+.rf-pr-btn.is-primary {
+  background: var(--pr-green);
+  color: #FFFFFF;
+}
+
+.rf-pr-btn.is-primary:hover {
+  background: var(--pr-green-dark);
+  border-color: var(--pr-green-dark);
+}
+
+[data-theme="dark"] .rf-pr-btn.is-primary {
+  color: #0A1A10;
+}
+
+.rf-pr-list {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--pr-border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rf-pr-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--pr-text);
+}
+
+.rf-pr-check {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--pr-green);
+}
+
+/* Trust row */
+.rf-pr-trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 32px;
+  margin-top: 32px;
+  font-size: 0.875rem;
+  color: var(--pr-muted);
+}
+
+.rf-pr-trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rf-pr-trust svg {
+  color: var(--pr-green);
+}
+
+/* Calculator */
+.rf-pr-calc {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  border: 1px solid var(--pr-border);
+  border-radius: 16px;
+  background: var(--pr-surface);
+  overflow: hidden;
+}
+
+.rf-pr-calc-inputs {
+  padding: 32px;
+  min-width: 0;
+}
+
+.rf-pr-calc-result {
+  padding: 32px;
+  background: var(--pr-soft);
+  border-left: 1px solid var(--pr-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.rf-pr-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pr-text);
+  margin-bottom: 10px;
+}
+
+.rf-pr-segment {
+  display: flex;
+  background: var(--pr-soft);
+  border: 1px solid var(--pr-border);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 28px;
+}
+
+.rf-pr-segment button {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: var(--pr-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 9px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.rf-pr-segment button.is-active {
+  background: var(--pr-surface);
+  color: var(--pr-text);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 30, 0, 0.12);
+}
+
+[data-theme="dark"] .rf-pr-segment button.is-active {
+  background: rgba(102, 187, 42, 0.16);
+  color: #FFFFFF;
+}
+
+.rf-pr-amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.rf-pr-amount-row .rf-pr-label {
+  margin-bottom: 0;
+}
+
+.rf-pr-select {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--pr-border);
+  background: var(--pr-surface);
+  color: var(--pr-text);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.rf-pr-amount {
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 12px 0 8px;
+  color: var(--pr-text);
+  word-break: break-word;
+}
+
+.rf-pr-range {
+  width: 100%;
+  accent-color: var(--pr-green);
+  cursor: pointer;
+}
+
+.rf-pr-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.rf-pr-presets button {
+  border: 1px solid var(--pr-border);
+  background: transparent;
+  color: var(--pr-muted);
+  font-size: 0.8125rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.rf-pr-presets button.is-active {
+  border-color: var(--pr-green);
+  color: var(--pr-green);
+  font-weight: 600;
+}
+
+.rf-pr-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--pr-border);
+  font-size: 0.9375rem;
+  color: var(--pr-text);
+}
+
+.rf-pr-row:first-child {
+  padding-top: 0;
+}
+
+.rf-pr-row span {
+  min-width: 0;
+}
+
+.rf-pr-row em {
+  font-style: normal;
+  color: var(--pr-muted);
+  font-size: 0.8125rem;
+}
+
+.rf-pr-row strong {
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--pr-text);
+}
+
+.rf-pr-row strong.rf-pr-green,
+[data-theme="dark"] .rf-pr-row strong.rf-pr-green {
+  color: var(--pr-green) !important;
+}
+
+.rf-pr-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  color: var(--pr-muted);
+}
+
+.rf-pr-note svg {
+  color: var(--pr-green);
+  flex-shrink: 0;
+}
+
+/* FAQ */
+.rf-pr-faq {
+  max-width: 760px;
+  margin: 0 auto;
+  border-top: 1px solid var(--pr-border);
+}
+
+.rf-pr-faq-item {
+  border-bottom: 1px solid var(--pr-border);
+}
+
+.rf-pr-faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
+  border: none;
+  background: transparent;
+  color: var(--pr-text);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rf-pr-faq-icon {
+  flex-shrink: 0;
+  color: var(--pr-muted);
+  transition: transform 0.2s ease;
+}
+
+.rf-pr-faq-item.is-open .rf-pr-faq-icon {
+  transform: rotate(180deg);
+}
+
+.rf-pr-faq-a {
+  padding: 0 0 20px;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--pr-muted);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .rf-pr-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 480px;
+    margin: 0 auto;
+    gap: 28px;
+  }
+
+  .rf-pr-card-desc {
+    min-height: 0;
+  }
+
+  .rf-pr-calc {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rf-pr-calc-result {
+    border-left: none;
+    border-top: 1px solid var(--pr-border);
+  }
+}
+
+@media (max-width: 640px) {
+  .rf-pr-page {
+    padding: 0 16px 72px;
+  }
+
+  .rf-pr-hero {
+    padding: 48px 0 36px;
+  }
+
+  .rf-pr-section {
+    padding-top: 56px;
+  }
+
+  .rf-pr-card,
+  .rf-pr-card.is-popular {
+    padding: 28px 22px;
+  }
+
+  .rf-pr-calc-inputs,
+  .rf-pr-calc-result {
+    padding: 24px 20px;
+  }
+
+  .rf-pr-segment {
+    flex-direction: column;
+    border-radius: 12px;
+  }
+
+  .rf-pr-segment button {
+    border-radius: 8px;
+  }
+
+  .rf-pr-amount {
+    font-size: 1.875rem;
+  }
+}
