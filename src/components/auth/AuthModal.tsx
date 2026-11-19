@@ -116,9 +116,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   const activeRoleMeta = ROLE_OPTIONS.find(r => r.role === selectedRole) || ROLE_OPTIONS[0];
   const googleProvider = SOCIAL_AUTH_PROVIDERS.find(p => p.id === 'google')!;
-  const secondarySocialProviders = SOCIAL_AUTH_PROVIDERS.filter(
-    p => p.id === 'github' || p.id === 'linkedin'
-  );
+  const secondarySocialProviders = SOCIAL_AUTH_PROVIDERS.filter(p => p.id !== 'google');
 
   const switchMode = (nextMode: 'LOGIN' | 'SIGNUP') => {
     setMode(nextMode);

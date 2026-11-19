@@ -11817,7 +11817,7 @@ textarea.rf-ai-pricing-input:hover,
 
 .rf-uw-social-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.6rem;
 }
 
