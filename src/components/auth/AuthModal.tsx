@@ -242,14 +242,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <button
               key={provider.id}
               type="button"
-              className="rf-uw-social-btn is-secondary"
+              className="rf-uw-social-btn is-icon-only"
               onClick={() => handleSocialAuth(provider.id)}
               disabled={Boolean(loadingSocial) || isSubmitting}
+              aria-label={provider.label}
+              title={provider.label}
             >
               <span className="rf-uw-social-icon">
-                {isBusy ? <Loader2 size={16} className="rf-spin" /> : provider.icon}
+                {isBusy ? <Loader2 size={18} className="rf-spin" /> : provider.icon}
               </span>
-              <span>{provider.shortLabel}</span>
             </button>
           );
         })}

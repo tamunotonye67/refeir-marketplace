@@ -11817,8 +11817,12 @@ textarea.rf-ai-pricing-input:hover,
 
 .rf-uw-social-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.6rem;
+}
+
+.rf-uw-social-btn.is-icon-only {
+  padding: 0;
 }
 
 .rf-uw-social-btn {
