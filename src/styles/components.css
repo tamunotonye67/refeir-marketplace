@@ -11514,6 +11514,593 @@ textarea.rf-ai-pricing-input:hover,
 }
 
 /* ============================================================================
+   Upwork-Standard Clean Sign In & Sign Up Modal (.rf-uw-*)
+   ============================================================================ */
+.rf-uw-backdrop {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(10, 22, 14, 0.56);
+  padding: 1rem;
+}
+
+.rf-uw-modal {
+  max-width: 440px !important;
+  width: 100%;
+  padding: 1.75rem 2rem 2rem !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 60px rgba(15, 46, 30, 0.22), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(18, 43, 26, 0.1) !important;
+  transition: max-width 0.2s ease;
+}
+
+.rf-uw-modal.is-wide {
+  max-width: 580px !important;
+}
+
+[data-theme="dark"] .rf-uw-modal {
+  background: #0b1a10 !important;
+  border-color: rgba(102, 187, 42, 0.22) !important;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.65) !important;
+}
+
+.rf-uw-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.35rem;
+  min-height: 32px;
+}
+
+.rf-uw-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: none;
+  padding: 0.25rem 0.4rem 0.25rem 0;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rf-slate-400);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.rf-uw-back-btn:hover {
+  color: var(--rf-green);
+}
+
+[data-theme="dark"] .rf-uw-back-btn:hover {
+  color: var(--rf-leaf-green);
+}
+
+.rf-uw-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--rf-slate-400);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.rf-uw-close-btn:hover {
+  background: rgba(18, 43, 26, 0.06);
+  color: var(--rf-cream);
+}
+
+[data-theme="dark"] .rf-uw-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.rf-uw-title {
+  margin: 0 0 1.4rem;
+  font-family: var(--rf-font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-align: center;
+  color: #122b1a;
+}
+
+[data-theme="dark"] .rf-uw-title {
+  color: #f4f7f5;
+}
+
+.rf-uw-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  font-size: 0.83rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.rf-uw-alert.is-error {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.22);
+  color: #b91c1c;
+}
+
+[data-theme="dark"] .rf-uw-alert.is-error {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+
+.rf-uw-alert.is-success {
+  background: rgba(46, 125, 50, 0.1);
+  border: 1px solid rgba(46, 125, 50, 0.24);
+  color: #1b5e20;
+}
+
+[data-theme="dark"] .rf-uw-alert.is-success {
+  background: rgba(102, 187, 42, 0.14);
+  border-color: rgba(102, 187, 42, 0.3);
+  color: #a7f3d0;
+}
+
+.rf-uw-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.rf-uw-name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.rf-uw-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.rf-uw-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rf-uw-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+[data-theme="dark"] .rf-uw-label {
+  color: #cbd5e1;
+}
+
+.rf-uw-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 0.85rem;
+  border-radius: 10px;
+  border: 1.5px solid rgba(18, 43, 26, 0.18);
+  background: #ffffff;
+  color: #0f172a;
+  font-family: inherit;
+  font-size: 0.92rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rf-uw-input.has-trailing {
+  padding-right: 2.5rem;
+}
+
+.rf-uw-input:focus {
+  border-color: #2e7d32 !important;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.12);
+}
+
+[data-theme="dark"] .rf-uw-input {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .rf-uw-input:focus {
+  border-color: #66bb2a !important;
+  box-shadow: 0 0 0 3px rgba(102, 187, 42, 0.16);
+}
+
+.rf-uw-select {
+  appearance: auto;
+  cursor: pointer;
+}
+
+.rf-uw-password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rf-uw-eye-btn {
+  position: absolute;
+  right: 0.65rem;
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  color: var(--rf-slate-400);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.rf-uw-eye-btn:hover {
+  color: var(--rf-cream);
+}
+
+.rf-uw-primary-btn {
+  width: 100%;
+  height: 44px;
+  margin-top: 0.25rem;
+  border: none;
+  border-radius: 10px;
+  background: #2e7d32;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.rf-uw-primary-btn:hover:not(:disabled) {
+  background: #1b5e20;
+}
+
+.rf-uw-primary-btn:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.rf-uw-primary-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+[data-theme="dark"] .rf-uw-primary-btn {
+  background: #66bb2a;
+  color: #0b1a10;
+}
+
+[data-theme="dark"] .rf-uw-primary-btn:hover:not(:disabled) {
+  background: #78cc3c;
+}
+
+.rf-uw-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 1.2rem 0;
+  color: var(--rf-slate-400);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.rf-uw-divider::before,
+.rf-uw-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(18, 43, 26, 0.12);
+}
+
+[data-theme="dark"] .rf-uw-divider::before,
+[data-theme="dark"] .rf-uw-divider::after {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.rf-uw-social-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.rf-uw-social-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.rf-uw-social-btn {
+  width: 100%;
+  height: 42px;
+  padding: 0 0.9rem;
+  border-radius: 10px;
+  border: 1.5px solid rgba(18, 43, 26, 0.16);
+  background: #ffffff;
+  color: #122b1a;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.rf-uw-social-btn:hover:not(:disabled) {
+  background: #f8faf9;
+  border-color: rgba(18, 43, 26, 0.3);
+}
+
+.rf-uw-social-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+[data-theme="dark"] .rf-uw-social-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .rf-uw-social-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.rf-uw-social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Role Chooser Cards (Upwork-style Step 1) */
+.rf-uw-role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.rf-uw-role-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  padding: 1.1rem 1rem;
+  min-height: 132px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(18, 43, 26, 0.16);
+  background: #ffffff;
+  color: #122b1a;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rf-uw-role-card:hover {
+  border-color: rgba(46, 125, 50, 0.5);
+  background: #f8faf9;
+}
+
+.rf-uw-role-card.is-selected {
+  border-color: #2e7d32;
+  background: rgba(102, 187, 42, 0.07);
+  box-shadow: 0 0 0 1px #2e7d32;
+}
+
+[data-theme="dark"] .rf-uw-role-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .rf-uw-role-card:hover {
+  border-color: rgba(102, 187, 42, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .rf-uw-role-card.is-selected {
+  border-color: #66bb2a;
+  background: rgba(102, 187, 42, 0.12);
+  box-shadow: 0 0 0 1px #66bb2a;
+}
+
+.rf-uw-role-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+}
+
+.rf-uw-role-icon {
+  color: #122b1a;
+  display: inline-flex;
+}
+
+[data-theme="dark"] .rf-uw-role-icon {
+  color: #e2e8f0;
+}
+
+.rf-uw-radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(18, 43, 26, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all 0.15s ease;
+}
+
+[data-theme="dark"] .rf-uw-radio {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.rf-uw-radio.is-checked {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+[data-theme="dark"] .rf-uw-radio.is-checked {
+  background: #66bb2a;
+  border-color: #66bb2a;
+  color: #0b1a10;
+}
+
+.rf-uw-role-card-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.rf-uw-role-continue {
+  max-width: 260px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.rf-uw-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--rf-slate-400);
+  cursor: pointer;
+  margin-top: 0.1rem;
+}
+
+.rf-uw-terms input {
+  margin-top: 2px;
+  accent-color: #2e7d32;
+  cursor: pointer;
+}
+
+.rf-uw-terms-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: #2e7d32;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+[data-theme="dark"] .rf-uw-terms-link {
+  color: #66bb2a;
+}
+
+.rf-uw-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #2e7d32;
+  cursor: pointer;
+}
+
+.rf-uw-link-btn:hover {
+  text-decoration: underline;
+}
+
+[data-theme="dark"] .rf-uw-link-btn {
+  color: #66bb2a;
+}
+
+.rf-uw-footer {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(18, 43, 26, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+[data-theme="dark"] .rf-uw-footer {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.rf-uw-footer-text {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--rf-slate-400);
+}
+
+.rf-uw-outline-btn {
+  min-width: 150px;
+  height: 38px;
+  padding: 0 1.4rem;
+  border-radius: 9999px;
+  border: 1.5px solid #2e7d32;
+  background: transparent;
+  color: #2e7d32;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.rf-uw-outline-btn:hover {
+  background: rgba(46, 125, 50, 0.08);
+}
+
+[data-theme="dark"] .rf-uw-outline-btn {
+  border-color: #66bb2a;
+  color: #66bb2a;
+}
+
+[data-theme="dark"] .rf-uw-outline-btn:hover {
+  background: rgba(102, 187, 42, 0.12);
+}
+
+.rf-uw-footer-inline {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--rf-slate-400);
+}
+
+@media (max-width: 600px) {
+  .rf-uw-modal {
+    padding: 1.4rem 1.25rem 1.5rem !important;
+  }
+  .rf-uw-role-grid {
+    grid-template-columns: 1fr;
+  }
+  .rf-uw-role-card {
+    min-height: auto;
+    padding: 0.95rem 1rem;
+  }
+  .rf-uw-role-card-top {
+    margin-bottom: 0.45rem;
+  }
+  .rf-uw-name-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
    Split-Screen "Sign up to contact [Talent]" Gate (See Profile / Hire Gate)
    ============================================================================ */
 .rf-contact-gate {

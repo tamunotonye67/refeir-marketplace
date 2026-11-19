@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { useAuth, SocialAuthProvider } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import { useI18n } from '../../context/I18nContext';
 import { RefeirLogo } from './RefeirLogo';
-import { SocialAuthButtons } from '../auth/SocialAuthButtons';
-import { GLOBAL_COUNTRIES, getCountryByName } from '../../data/countries';
+import { AuthModal } from '../auth/AuthModal';
 import {
   ChevronDown,
   ChevronRight,
@@ -146,20 +145,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
   const [showHelpUserMenu, setShowHelpUserMenu] = useState(false);
   const [showSupportRequestsModal, setShowSupportRequestsModal] = useState(false);
 
-  // Form states for modals
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [showLoginPassword, setShowLoginPassword] = useState(false);
-  const [signupForm, setSignupForm] = useState({
-    name: '',
-    email: '',
-    password: '',
-    phone: '',
-    dialCode: '+1',
-    role: 'SCOUT' as 'SCOUT' | 'TALENT' | 'CLIENT',
-    country: 'United States'
-  });
-
   const headerRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
   const inboxRef = useRef<HTMLDivElement>(null);
@@ -269,37 +254,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
   const handleLinkClick = (path: string) => {
     setActiveDropdown(null);
     onNavigate(path);
-  };
-
-  const handleLoginSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (loginEmail.trim() && loginPassword.trim()) {
-      const email = loginEmail.trim();
-      await login(email, loginPassword.trim());
-      setShowLoginModal(false);
-      setLoginEmail('');
-      setLoginPassword('');
-      onNavigate(getRoleDashboardPath());
-    }
-  };
-
-  const handleSignupSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (signupForm.email.trim() && signupForm.name.trim()) {
-      const parts = signupForm.name.trim().split(' ');
-      const targetRole = signupForm.role;
-      await signup({
-        first_name: parts[0],
-        last_name: parts.slice(1).join(' ') || '',
-        email: signupForm.email.trim(),
-        password: signupForm.password.trim() || undefined,
-        roles: [targetRole],
-        active_role: targetRole,
-        country: signupForm.country
-      });
-      setShowSignupModal(false);
-      onNavigate(getRoleDashboardPath(targetRole));
-    }
   };
 
   const isDarkTheme = theme === 'dark';
@@ -3840,322 +3794,19 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
         </div>
       )}
 
-      {/* =========================================================================
-          UNIFIED MODERN SIGN IN / SIGN UP MODAL
-          ========================================================================= */}
-      {(showLoginModal || showSignupModal) && (
-        <div
-          className="rf-modal-backdrop"
-          onClick={() => {
-            setShowLoginModal(false);
-            setShowSignupModal(false);
-          }}
-        >
-          <div
-            className="rf-modal-content rf-auth-modal"
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Modal Top Bar */}
-            <div className="rf-auth-modal-top">
-              <div className="rf-auth-modal-brand">
-                <span className="rf-auth-modal-badge">
-                  <ShieldCheck size={15} />
-                </span>
-                <div>
-                  <div className="rf-auth-modal-eyebrow">Refeir Identity</div>
-                  <h3 className="rf-auth-modal-title">
-                    {showLoginModal ? 'Welcome back to Refeir' : 'Join Refeir Africa'}
-                  </h3>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="rf-auth-modal-close"
-                onClick={() => {
-                  setShowLoginModal(false);
-                  setShowSignupModal(false);
-                }}
-                aria-label="Close modal"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            {/* Mode Switcher */}
-            <div className="rf-auth-tabs" style={{ marginBottom: '1.15rem' }}>
-              <button
-                type="button"
-                className={`rf-auth-tab${showLoginModal ? ' is-active' : ''}`}
-                onClick={() => {
-                  setShowSignupModal(false);
-                  setShowLoginModal(true);
-                }}
-              >
-                <LogIn size={14} />
-                <span>Sign In</span>
-              </button>
-              <button
-                type="button"
-                className={`rf-auth-tab${showSignupModal ? ' is-active' : ''}`}
-                onClick={() => {
-                  setShowLoginModal(false);
-                  setShowSignupModal(true);
-                }}
-              >
-                <UserPlus size={14} />
-                <span>Create Account</span>
-              </button>
-            </div>
-
-            {/* Role Selection on Sign Up (applies to both Social and Email signup) */}
-            {showSignupModal && (
-              <div className="rf-auth-field" style={{ marginBottom: '1rem' }}>
-                <label className="rf-auth-field-label">I am joining primarily as</label>
-                <div className="rf-auth-modal-role-grid">
-                  {[
-                    { role: 'CLIENT', label: 'Client', desc: 'Hire Talent', icon: Briefcase },
-                    { role: 'TALENT', label: 'Talent', desc: 'Find Work', icon: Award },
-                    { role: 'SCOUT', label: 'Scout', desc: 'Earn 10%', icon: Compass },
-                  ].map(r => {
-                    const Icon = r.icon;
-                    const active = signupForm.role === r.role;
-                    return (
-                      <button
-                        type="button"
-                        key={r.role}
-                        onClick={() => setSignupForm({ ...signupForm, role: r.role as any })}
-                        className={`rf-auth-modal-role-btn${active ? ' is-selected' : ''}`}
-                      >
-                        <Icon size={14} />
-                        <strong>{r.label}</strong>
-                        <span>{r.desc}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {/* Social Sign In / Sign Up: Google, GitHub, LinkedIn, Facebook, Pinterest */}
-            <SocialAuthButtons
-              mode={showLoginModal ? 'LOGIN' : 'SIGNUP'}
-              compact
-              dividerText={
-                showLoginModal ? 'or sign in with email' : 'or sign up with email'
-              }
-              onSelectProvider={async (provider: SocialAuthProvider) => {
-                const targetRole = showSignupModal ? signupForm.role : 'CLIENT';
-                await loginWithSocial(provider, targetRole);
-                setShowLoginModal(false);
-                setShowSignupModal(false);
-                onNavigate(getRoleDashboardPath(targetRole));
-              }}
-            />
-
-            {showLoginModal ? (
-              <form onSubmit={handleLoginSubmit} className="rf-auth-form">
-                <div className="rf-auth-field">
-                  <label className="rf-auth-field-label">Email Address</label>
-                  <div className="rf-auth-input-wrap">
-                    <Mail size={16} className="rf-auth-input-icon" />
-                    <input
-                      type="email"
-                      className="rf-auth-input"
-                      placeholder="name@company.com"
-                      value={loginEmail}
-                      onChange={e => setLoginEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="rf-auth-field">
-                  <div className="rf-auth-label-row">
-                    <label className="rf-auth-field-label">Password</label>
-                    <button
-                      type="button"
-                      className="rf-auth-inline-link"
-                      onClick={() =>
-                        alert('A password reset link has been dispatched to your email address.')
-                      }
-                    >
-                      Forgot password?
-                    </button>
-                  </div>
-                  <div className="rf-auth-input-wrap">
-                    <Lock size={16} className="rf-auth-input-icon" />
-                    <input
-                      type={showLoginPassword ? 'text' : 'password'}
-                      className="rf-auth-input has-trailing"
-                      placeholder="Enter your password"
-                      value={loginPassword}
-                      onChange={e => setLoginPassword(e.target.value)}
-                      required
-                    />
-                    <button
-                      type="button"
-                      className="rf-auth-eye-btn"
-                      onClick={() => setShowLoginPassword(!showLoginPassword)}
-                      aria-label={showLoginPassword ? 'Hide password' : 'Show password'}
-                    >
-                      {showLoginPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                    </button>
-                  </div>
-                </div>
-
-                <button type="submit" className="rf-auth-submit-btn">
-                  <span>Sign In &amp; Continue</span>
-                  <ArrowRight size={16} />
-                </button>
-              </form>
-            ) : (
-              <form onSubmit={handleSignupSubmit} className="rf-auth-form">
-                <div className="rf-auth-field-row">
-                  <div className="rf-auth-field">
-                    <label className="rf-auth-field-label">Full Name</label>
-                    <div className="rf-auth-input-wrap">
-                      <User size={16} className="rf-auth-input-icon" />
-                      <input
-                        type="text"
-                        className="rf-auth-input"
-                        placeholder="Kwame Mensah"
-                        value={signupForm.name}
-                        onChange={e => setSignupForm({ ...signupForm, name: e.target.value })}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="rf-auth-field">
-                    <label className="rf-auth-field-label">Email Address</label>
-                    <div className="rf-auth-input-wrap">
-                      <Mail size={16} className="rf-auth-input-icon" />
-                      <input
-                        type="email"
-                        className="rf-auth-input"
-                        placeholder="kwame@company.com"
-                        value={signupForm.email}
-                        onChange={e => setSignupForm({ ...signupForm, email: e.target.value })}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rf-auth-field">
-                  <label className="rf-auth-field-label">Country / Market</label>
-                  <div className="rf-auth-input-wrap">
-                    <Globe2 size={16} className="rf-auth-input-icon" />
-                    <select
-                      className="rf-auth-input rf-auth-select"
-                      value={signupForm.country}
-                      onChange={e => {
-                        const selectedName = e.target.value;
-                        const matchedCountry = getCountryByName(selectedName);
-                        setSignupForm({
-                          ...signupForm,
-                          country: selectedName,
-                          dialCode: matchedCountry ? matchedCountry.dialCode : signupForm.dialCode,
-                        });
-                      }}
-                    >
-                      <optgroup label="Global Enterprise & Client Markets">
-                        {GLOBAL_COUNTRIES.filter(c => c.region === 'GLOBAL').map(c => (
-                          <option key={c.code} value={c.name}>
-                            {c.flag} {c.name}
-                          </option>
-                        ))}
-                      </optgroup>
-                      <optgroup label="Pan-African Sovereign Nations">
-                        {GLOBAL_COUNTRIES.filter(c => c.region === 'AFRICA').map(c => (
-                          <option key={c.code} value={c.name}>
-                            {c.flag} {c.name}
-                          </option>
-                        ))}
-                      </optgroup>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="rf-auth-field">
-                  <label className="rf-auth-field-label">Phone Number &amp; Country Code</label>
-                  <div className="rf-auth-phone-row">
-                    <select
-                      className="rf-auth-input rf-auth-dial-select"
-                      value={signupForm.dialCode}
-                      onChange={e => setSignupForm({ ...signupForm, dialCode: e.target.value })}
-                    >
-                      <optgroup label="Global Calling Codes">
-                        {GLOBAL_COUNTRIES.filter(c => c.region === 'GLOBAL').map(c => (
-                          <option key={c.code} value={c.dialCode}>
-                            {c.flag} {c.code} ({c.dialCode})
-                          </option>
-                        ))}
-                      </optgroup>
-                      <optgroup label="Pan-African Calling Codes">
-                        {GLOBAL_COUNTRIES.filter(c => c.region === 'AFRICA').map(c => (
-                          <option key={c.code} value={c.dialCode}>
-                            {c.flag} {c.code} ({c.dialCode})
-                          </option>
-                        ))}
-                      </optgroup>
-                    </select>
-
-                    <div className="rf-auth-input-wrap" style={{ flex: 1 }}>
-                      <input
-                        type="tel"
-                        className="rf-auth-input"
-                        style={{ paddingLeft: '0.85rem' }}
-                        placeholder="801 234 5678"
-                        value={signupForm.phone}
-                        onChange={e => setSignupForm({ ...signupForm, phone: e.target.value })}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <button type="submit" className="rf-auth-submit-btn">
-                  <span>Create Free Account</span>
-                  <ArrowRight size={16} />
-                </button>
-              </form>
-            )}
-
-            <div className="rf-auth-modal-foot">
-              {showLoginModal ? (
-                <>
-                  Don&apos;t have an account?{' '}
-                  <button
-                    type="button"
-                    className="rf-auth-inline-link"
-                    onClick={() => {
-                      setShowLoginModal(false);
-                      setShowSignupModal(true);
-                    }}
-                  >
-                    Sign up free
-                  </button>
-                </>
-              ) : (
-                <>
-                  Already registered?{' '}
-                  <button
-                    type="button"
-                    className="rf-auth-inline-link"
-                    onClick={() => {
-                      setShowSignupModal(false);
-                      setShowLoginModal(true);
-                    }}
-                  >
-                    Sign in
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Upwork-Standard Sign In / Sign Up Popup */}
+      <AuthModal
+        isOpen={showLoginModal || showSignupModal}
+        initialMode={showSignupModal ? 'SIGNUP' : 'LOGIN'}
+        onClose={() => {
+          setShowLoginModal(false);
+          setShowSignupModal(false);
+        }}
+        onSuccess={role => {
+          onNavigate(getRoleDashboardPath(role));
+        }}
+        onNavigate={onNavigate}
+      />
     </>
   );
 };
