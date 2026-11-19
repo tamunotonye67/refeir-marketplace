@@ -288,6 +288,9 @@ const ENTERPRISE_PILLARS = [
   {
     key: 'scouts',
     icon: Compass,
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80',
+    imageAlt: 'Engineering team collaborating around laptops',
+    tag: '48-Hour Shortlist',
     title: 'Scout-vetted shortlists in 48h',
     desc: 'Skip hundreds of unvetted resumes. Local CTOs and senior tech leads personally endorse candidates they have shipped code with.',
     featured: false,
@@ -300,10 +303,12 @@ const ENTERPRISE_PILLARS = [
   {
     key: 'escrow',
     icon: ShieldCheck,
+    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=900&q=80',
+    imageAlt: 'Enterprise leaders reviewing project milestones',
+    tag: 'Enterprise Standard',
     title: 'Trust Vault Escrow & billing',
     desc: 'Every sprint milestone is protected in escrow and released only when your engineering lead approves deliverables.',
     featured: true,
-    badge: 'Enterprise standard',
     points: [
       'Consolidated monthly invoices in USD, EUR or GBP',
       'Zero payout friction across 54 African countries',
@@ -313,6 +318,9 @@ const ENTERPRISE_PILLARS = [
   {
     key: 'ip',
     icon: FileText,
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80',
+    imageAlt: 'Executive partner leading a global remote team',
+    tag: 'Global Compliance',
     title: 'IP protection & EOR conversion',
     desc: 'Enforceable IP assignment and NDAs are signed before day one, with seamless contract-to-hire conversion whenever you are ready.',
     featured: false,
@@ -324,21 +332,24 @@ const ENTERPRISE_PILLARS = [
   }
 ];
 
-const STEPS = [
+const HUB_SPOTLIGHTS = [
   {
-    num: '01',
-    title: 'Define your pod',
-    desc: 'Share your stack, headcount, and sprint timeline with a dedicated Refeir talent partner.'
+    city: 'Lagos & Abuja',
+    focus: 'FinTech & Cloud Systems',
+    image: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=800&q=80',
+    stat: '1,400+ vetted engineers'
   },
   {
-    num: '02',
-    title: 'Interview 3 vetted leads',
-    desc: 'Within 48 hours, review scout-endorsed profiles with verified code and peer references.'
+    city: 'Nairobi & Kigali',
+    focus: 'Mobile Money & AI',
+    image: 'https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&w=800&q=80',
+    stat: 'GMT+3 EU overlap'
   },
   {
-    num: '03',
-    title: 'Ship with escrow protection',
-    desc: 'Kick off with signed NDAs, IP assignment, and milestone-based Trust Vault Escrow.'
+    city: 'Cape Town & Cairo',
+    focus: 'Enterprise SaaS & Design',
+    image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80',
+    stat: '4.96 avg client rating'
   }
 ];
 
@@ -413,37 +424,60 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
 
   return (
     <div className="rf-bz-page">
-      {/* Hero */}
-      <section className="rf-bz-hero">
+      {/* Split Hero with Editorial Photo */}
+      <section className="rf-bz-hero-wrap">
         <div className="rf-bz-hero-bg" aria-hidden="true" />
-        <div className="rf-bz-eyebrow">
-          <Building2 size={14} /> Refeir for Business
-        </div>
-        <h1 className="rf-bz-title">
-          Build <span className="rf-bz-title-accent">scout-vetted</span> engineering teams in 48 hours
-        </h1>
-        <div className="rf-bz-subtitle">
-          Deploy senior African engineers, AI architects, and product designers backed by peer endorsements, Trust Vault Escrow, and consolidated global billing.
-        </div>
-        <div className="rf-bz-hero-actions">
-          <button type="button" className="rf-bz-btn-primary" onClick={scrollToIntake}>
-            Book a discovery call <ArrowRight size={16} />
-          </button>
-          <button type="button" className="rf-bz-btn-ghost" onClick={() => onNavigate('/marketplace')}>
-            Browse talent
-          </button>
-        </div>
+        <div className="rf-bz-hero">
+          <div className="rf-bz-hero-copy">
+            <div className="rf-bz-eyebrow">
+              <Building2 size={14} /> Refeir for Business
+            </div>
+            <h1 className="rf-bz-title">
+              Build <span className="rf-bz-title-accent">scout-vetted</span> engineering teams in 48 hours
+            </h1>
+            <div className="rf-bz-subtitle">
+              Deploy senior African engineers, AI architects, and product designers backed by peer endorsements, Trust Vault Escrow, and consolidated global billing.
+            </div>
+            <div className="rf-bz-hero-actions">
+              <button type="button" className="rf-bz-btn-primary" onClick={scrollToIntake}>
+                Book a discovery call <ArrowRight size={16} />
+              </button>
+              <button type="button" className="rf-bz-btn-ghost" onClick={() => onNavigate('/marketplace')}>
+                Browse talent
+              </button>
+            </div>
+            <div className="rf-bz-hero-metrics">
+              <div><strong>48h</strong><span>shortlist SLA</span></div>
+              <div><strong>Top 1%</strong><span>scout-vetted</span></div>
+              <div><strong>5–8h</strong><span>EU &amp; US overlap</span></div>
+            </div>
+          </div>
 
-        <div className="rf-bz-stats">
-          <div><strong>48h</strong><span>shortlist SLA</span></div>
-          <div><strong>Top 1%</strong><span>scout-vetted</span></div>
-          <div><strong>5–8h</strong><span>EU &amp; US overlap</span></div>
-          <div><strong>100%</strong><span>IP &amp; escrow protected</span></div>
+          <div className="rf-bz-hero-media">
+            <div className="rf-bz-hero-photo-frame">
+              <img
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80"
+                alt="Senior African engineering team collaborating in a modern studio"
+                className="rf-bz-hero-photo"
+              />
+              <div className="rf-bz-floating-card">
+                <div className="rf-bz-avatar-stack">
+                  <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=160&q=80" alt="Kwame Mensah" />
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=160&q=80" alt="Amara Diallo" />
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80" alt="Zola Dlamini" />
+                </div>
+                <div className="rf-bz-floating-text">
+                  <strong>Shortlist ready in 48h</strong>
+                  <span><ShieldCheck size={13} /> 100% Trust Vault Escrow</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Interactive Pod Builder */}
-      <section id="enterprise-pod-builder" className="rf-bz-section rf-bz-section-first">
+      <section id="enterprise-pod-builder" className="rf-bz-section">
         <div className="rf-bz-section-head">
           <div className="rf-bz-kicker">Dedicated Pods</div>
           <h2 className="rf-bz-h2">Assemble a ready-to-ship team</h2>
@@ -544,7 +578,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Enterprise Pillars */}
+      {/* Enterprise Photo Pillar Cards */}
       <section className="rf-bz-section">
         <div className="rf-bz-section-head">
           <div className="rf-bz-kicker">Why Refeir Business</div>
@@ -562,20 +596,25 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
                 key={pillar.key}
                 className={`rf-bz-card${pillar.featured ? ' is-featured' : ''}`}
               >
-                <div className="rf-bz-card-top">
-                  <div className="rf-bz-icon"><Icon size={20} /></div>
-                  {pillar.badge && <div className="rf-bz-badge">{pillar.badge}</div>}
+                <div className="rf-bz-card-media">
+                  <img src={pillar.image} alt={pillar.imageAlt} loading="lazy" />
+                  <span className="rf-bz-media-pill">{pillar.tag}</span>
                 </div>
-                <h3 className="rf-bz-card-title">{pillar.title}</h3>
-                <div className="rf-bz-card-desc">{pillar.desc}</div>
-                <ul className="rf-bz-list">
-                  {pillar.points.map((pt) => (
-                    <li key={pt}>
-                      <span className="rf-bz-check"><Check size={12} strokeWidth={3} /></span>
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="rf-bz-card-body">
+                  <div className="rf-bz-card-head">
+                    <div className="rf-bz-icon"><Icon size={18} /></div>
+                    <h3 className="rf-bz-card-title">{pillar.title}</h3>
+                  </div>
+                  <div className="rf-bz-card-desc">{pillar.desc}</div>
+                  <ul className="rf-bz-list">
+                    {pillar.points.map((pt) => (
+                      <li key={pt}>
+                        <span className="rf-bz-check"><Check size={12} strokeWidth={3} /></span>
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             );
           })}
@@ -589,19 +628,25 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* Pan-African Hub Photo Strip */}
       <section className="rf-bz-section">
         <div className="rf-bz-section-head">
-          <div className="rf-bz-kicker">How it works</div>
-          <h2 className="rf-bz-h2">From brief to shipping in days</h2>
+          <div className="rf-bz-kicker">Talent Network</div>
+          <h2 className="rf-bz-h2">Tap Africa&apos;s top engineering hubs</h2>
+          <div className="rf-bz-section-sub">
+            Real-time overlap with European and US East Coast product teams.
+          </div>
         </div>
 
-        <div className="rf-bz-steps">
-          {STEPS.map((step) => (
-            <div key={step.num} className="rf-bz-step">
-              <div className="rf-bz-step-num">{step.num}</div>
-              <h3 className="rf-bz-step-title">{step.title}</h3>
-              <div className="rf-bz-step-desc">{step.desc}</div>
+        <div className="rf-bz-hubs">
+          {HUB_SPOTLIGHTS.map((hub) => (
+            <div key={hub.city} className="rf-bz-hub-card">
+              <img src={hub.image} alt={hub.city} loading="lazy" />
+              <div className="rf-bz-hub-overlay">
+                <span className="rf-bz-hub-stat">{hub.stat}</span>
+                <h3>{hub.city}</h3>
+                <p>{hub.focus}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -721,7 +766,7 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Enterprise Intake Form */}
+      {/* Enterprise Intake Form with Visual Partner Card */}
       <section id="enterprise-intake-section" className="rf-bz-section">
         <div className="rf-bz-intake-wrap">
           <div className="rf-bz-intake-copy">
@@ -730,10 +775,23 @@ export const BusinessPage: React.FC<BusinessPageProps> = ({ onNavigate }) => {
             <div className="rf-bz-intake-sub">
               An enterprise talent partner will reply within 24 hours with a tailored pod plan and vetted candidate profiles.
             </div>
+
+            <div className="rf-bz-partner-card">
+              <img
+                src="/african_woman_headset.jpg"
+                alt="Refeir Enterprise Talent Partner"
+                className="rf-bz-partner-img"
+                loading="lazy"
+              />
+              <div>
+                <strong>Dedicated Refeir Desk</strong>
+                <span>Matched by senior technical scouts · 48h shortlist SLA</span>
+              </div>
+            </div>
+
             <ul className="rf-bz-intake-perks">
               <li><CheckCircle2 size={17} /> No upfront commitment or retainer</li>
               <li><CheckCircle2 size={17} /> Mutual NDA available before technical briefing</li>
-              <li><CheckCircle2 size={17} /> Dedicated scout-vetted shortlist in 48 hours</li>
               <li><CheckCircle2 size={17} /> Pay in USD, EUR, or GBP via consolidated invoice</li>
             </ul>
             <div className="rf-bz-intake-links">

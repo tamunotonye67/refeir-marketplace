@@ -1,5 +1,5 @@
 /* =========================================================================
-   Refeir Business / Enterprise Page — Modern Upwork-Standard+ (.rf-bz-*)
+   Refeir Business / Enterprise Page — Modern Upwork-Standard+ with Photos
    ========================================================================= */
 
 .rf-bz-page {
@@ -39,30 +39,37 @@
   --bz-shadow-hover: 0 18px 44px rgba(0, 0, 0, 0.42);
 }
 
-/* Hero */
-.rf-bz-hero {
+/* Split Hero */
+.rf-bz-hero-wrap {
   position: relative;
-  max-width: 860px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 76px 0 56px;
-  text-align: center;
+  padding: 64px 0 36px;
 }
 
 .rf-bz-hero-bg {
   position: absolute;
   inset: -40px -240px 0;
-  background: radial-gradient(60% 70% at 50% 0%, rgba(46, 125, 50, 0.11), transparent 72%);
+  background: radial-gradient(60% 70% at 30% 0%, rgba(46, 125, 50, 0.1), transparent 72%);
   pointer-events: none;
   z-index: 0;
 }
 
 [data-theme="dark"] .rf-bz-hero-bg {
-  background: radial-gradient(60% 70% at 50% 0%, rgba(102, 187, 42, 0.16), transparent 72%);
+  background: radial-gradient(60% 70% at 30% 0%, rgba(102, 187, 42, 0.15), transparent 72%);
 }
 
-.rf-bz-hero > *:not(.rf-bz-hero-bg) {
+.rf-bz-hero {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.rf-bz-hero-copy {
+  min-width: 0;
 }
 
 .rf-bz-eyebrow {
@@ -84,10 +91,10 @@
 }
 
 .rf-bz-title {
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-size: clamp(2.15rem, 4.4vw, 3.35rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.1;
+  line-height: 1.08;
   margin: 0 0 18px;
   color: var(--bz-text);
 }
@@ -106,7 +113,13 @@
   color: transparent !important;
 }
 
-.rf-bz-subtitle,
+.rf-bz-subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--bz-muted);
+  max-width: 540px;
+}
+
 .rf-bz-section-sub {
   font-size: 1.0625rem;
   line-height: 1.65;
@@ -118,7 +131,6 @@
 .rf-bz-hero-actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
   margin-top: 28px;
 }
@@ -166,49 +178,115 @@
   background: var(--bz-green-soft);
 }
 
-.rf-bz-stats {
-  display: inline-flex;
+.rf-bz-hero-metrics {
+  display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px 28px;
-  margin-top: 34px;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background: var(--bz-surface);
-  border: 1px solid var(--bz-border);
-  box-shadow: var(--bz-shadow);
+  gap: 16px 32px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--bz-border);
 }
 
-.rf-bz-stats > div {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 7px;
+.rf-bz-hero-metrics > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.rf-bz-stats strong {
-  font-size: 1rem;
+.rf-bz-hero-metrics strong {
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--bz-green);
+  color: var(--bz-text);
 }
 
-[data-theme="dark"] .rf-bz-stats strong {
-  color: var(--bz-green) !important;
-}
-
-.rf-bz-stats span {
-  font-size: 0.875rem;
+.rf-bz-hero-metrics span {
+  font-size: 0.8125rem;
   color: var(--bz-muted);
+}
+
+/* Hero Photo Frame */
+.rf-bz-hero-media {
+  min-width: 0;
+}
+
+.rf-bz-hero-photo-frame {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--bz-border);
+  box-shadow: 0 24px 60px rgba(11, 31, 17, 0.16);
+  aspect-ratio: 4 / 3;
+  background: var(--bz-soft);
+}
+
+.rf-bz-hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rf-bz-floating-card {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(11, 31, 17, 0.86);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+}
+
+.rf-bz-avatar-stack {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.rf-bz-avatar-stack img {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid #0B1F11;
+  margin-left: -10px;
+}
+
+.rf-bz-avatar-stack img:first-child {
+  margin-left: 0;
+}
+
+.rf-bz-floating-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rf-bz-floating-text strong {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #FFFFFF !important;
+}
+
+.rf-bz-floating-text span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8125rem;
+  color: #A7F3D0 !important;
 }
 
 /* Sections */
 .rf-bz-section {
-  max-width: 1140px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding-top: 84px;
-}
-
-.rf-bz-section-first {
-  padding-top: 24px;
+  padding-top: 88px;
 }
 
 .rf-bz-section-head {
@@ -509,7 +587,7 @@
   color: var(--bz-muted);
 }
 
-/* 3-Column Pillar Cards */
+/* 3-Column Photo Pillar Cards */
 .rf-bz-grid-3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -523,7 +601,7 @@
   background: var(--bz-surface);
   border: 1px solid var(--bz-border);
   border-radius: 20px;
-  padding: 32px 28px;
+  overflow: hidden;
   min-width: 0;
   box-shadow: var(--bz-shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -535,6 +613,38 @@
   border-color: rgba(46, 125, 50, 0.35);
 }
 
+.rf-bz-card-media {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+  background: var(--bz-soft);
+}
+
+.rf-bz-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.rf-bz-card:hover .rf-bz-card-media img {
+  transform: scale(1.04);
+}
+
+.rf-bz-media-pill {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(11, 31, 17, 0.8);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 .rf-bz-card.is-featured {
   background: linear-gradient(160deg, #0D2918 0%, #07190E 100%);
   border: 1px solid rgba(102, 187, 42, 0.45);
@@ -542,12 +652,74 @@
   box-shadow: 0 18px 44px rgba(7, 25, 14, 0.24);
 }
 
+.rf-bz-card.is-featured .rf-bz-media-pill {
+  background: #66BB2A;
+  color: #07190E;
+}
+
+.rf-bz-card-body {
+  padding: 26px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.rf-bz-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.rf-bz-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bz-green-soft);
+  border: 1px solid rgba(46, 125, 50, 0.14);
+  color: var(--bz-green);
+  flex-shrink: 0;
+}
+
+.rf-bz-card.is-featured .rf-bz-icon {
+  background: rgba(102, 187, 42, 0.16);
+  border-color: rgba(102, 187, 42, 0.32);
+  color: #8AE04B;
+}
+
+.rf-bz-card-title {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--bz-text);
+}
+
 .rf-bz-card.is-featured .rf-bz-card-title {
   color: #FFFFFF !important;
 }
 
+.rf-bz-card-desc {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--bz-muted);
+}
+
 .rf-bz-card.is-featured .rf-bz-card-desc {
   color: #B4C9BA !important;
+}
+
+.rf-bz-list {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--bz-border);
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
 }
 
 .rf-bz-card.is-featured .rf-bz-list {
@@ -558,68 +730,9 @@
   color: #ECF5EE;
 }
 
-.rf-bz-card.is-featured .rf-bz-icon {
-  background: rgba(102, 187, 42, 0.16);
-  border-color: rgba(102, 187, 42, 0.32);
-  color: #8AE04B;
-}
-
 .rf-bz-card.is-featured .rf-bz-check {
   background: rgba(102, 187, 42, 0.2);
   color: #8AE04B;
-}
-
-.rf-bz-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.rf-bz-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bz-green-soft);
-  border: 1px solid rgba(46, 125, 50, 0.14);
-  color: var(--bz-green);
-}
-
-.rf-bz-badge {
-  background: #66BB2A;
-  color: #07190E;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 5px 12px;
-  border-radius: 999px;
-}
-
-.rf-bz-card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  margin: 0 0 10px;
-  color: var(--bz-text);
-}
-
-.rf-bz-card-desc {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--bz-muted);
-}
-
-.rf-bz-list {
-  list-style: none;
-  margin: 24px 0 0;
-  padding: 22px 0 0;
-  border-top: 1px solid var(--bz-border);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
 .rf-bz-trust {
@@ -643,46 +756,67 @@
   color: var(--bz-green);
 }
 
-/* Steps */
-.rf-bz-steps {
+/* Pan-African Hub Photo Strip */
+.rf-bz-hubs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
 
-.rf-bz-step {
-  padding: 28px;
-  border-radius: 18px;
-  background: var(--bz-surface);
+.rf-bz-hub-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
   border: 1px solid var(--bz-border);
   box-shadow: var(--bz-shadow);
 }
 
-.rf-bz-step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--bz-green-soft);
-  color: var(--bz-green);
+.rf-bz-hub-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.rf-bz-hub-card:hover img {
+  transform: scale(1.05);
+}
+
+.rf-bz-hub-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(180deg, rgba(7, 25, 14, 0.05) 30%, rgba(7, 25, 14, 0.88) 100%);
+  color: #FFFFFF;
+}
+
+.rf-bz-hub-stat {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(102, 187, 42, 0.9);
+  color: #07190E;
+  margin-bottom: 8px;
+}
+
+.rf-bz-hub-overlay h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #FFFFFF !important;
+}
+
+.rf-bz-hub-overlay p {
+  margin: 0;
   font-size: 0.875rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-.rf-bz-step-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin: 0 0 8px;
-  color: var(--bz-text);
-}
-
-.rf-bz-step-desc {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--bz-muted);
+  color: #D1E3D6 !important;
 }
 
 /* Savings Calculator */
@@ -864,6 +998,40 @@
   margin-bottom: 24px;
 }
 
+.rf-bz-partner-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--bz-surface);
+  border: 1px solid var(--bz-border);
+  box-shadow: var(--bz-shadow);
+  margin-bottom: 24px;
+}
+
+.rf-bz-partner-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.rf-bz-partner-card strong {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--bz-text);
+}
+
+.rf-bz-partner-card span {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--bz-muted);
+  margin-top: 2px;
+}
+
 .rf-bz-intake-perks {
   list-style: none;
   margin: 0;
@@ -888,7 +1056,7 @@
 }
 
 .rf-bz-intake-links {
-  margin-top: 28px;
+  margin-top: 24px;
 }
 
 .rf-bz-link-btn {
@@ -1078,10 +1246,15 @@
 
 /* Responsive */
 @media (max-width: 960px) {
+  .rf-bz-hero,
   .rf-bz-pod-card,
   .rf-bz-calc,
   .rf-bz-intake-wrap {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rf-bz-hero {
+    gap: 36px;
   }
 
   .rf-bz-pod-talent,
@@ -1091,7 +1264,7 @@
   }
 
   .rf-bz-grid-3,
-  .rf-bz-steps {
+  .rf-bz-hubs {
     grid-template-columns: minmax(0, 1fr);
     max-width: 520px;
     margin: 0 auto;
@@ -1103,14 +1276,15 @@
     padding: 0 16px 72px;
   }
 
-  .rf-bz-hero {
-    padding: 52px 0 36px;
+  .rf-bz-hero-wrap {
+    padding: 40px 0 20px;
   }
 
-  .rf-bz-stats {
-    border-radius: 16px;
-    padding: 14px 18px;
-    gap: 10px 18px;
+  .rf-bz-floating-card {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 12px 14px;
   }
 
   .rf-bz-section {
