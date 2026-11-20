@@ -4,7 +4,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=400&q=80';
 
-export type SocialAuthProvider = 'google' | 'github' | 'linkedin' | 'facebook' | 'pinterest';
+export type SocialAuthProvider = 'google' | 'github' | 'linkedin' | 'facebook' | 'twitter';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -312,7 +312,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       github: { first: 'Chinedu', last: 'Adeyemi', email: 'chinedu.dev@github.user.refeir.africa' },
       linkedin: { first: 'Zainab', last: 'Mensah', email: 'zainab.mensah@linkedin.user.refeir.africa' },
       facebook: { first: 'Kofi', last: 'Boateng', email: 'kofi.boateng@facebook.user.refeir.africa' },
-      pinterest: { first: 'Nia', last: 'Kamau', email: 'nia.creative@pinterest.user.refeir.africa' },
+      twitter: { first: 'Nia', last: 'Kamau', email: 'nia.kamau@x.user.refeir.africa' },
     };
 
     const profile = providerProfiles[provider];
