@@ -908,6 +908,7 @@ export const AIPricingInsights: React.FC<AIPricingInsightsProps> = ({ onNavigate
         }}
       >
         <div
+          className="rf-ai-pricing-stage-wrap"
           style={{
             position: 'relative',
             width: '100%',
