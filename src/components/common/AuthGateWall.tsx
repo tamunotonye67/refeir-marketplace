@@ -503,16 +503,12 @@ export const AuthGateWall: React.FC<AuthGateWallProps> = ({
         </div>
 
         <h1 className="rf-auth-card-title">
-          {activeTab === 'LOGIN'
-            ? isStandaloneAuthPage
-              ? 'Log in to Refeir'
-              : `Sign in to ${pageName}`
-            : 'Create your Refeir account'}
+          {activeTab === 'LOGIN' ? 'Log in to Refeir' : 'Create your account'}
         </h1>
         <p className="rf-auth-card-sub">
           {activeTab === 'LOGIN'
             ? 'Continue with a social account or your email.'
-            : 'Select your primary role and get started in seconds.'}
+            : 'Choose your role to get started.'}
         </p>
 
         {wizardIntent && (

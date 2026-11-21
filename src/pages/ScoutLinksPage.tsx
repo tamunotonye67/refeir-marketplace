@@ -390,7 +390,7 @@ export const ScoutLinksPage: React.FC<ScoutLinksPageProps> = ({ onNavigate }) =>
               <span>ENCRYPTED REFERRAL TRACKING SUITE</span>
             </div>
             <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', letterSpacing: '-0.02em', margin: 0 }}>
-              Scout Links & Dynamic QR
+              Referral Links
             </h1>
             <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '680px', marginTop: '0.4rem', lineHeight: 1.5 }}>
               Generate tamper-proof referral links and high-res QR codes for social outreach, WhatsApp pitches, or printable badges at conferences.

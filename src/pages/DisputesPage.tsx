@@ -230,7 +230,7 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ onNavigate }) => {
             <span>PAN-AFRICAN ARBITRATION TRIBUNAL</span>
           </div>
           <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em', margin: '0.2rem 0' }}>
-            Dispute Mediation Console
+            Disputes
           </h1>
           <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', maxWidth: '720px' }}>
             Neutral tri-party escrow tribunal protecting African clients, engineers, and scouts with 100% Trust Vault double-entry custody.
@@ -523,7 +523,7 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ onNavigate }) => {
           <div className="rf-card" style={{ padding: '3rem', textAlign: 'center' }}>
             <ShieldCheck size={48} color="var(--rf-leaf-green)" style={{ margin: '0 auto 1rem' }} />
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-              No Active Disputes Match Filters
+              No active disputes
             </h3>
             <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.875rem', maxWidth: '460px', margin: '0.5rem auto 1.5rem' }}>
               All project milestones and escrow deliveries across Africa are executing in accordance with specifications.

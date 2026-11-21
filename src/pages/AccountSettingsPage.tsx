@@ -994,7 +994,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
                 <Percent size={20} color="#F4B942" />
                 <div>
                   <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-                    Tax Identification & Cross-Border Compliance
+                    Tax Information
                   </h2>
                   <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', margin: 0 }}>
                     Nigeria Headquarters (FIRS TIN: 24891023-0001) and Pan-African statutory reporting.
@@ -1158,7 +1158,7 @@ export const AccountSettingsPage: React.FC<AccountSettingsPageProps> = ({ onNavi
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                   <Building size={20} color="var(--rf-leaf-green)" />
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                    Preferred Payout Channels & Bank Details
+                    Payout Methods
                   </h3>
                   <span className="rf-badge rf-badge-mint rf-text-xs">
                     {wallet.payout_methods.length} Active

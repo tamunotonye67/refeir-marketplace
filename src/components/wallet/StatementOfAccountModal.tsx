@@ -659,7 +659,7 @@ export const StatementOfAccountModal: React.FC<StatementOfAccountModalProps> = (
           {/* Itemized Financial Ledger Table */}
           <div style={{ marginBottom: '2.5rem' }}>
             <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span>Itemized Financial Ledger & Escrow Settlement Records</span>
+              <span>Transaction History</span>
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: isDark ? '#94A3B8' : '#64748B' }}>
                 {ledgerItems.length} Transactions Recorded
               </span>

@@ -282,7 +282,7 @@ export const LinkTelemetryPage: React.FC<LinkTelemetryPageProps> = ({ onNavigate
               <span>LIVE CRYPTOGRAPHIC TELEMETRY ENGINE</span>
             </div>
             <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', letterSpacing: '-0.02em', margin: 0 }}>
-              Referral Link Telemetry & Audit Logs
+              Link Analytics
             </h1>
             <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '680px', marginTop: '0.4rem', lineHeight: 1.5 }}>
               Track real-time click volume, device footprints, geographical distribution, and 30-day deterministic attribution locks across all 54 African countries.

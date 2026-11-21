@@ -199,7 +199,7 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
           <div>
             <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-              Africa Professional Marketplace
+              Find Talent
             </h1>
             <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
               Search vetted talent or browse guaranteed referral services across 54 African countries.

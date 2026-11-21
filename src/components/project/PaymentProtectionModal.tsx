@@ -227,7 +227,7 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
             </div>
             <div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 900, color: 'var(--rf-cream)', margin: 0 }}>
-                Refeir Sovereign Escrow Gateway
+                Fund Milestone
               </h3>
               <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', margin: '2px 0 0' }}>
                 Multi-currency escrow for global foreign clients & African enterprises.
@@ -643,7 +643,7 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
               <CheckCircle2 size={36} />
             </div>
             <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
-              Project Milestone Successfully Funded
+              Milestone Funded
             </h3>
             <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', maxWidth: '440px', margin: '0 auto 1.5rem', lineHeight: 1.6 }}>
               {convertedTotal.converted.formatted} is securely locked in the Refeir Sovereign Escrow Vault. The talent has received confirmation to commence code deliverables.

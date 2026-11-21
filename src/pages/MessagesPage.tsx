@@ -204,7 +204,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ initialThreadId }) =
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <MessageSquare size={26} color={isDark ? "var(--rf-leaf-green)" : "#16A34A"} />
-              <span>Direct Inbox & Sovereign Negotiations</span>
+              <span>Messages</span>
             </h1>
             <p style={{ color: isDark ? '#94A3B8' : '#475569', fontSize: '0.875rem', marginTop: '0.25rem' }}>
               Encrypted negotiation rails for Scouts, Talents, and Clients with automated Payment Escrow protection.

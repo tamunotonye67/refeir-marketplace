@@ -228,10 +228,10 @@ export const RoleOnboardingGate: React.FC<RoleOnboardingGateProps> = ({
 
           <h1 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)', fontWeight: 800, color: isDark ? '#FFFFFF' : '#0F172A', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
             {targetRole === 'SCOUT'
-              ? 'Complete Your Scout Profile'
+              ? 'Set Up Scout Profile'
               : targetRole === 'TALENT'
-              ? 'Set Up Your Talent Hub'
-              : 'Complete Client Organization Setup'}
+              ? 'Set Up Talent Profile'
+              : 'Set Up Client Account'}
           </h1>
 
           <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '560px', margin: '0.75rem auto 0', lineHeight: 1.6 }}>

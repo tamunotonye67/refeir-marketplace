@@ -202,7 +202,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
               <span>SCOUT COMMAND CENTER</span>
             </div>
             <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: isDark ? 'var(--rf-cream)' : '#122B1A', letterSpacing: '-0.02em', margin: 0 }}>
-              YOUR NETWORK IS WORKING.
+              Scout Dashboard
             </h1>
             <p style={{ color: isDark ? 'var(--rf-cream)' : '#475569', fontSize: '0.9375rem', marginTop: '0.35rem', opacity: isDark ? 0.9 : 1, maxWidth: '640px', lineHeight: 1.5 }}>
               0% platform fee forever on 10% talent offers. Introduce local clients to earn monthly Airfee Tokens.
@@ -594,7 +594,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
               <span>DIRECT MESSAGES & CHATTING CENTER</span>
             </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-              Scout Introductions & Referral Scoping Chats
+              Active Introductions
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.2rem' }}>
               Click any introduction thread to open encrypted direct chat with your referred clients and talents.
@@ -727,7 +727,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
               </span>
             </div>
             <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-              Airfee Token Balance & Yield Protection Levels
+              Airfee Tokens
             </h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-400)', margin: 0 }}>
               Track your token balance, active fee shields, and yield maximization status across all African referrals.
@@ -1018,7 +1018,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
           <div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)' }}>
-              Your Active Referral Links & Attribution
+              Referral Links
             </h3>
             <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.875rem' }}>
               Every link is protected by a 30-day deterministic attribution lock. 0% platform fee on &le; 10% rates.
@@ -1125,7 +1125,7 @@ export const ScoutDashboard: React.FC<ScoutDashboardProps> = ({ onNavigate }) =>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                Linked Commission Payout Channels
+                Payout Methods
               </h3>
               <span className="rf-badge rf-badge-mint rf-text-xs">
                 {scoutWallet.payout_methods.length} Active

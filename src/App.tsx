@@ -243,7 +243,7 @@ export const App: React.FC = () => {
     // 6. Project Workspace (/projects/:id)
     if (basePath.startsWith('/projects/')) {
       if (!currentUser) {
-        return <AuthGateWall pageName="Project Workspace & Escrow Custody" onNavigate={navigate} />;
+        return <AuthGateWall pageName="Project" onNavigate={navigate} />;
       }
       const pId = basePath.replace('/projects/', '') || selectedProjectId || projectsList[0]?.id;
       return (
@@ -272,7 +272,7 @@ export const App: React.FC = () => {
         return <JobBoardPage onNavigate={navigate} />;
       case '/dashboard':
         if (!currentUser) {
-          return <AuthGateWall pageName="Refeir Dashboard Workspace" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Dashboard" onNavigate={navigate} />;
         }
         if (currentUser.active_role === 'CLIENT') {
           if (!currentUser.client_onboarding_completed) {
@@ -311,7 +311,7 @@ export const App: React.FC = () => {
         return <ScoutDashboard onNavigate={navigate} />;
       case '/dashboard/scout':
         if (!currentUser) {
-          return <AuthGateWall pageName="Scout Network Dashboard" roleRequired="Scout" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Scout Dashboard" roleRequired="Scout" onNavigate={navigate} />;
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -330,7 +330,7 @@ export const App: React.FC = () => {
       case '/telemetry':
       case '/scout/telemetry':
         if (!currentUser) {
-          return <AuthGateWall pageName="Link Telemetry & Click Audit Logs" roleRequired="Scout" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Link Analytics" roleRequired="Scout" onNavigate={navigate} />;
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -347,7 +347,7 @@ export const App: React.FC = () => {
       case '/conversion-rates':
       case '/scout/conversions':
         if (!currentUser) {
-          return <AuthGateWall pageName="Conversion Rates & Funnel Analytics" roleRequired="Scout" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Conversions" roleRequired="Scout" onNavigate={navigate} />;
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -363,7 +363,7 @@ export const App: React.FC = () => {
       case '/introductions':
       case '/scout/introductions':
         if (!currentUser) {
-          return <AuthGateWall pageName="Active Client-Talent Introductions" roleRequired="Scout" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Introductions" roleRequired="Scout" onNavigate={navigate} />;
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -380,7 +380,7 @@ export const App: React.FC = () => {
       case '/scout/links':
       case '/qr':
         if (!currentUser) {
-          return <AuthGateWall pageName="Scout Links & Dynamic QR Generator" roleRequired="Scout" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Referral Links" roleRequired="Scout" onNavigate={navigate} />;
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -395,7 +395,7 @@ export const App: React.FC = () => {
         return <ScoutLinksPage onNavigate={navigate} />;
       case '/dashboard/talent':
         if (!currentUser) {
-          return <AuthGateWall pageName="Talent Workspace & Contracts" roleRequired="Talent" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Talent Dashboard" roleRequired="Talent" onNavigate={navigate} />;
         }
         if (currentUser.active_role !== 'TALENT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -421,7 +421,7 @@ export const App: React.FC = () => {
         );
       case '/dashboard/client':
         if (!currentUser) {
-          return <AuthGateWall pageName="Client Project & Escrow Dashboard" roleRequired="Client" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Client Dashboard" roleRequired="Client" onNavigate={navigate} />;
         }
         if (currentUser.active_role !== 'CLIENT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -447,22 +447,22 @@ export const App: React.FC = () => {
         );
       case '/wallet':
         if (!currentUser) {
-          return <AuthGateWall pageName="Multi-Currency Cross-Border Wallet" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Wallet" onNavigate={navigate} />;
         }
         return <WalletPage onNavigate={navigate} />;
       case '/messages':
         if (!currentUser) {
-          return <AuthGateWall pageName="Encrypted Project Communications" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Messages" onNavigate={navigate} />;
         }
         return <MessagesPage initialThreadId={getQueryParam(currentPath, 'thread') || undefined} />;
       case '/disputes':
         if (!currentUser) {
-          return <AuthGateWall pageName="Dispute Mediation & Arbitration" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Disputes" onNavigate={navigate} />;
         }
         return <DisputesPage onNavigate={navigate} />;
       case '/verification':
         if (!currentUser) {
-          return <AuthGateWall pageName="Identity & Tier-2 KYC Verification" onNavigate={navigate} />;
+          return <AuthGateWall pageName="Verification" onNavigate={navigate} />;
         }
         return <VerificationPage />;
       case '/profile':

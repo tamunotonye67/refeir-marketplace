@@ -79,7 +79,7 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
             <span>PAN-AFRICAN MULTI-CURRENCY VAULT</span>
           </div>
           <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-            Multi-Currency Wallet & Ledger
+            Wallet
           </h1>
           <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
             Balances are preserved in native settlement currencies • FIRS & Cross-Border Tax Compliant.
@@ -362,7 +362,7 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
       {/* Multi-Currency Balances Cards (Section 36 & 37) */}
       <div style={{ marginBottom: '3rem' }}>
         <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1rem' }}>
-          Your Separate Currency Balances
+          Balances
         </h2>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))', gap: '1.25rem' }}>
@@ -382,7 +382,7 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                Linked Payout & Banking Channels
+                Payout Methods
               </h3>
               <span className="rf-badge rf-badge-mint rf-text-xs">
                 {wallet.payout_methods.length} Active

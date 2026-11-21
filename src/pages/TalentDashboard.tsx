@@ -234,7 +234,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
             <span>TALENT COMMAND CENTER</span>
           </div>
           <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-            Deliver Work. Grow Your Pan-African Pipeline.
+            Talent Dashboard
           </h1>
           <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
             All projects are 100% protected. Scouts champion your services across the continent.
@@ -448,7 +448,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
               </span>
             </div>
             <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-              Milestones Awaiting Your Deliverables
+              Active Milestones
             </h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-300)', margin: 0 }}>
               Upload code packages, design prototypes, and APK builds to trigger client escrow release.
@@ -656,7 +656,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
       {/* Services Manager */}
       <div className="rf-card" style={{ padding: '2rem' }}>
         <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '1.5rem' }}>
-          Your Active Marketplace Services
+          Your Services
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '1.25rem' }}>
           {myServices.map(srv => (
@@ -697,7 +697,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
               <span>REPUTATIONAL PROOF & TRUST SCORE</span>
             </div>
             <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-              Verified Client Reviews & Scout Endorsements
+              Reviews & Endorsements
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.25rem' }}>
               All reviews are verified against on-chain/escrow milestone settlements across Africa.
@@ -812,7 +812,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
               <span>DIRECT MESSAGES & CHATTING CENTER</span>
             </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-              Active Client Conversations & Scout Referrals
+              Messages & Referrals
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.2rem' }}>
               Click any conversation to open encrypted messaging and milestone scoping with your clients.
@@ -945,7 +945,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
                   <span>EARNINGS SETTLEMENT & BANKING</span>
                 </div>
                 <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                  Preferred Payout Channels & Bank Details
+                  Payout Methods
                 </h3>
                 <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
                   Choose where client milestone releases automatically disburse across African banks, mobile money, and crypto.
@@ -1126,7 +1126,7 @@ export const TalentDashboard: React.FC<TalentDashboardProps> = ({
               <span>PAN-AFRICAN OPEN CONTRACTS</span>
             </div>
             <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-              Browse Open Jobs & Submit Proposals
+              Open Jobs
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-300)', marginTop: '0.25rem' }}>
               💼 Proposal Job Rule: 5% client fee + 5% talent fee deducted at final milestone. 🔒 Strict Rule: All chatting must be done within Refeir.

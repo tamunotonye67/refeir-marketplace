@@ -154,7 +154,7 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
               <span>PAN-AFRICAN JOB BOARD</span>
             </div>
             <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', letterSpacing: '-0.02em' }}>
-              Client Opportunities Across Africa
+              Open Jobs
             </h1>
             <p style={{ color: isDark ? '#94A3B8' : '#475569', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
               Browse open contracts with Trust Vault protection or post your requirements to reach vetted talent.

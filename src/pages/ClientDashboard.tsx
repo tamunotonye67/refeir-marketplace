@@ -189,7 +189,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
             <span>CLIENT HUB</span>
           </div>
           <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em' }}>
-            Hire Across Africa with Payment Protection.
+            Client Dashboard
           </h1>
           <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
             Your payments are securely held in milestone custody until you approve delivered work.
@@ -360,7 +360,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
               </span>
             </div>
             <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-              Curated Talent Matching from Refeir Desk
+              Refeir Desk Matches
             </h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-300)', margin: 0 }}>
               Pre-vetted professionals endorsed by top African scouts for your project scope.
@@ -592,7 +592,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
               <span>DIRECT MESSAGES & CHATTING CENTER</span>
             </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-              Live Project Scoping & Talent Negotiations
+              Active Discussions
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.2rem' }}>
               Click any conversation to open encrypted direct messaging with your talents and scout connectors.
@@ -719,7 +719,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
               </span>
             </div>
             <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: 'var(--rf-cream)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-              Milestone Deliverables & Work Inspection
+              Milestones & Deliverables
             </h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--rf-slate-300)', margin: 0 }}>
               Review design files, test repositories, download APK builds, and sign off milestones to release escrow.
@@ -1034,7 +1034,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({
                 </div>
                 <div>
                   <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0 }}>
-                    Request Refeir Desk Recommendation
+                    Request Talent Match
                   </h3>
                   <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', margin: 0 }}>
                     Pre-screened talent shortlist delivered in &lt;24 hours.

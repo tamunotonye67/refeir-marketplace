@@ -185,7 +185,7 @@ export const ConversionRatesPage: React.FC<ConversionRatesPageProps> = ({ onNavi
               <span>SCOUT REFERRAL FUNNEL ANALYTICS</span>
             </div>
             <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A', letterSpacing: '-0.02em', margin: 0 }}>
-              Conversion Rates & Settlement Velocity
+              Conversions
             </h1>
             <p style={{ color: isDark ? '#CBD5E1' : '#475569', fontSize: '0.9375rem', maxWidth: '680px', marginTop: '0.4rem', lineHeight: 1.5 }}>
               Analyze how your client introductions advance from raw link clicks to funded escrow contracts, completion approvals, and automated 10% commission disbursements.

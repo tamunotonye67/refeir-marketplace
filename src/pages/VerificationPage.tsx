@@ -177,7 +177,7 @@ export const VerificationPage: React.FC = () => {
           <span>AFRICA TRUST & SOVEREIGN IDENTITY NETWORK</span>
         </div>
         <h1 style={{ fontSize: '2.35rem', fontWeight: 800, color: 'var(--rf-cream)', letterSpacing: '-0.02em', margin: '0 0 0.5rem 0' }}>
-          Biometric Identity & Trust Verification
+          Identity Verification
         </h1>
         <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.95rem', maxWidth: '640px', margin: '0 auto' }}>
           Strict multi-factor identity engine: All names, dates of birth, official document numbers, and live 3D biometric captures must strictly align to issue verified badges.
@@ -227,7 +227,7 @@ export const VerificationPage: React.FC = () => {
         <div className="rf-card" style={{ padding: '2.25rem' }}>
           <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <FileCheck size={20} color="var(--rf-leaf-green)" />
-            <span>Step 1: Enter Exact Government Document Information</span>
+            <span>Step 1: ID Details</span>
           </h3>
           <p style={{ fontSize: '0.85rem', color: 'var(--rf-slate-400)', marginBottom: '1.75rem' }}>
             Please ensure your full legal name, date of birth, and ID document number exactly match your official sovereign card.
@@ -513,7 +513,7 @@ export const VerificationPage: React.FC = () => {
         <div className="rf-card" style={{ padding: '2.25rem' }}>
           <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <UserCheck size={20} color="var(--rf-leaf-green)" />
-            <span>Step 3: Multi-Factor Credential Alignment Audit</span>
+            <span>Step 3: Verification Check</span>
           </h3>
           <p style={{ fontSize: '0.85rem', color: 'var(--rf-slate-400)', marginBottom: '1.75rem' }}>
             Verification will only be granted if names, dates of birth, ID format, and live face/video vectors strictly align.
@@ -703,7 +703,7 @@ export const VerificationPage: React.FC = () => {
               </div>
 
               <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.75rem' }}>
-                All Credentials Aligned & Verified!
+                Identity Verified
               </h2>
 
               <p style={{ color: 'var(--rf-slate-300)', fontSize: '0.95rem', maxWidth: '560px', margin: '0 auto 2rem', lineHeight: 1.6 }}>
@@ -733,7 +733,7 @@ export const VerificationPage: React.FC = () => {
               </div>
 
               <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.5rem' }}>
-                Verification Alignment Discrepancy
+                Verification Issue
               </h2>
               <p style={{ color: '#FCA5A5', fontSize: '0.9rem', maxWidth: '540px', margin: '0 auto 1.5rem' }}>
                 To safeguard the escrow network, verification can only be approved when all submitted credentials strictly match the official ID records and live biometrics.

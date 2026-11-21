@@ -325,7 +325,7 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
           <div className="rf-card" style={{ padding: '2rem' }}>
             <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <User size={18} color="var(--rf-leaf-green)" />
-              <span>Personal Identity & Contact Information</span>
+              <span>Personal Information</span>
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginBottom: '1.5rem' }}>
               Your legal name should match your official National ID or Passport to ensure smooth OCR alignment and instant KYC verification.
@@ -447,7 +447,7 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
           <div className="rf-card" style={{ padding: '2rem' }}>
             <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <Briefcase size={18} color="var(--rf-leaf-green)" />
-              <span>Professional Role, Bio & Skill Matrix</span>
+              <span>Bio & Skills</span>
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginBottom: '1.5rem' }}>
               Highlight your core African and global expertise to maximize matching with scouts, employers, and client contracts.
@@ -576,7 +576,7 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
           <div className="rf-card" style={{ padding: '2rem' }}>
             <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <LinkIcon size={18} color="var(--rf-leaf-green)" />
-              <span>Sovereign Portfolio & Online Social Presence</span>
+              <span>Portfolio & Links</span>
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginBottom: '1.5rem' }}>
               Connect your verified GitHub, LinkedIn, portfolio repository, and social channels.
@@ -651,7 +651,7 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
           <div className="rf-card" style={{ padding: '2rem' }}>
             <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--rf-cream)', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <ShieldCheck size={18} color="var(--rf-leaf-green)" />
-              <span>Sovereign Identity & Biometric Trust Status</span>
+              <span>Identity Verification</span>
             </h3>
             <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginBottom: '1.5rem' }}>
               Refeir safeguards contracts through automated 4-Factor Identity Alignments (Government ID OCR, DOB, NIN, and 3D Live Biometrics).
@@ -705,7 +705,7 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
               <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--rf-cream)', margin: '0 0 0.25rem 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <Percent size={18} color="#F4B942" />
-                  <span>Tax Identification & Cross-Border Residency</span>
+                  <span>Tax Information</span>
                 </h3>
                 <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', margin: 0 }}>
                   Nigeria (FIRS Headquarters) and bilateral Pan-African / International tax compliance.
@@ -879,7 +879,7 @@ export const ProfileSettingsPage: React.FC<ProfileSettingsPageProps> = ({ onNavi
               <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <Building size={18} color="var(--rf-leaf-green)" />
-                  <span>Preferred Payout Channels & Bank Details</span>
+                  <span>Payout Methods</span>
                 </h3>
                 <p style={{ fontSize: '0.8125rem', color: 'var(--rf-slate-400)', marginTop: '0.25rem' }}>
                   Configure your primary local bank account, mobile money wallet, or stablecoin address for automated earnings releases.

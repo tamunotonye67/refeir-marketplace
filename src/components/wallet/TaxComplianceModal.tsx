@@ -152,7 +152,7 @@ export const TaxComplianceModal: React.FC<TaxComplianceModalProps> = ({
                 <Percent size={17} />
               </div>
               <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: 'var(--rf-cream)', margin: 0, lineHeight: 1.2 }}>
-                Tax Information & Cross-Border Compliance
+                Tax Information
               </h2>
             </div>
             <p style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', margin: '4px 0 0 0', paddingLeft: '2.65rem', lineHeight: 1.3 }}>
