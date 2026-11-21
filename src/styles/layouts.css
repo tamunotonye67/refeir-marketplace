@@ -501,13 +501,13 @@ main {
 
   /* Standardized Mobile Fluid Type Scale */
   h1:not(.rf-hero-title):not(.rf-pr-title):not(.rf-bz-title) {
-    font-size: clamp(1.55rem, 6vw, 1.95rem) !important;
+    font-size: clamp(1.85rem, 6.8vw, 2.25rem) !important;
     line-height: 1.15 !important;
     letter-spacing: -0.02em;
   }
 
   h2:not(.rf-pr-h2):not(.rf-bz-h2) {
-    font-size: clamp(1.3rem, 5vw, 1.625rem) !important;
+    font-size: clamp(1.5rem, 5.5vw, 1.85rem) !important;
     line-height: 1.2 !important;
     letter-spacing: -0.015em;
   }
@@ -557,12 +557,12 @@ main {
   }
 
   h1:not(.rf-hero-title):not(.rf-pr-title):not(.rf-bz-title) {
-    font-size: clamp(1.45rem, 6.2vw, 1.75rem) !important;
+    font-size: clamp(1.68rem, 6.8vw, 2rem) !important;
     line-height: 1.15 !important;
   }
 
   h2:not(.rf-pr-h2):not(.rf-bz-h2) {
-    font-size: clamp(1.22rem, 5vw, 1.45rem) !important;
+    font-size: clamp(1.38rem, 5.5vw, 1.65rem) !important;
     line-height: 1.2 !important;
   }
 
