@@ -13336,3 +13336,50 @@ textarea.rf-ai-pricing-input:hover,
     text-align: center;
   }
 }
+
+/* Ultra-small mobile viewports (< 360px / <= 380px) */
+@media (max-width: 380px) {
+  .rf-header {
+    padding-left: 0.625rem !important;
+    padding-right: 0.625rem !important;
+  }
+
+  .rf-hero-container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .rf-hero-title {
+    font-size: clamp(1.65rem, 8vw, 2.05rem) !important;
+    line-height: 1.15 !important;
+  }
+
+  .rf-ai-pricing-insights-card {
+    padding: 1.25rem 0.875rem !important;
+    border-radius: 16px !important;
+  }
+
+  .rf-ai-pricing-title {
+    font-size: 1.35rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .rf-ai-pricing-search-box {
+    padding: 0.875rem !important;
+    border-radius: 16px !important;
+  }
+
+  .rf-uw-card {
+    padding: 1.25rem 1rem !important;
+    border-radius: 18px !important;
+  }
+
+  .rf-uw-social-icons-bar {
+    gap: 0.35rem !important;
+  }
+
+  .rf-uw-social-logo-btn {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

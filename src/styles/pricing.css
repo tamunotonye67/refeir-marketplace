@@ -912,3 +912,39 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 380px) {
+  .rf-pr-page {
+    padding: 0 12px 56px;
+  }
+
+  .rf-pr-title {
+    font-size: 1.75rem;
+  }
+
+  .rf-pr-stats {
+    width: 100%;
+    padding: 12px 14px;
+    gap: 8px 14px;
+    box-sizing: border-box;
+  }
+
+  .rf-pr-card {
+    padding: 22px 16px;
+    border-radius: 16px;
+  }
+
+  .rf-pr-price-value {
+    font-size: 2.125rem;
+  }
+
+  .rf-pr-calc-inputs,
+  .rf-pr-calc-result {
+    padding: 20px 14px;
+  }
+
+  .rf-pr-cta-banner {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+}

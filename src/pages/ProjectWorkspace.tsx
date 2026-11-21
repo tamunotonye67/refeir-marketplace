@@ -346,7 +346,7 @@ export const ProjectWorkspace: React.FC<ProjectWorkspaceProps> = ({
           gap: '1.5rem'
         }}
       >
-        <div style={{ flex: 1, minWidth: '300px' }}>
+        <div style={{ flex: 1, minWidth: 'min(100%, 300px)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
             <span
               className={`rf-badge ${

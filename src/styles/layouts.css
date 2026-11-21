@@ -506,3 +506,78 @@ main {
   }
 }
 
+@media (max-width: 400px) {
+  html,
+  body,
+  #root {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  img,
+  video,
+  canvas,
+  iframe {
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  a,
+  li {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  .rf-container:not(.rf-hero-container),
+  .rf-container-wide {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+  }
+
+  .rf-dashboard-main {
+    padding: 0.75rem 0.625rem;
+  }
+
+  .rf-section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .rf-card {
+    padding: 0.875rem 0.75rem;
+    border-radius: 14px;
+  }
+
+  .rf-modal-content {
+    width: calc(100vw - 1rem) !important;
+    max-width: calc(100vw - 1rem) !important;
+    padding: 1rem 0.875rem !important;
+    border-radius: 16px !important;
+  }
+
+  .rf-grid-2,
+  .rf-grid-3,
+  .rf-grid-4,
+  .rf-grid-5,
+  .rf-grid-cards,
+  .rf-split-2,
+  .rf-split-sidebar,
+  .rf-split-asymmetric {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.875rem;
+  }
+
+  .rf-grid-6 {
+    gap: 0.5rem;
+  }
+
+  .rf-btn-lg {
+    padding: 0.65rem 1rem;
+    font-size: 0.875rem;
+    width: 100%;
+  }
+}

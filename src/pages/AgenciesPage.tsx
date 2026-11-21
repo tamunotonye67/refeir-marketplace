@@ -188,7 +188,7 @@ export const AgenciesPage: React.FC<AgenciesPageProps> = ({ onNavigate = () => {
             placeholder="Search agencies by name, skills, or country..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            style={{ width: '320px', fontSize: '0.875rem' }}
+            style={{ width: '100%', maxWidth: '320px', fontSize: '0.875rem' }}
           />
         </div>
 

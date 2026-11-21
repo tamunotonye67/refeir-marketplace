@@ -1309,3 +1309,37 @@
     width: 100%;
   }
 }
+
+@media (max-width: 380px) {
+  .rf-bz-page {
+    padding: 0 12px 56px;
+  }
+
+  .rf-bz-title {
+    font-size: 1.75rem;
+  }
+
+  .rf-bz-pod-tabs button {
+    padding: 8px 12px;
+    font-size: 0.8125rem;
+  }
+
+  .rf-bz-pod-info,
+  .rf-bz-pod-talent,
+  .rf-bz-calc-inputs,
+  .rf-bz-calc-result,
+  .rf-bz-intake-card,
+  .rf-bz-card-body {
+    padding: 20px 14px;
+  }
+
+  .rf-bz-talent-card {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .rf-bz-avatar {
+    width: 40px;
+    height: 40px;
+  }
+}
