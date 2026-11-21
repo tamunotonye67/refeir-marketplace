@@ -118,14 +118,14 @@ export const SocialAuthButtons: React.FC<SocialAuthButtonsProps> = ({
     }
   };
 
-  const primaryProviders = SOCIAL_AUTH_PROVIDERS.slice(0, 2); // Google & GitHub
-  const secondaryProviders = SOCIAL_AUTH_PROVIDERS.slice(2); // LinkedIn, Facebook, Pinterest
-
   return (
     <div className="rf-social-auth-wrap">
-      {/* Top 2 Primary Full/Half Buttons (Google & GitHub) */}
-      <div className={`rf-social-primary-grid${compact ? ' is-compact' : ''}`}>
-        {primaryProviders.map(p => {
+      <div
+        className="rf-uw-social-icons-bar"
+        role="group"
+        aria-label={`${mode === 'SIGNUP' ? 'Sign up' : 'Sign in'} with social account`}
+      >
+        {SOCIAL_AUTH_PROVIDERS.map(p => {
           const isBusy = loadingProvider === p.id;
           return (
             <button
@@ -133,36 +133,11 @@ export const SocialAuthButtons: React.FC<SocialAuthButtonsProps> = ({
               type="button"
               onClick={() => handleClick(p.id)}
               disabled={Boolean(loadingProvider)}
-              className="rf-social-auth-btn is-primary"
-              aria-label={`${mode === 'SIGNUP' ? 'Sign up' : 'Sign in'} with ${p.shortLabel}`}
-            >
-              <span className="rf-social-auth-icon">
-                {isBusy ? <Loader2 size={17} className="rf-spin" /> : p.icon}
-              </span>
-              <span className="rf-social-auth-label">{p.shortLabel}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Secondary 3-column row: LinkedIn, Facebook, Pinterest */}
-      <div className="rf-social-secondary-grid">
-        {secondaryProviders.map(p => {
-          const isBusy = loadingProvider === p.id;
-          return (
-            <button
-              key={p.id}
-              type="button"
-              onClick={() => handleClick(p.id)}
-              disabled={Boolean(loadingProvider)}
-              className="rf-social-auth-btn is-secondary"
-              aria-label={`${mode === 'SIGNUP' ? 'Sign up' : 'Sign in'} with ${p.shortLabel}`}
+              className="rf-uw-social-logo-btn"
+              aria-label={p.label}
               title={p.label}
             >
-              <span className="rf-social-auth-icon">
-                {isBusy ? <Loader2 size={16} className="rf-spin" /> : p.icon}
-              </span>
-              <span className="rf-social-auth-label">{p.shortLabel}</span>
+              {isBusy ? <Loader2 size={20} className="rf-spin" /> : p.icon}
             </button>
           );
         })}

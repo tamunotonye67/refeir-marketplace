@@ -13383,3 +13383,184 @@ textarea.rf-ai-pricing-input:hover,
     height: 40px !important;
   }
 }
+
+/* ==========================================================================
+   Clean Single-Card Workspace Auth (.rf-auth-shell.is-simple)
+   ========================================================================== */
+.rf-auth-shell.is-simple {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+  background: var(--rf-bg-base, #F8FAF8);
+  box-sizing: border-box;
+}
+
+.rf-auth-simple-card {
+  width: 100%;
+  max-width: 440px;
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] .rf-auth-simple-card {
+  background: #0F2317;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+}
+
+.rf-auth-simple-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.rf-auth-simple-card .rf-auth-card-title {
+  font-size: 1.5rem !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0 0 0.35rem;
+  text-align: center;
+}
+
+.rf-auth-simple-card .rf-auth-card-sub {
+  font-size: 0.90625rem;
+  line-height: 1.5;
+  color: #64748B;
+  margin: 0 0 1.25rem;
+  text-align: center;
+}
+
+[data-theme="dark"] .rf-auth-simple-card .rf-auth-card-sub {
+  color: #94A3B8 !important;
+}
+
+.rf-auth-simple-brief {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(46, 125, 50, 0.08);
+  color: #1E293B;
+  font-size: 0.84375rem;
+  margin-bottom: 1rem;
+}
+
+.rf-auth-simple-brief svg {
+  color: #2E7D32;
+  flex-shrink: 0;
+}
+
+.rf-auth-simple-roles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 4px;
+  border-radius: 10px;
+  background: #F1F5F9;
+  margin-bottom: 1.15rem;
+}
+
+[data-theme="dark"] .rf-auth-simple-roles {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.rf-auth-simple-role-btn {
+  height: 36px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #475569;
+  font-size: 0.84375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+[data-theme="dark"] .rf-auth-simple-role-btn {
+  color: #CBD5E1;
+}
+
+.rf-auth-simple-role-btn.is-selected {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .rf-auth-simple-role-btn.is-selected {
+  background: #2E7D32;
+  color: #FFFFFF;
+}
+
+.rf-auth-simple-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #0F172A;
+  font-size: 0.9375rem;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rf-auth-simple-input.has-trailing {
+  padding-right: 40px;
+}
+
+.rf-auth-simple-input:focus {
+  outline: none;
+  border-color: #2E7D32;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.12);
+}
+
+[data-theme="dark"] .rf-auth-simple-input {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+}
+
+.rf-auth-simple-switch {
+  margin-top: 1.35rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  text-align: center;
+  font-size: 0.875rem;
+  color: #64748B;
+}
+
+[data-theme="dark"] .rf-auth-simple-switch {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+}
+
+@media (max-width: 640px) {
+  .rf-auth-shell.is-simple {
+    padding: 1.5rem 0.875rem;
+  }
+
+  .rf-auth-simple-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .rf-auth-simple-input {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .rf-auth-simple-card {
+    padding: 1.35rem 1rem;
+    border-radius: 14px;
+  }
+}
