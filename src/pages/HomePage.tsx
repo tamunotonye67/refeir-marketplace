@@ -2101,7 +2101,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       MozOsxFontSmoothing: 'grayscale'
                     }}
                   >
-                    Refer or hire experts across Africa who use AI to work<br className="rf-subheadline-mobile-br" /> smarter, deliver better, and turn real connections into<br className="rf-subheadline-mobile-br" /> <span style={{ whiteSpace: 'nowrap' }}>real opportunities</span>
+                    Refer or hire experts across Africa who use AI to work smarter, deliver better, and turn real connections into real opportunities
                   </p>
 
                   {/* Search Bar */}
@@ -3071,7 +3071,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 textAlign: 'center'
               }}
             >
-              How Much Can You Earn<br />as a Refeir Scout?
+              How Much Can You Earn <br className="rf-desktop-only" />as a Refeir Scout?
             </h2>
             <div className="rf-scout-heading-line" />
             <p
@@ -3084,7 +3084,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 textAlign: 'center'
               }}
             >
-              Every time you refer a skilled professional and their project is completed,<br />you receive a guaranteed 10% reward.
+              Every time you refer a skilled professional and their project is completed, <br className="rf-desktop-only" />you receive a guaranteed 10% reward.
             </p>
           </div>
 
@@ -3555,7 +3555,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   marginTop: '0.25rem'
                 }}
               >
-                Refeir for Business<br />& Global Teams
+                Refeir for Business <br className="rf-desktop-only" />& Global Teams
               </h3>
               <p style={{ color: 'rgba(235, 245, 238, 0.9)', fontSize: '1.025rem', marginTop: '0.85rem', lineHeight: 1.65, maxWidth: '560px' }}>
                 Consolidated multi-currency invoicing, cross-border contractor tax compliance across 54 jurisdictions, and dedicated tech scout sourcing to build high-performance distributed teams.

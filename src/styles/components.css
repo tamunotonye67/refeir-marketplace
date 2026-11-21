@@ -2781,14 +2781,14 @@
 
   /* Hero subheadline on mobile: right padding so 'smarter' starts on line 2 and 'opportunities' on line 3 */
   .rf-subheadline-mobile-br {
-    display: inline !important;
+    display: none !important;
   }
 
   .rf-hero-subheadline {
-    font-size: clamp(0.78rem, 3.3vw, 0.85rem) !important;
-    line-height: 1.45 !important;
-    letter-spacing: -0.015em !important;
-    padding-right: clamp(0.5rem, 3.5vw, 1.75rem) !important;
+    font-size: clamp(0.875rem, 3.6vw, 0.96875rem) !important;
+    line-height: 1.5 !important;
+    letter-spacing: -0.01em !important;
+    padding-right: 0 !important;
     max-width: 100% !important;
     margin-bottom: 1.25rem !important;
   }
