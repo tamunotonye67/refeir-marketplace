@@ -282,7 +282,7 @@ export const App: React.FC = () => {
           return (
           <>
             <div className="rf-auth-blurred-bg" aria-hidden="true">
-              <ClientDashboard onNavigate={navigate} />
+              <ClientDashboard onNavigate={navigate} onOpenProject={() => {}} />
             </div>
             <AuthGateWall pageName="Dashboard" onNavigate={navigate} />
           </>
@@ -447,7 +447,7 @@ export const App: React.FC = () => {
           return (
           <>
             <div className="rf-auth-blurred-bg" aria-hidden="true">
-              <TalentDashboard onNavigate={navigate} />
+              <TalentDashboard onNavigate={navigate} onOpenProject={() => {}} />
             </div>
             <AuthGateWall pageName="Talent Dashboard" roleRequired="Talent" onNavigate={navigate} />
           </>
@@ -480,7 +480,7 @@ export const App: React.FC = () => {
           return (
           <>
             <div className="rf-auth-blurred-bg" aria-hidden="true">
-              <ClientDashboard onNavigate={navigate} />
+              <ClientDashboard onNavigate={navigate} onOpenProject={() => {}} />
             </div>
             <AuthGateWall pageName="Client Dashboard" roleRequired="Client" onNavigate={navigate} />
           </>
