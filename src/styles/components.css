@@ -13417,15 +13417,34 @@ textarea.rf-ai-pricing-input:hover,
 
 /* ==========================================================================
    Clean Single-Card Workspace Auth (.rf-auth-shell.is-simple)
+   with Blurred Background Overlay
    ========================================================================== */
+.rf-auth-blurred-bg {
+  filter: blur(10px) saturate(0.95);
+  pointer-events: none;
+  user-select: none;
+  max-height: calc(100vh - 64px);
+  overflow: hidden;
+  opacity: 0.72;
+}
+
 .rf-auth-shell.is-simple {
-  min-height: calc(100vh - 64px);
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem 1rem;
-  background: var(--rf-bg-base, #F8FAF8);
+  padding: 1.5rem 1rem;
+  background: rgba(15, 23, 42, 0.36);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow-y: auto;
   box-sizing: border-box;
+}
+
+[data-theme="dark"] .rf-auth-shell.is-simple {
+  background: rgba(5, 14, 9, 0.56);
 }
 
 .rf-auth-simple-card {
@@ -13435,8 +13454,9 @@ textarea.rf-ai-pricing-input:hover,
   border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 16px;
   padding: 2.25rem 2rem;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
   box-sizing: border-box;
+  margin: auto;
 }
 
 [data-theme="dark"] .rf-auth-simple-card {

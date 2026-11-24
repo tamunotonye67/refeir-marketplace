@@ -243,7 +243,14 @@ export const App: React.FC = () => {
     // 6. Project Workspace (/projects/:id)
     if (basePath.startsWith('/projects/')) {
       if (!currentUser) {
-        return <AuthGateWall pageName="Project" onNavigate={navigate} />;
+        return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <MarketplacePage initialCategory="" initialCountry="" initialQuery="" initialType="" onSelectTalent={handleSelectTalent} onSelectScout={handleSelectScout} onNavigate={navigate} onHire={handleHire} />
+            </div>
+            <AuthGateWall pageName="Project" onNavigate={navigate} />
+          </>
+        );
       }
       const pId = basePath.replace('/projects/', '') || selectedProjectId || projectsList[0]?.id;
       return (
@@ -272,7 +279,14 @@ export const App: React.FC = () => {
         return <JobBoardPage onNavigate={navigate} />;
       case '/dashboard':
         if (!currentUser) {
-          return <AuthGateWall pageName="Dashboard" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <ClientDashboard onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Dashboard" onNavigate={navigate} />
+          </>
+        );
         }
         if (currentUser.active_role === 'CLIENT') {
           if (!currentUser.client_onboarding_completed) {
@@ -311,7 +325,14 @@ export const App: React.FC = () => {
         return <ScoutDashboard onNavigate={navigate} />;
       case '/dashboard/scout':
         if (!currentUser) {
-          return <AuthGateWall pageName="Scout Dashboard" roleRequired="Scout" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <ScoutDashboard onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Scout Dashboard" roleRequired="Scout" onNavigate={navigate} />
+          </>
+        );
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -330,7 +351,14 @@ export const App: React.FC = () => {
       case '/telemetry':
       case '/scout/telemetry':
         if (!currentUser) {
-          return <AuthGateWall pageName="Link Analytics" roleRequired="Scout" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <LinkTelemetryPage onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Link Analytics" roleRequired="Scout" onNavigate={navigate} />
+          </>
+        );
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -347,7 +375,14 @@ export const App: React.FC = () => {
       case '/conversion-rates':
       case '/scout/conversions':
         if (!currentUser) {
-          return <AuthGateWall pageName="Conversions" roleRequired="Scout" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <ConversionRatesPage onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Conversions" roleRequired="Scout" onNavigate={navigate} />
+          </>
+        );
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -363,7 +398,14 @@ export const App: React.FC = () => {
       case '/introductions':
       case '/scout/introductions':
         if (!currentUser) {
-          return <AuthGateWall pageName="Introductions" roleRequired="Scout" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <ActiveIntroductionsPage onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Introductions" roleRequired="Scout" onNavigate={navigate} />
+          </>
+        );
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -380,7 +422,14 @@ export const App: React.FC = () => {
       case '/scout/links':
       case '/qr':
         if (!currentUser) {
-          return <AuthGateWall pageName="Referral Links" roleRequired="Scout" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <ScoutLinksPage onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Referral Links" roleRequired="Scout" onNavigate={navigate} />
+          </>
+        );
         }
         if (currentUser.active_role !== 'SCOUT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -395,7 +444,14 @@ export const App: React.FC = () => {
         return <ScoutLinksPage onNavigate={navigate} />;
       case '/dashboard/talent':
         if (!currentUser) {
-          return <AuthGateWall pageName="Talent Dashboard" roleRequired="Talent" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <TalentDashboard onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Talent Dashboard" roleRequired="Talent" onNavigate={navigate} />
+          </>
+        );
         }
         if (currentUser.active_role !== 'TALENT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -421,7 +477,14 @@ export const App: React.FC = () => {
         );
       case '/dashboard/client':
         if (!currentUser) {
-          return <AuthGateWall pageName="Client Dashboard" roleRequired="Client" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <ClientDashboard onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Client Dashboard" roleRequired="Client" onNavigate={navigate} />
+          </>
+        );
         }
         if (currentUser.active_role !== 'CLIENT' && currentUser.active_role !== 'ADMIN') {
           return (
@@ -447,34 +510,76 @@ export const App: React.FC = () => {
         );
       case '/wallet':
         if (!currentUser) {
-          return <AuthGateWall pageName="Wallet" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <WalletPage onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Wallet" onNavigate={navigate} />
+          </>
+        );
         }
         return <WalletPage onNavigate={navigate} />;
       case '/messages':
         if (!currentUser) {
-          return <AuthGateWall pageName="Messages" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <MessagesPage />
+            </div>
+            <AuthGateWall pageName="Messages" onNavigate={navigate} />
+          </>
+        );
         }
         return <MessagesPage initialThreadId={getQueryParam(currentPath, 'thread') || undefined} />;
       case '/disputes':
         if (!currentUser) {
-          return <AuthGateWall pageName="Disputes" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <DisputesPage onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Disputes" onNavigate={navigate} />
+          </>
+        );
         }
         return <DisputesPage onNavigate={navigate} />;
       case '/verification':
         if (!currentUser) {
-          return <AuthGateWall pageName="Verification" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <VerificationPage />
+            </div>
+            <AuthGateWall pageName="Verification" onNavigate={navigate} />
+          </>
+        );
         }
         return <VerificationPage />;
       case '/profile':
       case '/account/profile':
         if (!currentUser) {
-          return <AuthGateWall pageName="My Profile" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <ProfileSettingsPage onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="My Profile" onNavigate={navigate} />
+          </>
+        );
         }
         return <ProfileSettingsPage onNavigate={navigate} />;
       case '/settings':
       case '/account-settings':
         if (!currentUser) {
-          return <AuthGateWall pageName="Account Settings" onNavigate={navigate} />;
+          return (
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <AccountSettingsPage onNavigate={navigate} />
+            </div>
+            <AuthGateWall pageName="Account Settings" onNavigate={navigate} />
+          </>
+        );
         }
         return <AccountSettingsPage onNavigate={navigate} />;
       case '/register':
@@ -496,30 +601,42 @@ export const App: React.FC = () => {
         }
 
         return (
-          <AuthGateWall
-            pageName={targetTalent ? `Hire ${targetTalent.full_name}` : "Client Registration"}
-            roleRequired={initialRole === 'CLIENT' ? 'Client' : initialRole === 'TALENT' ? 'Talent' : 'Scout'}
-            initialTab="SIGNUP"
-            initialRole={initialRole}
-            talentToHire={targetTalent}
-            onNavigate={navigate}
-            onSuccess={() => {
-              if (targetTalent) {
-                navigate(`/talent/${targetTalent.id}`);
-              } else {
-                navigate('/dashboard/client');
-              }
-            }}
-          />
+          <>
+            {!targetTalent && (
+              <div className="rf-auth-blurred-bg" aria-hidden="true">
+                <HomePage onSelectTalent={handleSelectTalent} onNavigate={navigate} />
+              </div>
+            )}
+            <AuthGateWall
+              pageName={targetTalent ? `Hire ${targetTalent.full_name}` : "Client Registration"}
+              roleRequired={initialRole === 'CLIENT' ? 'Client' : initialRole === 'TALENT' ? 'Talent' : 'Scout'}
+              initialTab="SIGNUP"
+              initialRole={initialRole}
+              talentToHire={targetTalent}
+              onNavigate={navigate}
+              onSuccess={() => {
+                if (targetTalent) {
+                  navigate(`/talent/${targetTalent.id}`);
+                } else {
+                  navigate('/dashboard/client');
+                }
+              }}
+            />
+          </>
         );
       }
       case '/login':
         return (
-          <AuthGateWall
-            pageName="Refeir Account"
-            initialTab="LOGIN"
-            onNavigate={navigate}
-          />
+          <>
+            <div className="rf-auth-blurred-bg" aria-hidden="true">
+              <HomePage onSelectTalent={handleSelectTalent} onNavigate={navigate} />
+            </div>
+            <AuthGateWall
+              pageName="Refeir Account"
+              initialTab="LOGIN"
+              onNavigate={navigate}
+            />
+          </>
         );
       case '/admin-login':
         if (currentUser && currentUser.roles.includes('ADMIN')) {
