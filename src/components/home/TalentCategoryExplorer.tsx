@@ -97,6 +97,48 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
     setActiveSubId(TALENT_SUB_CATEGORIES[name]?.[0]?.id ?? null);
   };
 
+  const explorerRootRef = useRef<HTMLDivElement>(null);
+
+  const selectAndScrollCategory = (name: string) => {
+    if (!TALENT_SUB_CATEGORIES[name]) return;
+    setActiveCategory(name);
+    setActiveSubId(TALENT_SUB_CATEGORIES[name]?.[0]?.id ?? null);
+    setTimeout(() => {
+      const target = panelRef.current || explorerRootRef.current;
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 80);
+  };
+
+  // Support deep-linking from Header Recruit menu (?exploreCategory=...) & same-page custom event
+  useEffect(() => {
+    const checkUrlParam = () => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('exploreCategory');
+        if (cat && TALENT_SUB_CATEGORIES[cat]) {
+          selectAndScrollCategory(cat);
+        }
+      } catch {}
+    };
+
+    const handleCustomEvent = (e: Event) => {
+      const detail = (e as CustomEvent<string>).detail;
+      if (detail && TALENT_SUB_CATEGORIES[detail]) {
+        selectAndScrollCategory(detail);
+      }
+    };
+
+    checkUrlParam();
+    window.addEventListener('rf-select-talent-category', handleCustomEvent);
+    window.addEventListener('popstate', checkUrlParam);
+    return () => {
+      window.removeEventListener('rf-select-talent-category', handleCustomEvent);
+      window.removeEventListener('popstate', checkUrlParam);
+    };
+  }, []);
+
   // Gently bring the panel into view when a category is opened
   useEffect(() => {
     if (!activeCategory || !panelRef.current) return;
@@ -107,7 +149,7 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
   }, [activeCategory]);
 
   return (
-    <>
+    <div ref={explorerRootRef} style={{ scrollMarginTop: '96px' }}>
       <div className="rf-grid-5 rf-talent-categories-slider" style={{ gap: '1rem' }}>
         {categories.map(cat => {
           const Icon = cat.icon;
@@ -264,6 +306,6 @@ export const TalentCategoryExplorer: React.FC<TalentCategoryExplorerProps> = ({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };

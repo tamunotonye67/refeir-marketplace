@@ -256,6 +256,21 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
     onNavigate(path);
   };
 
+  const handleExploreCategoryClick = (categoryName: string) => {
+    setActiveDropdown(null);
+    setShowMobileDrawer(false);
+    const targetUrl = `/?exploreCategory=${encodeURIComponent(categoryName)}`;
+    if (window.location.pathname === '/') {
+      window.history.pushState({}, '', targetUrl);
+      window.dispatchEvent(new CustomEvent('rf-select-talent-category', { detail: categoryName }));
+    } else {
+      onNavigate(targetUrl);
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('rf-select-talent-category', { detail: categoryName }));
+      }, 150);
+    }
+  };
+
   const isDarkTheme = theme === 'dark';
   const navPopoverBg = isDarkTheme ? '#07160D' : '#FFFFFF';
   const navPopoverBorder = isDarkTheme ? '1px solid rgba(102, 187, 42, 0.28)' : '1px solid rgba(18, 43, 26, 0.12)';
@@ -1122,7 +1137,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/marketplace?category=Engineering')}
+                            onClick={() => handleExploreCategoryClick('Software & Mobile')}
                           >
                             <div className="rf-mega-menu-item-title">Software & Mobile Engineering</div>
                             <div className="rf-mega-menu-item-desc">Fullstack, Mobile, DevOps, and Backend engineers</div>
@@ -1130,7 +1145,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/ai-wizards')}
+                            onClick={() => handleExploreCategoryClick('AI & Data Science')}
                           >
                             <div className="rf-mega-menu-item-title">AI Studios & Data Science</div>
                             <div className="rf-mega-menu-item-desc">Generative Video, Autonomous Agents & LLM Engineers</div>
@@ -1138,7 +1153,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/marketplace?category=Design+%26+Creative')}
+                            onClick={() => handleExploreCategoryClick('Product & UI/UX Design')}
                           >
                             <div className="rf-mega-menu-item-title">Design & UI/UX</div>
                             <div className="rf-mega-menu-item-desc">Product designers, Design systems, Brand architects</div>
@@ -1146,7 +1161,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/marketplace?category=Growth+%26+Marketing')}
+                            onClick={() => handleExploreCategoryClick('Growth & Marketing')}
                           >
                             <div className="rf-mega-menu-item-title">Growth & Marketing</div>
                             <div className="rf-mega-menu-item-desc">Pan-African GTM, Performance marketers & SEO</div>
@@ -1154,7 +1169,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
 
                           <div
                             className="rf-mega-menu-item"
-                            onClick={() => handleLinkClick('/marketplace?category=Legal+%26+Operations')}
+                            onClick={() => handleExploreCategoryClick('Legal & FinTech IP')}
                           >
                             <div className="rf-mega-menu-item-title">Legal & FinTech Operations</div>
                             <div className="rf-mega-menu-item-desc">Regulatory compliance, African FinTech advisory</div>
@@ -3013,31 +3028,31 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                     {mobileExpandedSection === 'recruit' && (
                       <div className="rf-mobile-nav-subitems">
                         <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace?category=Engineering'); }}
+                          onClick={() => handleExploreCategoryClick('Software & Mobile')}
                           className="rf-mobile-nav-sublink"
                         >
                           Software & Mobile Engineering
                         </button>
                         <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/ai-wizards'); }}
+                          onClick={() => handleExploreCategoryClick('AI & Data Science')}
                           className="rf-mobile-nav-sublink"
                         >
                           AI Studios & Data Science
                         </button>
                         <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace?category=Design+%26+Creative'); }}
+                          onClick={() => handleExploreCategoryClick('Product & UI/UX Design')}
                           className="rf-mobile-nav-sublink"
                         >
                           Design & UI/UX
                         </button>
                         <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace?category=Growth+%26+Marketing'); }}
+                          onClick={() => handleExploreCategoryClick('Growth & Marketing')}
                           className="rf-mobile-nav-sublink"
                         >
                           Growth & Marketing
                         </button>
                         <button
-                          onClick={() => { setShowMobileDrawer(false); onNavigate('/marketplace?category=Legal+%26+Operations'); }}
+                          onClick={() => handleExploreCategoryClick('Legal & FinTech IP')}
                           className="rf-mobile-nav-sublink"
                         >
                           Legal & FinTech Operations
