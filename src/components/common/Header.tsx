@@ -697,7 +697,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 </div>
               ) : (
                 <button
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={() => onNavigate('/login')}
                   className="rf-btn rf-btn-primary rf-btn-sm rf-header-login-btn"
                   style={{
                     fontWeight: 800,
@@ -2863,7 +2863,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
             ) : (
               <>
                 <button
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={() => onNavigate('/login')}
                   className="rf-btn rf-btn-ghost rf-btn-sm rf-header-login-btn"
                   style={{
                     fontWeight: 500,
@@ -2881,7 +2881,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 </button>
 
                 <button
-                  onClick={() => setShowSignupModal(true)}
+                  onClick={() => onNavigate('/signup')}
                   className="rf-btn rf-btn-primary rf-btn-sm"
                   style={{
                     fontWeight: 500,
@@ -2983,7 +2983,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 <button
                   onClick={() => {
                     setShowMobileDrawer(false);
-                    setShowLoginModal(true);
+                    onNavigate('/login');
                   }}
                   className="rf-btn rf-btn-secondary rf-btn-sm"
                   style={{ width: '100%', padding: '0.65rem', justifyContent: 'center', fontWeight: 700 }}
@@ -2993,7 +2993,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, isTrans
                 <button
                   onClick={() => {
                     setShowMobileDrawer(false);
-                    setShowSignupModal(true);
+                    onNavigate('/signup');
                   }}
                   className="rf-btn rf-btn-primary rf-btn-sm"
                   style={{ width: '100%', padding: '0.65rem', justifyContent: 'center', fontWeight: 700 }}
