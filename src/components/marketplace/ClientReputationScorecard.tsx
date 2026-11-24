@@ -37,7 +37,7 @@ export const ClientReputationScorecard: React.FC<ClientReputationScorecardProps>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
         <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: isDark ? '#66BB2A' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: isDark ? '#A3F55B' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
             <ShieldCheck size={14} />
             <span>VERIFIED CLIENT REPUTATION SCORECARD</span>
           </div>
@@ -62,7 +62,7 @@ export const ClientReputationScorecard: React.FC<ClientReputationScorecardProps>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem', marginBottom: '1.25rem' }}>
         {/* On-Time Payer Metric */}
         <div style={{ padding: '0.85rem 1rem', background: isDark ? 'rgba(255, 255, 255, 0.03)' : '#FFFFFF', border: isDark ? '1px solid rgba(102, 187, 42, 0.25)' : '1px solid #BBF7D0', borderRadius: '12px', boxShadow: isDark ? 'none' : '0 1px 3px rgba(0, 0, 0, 0.03)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: isDark ? '#66BB2A' : '#16A34A', fontSize: '0.75rem', fontWeight: 700, marginBottom: '0.2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: isDark ? '#A3F55B' : '#16A34A', fontSize: '0.75rem', fontWeight: 700, marginBottom: '0.2rem' }}>
             <Clock size={13} />
             <span>Pays On Time</span>
           </div>
@@ -115,7 +115,7 @@ export const ClientReputationScorecard: React.FC<ClientReputationScorecardProps>
               borderRadius: '9999px',
               background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7',
               border: isDark ? '1px solid rgba(102, 187, 42, 0.3)' : '1px solid #86EFAC',
-              color: isDark ? '#66BB2A' : '#15803D'
+              color: isDark ? '#A3F55B' : '#15803D'
             }}
           >
             {badge}
@@ -167,7 +167,7 @@ export const ClientReputationScorecard: React.FC<ClientReputationScorecardProps>
                 </p>
 
                 {(r.pays_well_label || r.pays_on_time_label) && (
-                  <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', fontSize: '0.7rem', color: isDark ? '#66BB2A' : '#16A34A', fontWeight: 700 }}>
+                  <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', fontSize: '0.7rem', color: isDark ? '#A3F55B' : '#16A34A', fontWeight: 700 }}>
                     {r.pays_on_time_label && <span>✓ {r.pays_on_time_label}</span>}
                     {r.pays_well_label && <span>• {r.pays_well_label}</span>}
                   </div>

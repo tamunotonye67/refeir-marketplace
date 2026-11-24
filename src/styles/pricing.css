@@ -22,14 +22,14 @@
 }
 
 [data-theme="dark"] .rf-pr-page {
-  --pr-green: #66BB2A;
-  --pr-green-hover: #7ED13F;
-  --pr-text: #F9FAFB;
-  --pr-muted: #9CA3AF;
-  --pr-border: rgba(255, 255, 255, 0.12);
-  --pr-surface: #0F2016;
-  --pr-bg: var(--rf-bg-base, #08130C);
-  --pr-soft: rgba(255, 255, 255, 0.04);
+  --pr-green: #A3F55B;
+  --pr-green-hover: #BDF888;
+  --pr-text: #FFFFFF;
+  --pr-muted: #CBD5E1;
+  --pr-border: rgba(163, 245, 91, 0.22);
+  --pr-surface: #0F2317;
+  --pr-bg: var(--rf-bg-base, #09140E);
+  --pr-soft: rgba(255, 255, 255, 0.045);
 }
 
 /* Clean Buttons */

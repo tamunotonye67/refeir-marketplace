@@ -87,7 +87,7 @@ export const RefeirLogo: React.FC<RefeirLogoProps> = ({
             fontSize: dim.tagline,
             fontWeight: 800,
             letterSpacing: dim.letterSpacing,
-            color: isDark ? '#66BB2A' : '#0F2E1E',
+            color: isDark ? '#A3F55B' : '#0F2E1E',
             textTransform: 'uppercase',
             lineHeight: 1,
             whiteSpace: 'nowrap',

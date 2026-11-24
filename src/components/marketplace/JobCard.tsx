@@ -83,7 +83,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, onSelect, onApply }) => {
           <Star size={12} fill="#F4B942" /> {scorecard.overall_rating}
         </span>
         <span style={{ color: isDark ? 'var(--rf-slate-500)' : '#94A3B8' }}>•</span>
-        <span style={{ color: isDark ? '#66BB2A' : '#15803D', fontWeight: 700 }}>
+        <span style={{ color: isDark ? '#A3F55B' : '#15803D', fontWeight: 700 }}>
           ⚡ {scorecard.pays_on_time_percentage}% On-Time Payer
         </span>
       </div>

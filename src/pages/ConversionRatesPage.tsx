@@ -156,7 +156,7 @@ export const ConversionRatesPage: React.FC<ConversionRatesPageProps> = ({ onNavi
             <span>Back to Scout Command Center</span>
           </button>
           <span style={{ color: isDark ? '#475569' : '#CBD5E1' }}>/</span>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: isDark ? '#66BB2A' : '#16A34A' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: isDark ? '#A3F55B' : '#16A34A' }}>
             Conversion Rates & Milestone Settlement Velocity
           </span>
         </div>
@@ -241,11 +241,11 @@ export const ConversionRatesPage: React.FC<ConversionRatesPageProps> = ({ onNavi
               <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: isDark ? '#94A3B8' : '#64748B' }}>
                 End-to-End Conversion
               </span>
-              <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#66BB2A' : '#16A34A' }}>
+              <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#A3F55B' : '#16A34A' }}>
                 <Target size={16} />
               </div>
             </div>
-            <div style={{ fontSize: '2rem', fontWeight: 900, color: isDark ? '#66BB2A' : '#16A34A' }}>
+            <div style={{ fontSize: '2rem', fontWeight: 900, color: isDark ? '#A3F55B' : '#16A34A' }}>
               18.4%
             </div>
             <div style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', marginTop: '0.35rem' }}>

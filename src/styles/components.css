@@ -232,15 +232,27 @@
 }
 
 [data-theme="dark"] .rf-badge-blue {
-  background-color: rgba(46, 125, 50, 0.25);
-  color: #A3E635;
-  border: 1px solid rgba(102, 187, 42, 0.35);
+  background-color: rgba(163, 245, 91, 0.16);
+  color: #B9F87A;
+  border: 1px solid rgba(163, 245, 91, 0.42);
 }
 
 [data-theme="dark"] .rf-badge-mint {
-  background-color: rgba(102, 187, 42, 0.18);
-  color: var(--rf-leaf-green);
-  border: 1px solid rgba(102, 187, 42, 0.35);
+  background-color: rgba(163, 245, 91, 0.16);
+  color: #B9F87A;
+  border: 1px solid rgba(163, 245, 91, 0.42);
+}
+
+[data-theme="dark"] .rf-badge-neutral {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #F1F5F9;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+[data-theme="dark"] .rf-badge-reward {
+  background: linear-gradient(135deg, rgba(163, 245, 91, 0.18) 0%, rgba(251, 191, 36, 0.18) 100%);
+  color: #B9F87A;
+  border: 1px solid rgba(163, 245, 91, 0.42);
 }
 
 [data-theme="dark"] .rf-badge-yellow {
@@ -10585,32 +10597,51 @@ textarea.rf-ai-pricing-input:hover,
 }
 
 .rf-subcat-skill {
-  padding: 0.25rem 0.6rem;
-  font-size: 0.72rem;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.74rem;
   font-weight: 600;
   border-radius: 999px;
-  background: var(--rf-mint-light, rgba(46, 125, 50, 0.08));
-  color: var(--rf-green);
+  background: rgba(46, 125, 50, 0.1);
+  border: 1px solid rgba(46, 125, 50, 0.22);
+  color: #1B5E20;
+}
+
+[data-theme="dark"] .rf-subcat-skill {
+  background: rgba(163, 245, 91, 0.13);
+  border-color: rgba(163, 245, 91, 0.36);
+  color: #B9F87A;
 }
 
 .rf-subcat-profile-btn {
   margin-top: auto;
   width: 100%;
-  padding: 0.6rem 1rem;
+  padding: 0.62rem 1rem;
   font: inherit;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 700;
-  color: var(--rf-green);
+  color: #1B5E20;
   background: transparent;
-  border: 1.5px solid var(--rf-green);
+  border: 1.5px solid #2E7D32;
   border-radius: 999px;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .rf-subcat-profile-btn:hover {
-  background: var(--rf-green);
+  background: #2E7D32;
   color: #FFFFFF;
+}
+
+[data-theme="dark"] .rf-subcat-profile-btn {
+  color: #B9F87A;
+  border-color: rgba(163, 245, 91, 0.65);
+  background: rgba(163, 245, 91, 0.06);
+}
+
+[data-theme="dark"] .rf-subcat-profile-btn:hover {
+  background: #A3F55B;
+  border-color: #A3F55B;
+  color: #07170D;
 }
 
 /* Blurred "Explore" placeholder */

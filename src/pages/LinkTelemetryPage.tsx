@@ -253,7 +253,7 @@ export const LinkTelemetryPage: React.FC<LinkTelemetryPageProps> = ({ onNavigate
             <span>Back to Scout Command Center</span>
           </button>
           <span style={{ color: isDark ? '#475569' : '#CBD5E1' }}>/</span>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: isDark ? '#66BB2A' : '#16A34A' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: isDark ? '#A3F55B' : '#16A34A' }}>
             Link Telemetry & Click Audit Logs
           </span>
         </div>
@@ -324,14 +324,14 @@ export const LinkTelemetryPage: React.FC<LinkTelemetryPageProps> = ({ onNavigate
               <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: isDark ? '#94A3B8' : '#64748B' }}>
                 Total Link Impressions
               </span>
-              <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#66BB2A' : '#16A34A' }}>
+              <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#A3F55B' : '#16A34A' }}>
                 <Eye size={16} />
               </div>
             </div>
             <div style={{ fontSize: '2rem', fontWeight: 900, color: isDark ? '#FFFFFF' : '#122B1A' }}>
               {totalClicks.toLocaleString()}
             </div>
-            <div style={{ fontSize: '0.75rem', color: isDark ? '#66BB2A' : '#16A34A', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 700 }}>
+            <div style={{ fontSize: '0.75rem', color: isDark ? '#A3F55B' : '#16A34A', marginTop: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 700 }}>
               <TrendingUp size={13} />
               <span>+14.8% link engagement this week</span>
             </div>
@@ -375,11 +375,11 @@ export const LinkTelemetryPage: React.FC<LinkTelemetryPageProps> = ({ onNavigate
               <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: isDark ? '#94A3B8' : '#64748B' }}>
                 Attribution Integrity
               </span>
-              <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#66BB2A' : '#16A34A' }}>
+              <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#A3F55B' : '#16A34A' }}>
                 <Lock size={16} />
               </div>
             </div>
-            <div style={{ fontSize: '2rem', fontWeight: 900, color: isDark ? '#66BB2A' : '#16A34A' }}>
+            <div style={{ fontSize: '2rem', fontWeight: 900, color: isDark ? '#A3F55B' : '#16A34A' }}>
               100% Locked
             </div>
             <div style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', marginTop: '0.35rem' }}>

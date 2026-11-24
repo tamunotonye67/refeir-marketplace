@@ -204,7 +204,7 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
             <span style={{ fontSize: '0.9375rem', fontWeight: 800, color: isDark ? '#FFFFFF' : '#122B1A' }}>
               Proposal-Based Jobs: 5% Client + 5% Talent Split Fee
             </span>
-            <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', borderRadius: '9999px', background: isDark ? '#66BB2A' : '#DCFCE7', color: isDark ? '#07160D' : '#15803D', border: isDark ? 'none' : '1px solid #86EFAC', fontWeight: 800 }}>
+            <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', borderRadius: '9999px', background: isDark ? '#A3F55B' : '#DCFCE7', color: isDark ? '#07160D' : '#15803D', border: isDark ? 'none' : '1px solid #86EFAC', fontWeight: 800 }}>
               Direct Job Board Rule
             </span>
           </div>
@@ -529,10 +529,10 @@ export const JobBoardPage: React.FC<JobBoardPageProps> = ({ onNavigate }) => {
                   </div>
 
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.8125rem', color: isDark ? '#66BB2A' : '#15803D', fontWeight: 700 }}>
+                    <span style={{ fontSize: '0.8125rem', color: isDark ? '#A3F55B' : '#15803D', fontWeight: 700 }}>
                       Talent Net Payout (Amount - 5% Success Fee at Final Milestone):
                     </span>
-                    <span style={{ fontSize: '0.9375rem', fontWeight: 900, color: isDark ? '#66BB2A' : '#15803D' }}>
+                    <span style={{ fontSize: '0.9375rem', fontWeight: 900, color: isDark ? '#A3F55B' : '#15803D' }}>
                       {formatMoney(proposalBreakdown.talent_net_amount)}
                     </span>
                   </div>

@@ -16,11 +16,11 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
   const [selectedRegion, setSelectedRegion] = useState<AfricanRegion>('West Africa');
 
   const regionData: Record<AfricanRegion, { color: string; talentCount: number; projectCount: number; keyHubs: string[] }> = {
-    'West Africa': { color: '#2E7D32', talentCount: 1840, projectCount: 420, keyHubs: ['Lagos', 'Accra', 'Dakar', 'Abidjan'] },
-    'East Africa': { color: '#66BB2A', talentCount: 1420, projectCount: 380, keyHubs: ['Nairobi', 'Kigali', 'Dar es Salaam', 'Kampala'] },
-    'Southern Africa': { color: '#4CAF50', talentCount: 1650, projectCount: 390, keyHubs: ['Johannesburg', 'Cape Town', 'Gaborone', 'Lusaka'] },
-    'North Africa': { color: '#F6B21A', talentCount: 1290, projectCount: 310, keyHubs: ['Cairo', 'Casablanca', 'Tunis', 'Algiers'] },
-    'Central Africa': { color: '#F47C20', talentCount: 780, projectCount: 160, keyHubs: ['Douala', 'Kinshasa', 'Yaoundé', 'Libreville'] }
+    'West Africa': { color: 'var(--rf-green)', talentCount: 1840, projectCount: 420, keyHubs: ['Lagos', 'Accra', 'Dakar', 'Abidjan'] },
+    'East Africa': { color: 'var(--rf-leaf-green)', talentCount: 1420, projectCount: 380, keyHubs: ['Nairobi', 'Kigali', 'Dar es Salaam', 'Kampala'] },
+    'Southern Africa': { color: '#38BDF8', talentCount: 1650, projectCount: 390, keyHubs: ['Johannesburg', 'Cape Town', 'Gaborone', 'Lusaka'] },
+    'North Africa': { color: '#FBBF24', talentCount: 1290, projectCount: 310, keyHubs: ['Cairo', 'Casablanca', 'Tunis', 'Algiers'] },
+    'Central Africa': { color: '#FB923C', talentCount: 780, projectCount: 160, keyHubs: ['Douala', 'Kinshasa', 'Yaoundé', 'Libreville'] }
   };
 
   const countriesInRegion = AFRICAN_COUNTRIES.filter(c => c.region === selectedRegion);
@@ -136,7 +136,7 @@ export const AfricaMapExplorer: React.FC<AfricaMapExplorerProps> = ({
           <span className="rf-africa-stat-label" style={{ fontSize: '0.75rem', color: 'var(--rf-slate-400)', textTransform: 'uppercase', fontWeight: 600 }}>
             Protected Projects
           </span>
-          <div className="rf-africa-stat-val" style={{ fontSize: '1.125rem', fontWeight: 800, color: '#7DA2FF', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+          <div className="rf-africa-stat-val" style={{ fontSize: '1.125rem', fontWeight: 800, color: '#38BDF8', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
             <Briefcase size={15} style={{ flexShrink: 0 }} />
             {regionData[selectedRegion].projectCount} Active
           </div>

@@ -24,7 +24,7 @@ export const PopularServiceCategoryCard: React.FC<PopularServiceCategoryCardProp
   const isDark = theme === 'dark';
 
   const strokePrimary = isDark ? '#36E0A0' : '#15803D';
-  const strokeSecondary = isDark ? '#66BB2A' : '#16A34A';
+  const strokeSecondary = isDark ? '#A3F55B' : '#16A34A';
   const strokeMuted = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(15, 23, 42, 0.12)';
   const fillSubtle = isDark ? 'rgba(54, 224, 160, 0.08)' : 'rgba(22, 163, 74, 0.06)';
   const gridDotColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(15, 23, 42, 0.05)';
@@ -585,7 +585,7 @@ export const PopularServiceCategoryCard: React.FC<PopularServiceCategoryCardProp
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            color: isDark ? 'var(--rf-leaf-green, #66BB2A)' : '#16A34A',
+            color: isDark ? '#A3F55B' : '#16A34A',
             fontSize: '0.875rem',
             fontWeight: 600
           }}

@@ -189,7 +189,7 @@ export const FeaturedTalentCard: React.FC<FeaturedTalentCardProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            color: isDark ? 'var(--rf-leaf-green, #66BB2A)' : '#16A34A',
+            color: isDark ? '#A3F55B' : '#16A34A',
             fontSize: '0.875rem',
             fontWeight: 600
           }}

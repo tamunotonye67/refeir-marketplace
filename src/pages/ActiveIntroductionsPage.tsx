@@ -276,7 +276,7 @@ export const ActiveIntroductionsPage: React.FC<ActiveIntroductionsPageProps> = (
             <span>Back to Scout Command Center</span>
           </button>
           <span style={{ color: isDark ? '#475569' : '#CBD5E1' }}>/</span>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: isDark ? '#66BB2A' : '#16A34A' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: isDark ? '#A3F55B' : '#16A34A' }}>
             Active Introductions
           </span>
         </div>
@@ -300,7 +300,7 @@ export const ActiveIntroductionsPage: React.FC<ActiveIntroductionsPageProps> = (
           }}
         >
           <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', color: isDark ? '#66BB2A' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', color: isDark ? '#A3F55B' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
               <Users size={15} />
               <span>LIVE CLIENT-TALENT INTRODUCTIONS</span>
             </div>
@@ -347,7 +347,7 @@ export const ActiveIntroductionsPage: React.FC<ActiveIntroductionsPageProps> = (
               <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: isDark ? '#94A3B8' : '#64748B' }}>
                 Total Active Intros
               </span>
-              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#66BB2A' : '#16A34A' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: isDark ? 'rgba(102, 187, 42, 0.15)' : '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#A3F55B' : '#16A34A' }}>
                 <Users size={16} />
               </div>
             </div>
@@ -401,7 +401,7 @@ export const ActiveIntroductionsPage: React.FC<ActiveIntroductionsPageProps> = (
                 <DollarSign size={16} />
               </div>
             </div>
-            <div style={{ fontSize: '2rem', fontWeight: 900, color: isDark ? '#66BB2A' : '#16A34A' }}>
+            <div style={{ fontSize: '2rem', fontWeight: 900, color: isDark ? '#A3F55B' : '#16A34A' }}>
               ₦830,000
             </div>
             <div style={{ fontSize: '0.75rem', color: isDark ? '#94A3B8' : '#64748B', marginTop: '0.35rem' }}>

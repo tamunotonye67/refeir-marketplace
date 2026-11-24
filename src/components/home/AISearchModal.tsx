@@ -1398,7 +1398,7 @@ export const AISearchModal: React.FC<AISearchModalProps> = ({
                             <path
                               d="M 30 145 C 180 145, 230 35, 300 35 C 370 35, 420 145, 570 145"
                               fill="none"
-                              stroke={isDark ? "#66BB2A" : "#16A34A"}
+                              stroke={isDark ? "#A3F55B" : "#16A34A"}
                               strokeWidth="2.5"
                               strokeLinecap="round"
                             />

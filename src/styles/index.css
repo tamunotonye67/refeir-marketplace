@@ -104,54 +104,64 @@
    ========================================================================== */
 [data-theme="dark"] {
   /* Dark surfaces */
-  --rf-bg-base:            #0A170F;
-  --rf-bg-deep:            #060E09;
-  --rf-bg-surface:         #0F2E1E;
-  --rf-bg-surface-hover:   #153C27;
-  --rf-bg-card:            #123321;
-  --rf-bg-card-border:     rgba(102, 187, 42, 0.18);
-  --rf-bg-card-hover:      #17402B;
+  --rf-bg-base:            #09140E;
+  --rf-bg-deep:            #050C08;
+  --rf-bg-surface:         #0D2418;
+  --rf-bg-surface-hover:   #133322;
+  --rf-bg-card:            #102A1C;
+  --rf-bg-card-border:     rgba(163, 245, 91, 0.24);
+  --rf-bg-card-hover:      #153624;
 
-  --rf-navy:               #0A170F;
-  --rf-navy-deep:          #060E09;
-  --rf-navy-surface:       #0F2E1E;
-  --rf-navy-surface-hover: #153C27;
-  --rf-navy-card:          #123321;
-  --rf-navy-border:        rgba(102, 187, 42, 0.2);
+  --rf-navy:               #09140E;
+  --rf-navy-deep:          #050C08;
+  --rf-navy-surface:       #0D2418;
+  --rf-navy-surface-hover: #133322;
+  --rf-navy-card:          #102A1C;
+  --rf-navy-border:        rgba(163, 245, 91, 0.24);
 
-  --rf-blue:               #2E7D32;
-  --rf-blue-hover:         #256828;
-  --rf-blue-light:         rgba(46, 125, 50, 0.15);
-  --rf-blue-glow:          rgba(46, 125, 50, 0.3);
+  /* High-contrast luminous accents for dark mode */
+  --rf-green:              #A3F55B;
+  --rf-leaf-green:         #A3F55B;
+  --rf-green-accent:       #86EFAC;
 
-  --rf-mint:               #66BB2A;
-  --rf-mint-dark:          #2E7D32;
-  --rf-mint-light:         rgba(102, 187, 42, 0.15);
-  --rf-mint-glow:          rgba(102, 187, 42, 0.35);
+  --rf-blue:               #A3F55B;
+  --rf-blue-hover:         #BDF888;
+  --rf-blue-light:         rgba(163, 245, 91, 0.14);
+  --rf-blue-glow:          rgba(163, 245, 91, 0.32);
 
-  /* Text — light on dark */
-  --rf-cream:              #F8FAF8;
-  --rf-cream-subtle:       #EBF2EC;
-  --rf-black:              #111111;
+  --rf-mint:               #A3F55B;
+  --rf-mint-dark:          #4ADE80;
+  --rf-mint-light:         rgba(163, 245, 91, 0.14);
+  --rf-mint-glow:          rgba(163, 245, 91, 0.35);
 
-  --rf-slate-50:  #F8FAFC;
-  --rf-slate-100: #F1F5F9;
+  --rf-success:            #A3F55B;
+  --rf-success-bg:         rgba(163, 245, 91, 0.14);
+  --rf-golden-yellow:      #FBBF24;
+  --rf-vibrant-orange:     #FB923C;
+
+  /* Text — crisp high-contrast light on dark */
+  --rf-cream:              #FFFFFF;
+  --rf-cream-subtle:       #F1F5F9;
+  --rf-black:              #09140E;
+
+  --rf-slate-50:  #FFFFFF;
+  --rf-slate-100: #F8FAFC;
   --rf-slate-200: #E2E8F0;
-  --rf-slate-300: #CBD5E1;
-  --rf-slate-400: #94A3B8;
-  --rf-slate-500: #64748B;
-  --rf-slate-600: #475569;
-  --rf-slate:     #666666;
-  --rf-slate-700: #333333;
+  --rf-slate-300: #E2E8F0;
+  --rf-slate-400: #CBD5E1;
+  --rf-slate-500: #94A3B8;
+  --rf-slate-600: #64748B;
+  --rf-slate:     #94A3B8;
+  --rf-slate-700: #334155;
   --rf-slate-800: #1E293B;
   --rf-slate-900: #0F172A;
 
   /* Shadows dark */
-  --rf-shadow-sm:   0 1px 2px 0 rgba(10, 23, 15, 0.2);
-  --rf-shadow-md:   0 4px 6px rgba(10, 23, 15, 0.35);
-  --rf-shadow-lg:   0 12px 24px rgba(10, 23, 15, 0.45);
-  --rf-shadow-xl:   0 20px 35px rgba(10, 23, 15, 0.55);
-  --rf-shadow-glow: 0 0 30px rgba(102, 187, 42, 0.3);
+  --rf-shadow-sm:   0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --rf-shadow-md:   0 4px 10px rgba(0, 0, 0, 0.42);
+  --rf-shadow-lg:   0 12px 28px rgba(0, 0, 0, 0.52);
+  --rf-shadow-xl:   0 20px 40px rgba(0, 0, 0, 0.62);
+  --rf-shadow-glow: 0 0 30px rgba(163, 245, 91, 0.28);
 }
 
 
@@ -456,14 +466,17 @@ code::-webkit-scrollbar-thumb:hover,
 .rf-header-dark,
 .rf-trusted-brands-section,
 .rf-dark-container {
-  --rf-cream: #F8FAF8;
-  --rf-cream-subtle: #EBF2EC;
+  --rf-cream: #FFFFFF;
+  --rf-cream-subtle: #F1F5F9;
   --rf-slate-100: #F8FAFC;
   --rf-slate-200: #E2E8F0;
-  --rf-slate-300: #CBD5E1;
-  --rf-slate-400: #94A3B8;
-  --rf-slate-500: #64748B;
-  color: #F8FAF8;
+  --rf-slate-300: #E2E8F0;
+  --rf-slate-400: #CBD5E1;
+  --rf-slate-500: #94A3B8;
+  --rf-green: #A3F55B;
+  --rf-leaf-green: #A3F55B;
+  --rf-mint: #A3F55B;
+  color: #FFFFFF;
 }
 
 /* Headings on dark backgrounds must be pure white */

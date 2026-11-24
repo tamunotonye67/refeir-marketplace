@@ -361,7 +361,7 @@ export const ScoutLinksPage: React.FC<ScoutLinksPageProps> = ({ onNavigate }) =>
             <span>Back to Scout Command Center</span>
           </button>
           <span style={{ color: isDark ? '#475569' : '#CBD5E1' }}>/</span>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: isDark ? '#66BB2A' : '#16A34A' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: isDark ? '#A3F55B' : '#16A34A' }}>
             Scout Links & QR
           </span>
         </div>
@@ -385,7 +385,7 @@ export const ScoutLinksPage: React.FC<ScoutLinksPageProps> = ({ onNavigate }) =>
           }}
         >
           <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', color: isDark ? '#66BB2A' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', color: isDark ? '#A3F55B' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
               <QrCode size={15} />
               <span>ENCRYPTED REFERRAL TRACKING SUITE</span>
             </div>
@@ -488,7 +488,7 @@ export const ScoutLinksPage: React.FC<ScoutLinksPageProps> = ({ onNavigate }) =>
 
             {/* Right: Link Controls & Multi-Channel Sharing */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: isDark ? '#66BB2A' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: isDark ? '#A3F55B' : '#16A34A', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 <Link2 size={14} />
                 <span>ACTIVE TRACKING LINK DETAILS</span>
               </div>
