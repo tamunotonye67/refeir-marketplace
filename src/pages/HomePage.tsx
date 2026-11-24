@@ -550,37 +550,6 @@ export const HomePage: React.FC<HomePageProps> = ({
       )
     },
     {
-      name: 'Paystack',
-      subtext: 'by Stripe',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="6" width="18" height="4" rx="2" fill="#FFFFFF" />
-          <rect x="3" y="14" width="13" height="4" rx="2" fill="#FFFFFF" />
-        </svg>
-      )
-    },
-    {
-      name: 'Andela',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="9" stroke="#FFFFFF" strokeWidth="2.5" />
-          <path d="M8 15L12 8L16 15" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M9.5 13H14.5" stroke="#FFFFFF" strokeWidth="2" />
-        </svg>
-      )
-    },
-    {
-      name: 'Moniepoint',
-      logo: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="3" width="8" height="8" rx="2" fill="#FFFFFF" />
-          <rect x="13" y="3" width="8" height="8" rx="2" fill="#FFFFFF" />
-          <rect x="3" y="13" width="8" height="8" rx="2" fill="#FFFFFF" />
-          <rect x="13" y="13" width="8" height="8" rx="2" fill="#FFFFFF" fillOpacity="0.4" />
-        </svg>
-      )
-    },
-    {
       name: 'Chipper Cash',
       logo: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -2279,21 +2248,6 @@ export const HomePage: React.FC<HomePageProps> = ({
                 >
                   {brand.name}
                 </span>
-                {brand.subtext && (
-                  <span
-                    style={{
-                      fontSize: '0.6875rem',
-                      fontWeight: 700,
-                      color: 'rgba(255, 255, 255, 0.65)',
-                      marginLeft: '-0.25rem',
-                      background: 'rgba(255, 255, 255, 0.12)',
-                      padding: '0.15rem 0.45rem',
-                      borderRadius: '6px'
-                    }}
-                  >
-                    {brand.subtext}
-                  </span>
-                )}
               </div>
             ))}
           </div>
