@@ -246,7 +246,7 @@ export const App: React.FC = () => {
         return (
           <>
             <div className="rf-auth-blurred-bg" aria-hidden="true">
-              <MarketplacePage initialCategory="" initialCountry="" initialQuery="" initialType="" onSelectTalent={handleSelectTalent} onSelectScout={handleSelectScout} onNavigate={navigate} onHire={handleHire} />
+              <MarketplacePage onNavigate={navigate} onSelectTalent={handleSelectTalent} onSelectService={handleSelectService} />
             </div>
             <AuthGateWall pageName="Project" onNavigate={navigate} />
           </>
@@ -604,7 +604,7 @@ export const App: React.FC = () => {
           <>
             {!targetTalent && (
               <div className="rf-auth-blurred-bg" aria-hidden="true">
-                <HomePage onSelectTalent={handleSelectTalent} onNavigate={navigate} />
+                <HomePage onSelectTalent={handleSelectTalent} onSelectService={handleSelectService} onNavigate={navigate} />
               </div>
             )}
             <AuthGateWall
@@ -629,7 +629,7 @@ export const App: React.FC = () => {
         return (
           <>
             <div className="rf-auth-blurred-bg" aria-hidden="true">
-              <HomePage onSelectTalent={handleSelectTalent} onNavigate={navigate} />
+              <HomePage onSelectTalent={handleSelectTalent} onSelectService={handleSelectService} onNavigate={navigate} />
             </div>
             <AuthGateWall
               pageName="Refeir Account"
