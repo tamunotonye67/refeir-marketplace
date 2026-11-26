@@ -3,7 +3,14 @@ import react from '@vitejs/plugin-react';
 import {
   handleCreateCheckoutSession,
   handleGetCheckoutStatus,
-  handleBachsWebhook
+  handleBachsWebhook,
+  handleCreateConnectedAccount,
+  handleGetConnectedAccount,
+  handleCreateAccountLink,
+  handleGetAccountBalances,
+  handleListPayoutDestinations,
+  handleCreatePayoutDestination,
+  handleCreateSellerPayout
 } from './api/_lib/bachsServer';
 
 function bachsLocalApiPlugin(env: Record<string, string>): Plugin {
@@ -58,6 +65,79 @@ function bachsLocalApiPlugin(env: Record<string, string>): Plugin {
 
           if (pathname === '/api/bachs/webhook' && req.method === 'POST') {
             const result = await handleBachsWebhook(rawBody, req.headers, serverEnv);
+            res.statusCode = result.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result.body));
+            return;
+          }
+
+          if (pathname === '/api/bachs/connect/accounts' && req.method === 'GET') {
+            const result = await handleGetConnectedAccount(
+              {
+                user_id: parsedUrl.searchParams.get('user_id') || undefined,
+                account_id: parsedUrl.searchParams.get('account_id') || undefined,
+                refresh: parsedUrl.searchParams.get('refresh') || undefined
+              },
+              serverEnv
+            );
+            res.statusCode = result.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result.body));
+            return;
+          }
+
+          if (pathname === '/api/bachs/connect/accounts' && req.method === 'POST') {
+            const body = rawBody.length ? JSON.parse(rawBody.toString('utf8')) : {};
+            const result = await handleCreateConnectedAccount(body, serverEnv);
+            res.statusCode = result.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result.body));
+            return;
+          }
+
+          if (pathname === '/api/bachs/connect/account-links' && req.method === 'POST') {
+            const body = rawBody.length ? JSON.parse(rawBody.toString('utf8')) : {};
+            const result = await handleCreateAccountLink(body, serverEnv);
+            res.statusCode = result.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result.body));
+            return;
+          }
+
+          if (pathname === '/api/bachs/connect/balances' && req.method === 'GET') {
+            const result = await handleGetAccountBalances(
+              { account_id: parsedUrl.searchParams.get('account_id') || undefined },
+              serverEnv
+            );
+            res.statusCode = result.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result.body));
+            return;
+          }
+
+          if (pathname === '/api/bachs/connect/destinations' && req.method === 'GET') {
+            const result = await handleListPayoutDestinations(
+              { account_id: parsedUrl.searchParams.get('account_id') || undefined },
+              serverEnv
+            );
+            res.statusCode = result.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result.body));
+            return;
+          }
+
+          if (pathname === '/api/bachs/connect/destinations' && req.method === 'POST') {
+            const body = rawBody.length ? JSON.parse(rawBody.toString('utf8')) : {};
+            const result = await handleCreatePayoutDestination(body, serverEnv);
+            res.statusCode = result.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result.body));
+            return;
+          }
+
+          if (pathname === '/api/bachs/connect/payouts' && req.method === 'POST') {
+            const body = rawBody.length ? JSON.parse(rawBody.toString('utf8')) : {};
+            const result = await handleCreateSellerPayout(body, serverEnv);
             res.statusCode = result.status;
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(result.body));

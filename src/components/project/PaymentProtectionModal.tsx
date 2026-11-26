@@ -132,6 +132,7 @@ export const PaymentProtectionModal: React.FC<PaymentProtectionModalProps> = ({
         body: JSON.stringify({
           projectId: project.id,
           projectTitle: project.title,
+          sellerUserId: project.talent_id,
           amountMinor: convertedTotal.converted.amount_minor,
           currency: selectedCurrency,
           customerEmail: currentUser?.email || '',

@@ -6,6 +6,7 @@ import { PayoutModal } from '../components/wallet/PayoutModal';
 import { AddPayoutMethodModal } from '../components/wallet/AddPayoutMethodModal';
 import { StatementOfAccountModal } from '../components/wallet/StatementOfAccountModal';
 import { TaxComplianceModal } from '../components/wallet/TaxComplianceModal';
+import { BachsConnectCard } from '../components/wallet/BachsConnectCard';
 import { evaluateWithdrawalCompliance } from '../services/complianceEngine';
 import { formatMoney } from '../data/currencies';
 import {
@@ -109,6 +110,22 @@ export const WalletPage: React.FC<WalletPageProps> = ({ onNavigate }) => {
           </button>
         </div>
       </div>
+
+      {/* BACHS CONNECT SELLER ONBOARDING & PAYOUTS */}
+      <BachsConnectCard
+        userId={userId}
+        userEmail={currentUser?.email || 'seller@example.com'}
+        displayName={currentUser ? `${currentUser.first_name} ${currentUser.last_name}`.trim() : 'Refeir Seller'}
+        countryCode={
+          userCountry === 'Ghana'
+            ? 'GH'
+            : userCountry === 'Kenya'
+              ? 'KE'
+              : userCountry === 'South Africa'
+                ? 'ZA'
+                : 'NG'
+        }
+      />
 
       {/* WITHDRAWAL COMPLIANCE & REGULATORY STATUS BANNER */}
       {!compliance.canWithdraw || wallet.payout_methods.length === 0 ? (
